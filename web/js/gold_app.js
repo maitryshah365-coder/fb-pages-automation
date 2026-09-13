@@ -158,9 +158,9 @@ function selectPage(pageId) {
 // ----------------- Single Page View -----------------
 
 function renderSinglePageView(p) {
-  // 1. Header Short Name
+  // 1. Header Page Name
   const headerShort = document.getElementById("headerActivePageShortName");
-  if (headerShort) headerShort.innerText = p.name.split(" ")[0];
+  if (headerShort) headerShort.innerText = p.name;
 
   // 2. Hero Profile
   const heroName = document.getElementById("heroPageName");
