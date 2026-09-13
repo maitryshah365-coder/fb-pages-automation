@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 import requests
 from flask import Flask, jsonify, request, send_from_directory
 
-app = Flask(__name__, static_folder="web")
+app = Flask(__name__, static_folder="docs")
 
 # Paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -134,15 +134,19 @@ def get_next_slot():
 
 @app.route("/")
 def index():
-    return send_from_directory("web", "index.html")
+    return send_from_directory("docs", "index.html")
 
 @app.route("/css/<path:filename>")
 def serve_css(filename):
-    return send_from_directory("web/css", filename)
+    return send_from_directory("docs/css", filename)
 
 @app.route("/js/<path:filename>")
 def serve_js(filename):
-    return send_from_directory("web/js", filename)
+    return send_from_directory("docs/js", filename)
+
+@app.route("/data/<path:filename>")
+def serve_data(filename):
+    return send_from_directory("docs/data", filename)
 
 @app.route("/api/overview")
 def api_overview():

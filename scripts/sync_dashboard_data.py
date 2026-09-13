@@ -7,9 +7,38 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, "data", "posted_videos.db")
 TOKENS_PATH = r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-8050-53be5bd48383\scratch\pages_tokens.json"
 
+def get_pages_list():
+    if os.path.exists(TOKENS_PATH):
+        try:
+            with open(TOKENS_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+
+    existing_json = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
+    if os.path.exists(existing_json):
+        try:
+            with open(existing_json, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                pages = []
+                for p in data.get("pages", []):
+                    pages.append({
+                        "index": p.get("index", 1),
+                        "id": p.get("id"),
+                        "name": p.get("name"),
+                        "access_token": p.get("access_token", "")
+                    })
+                return pages
+        except Exception:
+            pass
+
+    return []
+
 def sync_data():
-    with open(TOKENS_PATH, "r", encoding="utf-8") as f:
-        pages = json.load(f)
+    pages = get_pages_list()
+    if not pages:
+        print("No pages found to sync.")
+        return
 
     # Load SQLite posted videos
     posted_by_page = {}
@@ -95,6 +124,7 @@ def sync_data():
             "category": category,
             "pic_url": pic_url,
             "link": link,
+            "access_token": token,
             "today_posts": len([v for v in videos_list if "2026-09-13" in str(v.get("created_at"))]),
             "daily_limit": 4,
             "total_posts": len(videos_list),

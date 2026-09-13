@@ -89,20 +89,25 @@ jobs:
           fi
           python main.py --config config.yaml $ARGS
 
-      - name: Persist SQLite Database State
+      - name: Sync Dashboard Data
+        if: always()
+        run: |
+          python scripts/sync_dashboard_data.py || true
+
+      - name: Persist SQLite Database & Dashboard State
         if: always()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          if [ -d "data" ] && [ -n "$(git status --porcelain data/)" ]; then
-            git add data/
-            git commit -m "chore: update Facebook automation SQLite state [skip ci]"
+          git add data/ docs/data/ web/data/
+          if [ -n "$(git status --porcelain data/ docs/data/ web/data/)" ]; then
+            git commit -m "chore: update Facebook automation state & dashboard [skip ci]"
             for i in 1 2 3; do
               git pull --rebase origin main && git push origin main && break || sleep 5
             done
           else
-            echo "No database changes to commit."
+            echo "No state changes to commit."
           fi
 
       - name: Upload Logs Artifact

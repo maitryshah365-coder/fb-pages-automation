@@ -12,6 +12,7 @@ env/
 service_account*.json
 client_secret*.json
 meta_creds*.json
+live_pages_data.json
 
 # Downloaded Media & Temp Files
 temp/

@@ -1,0 +1,21 @@
+{
+  "name": "Meta Pages Automation Pro",
+  "short_name": "Meta Gold",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#030406",
+  "theme_color": "#d4af37",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://graph.facebook.com/v20.0/988523547680750/picture?type=large",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://graph.facebook.com/v20.0/988523547680750/picture?type=large",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
