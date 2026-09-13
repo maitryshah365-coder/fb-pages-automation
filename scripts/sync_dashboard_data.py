@@ -465,15 +465,9 @@ def sync_data():
         }
 
         # Content Monetization Program: Criteria Area Page vs Invite-Only Page
-        # Exactly matches Meta's rollout: https://www.facebook.com/professional_dashboard/monetization
+        # By default, all pages are Invite-Only unless specifically showing criteria on Facebook
         is_criteria_page = (pid in [
-            "106309715659174", # Fresh Hive Network
-            "500794979779192", # Me Text
-            "637367679454577", # Crown Empire
-            "640019675857269", # Crafty Champions
-            "503358542855153", # Family Fancy
-            "528360240361556", # Dominion Authority
-            "626061003919674"  # Fun Life
+            # Add confirmed criteria page IDs here if any page unlocks criteria on Facebook
         ])
 
         reels_count_metric = len(meta_videos)
