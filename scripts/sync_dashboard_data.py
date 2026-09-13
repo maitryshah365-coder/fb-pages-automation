@@ -386,45 +386,46 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 {"name": "Singapore, Singapore", "percentage": 8.2}
             ]
         }
-    elif is_family or is_crown or is_crafty or is_luxe:
-        # For other established pages with followers and views
+    elif is_crafty:
+        # Match User's Exact Screenshot 1 (Crafty Champions - Facebook Professional Dashboard Audience)
         audience_data = {
             "has_real_data": True,
-            "lifetime_source": "Facebook Professional Dashboard (Audience Insights)",
+            "lifetime_source": "Facebook Professional Dashboard (Profile Insights / Audience)",
             "countries": [
-                {"code": "US", "flag": "🇺🇸", "name": "United States", "percentage": 42.5},
-                {"code": "IN", "flag": "🇮🇳", "name": "India", "percentage": 22.1},
-                {"code": "GB", "flag": "🇬🇧", "name": "United Kingdom", "percentage": 11.4},
-                {"code": "CA", "flag": "🇨🇦", "name": "Canada", "percentage": 8.6},
-                {"code": "AU", "flag": "🇦🇺", "name": "Australia", "percentage": 5.2},
-                {"code": "OT", "flag": "🌐", "name": "Other", "percentage": 10.2}
+                {"code": "IN", "flag": "🇮🇳", "name": "India", "percentage": 28.5},
+                {"code": "EG", "flag": "🇪🇬", "name": "Egypt", "percentage": 25.8},
+                {"code": "SY", "flag": "🇸🇾", "name": "Syria", "percentage": 10.4},
+                {"code": "DZ", "flag": "🇩🇿", "name": "Algeria", "percentage": 9.1},
+                {"code": "TN", "flag": "🇹🇳", "name": "Tunisia", "percentage": 6.2},
+                {"code": "TR", "flag": "🇹🇷", "name": "Turkey", "percentage": 6.2},
+                {"code": "OT", "flag": "🌐", "name": "Other Countries", "percentage": 13.8}
             ],
             "age_gender": {
-                "women_pct": 52,
-                "men_pct": 48,
+                "women_pct": 48,
+                "men_pct": 52,
                 "brackets": [
-                    {"range": "25-34", "percentage": 32.4},
-                    {"range": "35-44", "percentage": 26.8},
-                    {"range": "18-24", "percentage": 18.2},
-                    {"range": "45-54", "percentage": 12.1},
-                    {"range": "55-64", "percentage": 7.5},
-                    {"range": "65+", "percentage": 3.0}
+                    {"range": "25-34", "percentage": 26.2},
+                    {"range": "35-44", "percentage": 21.4},
+                    {"range": "45-54", "percentage": 17.3},
+                    {"range": "55-64", "percentage": 16.3},
+                    {"range": "65+", "percentage": 13.0},
+                    {"range": "18-24", "percentage": 5.8}
                 ]
             },
             "cities": [
-                {"name": "Los Angeles, CA, United States", "percentage": 12.5},
-                {"name": "London, United Kingdom", "percentage": 10.2},
-                {"name": "New York, NY, United States", "percentage": 9.8},
-                {"name": "Mumbai, Maharashtra, India", "percentage": 7.4},
-                {"name": "Sydney, NSW, Australia", "percentage": 5.1},
-                {"name": "Toronto, ON, Canada", "percentage": 4.8}
+                {"name": "Cairo, Egypt", "percentage": 16.8},
+                {"name": "Mumbai, Maharashtra, India", "percentage": 13.4},
+                {"name": "Damascus, Syria", "percentage": 9.5},
+                {"name": "Algiers, Algeria", "percentage": 8.2},
+                {"name": "Delhi, India", "percentage": 7.1},
+                {"name": "Tunis, Tunisia", "percentage": 5.9}
             ]
         }
     else:
         audience_data = {
             "has_real_data": False,
-            "message": "No Demographic Data Available Yet",
-            "reason": "Meta requires a minimum threshold of 100 active country viewers to unlock audience geographic insights on this page. Continue regular 4x daily reel uploads to unlock."
+            "message": "Demographic Insights Pending Professional Dashboard Sync",
+            "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
         }
 
     # Real Page Quality & Status Card from Screenshot 2
