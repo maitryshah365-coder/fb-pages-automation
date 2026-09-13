@@ -14,6 +14,10 @@ from src.page_runner import PageRunner
 
 def setup_logging() -> logging.Logger:
     """Configures structured logging to console and log files."""
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
     os.makedirs("logs", exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     log_file = f"logs/run_{timestamp}.log"
