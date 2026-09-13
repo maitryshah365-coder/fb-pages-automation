@@ -1,5 +1,5 @@
 # Google Drive to Facebook Pages Automation Configuration
-# Master Spec - Page Group Configuration for 6 Facebook Pages
+# Master Spec - Page Group Configuration for 15 Facebook Pages
 
 page_group: "personal_fb_id_1"
 ai_disclosure_status: "pending_determination"  # Options: api_flag, embedded_metadata, unresolved_recorded
@@ -16,13 +16,13 @@ notifications:
   discord_enabled: false
   discord_webhook_url: ""  # Can be set via DISCORD_WEBHOOK_URL env var/secret
 
-# List of 6 Facebook Pages sharing this Page Group (Single Personal FB Admin)
+# List of 15 Facebook Pages sharing this Page Group (Single Personal FB Admin)
 pages:
   - page_id: "988523547680750"
     name: "page_1"  # Mix Mood
     enabled: true
-    drive_folder_id: "REPLACE_WITH_PAGE_1_DRIVE_FOLDER_ID"
-    daily_limit: 2
+    drive_folder_id: "REPLACE_WITH_MIX_MOOD_DRIVE_FOLDER_ID"
+    daily_limit: 4
     title_mode: "filename"  # Options: filename, fixed
     description_footer: ""
     default_hashtags: []
@@ -30,8 +30,8 @@ pages:
   - page_id: "1040244259164767"
     name: "page_2"  # Charmy Owen
     enabled: true
-    drive_folder_id: "REPLACE_WITH_PAGE_2_DRIVE_FOLDER_ID"
-    daily_limit: 2
+    drive_folder_id: "REPLACE_WITH_CHARMY_OWEN_DRIVE_FOLDER_ID"
+    daily_limit: 4
     title_mode: "filename"
     description_footer: ""
     default_hashtags: []
@@ -39,8 +39,8 @@ pages:
   - page_id: "965629596638624"
     name: "page_3"  # Silent Peak Social
     enabled: true
-    drive_folder_id: "REPLACE_WITH_PAGE_3_DRIVE_FOLDER_ID"
-    daily_limit: 2
+    drive_folder_id: "REPLACE_WITH_SILENT_PEAK_SOCIAL_DRIVE_FOLDER_ID"
+    daily_limit: 4
     title_mode: "filename"
     description_footer: ""
     default_hashtags: []
@@ -48,8 +48,8 @@ pages:
   - page_id: "956622247541040"
     name: "page_4"  # Horizon Nest Daily
     enabled: true
-    drive_folder_id: "REPLACE_WITH_PAGE_4_DRIVE_FOLDER_ID"
-    daily_limit: 2
+    drive_folder_id: "REPLACE_WITH_HORIZON_NEST_DAILY_DRIVE_FOLDER_ID"
+    daily_limit: 4
     title_mode: "filename"
     description_footer: ""
     default_hashtags: []
@@ -57,8 +57,8 @@ pages:
   - page_id: "1034326643100670"
     name: "page_5"  # Bright Flare Hub
     enabled: true
-    drive_folder_id: "REPLACE_WITH_PAGE_5_DRIVE_FOLDER_ID"
-    daily_limit: 2
+    drive_folder_id: "REPLACE_WITH_BRIGHT_FLARE_HUB_DRIVE_FOLDER_ID"
+    daily_limit: 4
     title_mode: "filename"
     description_footer: ""
     default_hashtags: []
@@ -66,8 +66,89 @@ pages:
   - page_id: "924636817403215"
     name: "page_6"  # LuxeEpic Frames
     enabled: true
-    drive_folder_id: "REPLACE_WITH_PAGE_6_DRIVE_FOLDER_ID"
-    daily_limit: 2
+    drive_folder_id: "REPLACE_WITH_LUXEEPIC_FRAMES_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "795016603693140"
+    name: "page_7"  # Lopez Edward
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_LOPEZ_EDWARD_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "637367679454577"
+    name: "page_8"  # Crown Empire
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_CROWN_EMPIRE_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "640019675857269"
+    name: "page_9"  # Crafty Champions
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_CRAFTY_CHAMPIONS_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "626061003919674"
+    name: "page_10"  # Fun Life
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_FUN_LIFE_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "528360240361556"
+    name: "page_11"  # Dominion Authority
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_DOMINION_AUTHORITY_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "503358542855153"
+    name: "page_12"  # Family Fancy
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_FAMILY_FANCY_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "500794979779192"
+    name: "page_13"  # Me Text
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_ME_TEXT_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "468230386376818"
+    name: "page_14"  # Bot Mask
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_BOT_MASK_DRIVE_FOLDER_ID"
+    daily_limit: 4
+    title_mode: "filename"
+    description_footer: ""
+    default_hashtags: []
+
+  - page_id: "106309715659174"
+    name: "page_15"  # Fresh Hive Network
+    enabled: true
+    drive_folder_id: "REPLACE_WITH_FRESH_HIVE_NETWORK_DRIVE_FOLDER_ID"
+    daily_limit: 4
     title_mode: "filename"
     description_footer: ""
     default_hashtags: []
