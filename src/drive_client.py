@@ -29,7 +29,7 @@ class DriveClient:
         self.service = self._init_service(service_account_json_or_path)
 
     def _init_service(self, creds_data: str):
-        scopes = ["https://www.googleapis.com/auth/drive.readonly"]
+        scopes = ["https://www.googleapis.com/auth/drive"]
         if os.path.exists(creds_data):
             credentials = service_account.Credentials.from_service_account_file(creds_data, scopes=scopes)
         else:
@@ -135,3 +135,16 @@ class DriveClient:
 
         logger.info(f"Successfully downloaded and validated file: {destination_path} ({final_size} bytes)")
         return destination_path
+
+    def delete_video(self, file_id: str, permanent: bool = True) -> bool:
+        """Deletes or trashes video from Google Drive after successful post."""
+        def _del():
+            if permanent:
+                self.service.files().delete(fileId=file_id).execute()
+                logger.info(f"Permanently deleted Google Drive file ID: {file_id}")
+            else:
+                self.service.files().update(fileId=file_id, body={"trashed": True}).execute()
+                logger.info(f"Moved Google Drive file ID to trash: {file_id}")
+            return True
+
+        return retry_with_backoff(_del, action_name=f"delete_drive_file_{file_id}")

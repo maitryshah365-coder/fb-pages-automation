@@ -17,9 +17,9 @@ on:
   repository_dispatch:
     types: [cron_trigger, fb_post_trigger]
 
-  # Optional fallback schedule (e.g. twice daily 14:00 UTC and 22:00 UTC)
+  # Scheduled 4 times daily (USA Times: 10:00 AM, 3:00 PM, 7:00 PM, 10:00 PM EDT)
   schedule:
-    - cron: "0 14,22 * * *"
+    - cron: "0 2,14,19,23 * * *"
 
 concurrency:
   group: facebook-upload-group

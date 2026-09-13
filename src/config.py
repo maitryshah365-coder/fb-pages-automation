@@ -64,6 +64,7 @@ class AppConfig:
     retry: RetryConfig
     notifications: NotificationConfig
     pages: List[PageConfig]
+    delete_after_post: bool = True
 
     def get_page_by_name(self, name: str) -> Optional[PageConfig]:
         for p in self.pages:
@@ -123,11 +124,14 @@ def load_config(config_path: str = "config.yaml") -> AppConfig:
         )
         pages.append(page)
 
+    delete_after_post = bool(data.get("delete_after_post", True))
+
     return AppConfig(
         page_group=page_group,
         ai_disclosure_status=ai_disclosure_status,
         database_path=db_path,
         retry=retry,
         notifications=notifications,
-        pages=pages
+        pages=pages,
+        delete_after_post=delete_after_post
     )
