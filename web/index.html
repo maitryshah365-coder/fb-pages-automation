@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Facebook Professional Dashboard & Command Center</title>
+  <meta name="description" content="Meta Business Suite & Professional Dashboard for Automated Facebook Pages">
+  <meta name="theme-color" content="#18191a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-msg">Action completed</div>
+
+  <!-- Top Sticky Header -->
+  <header class="top-header">
+    <div class="brand-wrapper">
+      <div class="brand-icon">f</div>
+      <div class="brand-title">
+        <span>Professional Dashboard</span>
+        <span class="brand-subtitle">Meta Business Automation</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="badge-live-pulse">
+        <div class="pulse-dot"></div>
+        <span>LIVE</span>
+      </div>
+      <button id="btnRefresh" class="btn-refresh" title="Refresh Live Stats">🔄</button>
+    </div>
+  </header>
+
+  <!-- Horizontal Scrollable Page Switcher (All 15 Pages) -->
+  <nav class="page-switcher-bar" id="pageSwitcher">
+    <div class="page-pill active" data-page-id="all">
+      <div class="pill-avatar" style="background:#2e89ff;">★</div>
+      <span>All 15 Pages</span>
+    </div>
+    <!-- Dynamically loaded 15 pages will appear here -->
+  </nav>
+
+  <!-- Main Mobile Container -->
+  <main class="main-container">
+
+    <!-- Active Profile Card -->
+    <section class="profile-card" id="profileHero">
+      <div class="profile-avatar-large" id="heroAvatar">M</div>
+      <div class="profile-info">
+        <h1 class="profile-name" id="heroName">
+          All Pages Portfolio
+          <span class="verified-badge">✓</span>
+        </h1>
+        <div class="profile-category" id="heroCategory">15 Active Pages • Digital Creator Group</div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-item">Followers: <strong id="heroFollowers">Loading...</strong></div>
+          <div class="profile-meta-item">Today's Posts: <strong id="heroTodayPosts">0 / 60</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page Recommendation & Monetization Health Cards -->
+    <section class="status-cards-grid">
+      <!-- Recommendation Card -->
+      <div class="status-card" id="recommendationCard">
+        <div class="status-card-header">
+          <div class="status-icon-bubble">🛡️</div>
+          <span>Page Recommendation</span>
+        </div>
+        <div class="status-badge-healthy">
+          <span>✓</span> <span id="recomBadgeText">Recommendable</span>
+        </div>
+        <p class="status-desc" id="recomDescText">Content is eligible to be shown in recommendations to new viewers.</p>
+      </div>
+
+      <!-- Monetization Card -->
+      <div class="status-card" id="monetizationCard">
+        <div class="status-card-header">
+          <div class="status-icon-bubble" style="color:#00a400; background:rgba(0,164,0,0.15);">💰</div>
+          <span>Monetization Status</span>
+        </div>
+        <div class="status-badge-healthy" style="color:#00a400;">
+          <span>✓</span> <span id="monetizeBadgeText">Good Standing</span>
+        </div>
+        <p class="status-desc">No monetization violations. In-Stream & Reels Overlay eligible.</p>
+      </div>
+    </section>
+
+    <!-- Next Upload Countdown & Trigger Banner -->
+    <section class="countdown-banner">
+      <div class="countdown-info">
+        <span class="countdown-title">Next USA Upload Slot</span>
+        <span class="countdown-timer" id="countdownDisplay">Calculating...</span>
+      </div>
+      <button id="btnTriggerPost" class="btn-trigger-post">⚡ Post Video Now</button>
+    </section>
+
+    <!-- Performance Insights Grid -->
+    <section>
+      <div class="insights-header">
+        <h2 class="section-heading">📈 Performance Overview</h2>
+        <span class="period-pill">Last 28 Days</span>
+      </div>
+      <div class="metrics-grid" style="margin-top: 10px;">
+        <div class="metric-card">
+          <span class="metric-label">Post Reach</span>
+          <span class="metric-value" id="valReach">Loading...</span>
+          <span class="metric-delta">▲ +24.5% vs previous</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Content Interactions</span>
+          <span class="metric-value" id="valInteractions">Loading...</span>
+          <span class="metric-delta">▲ +18.2% vs previous</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">3-Second Video Views</span>
+          <span class="metric-value" id="val3sViews">Loading...</span>
+          <span class="metric-delta">▲ +31.0% vs previous</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">1-Minute Video Views</span>
+          <span class="metric-value" id="val1mViews">Loading...</span>
+          <span class="metric-delta">▲ +14.8% vs previous</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audience Demographics (Country Breakdown) -->
+    <section class="card-section" id="audienceSection">
+      <h2 class="section-heading" style="margin-bottom: 4px;">🌍 Audience Demographics</h2>
+      <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Top viewer countries for US & UK high-CPM monetization</p>
+      <div id="countriesList">
+        <!-- Dynamically rendered country bars -->
+      </div>
+    </section>
+
+    <!-- Recent Videos & Reels Feed -->
+    <section class="card-section" id="contentSection">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <h2 class="section-heading">🎬 Recent Posted Videos & Reels</h2>
+        <span style="font-size: 12px; color: var(--accent-blue); font-weight: 600;" id="videoCountBadge">0 Videos</span>
+      </div>
+      <div id="videosFeed">
+        <div class="empty-videos-notice">Loading video feed...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar (Mobile Native Feel) -->
+  <footer class="bottom-nav">
+    <div class="nav-item active" data-target="top">
+      <div class="nav-icon">🏠</div>
+      <span>Overview</span>
+    </div>
+    <div class="nav-item" data-target="contentSection">
+      <div class="nav-icon">🎬</div>
+      <span>Content</span>
+    </div>
+    <div class="nav-item" data-target="audienceSection">
+      <div class="nav-icon">🌍</div>
+      <span>Audience</span>
+    </div>
+    <div class="nav-item" data-target="monetizationCard">
+      <div class="nav-icon">🛡️</div>
+      <span>Health</span>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
