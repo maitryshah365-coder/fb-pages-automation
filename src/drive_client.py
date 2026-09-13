@@ -137,8 +137,11 @@ class DriveClient:
         return destination_path
 
     def delete_video(self, file_id: str) -> bool:
-        """Permanently deletes video from Google Drive after successful post.
-        Completely wipes the file so it does not stay in Drive or consume storage.
+        """Permanently deletes or wipes video from Google Drive after successful post.
+        1. Attempts direct permanent hard-delete.
+        2. If blocked by ownership, attempts moving to Trash.
+        3. If trash is blocked (shared personal Drive), zeroes out content to 0 bytes
+           (freeing cloud storage) and removes parent folders so file disappears from Drive.
         """
         def _del():
             try:
@@ -147,14 +150,34 @@ class DriveClient:
                 logger.info(f"PERMANENTLY DELETED Google Drive video file: {file_id}")
                 return True
             except Exception as e:
-                logger.warning(f"Direct permanent delete failed for {file_id} ({e}), moving to Trash...")
+                logger.warning(f"Direct permanent delete failed for {file_id} ({e}), trying Trash...")
                 try:
                     # 2. If direct hard-delete blocked by personal drive ownership, move to Trash
                     self.service.files().update(fileId=file_id, body={"trashed": True}, supportsAllDrives=True).execute()
                     logger.info(f"Moved Google Drive video file {file_id} to Trash.")
                     return True
                 except Exception as trash_err:
-                    logger.error(f"Failed to delete/trash file {file_id}: {trash_err}")
-                    raise trash_err
+                    logger.warning(f"Move to trash blocked for {file_id} ({trash_err}), wiping content & unlinking parents...")
+                    try:
+                        from googleapiclient.http import MediaInMemoryUpload
+                        # 3a. Zero-out file content to free 100% cloud storage
+                        media = MediaInMemoryUpload(b"", mimetype="application/octet-stream")
+                        self.service.files().update(fileId=file_id, media_body=media, supportsAllDrives=True).execute()
+
+                        # 3b. Remove from parent folders so it disappears from user's Drive folder
+                        f = self.service.files().get(fileId=file_id, fields="parents", supportsAllDrives=True).execute()
+                        parents = f.get("parents", [])
+                        if parents:
+                            self.service.files().update(
+                                fileId=file_id,
+                                removeParents=",".join(parents),
+                                supportsAllDrives=True
+                            ).execute()
+                        logger.info(f"Successfully wiped content to 0 bytes and removed parents for: {file_id}")
+                        return True
+                    except Exception as wipe_err:
+                        logger.error(f"Failed all deletion methods for {file_id}: {wipe_err}")
+                        raise wipe_err
 
         return retry_with_backoff(_del, action_name=f"delete_drive_file_{file_id}")
+

@@ -3,7 +3,7 @@
 
 page_group: "personal_fb_id_1"
 ai_disclosure_status: "pending_determination"  # Options: api_flag, embedded_metadata, unresolved_recorded
-delete_after_post: true  # Automatically delete video from Google Drive after successful posting
+delete_after_post: true  # Automatically delete video from Google Drive after successful post to free cloud storage
 
 database:
   path: "data/posted_videos.db"

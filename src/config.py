@@ -1,4 +1,5 @@
 import os
+import json
 import yaml
 from dataclasses import dataclass, field
 from typing import List, Optional
@@ -39,6 +40,23 @@ class PageConfig:
         if os.path.exists(token_file):
             with open(token_file, "r", encoding="utf-8") as f:
                 return f.read().strip()
+
+        # 4. Check pages_tokens.json files locally
+        token_candidates = [
+            "scratch/pages_tokens.json",
+            "data/pages_tokens.json",
+            r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-8050-53be5bd48383\scratch\pages_tokens.json"
+        ]
+        for tf in token_candidates:
+            if os.path.exists(tf):
+                try:
+                    with open(tf, "r", encoding="utf-8") as f:
+                        pages_list = json.load(f)
+                        for p in pages_list:
+                            if str(p.get("id")) == str(self.page_id) or str(p.get("index")) == str(self.name).replace("page_", ""):
+                                return p.get("access_token", "").strip()
+                except Exception:
+                    pass
 
         return None
 
