@@ -67,6 +67,14 @@
           <h2 class="sidebar-box-title">📑 All Facebook Pages</h2>
           <span style="font-size:11px; color:var(--gold-bright); font-weight:800;" id="sidebarPagesCountBadge">15 Pages</span>
         </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="sidebar-filter-tabs" id="sidebarFilterTabs">
+          <button class="sidebar-filter-btn active" data-filter="all" id="filterAllPages">All (15)</button>
+          <button class="sidebar-filter-btn" data-filter="criteria" id="filterCriteriaPages">🎯 Criteria (8)</button>
+          <button class="sidebar-filter-btn" data-filter="invite" id="filterInvitePages">📨 Invite (7)</button>
+        </div>
+
         <input type="text" class="pages-search-input" id="sidebarPagesSearch" placeholder="Search pages by name...">
         <div class="pages-vertical-list" id="sidebarPagesList">
           <!-- Dynamically populated page items -->
@@ -150,17 +158,17 @@
 
         <div class="page-action-links">
           <button id="btnHeroCheckStatus" class="action-link-btn btn-status-check">
-            <span>⚡ Check Status Now</span>
+            <span>⚡ Refresh Live Data</span>
           </button>
-          <a id="linkFbApp" href="https://www.facebook.com/" target="_blank" class="action-link-btn">
-            <span>📱</span> <span>Open in FB App</span>
-          </a>
-          <a id="linkBizSuite" href="https://business.facebook.com/latest/home" target="_blank" class="action-link-btn">
-            <span>💼</span> <span>Business Suite</span>
-          </a>
-          <a id="linkProDash" href="https://www.facebook.com/professional_dashboard/" target="_blank" class="action-link-btn">
-            <span>📊</span> <span>Pro Dashboard</span>
-          </a>
+          <button id="btnHeroFilterCriteria" class="action-link-btn">
+            <span>🎯 Criteria Pages (8)</span>
+          </button>
+          <button id="btnHeroFilterInvite" class="action-link-btn">
+            <span>📨 Invite-Only Pages (7)</span>
+          </button>
+          <button id="btnHeroFilterAll" class="action-link-btn">
+            <span>📊 All Portfolio (15)</span>
+          </button>
         </div>
       </section>
 
@@ -265,6 +273,7 @@
               <button class="aud-tab-btn active" data-tab="countries">Countries</button>
               <button class="aud-tab-btn" data-tab="age_gender">Age & Gender</button>
               <button class="aud-tab-btn" data-tab="cities">Cities</button>
+              <button class="aud-tab-btn" data-tab="discovery">Discovery & Views</button>
             </div>
           </div>
           <div id="countryDemographicsContainer">
@@ -273,7 +282,7 @@
         </div>
       </section>
 
-      <!-- Box C: Modern Meta Content Monetization Hub (Criteria Area vs Invite-Only Mode) -->
+      <!-- Box C: Modern Meta Content Monetization Hub (STRICT SINGLE-STATUS: Criteria Area OR Invite-Only) -->
       <section class="box-monetization-hub" id="boxMonetizationHub">
         <!-- Header with Page Classification Badge -->
         <div class="monetize-hub-header">
@@ -283,154 +292,21 @@
               <span id="badgeMonetizeAuto" class="badge-program-type criteria">🎯 Criteria Area Page</span>
             </div>
             <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
-              Auto-detected status for <strong id="monetizeTargetPageName" style="color:var(--gold-bright);">Current Page</strong> • Official Meta Dashboard Match
+              Live status for <strong id="monetizeTargetPageName" style="color:var(--gold-bright);">Current Page</strong> • Professional Dashboard Match
             </p>
           </div>
-          <a id="btnDirectMetaCmLink" href="https://www.facebook.com/professional_dashboard/monetization/content_monetization" target="_blank" class="btn-fb-pro-monetize-link">
-            <span>🔗</span> <span>Meta Pro Dashboard URL</span>
-          </a>
-        </div>
-
-        <!-- 2 Toggle Options: [🎯 Criteria Area Page] vs [📨 Invite-Only Page] -->
-        <div class="monetize-mode-selector">
-          <div class="monetize-mode-tabs" id="monetizeModeTabs">
-            <button class="monetize-mode-btn active" id="btnTabCriteria" data-mode="criteria">
-              <span class="mode-btn-icon">🎯</span>
-              <div class="mode-btn-text">
-                <span class="mode-btn-title">Option 1: Criteria Area Page</span>
-                <span class="mode-btn-sub" id="modeBtnCriteriaSub">6 Eligibility Rules & Waitlist</span>
-              </div>
-              <span class="mode-btn-badge" id="chipCriteriaCount">4 / 6 Met</span>
-            </button>
-            <button class="monetize-mode-btn" id="btnTabInvite" data-mode="invite">
-              <span class="mode-btn-icon">📨</span>
-              <div class="mode-btn-text">
-                <span class="mode-btn-title">Option 2: Invite-Only Page</span>
-                <span class="mode-btn-sub">Beta Program (Direct Meta Invitation)</span>
-              </div>
-              <span class="mode-btn-badge badge-beta">Beta Invite</span>
-            </button>
+          <div class="badge-internal-secure">
+            <span>🔒 Standalone In-App Engine</span>
           </div>
         </div>
 
-        <!-- VIEW 1: CRITERIA AREA PAGE (Screenshot 1 & 2 Exact Match) -->
-        <div id="viewCriteriaArea" class="monetize-view-panel">
-          
-          <!-- Waitlist Progress Card -->
-          <div class="waitlist-card-fb">
-            <div class="waitlist-top-row">
-              <div>
-                <h4 class="waitlist-title" id="waitlistHeadline">4 of 6 criteria met</h4>
-                <p class="waitlist-subtitle" id="waitlistSub">Keep it up! Once you meet all criteria, you'll be added to the waitlist.</p>
-              </div>
-              <button class="btn-notify-fb" id="btnNotifyCriteria">
-                <span class="notify-icon">🔔</span> <span class="notify-text">Notify me</span>
-              </button>
-            </div>
-
-            <!-- 6 Segmented Progress Bar (Matches Screenshot 1) -->
-            <div class="criteria-segmented-bar" id="criteriaSegmentedBar">
-              <div class="criteria-segment filled"></div>
-              <div class="criteria-segment filled"></div>
-              <div class="criteria-segment filled"></div>
-              <div class="criteria-segment filled"></div>
-              <div class="criteria-segment"></div>
-              <div class="criteria-segment"></div>
-            </div>
-            <div class="waitlist-footer-note">
-              <span>Get notified when you're eligible. We'll let you know when you meet all the requirements.</span>
-              <span id="waitlistUnlockStatus" style="color:var(--gold-bright); font-weight:700;">2 Requirements Remaining</span>
-            </div>
-          </div>
-
-          <!-- Eligibility Criteria 6 Cards Grid (Matches Screenshot 1) -->
-          <div class="eligibility-section-header">
-            <h4 style="font-size:14px; font-weight:800; color:#fff;">Eligibility criteria</h4>
-            <span style="font-size:11.5px; color:var(--text-muted);">Please allow a few days for the criteria to update after milestone reach.</span>
-          </div>
-
-          <div class="eligibility-grid-fb" id="eligibilityGridContainer">
-            <!-- Dynamically populated 6 cards (Age 18+, Country, 30 Days, 3 Reels, 10k Followers, 150k Views) -->
-          </div>
-
-          <!-- How Content Monetization Works (Screenshot 2 Match) -->
-          <div class="how-it-works-card">
-            <div class="how-it-works-header">
-              <span style="font-size:20px;">🎬</span>
-              <h4 style="font-size:13.5px; font-weight:700; color:#fff; margin:0;">How Content monetization works</h4>
-            </div>
-            <div class="how-it-works-grid">
-              <div class="how-col">
-                <strong>💰 Earn from your creativity</strong>
-                <p>You can earn money on original, well-performing content, including eligible public reels, videos, photos and text posts. By default, ads will be on so you can earn.</p>
-              </div>
-              <div class="how-col">
-                <strong>📈 Track earnings all in one place</strong>
-                <p>Just go to your professional dashboard anytime to see how much you've earned across all eligible videos.</p>
-              </div>
-              <div class="how-col">
-                <strong>🏆 Learn from your success</strong>
-                <p>See insights about what content is performing best and how to optimize engagement for more earnings.</p>
-              </div>
-            </div>
-          </div>
-
+        <!-- Dynamic Monetization Hub Content Container (Strictly ONE status rendered: Criteria OR Invite-Only) -->
+        <div id="monetizeDynamicContent">
+          <!-- Dynamically populated by gold_app.js -->
         </div>
 
-        <!-- VIEW 2: INVITE-ONLY PAGE (Screenshot 3 Exact Match) -->
-        <div id="viewInviteOnly" class="monetize-view-panel" style="display:none;">
-
-          <!-- Meta Beta Notice Card (Matches Screenshot 3) -->
-          <div class="beta-notice-card">
-            <div class="beta-icon-col">🧪</div>
-            <div>
-              <h4 style="font-size:14px; font-weight:800; color:#fff; margin-bottom:4px;">Content monetization beta</h4>
-              <p style="font-size:12px; color:var(--text-muted); margin:0;">
-                We're actively working to expand access and make this program available to more creators soon.
-              </p>
-            </div>
-          </div>
-
-          <!-- Get Notified When You Can Join Card (Matches Screenshot 3) -->
-          <div class="invite-only-box">
-            <div class="invite-box-top">
-              <div class="invite-badge-row">
-                <span class="invite-mail-icon">📩</span>
-                <div>
-                  <h4 style="font-size:15px; font-weight:800; color:#fff; margin-bottom:3px;">Invite only</h4>
-                  <p style="font-size:12px; color:rgba(255,255,255,0.75); margin:0;">
-                    This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.
-                  </p>
-                </div>
-              </div>
-              <button class="btn-notify-fb" id="btnNotifyInvite">
-                <span class="notify-icon">🔔</span> <span class="notify-text">Notify me</span>
-              </button>
-            </div>
-
-            <!-- Algorithm Invitation Velocity Booster -->
-            <div class="invite-booster-card">
-              <div class="booster-header">
-                <span style="font-size:14px;">⚡</span>
-                <strong style="color:var(--gold-bright); font-size:12px;">Algorithm Invitation Velocity Booster Active:</strong>
-              </div>
-              <div style="font-size:11.5px; color:var(--text-muted); margin-top:4px; line-height:1.5;">
-                Meta's 2024–2026 invitation model prioritizes pages maintaining consistent USA Reel publishing frequency without policy strikes. Your 4x daily USA automated schedule accelerates direct invitation rollouts.
-              </div>
-              <div class="monetize-progress-bar-bg" style="margin-top:10px;">
-                <div class="monetize-progress-bar-fill" id="inviteBoosterBar" style="width:85%;"></div>
-              </div>
-              <div class="monetize-meta-row" style="margin-top:6px;">
-                <span style="color:var(--gold-light); font-size:11px;">Candidate Invitation Score</span>
-                <span style="color:var(--gold-bright); font-size:11px; font-weight:700;" id="inviteBoosterScore">85% (High Priority Candidate)</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Other Available Monetization Tools (Stars & Subscriptions) -->
-        <div class="extra-monetize-drawer" style="margin-top:20px;">
+        <!-- Secondary Monetization Tools Drawer (Stars & Subscriptions) -->
+        <div class="extra-monetize-drawer" style="margin-top:10px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <span style="font-size:12px; font-weight:700; color:var(--text-muted);">Additional Page Monetization Tools:</span>
             <button id="btnToggleOtherTools" class="btn-subtext-toggle">Show Stars & Subscriptions ▼</button>
@@ -440,18 +316,85 @@
           </div>
         </div>
 
-        <!-- Direct Official FB Links -->
-        <div class="monetize-direct-links-row" style="margin-top:18px;">
-          <a href="https://www.facebook.com/professional_dashboard/monetization/content_monetization" target="_blank" class="action-link-btn btn-direct-cm-link">
-            <span>🌐</span> <span>Open Content Monetization (Pro Dashboard)</span>
-          </a>
-          <a href="https://business.facebook.com/latest/monetization/tools" target="_blank" class="action-link-btn" style="color:var(--gold-bright); border-color:var(--gold-primary);">
-            <span>💼</span> <span>Meta Business Suite Monetization</span>
-          </a>
+        <!-- Standalone In-App Actions (Zero Login Barriers) -->
+        <div class="monetize-direct-links-row" style="margin-top:16px;">
+          <button id="btnMonetizeSelfCheck" class="action-link-btn btn-status-check">
+            <span>⚡</span> <span>Re-Verify Page Monetization Policy</span>
+          </button>
+          <button id="btnOpenHelpModal" class="action-link-btn" style="color:var(--gold-bright); border-color:var(--border-gold-mid);">
+            <span>📖</span> <span>Meta Monetization Guidelines & FAQ</span>
+          </button>
         </div>
       </section>
 
     </main>
+  </div>
+
+  <!-- In-App Interactive Modal: Video Telemetry Inspector -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="btnCloseVideoModal">&times;</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <span style="font-size:24px;">🎬</span>
+        <div>
+          <h3 style="font-size:16px; font-weight:800; color:#fff; margin:0;" id="modalVideoTitle">Reel Telemetry</h3>
+          <span style="font-size:11.5px; color:var(--gold-bright); font-weight:700;" id="modalVideoPageName">Page Name</span>
+        </div>
+      </div>
+      <div style="background:rgba(0,0,0,0.5); border-radius:10px; border:1px solid var(--border-gold-subtle); padding:14px; margin-top:10px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; font-size:12px;">
+          <span style="color:var(--text-muted);">Live View Count:</span>
+          <strong style="color:var(--gold-bright);" id="modalVideoViews">0 Views</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;">
+          <span style="color:var(--text-muted);">Uploaded Via Cloud Runner:</span>
+          <span style="color:var(--fb-green); font-weight:700;">✓ Automated USA Pipeline</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;">
+          <span style="color:var(--text-muted);">Egress IP Verification:</span>
+          <span style="font-family:monospace; color:#fff;" id="modalVideoIp">103.249.233.80 (Clean Egress)</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:12px;">
+          <span style="color:var(--text-muted);">Published Timestamp:</span>
+          <span style="color:var(--text-secondary);" id="modalVideoTime">Recent</span>
+        </div>
+      </div>
+      <p style="font-size:11.5px; color:var(--text-muted); margin-top:14px; line-height:1.4;">
+        🔒 All automated posts are dispatched directly via Meta Graph API from clean runner instances. No manual Facebook login required.
+      </p>
+    </div>
+  </div>
+
+  <!-- In-App Interactive Modal: Help Center & Best Practices Knowledge Base -->
+  <div class="modal-overlay" id="helpModal">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="btnCloseHelpModal">&times;</button>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <span style="font-size:24px;">🛟</span>
+        <div>
+          <h3 style="font-size:17px; font-weight:800; color:#fff; margin:0;">Meta Monetization Help Center</h3>
+          <span style="font-size:11.5px; color:var(--text-muted);">Creator Guidelines & Official Monetization Knowledge Base</span>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px; font-size:12.5px; color:var(--text-secondary); line-height:1.5;">
+        <div style="background:rgba(212,175,55,0.08); border:1px solid var(--border-gold-mid); border-radius:8px; padding:12px;">
+          <strong style="color:var(--gold-bright); display:block; margin-bottom:4px;">🎯 Criteria Area Pages vs 📨 Invite-Only Pages</strong>
+          Meta utilizes two monetization onboarding tracks for 2024–2026:
+          <ul style="margin:6px 0 0 16px; padding:0;">
+            <li><strong>Criteria Area:</strong> Shows a public waitlist with 6 qualification rules (18+ age, eligible region, 30-day page age, 3 active reels, 10,000 followers, 150,000 views). Meeting all 6 unlocks instant tool setup.</li>
+            <li><strong>Invite-Only:</strong> Rolling beta program where Meta algorithms automatically invite established creators maintaining high-frequency, original USA reels.</li>
+          </ul>
+        </div>
+        <div style="background:rgba(24,119,242,0.08); border:1px solid rgba(24,119,242,0.3); border-radius:8px; padding:12px;">
+          <strong style="color:#58a6ff; display:block; margin-bottom:4px;">⚡ How to Accelerate Invitations</strong>
+          Consistent 4x daily USA reel publishing without copyright claims or community guideline strikes places pages in the top tier of automated invitation batches.
+        </div>
+        <div style="background:rgba(46,204,113,0.08); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:12px;">
+          <strong style="color:var(--fb-green); display:block; margin-bottom:4px;">🛡️ Page Quality & Policy Compliance</strong>
+          Keep your page free of unoriginal content flags and maintain transparent admin profiles to preserve 'No Restrictions' recommendation standing.
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="js/gold_app.js"></script>
