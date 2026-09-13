@@ -139,31 +139,21 @@
       </div>
     </section>
 
-    <!-- Section 1: Page Recommendation & Key Analytics -->
+    <!-- Section 1: Key Analytics & Performance Overview -->
     <section class="content-box">
-      <!-- Page Recommendation Status Banner -->
-      <div class="recommendation-status-card" id="cardPageRecommendation">
-        <div class="recom-icon-box" id="recomIconBox">✓</div>
-        <div class="recom-info-col">
-          <div class="recom-title-row">
-            <h4 class="recom-title" id="recomTitle">Page is Recommendable</h4>
-            <span class="pill-badge pill-green" id="badgePageQualityStatus">● Healthy Page Status</span>
-          </div>
-          <p class="recom-desc" id="recomDesc">
-            We're helping you grow your audience. Content posted on this page is eligible to be recommended to new viewers across Facebook Reels, Feed, and Watch.
-          </p>
-        </div>
-      </div>
-
-      <div class="box-header" style="margin-top: 18px; margin-bottom: 12px;">
+      <div class="box-header flex-between" style="margin-bottom: 14px;">
         <div class="box-title-group">
           <span class="box-icon">📊</span>
           <h3 class="box-title">Key Analytics & Performance Overview</h3>
         </div>
-        <span class="pill-badge pill-gold" id="badgeAudienceScope">Last 28 Days Live</span>
+        <div class="timeframe-toggle-wrapper" id="timeframeSelector">
+          <button class="timeframe-pill active" data-days="28" id="btnTf28">28 Days</button>
+          <button class="timeframe-pill" data-days="60" id="btnTf60">60 Days</button>
+          <button class="timeframe-pill" data-days="90" id="btnTf90">90 Days</button>
+        </div>
       </div>
 
-      <!-- 6 High-Impact KPI Tiles -->
+      <!-- 7 High-Impact KPI Tiles -->
       <div class="kpi-grid">
         <div class="kpi-card">
           <div class="kpi-top">
@@ -171,7 +161,7 @@
             <span class="kpi-icon-mini">👁️</span>
           </div>
           <div class="kpi-value gold-text" id="metricTotalViews">0</div>
-          <div class="kpi-sub">Real-Time Meta Graph Count</div>
+          <div class="kpi-sub" id="metricViewsSub">Real-Time Meta Graph Count</div>
         </div>
 
         <div class="kpi-card">
@@ -180,7 +170,7 @@
             <span class="kpi-icon-mini">🌐</span>
           </div>
           <div class="kpi-value" id="metricTotalReach">0</div>
-          <div class="kpi-sub">Unique Viewers Reached</div>
+          <div class="kpi-sub" id="metricReachSub">Unique Viewers Reached</div>
         </div>
 
         <div class="kpi-card">
@@ -189,7 +179,7 @@
             <span class="kpi-icon-mini">⚡</span>
           </div>
           <div class="kpi-value" id="metricInteractions">0</div>
-          <div class="kpi-sub">Total Reactions & Interactions</div>
+          <div class="kpi-sub" id="metricEngagementSub">Total Reactions & Interactions</div>
         </div>
 
         <div class="kpi-card">
@@ -198,7 +188,7 @@
             <span class="kpi-icon-mini">❤️</span>
           </div>
           <div class="kpi-value green-text" id="metricLikes">0</div>
-          <div class="kpi-sub">Total Content Likes</div>
+          <div class="kpi-sub" id="metricLikesSub">Total Content Likes</div>
         </div>
 
         <div class="kpi-card">
@@ -207,7 +197,7 @@
             <span class="kpi-icon-mini">💬</span>
           </div>
           <div class="kpi-value" id="metricComments">0</div>
-          <div class="kpi-sub">Total Audience Comments</div>
+          <div class="kpi-sub" id="metricCommentsSub">Total Audience Comments</div>
         </div>
 
         <div class="kpi-card">
@@ -216,7 +206,16 @@
             <span class="kpi-icon-mini">🎯</span>
           </div>
           <div class="kpi-value gold-text" id="metric3sViews">0</div>
-          <div class="kpi-sub">Initial Hook Retention</div>
+          <div class="kpi-sub" id="metric3sSub">Initial Hook Retention</div>
+        </div>
+
+        <div class="kpi-card" id="kpiCardRecommendation">
+          <div class="kpi-top">
+            <span class="kpi-label">PAGE RECOMMENDATION</span>
+            <span class="kpi-icon-mini" id="miniRecomIcon">✓</span>
+          </div>
+          <div class="kpi-value green-text" id="metricRecommendation">Recommendable</div>
+          <div class="kpi-sub" id="metricRecomSub">Page is Recommendable</div>
         </div>
       </div>
     </section>
@@ -243,7 +242,7 @@
       </div>
     </section>
 
-    <!-- Section 3: Uploaded Videos & Reels Library (8 + Load More) -->
+    <!-- Section 3: Uploaded Videos & Reels Library (YouTube Studio Style) -->
     <section class="content-box">
       <div class="box-header flex-between">
         <div class="box-title-group">
@@ -253,16 +252,34 @@
         <span class="pill-badge pill-gold" id="badgeVideosCount">0 Videos</span>
       </div>
 
-      <p class="section-desc">Live preview of all published reels with exact views and interaction telemetry</p>
+      <p class="section-desc">Channel content performance table • Real-time views, retention & engagement</p>
 
-      <div class="reels-grid" id="videosListContainer">
-        <!-- Dynamically populated video cards -->
+      <!-- YouTube Studio Table Container -->
+      <div class="studio-table-wrapper">
+        <table class="studio-table">
+          <thead>
+            <tr>
+              <th class="th-check"><input type="checkbox" class="studio-checkbox-all" id="chkSelectAllVideos"></th>
+              <th class="th-video">Video</th>
+              <th class="th-vis">Visibility</th>
+              <th class="th-rest">Restrictions</th>
+              <th class="th-date">Date</th>
+              <th class="th-views">Views</th>
+              <th class="th-subs">Followers</th>
+              <th class="th-comm">Comments</th>
+              <th class="th-likes">Likes</th>
+            </tr>
+          </thead>
+          <tbody id="videosTableBody">
+            <!-- Dynamically populated studio rows -->
+          </tbody>
+        </table>
       </div>
 
       <!-- Load More Button -->
       <div class="load-more-wrapper">
         <button id="btnLoadMoreVideos" class="btn-load-more">
-          <span>⬇️ Load More Videos</span>
+          <span>⬇️ Load More Videos (8 at a time)</span>
         </button>
       </div>
     </section>

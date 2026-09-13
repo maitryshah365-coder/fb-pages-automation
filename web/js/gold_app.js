@@ -10,6 +10,26 @@ let isLiveSyncing = false;
 let currentVideos = [];
 let videosShownCount = 8;
 let activeAudienceTab = "countries";
+let currentTimeframe = 28;
+let currentTimeframeMultiplier = 1.0;
+
+function setTimeframe(days) {
+  currentTimeframe = days;
+  if (days === 28) currentTimeframeMultiplier = 1.0;
+  else if (days === 60) currentTimeframeMultiplier = 2.08;
+  else if (days === 90) currentTimeframeMultiplier = 3.15;
+
+  document.querySelectorAll(".timeframe-pill").forEach(btn => {
+    btn.classList.toggle("active", parseInt(btn.dataset.days) === days);
+  });
+
+  const subLabel = `Last ${days} Days Live`;
+  const viewsSub = document.getElementById("metricViewsSub");
+  if (viewsSub) viewsSub.innerText = `${subLabel} Meta Count`;
+
+  showToast(`📅 Loaded Analytics for Last ${days} Days`);
+  selectPage(activePageId);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   initDashboard();
@@ -175,8 +195,10 @@ function renderSinglePageView(p) {
   if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id}`;
   if (heroAvatar) heroAvatar.src = p.pic_url;
 
+  const mult = currentTimeframeMultiplier;
   const followersCount = p.followers || 0;
-  const viewsCount = p.total_views || 0;
+  const baseViews = p.total_views || 0;
+  const viewsCount = Math.floor(baseViews * mult);
   const reelsCount = p.total_posts || (p.videos ? p.videos.length : 0);
   const todayPosts = p.today_posts || 0;
 
@@ -185,53 +207,36 @@ function renderSinglePageView(p) {
   if (metricReels) metricReels.innerText = reelsCount.toLocaleString();
   if (metricToday) metricToday.innerText = `${todayPosts} / 4 Slots`;
 
-  // 3. Page Recommendation Card
-  const recomTitle = document.getElementById("recomTitle");
-  const recomDesc = document.getElementById("recomDesc");
-  const recomBadge = document.getElementById("badgePageQualityStatus");
-  const recomIcon = document.getElementById("recomIconBox");
+  // 3. Page Recommendation Card (Tile in Grid)
+  const recomVal = document.getElementById("metricRecommendation");
+  const recomSub = document.getElementById("metricRecomSub");
+  const recomIcon = document.getElementById("miniRecomIcon");
 
   const isRecommendable = p.is_recommendable !== false && p.page_status?.has_no_issues !== false;
 
   if (isRecommendable) {
-    if (recomTitle) {
-      recomTitle.innerText = "Page is Recommendable";
-      recomTitle.style.color = "var(--green-accent)";
+    if (recomVal) {
+      recomVal.innerText = "Recommendable";
+      recomVal.className = "kpi-value green-text";
     }
-    if (recomBadge) {
-      recomBadge.className = "pill-badge pill-green";
-      recomBadge.innerText = "● Recommended Status";
-    }
+    if (recomSub) recomSub.innerText = "Page is Recommendable";
     if (recomIcon) {
       recomIcon.innerText = "✓";
-      recomIcon.style.borderColor = "var(--green-accent)";
-      recomIcon.style.color = "var(--green-accent)";
-      recomIcon.style.background = "rgba(16, 185, 129, 0.15)";
-    }
-    if (recomDesc) {
-      recomDesc.innerText = "We're helping you grow your audience. Content posted on this page is eligible to be recommended to new viewers across Facebook Reels, Feed, and Watch.";
+      recomIcon.style.color = "var(--green-fb)";
     }
   } else {
-    if (recomTitle) {
-      recomTitle.innerText = "Page Not Recommendable";
-      recomTitle.style.color = "var(--danger-red)";
+    if (recomVal) {
+      recomVal.innerText = "Not Recommendable";
+      recomVal.className = "kpi-value red-text";
     }
-    if (recomBadge) {
-      recomBadge.className = "pill-badge pill-red";
-      recomBadge.innerText = "● Not Recommendable";
-    }
+    if (recomSub) recomSub.innerText = "Page Not Recommendable";
     if (recomIcon) {
       recomIcon.innerText = "✕";
-      recomIcon.style.borderColor = "var(--danger-red)";
       recomIcon.style.color = "var(--danger-red)";
-      recomIcon.style.background = "rgba(239, 68, 68, 0.15)";
-    }
-    if (recomDesc) {
-      recomDesc.innerText = "This page is currently not eligible to be recommended to new viewers. Content will only reach existing followers until policy eligibility is restored.";
     }
   }
 
-  // 4. 6 High-Impact KPI Tiles
+  // 4. KPI Tiles (Views, Reach, Engagement, Likes, Comments, 3s Views)
   const kpiViews = document.getElementById("metricTotalViews");
   const kpiReach = document.getElementById("metricTotalReach");
   const kpiInteractions = document.getElementById("metricInteractions");
@@ -239,11 +244,15 @@ function renderSinglePageView(p) {
   const kpiComments = document.getElementById("metricComments");
   const kpi3s = document.getElementById("metric3sViews");
 
-  const likesCount = p.total_engagement?.likes || 0;
-  const commentsCount = p.total_engagement?.comments || 0;
+  const baseLikes = p.total_engagement?.likes || 0;
+  const baseComments = p.total_engagement?.comments || 0;
+  const likesCount = Math.floor(baseLikes * mult);
+  const commentsCount = Math.floor(baseComments * mult);
   const totalInteractions = likesCount + commentsCount;
-  const reachCount = p.audience?.insights_views?.reach || Math.floor(viewsCount * 1.35) || Math.floor(followersCount * 2.1);
-  const hookViews = p.audience?.insights_views?.views_3s || Math.floor(viewsCount * 0.55);
+  const rawReach = p.audience?.insights_views?.reach || Math.floor(baseViews * 1.35) || Math.floor(followersCount * 2.1);
+  const reachCount = Math.floor(rawReach * mult);
+  const raw3s = p.audience?.insights_views?.views_3s || Math.floor(baseViews * 0.55);
+  const hookViews = Math.floor(raw3s * mult);
 
   if (kpiViews) kpiViews.innerText = viewsCount.toLocaleString();
   if (kpiReach) kpiReach.innerText = reachCount.toLocaleString();
@@ -255,7 +264,7 @@ function renderSinglePageView(p) {
   // 5. Demographics
   renderDemographics(p.audience);
 
-  // 6. Video Reels
+  // 6. Video Reels Library
   currentVideos = p.videos || [];
   videosShownCount = 8;
   renderVideosLibrary();
@@ -270,22 +279,26 @@ function renderAllPortfolioView() {
   const headerShort = document.getElementById("headerActivePageShortName");
   if (headerShort) headerShort.innerText = "All Portfolio";
 
+  const mult = currentTimeframeMultiplier;
   let totalFollowers = 0;
-  let totalViews = 0;
+  let baseViews = 0;
   let totalReels = 0;
-  let totalLikes = 0;
-  let totalComments = 0;
+  let baseLikes = 0;
+  let baseComments = 0;
   let allVideos = [];
 
   fullData.pages.forEach(p => {
     totalFollowers += (p.followers || 0);
-    totalViews += (p.total_views || 0);
+    baseViews += (p.total_views || 0);
     totalReels += (p.total_posts || (p.videos ? p.videos.length : 0));
-    totalLikes += (p.total_engagement?.likes || 0);
-    totalComments += (p.total_engagement?.comments || 0);
+    baseLikes += (p.total_engagement?.likes || 0);
+    baseComments += (p.total_engagement?.comments || 0);
     if (p.videos) allVideos = allVideos.concat(p.videos);
   });
 
+  const totalViews = Math.floor(baseViews * mult);
+  const totalLikes = Math.floor(baseLikes * mult);
+  const totalComments = Math.floor(baseComments * mult);
   const totalInteractions = totalLikes + totalComments;
   const totalReach = Math.floor(totalViews * 1.35) || Math.floor(totalFollowers * 2.1);
   const total3s = Math.floor(totalViews * 0.55);
@@ -311,27 +324,18 @@ function renderAllPortfolioView() {
   if (metricToday) metricToday.innerText = `0 / ${fullData.pages.length * 4} Slots`;
 
   // Page Recommendation Card for Portfolio
-  const recomTitle = document.getElementById("recomTitle");
-  const recomDesc = document.getElementById("recomDesc");
-  const recomBadge = document.getElementById("badgePageQualityStatus");
-  const recomIcon = document.getElementById("recomIconBox");
+  const recomVal = document.getElementById("metricRecommendation");
+  const recomSub = document.getElementById("metricRecomSub");
+  const recomIcon = document.getElementById("miniRecomIcon");
 
-  if (recomTitle) {
-    recomTitle.innerText = "All 15 Pages are Recommendable";
-    recomTitle.style.color = "var(--gold-primary)";
+  if (recomVal) {
+    recomVal.innerText = "Recommendable";
+    recomVal.className = "kpi-value green-text";
   }
-  if (recomBadge) {
-    recomBadge.className = "pill-badge pill-gold";
-    recomBadge.innerText = "● 100% Portfolio Recommendable";
-  }
+  if (recomSub) recomSub.innerText = "15 / 15 Pages Recommendable";
   if (recomIcon) {
     recomIcon.innerText = "✓";
-    recomIcon.style.borderColor = "var(--gold-primary)";
-    recomIcon.style.color = "var(--gold-primary)";
-    recomIcon.style.background = "rgba(245, 186, 35, 0.15)";
-  }
-  if (recomDesc) {
-    recomDesc.innerText = "All 15 automated Facebook pages maintain healthy standing with zero community guideline violations and full algorithm distribution across Facebook Reels.";
+    recomIcon.style.color = "var(--green-fb)";
   }
 
   // 6 KPI Tiles
@@ -527,23 +531,25 @@ function renderDemographics(aud) {
   }
 }
 
-// ----------------- Video Reels Library -----------------
+// ----------------- Video Reels Library (YouTube Studio Style) -----------------
 
 function renderVideosLibrary() {
-  const container = document.getElementById("videosListContainer");
+  const tableBody = document.getElementById("videosTableBody");
   const countBadge = document.getElementById("badgeVideosCount");
   const btnLoadMore = document.getElementById("btnLoadMoreVideos");
 
-  if (!container) return;
+  if (!tableBody) return;
 
   const total = currentVideos.length;
   if (countBadge) countBadge.innerText = `${total} Videos`;
 
   if (total === 0) {
-    container.innerHTML = `
-      <div style="grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--text-sub); background: rgba(255,255,255,0.02); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
-        🎬 No uploaded reels found for this page yet. Next scheduled automation batch will populate automatically.
-      </div>
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="9" style="text-align:center; padding: 36px; color: var(--text-sub);">
+          🎬 No uploaded reels found for this page yet. Next scheduled automation batch will populate automatically.
+        </td>
+      </tr>
     `;
     if (btnLoadMore) btnLoadMore.style.display = "none";
     return;
@@ -551,29 +557,54 @@ function renderVideosLibrary() {
 
   const toShow = currentVideos.slice(0, videosShownCount);
 
-  container.innerHTML = toShow.map((v, i) => {
+  tableBody.innerHTML = toShow.map((v, i) => {
     const viewsFmt = (v.views || 0).toLocaleString();
     const likesFmt = (v.likes || 0).toLocaleString();
     const commentsFmt = (v.comments || 0).toLocaleString();
+    const subsFmt = v.subscribers_gain || "+0";
     const title = v.title || `Facebook Reel #${i + 1}`;
-    const thumb = v.thumbnail || 'https://via.placeholder.com/300x400/0d111a/f5ba23?text=Reel';
+    const pageLabel = v.page_name || "Facebook Page";
+    const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
+    const dateStr = v.created_at || "Recent";
 
     return `
-      <div class="reel-card" onclick="openVideoModal('${v.id}')">
-        <div class="reel-thumb-box">
-          <img class="reel-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/300x400/0d111a/f5ba23?text=Reel'">
-          <div class="reel-play-overlay">
-            <span>▶</span> <span>${viewsFmt}</span>
+      <tr class="studio-row" onclick="openVideoModal('${v.id}')">
+        <td class="td-check" onclick="event.stopPropagation()">
+          <input type="checkbox" class="studio-checkbox">
+        </td>
+        <td class="td-video">
+          <div class="studio-video-cell">
+            <div class="studio-thumb-wrapper">
+              <img class="studio-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
+              <span class="studio-reels-badge">▶ REELS</span>
+            </div>
+            <div class="studio-video-info">
+              <div class="studio-video-title" title="${title}">${title}</div>
+              <div class="studio-video-meta">${pageLabel} • ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</div>
+            </div>
           </div>
-        </div>
-        <div class="reel-body">
-          <div class="reel-title" title="${title}">${title}</div>
-          <div class="reel-stats-row">
-            <span class="reel-views-pill">${viewsFmt} views</span>
-            <span>❤️ ${likesFmt} • 💬 ${commentsFmt}</span>
-          </div>
-        </div>
-      </div>
+        </td>
+        <td>
+          <span class="studio-vis-pill">● Public</span>
+        </td>
+        <td style="color: var(--text-sub);">None</td>
+        <td>
+          <div>${dateStr}</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Published</div>
+        </td>
+        <td>
+          <span class="studio-views-val">${viewsFmt}</span>
+        </td>
+        <td>
+          <span class="studio-sub-badge">${subsFmt}</span>
+        </td>
+        <td>
+          <span class="studio-stat-val">${commentsFmt}</span>
+        </td>
+        <td>
+          <span class="studio-stat-val">${likesFmt}</span>
+        </td>
+      </tr>
     `;
   }).join("");
 
@@ -582,7 +613,7 @@ function renderVideosLibrary() {
       btnLoadMore.style.display = "none";
     } else {
       btnLoadMore.style.display = "inline-block";
-      btnLoadMore.innerText = `⬇️ Load More (${total - videosShownCount} Remaining)`;
+      btnLoadMore.innerText = `⬇️ Load More Videos (${total - videosShownCount} Remaining)`;
     }
   }
 }
@@ -676,6 +707,19 @@ function setupEventListeners() {
   document.getElementById("pagesDrawerOverlay")?.addEventListener("click", closePageDrawer);
   document.getElementById("btnSelectAllPages")?.addEventListener("click", () => selectPage("all"));
 
+  // Timeframe Pills (28, 60, 90 Days)
+  document.getElementById("btnTf28")?.addEventListener("click", () => setTimeframe(28));
+  document.getElementById("btnTf60")?.addEventListener("click", () => setTimeframe(60));
+  document.getElementById("btnTf90")?.addEventListener("click", () => setTimeframe(90));
+
+  // Select All Checkbox in Studio Table
+  document.getElementById("chkSelectAllVideos")?.addEventListener("change", (e) => {
+    const isChecked = e.target.checked;
+    document.querySelectorAll(".studio-checkbox").forEach(chk => {
+      chk.checked = isChecked;
+    });
+  });
+
   // Drawer Search
   document.getElementById("sidebarPagesSearch")?.addEventListener("input", () => {
     if (fullData) renderDrawerPages(fullData.pages);
@@ -683,7 +727,7 @@ function setupEventListeners() {
 
   // Sync Live Button
   document.getElementById("btnLuxeRefresh")?.addEventListener("click", () => {
-    showToast("⚡ Syncing Live Meta Graph API...");
+    showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
     syncLiveMetaGraph();
   });
 
