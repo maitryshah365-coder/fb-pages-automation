@@ -488,7 +488,7 @@ function renderAllPortfolioView() {
   renderDemographics(getPortfolioAudience());
 
   // Videos
-  currentVideos = allVideos;
+  currentVideos = allVideosForTf;
   videosShownCount = 8;
   renderVideosLibrary();
 
@@ -664,80 +664,177 @@ function renderDemographics(aud) {
 
 // ----------------- Video Reels Library (YouTube Studio Style) -----------------
 
+function formatReelDate(v) {
+  if (v.created_time_iso) {
+    try {
+      const d = new Date(v.created_time_iso);
+      if (!isNaN(d.getTime())) {
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const m = monthNames[d.getMonth()];
+        const day = d.getDate();
+        const year = d.getFullYear();
+        let hours = d.getHours();
+        const mins = String(d.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        return `${m} ${day}, ${year} at ${hours}:${mins} ${ampm}`;
+      }
+    } catch(e) {}
+  }
+  return v.created_at || "Recent";
+}
+
+function formatYtStatCount(num) {
+  const n = Number(num) || 0;
+  if (n >= 1000000) {
+    return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (n >= 1000) {
+    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  }
+  return n.toLocaleString();
+}
+
 function renderVideosLibrary() {
   const tableBody = document.getElementById("videosTableBody");
+  const mobileCardsList = document.getElementById("videosMobileCardsList");
   const countBadge = document.getElementById("badgeVideosCount");
   const btnLoadMore = document.getElementById("btnLoadMoreVideos");
-
-  if (!tableBody) return;
 
   const total = currentVideos.length;
   if (countBadge) countBadge.innerText = `${total} Videos`;
 
   if (total === 0) {
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="9" style="text-align:center; padding: 36px; color: var(--text-sub);">
-          🎬 No uploaded reels found for this page yet. Next scheduled automation batch will populate automatically.
-        </td>
-      </tr>
-    `;
+    if (tableBody) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="9" style="text-align:center; padding: 36px; color: var(--text-sub);">
+            🎬 No uploaded reels found for this page yet. Next scheduled automation batch will populate automatically.
+          </td>
+        </tr>
+      `;
+    }
+    if (mobileCardsList) {
+      mobileCardsList.innerHTML = `
+        <div class="no-demo-card" style="margin: 8px 0; padding: 24px;">
+          <div class="no-demo-title">🎬 No Uploaded Reels Found</div>
+          <div class="no-demo-desc">Next scheduled automation batch will populate automatically.</div>
+        </div>
+      `;
+    }
     if (btnLoadMore) btnLoadMore.style.display = "none";
     return;
   }
 
   const toShow = currentVideos.slice(0, videosShownCount);
 
-  tableBody.innerHTML = toShow.map((v, i) => {
-    const viewsFmt = (v.views || 0).toLocaleString();
-    const likesFmt = (v.likes || 0).toLocaleString();
-    const commentsFmt = (v.comments || 0).toLocaleString();
-    const subsFmt = v.subscribers_gain || "+0";
-    const title = v.title || `Facebook Reel #${i + 1}`;
-    const pageLabel = v.page_name || "Facebook Page";
-    const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
-    const dateStr = v.created_at || "Recent";
+  // 1. Desktop Table Rows (100% untouched layout for desktop web)
+  if (tableBody) {
+    tableBody.innerHTML = toShow.map((v, i) => {
+      const viewsFmt = (v.views || 0).toLocaleString();
+      const likesFmt = (v.likes || 0).toLocaleString();
+      const commentsFmt = (v.comments || 0).toLocaleString();
+      const subsFmt = v.subscribers_gain || "+0";
+      const title = v.title || `Facebook Reel #${i + 1}`;
+      const pageLabel = v.page_name || "Facebook Page";
+      const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
+      const dateStr = v.created_at || "Recent";
 
-    return `
-      <tr class="studio-row" onclick="openVideoModal('${v.id}')">
-        <td class="td-check" onclick="event.stopPropagation()">
-          <input type="checkbox" class="studio-checkbox">
-        </td>
-        <td class="td-video">
-          <div class="studio-video-cell">
-            <div class="studio-thumb-wrapper">
-              <img class="studio-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
-              <span class="studio-reels-badge">▶ REELS</span>
+      return `
+        <tr class="studio-row" onclick="openVideoModal('${v.id}')">
+          <td class="td-check" onclick="event.stopPropagation()">
+            <input type="checkbox" class="studio-checkbox">
+          </td>
+          <td class="td-video">
+            <div class="studio-video-cell">
+              <div class="studio-thumb-wrapper">
+                <img class="studio-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
+                <span class="studio-reels-badge">▶ REELS</span>
+              </div>
+              <div class="studio-video-info">
+                <div class="studio-video-title" title="${title}">${title}</div>
+                <div class="studio-video-meta">${pageLabel} • ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</div>
+              </div>
             </div>
-            <div class="studio-video-info">
-              <div class="studio-video-title" title="${title}">${title}</div>
-              <div class="studio-video-meta">${pageLabel} • ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</div>
+          </td>
+          <td>
+            <span class="studio-vis-pill">● Public</span>
+          </td>
+          <td style="color: var(--text-sub);">None</td>
+          <td>
+            <div>${dateStr}</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Published</div>
+          </td>
+          <td>
+            <span class="studio-views-val">${viewsFmt}</span>
+          </td>
+          <td>
+            <span class="studio-sub-badge">${subsFmt}</span>
+          </td>
+          <td>
+            <span class="studio-stat-val">${commentsFmt}</span>
+          </td>
+          <td>
+            <span class="studio-stat-val">${likesFmt}</span>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  // 2. Mobile YouTube Studio Style Card View (Exact layout matching Screenshot 3)
+  if (mobileCardsList) {
+    mobileCardsList.innerHTML = toShow.map((v, i) => {
+      const viewsFmt = formatYtStatCount(v.views || 0);
+      const likesFmt = formatYtStatCount(v.likes || 0);
+      const commentsFmt = formatYtStatCount(v.comments || 0);
+      let subsFmt = v.subscribers_gain || "+0";
+      if (typeof subsFmt === "number") {
+        subsFmt = subsFmt >= 0 ? `+${subsFmt}` : `${subsFmt}`;
+      } else if (typeof subsFmt === "string" && !subsFmt.startsWith("+") && !subsFmt.startsWith("-")) {
+        subsFmt = `+${subsFmt}`;
+      }
+      const title = v.title || `Facebook Reel #${i + 1}`;
+      const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
+      const formattedDate = formatReelDate(v);
+
+      return `
+        <div class="mobile-yt-card" onclick="openVideoModal('${v.id}')">
+          <div class="mobile-yt-thumb-box">
+            <img class="mobile-yt-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
+            <span class="mobile-yt-badge">🩳 REELS</span>
+          </div>
+          <div class="mobile-yt-info">
+            <div class="mobile-yt-title" title="${title}">${title}</div>
+            <div class="mobile-yt-meta">
+              <span class="mobile-yt-dot">●</span>
+              <span class="mobile-yt-vis">Public</span>
+              <span class="mobile-yt-sep">•</span>
+              <span class="mobile-yt-date">${formattedDate}</span>
+            </div>
+            <div class="mobile-yt-stats-row">
+              <div class="mobile-yt-stat" title="Views">
+                <span class="mobile-yt-stat-icon">👁️</span>
+                <span class="mobile-yt-stat-val">${viewsFmt}</span>
+              </div>
+              <div class="mobile-yt-stat-pill" title="Followers Gain">
+                <span class="mobile-yt-stat-icon">👥</span>
+                <span class="mobile-yt-stat-val">${subsFmt}</span>
+              </div>
+              <div class="mobile-yt-stat" title="Likes">
+                <span class="mobile-yt-stat-icon">👍</span>
+                <span class="mobile-yt-stat-val">${likesFmt}</span>
+              </div>
+              <div class="mobile-yt-stat" title="Comments">
+                <span class="mobile-yt-stat-icon">💬</span>
+                <span class="mobile-yt-stat-val">${commentsFmt}</span>
+              </div>
             </div>
           </div>
-        </td>
-        <td>
-          <span class="studio-vis-pill">● Public</span>
-        </td>
-        <td style="color: var(--text-sub);">None</td>
-        <td>
-          <div>${dateStr}</div>
-          <div style="font-size: 11px; color: var(--text-muted);">Published</div>
-        </td>
-        <td>
-          <span class="studio-views-val">${viewsFmt}</span>
-        </td>
-        <td>
-          <span class="studio-sub-badge">${subsFmt}</span>
-        </td>
-        <td>
-          <span class="studio-stat-val">${commentsFmt}</span>
-        </td>
-        <td>
-          <span class="studio-stat-val">${likesFmt}</span>
-        </td>
-      </tr>
-    `;
-  }).join("");
+        </div>
+      `;
+    }).join("");
+  }
 
   if (btnLoadMore) {
     if (videosShownCount >= total) {

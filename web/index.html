@@ -8,6 +8,11 @@
   <meta name="theme-color" content="#07090e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Raj FB Pro">
+  <meta name="application-name" content="Raj FB Pro">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -301,8 +306,8 @@
 
       <p class="section-desc">Channel content performance table • Real-time views, retention & engagement</p>
 
-      <!-- YouTube Studio Table Container -->
-      <div class="studio-table-wrapper">
+      <!-- YouTube Studio Table Container (Desktop Only) -->
+      <div class="studio-table-wrapper desktop-only">
         <table class="studio-table">
           <thead>
             <tr>
@@ -321,6 +326,11 @@
             <!-- Dynamically populated studio rows -->
           </tbody>
         </table>
+      </div>
+
+      <!-- YouTube Studio Mobile Cards Container (Mobile Phone Only) -->
+      <div class="mobile-yt-cards-list mobile-only" id="videosMobileCardsList">
+        <!-- Dynamically populated YouTube Studio cards for mobile view -->
       </div>
 
       <!-- Load More Button -->
