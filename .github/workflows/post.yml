@@ -1,0 +1,105 @@
+name: Facebook Pages Automation Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode (no actual Facebook post)"
+        required: false
+        type: boolean
+        default: false
+      page:
+        description: "Optional: Specific page name to run (leave empty for all)"
+        required: false
+        type: string
+        default: ""
+
+  repository_dispatch:
+    types: [cron_trigger, fb_post_trigger]
+
+  # Optional fallback schedule (e.g. twice daily 14:00 UTC and 22:00 UTC)
+  schedule:
+    - cron: "0 14,22 * * *"
+
+concurrency:
+  group: facebook-upload-group
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    name: Execute Facebook Post Pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate Configuration
+        run: |
+          python scripts/validate_config.py config.yaml
+
+      - name: Resolve Runner Public IP & Geolocation
+        run: |
+          curl -s https://ipinfo.io/json || true
+
+      - name: Run Automation Engine
+        env:
+          GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          FB_TOKEN_PAGE_1: ${{ secrets.FB_TOKEN_PAGE_1 }}
+          FB_TOKEN_PAGE_2: ${{ secrets.FB_TOKEN_PAGE_2 }}
+          FB_TOKEN_PAGE_3: ${{ secrets.FB_TOKEN_PAGE_3 }}
+          FB_TOKEN_PAGE_4: ${{ secrets.FB_TOKEN_PAGE_4 }}
+          FB_TOKEN_PAGE_5: ${{ secrets.FB_TOKEN_PAGE_5 }}
+          FB_TOKEN_PAGE_6: ${{ secrets.FB_TOKEN_PAGE_6 }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ -n "${{ github.event.inputs.page }}" ]; then
+            ARGS="$ARGS --page ${{ github.event.inputs.page }}"
+          fi
+          python main.py --config config.yaml $ARGS
+
+      - name: Persist SQLite Database State
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -d "data" ] && [ -n "$(git status --porcelain data/)" ]; then
+            git add data/
+            git commit -m "chore: update Facebook automation SQLite state [skip ci]"
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push origin main && break || sleep 5
+            done
+          else
+            echo "No database changes to commit."
+          fi
+
+      - name: Upload Logs Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: facebook-logs-${{ github.run_id }}
+          path: logs/
+          retention-days: 14

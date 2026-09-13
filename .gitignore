@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+# Environment and Secrets
+.env
+*.token
+service_account*.json
+client_secret*.json
+meta_creds*.json
+
+# Downloaded Media & Temp Files
+temp/
+*.mp4
+*.mov
+*.mkv
+*.webm
+
+# SQLite temp files (Keep .db files committed for tracking)
+*.db-wal
+*.db-shm
+*.db-journal
+
+# Logs
+logs/
+*.log
+
+# Pytest / Cache
+.pytest_cache/
+.coverage
