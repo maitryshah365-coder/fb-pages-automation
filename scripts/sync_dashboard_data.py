@@ -10,31 +10,39 @@ TOKENS_PATH = r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-80
 
 
 def get_pages_list():
+    pages = []
     if os.path.exists(TOKENS_PATH):
         try:
             with open(TOKENS_PATH, "r", encoding="utf-8") as f:
-                return json.load(f)
+                pages = json.load(f)
         except Exception:
             pass
 
-    existing_json = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
-    if os.path.exists(existing_json):
-        try:
-            with open(existing_json, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                pages = []
-                for p in data.get("pages", []):
-                    pages.append({
-                        "index": p.get("index", 1),
-                        "id": p.get("id"),
-                        "name": p.get("name"),
-                        "access_token": p.get("access_token", "")
-                    })
-                return pages
-        except Exception:
-            pass
+    if not pages:
+        existing_json = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
+        if os.path.exists(existing_json):
+            try:
+                with open(existing_json, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    for p in data.get("pages", []):
+                        pages.append({
+                            "index": p.get("index", 1),
+                            "id": p.get("id"),
+                            "name": p.get("name"),
+                            "access_token": p.get("access_token", "")
+                        })
+            except Exception:
+                pass
 
-    return []
+    # Ensure access token fallback from environment variables
+    for p in pages:
+        idx = p.get("index", 1)
+        if not p.get("access_token"):
+            env_tok = os.environ.get(f"FB_TOKEN_PAGE_{idx}") or os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
+            if env_tok:
+                p["access_token"] = env_tok
+
+    return pages
 
 
 def get_current_telemetry():
@@ -459,19 +467,18 @@ def sync_data():
         # Content Monetization Program: Criteria Area Page vs Invite-Only Page
         # Exactly matches Meta's rollout: https://www.facebook.com/professional_dashboard/monetization
         is_criteria_page = (pid in [
-            "106309715659174", # Fresh Hive Network (393 followers, 33 reels, 8,399 views - Screenshot 1 match)
-            "500794979779192", # Me Text (13,538 followers - 5/6 criteria met)
-            "637367679454577", # Crown Empire (307 followers - 5/6 criteria met)
-            "640019675857269", # Crafty Champions (217 followers - 5/6 criteria met)
-            "503358542855153", # Family Fancy (2,304 followers)
-            "924636817403215", # LuxeEpic Frames (89 followers)
-            "528360240361556", # Dominion Authority (163 followers)
-            "626061003919674"  # Fun Life (71 followers)
+            "106309715659174", # Fresh Hive Network
+            "500794979779192", # Me Text
+            "637367679454577", # Crown Empire
+            "640019675857269", # Crafty Champions
+            "503358542855153", # Family Fancy
+            "528360240361556", # Dominion Authority
+            "626061003919674"  # Fun Life
         ])
 
-        reels_count_metric = 33 if is_fresh_hive else len(meta_videos)
-        views_count_metric = 8399 if is_fresh_hive else total_page_views
-        followers_metric = 393 if is_fresh_hive else live_followers
+        reels_count_metric = len(meta_videos)
+        views_count_metric = total_page_views
+        followers_metric = live_followers
 
         f_met = (followers_metric >= 10000)
         v_met = (views_count_metric >= 150000)

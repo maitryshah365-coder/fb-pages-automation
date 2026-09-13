@@ -91,6 +91,23 @@ jobs:
 
       - name: Sync Dashboard Data
         if: always()
+        env:
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          FB_TOKEN_PAGE_1: ${{ secrets.FB_TOKEN_PAGE_1 }}
+          FB_TOKEN_PAGE_2: ${{ secrets.FB_TOKEN_PAGE_2 }}
+          FB_TOKEN_PAGE_3: ${{ secrets.FB_TOKEN_PAGE_3 }}
+          FB_TOKEN_PAGE_4: ${{ secrets.FB_TOKEN_PAGE_4 }}
+          FB_TOKEN_PAGE_5: ${{ secrets.FB_TOKEN_PAGE_5 }}
+          FB_TOKEN_PAGE_6: ${{ secrets.FB_TOKEN_PAGE_6 }}
+          FB_TOKEN_PAGE_7: ${{ secrets.FB_TOKEN_PAGE_7 }}
+          FB_TOKEN_PAGE_8: ${{ secrets.FB_TOKEN_PAGE_8 }}
+          FB_TOKEN_PAGE_9: ${{ secrets.FB_TOKEN_PAGE_9 }}
+          FB_TOKEN_PAGE_10: ${{ secrets.FB_TOKEN_PAGE_10 }}
+          FB_TOKEN_PAGE_11: ${{ secrets.FB_TOKEN_PAGE_11 }}
+          FB_TOKEN_PAGE_12: ${{ secrets.FB_TOKEN_PAGE_12 }}
+          FB_TOKEN_PAGE_13: ${{ secrets.FB_TOKEN_PAGE_13 }}
+          FB_TOKEN_PAGE_14: ${{ secrets.FB_TOKEN_PAGE_14 }}
+          FB_TOKEN_PAGE_15: ${{ secrets.FB_TOKEN_PAGE_15 }}
         run: |
           python scripts/sync_dashboard_data.py || true
 
