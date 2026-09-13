@@ -18,8 +18,8 @@ notifications:
 
 # List of 6 Facebook Pages sharing this Page Group (Single Personal FB Admin)
 pages:
-  - page_id: "REPLACE_WITH_FB_PAGE_ID_1"
-    name: "page_1"
+  - page_id: "988523547680750"
+    name: "page_1"  # Mix Mood
     enabled: true
     drive_folder_id: "REPLACE_WITH_PAGE_1_DRIVE_FOLDER_ID"
     daily_limit: 2
@@ -27,8 +27,8 @@ pages:
     description_footer: ""
     default_hashtags: []
 
-  - page_id: "REPLACE_WITH_FB_PAGE_ID_2"
-    name: "page_2"
+  - page_id: "1040244259164767"
+    name: "page_2"  # Charmy Owen
     enabled: true
     drive_folder_id: "REPLACE_WITH_PAGE_2_DRIVE_FOLDER_ID"
     daily_limit: 2
@@ -36,8 +36,8 @@ pages:
     description_footer: ""
     default_hashtags: []
 
-  - page_id: "REPLACE_WITH_FB_PAGE_ID_3"
-    name: "page_3"
+  - page_id: "965629596638624"
+    name: "page_3"  # Silent Peak Social
     enabled: true
     drive_folder_id: "REPLACE_WITH_PAGE_3_DRIVE_FOLDER_ID"
     daily_limit: 2
@@ -45,8 +45,8 @@ pages:
     description_footer: ""
     default_hashtags: []
 
-  - page_id: "REPLACE_WITH_FB_PAGE_ID_4"
-    name: "page_4"
+  - page_id: "956622247541040"
+    name: "page_4"  # Horizon Nest Daily
     enabled: true
     drive_folder_id: "REPLACE_WITH_PAGE_4_DRIVE_FOLDER_ID"
     daily_limit: 2
@@ -54,8 +54,8 @@ pages:
     description_footer: ""
     default_hashtags: []
 
-  - page_id: "REPLACE_WITH_FB_PAGE_ID_5"
-    name: "page_5"
+  - page_id: "1034326643100670"
+    name: "page_5"  # Bright Flare Hub
     enabled: true
     drive_folder_id: "REPLACE_WITH_PAGE_5_DRIVE_FOLDER_ID"
     daily_limit: 2
@@ -63,8 +63,8 @@ pages:
     description_footer: ""
     default_hashtags: []
 
-  - page_id: "REPLACE_WITH_FB_PAGE_ID_6"
-    name: "page_6"
+  - page_id: "924636817403215"
+    name: "page_6"  # LuxeEpic Frames
     enabled: true
     drive_folder_id: "REPLACE_WITH_PAGE_6_DRIVE_FOLDER_ID"
     daily_limit: 2
