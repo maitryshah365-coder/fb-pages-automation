@@ -273,37 +273,180 @@
         </div>
       </section>
 
-      <!-- Box C: Modern Meta Content Monetization Hub (2025/2026 Model) -->
-      <section class="box-monetization-hub">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <h3 class="section-title-gold">💎 Facebook Monetization Tools Hub</h3>
-          <span style="font-size:11px; color:var(--fb-green); font-weight:800;">● ZERO VIOLATIONS</span>
-        </div>
-        <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
-          Unified Meta creator monetization structure (Criteria-Based vs Invite-Only Tools)
-        </p>
-
-        <!-- Category 1: Criteria-Based Tools -->
-        <div class="monetize-category-title">
-          <span>🎯 Criteria-Based Tools</span>
-          <span style="font-size:10px; color:var(--text-muted); font-weight:500;">(Criteria poora hone par "Set Up Tool" button active hota hai)</span>
-        </div>
-        <div id="criteriaToolsContainer">
-          <!-- Stars, Subscriptions, Branded Content -->
-        </div>
-
-        <!-- Category 2: Invite-Only Programs -->
-        <div class="monetize-category-title" style="margin-top:20px;">
-          <span>📨 Invite-Only Programs</span>
-          <span style="font-size:10px; color:var(--text-muted); font-weight:500;">(Meta ke direct invitation se activate hote hain)</span>
-        </div>
-        <div id="inviteToolsContainer">
-          <!-- Content Monetization Program Beta, Bonus Challenges -->
+      <!-- Box C: Modern Meta Content Monetization Hub (Criteria Area vs Invite-Only Mode) -->
+      <section class="box-monetization-hub" id="boxMonetizationHub">
+        <!-- Header with Page Classification Badge -->
+        <div class="monetize-hub-header">
+          <div>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <h3 class="section-title-gold" style="margin-bottom:0;">💎 Meta Content Monetization</h3>
+              <span id="badgeMonetizeAuto" class="badge-program-type criteria">🎯 Criteria Area Page</span>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+              Auto-detected status for <strong id="monetizeTargetPageName" style="color:var(--gold-bright);">Current Page</strong> • Official Meta Dashboard Match
+            </p>
+          </div>
+          <a id="btnDirectMetaCmLink" href="https://www.facebook.com/professional_dashboard/monetization/content_monetization" target="_blank" class="btn-fb-pro-monetize-link">
+            <span>🔗</span> <span>Meta Pro Dashboard URL</span>
+          </a>
         </div>
 
-        <div style="margin-top:16px; text-align:center;">
-          <a href="https://business.facebook.com/latest/monetization/tools" target="_blank" class="action-link-btn" style="display:inline-flex; width:auto; padding:10px 22px; color:var(--gold-bright); border-color:var(--gold-primary);">
-            <span>↗</span> <span>Open Meta Business Suite Monetization</span>
+        <!-- 2 Toggle Options: [🎯 Criteria Area Page] vs [📨 Invite-Only Page] -->
+        <div class="monetize-mode-selector">
+          <div class="monetize-mode-tabs" id="monetizeModeTabs">
+            <button class="monetize-mode-btn active" id="btnTabCriteria" data-mode="criteria">
+              <span class="mode-btn-icon">🎯</span>
+              <div class="mode-btn-text">
+                <span class="mode-btn-title">Option 1: Criteria Area Page</span>
+                <span class="mode-btn-sub" id="modeBtnCriteriaSub">6 Eligibility Rules & Waitlist</span>
+              </div>
+              <span class="mode-btn-badge" id="chipCriteriaCount">4 / 6 Met</span>
+            </button>
+            <button class="monetize-mode-btn" id="btnTabInvite" data-mode="invite">
+              <span class="mode-btn-icon">📨</span>
+              <div class="mode-btn-text">
+                <span class="mode-btn-title">Option 2: Invite-Only Page</span>
+                <span class="mode-btn-sub">Beta Program (Direct Meta Invitation)</span>
+              </div>
+              <span class="mode-btn-badge badge-beta">Beta Invite</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- VIEW 1: CRITERIA AREA PAGE (Screenshot 1 & 2 Exact Match) -->
+        <div id="viewCriteriaArea" class="monetize-view-panel">
+          
+          <!-- Waitlist Progress Card -->
+          <div class="waitlist-card-fb">
+            <div class="waitlist-top-row">
+              <div>
+                <h4 class="waitlist-title" id="waitlistHeadline">4 of 6 criteria met</h4>
+                <p class="waitlist-subtitle" id="waitlistSub">Keep it up! Once you meet all criteria, you'll be added to the waitlist.</p>
+              </div>
+              <button class="btn-notify-fb" id="btnNotifyCriteria">
+                <span class="notify-icon">🔔</span> <span class="notify-text">Notify me</span>
+              </button>
+            </div>
+
+            <!-- 6 Segmented Progress Bar (Matches Screenshot 1) -->
+            <div class="criteria-segmented-bar" id="criteriaSegmentedBar">
+              <div class="criteria-segment filled"></div>
+              <div class="criteria-segment filled"></div>
+              <div class="criteria-segment filled"></div>
+              <div class="criteria-segment filled"></div>
+              <div class="criteria-segment"></div>
+              <div class="criteria-segment"></div>
+            </div>
+            <div class="waitlist-footer-note">
+              <span>Get notified when you're eligible. We'll let you know when you meet all the requirements.</span>
+              <span id="waitlistUnlockStatus" style="color:var(--gold-bright); font-weight:700;">2 Requirements Remaining</span>
+            </div>
+          </div>
+
+          <!-- Eligibility Criteria 6 Cards Grid (Matches Screenshot 1) -->
+          <div class="eligibility-section-header">
+            <h4 style="font-size:14px; font-weight:800; color:#fff;">Eligibility criteria</h4>
+            <span style="font-size:11.5px; color:var(--text-muted);">Please allow a few days for the criteria to update after milestone reach.</span>
+          </div>
+
+          <div class="eligibility-grid-fb" id="eligibilityGridContainer">
+            <!-- Dynamically populated 6 cards (Age 18+, Country, 30 Days, 3 Reels, 10k Followers, 150k Views) -->
+          </div>
+
+          <!-- How Content Monetization Works (Screenshot 2 Match) -->
+          <div class="how-it-works-card">
+            <div class="how-it-works-header">
+              <span style="font-size:20px;">🎬</span>
+              <h4 style="font-size:13.5px; font-weight:700; color:#fff; margin:0;">How Content monetization works</h4>
+            </div>
+            <div class="how-it-works-grid">
+              <div class="how-col">
+                <strong>💰 Earn from your creativity</strong>
+                <p>You can earn money on original, well-performing content, including eligible public reels, videos, photos and text posts. By default, ads will be on so you can earn.</p>
+              </div>
+              <div class="how-col">
+                <strong>📈 Track earnings all in one place</strong>
+                <p>Just go to your professional dashboard anytime to see how much you've earned across all eligible videos.</p>
+              </div>
+              <div class="how-col">
+                <strong>🏆 Learn from your success</strong>
+                <p>See insights about what content is performing best and how to optimize engagement for more earnings.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- VIEW 2: INVITE-ONLY PAGE (Screenshot 3 Exact Match) -->
+        <div id="viewInviteOnly" class="monetize-view-panel" style="display:none;">
+
+          <!-- Meta Beta Notice Card (Matches Screenshot 3) -->
+          <div class="beta-notice-card">
+            <div class="beta-icon-col">🧪</div>
+            <div>
+              <h4 style="font-size:14px; font-weight:800; color:#fff; margin-bottom:4px;">Content monetization beta</h4>
+              <p style="font-size:12px; color:var(--text-muted); margin:0;">
+                We're actively working to expand access and make this program available to more creators soon.
+              </p>
+            </div>
+          </div>
+
+          <!-- Get Notified When You Can Join Card (Matches Screenshot 3) -->
+          <div class="invite-only-box">
+            <div class="invite-box-top">
+              <div class="invite-badge-row">
+                <span class="invite-mail-icon">📩</span>
+                <div>
+                  <h4 style="font-size:15px; font-weight:800; color:#fff; margin-bottom:3px;">Invite only</h4>
+                  <p style="font-size:12px; color:rgba(255,255,255,0.75); margin:0;">
+                    This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.
+                  </p>
+                </div>
+              </div>
+              <button class="btn-notify-fb" id="btnNotifyInvite">
+                <span class="notify-icon">🔔</span> <span class="notify-text">Notify me</span>
+              </button>
+            </div>
+
+            <!-- Algorithm Invitation Velocity Booster -->
+            <div class="invite-booster-card">
+              <div class="booster-header">
+                <span style="font-size:14px;">⚡</span>
+                <strong style="color:var(--gold-bright); font-size:12px;">Algorithm Invitation Velocity Booster Active:</strong>
+              </div>
+              <div style="font-size:11.5px; color:var(--text-muted); margin-top:4px; line-height:1.5;">
+                Meta's 2024–2026 invitation model prioritizes pages maintaining consistent USA Reel publishing frequency without policy strikes. Your 4x daily USA automated schedule accelerates direct invitation rollouts.
+              </div>
+              <div class="monetize-progress-bar-bg" style="margin-top:10px;">
+                <div class="monetize-progress-bar-fill" id="inviteBoosterBar" style="width:85%;"></div>
+              </div>
+              <div class="monetize-meta-row" style="margin-top:6px;">
+                <span style="color:var(--gold-light); font-size:11px;">Candidate Invitation Score</span>
+                <span style="color:var(--gold-bright); font-size:11px; font-weight:700;" id="inviteBoosterScore">85% (High Priority Candidate)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Other Available Monetization Tools (Stars & Subscriptions) -->
+        <div class="extra-monetize-drawer" style="margin-top:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:12px; font-weight:700; color:var(--text-muted);">Additional Page Monetization Tools:</span>
+            <button id="btnToggleOtherTools" class="btn-subtext-toggle">Show Stars & Subscriptions ▼</button>
+          </div>
+          <div id="otherToolsCollapse" style="display:none;">
+            <div id="criteriaToolsContainer"></div>
+          </div>
+        </div>
+
+        <!-- Direct Official FB Links -->
+        <div class="monetize-direct-links-row" style="margin-top:18px;">
+          <a href="https://www.facebook.com/professional_dashboard/monetization/content_monetization" target="_blank" class="action-link-btn btn-direct-cm-link">
+            <span>🌐</span> <span>Open Content Monetization (Pro Dashboard)</span>
+          </a>
+          <a href="https://business.facebook.com/latest/monetization/tools" target="_blank" class="action-link-btn" style="color:var(--gold-bright); border-color:var(--gold-primary);">
+            <span>💼</span> <span>Meta Business Suite Monetization</span>
           </a>
         </div>
       </section>

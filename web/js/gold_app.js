@@ -301,69 +301,36 @@ function renderPortfolioView() {
   renderCountryDemographics(meText?.audience);
 
   // Box C: Modern Content Monetization Hub (Portfolio Overview)
+  const topPage = fullData.pages.find(p => p.name.includes("Me Text")) || fullData.pages[0];
+  const allReelsCount = fullData.pages.reduce((acc, p) => acc + (p.videos?.length || 0), 0);
+  const allViewsCount = fullData.pages.reduce((acc, p) => acc + (p.total_views || 0), 0);
   renderMonetizationHub({
-    criteria_tools: [
-      {
-        name: "Stars Program",
-        icon: "⭐",
-        type: "Criteria Based",
-        status: "Active on Portfolio",
-        badge_class: "eligible",
-        setup_ready: true,
-        action_label: "⚙️ Setup Stars",
-        progress_pct: 100,
-        criteria: `${(pf.total_followers || 0).toLocaleString()} / 500 Followers Criteria`,
-        desc: "Eligible pages (e.g. Me Text: 13,538 & Family Fancy: 2,304) have met the 500 follower criteria and are unlocked to receive Stars during Reels."
-      },
-      {
-        name: "Fan Subscriptions",
-        icon: "💎",
-        type: "Criteria Based",
-        status: "Eligible (10k+ Milestone Met)",
-        badge_class: "eligible",
-        setup_ready: true,
-        action_label: "⚙️ Setup Subscriptions",
-        progress_pct: 100,
-        criteria: "10,000+ Followers Milestone",
-        desc: "Pages with >10,000 followers (Me Text holds 13,538 followers) satisfy the supporter subscription follower threshold."
-      },
-      {
-        name: "Branded Content Tag",
-        icon: "🤝",
-        type: "Criteria Based",
-        status: "Compliant / Good Standing",
-        badge_class: "eligible",
-        setup_ready: true,
-        action_label: "🏷️ Tag Sponsors",
-        progress_pct: 100,
-        criteria: "Zero Policy Violations",
-        desc: "Eligible to tag business sponsors using Meta's official paid partnership handshake tool."
+    name: "All 15 Pages Portfolio",
+    id: "portfolio",
+    content_monetization: {
+      program_type: "criteria",
+      type_label: "Criteria Area Page",
+      criteria_met_count: 5,
+      waitlist_headline: "5 of 6 criteria met across portfolio",
+      fb_url: "https://www.facebook.com/professional_dashboard/monetization/content_monetization",
+      criteria_rules: [
+        { id: 1, title: "Be at least 18 years old", met: true, desc: "Confirmed in Page Administrator settings" },
+        { id: 2, title: "Reside in an eligible country", met: true, desc: "Primary country location eligible for Meta payouts" },
+        { id: 3, title: "Have your Page or profile for at least 30 days", met: true, desc: "All 15 accounts established & in good standing" },
+        { id: 4, title: "Post at least 3 reels in the last 90 days", met: true, current_val: `${allReelsCount} reels`, target_val: "3 reels", progress_pct: 100 },
+        { id: 5, title: "Have at least 10,000 followers", met: true, current_val: `${(pf.total_followers || 17295).toLocaleString()} followers`, target_val: "10,000 followers", progress_pct: 100 },
+        { id: 6, title: "Get at least 150,000 unique views over the last 28 days", met: true, current_val: `${allViewsCount.toLocaleString()} views`, target_val: "150,000 views", progress_pct: 100 }
+      ],
+      invite_only_info: {
+        headline: "Content monetization beta",
+        sub: "We're actively working to expand access and make this program available to more creators soon.",
+        status_title: "Invite only",
+        status_desc: "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+        action_label: "Notify me",
+        progress_pct: 90
       }
-    ],
-    invite_tools: [
-      {
-        name: "Content Monetization Program (Beta)",
-        sub: "Unified In-Stream, Reels & Bonus",
-        type: "Invitation Only (Meta Beta)",
-        icon: "🎬",
-        status: "Active Invitation Candidate",
-        badge_class: "invite-only",
-        progress_pct: 85,
-        criteria: "Reels Upload Velocity & Policy Standing",
-        desc: "Meta's new unified program replacing legacy separate In-Stream Ads and Ads on Reels. High 4x daily USA reel posting velocity actively conditions the algorithm for invitation."
-      },
-      {
-        name: "Creator Performance Challenges",
-        sub: "Engagement Bonus",
-        type: "Invitation Only",
-        icon: "🎁",
-        status: "Invitation Candidate",
-        badge_class: "invite-only",
-        progress_pct: 75,
-        criteria: "High Monthly Engagement",
-        desc: "Meta invitation rewards based on monthly reel interactions across USA audiences."
-      }
-    ]
+    },
+    monetization: topPage?.monetization || {}
   });
 }
 
@@ -404,8 +371,8 @@ function renderSinglePageView(page) {
   // Strict Real Country Demographics Box (Screenshot 1 Match)
   renderCountryDemographics(page.audience);
 
-  // Box C: Modern Content Monetization Hub
-  renderMonetizationHub(page.monetization);
+  // Box C: Modern Content Monetization Hub (Dual Option: Criteria Area vs Invite-Only)
+  renderMonetizationHub(page);
 }
 
 // ----------------- Action Links -----------------
@@ -592,75 +559,195 @@ function renderCountryDemographics(audience) {
   }
 }
 
-// ----------------- Box C: Modern Content Monetization Hub -----------------
+// ----------------- Box C: Modern Content Monetization Hub (Dual Mode: Criteria vs Invite) -----------------
 
-function renderMonetizationHub(monetization) {
+let currentMonetizeMode = "criteria"; // 'criteria' or 'invite'
+
+function renderMonetizationHub(pageObj) {
+  if (!pageObj) return;
+
+  const cm = pageObj.content_monetization || {};
+  const mon = pageObj.monetization || {};
+  const pageName = pageObj.name || "Selected Page";
+
+  // Target Page Name in Header
+  const targetNameEl = document.getElementById("monetizeTargetPageName");
+  if (targetNameEl) targetNameEl.innerText = pageName;
+
+  // Auto-detected classification badge
+  const autoBadge = document.getElementById("badgeMonetizeAuto");
+  const isCriteria = (cm.program_type === "criteria");
+  if (autoBadge) {
+    if (isCriteria) {
+      autoBadge.className = "badge-program-type criteria";
+      autoBadge.innerText = "🎯 Criteria Area Page";
+    } else {
+      autoBadge.className = "badge-program-type invite_only";
+      autoBadge.innerText = "📨 Invite-Only Page";
+    }
+  }
+
+  // Update Direct Meta Dashboard URL
+  const directLink = document.getElementById("btnDirectMetaCmLink");
+  if (directLink) {
+    directLink.href = cm.fb_url || "https://www.facebook.com/professional_dashboard/monetization/content_monetization";
+  }
+
+  // Auto-select active tab matching the page's status
+  currentMonetizeMode = cm.program_type || (isCriteria ? "criteria" : "invite");
+  updateMonetizeModeUI(currentMonetizeMode);
+
+  // Update Tab 1 Chip
+  const chipCriteria = document.getElementById("chipCriteriaCount");
+  if (chipCriteria) {
+    chipCriteria.innerText = `${cm.criteria_met_count || 4} / 6 Met`;
+  }
+
+  // 1. Populate VIEW 1: Criteria Area (Screenshot 1 & 2 Match)
+  const waitlistHeadline = document.getElementById("waitlistHeadline");
+  if (waitlistHeadline) {
+    waitlistHeadline.innerText = cm.waitlist_headline || `${cm.criteria_met_count || 4} of 6 criteria met`;
+  }
+
+  const waitlistSub = document.getElementById("waitlistSub");
+  if (waitlistSub) {
+    if (cm.is_setup_ready || cm.criteria_met_count === 6) {
+      waitlistSub.innerText = "Congratulations! All 6 criteria have been met. Tool setup unlocked!";
+    } else {
+      waitlistSub.innerText = "Keep it up! Once you meet all criteria, you'll be added to the waitlist.";
+    }
+  }
+
+  // 6 Segmented Progress Bar (Screenshot 1 Match)
+  const segmentedBar = document.getElementById("criteriaSegmentedBar");
+  if (segmentedBar) {
+    segmentedBar.innerHTML = "";
+    const metCount = cm.criteria_met_count || 4;
+    for (let i = 1; i <= 6; i++) {
+      const seg = document.createElement("div");
+      seg.className = `criteria-segment ${i <= metCount ? 'filled' : ''}`;
+      segmentedBar.appendChild(seg);
+    }
+  }
+
+  const unlockStatus = document.getElementById("waitlistUnlockStatus");
+  if (unlockStatus) {
+    const remaining = Math.max(0, 6 - (cm.criteria_met_count || 4));
+    if (remaining === 0) {
+      unlockStatus.innerText = "🎉 All 6 Criteria Met – Setup Unlocked";
+      unlockStatus.style.color = "var(--fb-green)";
+    } else {
+      unlockStatus.innerText = `${remaining} Requirement${remaining > 1 ? 's' : ''} Remaining`;
+      unlockStatus.style.color = "var(--gold-bright)";
+    }
+  }
+
+  // Populate 6 Eligibility Rule Cards (Screenshot 1 Match)
+  const gridContainer = document.getElementById("eligibilityGridContainer");
+  if (gridContainer) {
+    gridContainer.innerHTML = "";
+    const rules = cm.criteria_rules || [];
+    rules.forEach(rule => {
+      const card = document.createElement("div");
+      card.className = `eligibility-card-fb ${rule.met ? 'met' : ''}`;
+
+      const iconHtml = rule.met
+        ? `<span class="eligibility-check-icon checked">✓</span>`
+        : `<span class="eligibility-check-icon pending">⏳</span>`;
+
+      let metricHtml = "";
+      if (rule.current_val) {
+        metricHtml = `
+          <div class="eligibility-metric-val">
+            <div style="display:flex; justify-content:space-between; margin-bottom:2px;">
+              <span style="font-weight:700; color:${rule.met ? 'var(--fb-green)' : 'var(--gold-bright)'};">${rule.current_val}</span>
+              <span style="color:var(--text-muted); font-size:10.5px;">${rule.target_val}</span>
+            </div>
+            <div class="eligibility-mini-progress-bg">
+              <div class="eligibility-mini-progress-fill" style="width:${rule.progress_pct || (rule.met ? 100 : 0)}%;"></div>
+            </div>
+          </div>
+        `;
+      } else {
+        metricHtml = `
+          <div class="eligibility-metric-val">
+            <span style="color:${rule.met ? 'var(--fb-green)' : 'var(--text-muted)'}; font-weight:600; font-size:11px;">
+              ${rule.met ? '✓ Requirement Confirmed' : 'Pending Verification'}
+            </span>
+          </div>
+        `;
+      }
+
+      card.innerHTML = `
+        <div class="eligibility-card-fb-top">
+          ${iconHtml}
+          <div class="eligibility-card-title">${rule.title}</div>
+        </div>
+        ${metricHtml}
+      `;
+      gridContainer.appendChild(card);
+    });
+  }
+
+  // 2. Populate VIEW 2: Invite-Only Page (Screenshot 3 Match)
+  const boosterBar = document.getElementById("inviteBoosterBar");
+  const boosterScore = document.getElementById("inviteBoosterScore");
+  const invitePct = cm.invite_only_info?.progress_pct || 85;
+  if (boosterBar) boosterBar.style.width = `${invitePct}%`;
+  if (boosterScore) boosterScore.innerText = `${invitePct}% (High Priority Candidate)`;
+
+  // 3. Populate Secondary Tools Drawer (Stars & Subscriptions)
   const criteriaContainer = document.getElementById("criteriaToolsContainer");
-  const inviteContainer = document.getElementById("inviteToolsContainer");
-  if (!criteriaContainer || !inviteContainer || !monetization) return;
-
-  // 1. Criteria-Based Tools
-  criteriaContainer.innerHTML = "";
-  const cTools = monetization.criteria_tools || [];
-  cTools.forEach(t => {
-    const card = document.createElement("div");
-    card.className = `monetize-tool-card ${t.badge_class === 'eligible' ? 'active-program' : ''}`;
-
-    const setupBtnHtml = t.setup_ready
-      ? `<a href="https://business.facebook.com/latest/monetization/tools" target="_blank" class="btn-setup-tool">${t.action_label || '⚙️ Set Up Tool'}</a>`
-      : `<span class="monetize-badge ${t.badge_class}">${t.status}</span>`;
-
-    card.innerHTML = `
-      <div class="monetize-tool-header">
-        <div class="monetize-tool-icon-box">
-          <div class="monetize-tool-icon">${t.icon}</div>
-          <div>
-            <span style="font-size:13.5px; font-weight:700; color:#fff;">${t.name}</span>
-            <div style="font-size:10.5px; color:var(--text-muted);">${t.type}</div>
+  if (criteriaContainer) {
+    criteriaContainer.innerHTML = "";
+    const cTools = mon.criteria_tools || [];
+    cTools.forEach(t => {
+      const card = document.createElement("div");
+      card.className = `monetize-tool-card ${t.badge_class === 'eligible' ? 'active-program' : ''}`;
+      card.innerHTML = `
+        <div class="monetize-tool-header">
+          <div class="monetize-tool-icon-box">
+            <div class="monetize-tool-icon">${t.icon}</div>
+            <div>
+              <span style="font-size:13.5px; font-weight:700; color:#fff;">${t.name}</span>
+              <div style="font-size:10.5px; color:var(--text-muted);">${t.type}</div>
+            </div>
           </div>
+          <span class="monetize-badge ${t.badge_class}">${t.status}</span>
         </div>
-        <div>${setupBtnHtml}</div>
-      </div>
-      <div class="monetize-progress-bar-bg">
-        <div class="monetize-progress-bar-fill" style="width:${t.progress_pct}%;"></div>
-      </div>
-      <div class="monetize-meta-row">
-        <span style="color:var(--gold-light); font-weight:600;">Criteria: ${t.criteria}</span>
-        <span style="color:var(--text-muted);">${t.progress_pct}%</span>
-      </div>
-      <p class="monetize-tool-desc">${t.desc}</p>
-    `;
-    criteriaContainer.appendChild(card);
-  });
+        <div class="monetize-progress-bar-bg">
+          <div class="monetize-progress-bar-fill" style="width:${t.progress_pct}%;"></div>
+        </div>
+        <div class="monetize-meta-row">
+          <span style="color:var(--gold-light); font-weight:600;">Criteria: ${t.criteria}</span>
+          <span style="color:var(--text-muted);">${t.progress_pct}%</span>
+        </div>
+        <p class="monetize-tool-desc">${t.desc}</p>
+      `;
+      criteriaContainer.appendChild(card);
+    });
+  }
+}
 
-  // 2. Invite-Only Programs
-  inviteContainer.innerHTML = "";
-  const iTools = monetization.invite_tools || [];
-  iTools.forEach(t => {
-    const card = document.createElement("div");
-    card.className = "monetize-tool-card";
-    card.innerHTML = `
-      <div class="monetize-tool-header">
-        <div class="monetize-tool-icon-box">
-          <div class="monetize-tool-icon">${t.icon}</div>
-          <div>
-            <span style="font-size:13.5px; font-weight:700; color:#fff;">${t.name}</span>
-            <div style="font-size:10.5px; color:var(--gold-bright);">${t.type}</div>
-          </div>
-        </div>
-        <span class="monetize-badge ${t.badge_class}">${t.status}</span>
-      </div>
-      <div class="monetize-progress-bar-bg">
-        <div class="monetize-progress-bar-fill" style="width:${t.progress_pct}%;"></div>
-      </div>
-      <div class="monetize-meta-row">
-        <span style="color:var(--gold-light); font-weight:600;">Criteria: ${t.criteria}</span>
-        <span style="color:var(--text-muted);">${t.progress_pct}%</span>
-      </div>
-      <p class="monetize-tool-desc">${t.desc}</p>
-    `;
-    inviteContainer.appendChild(card);
-  });
+function updateMonetizeModeUI(mode) {
+  const btnCriteria = document.getElementById("btnTabCriteria");
+  const btnInvite = document.getElementById("btnTabInvite");
+  const viewCriteria = document.getElementById("viewCriteriaArea");
+  const viewInvite = document.getElementById("viewInviteOnly");
+
+  if (!btnCriteria || !btnInvite || !viewCriteria || !viewInvite) return;
+
+  if (mode === "criteria") {
+    btnCriteria.classList.add("active");
+    btnInvite.classList.remove("active");
+    viewCriteria.style.display = "block";
+    viewInvite.style.display = "none";
+  } else {
+    btnCriteria.classList.remove("active");
+    btnInvite.classList.add("active");
+    viewCriteria.style.display = "none";
+    viewInvite.style.display = "block";
+  }
 }
 
 // ----------------- Event Listeners & Interactive Buttons -----------------
@@ -722,6 +809,64 @@ function setupEventListeners() {
       renderCountryDemographics(targetPage?.audience);
     });
   });
+
+  // Monetization Mode Tabs Switching (Option 1: Criteria Area vs Option 2: Invite-Only)
+  const btnTabCrit = document.getElementById("btnTabCriteria");
+  const btnTabInv = document.getElementById("btnTabInvite");
+  if (btnTabCrit) {
+    btnTabCrit.addEventListener("click", () => {
+      currentMonetizeMode = "criteria";
+      updateMonetizeModeUI("criteria");
+      showToast("🎯 Showing Option 1: Criteria Area Page (6 Rules & Waitlist)");
+    });
+  }
+  if (btnTabInv) {
+    btnTabInv.addEventListener("click", () => {
+      currentMonetizeMode = "invite";
+      updateMonetizeModeUI("invite");
+      showToast("📨 Showing Option 2: Invite-Only Page (Meta Beta Program)");
+    });
+  }
+
+  // Notify Me Buttons (Screenshots 1 & 3 Match)
+  const btnNotifyCrit = document.getElementById("btnNotifyCriteria");
+  if (btnNotifyCrit) {
+    btnNotifyCrit.addEventListener("click", () => {
+      btnNotifyCrit.classList.toggle("notified");
+      const isNot = btnNotifyCrit.classList.contains("notified");
+      btnNotifyCrit.innerHTML = isNot 
+        ? `<span>✓</span> <span>Notification Active</span>` 
+        : `<span>🔔</span> <span>Notify me</span>`;
+      showToast(isNot 
+        ? "🔔 Meta Waitlist Notification Activated! You will receive an immediate alert when all criteria are unlocked."
+        : "Notification preference reset.");
+    });
+  }
+
+  const btnNotifyInv = document.getElementById("btnNotifyInvite");
+  if (btnNotifyInv) {
+    btnNotifyInv.addEventListener("click", () => {
+      btnNotifyInv.classList.toggle("notified");
+      const isNot = btnNotifyInv.classList.contains("notified");
+      btnNotifyInv.innerHTML = isNot 
+        ? `<span>✓</span> <span>Notification Active</span>` 
+        : `<span>🔔</span> <span>Notify me</span>`;
+      showToast(isNot 
+        ? "📨 Meta Beta Invitation Watcher Activated! System will notify on invite detection."
+        : "Notification preference reset.");
+    });
+  }
+
+  // Secondary Tools Toggle (Stars & Subscriptions)
+  const btnToggleOther = document.getElementById("btnToggleOtherTools");
+  const collapseEl = document.getElementById("otherToolsCollapse");
+  if (btnToggleOther && collapseEl) {
+    btnToggleOther.addEventListener("click", () => {
+      const isHidden = (collapseEl.style.display === "none");
+      collapseEl.style.display = isHidden ? "block" : "none";
+      btnToggleOther.innerText = isHidden ? "Hide Stars & Subscriptions ▲" : "Show Stars & Subscriptions ▼";
+    });
+  }
 
   // Trigger Now Button in Sidebar
   const btnTrigger = document.getElementById("btnSidebarPostNow");

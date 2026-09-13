@@ -926,146 +926,488 @@ body {
   font-weight: 800;
 }
 
-/* ================= Box C: Modern Content Monetization Hub ================= */
+/* ================= Box C: Modern Content Monetization Hub (Criteria Area vs Invite-Only) ================= */
 .box-monetization-hub {
   background: var(--bg-surface-glass);
   border: 1px solid var(--border-gold-subtle);
   border-radius: var(--radius-lg);
-  padding: 18px;
+  padding: 20px;
   box-shadow: var(--gold-box-shadow);
   backdrop-filter: blur(20px);
-}
-
-.monetize-category-title {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--gold-bright);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 16px;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.monetize-tool-card {
-  background: rgba(6, 8, 12, 0.7);
-  border: 1px solid var(--border-gold-subtle);
-  border-radius: var(--radius-md);
-  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 8px;
-  transition: all 0.2s ease;
+  gap: 16px;
 }
 
-.monetize-tool-card:hover {
-  border-color: var(--border-gold-glow);
-}
-
-.monetize-tool-card.active-program {
-  border-color: var(--gold-bright);
-  background: linear-gradient(135deg, rgba(20, 18, 10, 0.6), rgba(8, 10, 16, 0.7));
-}
-
-.monetize-tool-header {
+.monetize-hub-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-}
-
-.monetize-tool-icon-box {
-  display: flex;
   align-items: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.monetize-tool-icon {
-  font-size: 20px;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--bg-surface-3);
-  border: 1px solid var(--border-gold-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.monetize-badge {
+.badge-program-type {
   font-size: 11px;
   font-weight: 800;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.monetize-badge.eligible {
-  background: var(--fb-green-bg);
-  color: var(--fb-green);
-  border: 1px solid var(--fb-green);
+.badge-program-type.criteria {
+  background: rgba(24, 119, 242, 0.18);
+  color: #58a6ff;
+  border: 1px solid #1877f2;
 }
 
-.monetize-badge.in-progress {
-  background: var(--gold-badge-bg);
+.badge-program-type.invite_only {
+  background: rgba(212, 175, 55, 0.15);
   color: var(--gold-bright);
-  border: 1px solid var(--gold-bright);
+  border: 1px solid var(--gold-primary);
 }
 
-.monetize-badge.invite-only {
-  background: rgba(148, 163, 184, 0.15);
-  color: #94a3b8;
-  border: 1px solid #64748b;
-}
-
-.btn-setup-tool {
+.btn-fb-pro-monetize-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 6px;
-  padding: 6px 14px;
-  border-radius: var(--radius-sm);
-  background: var(--gold-metallic-grad);
-  color: #030406;
-  font-size: 11.5px;
-  font-weight: 800;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: rgba(24, 119, 242, 0.15);
+  border: 1px solid rgba(24, 119, 242, 0.4);
+  color: #70b5ff;
+  font-size: 12px;
+  font-weight: 700;
   text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-fb-pro-monetize-link:hover {
+  background: #1877f2;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(24, 119, 242, 0.5);
+}
+
+/* 2 Option Mode Switcher */
+.monetize-mode-selector {
+  margin-top: 4px;
+}
+
+.monetize-mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 680px) {
+  .monetize-mode-tabs {
+    grid-template-columns: 1fr;
+  }
+}
+
+.monetize-mode-btn {
+  background: rgba(12, 14, 20, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   cursor: pointer;
-  border: none;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-}
-
-.btn-setup-tool:hover {
-  transform: scale(1.03);
-}
-
-.monetize-progress-bar-bg {
-  height: 7px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
   overflow: hidden;
 }
 
-.monetize-progress-bar-fill {
-  height: 100%;
-  background: var(--gold-metallic-grad);
-  border-radius: 10px;
-  transition: width 0.6s ease;
+.monetize-mode-btn:hover {
+  background: rgba(20, 24, 34, 0.85);
+  border-color: rgba(212, 175, 55, 0.3);
 }
 
-.monetize-meta-row {
+.monetize-mode-btn.active {
+  background: linear-gradient(135deg, rgba(28, 24, 12, 0.9), rgba(12, 16, 24, 0.95));
+  border: 1.5px solid var(--gold-bright);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+.monetize-mode-btn.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--gold-metallic-grad);
+}
+
+.mode-btn-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.mode-btn-text {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mode-btn-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.monetize-mode-btn.active .mode-btn-title {
+  color: var(--gold-bright);
+}
+
+.mode-btn-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.mode-btn-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(24, 119, 242, 0.2);
+  color: #58a6ff;
+  border: 1px solid rgba(24, 119, 242, 0.4);
+  white-space: nowrap;
+}
+
+.mode-btn-badge.badge-beta {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-bright);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* ================= View 1: Criteria Area (Screenshot 1 & 2) ================= */
+.waitlist-card-fb {
+  background: rgba(3, 4, 6, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.waitlist-top-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.monetize-tool-desc {
+.waitlist-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+}
+
+.waitlist-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+/* Blue Facebook Button */
+.btn-notify-fb {
+  background: #1877F2;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(24, 119, 242, 0.35);
+}
+
+.btn-notify-fb:hover {
+  background: #166fe5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.5);
+}
+
+.btn-notify-fb.notified {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+/* 6-Segmented Criteria Progress Bar (Screenshot 1) */
+.criteria-segmented-bar {
+  display: flex;
+  gap: 6px;
+  width: 100%;
+}
+
+.criteria-segment {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  transition: all 0.4s ease;
+}
+
+.criteria-segment.filled {
+  background: #1877F2;
+  box-shadow: 0 0 8px rgba(24, 119, 242, 0.6);
+}
+
+.waitlist-footer-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Eligibility Grid */
+.eligibility-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.eligibility-grid-fb {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 860px) {
+  .eligibility-grid-fb {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eligibility-card-fb {
+  background: rgba(5, 7, 10, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 110px;
+  transition: all 0.2s ease;
+}
+
+.eligibility-card-fb.met {
+  border-color: rgba(24, 119, 242, 0.35);
+  background: rgba(24, 119, 242, 0.04);
+}
+
+.eligibility-card-fb-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eligibility-check-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.eligibility-check-icon.checked {
+  background: #1877F2;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(24, 119, 242, 0.4);
+}
+
+.eligibility-check-icon.pending {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+
+.eligibility-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.eligibility-metric-val {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+.eligibility-mini-progress-bg {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.eligibility-mini-progress-fill {
+  height: 100%;
+  background: #1877F2;
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+/* How It Works Card (Screenshot 2) */
+.how-it-works-card {
+  margin-top: 18px;
+  background: rgba(3, 4, 6, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.how-it-works-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.how-it-works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 860px) {
+  .how-it-works-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.how-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.how-col strong {
+  font-size: 12.5px;
+  color: #fff;
+}
+
+.how-col p {
   font-size: 11.5px;
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ================= View 2: Invite-Only Page (Screenshot 3) ================= */
+.beta-notice-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(3, 4, 6, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.beta-icon-col {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.invite-only-box {
+  margin-top: 14px;
+  background: rgba(3, 4, 6, 0.75);
+  border: 1px solid var(--border-gold-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.invite-box-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.invite-badge-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 70%;
+}
+
+.invite-mail-icon {
+  font-size: 22px;
+  color: #58a6ff;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.invite-booster-card {
+  background: rgba(212, 175, 55, 0.06);
+  border: 1px dashed var(--border-gold-mid);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+
+.booster-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Additional drawers & footer */
+.btn-subtext-toggle {
+  background: transparent;
+  border: none;
+  color: var(--gold-bright);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.monetize-direct-links-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-direct-cm-link {
+  color: #58a6ff;
+  border-color: rgba(24, 119, 242, 0.4);
+}
+
+.btn-direct-cm-link:hover {
+  background: rgba(24, 119, 242, 0.15);
+  border-color: #1877F2;
 }
 
 /* ================= Responsive Queries ================= */
