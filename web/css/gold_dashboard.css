@@ -1,7 +1,9 @@
 /* =========================================================================
    META PROFESSIONAL DASHBOARD - OBSIDIAN GOLD VIP EDITION
-   2-Column Layout: Left Sidebar (Pages, Today's Remaining, Real IP Tracker)
-   Center Section: Video Previews, Key Analytics, Real Country, Content Monetization
+   2-Column Layout: Left Sidebar (Pages, Today Status, Upload IP Tracker)
+   Center Section: Video Previews (Paginated 8 + Load More), Key Analytics,
+   Real Country Demographics (Taiwan, Malaysia...), Official Page Quality Card,
+   and Modern Meta Content Monetization (Criteria-Based vs Invite-Only Tools)
    ========================================================================= */
 
 :root {
@@ -9,7 +11,7 @@
   --bg-surface-1: #07080d;
   --bg-surface-2: #0e1118;
   --bg-surface-3: #151922;
-  --bg-surface-glass: rgba(12, 14, 21, 0.88);
+  --bg-surface-glass: rgba(12, 14, 21, 0.90);
 
   --border-gold-subtle: rgba(212, 175, 55, 0.22);
   --border-gold-mid: rgba(212, 175, 55, 0.45);
@@ -639,7 +641,87 @@ body {
   color: #fff;
 }
 
-/* ================= Box A: Video Library with Previews ================= */
+.action-link-btn.btn-status-check {
+  background: var(--gold-badge-bg);
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
+  font-weight: 800;
+}
+
+/* ================= Real Facebook Page Quality & Status Card (Screenshot 2) ================= */
+.box-page-status-quality {
+  background: var(--bg-surface-glass);
+  border: 1px solid var(--border-gold-mid);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--gold-box-shadow);
+  backdrop-filter: blur(20px);
+}
+
+.status-fb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-gold-subtle);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.status-fb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.status-fb-tile {
+  background: rgba(3, 4, 6, 0.7);
+  border: 1px solid var(--border-gold-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status-check-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--fb-green-bg);
+  border: 1px solid var(--fb-green);
+  color: var(--fb-green);
+  font-size: 12px;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.extra-features-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 8px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.feature-status-active {
+  color: var(--fb-green);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* ================= Box A: Video Library (8 Paginated + Load More) ================= */
 .box-video-library {
   background: var(--bg-surface-glass);
   border: 1px solid var(--border-gold-subtle);
@@ -726,7 +808,27 @@ body {
   font-weight: 800;
 }
 
-/* ================= Box B: Key Analytics ================= */
+.btn-load-more {
+  background: linear-gradient(135deg, rgba(28, 24, 12, 0.95), rgba(12, 14, 20, 0.95));
+  border: 1px solid var(--gold-bright);
+  border-radius: var(--radius-sm);
+  color: var(--gold-bright);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 11px 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+.btn-load-more:hover {
+  background: var(--gold-metallic-grad);
+  color: #030406;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* ================= Box B: Key Analytics & Audience Tabs ================= */
 .box-analytics-grid {
   background: var(--bg-surface-glass);
   border: 1px solid var(--border-gold-subtle);
@@ -765,13 +867,37 @@ body {
   color: #fff;
 }
 
-/* Strict Real Country Fallback Box */
+/* Audience Demographics Box & Sub-Tabs */
 .country-demographics-box {
   margin-top: 16px;
   background: rgba(3, 4, 6, 0.6);
   border: 1px solid var(--border-gold-subtle);
   border-radius: var(--radius-md);
   padding: 14px;
+}
+
+.aud-subtabs-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.aud-tab-btn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.aud-tab-btn.active {
+  background: var(--gold-badge-bg);
+  border-color: var(--gold-bright);
+  color: var(--gold-bright);
 }
 
 .no-data-alert {
@@ -894,6 +1020,27 @@ body {
   border: 1px solid #64748b;
 }
 
+.btn-setup-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--gold-metallic-grad);
+  color: #030406;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.btn-setup-tool:hover {
+  transform: scale(1.03);
+}
+
 .monetize-progress-bar-bg {
   height: 7px;
   background: rgba(255, 255, 255, 0.08);
@@ -921,46 +1068,6 @@ body {
   line-height: 1.4;
 }
 
-/* ================= Bottom Bar ================= */
-.luxe-bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: rgba(5, 6, 9, 0.94);
-  backdrop-filter: blur(25px);
-  border-top: 1px solid var(--border-gold-subtle);
-  padding: 8px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.8);
-}
-
-.luxe-nav-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  color: var(--text-muted);
-  font-size: 10.5px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 10px;
-  border-radius: 10px;
-  user-select: none;
-}
-
-.luxe-nav-btn.active {
-  color: var(--gold-bright);
-  font-weight: 800;
-}
-
-.luxe-nav-icon {
-  font-size: 18px;
-}
-
 /* ================= Responsive Queries ================= */
 @media (max-width: 960px) {
   .dashboard-layout-container {
@@ -975,6 +1082,9 @@ body {
   }
   .main-content-col.hide-mobile {
     display: none;
+  }
+  .status-fb-grid {
+    grid-template-columns: 1fr;
   }
   .analytics-tiles-3col {
     grid-template-columns: 1fr;

@@ -6,13 +6,13 @@ from datetime import datetime, timezone
 import requests
 from flask import Flask, jsonify, request, send_from_directory
 
-app = Flask(__name__, static_folder="docs")
-
 # Paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "data", "posted_videos.db")
 CONFIG_PATH = os.path.join(BASE_DIR, "config.yaml")
 TOKENS_PATH = r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-8050-53be5bd48383\scratch\pages_tokens.json"
+
+app = Flask(__name__, static_folder=os.path.join(BASE_DIR, "docs"), static_url_path="")
 
 # In-memory API cache (TTL: 300s / 5 mins)
 API_CACHE = {}
@@ -134,19 +134,19 @@ def get_next_slot():
 
 @app.route("/")
 def index():
-    return send_from_directory("docs", "index.html")
+    return send_from_directory(os.path.join(BASE_DIR, "docs"), "index.html")
 
 @app.route("/css/<path:filename>")
 def serve_css(filename):
-    return send_from_directory("docs/css", filename)
+    return send_from_directory(os.path.join(BASE_DIR, "docs", "css"), filename)
 
 @app.route("/js/<path:filename>")
 def serve_js(filename):
-    return send_from_directory("docs/js", filename)
+    return send_from_directory(os.path.join(BASE_DIR, "docs", "js"), filename)
 
 @app.route("/data/<path:filename>")
 def serve_data(filename):
-    return send_from_directory("docs/data", filename)
+    return send_from_directory(os.path.join(BASE_DIR, "docs", "data"), filename)
 
 @app.route("/api/overview")
 def api_overview():

@@ -149,6 +149,9 @@
         </div>
 
         <div class="page-action-links">
+          <button id="btnHeroCheckStatus" class="action-link-btn btn-status-check">
+            <span>⚡ Check Status Now</span>
+          </button>
           <a id="linkFbApp" href="https://www.facebook.com/" target="_blank" class="action-link-btn">
             <span>📱</span> <span>Open in FB App</span>
           </a>
@@ -161,7 +164,55 @@
         </div>
       </section>
 
-      <!-- Box A: Uploaded Videos Library (with Previews & Views) -->
+      <!-- Official Facebook Page Quality & Status Card (Screenshot 2 Match) -->
+      <section class="box-page-status-quality" id="boxPageStatusQuality">
+        <div class="status-fb-header">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <img id="statusCardAvatar" class="page-item-avatar" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large">
+            <div>
+              <h3 style="font-size:16px; font-weight:800; color:#fff;" id="statusCardPageName">Me Text</h3>
+              <span style="font-size:12px; color:var(--fb-green); font-weight:700;">● Page has no issues</span>
+            </div>
+          </div>
+          <span class="recommendation-status-badge">
+            <span>✓</span> <span>No Restrictions</span>
+          </span>
+        </div>
+
+        <div class="status-fb-grid">
+          <!-- Community Standards violations -->
+          <div class="status-fb-tile">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="status-check-circle">✓</span>
+              <strong style="color:#fff; font-size:13px;">Community Standards violations</strong>
+            </div>
+            <p style="font-size:12px; color:var(--fb-green); font-weight:700; margin-top:4px;">Good news: no violations to show.</p>
+            <span style="font-size:10.5px; color:var(--text-muted); line-height:1.4;">If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions.</span>
+          </div>
+
+          <!-- Account status & Extra features -->
+          <div class="status-fb-tile">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="status-check-circle">✓</span>
+              <strong style="color:#fff; font-size:13px;">Account status: No restrictions</strong>
+            </div>
+            <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">Your account looks good! Zero strikes or suspension warnings.</p>
+            
+            <div class="extra-features-row">
+              <div class="feature-item">
+                <span>🛡️ Recommendations</span>
+                <span class="feature-status-active">Active ›</span>
+              </div>
+              <div class="feature-item">
+                <span>💰 Monetization</span>
+                <span class="feature-status-active" id="featureMonetizationStatus">Active ›</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Box A: Uploaded Videos Library (8 Paginated + Load More Button) -->
       <section class="box-video-library">
         <div style="display:flex; align-items:center; justify-content:space-between;">
           <h3 class="section-title-gold">🎬 Uploaded Videos & Reels Library</h3>
@@ -172,9 +223,14 @@
         <div class="videos-horizontal-scroll" id="videosListContainer">
           <!-- Dynamically populated video cards with previews -->
         </div>
+
+        <!-- Load More Button -->
+        <div style="text-align:center; margin-top:16px;">
+          <button id="btnLoadMoreVideos" class="btn-load-more">⬇️ Load More Videos</button>
+        </div>
       </section>
 
-      <!-- Box B: Key Analytics (Views, Engagement, Real Country, Page Recommendation) -->
+      <!-- Box B: Key Analytics & Real Audience Demographics (Screenshot 1 Match) -->
       <section class="box-analytics-grid">
         <div style="display:flex; align-items:center; justify-content:space-between;">
           <h3 class="section-title-gold">📊 Key Analytics & Performance</h3>
@@ -201,14 +257,18 @@
           </div>
         </div>
 
-        <!-- Strict Real Country Demographics Box -->
+        <!-- Real Audience Demographics Box with Sub-Tabs (Countries / Age & Gender / Cities) -->
         <div class="country-demographics-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <h4 style="font-size:13px; font-weight:800; color:#fff;">🌍 Audience Country Demographics</h4>
-            <span style="font-size:11px; color:var(--text-muted);">Real Meta Insights</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+            <h4 style="font-size:13px; font-weight:800; color:#fff;">🌍 Audience Demographics (Lifetime)</h4>
+            <div class="aud-subtabs-row" id="audSubTabs">
+              <button class="aud-tab-btn active" data-tab="countries">Countries</button>
+              <button class="aud-tab-btn" data-tab="age_gender">Age & Gender</button>
+              <button class="aud-tab-btn" data-tab="cities">Cities</button>
+            </div>
           </div>
           <div id="countryDemographicsContainer">
-            <!-- Dynamically populated or Strict No-Data Box -->
+            <!-- Dynamically populated real demographics or strict fallback -->
           </div>
         </div>
       </section>
@@ -226,13 +286,13 @@
         <!-- Category 1: Criteria-Based Tools -->
         <div class="monetize-category-title">
           <span>🎯 Criteria-Based Tools</span>
-          <span style="font-size:10px; color:var(--text-muted); font-weight:500;">(Eligibility criteria poori karne par milte hain)</span>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:500;">(Criteria poora hone par "Set Up Tool" button active hota hai)</span>
         </div>
         <div id="criteriaToolsContainer">
           <!-- Stars, Subscriptions, Branded Content -->
         </div>
 
-        <!-- Category 2: Invite-Only Tools -->
+        <!-- Category 2: Invite-Only Programs -->
         <div class="monetize-category-title" style="margin-top:20px;">
           <span>📨 Invite-Only Programs</span>
           <span style="font-size:10px; color:var(--text-muted); font-weight:500;">(Meta ke direct invitation se activate hote hain)</span>
