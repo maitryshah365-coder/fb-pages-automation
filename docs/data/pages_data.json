@@ -38,7 +38,7 @@
       "category": "Reel creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/725781875_122116019853278552_8428777618530796383_n.jpg?stp=c0.153.736.736a_dst-jpg_s200x200_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=rbtq8du0B0gQ7kNvwGKzMgl&_nc_oc=AdqOBG_jNGckOIki9DymXfHAI1xkCqJmiSndfokAZxmA5lsol5yYvmDsMcENShuJMME&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=3g8dyZ70CSfUpwB4m-RNeQ&_nc_tpa=Q5bMBQI1e_w5ChWEtyr83vnGItKbw9fiHvHSWM7sftsmhUwH0Z5DIrEq8HFNWsm6O0-e9JEJxvqXubDIVg&oh=00_AQIqYOoxAbLNUmg-VOHzlnaEB6IdIyi9NjjyBTJxhhPonQ&oe=6AACE398",
       "link": "https://www.facebook.com/988523547680750",
-      "access_token": "EAATaybbprZAIBSaZCQ8ldPGPNpZAq4LCypRZAbpxHZCieCZBpP1pfof2scrlOZCc1ngVFVvli7V8jcXdZBqoK0cwv2blq59fbMc8y8KeRaJLIZAImK3qZBrI7RFUwgV5q6FxWYl0AgOPcbvzZC2uhM2YZCn0yckkROgbxaIqSIFPeQ6ySGmPbIlTgLptCj3aiOxjM1iDwxTU",
+      "access_token": "EAATaybbprZAIBSbfjGK0wqqXCt7s7phaJV9H8zpadZApx09kCgVGZBR36f6yPZCY9avaYX0fHV1C6GgTsOsxm4Cznr7QiQ4tPz2zOXbwLZBNeuTyKcukZCZAPnzpW5aKZBJd5xmBJX2eRbQzxZBj5OfFiSI6v4qiObCUeraSWL9obrGdmuR9HDXFbOopx6Ch2KpWFZCbjZBnFXJ",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 23,
@@ -59,7 +59,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 0,
+          "organic_video_views": 0,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -616,7 +624,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/728491226_900455729733663_914022161779703686_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=twB1AOebfZ4Q7kNvwG5tbTP&_nc_oc=AdrcqAbOja_WraHrwFy6IkXKPFqqcKuDRUgZB8vVb_d9zMa0fzlsTadlOakbnEZDMds&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=AmMfaS_ee13eTKEVqj5XHA&_nc_tpa=Q5bMBQItjgzexIv4zVXx9rOHF-XaO8jNKOkxvq6qXP5M_YZuWWXI1uQPuqsDpSWH2dJNnvcf6gEBYgBdhw&oh=00_AQKJfZpULkTrAQu4uv3Li2g01uUn1qmZ2OGepqevRAcONw&oe=6AACE439",
           "permalink": "/reel/1018505700673289/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 2,
@@ -627,7 +643,7 @@
       "category": "Reel creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/726575939_122115346215287604_2669047298119040958_n.jpg?stp=c0.153.736.736a_dst-jpg_s200x200_tt6&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=RZ4p9M2m0mgQ7kNvwHiDJDM&_nc_oc=AdqS5kpgVMvrTG8dB_m74ZznhMINvyco7FFYsBXp2Ndv0Q4yDAB6xgaqEuv5QbVPpLk&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=wHBtJoEFzAIX4WId1TbXew&_nc_tpa=Q5bMBQLZQzfICIeXaZT-ETlK_lATDzbRVt8l2hdZ279YUXugSo5BLKN1cjCedFC0qf8HCug3tg9aUrQN5w&oh=00_AQJO7XQosrtduVyBIGEitDdS929r68h4A0mOJ4x6d-mGCg&oe=6AACF995",
       "link": "https://www.facebook.com/1040244259164767",
-      "access_token": "EAATaybbprZAIBSbtdUDj5fqZAEAyyoaq6pz8dugJ2qft0JSIz2Ujdup8lKSfLG4w0BMGzso5iwXZA1hGCHWztTS7MsAaQMjwLLXWQb2EQU4bwo92ZBrEoBM7K3ICM2X8ZCbczh7IREs4KGdHW3lZCZA4hmYZBO058cEnZBuZBHb2JxbLO6MoY8PxeiYnZAstrmOgtolks6x",
+      "access_token": "EAATaybbprZAIBSdc4IKLB25ueKKoBkLxNHB79S9bTFFKxgLXNYkMIKu9n82axLmZCrzdcq7ZC5rrc26fZCUAH63TxbYIIg10ZBoTDO8H32A7kxrVjvxInZB2Q6PgbMoBWiXcZCRFKObuu7RVPkCDSey3ubQGMCP1i1IQplse3Iwt846bFs9rwwezyceg4I5oH95Qti0kfFy",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 52,
@@ -648,7 +664,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 0,
+          "organic_video_views": 0,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -1698,7 +1722,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/728568826_1570372504759824_6482800493287646421_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=7yQ9bvtMCIUQ7kNvwHQJPHt&_nc_oc=AdpUhc6UXaGuY98LmG9YSyEJsM3kf4pNXyhYD2mbOm3owtjUJ4f7K_xIB1Gw3n1dqc8&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=eDmPCrPtoFuga5E0J3EFQg&_nc_tpa=Q5bMBQKEpAawvWtpd4gvuUoFH_NqAaMT5ft_vxCj-WWKdrjKIJ3e7Upbx_ST8j7sDudrUxKRJ_i_rZTc5g&oh=00_AQJDJbhiiJCCxVsUymf6aGDnWXWN6Bdd4BgeqPKE7HPpeg&oe=6AACEC97",
           "permalink": "/reel/3500277470121874/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 3,
@@ -1709,7 +1741,7 @@
       "category": "Reel creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/726495967_122114194761274602_7373155841372729990_n.jpg?stp=c45.107.645.645a_dst-jpg_s200x200_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=4vBYKnc66oAQ7kNvwHf4Igi&_nc_oc=AdrJZAYdxdHoT7HUIsBJrfHvqhdEUhLfWCWwPnohNE19mbVMG3maS5hw2I_JOpPWhII&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=MyV3fP3aNjrQQddgiS7MBA&_nc_tpa=Q5bMBQI8Jcjm7OCr3Yb8-KjvV9naTOStYFJR6iNJto8TolnWYcSqgiXRBIqZKiTfeUYfFihF0XxwHXIL7w&oh=00_AQLpWAxbbsfBiyP2WrrKVdyuIyRbN3lk-5pHuvPAuY8x4w&oe=6AACEDE9",
       "link": "https://www.facebook.com/965629596638624",
-      "access_token": "EAATaybbprZAIBSeceRgQ9naqgZCPgyFc95ZBELrZBljePOLcLU7fjeV9wvUYOO3ZAR4H52zXmOtXRUZCdfO8ImvelpQv4222R8nTsWZAAf8Ww4EZBWTWBFZAynMLnlUGuCtjZAsre4NzZALoYuLWt8knZBnTUeBViYFZBQkaZAeQbOoRVIEYboOhqyvtck4bz8hzXlko23GdtF",
+      "access_token": "EAATaybbprZAIBSQx1AgqYbLy7Wzf0McLCci55QhUI7KyUZCZCpwmKJRUDutcvXxZCSInqpiwGumGShqfH3h4NX8Xl6mkw99dmylqILzszKySwXlOuDeSNV8UbSBQIsC52ZCwzyv7tY0S1mcHZCxPSkXY75pO2tfIHO4YR5DIk18RIE71Ne4ibih54sMkiwMO1qAEWdVZCrC",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 23,
@@ -1730,7 +1762,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 0,
+          "organic_video_views": 0,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -2287,7 +2327,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/729784716_1358989282775252_1631131846262522656_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=Fz6PtmOaiPAQ7kNvwGgyDaq&_nc_oc=AdrND0wm_JNDCp9k_HbTET0xflCpWI0m2Yh2gPOkWJu2JjwZ5JO6KhrD6AbW3obaBak&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=bZ_GEHkv-eFF6RJECKilJg&_nc_tpa=Q5bMBQIcUuLhnn5o40GW1bem2yG6INieyui6CaSGRcKLH29myYykRdmrFFvzisCar56zWdD6K6EzelJogw&oh=00_AQIqlI4s1cDVQs4acdg70VqhHPbFvlLc1yoki47lj4RsNA&oe=6AACEBDD",
           "permalink": "/reel/1028667716270613/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 4,
@@ -2298,7 +2346,7 @@
       "category": "Reel creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/727497501_122115467349268362_7451481819821754522_n.jpg?stp=c23.115.690.690a_dst-jpg_s200x200_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=C5RyuArsbhcQ7kNvwGoA_DS&_nc_oc=Adp1COByXM7SzOyROVxFuh_QH98kbejnB62daF6nPkloOoMcXl1fWfvYYzSy3vxp4EQ&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=mJ8kDojEDluLmmaDnSC5oA&_nc_tpa=Q5bMBQKYbTy2zHalxVZDbk7xew0gnqt7R_dAB-WxS8hV-n3qo7XaD7d61o2L62bKT0HhMJUaYTGxDHqIbA&oh=00_AQK82RrRXI4nftSTxbHVbeggkbt0jczO1OaEcoWgc_jiUw&oe=6AACFE17",
       "link": "https://www.facebook.com/956622247541040",
-      "access_token": "EAATaybbprZAIBSaGGhll1uRFN02IRrwTZCW4cj7APC6m4e0HZAYPhxh7pAYPq6yCkwmKKGsIqiceNZCLZBYZAAR7LRlpeE1AhDpqWLZBUFrgo1dQH36yukEHZCoZBigbfAndOjQCfhisVqfFLFCASU3JOa86YeBOZCpZAqTW4aMCMQ5qHA06T0C7HnsEKffXBq0gDPcQUA0",
+      "access_token": "EAATaybbprZAIBSSGupA3xlhLxHwozV18hHqpFflj5tUBDq7ZAalqqNPp6ZA8uPF8NHORHL17lyw89iVTfwMgzSvcyZAWI9Q1NslzNyk4rT4gBPR3lOUNmRVWrDqzHDPZAprNYP2SBHNINF0t9lMqjXrZBSVWvHjQ3waPMOZAmEvwkMbO5O3MflrnLS3FZC8sCEMnw64jZC1HJ",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 43,
@@ -2319,7 +2367,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 0,
+          "organic_video_views": 0,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -3216,7 +3272,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/729819677_1497328684788318_5909557807362177872_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=BVJLjCOXIW8Q7kNvwGWrkGH&_nc_oc=AdqjBYJdKXl0NNbSHc8nRvMQ3zUaMcWyfz8VeIaq-3qGOe-JrMUGrV55XD-zsMNaSZk&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=A-0TJuvMorJrD_gjVEGPSw&_nc_tpa=Q5bMBQIwqcXhfxNU_xGcwnY_aki2Oey4xrdMfZX8xXavLzvgDaOGLMGWYVWb9nYug1t8SJy6Pt-57_999A&oh=00_AQLPxdjhzi_ZyIG6fpW_WJrZl_q8VnaQZstIBMEC4ymHCg&oe=6AACF495",
           "permalink": "/reel/1010129021945104/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 5,
@@ -3227,7 +3291,7 @@
       "category": "Reel creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/725656438_122117992041283501_8046125734857255958_n.jpg?stp=c23.115.690.690a_dst-jpg_s200x200_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=FKVyVpuv2uIQ7kNvwGL8ebh&_nc_oc=AdpqTsDEe2BW9_mxXKtiy3561eDebaXfSBEmUBvQmaO9qEx0iXjVD6tVX9WrRSBkqt8&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=O3TpXoX9ej0EHV3KaIdsxQ&_nc_tpa=Q5bMBQIlxVLEyQKbOoCSKOCXN936Z1B-etrNfa5EOieWIpvUA7ZsA1c_9owi39wIBmTbFk_G8MBSlJBK6g&oh=00_AQLxHXy1IF8Dibbqx4j_il1Jd_i9vKIDoTGflQ6g5g3xcg&oe=6AACFCCE",
       "link": "https://www.facebook.com/1034326643100670",
-      "access_token": "EAATaybbprZAIBSSDJ9jWo8LP0Pl7rwe1jsUm0cwYlfxC0DYNOxV69nOluuLrTileqWZAFRpjYFE9h6U7ZCfZADn9vP9i8ZAgZCxqT4DOwXqZCzOip5TKHrwtz1CGzkUubLZCYLZAfDiucEyNNlZBtH6XE2iasZBrPuJisCBEXO5wOtn0EZAvgWB6S3bZAvL2PT3UhfZCp7Ep5o",
+      "access_token": "EAATaybbprZAIBSXP4shWOMxHWCzAhfU9fRZCOawlppvY0ZCbOJUyZCtN3JF9tgDPvIXiy3wNMsrDfiVe6PwbmNvtMtCEc6TDtZABpdLcRdfY2UH2cHrtpEaXGrekKZA6ZBWL2Rz1S32ajfTGW3vMOqrRgRfyZAwdiwW9gocE8vtY2XW5fRZBhgSBFATezfBHgQ10S7CIZATZB23",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 47,
@@ -3248,7 +3312,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 0,
+          "organic_video_views": 0,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -4213,7 +4285,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/728315165_1560197025442700_7456063210938826847_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=gbkAlU5TssoQ7kNvwFvdxDS&_nc_oc=AdqLjdeU541CmqVw2zio1AJ_iTFIgrWaVhIZC8Hr5vFPaaKyzlvFUnHNB-5KSQ9m7h8&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=vlM6F_WpxPwQORmJcQgw9A&_nc_tpa=Q5bMBQI5y3losiTJu4BfGv4yavlwsOQP_qd2Njj3pMUVx-pL_lvc5_agGtvqYnhIDvOZFe3hNCdY95dNvg&oh=00_AQL9v2PANiwaP1gTNq_V2QPWzZ1ZKYmlsPNy_ikjKSu0HA&oe=6AACFAEF",
           "permalink": "/reel/1881037072590020/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 6,
@@ -4224,7 +4304,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/616555690_122109858987189334_1602272515650958867_n.jpg?stp=c0.125.736.736a_dst-jpg_s200x200_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=op1n6_Is4TkQ7kNvwE8wHZc&_nc_oc=AdqywX7Y8p8FMNumCRaPue_wPeY4xEP0EKyNs_vTSYF9VPbYH6_mCWAKXGKzojjmrQ4&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=ZhuUI2cHlaoTYGJpSC7_Bg&_nc_tpa=Q5bMBQLN4I8svkOOkTQx-kkusOM68sb2_w9NSjCrTacrAp2lS1rJ8GqLzYxtPSJfkIwDhty7HIshPd4VkQ&oh=00_AQI8FFwibzDaTJbI_5pl57rpK4KtenbC1PAz6f2Qc6L2iA&oe=6AACCA69",
       "link": "https://www.facebook.com/924636817403215",
-      "access_token": "EAATaybbprZAIBSe7qYZC5rCYOftIHGmS47AJqw75YPJRc77hWuwl8MH6HjtYe9WEvbp4PZC9aI2KnK7xaEpQamm7rfPV1rOOtkipZCt2vRfSWKtLtBVULE1ZBs14eSmEEP9oNXnEAQgQ2ivZBhQxllYWqeLszuZBc8yAmYUqm2uZAWTcO0jHVlFSR9dMrqNxfbbQKGsb",
+      "access_token": "EAATaybbprZAIBSYwfINjKahzfuIwHB2yvbAuOiTtqXHNshXGVIMdZA5MFO00uF1uXjQLtO9g7d1cBR2F7W9VaqDh1xKOh6bmNlD6G2OzaLkm1odLFOZAfhmP3ocO2Tzyt63grzILFFtOMz4QDYfudOf41muzNhhCVaAcvp1XWAZA3CYHZBHN83wN0EdaD5AjdhGe4jBn0",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 50,
@@ -4245,7 +4325,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 25,
+          "organic_impressions": 62,
+          "organic_video_views": 38,
+          "profile_views_total": 0,
+          "daily_follows": 1,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -4961,7 +5049,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/700907247_961271360086561_477253349895501695_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=gQd4LFX7l9MQ7kNvwEbhjk6&_nc_oc=AdodY4LIIBnGsPi5nz_FWkCxWJmTuxl5VozXHHlKH9QzsvU54BP0hhTYUqpSoDJMe0s&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=AGz5Y0wEAAAA&_nc_gid=kojYVJGXN5qqxY_sn4IwpA&_nc_tpa=Q5bMBQIODU4FyqEO0iQLUoHm8-rZsvhd4OPMrRcSZZRzXQCh0lR3JXhXHtWl5eJSWGdOwkKtAZxX1D3Hig&oh=00_AQLhhpoqvgjOLhIygFKxmD961FJEamPYyoB9zfv-NZfYhA&oe=6AACCE92",
           "permalink": "/reel/1197640659054757/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 25,
+        "organic_impressions": 62,
+        "organic_video_views": 38,
+        "profile_views_total": 0,
+        "daily_follows": 1,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 7,
@@ -4972,7 +5068,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/557282847_122106669129017206_1403623978062932276_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=jLFM1Dej4pAQ7kNvwFaX7zc&_nc_oc=AdrcWndNRrMCuv9BLJNhXPbxC_MiN1udOiG1WydkrB9ZAO00infU7s7WP1Ka2FBFYQc&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=IVPFO12kGZdVdhZZ7ouUxA&_nc_tpa=Q5bMBQIki8RPVWjfzGhPxcLY_7fsM2GVMq_Sv9MDwNQ00LVcUG-FUNFSAy4sTKHH0-YVT63Z1BCSTrh4Tg&oh=00_AQL1XGE9jfTjlsmd_T8nYsiIVVtzHfsE_kUVKO74B0Fwyw&oe=6AACF1AD",
       "link": "https://www.facebook.com/795016603693140",
-      "access_token": "EAATaybbprZAIBSUp5wuMZBurgSgSppo18ZColbngZCLiml5iyIVqGLHHw015POCuddYWJir9VoApoputIMSFI3WARna8AcZAFpOWPT6FMypmZCjOwTqB0ktTFwgI8junRw2cOnOnqQOZBinYRPzKZCoeoBchtxDt0wfTial6vkJIjeQo48K6PZBYGMkBrWZAmfkThKTyiU",
+      "access_token": "EAATaybbprZAIBSaF6qYSvh7GJCFWDsLHgqhdC8mZBWCN9EJGFHYhyEcSLxR5Tl9b0nIoCcW3S8uFFPCplNZCXZC6BZAMHfgWHxoFa6tZBBcXoOuKDcouolvUbogqIzzi0ZChgGh0yMQISx0GUgfkP6A5F0ZAd0aHc0InYHn8Mo5Hg1jcvYNdxGkt9ZBZC71dGVxxHw2gVZCOX8d",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 0,
@@ -5086,7 +5182,15 @@
             "name": "Delhi, India",
             "percentage": 4.2
           }
-        ]
+        ],
+        "live_meta_insights": {
+          "views_30s_complete": 12,
+          "organic_impressions": 38,
+          "organic_video_views": 25,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -5251,7 +5355,15 @@
           }
         ]
       },
-      "videos": []
+      "videos": [],
+      "live_meta_insights": {
+        "views_30s_complete": 12,
+        "organic_impressions": 38,
+        "organic_video_views": 25,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 8,
@@ -5262,7 +5374,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/661660536_122176372826836691_4241708836572659182_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=1cvhvKUpvVkQ7kNvwE4ugxH&_nc_oc=Adr2pFfozU-mebgTsyEREkvi9MtTwE9JlcWlqrjXljp-l1VGZ4Mo-mMNJKDBqEYSa3w&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=mHsBzNnvrk6EX7FGDvzRyg&_nc_tpa=Q5bMBQL3Za3z-ETLf_MDYLBY3ZwazW0EqDLn3exiLZ0NlfdTMz_7ZjO4Wtnde59gTLjwBW9Un73HTKXMDA&oh=00_AQIXfAzE34V8tC_qliEF1Cbz5Z8ZuV90Hn5QxzL4Oe8dYQ&oe=6AACF2D3",
       "link": "https://www.facebook.com/637367679454577",
-      "access_token": "EAATaybbprZAIBSSdtciVWHXwDizXb9ih0gHJDkKZAf4TMmoEPhZB85wp3WXP5t0hjjWmT4C8wKn0vVLT9alkcsPECeOAeBOaYqM6Ck40BmwZCNjQEVPTeNNSVQxhHRizNP04TERZBfZCRtvKoKo0FxWBAZB9sZBGBNjnDzwh9jp8vLrZBYM10id4XxHRvEiOnZAdWHjcxo",
+      "access_token": "EAATaybbprZAIBSSwI3Yt0a72HS9RZAa61XZCurmQEAp7ZAASbVXYtrPYEJlpBfRZAX36OL0iR08KeGaitrIqUJmAcqRnurnmzivT7ZCHZAD5T60CUsaEIFDj4BWZBZBNjG1VnyyTMpN9tgQS7uIClzMBB2vSpLt8ZAAFpv6xAhf7iKwdthzTuTxEHzFcQJdjSOGj1rdR66lpCq",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 50,
@@ -5283,7 +5395,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 0,
+          "organic_video_views": 0,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -5999,7 +6119,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/709665023_1004407308716811_1283442023814053631_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=vXY-PWxIrlAQ7kNvwGHQNEO&_nc_oc=Adp6bUA7y0Hs7bnvjw7t7AmboE8TGGeSxQVBWH-X-vfkFfM26vfEzqyLFGkrjWbJDJI&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=AGz5Y0wEAAAA&_nc_gid=aLasTKVvC2nG4F93Ojh7tQ&_nc_tpa=Q5bMBQKPgwodj9HuPc8RrBAUhTdrqT_NcIdBNl4p8rP4NPTTtt-IcHFQb8FLoA-uu8U6wzQ4kZVvYk2uYg&oh=00_AQKqtuFO45kaZF6_M9SVBJlP3vKzCFiWzGkoHmIL-kPMcw&oe=6AACEF28",
           "permalink": "/reel/1482619920275609/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 9,
@@ -6010,7 +6138,7 @@
       "category": "Entertainment website",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/571113536_122156867936827731_5838150122569839023_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=eUo6hzOiEH0Q7kNvwEgr4SS&_nc_oc=Adp9stVOHKWSS1C1nA8_mSVyFs1cTfvJznLhQoQUQX3i-U3RuGup3Qs68aE3wQxrL1E&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=01GK2D3H1yrUyPH7pYDjSw&_nc_tpa=Q5bMBQLp98Gv8JktT94HEybSEVD3zrI5Bx7vRkO0iAwJ4Yo3K_RAyely0IR6Jk2Hc-PQlBeYWvNl27e1Ug&oh=00_AQK6V1FXB_OYNo3IJgkSKevSCUrUau3Cd0v-P4CLnH-FFQ&oe=6AACEF34",
       "link": "https://www.facebook.com/640019675857269",
-      "access_token": "EAATaybbprZAIBSWmr5EXLma72WwGGRLYYrAeFXwM78bXvTbvHPLX3J4hcGE7Ke6ZAKAWJHVolQRWf8A5OY5RyGnYI8wRH0ZCzHsxNgq8lcpoelc3AuBPFdVqrjqAMerlZAKKtAUadFY4vdMP1qaYct1z0Yer8MfBO2KSHEHvzbrecIxT5mHEGRg1iF6ST8TZAhd0y",
+      "access_token": "EAATaybbprZAIBSdZBs52hC2szSVbZCaxD99lZA6Kkm2gOuSZBA6P97NiQGBrfUyLpdkRfPCPVZAwZArh52QHSQ7yMYnZC0vXpiWKXEZAXQAn7Ma7peHN8iZALhCIiNkURcr1FopUNvsMgIOiD5TG792xPoCgKpEUs8KaqvXPwPsdh18HWIkf0ZBHCaOGVzzEsoWJ3GUM92oyPZC0",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 0,
@@ -6130,7 +6258,15 @@
             "name": "Tunis, Tunisia",
             "percentage": 5.9
           }
-        ]
+        ],
+        "live_meta_insights": {
+          "views_30s_complete": 8,
+          "organic_impressions": 21,
+          "organic_video_views": 15,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -8846,7 +8982,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/667743346_888074927520627_1804820279215294850_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=Oh6LU9rjXOwQ7kNvwGnTC9L&_nc_oc=AdoQCIlSSq7UL9FtRxj2Ql3C32YZS_sOCgIPfTm66HvNJ_ZRYOZTGHsr6ZQiIC75MCA&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=-GLyBGFthYEHsEQWtTv70w&_nc_tpa=Q5bMBQJkXjyCqkdDXtwY5j8VIIRlj9gXhykBIK6bMgqku5eoZb0PsmZlNkgANzbwTuLh-RMVsITCe4Am9g&oh=00_AQJRIusco115Vuuw8SkFlrUFE0ju0BExFqBYSle1q47xYw&oe=6AACD42B",
           "permalink": "/reel/2510663649348254/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 8,
+        "organic_impressions": 21,
+        "organic_video_views": 15,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 10,
@@ -8857,7 +9001,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/492555509_122112874130825512_6388025631904839056_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=N3cD44EZMcsQ7kNvwElW2MS&_nc_oc=Adrdak5ZjtZhrngkjfOXIIeTFqTY-aJEgDae0-yuNe2Z8-2wxeXcj2SVrfoF8VWpcZ0&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=1DdWLtzUiq6F4ugVYEd_9g&_nc_tpa=Q5bMBQKLLWJtb9oMR9YOcqKdT4YBgvaibb2cE0lwc-fvf1gMCGxdL6GHf5EjlW2717zJBHu264kUF00fMw&oh=00_AQKs_TsXza7iIH5iibYwPc_QSTYFPz0WK8MeLeEn9Hl2GA&oe=6AACEF89",
       "link": "https://www.facebook.com/626061003919674",
-      "access_token": "EAATaybbprZAIBSewPxNsDUIwDFPx2V6nP92ZAODGMblzmuUaKfcaNHh6VirrpL6fcQ46NCzIZACUGX9XhUuCKETvgTgIZAaVhTVvWOW0uF1ZA1VRAWDgdk6G3txIZC7dU2FX66l67bpogMq5EdGKAZAH3CEmr1gnWF6fAVL29KpbEvs8b8IYxR5rwsFGQIZAr8htHcbE",
+      "access_token": "EAATaybbprZAIBScArz8J8CZC3ZBBDwOUFKD9Y9JnTvu0y0BvIoGiEOCWY9S4yCICzydKrbbMrd7nRd4VQA4QGaX59K1RnkJ8epCWZAhtUftJgN3ciBTFmlZCZBnNSySfLZBQmSZCtNm0V0EWmyXK0Ip9QbaPR2PWnDpZAh3KzpAlvpx8A5GiqBgvBPaIfqT0oqHx9G06gvZB6N",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 150,
@@ -8878,7 +9022,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 1,
+          "organic_video_views": 0,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -11594,7 +11746,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/645126150_765194896357539_713526073345903302_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=103&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=exyR4TiuqJQQ7kNvwHEw558&_nc_oc=AdrEM76JiK0u76K7nQlwe5dTm0QDUyddzBoQUFw2a8UqTnbq-Gzpzd1hKkA2JBmE0cc&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=jQ0mtkMqUdneH3K0EbyDZg&_nc_tpa=Q5bMBQLgmaPH7k7aBjhNEd50Z6k5NCjwdjUjDwxCUmWeKR_MkqGFyAH2oDWyxkUD_YIJV4OeNp8s4QmU1g&oh=00_AQIbt-CpNSEl4lodVQF5KR0wuG9cuRk-ee6Yau15rJ0VGg&oe=6AACF063",
           "permalink": "/reel/1496001341955814/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 1,
+        "organic_video_views": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 11,
@@ -11605,7 +11765,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/663365986_122168873390710830_7206187344670791386_n.jpg?stp=c0.115.681.681a_dst-jpg_s200x200_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=3dkoSv_qJLMQ7kNvwEbvfFj&_nc_oc=Ado8FTUcTkHKGZh11ih0p_P-N8KGhp-ItLtijuj6RwoGnQs0fmZD9IiDO7fHcQGQMY8&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=PXoTZogLPKLamHIoOMx74w&_nc_tpa=Q5bMBQKNt3DxjXturnamxNMeJoWTTRVb11BU4fowPXffuCtYvKIjZDNNb0pC_VJlaQEEOiCvK9DIskfMyg&oh=00_AQIYqoC_sDFP2wEjowMunm4bc9ucXbdKGwD4mXkxpuUJYQ&oe=6AACDF24",
       "link": "https://www.facebook.com/528360240361556",
-      "access_token": "EAATaybbprZAIBSSyFFFUmAshzC1c2s3UNdDxxsWrDyI3ePgKgktvp0ewNZAeYWUJeZAw1RJ1sqseXlTLM8MsqZCbRNRWuxDQsCIBv8RgK3PfUat3GUEoHoAXm08CA0f9ZBoZC7FB8WGAJoJjcZBPDOzUqKxAWYoCnZCc7QFtK0HiQPKz0X31q9PrJHrk63jEuSTOWYmZA",
+      "access_token": "EAATaybbprZAIBSYZAP4KkDQ9WHfrsyQP2KCr6DB8GORk0paLte8Wh3hzsv5ZA4GcHmWQ3RpB5EG0fG1JGNfdJiPwVYlnanshaszOZBcOetw6LceXr5clZC7FKajiDu3p9jb1YZCcoZB8w1oQZCmuhejXCJuL38VZA4IYglZAYXsngIEWjmgjxZB9pPz3YSZAAZAQhnDBRmxZCX8Tkq",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 50,
@@ -11626,7 +11786,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 0,
+          "organic_impressions": 2,
+          "organic_video_views": 1,
+          "profile_views_total": 3,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -12342,7 +12510,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/712196801_2134674390443326_607346000307621177_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=uzxumwGLY-UQ7kNvwGhkqx9&_nc_oc=AdocG6QqKTJOWTPDHtR2V2YcxCG_9_r5GQOVOf_MaUxStu5QXyi99eTyUpitF2tYbw0&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=AGz5Y0wEAAAA&_nc_gid=IE0hg660uoR5fxP1On4uXQ&_nc_tpa=Q5bMBQLm26flQrzYkcjsG0DHcMzmGgM2iAxeeQQvAfdhZ1_6Sq9eEdg6pRd66qqkNktbZqAe0R6UnZUbuQ&oh=00_AQIuelMPBtNAqpXiKcdPbEKslVkydFzGepe_gNfcWmks9g&oe=6AACD970",
           "permalink": "/reel/2245385392966205/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 0,
+        "organic_impressions": 2,
+        "organic_video_views": 1,
+        "profile_views_total": 3,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 12,
@@ -12353,7 +12529,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/597179487_122155425194643077_1858384532226824471_n.jpg?stp=c0.195.686.686a_dst-jpg_s200x200_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=J8xIlUveFwgQ7kNvwEINAP3&_nc_oc=AdpNtMy0h3KxlrV8XBxcW8L7iF6d2xAp3gffiPSLct3_eoGklQGaLe1jutaSaH3CY0I&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=ckJMrr4DeWHkLm8pnP8l2A&_nc_tpa=Q5bMBQI_Dv2iysUeoI0b6WNJDxsWoVSSma_i6FFpZi5th_53EGyxtDipmXhUeDKzAq6QTpiEUNs2wsi8aw&oh=00_AQICCqP-8R5a0WgvIfHLyLD2ApNXsu1e2WJSa5Q1lgKlpQ&oe=6AACEC9B",
       "link": "https://www.facebook.com/503358542855153",
-      "access_token": "EAATaybbprZAIBSfFv0M8xVA8KERGxYs1gMQYnc9YL4I3x2C8BLPjh9hP9AWHZCycETVdnM9r8rmpTvhjdE2D9ZCIibnqYNIKky44pxUZB1Ol1DNzr2uZAoj1ZAcleBR2BSkSc6MISpkGGeEayfzXBQXn5uw8yqzUiaC0BoSypuKIsAJfIYcCvloUrZBTNxusZCuieXn0",
+      "access_token": "EAATaybbprZAIBSYtmN8E2jJLJjK9LnsfjcZA3qLyppTlX9fCWdOoR3JKan80ZB3ZAJJDSsaZAo33AdOjJHcfeLvjZA1eJkdd8BSAS5sjX49SgZCc8Pu2Uel0tEm9DaVNglZBPdhGQpbEtcWcKVPILEyNxqW21CZClhGfM5LzdtJ9DIPtSD9ePJbiKxZAZCdGty29ZCy1E1E7QkMl",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 50,
@@ -12374,7 +12550,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 2,
+          "organic_impressions": 2,
+          "organic_video_views": 5,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -13090,7 +13274,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/704108033_1020866773721426_700163981235243717_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=n38RuEb3MusQ7kNvwH64j_6&_nc_oc=Adpj_uGodyK4nWwz1sWPy8ASduj8EOx8sQ-hSv9jsz_JmMf5P8MzxMRJZAHtZGOBuew&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=AGz5Y0wEAAAA&_nc_gid=nacwWUTL_QXW-2lxVkW__g&_nc_tpa=Q5bMBQJp-_2Hk7kT6riEcHhzIdhdIO97OWDUNfdTMwT_5n1amBUTxU1KI0Z8HhDW42IUpTgoe2ze0eelFQ&oh=00_AQKv3fuYnyk40lxtlVVyDj_HpewJrUCnmfN3NavxImqI6g&oe=6AACCAF5",
           "permalink": "/reel/2263699537371492/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 2,
+        "organic_impressions": 2,
+        "organic_video_views": 5,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 13,
@@ -13101,7 +13293,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/577400924_122169341066595135_8143193799149879739_n.jpg?stp=c0.243.736.736a_dst-jpg_s200x200_tt6&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=fRUs30C6nMUQ7kNvwHJLItT&_nc_oc=AdpxxPouEIPUMOO4qEtG4TwPiVWCHRnOczjGKlXFgHzpt-9mPaQQFjayad_fLXWIxJQ&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=D-6Y9eYRucQflI44AokdQQ&_nc_tpa=Q5bMBQK5eWetMh7gLuiwLV4hsUwXLYF0itRsi7keN1t3YsgN_PmhT_Zg616i3vCiq1EOEAen83JCdxTy9Q&oh=00_AQIN1lhQrNXCf_9tdfdgaebakUgli8NW2EhxjLJGP9e52Q&oe=6AACE7FA",
       "link": "https://www.facebook.com/500794979779192",
-      "access_token": "EAATaybbprZAIBSZA5MhZAxXsO03jKLMrwdhDbSgCTqhpYRpDkZAXT4Jh8HF1YcmV9kaHgslb1D4HxEoYlRZBcHESPoZBMtpsZBZAsAbDzuWGTCRi6SAyGOanfGQeIxZBkPMO4WoOscS9X0jmhZBZCNeBIC8fjEEaOlvtRjQ7Y29u5tVdPNmwSvKPBRefY0A4ziZBsrRAJEtt",
+      "access_token": "EAATaybbprZAIBSazJlLkgyNRbYw7OtaOEGuwd67GEQtmijcryncxfCgruPRr8tKZCVHTluWfS9pGMa02nKNk9IZBiUwFRUVwsPdvRyOlXVbiIm6CxSHkesBVV7nwHTW28ktB5YFKoKlEiFHN4uwJCAfDwFziIZAF3Ndsr0qkLbKfpfY6v9l6dXsW7Exbyu19cjGhNDD7",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 200,
@@ -13215,7 +13407,15 @@
             "name": "Singapore, Singapore",
             "percentage": 8.2
           }
-        ]
+        ],
+        "live_meta_insights": {
+          "views_30s_complete": 4,
+          "organic_impressions": 7,
+          "organic_video_views": 6,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 1
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -16781,7 +16981,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/651161206_1595547271752153_80694356404791817_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=C0f49o1QCKwQ7kNvwHloFCn&_nc_oc=AdrJjOH6MuEby-q073iJzdlSPvYFPEJp6zTQc3uTwsFEEuiqrs2_Ew181U0nzgcIoOI&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=EvwgvJGQejW8BYaMOx69Tw&_nc_tpa=Q5bMBQJbWUrld_nMZbjnTpL2PjQUHd29rtDrb1rBlZqwsBTOrBuAiqbAfPcw3Ae9gaKdj_j1yLjnhCN91Q&oh=00_AQKzOWR36ZTyYKhmmoZwQGoCEOyRKT-1d18jEVKofZfNVA&oe=6AACD226",
           "permalink": "/reel/1590651052209204/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 4,
+        "organic_impressions": 7,
+        "organic_video_views": 6,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 1
+      }
     },
     {
       "index": 14,
@@ -16792,7 +17000,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/577601835_122178342368592590_159084670387591698_n.jpg?stp=c0.109.736.736a_dst-jpg_s200x200_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=QAMh5itH55IQ7kNvwG2rDsw&_nc_oc=AdrBEHEKVLoUYperNMzuOizELOLKNybhgsMHHqs5IYbxcaKyEaEu1kkZZMEXh9C0TE8&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=VTLN5uSc3ZBcKgJyZsZzCQ&_nc_tpa=Q5bMBQKRJQ9Jp9XoPO4HGS5wrFuE4evXonk6y72wtEIwGwLtFP-HV8obNKM8Eqx2kFvG3V1UHm83AdQsRA&oh=00_AQINSZf3tFd8nk3veLlRZqSe_jaOgLMOXKb9FxP3ECrjNw&oe=6AACCF9B",
       "link": "https://www.facebook.com/468230386376818",
-      "access_token": "EAATaybbprZAIBSf7YAQj3pEj9NRyAWp0bNab5cjZAe1srCPMKRWw3XshuVlZAZAxNgg7JzXewSwUkcfBf5FlmVvmGFavuDzTxmLY8fkgJbXB7h8kZAIPZAun9a1tZC0KveYdBbZCrE1EXMbUj92GFjKvCuo2G2gnvT8scnlAG5fZCjZA7NpKjJ4rKT8KcS2vvsVg6x6FxW",
+      "access_token": "EAATaybbprZAIBSQIruZBPhlVZBMVCQGYDZCaZC2YwD4jt7YnSMpN4gWmSC88ggdWDiSqpsAOKLu5CL2m1tlwTlz6N1QKKmuG8Mph64TvlpFacflarOfBrYRLx2ruFrRU4UUYtJpZBZAva6D8ThLWsXbtfIblteiLxnkpBSK4HGSFF18wOcD5MDQ5TV8N7wcSgZAStGvAnkaJ",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 50,
@@ -16813,7 +17021,15 @@
       "audience": {
         "has_real_data": false,
         "message": "Demographic Insights Pending Professional Dashboard Sync",
-        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
+        "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution.",
+        "live_meta_insights": {
+          "views_30s_complete": 1,
+          "organic_impressions": 5,
+          "organic_video_views": 4,
+          "profile_views_total": 0,
+          "daily_follows": 0,
+          "daily_unfollows": 0
+        }
       },
       "page_status": {
         "has_no_issues": true,
@@ -17529,7 +17745,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/705277086_1461707951944542_8650062475527639908_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=hgA9Y35ZOWMQ7kNvwENgJZs&_nc_oc=AdqAePu6q-6x49yio7eGPVMdGP1LtVoj8f6UYWBnRZo4mkUy-LnItJQwL5JiUwgmao4&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=AGz5Y0wEAAAA&_nc_gid=4Rq-k9xixuoblCaY4Er3ZA&_nc_tpa=Q5bMBQLfJ7PdQ1FKg_Zo8_MKfDMQ7kQnFCrGMjJUUcm2pcdPbRtmJawOF0llKE7w2T76ucDaB9SEuitI5A&oh=00_AQJkl5EQKE4-Bo-GLFFrBVxGTm3y19nvhgYPTXcqh9mOyw&oe=6AACF092",
           "permalink": "/reel/1293569842436968/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 1,
+        "organic_impressions": 5,
+        "organic_video_views": 4,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     },
     {
       "index": 15,
@@ -17540,7 +17764,7 @@
       "category": "Digital creator",
       "pic_url": "https://scontent.famd4-1.fna.fbcdn.net/v/t39.30808-1/629434790_868700609409922_8168333814244177799_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=110&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=f907e8&_nc_ohc=So7xizQ2ZRQQ7kNvwFJGLCh&_nc_oc=Adqbj5XW_at5Dg-YQbX6z4kPGbiE3-pdtBhf_io9MRIYmJ9RZkn2Ls3JxkQBthdMBiE&_nc_zt=24&_nc_ht=scontent.famd4-1.fna&edm=AJdBtusEAAAA&_nc_gid=kDESATyWQPej2fyHUOQflw&_nc_tpa=Q5bMBQJwOZKmzv_3if7HjJdYFKd5Ds33d-TRLdvLSTu3ddb9Pap_cLt2-uhIvJlAbA3bOVL9BfH55eLXkg&oh=00_AQIGa0uMgudpdj-fXGfmnhWN0s_ff8Pj4qPebF7TxQ6UYQ&oe=6AACFE6C",
       "link": "https://www.facebook.com/106309715659174",
-      "access_token": "EAATaybbprZAIBSeNHByCM2faWQ0vZBTLKQVqenvnD5t8IfTihlkyJznNxb57rWkb41SdtRsMgDcI7B8806mZBdjZATWK16YS2BNjlvL2YypKnzYPNYSGCOIbAlRSodVGoFZAAbGvYhLWHz6y3fiAJwIVQUaz2r5DlH5RrPB5oDiofCAlm795zLz0FIOkSvDkYku4ZD",
+      "access_token": "EAATaybbprZAIBSVtrJ7aUZC5oS5E70dlftu5OiPKFUHC6baWDTTTIJQOsaeU7rjRONjZB2xG0tWjIkzVQCtmTKCsN4jUv0wUQ1gbjDHcOnn0vEdZBIdopgZC78Gj9n4A2kLfyfDG49rTZAP5xnc2CUELMZBojy73F8mqBYGw3fxep8iXSoBeL5IwFAAkmWXXJGamO5yI2wZD",
       "today_posts": 0,
       "daily_limit": 4,
       "total_posts": 178,
@@ -17655,6 +17879,14 @@
           "discovery_reels": 97.8,
           "discovery_feed": 1.7,
           "discovery_page": 0.1
+        },
+        "live_meta_insights": {
+          "views_30s_complete": 3,
+          "organic_impressions": 8,
+          "organic_video_views": 7,
+          "profile_views_total": 3,
+          "daily_follows": 0,
+          "daily_unfollows": 0
         }
       },
       "page_status": {
@@ -20847,7 +21079,15 @@
           "thumbnail": "https://scontent.famd4-1.fna.fbcdn.net/v/t15.5256-10/629078343_1857804361606772_1050538233463564150_n.jpg?stp=dst-jpg_p160x160_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=200999&_nc_ohc=MKFCEhvV8LkQ7kNvwG1rRGS&_nc_oc=AdpE1s0F81KD2-gESj5ygkoxqRtaq7g7jk8wMYiiWxvdLu0UjRu9irIXLjnsGORlitE&_nc_zt=23&_nc_ht=scontent.famd4-1.fna&edm=ADk9D8YEAAAA&_nc_gid=96QPUVHJnHUNsOEBRf9zcA&_nc_tpa=Q5bMBQLaGU2CORrCW5iD1ato8C_TqIOK6f_pKewloL0uIik6Ul4nlR7TRdyRQ3zwQGDcYcfeWEnHD5J-mQ&oh=00_AQLONabJ76snyJC8GgGU7vPGsNd_vmNq_48uLzA5wp0Vpg&oe=6AACF27F",
           "permalink": "/reel/4320465671565315/"
         }
-      ]
+      ],
+      "live_meta_insights": {
+        "views_30s_complete": 3,
+        "organic_impressions": 8,
+        "organic_video_views": 7,
+        "profile_views_total": 3,
+        "daily_follows": 0,
+        "daily_unfollows": 0
+      }
     }
   ]
 }
