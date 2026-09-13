@@ -137,14 +137,36 @@ class DriveClient:
         return destination_path
 
     def delete_video(self, file_id: str, permanent: bool = True) -> bool:
-        """Deletes or trashes video from Google Drive after successful post."""
+        """Deletes or trashes video from Google Drive after successful post.
+        Handles shared file ownership permissions gracefully with automatic fallbacks.
+        """
         def _del():
             if permanent:
-                self.service.files().delete(fileId=file_id).execute()
-                logger.info(f"Permanently deleted Google Drive file ID: {file_id}")
-            else:
+                try:
+                    self.service.files().delete(fileId=file_id).execute()
+                    logger.info(f"Permanently deleted Google Drive file ID: {file_id}")
+                    return True
+                except Exception as e:
+                    logger.warning(f"Direct permanent delete failed for {file_id} ({e}), falling back to trash/remove...")
+
+            # Fallback 1: Move to Trash
+            try:
                 self.service.files().update(fileId=file_id, body={"trashed": True}).execute()
                 logger.info(f"Moved Google Drive file ID to trash: {file_id}")
-            return True
+                return True
+            except Exception as trash_err:
+                logger.warning(f"Trashing failed for {file_id} ({trash_err}), falling back to removeParents...")
+
+            # Fallback 2: Remove parents so file disappears from the folder
+            try:
+                file_meta = self.service.files().get(fileId=file_id, fields="parents").execute()
+                parents = file_meta.get("parents", [])
+                if parents:
+                    self.service.files().update(fileId=file_id, removeParents=",".join(parents)).execute()
+                    logger.info(f"Removed Google Drive file ID {file_id} from folder parents: {parents}")
+                return True
+            except Exception as final_err:
+                logger.error(f"All deletion methods failed for {file_id}: {final_err}")
+                raise final_err
 
         return retry_with_backoff(_del, action_name=f"delete_drive_file_{file_id}")
