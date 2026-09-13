@@ -287,6 +287,8 @@ function renderPortfolioView() {
     invite_tools: [
       {
         name: "Content Monetization Program (Beta)",
+        sub: "Unified In-Stream, Reels & Bonus",
+        type: "Invitation Only (Meta Beta)",
         icon: "🎬",
         status: "Active Invitation Candidate",
         badge_class: "invite-only",
@@ -296,6 +298,8 @@ function renderPortfolioView() {
       },
       {
         name: "Creator Performance Challenges",
+        sub: "Engagement Bonus",
+        type: "Invitation Only",
         icon: "🎁",
         status: "Invitation Candidate",
         badge_class: "invite-only",
