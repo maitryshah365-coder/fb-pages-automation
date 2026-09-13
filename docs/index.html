@@ -139,19 +139,31 @@
       </div>
     </section>
 
-    <!-- Section 1: Key Performance Analytics -->
+    <!-- Section 1: Page Recommendation & Key Analytics -->
     <section class="content-box">
-      <div class="box-header">
-        <div class="box-title-group">
-          <span class="box-icon">📊</span>
-          <h3 class="box-title">Key Analytics & Performance</h3>
+      <!-- Page Recommendation Status Banner -->
+      <div class="recommendation-status-card" id="cardPageRecommendation">
+        <div class="recom-icon-box" id="recomIconBox">✓</div>
+        <div class="recom-info-col">
+          <div class="recom-title-row">
+            <h4 class="recom-title" id="recomTitle">Page is Recommendable</h4>
+            <span class="pill-badge pill-green" id="badgePageQualityStatus">● Healthy Page Status</span>
+          </div>
+          <p class="recom-desc" id="recomDesc">
+            We're helping you grow your audience. Content posted on this page is eligible to be recommended to new viewers across Facebook Reels, Feed, and Watch.
+          </p>
         </div>
-        <span class="pill-badge pill-green" id="badgePageQualityStatus">
-          <span>✓</span> <span>No Policy Restrictions</span>
-        </span>
       </div>
 
-      <!-- 4 High-Impact KPI Tiles -->
+      <div class="box-header" style="margin-top: 18px; margin-bottom: 12px;">
+        <div class="box-title-group">
+          <span class="box-icon">📊</span>
+          <h3 class="box-title">Key Analytics & Performance Overview</h3>
+        </div>
+        <span class="pill-badge pill-gold" id="badgeAudienceScope">Last 28 Days Live</span>
+      </div>
+
+      <!-- 6 High-Impact KPI Tiles -->
       <div class="kpi-grid">
         <div class="kpi-card">
           <div class="kpi-top">
@@ -164,29 +176,47 @@
 
         <div class="kpi-card">
           <div class="kpi-top">
-            <span class="kpi-label">3-SECOND VIEWS</span>
+            <span class="kpi-label">AUDIENCE REACH</span>
+            <span class="kpi-icon-mini">🌐</span>
+          </div>
+          <div class="kpi-value" id="metricTotalReach">0</div>
+          <div class="kpi-sub">Unique Viewers Reached</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">TOTAL ENGAGEMENT</span>
             <span class="kpi-icon-mini">⚡</span>
           </div>
-          <div class="kpi-value" id="metric3sViews">4,476</div>
-          <div class="kpi-sub">Initial Hook Retention</div>
+          <div class="kpi-value" id="metricInteractions">0</div>
+          <div class="kpi-sub">Total Reactions & Interactions</div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-top">
-            <span class="kpi-label">TOTAL INTERACTIONS</span>
+            <span class="kpi-label">REEL LIKES</span>
             <span class="kpi-icon-mini">❤️</span>
           </div>
-          <div class="kpi-value" id="metricInteractions">0</div>
-          <div class="kpi-sub">Likes, Comments & Shares</div>
+          <div class="kpi-value green-text" id="metricLikes">0</div>
+          <div class="kpi-sub">Total Content Likes</div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-top">
-            <span class="kpi-label">NET AUDIENCE FOLLOWS</span>
-            <span class="kpi-icon-mini">📈</span>
+            <span class="kpi-label">REEL COMMENTS</span>
+            <span class="kpi-icon-mini">💬</span>
           </div>
-          <div class="kpi-value green-text" id="metricNetFollows">+14</div>
-          <div class="kpi-sub">Organic Growth Velocity</div>
+          <div class="kpi-value" id="metricComments">0</div>
+          <div class="kpi-sub">Total Audience Comments</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">3-SECOND HOOK VIEWS</span>
+            <span class="kpi-icon-mini">🎯</span>
+          </div>
+          <div class="kpi-value gold-text" id="metric3sViews">0</div>
+          <div class="kpi-sub">Initial Hook Retention</div>
         </div>
       </div>
     </section>
