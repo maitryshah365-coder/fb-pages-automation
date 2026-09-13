@@ -292,13 +292,27 @@ function renderSinglePageView(p) {
     }
   }
 
-  // 4. KPI Tiles (Views, Reach, Engagement, Likes, Comments, 3s Views)
+  // 4. KPI Tiles (Views, Reach, Engagement, Likes, Comments, 3s Views + 5 Live Meta Tiles)
   const kpiViews = document.getElementById("metricTotalViews");
   const kpiReach = document.getElementById("metricTotalReach");
   const kpiInteractions = document.getElementById("metricInteractions");
   const kpiLikes = document.getElementById("metricLikes");
   const kpiComments = document.getElementById("metricComments");
   const kpi3s = document.getElementById("metric3sViews");
+  const kpi30s = document.getElementById("metric30sCompletions");
+  const kpiOrganicReach = document.getElementById("metricOrganicReach");
+  const kpiOrganicViews = document.getElementById("metricOrganicViews");
+  const kpiProfileVisits = document.getElementById("metricProfileVisits");
+  const kpiDailyFollows = document.getElementById("metricDailyFollows");
+
+  const ins = p.live_meta_insights || {
+    views_30s_complete: 0,
+    organic_impressions: 0,
+    organic_video_views: 0,
+    profile_views_total: 0,
+    daily_follows: 0,
+    daily_unfollows: 0
+  };
 
   if (kpiViews) kpiViews.innerText = totalRealViews.toLocaleString();
   if (kpiReach) kpiReach.innerText = reachCount.toLocaleString();
@@ -306,6 +320,11 @@ function renderSinglePageView(p) {
   if (kpiLikes) kpiLikes.innerText = totalRealLikes.toLocaleString();
   if (kpiComments) kpiComments.innerText = totalRealComments.toLocaleString();
   if (kpi3s) kpi3s.innerText = hookViews.toLocaleString();
+  if (kpi30s) kpi30s.innerText = (ins.views_30s_complete || 0).toLocaleString();
+  if (kpiOrganicReach) kpiOrganicReach.innerText = (ins.organic_impressions || 0).toLocaleString();
+  if (kpiOrganicViews) kpiOrganicViews.innerText = (ins.organic_video_views || 0).toLocaleString();
+  if (kpiProfileVisits) kpiProfileVisits.innerText = (ins.profile_views_total || 0).toLocaleString();
+  if (kpiDailyFollows) kpiDailyFollows.innerText = `+${ins.daily_follows || 0}`;
 
   // 5. Demographics
   renderDemographics(p.audience);
@@ -434,13 +453,24 @@ function renderAllPortfolioView() {
     recomIcon.style.color = "var(--green-fb)";
   }
 
-  // 6 KPI Tiles
+  // 12 KPI Tiles (including 5 Live Meta Stream Tiles)
   const kpiViews = document.getElementById("metricTotalViews");
   const kpiReach = document.getElementById("metricTotalReach");
   const kpiInteractions = document.getElementById("metricInteractions");
   const kpiLikes = document.getElementById("metricLikes");
   const kpiComments = document.getElementById("metricComments");
   const kpi3s = document.getElementById("metric3sViews");
+  const kpi30s = document.getElementById("metric30sCompletions");
+  const kpiOrganicReach = document.getElementById("metricOrganicReach");
+  const kpiOrganicViews = document.getElementById("metricOrganicViews");
+  const kpiProfileVisits = document.getElementById("metricProfileVisits");
+  const kpiDailyFollows = document.getElementById("metricDailyFollows");
+
+  const total30sCompletions = fullData.pages.reduce((sum, p) => sum + (p.live_meta_insights?.views_30s_complete || 0), 0);
+  const totalOrganicReach = fullData.pages.reduce((sum, p) => sum + (p.live_meta_insights?.organic_impressions || 0), 0);
+  const totalOrganicViews = fullData.pages.reduce((sum, p) => sum + (p.live_meta_insights?.organic_video_views || 0), 0);
+  const totalProfileVisits = fullData.pages.reduce((sum, p) => sum + (p.live_meta_insights?.profile_views_total || 0), 0);
+  const totalDailyFollows = fullData.pages.reduce((sum, p) => sum + (p.live_meta_insights?.daily_follows || 0), 0);
 
   if (kpiViews) kpiViews.innerText = totalRealViews.toLocaleString();
   if (kpiReach) kpiReach.innerText = totalReach.toLocaleString();
@@ -448,6 +478,11 @@ function renderAllPortfolioView() {
   if (kpiLikes) kpiLikes.innerText = totalRealLikes.toLocaleString();
   if (kpiComments) kpiComments.innerText = totalRealComments.toLocaleString();
   if (kpi3s) kpi3s.innerText = total3s.toLocaleString();
+  if (kpi30s) kpi30s.innerText = total30sCompletions.toLocaleString();
+  if (kpiOrganicReach) kpiOrganicReach.innerText = totalOrganicReach.toLocaleString();
+  if (kpiOrganicViews) kpiOrganicViews.innerText = totalOrganicViews.toLocaleString();
+  if (kpiProfileVisits) kpiProfileVisits.innerText = totalProfileVisits.toLocaleString();
+  if (kpiDailyFollows) kpiDailyFollows.innerText = `+${totalDailyFollows}`;
 
   // Combined Demographics from Verified Pages
   renderDemographics(getPortfolioAudience());
