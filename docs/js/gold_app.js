@@ -115,10 +115,10 @@ function renderDrawerPages(pages) {
           <img class="page-item-img" src="${p.pic_url}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
           <div class="page-item-info">
             <div class="page-item-name">${p.name}</div>
-            <div class="page-item-meta">${followersFormatted} followers • ${p.category || 'Creator'}</div>
+            <div class="page-item-meta">${viewsFormatted} views • ${p.category || 'Creator'}</div>
           </div>
         </div>
-        <div class="page-item-badge">${viewsFormatted} views</div>
+        <div class="page-item-badge">${followersFormatted} followers</div>
       </div>
     `;
   }).join("");
@@ -240,8 +240,10 @@ function renderAllPortfolioView() {
   const metricToday = document.getElementById("metricHeroTodayUploaded");
 
   if (heroName) heroName.innerText = "All Pages Portfolio";
-  if (heroSub) heroSub.innerText = `${fullData.pages.length} Active Facebook Pages • Unified Automation Command`;
-  if (heroAvatar) heroAvatar.src = fullData.pages[0]?.pic_url || "";
+  if (heroSub) heroSub.innerText = `Raj FB Pro Master Command • ${fullData.pages.length} Active Facebook Pages`;
+  if (heroAvatar) {
+    heroAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23fce07a'/><stop offset='50%25' stop-color='%23f5ba23'/><stop offset='100%25' stop-color='%23d4930b'/></linearGradient></defs><rect width='120' height='120' rx='60' fill='%230f1422'/><circle cx='60' cy='60' r='52' fill='none' stroke='url(%23g)' stroke-width='4'/><text x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='46' font-weight='900' fill='url(%23g)'>R</text></svg>";
+  }
 
   if (metricFollowers) metricFollowers.innerText = totalFollowers.toLocaleString();
   if (metricViews) metricViews.innerText = totalViews.toLocaleString();
@@ -568,11 +570,13 @@ function closeVideoModal() {
 function openPageDrawer() {
   document.getElementById("pagesDrawer")?.classList.add("active");
   document.getElementById("pagesDrawerOverlay")?.classList.add("active");
+  document.body.style.overflow = "hidden";
 }
 
 function closePageDrawer() {
   document.getElementById("pagesDrawer")?.classList.remove("active");
   document.getElementById("pagesDrawerOverlay")?.classList.remove("active");
+  document.body.style.overflow = "";
 }
 
 // ----------------- Event Listeners -----------------
