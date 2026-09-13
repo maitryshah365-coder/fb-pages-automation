@@ -221,10 +221,10 @@ class PageRunner:
             # 11. Delete video from Google Drive if configured
             if getattr(self.config, "delete_after_post", True) and not self.dry_run:
                 try:
-                    logger.info(f"[{page_name}] Deleting video from Google Drive after successful post: {drive_file_id}")
-                    self.drive_client.delete_video(drive_file_id)
+                    logger.info(f"[{page_name}] Removing video from Google Drive folder after successful post: {drive_file_id}")
+                    self.drive_client.delete_video(drive_file_id, folder_id=page.drive_folder_id)
                 except Exception as del_err:
-                    logger.warning(f"[{page_name}] Failed to delete video from Drive ({drive_file_id}): {del_err}")
+                    logger.warning(f"[{page_name}] Failed to remove video from Drive ({drive_file_id}): {del_err}")
 
             # 12. Send notification
             self.notifier.send_success(page_name, filename, fb_video_id, post_type=post_route)

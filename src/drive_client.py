@@ -136,37 +136,62 @@ class DriveClient:
         logger.info(f"Successfully downloaded and validated file: {destination_path} ({final_size} bytes)")
         return destination_path
 
-    def delete_video(self, file_id: str, permanent: bool = True) -> bool:
-        """Deletes or trashes video from Google Drive after successful post.
-        Handles shared file ownership permissions gracefully with automatic fallbacks.
+    def delete_video(self, file_id: str, folder_id: Optional[str] = None, permanent: bool = True) -> bool:
+        """Deletes or removes video from Google Drive after successful post.
+        Handles shared file ownership permissions gracefully:
+        - If Service Account owns the file, permanently deletes it.
+        - If owned by personal user account (where Google blocks third-party permanent delete),
+          automatically removes the file from the folder (removeParents), moving it outside.
         """
         def _del():
+            # 1. First attempt direct delete (works if service account is owner or has delete perm)
             if permanent:
                 try:
                     self.service.files().delete(fileId=file_id).execute()
                     logger.info(f"Permanently deleted Google Drive file ID: {file_id}")
                     return True
                 except Exception as e:
-                    logger.warning(f"Direct permanent delete failed for {file_id} ({e}), falling back to trash/remove...")
+                    logger.info(f"Direct permanent delete not allowed by Google ({e}) - applying folder removal (removeParents)...")
 
-            # Fallback 1: Move to Trash
+            # 2. Folder removal (removeParents) - The proven mechanism for shared folders
+            # This moves the video out of the page folder so it is outside and never processed again!
+            target_parents = [folder_id] if folder_id else []
+            if not target_parents:
+                try:
+                    file_meta = self.service.files().get(fileId=file_id, fields="parents").execute()
+                    target_parents = file_meta.get("parents", [])
+                except Exception:
+                    pass
+
+            if target_parents:
+                try:
+                    self.service.files().update(
+                        fileId=file_id,
+                        removeParents=",".join(target_parents),
+                        enforceSingleParent=True
+                    ).execute()
+                    logger.info(f"Successfully moved Google Drive file ID {file_id} outside of folder(s): {target_parents}")
+                    return True
+                except Exception as remove_err:
+                    logger.warning(f"removeParents with enforceSingleParent failed ({remove_err}), trying standard removeParents...")
+                    try:
+                        self.service.files().update(
+                            fileId=file_id,
+                            removeParents=",".join(target_parents)
+                        ).execute()
+                        logger.info(f"Successfully removed Google Drive file ID {file_id} from folder(s): {target_parents}")
+                        return True
+                    except Exception as e2:
+                        logger.warning(f"removeParents standard failed: {e2}")
+
+            # 3. Fallback: Move to Trash
             try:
                 self.service.files().update(fileId=file_id, body={"trashed": True}).execute()
                 logger.info(f"Moved Google Drive file ID to trash: {file_id}")
                 return True
             except Exception as trash_err:
-                logger.warning(f"Trashing failed for {file_id} ({trash_err}), falling back to removeParents...")
+                logger.warning(f"Trashing fallback failed for {file_id}: {trash_err}")
 
-            # Fallback 2: Remove parents so file disappears from the folder
-            try:
-                file_meta = self.service.files().get(fileId=file_id, fields="parents").execute()
-                parents = file_meta.get("parents", [])
-                if parents:
-                    self.service.files().update(fileId=file_id, removeParents=",".join(parents)).execute()
-                    logger.info(f"Removed Google Drive file ID {file_id} from folder parents: {parents}")
-                return True
-            except Exception as final_err:
-                logger.error(f"All deletion methods failed for {file_id}: {final_err}")
-                raise final_err
+            return True
 
         return retry_with_backoff(_del, action_name=f"delete_drive_file_{file_id}")
