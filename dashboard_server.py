@@ -148,171 +148,74 @@ def serve_js(filename):
 def serve_data(filename):
     return send_from_directory(os.path.join(BASE_DIR, "docs", "data"), filename)
 
+def get_real_pages_data():
+    json_path = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
+    if os.path.exists(json_path):
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return None
+
 @app.route("/api/overview")
 def api_overview():
-    """Global summary across all 15 pages."""
+    """Global summary across all pages using 100% real data."""
+    real_data = get_real_pages_data()
+    if real_data and "portfolio" in real_data:
+        port = real_data["portfolio"]
+        return jsonify({
+            "total_pages": port.get("total_pages", 15),
+            "total_followers": port.get("total_followers", 0),
+            "total_views": port.get("total_views", 0),
+            "total_posts": port.get("total_posts", 0),
+            "total_likes": port.get("total_likes", 0),
+            "schedule": get_next_slot(),
+            "pipeline_health": "All Systems Operational"
+        })
+    
     pages = get_page_tokens()
     posted_today = get_today_post_count()
-    all_videos = get_posted_videos()
-    
-    total_lifetime_videos = len(all_videos)
-    # Estimate or aggregate total views
-    base_views_per_video = 450 # realistic base average
-    total_views = sum(v.get("views", base_views_per_video) for v in all_videos) if all_videos else 0
-    total_reach = int(total_views * 1.6)
-
     return jsonify({
         "total_pages": len(pages),
         "total_posted_today": posted_today,
         "daily_target": len(pages) * 4,
-        "total_lifetime_videos": total_lifetime_videos,
-        "total_views": total_views,
-        "total_reach": total_reach,
         "schedule": get_next_slot(),
         "pipeline_health": "All Systems Operational"
     })
 
 @app.route("/api/pages")
 def api_pages():
-    """List of all 15 pages with high-level metrics (ultra-fast response)."""
+    """List of all 15 pages with high-level metrics."""
+    real_data = get_real_pages_data()
+    if real_data and "pages" in real_data:
+        return jsonify(real_data["pages"])
+
     pages = get_page_tokens()
-    res = []
-    
-    for idx, p in enumerate(pages, 1):
-        pid = p.get("id")
-        pname = p.get("name")
-        
-        # Fast cached lookup or clean metadata
-        cache_key = f"profile_{pid}"
-        fb_profile = API_CACHE.get(cache_key, {}).get("data", {})
-        followers = fb_profile.get("followers_count", 0)
-        category = fb_profile.get("category", "Digital Creator / Reels")
-        
-        today_posts = get_today_post_count(pid)
-        page_videos = get_posted_videos(pid)
-        
-        res.append({
-            "index": idx,
-            "id": pid,
-            "name": pname,
-            "category": category,
-            "followers": followers,
-            "today_posts": today_posts,
-            "daily_limit": 4,
-            "total_posts": len(page_videos),
-            "recommendation_status": "Recommendable",
-            "monetization_status": "Good Standing",
-            "avatar_color": f"hsl({(idx * 24) % 360}, 70%, 50%)"
-        })
-    return jsonify(res)
+    return jsonify(pages)
 
 @app.route("/api/page/<page_id>")
 def api_page_detail(page_id):
-    """Detailed analytics matching Facebook Professional Dashboard for a single page."""
-    pages = get_page_tokens()
-    page = next((p for p in pages if p.get("id") == page_id), None)
-    if not page:
-        return jsonify({"error": "Page not found"}), 404
+    """Detailed analytics matching Facebook Professional Dashboard for a single page with 100% real Meta data."""
+    real_data = get_real_pages_data()
+    if real_data and "pages" in real_data:
+        page = next((p for p in real_data["pages"] if str(p.get("id")) == str(page_id)), None)
+        if page:
+            return jsonify(page)
 
-    token = page.get("access_token")
-    pname = page.get("name")
-    fb_profile = fetch_fb_page_profile(page_id, token) or {}
-    followers = fb_profile.get("followers_count", 0)
-    category = fb_profile.get("category", "Digital Creator")
+    return jsonify({"error": "Page not found"}), 404
 
-    posted_vids = get_posted_videos(page_id)
-    today_posts = get_today_post_count(page_id)
-
-    # Dynamic metrics computation
-    vid_count = len(posted_vids)
-    est_reach = max(240, vid_count * 1850)
-    est_impressions = int(est_reach * 1.45)
-    est_interactions = int(est_reach * 0.12)
-    est_3s_views = int(est_reach * 0.88)
-    est_1m_views = int(est_reach * 0.35)
-
-    # Demographic breakdown (High-CPM US/UK distribution target)
-    countries = [
-        {"code": "US", "name": "United States", "flag": "🇺🇸", "percentage": 62.4},
-        {"code": "GB", "name": "United Kingdom", "flag": "🇬🇧", "percentage": 18.2},
-        {"code": "CA", "name": "Canada", "flag": "🇨🇦", "percentage": 9.5},
-        {"code": "AU", "name": "Australia", "flag": "🇦🇺", "percentage": 5.8},
-        {"code": "DE", "name": "Germany", "flag": "🇩🇪", "percentage": 2.3},
-        {"code": "OTHER", "name": "Other Countries", "flag": "🌐", "percentage": 1.8}
-    ]
-
-    age_gender = {
-        "men": 56,
-        "women": 44,
-        "top_age": "25-34 (42%)"
-    }
-
-    # Videos list with realistic metrics
-    videos_data = []
-    for idx, v in enumerate(posted_vids):
-        vid_id = v.get("facebook_video_id")
-        created = v.get("created_at")
-        ptype = v.get("post_type", "reel")
-        # generate realistic organic view counts based on hours active
-        v_views = 350 + (idx * 120) % 2400
-        v_likes = max(12, int(v_views * 0.08))
-        v_comments = max(2, int(v_likes * 0.15))
-        v_shares = max(1, int(v_likes * 0.05))
-
-        videos_data.append({
-            "id": vid_id,
-            "title": f"Video #{len(posted_vids) - idx}",
-            "post_type": ptype,
-            "created_at": created,
-            "views": v_views,
-            "likes": v_likes,
-            "comments": v_comments,
-            "shares": v_shares,
-            "watch_url": f"https://www.facebook.com/{page_id}/videos/{vid_id}" if vid_id else "#"
-        })
-
-    return jsonify({
-        "page_id": page_id,
-        "name": pname,
-        "category": category,
-        "followers": followers,
-        "net_followers_weekly": "+14",
-        "today_posts": today_posts,
-        "daily_limit": 4,
-        "total_posts": vid_count,
-        # Section: Page Recommendation (Exact FB Pro spec)
-        "recommendation": {
-            "status": "Recommendable",
-            "is_recommendable": True,
-            "badge": "Page is recommendable",
-            "details": "We're helping you grow your audience because pages like yours bring people together. Your content is eligible to be shown in recommendations to new viewers.",
-            "violations_count": 0
-        },
-        # Section: Monetization (Exact FB Pro spec)
-        "monetization": {
-            "status": "No Monetization Violations",
-            "is_eligible": True,
-            "in_stream_ads": "Good Standing",
-            "reels_overlay_ads": "Eligible / Active",
-            "stars_status": "Enabled",
-            "policy_issues": "None"
-        },
-        # Section: Overview Insights
-        "insights": {
-            "post_reach_28d": est_reach,
-            "post_reach_trend": "+24.5%",
-            "impressions": est_impressions,
-            "content_interactions": est_interactions,
-            "interactions_trend": "+18.2%",
-            "video_views_3s": est_3s_views,
-            "video_views_1m": est_1m_views
-        },
-        "audience": {
-            "countries": countries,
-            "age_gender": age_gender
-        },
-        "videos": videos_data
-    })
+@app.route("/api/sync", methods=["GET", "POST"])
+def api_sync():
+    """Triggers 100% real Meta Graph API sync."""
+    try:
+        import sys
+        sys.path.insert(0, BASE_DIR)
+        from scripts.sync_dashboard_data import sync_data
+        sync_data()
+        return jsonify({"success": True, "message": "100% Real Live Meta Graph API Sync completed successfully!"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 @app.route("/api/trigger-upload", methods=["POST"])
 def api_trigger_upload():
