@@ -3,400 +3,297 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Facebook Professional Dashboard | Obsidian Gold Command VIP</title>
-  <meta name="description" content="Meta Professional Dashboard - Obsidian Gold Edition with Real-Time Meta Graph API Sync and Real Upload IP Tracking">
-  <meta name="theme-color" content="#030406">
+  <title>Raj FB Pro | Multi-Page Automation & Real-Time Analytics Command</title>
+  <meta name="description" content="Raj FB Pro - Next-Gen Facebook Pages Cloud Automation, Real-Time Meta Graph Analytics & Audience Demographics Hub">
+  <meta name="theme-color" content="#07090e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/gold_dashboard.css">
 </head>
 <body>
 
-  <!-- Gold Toast Notification -->
+  <!-- Toast Notification -->
   <div id="goldToast" class="luxe-toast">Action Confirmed</div>
 
-  <!-- Top Sticky Glass Header -->
-  <header class="header-glass">
-    <div class="brand-box">
-      <div class="gold-logo">f</div>
-      <div class="brand-text">
-        <h1>Meta Professional</h1>
-        <span>24/7 Cloud Automation & Analytics</span>
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="app-logo">
+          <span class="logo-r">R</span>
+          <span class="logo-dot"></span>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title-row">
+            <h1 class="brand-name">Raj FB Pro</h1>
+            <span class="pro-tag">VIP</span>
+          </div>
+          <span class="brand-sub">Cloud Automation & Real-Time Analytics</span>
+        </div>
       </div>
-    </div>
-    <div class="header-right">
-      <div class="badge-247">
-        <div class="pulse-gold"></div>
-        <span>24/7 CLOUD</span>
+
+      <div class="header-controls">
+        <button id="btnOpenPageDrawer" class="btn-drawer-trigger" title="Open Pages List">
+          <span class="drawer-icon">📑</span>
+          <span class="drawer-label">Pages (<span id="headerActivePageShortName">All Portfolio</span>)</span>
+          <span class="drawer-arrow">▼</span>
+        </button>
+
+        <button id="btnLuxeRefresh" class="btn-live-sync" title="Sync Real-Time Meta Graph API">
+          <span class="sync-icon">⚡</span>
+          <span class="sync-label">Sync Live</span>
+        </button>
       </div>
-      <button id="btnLuxeRefresh" class="btn-icon-sync" title="Sync Real-Time Meta Graph API">🔄</button>
     </div>
   </header>
 
-  <!-- Live Real-Time Meta Sync Status Bar -->
-  <div class="live-sync-bar">
-    <div class="live-sync-status">
-      <div class="live-ping-dot"></div>
-      <span id="liveSyncStatusText">Meta Graph API: Connected</span>
-      <span style="color:var(--text-muted); margin-left:4px;" id="liveSyncTimestamp">Updated: Just now</span>
-    </div>
-    <div class="live-sync-action" id="btnForceLiveSync">
-      <span>⚡ Sync Live</span>
+  <!-- Live Meta Graph Status Ribbon -->
+  <div class="status-ribbon">
+    <div class="ribbon-container">
+      <div class="live-status-pill">
+        <span class="ping-circle"></span>
+        <span id="liveSyncStatusText">Meta Graph API: Live</span>
+        <span class="time-sep">•</span>
+        <span id="liveSyncTimestamp">Updated: Just now</span>
+      </div>
+      <div class="slot-pill">
+        <span class="slot-label">Next Slot (EDT):</span>
+        <span id="todayCountdown" class="slot-countdown">Calculating...</span>
+      </div>
     </div>
   </div>
 
-  <!-- Mobile View Switcher Tabs -->
-  <div class="mobile-view-tabs" id="mobileTabs">
-    <button class="mobile-tab-btn active" data-tab="pages">📑 Pages & Upload IP</button>
-    <button class="mobile-tab-btn" data-tab="main">📊 Page Analytics & Content</button>
-  </div>
+  <!-- Slide-Over Pages Drawer (Opens Only When Clicked) -->
+  <div id="pagesDrawerOverlay" class="drawer-overlay"></div>
+  <aside id="pagesDrawer" class="pages-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <h3>📑 Select Facebook Page</h3>
+        <span class="badge-pages-total" id="sidebarPagesCountBadge">15 Pages</span>
+      </div>
+      <button id="btnClosePageDrawer" class="btn-close-drawer">✕</button>
+    </div>
 
-  <!-- 2-Column Dashboard Layout Container -->
-  <div class="dashboard-layout-container">
+    <div class="drawer-search-box">
+      <input type="text" id="sidebarPagesSearch" class="drawer-search-input" placeholder="Search page name...">
+    </div>
 
-    <!-- ================= LEFT SIDEBAR ================= -->
-    <aside class="left-sidebar-col" id="leftSidebarCol">
-
-      <!-- Box 1: All Pages List -->
-      <div class="sidebar-box">
-        <div class="sidebar-box-header">
-          <h2 class="sidebar-box-title">📑 All Facebook Pages</h2>
-          <span style="font-size:11px; color:var(--gold-bright); font-weight:800;" id="sidebarPagesCountBadge">15 Pages</span>
+    <!-- Quick All-Portfolio Tile -->
+    <div class="drawer-all-portfolio-tile" id="btnSelectAllPages">
+      <div class="portfolio-tile-left">
+        <div class="portfolio-avatar">🌐</div>
+        <div>
+          <div class="portfolio-name">All 15 Pages Portfolio</div>
+          <div class="portfolio-desc">Combined Reach, Views & Analytics</div>
         </div>
+      </div>
+      <span class="portfolio-badge">Overview</span>
+    </div>
 
-        <!-- Category Filter Tabs -->
-        <div class="sidebar-filter-tabs" id="sidebarFilterTabs">
-          <button class="sidebar-filter-btn active" data-filter="all" id="filterAllPages">All (15)</button>
-          <button class="sidebar-filter-btn" data-filter="criteria" id="filterCriteriaPages">🎯 Criteria (8)</button>
-          <button class="sidebar-filter-btn" data-filter="invite" id="filterInvitePages">📨 Invite (7)</button>
+    <!-- Scrollable Page Items List -->
+    <div class="drawer-pages-list" id="sidebarPagesList">
+      <!-- Dynamically Populated -->
+    </div>
+  </aside>
+
+  <!-- Main App Content Container -->
+  <main class="app-main-container">
+
+    <!-- Active Page Profile Banner -->
+    <section class="profile-hero-card" id="heroCard">
+      <div class="hero-main-row">
+        <div class="hero-avatar-wrapper">
+          <img id="heroAvatarImg" class="hero-avatar" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" alt="Active Page">
+          <span class="avatar-status-badge">●</span>
         </div>
-
-        <input type="text" class="pages-search-input" id="sidebarPagesSearch" placeholder="Search pages by name...">
-        <div class="pages-vertical-list" id="sidebarPagesList">
-          <!-- Dynamically populated page items -->
+        <div class="hero-details">
+          <div class="hero-heading-row">
+            <h2 id="heroPageName" class="hero-title">All Pages Portfolio</h2>
+            <span class="verified-icon">✓</span>
+          </div>
+          <div id="heroPageSub" class="hero-meta">15 Active Pages • 24/7 Automated USA Upload Engine</div>
         </div>
       </div>
 
-      <!-- Box 2: Today's Upload Status & Remaining Counter -->
-      <div class="sidebar-box">
-        <div class="sidebar-box-header">
-          <h2 class="sidebar-box-title">⏱️ Today's Uploads</h2>
-          <span style="font-size:11px; color:var(--fb-green); font-weight:700;">4 SLOTS/DAY</span>
+      <!-- Quick Summary Stats Row -->
+      <div class="hero-stats-strip">
+        <div class="strip-stat">
+          <span class="stat-label">Total Followers</span>
+          <span class="stat-num" id="metricHeroFollowers">17,295</span>
         </div>
-        <div class="today-status-grid">
-          <div class="today-stat-tile">
-            <span class="today-tile-label">Target Today</span>
-            <div class="today-tile-val" id="todayTargetVal">60 Videos</div>
-          </div>
-          <div class="today-stat-tile">
-            <span class="today-tile-label">Already Uploaded</span>
-            <div class="today-tile-val" style="color:var(--fb-green);" id="todayUploadedVal">0</div>
-          </div>
-          <div class="today-stat-tile" style="grid-column: span 2; border-color:var(--border-gold-mid);">
-            <span class="today-tile-label">Remaining Today</span>
-            <div class="today-tile-val" style="color:var(--gold-bright);" id="todayRemainingVal">60 Videos Remaining</div>
-          </div>
+        <div class="strip-stat">
+          <span class="stat-label">Total Views</span>
+          <span class="stat-num gold-text" id="metricHeroViews">0</span>
         </div>
-        <div class="today-countdown-bar">
-          <div>
-            <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Next USA Slot</div>
-            <div style="font-size:13px; color:#fff; font-weight:800;" id="todayCountdown">Calculating...</div>
+        <div class="strip-stat">
+          <span class="stat-label">Published Reels</span>
+          <span class="stat-num" id="metricHeroReels">0</span>
+        </div>
+        <div class="strip-stat">
+          <span class="stat-label">Today's Uploads</span>
+          <span class="stat-num green-text" id="metricHeroTodayUploaded">0 / 60</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Key Performance Analytics -->
+    <section class="content-box">
+      <div class="box-header">
+        <div class="box-title-group">
+          <span class="box-icon">📊</span>
+          <h3 class="box-title">Key Analytics & Performance</h3>
+        </div>
+        <span class="pill-badge pill-green" id="badgePageQualityStatus">
+          <span>✓</span> <span>No Policy Restrictions</span>
+        </span>
+      </div>
+
+      <!-- 4 High-Impact KPI Tiles -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">TOTAL VIDEO VIEWS</span>
+            <span class="kpi-icon-mini">👁️</span>
           </div>
-          <button id="btnSidebarPostNow" class="btn-icon-sync" style="width:32px; height:32px; font-size:13px;" title="Trigger Upload">⚡</button>
+          <div class="kpi-value gold-text" id="metricTotalViews">0</div>
+          <div class="kpi-sub">Real-Time Meta Graph Count</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">3-SECOND VIEWS</span>
+            <span class="kpi-icon-mini">⚡</span>
+          </div>
+          <div class="kpi-value" id="metric3sViews">4,476</div>
+          <div class="kpi-sub">Initial Hook Retention</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">TOTAL INTERACTIONS</span>
+            <span class="kpi-icon-mini">❤️</span>
+          </div>
+          <div class="kpi-value" id="metricInteractions">0</div>
+          <div class="kpi-sub">Likes, Comments & Shares</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-top">
+            <span class="kpi-label">NET AUDIENCE FOLLOWS</span>
+            <span class="kpi-icon-mini">📈</span>
+          </div>
+          <div class="kpi-value green-text" id="metricNetFollows">+14</div>
+          <div class="kpi-sub">Organic Growth Velocity</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Real Audience Demographics & Discovery -->
+    <section class="content-box">
+      <div class="box-header flex-between">
+        <div class="box-title-group">
+          <span class="box-icon">🌍</span>
+          <h3 class="box-title">Audience Demographics & Discovery</h3>
+        </div>
+
+        <!-- Demographic Sub-Tabs -->
+        <div class="demo-tabs-nav" id="audSubTabs">
+          <button class="demo-tab-btn active" data-tab="countries">Countries</button>
+          <button class="demo-tab-btn" data-tab="age_gender">Age & Gender</button>
+          <button class="demo-tab-btn" data-tab="cities">Cities</button>
+          <button class="demo-tab-btn" data-tab="discovery">Views Retention</button>
         </div>
       </div>
 
-      <!-- Box 3: Last Upload Real IP & Location Tracker -->
-      <div class="sidebar-box">
-        <div class="sidebar-box-header">
-          <h2 class="sidebar-box-title">🌐 Last Upload IP & Location</h2>
-          <span style="font-size:10px; color:var(--fb-green); font-weight:800;">● REAL EGRESS</span>
+      <div class="demographics-body" id="countryDemographicsContainer">
+        <!-- Dynamically rendered demographics or threshold message -->
+      </div>
+    </section>
+
+    <!-- Section 3: Uploaded Videos & Reels Library (8 + Load More) -->
+    <section class="content-box">
+      <div class="box-header flex-between">
+        <div class="box-title-group">
+          <span class="box-icon">🎬</span>
+          <h3 class="box-title">Uploaded Videos & Reels Library</h3>
         </div>
-        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">Real network IP & location Facebook sees when posting:</p>
-        
-        <div class="ip-telemetry-card">
-          <div class="ip-row">
-            <span style="color:var(--text-muted); font-size:11px;">Upload IP Address:</span>
-            <span class="ip-badge" id="ipAddressVal">20.124.89.14</span>
-          </div>
-          <div class="ip-row">
-            <span style="color:var(--text-muted); font-size:11px;">Egress Location:</span>
-            <span class="ip-location-val" id="ipLocationVal">🇺🇸 Ashburn, VA (United States)</span>
-          </div>
-          <div class="ip-row" style="flex-direction:column; align-items:flex-start; gap:2px; margin-top:2px;">
-            <span style="color:var(--text-muted); font-size:10.5px;">Cloud Runner Provider:</span>
-            <span class="ip-org-val" id="ipOrgVal">Microsoft Azure Cloud Infrastructure</span>
-          </div>
-          <div class="ip-row" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:6px; margin-top:4px;">
-            <span style="color:var(--text-muted); font-size:10.5px;">Status for <span id="ipPageTargetName">Selected Page</span>:</span>
-            <span style="color:var(--gold-bright); font-size:10.5px; font-weight:700;" id="ipUploadStatus">Verified Clean</span>
-          </div>
-        </div>
+        <span class="pill-badge pill-gold" id="badgeVideosCount">0 Videos</span>
       </div>
 
-    </aside>
+      <p class="section-desc">Live preview of all published reels with exact views and interaction telemetry</p>
 
-    <!-- ================= CENTER MAIN CONTENT ================= -->
-    <main class="main-content-col" id="mainContentCol">
+      <div class="reels-grid" id="videosListContainer">
+        <!-- Dynamically populated video cards -->
+      </div>
 
-      <!-- Hero Profile Banner -->
-      <section class="hero-gold-card" id="heroCard">
-        <div class="hero-top-row">
-          <img id="heroAvatarImg" class="hero-avatar-img" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" alt="Page Avatar">
-          <div style="flex-grow:1;">
-            <div class="hero-title-row">
-              <h2 class="hero-page-title" id="heroPageName">All Pages Portfolio</h2>
-              <span class="badge-gold-verified">✓</span>
-            </div>
-            <div class="hero-page-subtitle" id="heroPageSub">15 Active Pages • Multi-Page Automation Command</div>
+      <!-- Load More Button -->
+      <div class="load-more-wrapper">
+        <button id="btnLoadMoreVideos" class="btn-load-more">
+          <span>⬇️ Load More Videos</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Section 4: Cloud Runner & Upload Telemetry (Real State) -->
+    <section class="content-box">
+      <div class="box-header">
+        <div class="box-title-group">
+          <span class="box-icon">🛰️</span>
+          <h3 class="box-title">Automation Engine & Server Telemetry</h3>
+        </div>
+        <span class="pill-badge pill-blue">Cloud Standby</span>
+      </div>
+
+      <div class="telemetry-grid">
+        <div class="telemetry-tile">
+          <span class="tel-label">AUTOMATION ENGINE IP</span>
+          <div class="tel-val-row">
+            <span class="ip-code" id="ipAddressVal">20.124.89.14</span>
+            <span class="tel-flag" id="ipFlag">🇺🇸</span>
           </div>
+          <span class="tel-sub" id="ipOrgVal">Microsoft Azure Cloud Egress</span>
         </div>
 
-        <div class="page-action-links">
-          <button id="btnHeroCheckStatus" class="action-link-btn btn-status-check">
-            <span>⚡ Refresh Live Data</span>
-          </button>
-          <button id="btnHeroFilterCriteria" class="action-link-btn">
-            <span>🎯 Criteria Pages (8)</span>
-          </button>
-          <button id="btnHeroFilterInvite" class="action-link-btn">
-            <span>📨 Invite-Only Pages (7)</span>
-          </button>
-          <button id="btnHeroFilterAll" class="action-link-btn">
-            <span>📊 All Portfolio (15)</span>
-          </button>
+        <div class="telemetry-tile">
+          <span class="tel-label">RUNNER GEOLOCATION</span>
+          <div class="tel-val" id="ipLocationVal">Ashburn, Virginia, United States</div>
+          <span class="tel-sub">USA Target Egress for Optimal Distribution</span>
         </div>
-      </section>
 
-      <!-- Official Facebook Page Quality & Status Card (Screenshot 2 Match) -->
-      <section class="box-page-status-quality" id="boxPageStatusQuality">
-        <div class="status-fb-header">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <img id="statusCardAvatar" class="page-item-avatar" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large">
+        <div class="telemetry-tile full-width">
+          <span class="tel-label">TODAY'S AUTOMATION STATUS</span>
+          <div class="upload-status-box">
+            <div class="status-indicator-dot"></div>
             <div>
-              <h3 style="font-size:16px; font-weight:800; color:#fff;" id="statusCardPageName">Me Text</h3>
-              <span style="font-size:12px; color:var(--fb-green); font-weight:700;">● Page has no issues</span>
+              <div class="status-headline" id="ipUploadStatus">Standby • Ready for Next Scheduled Slot</div>
+              <div class="status-detail">Daily 4x Schedule: 10:00 AM, 03:00 PM, 07:00 PM, 10:00 PM EDT</div>
             </div>
           </div>
-          <span class="recommendation-status-badge">
-            <span>✓</span> <span>No Restrictions</span>
-          </span>
-        </div>
-
-        <div class="status-fb-grid">
-          <!-- Community Standards violations -->
-          <div class="status-fb-tile">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span class="status-check-circle">✓</span>
-              <strong style="color:#fff; font-size:13px;">Community Standards violations</strong>
-            </div>
-            <p style="font-size:12px; color:var(--fb-green); font-weight:700; margin-top:4px;">Good news: no violations to show.</p>
-            <span style="font-size:10.5px; color:var(--text-muted); line-height:1.4;">If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions.</span>
-          </div>
-
-          <!-- Account status & Extra features -->
-          <div class="status-fb-tile">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <span class="status-check-circle">✓</span>
-              <strong style="color:#fff; font-size:13px;">Account status: No restrictions</strong>
-            </div>
-            <p style="font-size:11.5px; color:var(--text-muted); margin-top:4px;">Your account looks good! Zero strikes or suspension warnings.</p>
-            
-            <div class="extra-features-row">
-              <div class="feature-item">
-                <span>🛡️ Recommendations</span>
-                <span class="feature-status-active">Active ›</span>
-              </div>
-              <div class="feature-item">
-                <span>💰 Monetization</span>
-                <span class="feature-status-active" id="featureMonetizationStatus">Active ›</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Box A: Uploaded Videos Library (8 Paginated + Load More Button) -->
-      <section class="box-video-library">
-        <div style="display:flex; align-items:center; justify-content:space-between;">
-          <h3 class="section-title-gold">🎬 Uploaded Videos & Reels Library</h3>
-          <span style="font-size:12px; color:var(--gold-bright); font-weight:700;" id="badgeVideosCount">0 Videos</span>
-        </div>
-        <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">All uploaded reels with video previews and live view counts</p>
-        
-        <div class="videos-horizontal-scroll" id="videosListContainer">
-          <!-- Dynamically populated video cards with previews -->
-        </div>
-
-        <!-- Load More Button -->
-        <div style="text-align:center; margin-top:16px;">
-          <button id="btnLoadMoreVideos" class="btn-load-more">⬇️ Load More Videos</button>
-        </div>
-      </section>
-
-      <!-- Box B: Key Analytics & Real Audience Demographics (Screenshot 1 Match) -->
-      <section class="box-analytics-grid">
-        <div style="display:flex; align-items:center; justify-content:space-between;">
-          <h3 class="section-title-gold">📊 Key Analytics & Performance</h3>
-          <span class="recommendation-status-badge" id="badgeRecomStatus">
-            <span>✓</span> <span id="labelRecomStatus">Page is Recommendable</span>
-          </span>
-        </div>
-
-        <div class="analytics-tiles-3col">
-          <div class="analytics-tile">
-            <span class="analytics-tile-title">Total Video Views</span>
-            <div class="analytics-tile-num" id="metricTotalViews">0</div>
-            <span style="font-size:11px; color:var(--gold-bright); font-weight:700;">Live Facebook Count</span>
-          </div>
-          <div class="analytics-tile">
-            <span class="analytics-tile-title">Total Interactions</span>
-            <div class="analytics-tile-num" id="metricInteractions">0</div>
-            <span style="font-size:11px; color:var(--fb-green); font-weight:700;">Reactions & Comments</span>
-          </div>
-          <div class="analytics-tile">
-            <span class="analytics-tile-title">Page Followers</span>
-            <div class="analytics-tile-num" id="metricFollowers">17,295</div>
-            <span style="font-size:11px; color:var(--fb-green); font-weight:700;">Active Audience</span>
-          </div>
-        </div>
-
-        <!-- Real Audience Demographics Box with Sub-Tabs (Countries / Age & Gender / Cities) -->
-        <div class="country-demographics-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-            <h4 style="font-size:13px; font-weight:800; color:#fff;">🌍 Audience Demographics (Lifetime)</h4>
-            <div class="aud-subtabs-row" id="audSubTabs">
-              <button class="aud-tab-btn active" data-tab="countries">Countries</button>
-              <button class="aud-tab-btn" data-tab="age_gender">Age & Gender</button>
-              <button class="aud-tab-btn" data-tab="cities">Cities</button>
-              <button class="aud-tab-btn" data-tab="discovery">Discovery & Views</button>
-            </div>
-          </div>
-          <div id="countryDemographicsContainer">
-            <!-- Dynamically populated real demographics or strict fallback -->
-          </div>
-        </div>
-      </section>
-
-      <!-- Box C: Modern Meta Content Monetization Hub (STRICT SINGLE-STATUS: Criteria Area OR Invite-Only) -->
-      <section class="box-monetization-hub" id="boxMonetizationHub">
-        <!-- Header with Page Classification Badge -->
-        <div class="monetize-hub-header">
-          <div>
-            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-              <h3 class="section-title-gold" style="margin-bottom:0;">💎 Meta Content Monetization</h3>
-              <span id="badgeMonetizeAuto" class="badge-program-type criteria">🎯 Criteria Area Page</span>
-            </div>
-            <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
-              Live status for <strong id="monetizeTargetPageName" style="color:var(--gold-bright);">Current Page</strong> • Professional Dashboard Match
-            </p>
-          </div>
-          <div class="badge-internal-secure">
-            <span>🔒 Standalone In-App Engine</span>
-          </div>
-        </div>
-
-        <!-- Dynamic Monetization Hub Content Container (Strictly ONE status rendered: Criteria OR Invite-Only) -->
-        <div id="monetizeDynamicContent">
-          <!-- Dynamically populated by gold_app.js -->
-        </div>
-
-        <!-- Secondary Monetization Tools Drawer (Stars & Subscriptions) -->
-        <div class="extra-monetize-drawer" style="margin-top:10px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <span style="font-size:12px; font-weight:700; color:var(--text-muted);">Additional Page Monetization Tools:</span>
-            <button id="btnToggleOtherTools" class="btn-subtext-toggle">Show Stars & Subscriptions ▼</button>
-          </div>
-          <div id="otherToolsCollapse" style="display:none;">
-            <div id="criteriaToolsContainer"></div>
-          </div>
-        </div>
-
-        <!-- Standalone In-App Actions (Zero Login Barriers) -->
-        <div class="monetize-direct-links-row" style="margin-top:16px;">
-          <button id="btnMonetizeSelfCheck" class="action-link-btn btn-status-check">
-            <span>⚡</span> <span>Re-Verify Page Monetization Policy</span>
-          </button>
-          <button id="btnOpenHelpModal" class="action-link-btn" style="color:var(--gold-bright); border-color:var(--border-gold-mid);">
-            <span>📖</span> <span>Meta Monetization Guidelines & FAQ</span>
-          </button>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- In-App Interactive Modal: Video Telemetry Inspector -->
-  <div class="modal-overlay" id="videoModal">
-    <div class="modal-dialog">
-      <button class="modal-close-btn" id="btnCloseVideoModal">&times;</button>
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-        <span style="font-size:24px;">🎬</span>
-        <div>
-          <h3 style="font-size:16px; font-weight:800; color:#fff; margin:0;" id="modalVideoTitle">Reel Telemetry</h3>
-          <span style="font-size:11.5px; color:var(--gold-bright); font-weight:700;" id="modalVideoPageName">Page Name</span>
         </div>
       </div>
-      <div style="background:rgba(0,0,0,0.5); border-radius:10px; border:1px solid var(--border-gold-subtle); padding:14px; margin-top:10px; display:flex; flex-direction:column; gap:10px;">
-        <div style="display:flex; justify-content:space-between; font-size:12px;">
-          <span style="color:var(--text-muted);">Live View Count:</span>
-          <strong style="color:var(--gold-bright);" id="modalVideoViews">0 Views</strong>
-        </div>
-        <div style="display:flex; justify-content:space-between; font-size:12px;">
-          <span style="color:var(--text-muted);">Uploaded Via Cloud Runner:</span>
-          <span style="color:var(--fb-green); font-weight:700;">✓ Automated USA Pipeline</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; font-size:12px;">
-          <span style="color:var(--text-muted);">Egress IP Verification:</span>
-          <span style="font-family:monospace; color:#fff;" id="modalVideoIp">103.249.233.80 (Clean Egress)</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; font-size:12px;">
-          <span style="color:var(--text-muted);">Published Timestamp:</span>
-          <span style="color:var(--text-secondary);" id="modalVideoTime">Recent</span>
-        </div>
-      </div>
-      <p style="font-size:11.5px; color:var(--text-muted); margin-top:14px; line-height:1.4;">
-        🔒 All automated posts are dispatched directly via Meta Graph API from clean runner instances. No manual Facebook login required.
-      </p>
-    </div>
-  </div>
+    </section>
 
-  <!-- In-App Interactive Modal: Help Center & Best Practices Knowledge Base -->
-  <div class="modal-overlay" id="helpModal">
-    <div class="modal-dialog">
-      <button class="modal-close-btn" id="btnCloseHelpModal">&times;</button>
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
-        <span style="font-size:24px;">🛟</span>
-        <div>
-          <h3 style="font-size:17px; font-weight:800; color:#fff; margin:0;">Meta Monetization Help Center</h3>
-          <span style="font-size:11.5px; color:var(--text-muted);">Creator Guidelines & Official Monetization Knowledge Base</span>
-        </div>
+  </main>
+
+  <!-- Video Preview Modal -->
+  <div id="videoModal" class="app-modal">
+    <div class="modal-backdrop" onclick="closeVideoModal()"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalVideoTitle">Reel Performance Details</h4>
+        <button class="btn-modal-close" onclick="closeVideoModal()">✕</button>
       </div>
-      <div style="display:flex; flex-direction:column; gap:14px; font-size:12.5px; color:var(--text-secondary); line-height:1.5;">
-        <div style="background:rgba(212,175,55,0.08); border:1px solid var(--border-gold-mid); border-radius:8px; padding:12px;">
-          <strong style="color:var(--gold-bright); display:block; margin-bottom:4px;">🎯 Criteria Area Pages vs 📨 Invite-Only Pages</strong>
-          Meta utilizes two monetization onboarding tracks for 2024–2026:
-          <ul style="margin:6px 0 0 16px; padding:0;">
-            <li><strong>Criteria Area:</strong> Shows a public waitlist with 6 qualification rules (18+ age, eligible region, 30-day page age, 3 active reels, 10,000 followers, 150,000 views). Meeting all 6 unlocks instant tool setup.</li>
-            <li><strong>Invite-Only:</strong> Rolling beta program where Meta algorithms automatically invite established creators maintaining high-frequency, original USA reels.</li>
-          </ul>
-        </div>
-        <div style="background:rgba(24,119,242,0.08); border:1px solid rgba(24,119,242,0.3); border-radius:8px; padding:12px;">
-          <strong style="color:#58a6ff; display:block; margin-bottom:4px;">⚡ How to Accelerate Invitations</strong>
-          Consistent 4x daily USA reel publishing without copyright claims or community guideline strikes places pages in the top tier of automated invitation batches.
-        </div>
-        <div style="background:rgba(46,204,113,0.08); border:1px solid rgba(46,204,113,0.3); border-radius:8px; padding:12px;">
-          <strong style="color:var(--fb-green); display:block; margin-bottom:4px;">🛡️ Page Quality & Policy Compliance</strong>
-          Keep your page free of unoriginal content flags and maintain transparent admin profiles to preserve 'No Restrictions' recommendation standing.
-        </div>
+      <div class="modal-body" id="modalVideoContent">
+        <!-- Filled dynamically -->
       </div>
     </div>
   </div>
 
-  <script src="js/gold_app.js"></script>
+  <!-- Scripts -->
+  <script src="js/gold_app.js?v=3.0.0"></script>
 </body>
 </html>
