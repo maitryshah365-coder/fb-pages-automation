@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Facebook Professional Dashboard | Obsidian Gold VIP Edition</title>
-  <meta name="description" content="Meta Business Suite & Professional Dashboard - Obsidian Gold Edition with Real-Time Meta Graph API Sync">
+  <title>Facebook Professional Dashboard | Obsidian Gold Command VIP</title>
+  <meta name="description" content="Meta Professional Dashboard - Obsidian Gold Edition with Real-Time Meta Graph API Sync and Real Upload IP Tracking">
   <meta name="theme-color" content="#030406">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,7 +25,7 @@
       <div class="gold-logo">f</div>
       <div class="brand-text">
         <h1>Meta Professional</h1>
-        <span>24/7 Cloud Command Center</span>
+        <span>24/7 Cloud Automation & Analytics</span>
       </div>
     </div>
     <div class="header-right">
@@ -49,221 +49,207 @@
     </div>
   </div>
 
-  <!-- Search & Dynamic Multi-Page Track -->
-  <section class="pages-nav-section">
-    <div class="search-input-box">
-      <span class="search-icon-pos">🔍</span>
-      <input type="text" id="pageSearchInput" placeholder="Search pages by name or ID...">
-    </div>
-    <div class="page-scroll-track" id="luxePageTrack">
-      <div class="luxe-pill active" data-page-id="all">
-        <span style="font-size:14px; color:var(--gold-bright);">★</span>
-        <span id="labelAllPagesPill">All Pages Portfolio</span>
-      </div>
-      <!-- Dynamically populated page pills with real Facebook profile pictures -->
-      <div class="luxe-pill btn-add-page-pill" id="btnAddPagePill">
-        <span>+ Add Page</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Content Wrapper -->
-  <main class="main-wrapper">
-
-    <!-- Hero Gold Profile Card -->
-    <section class="hero-gold-card" id="heroCard">
-      <div class="hero-top-row">
-        <div class="hero-avatar-box">
-          <img id="heroAvatarImg" class="hero-avatar-img" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" alt="Page Avatar">
-        </div>
-        <div class="hero-info-box">
-          <div class="hero-title-row">
-            <h2 class="hero-page-title" id="heroPageName">All Pages Portfolio</h2>
-            <span class="badge-gold-verified">✓</span>
-          </div>
-          <div class="hero-page-subtitle" id="heroPageSub">15 Active Pages • Digital Creator Master Portfolio</div>
-        </div>
-      </div>
-
-      <!-- Hero Stats Grid -->
-      <div class="hero-stats-row">
-        <div class="hero-stat">
-          <span class="hero-stat-label">Total Followers</span>
-          <span class="hero-stat-val" id="heroFollowersVal">17,295</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-label">Today's Posts</span>
-          <span class="hero-stat-val" id="heroTodayPostsVal">0 / 60</span>
-        </div>
-        <div class="hero-stat">
-          <span class="hero-stat-label">Health</span>
-          <span class="hero-stat-val" style="color:var(--fb-green);">100% Active</span>
-        </div>
-      </div>
-
-      <!-- Quick Action Buttons -->
-      <div class="page-action-links" id="pageActionLinks">
-        <a id="linkFbApp" href="https://www.facebook.com/" target="_blank" class="action-link-btn">
-          <span>📱</span> <span>Open in FB App</span>
-        </a>
-        <a id="linkBizSuite" href="https://business.facebook.com/latest/home" target="_blank" class="action-link-btn">
-          <span>💼</span> <span>Business Suite</span>
-        </a>
-        <a id="linkProDash" href="https://www.facebook.com/professional_dashboard/" target="_blank" class="action-link-btn">
-          <span>📊</span> <span>Pro Dashboard</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- Dual Status Banners (Recommendation & Monetization Standing) -->
-    <section class="dual-status-grid">
-      <!-- Recommendation Status -->
-      <div class="gold-status-card" id="cardRecommendation">
-        <div class="status-label-top">
-          <span>🛡️</span>
-          <span>Recommendation Status</span>
-        </div>
-        <div class="status-badge-live">
-          <span>✓</span> <span id="badgeRecomStatus">Recommendable</span>
-        </div>
-        <p class="status-sub-desc" id="descRecomStatus">Content is clean and eligible to be recommended to new viewers across Facebook Reels and Feed.</p>
-      </div>
-
-      <!-- Monetization Standing -->
-      <div class="gold-status-card" id="cardMonetizationStanding">
-        <div class="status-label-top">
-          <span>💰</span>
-          <span>Monetization Status</span>
-        </div>
-        <div class="status-badge-live">
-          <span>✓</span> <span id="badgePolicyStatus">No Violations</span>
-        </div>
-        <p class="status-sub-desc" id="descPolicyStatus">Good Standing. Partner & Content Monetization Policies fully compliant.</p>
-      </div>
-    </section>
-
-    <!-- Next USA Slot Live Countdown Banner -->
-    <section class="gold-countdown-box">
-      <div>
-        <div class="countdown-caption">Next USA Posting Slot</div>
-        <div class="countdown-clock" id="goldCountdown">Calculating...</div>
-      </div>
-      <button id="btnGoldTrigger" class="btn-gold-trigger">⚡ Post Video Now</button>
-    </section>
-
-    <!-- Performance 4-Grid -->
-    <section id="sectionOverview">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 class="section-title-gold">📈 Performance Overview</h3>
-        <span style="font-size:11px; color:var(--gold-primary); font-weight:700;">LAST 28 DAYS</span>
-      </div>
-      <div class="metrics-4grid">
-        <div class="luxe-metric-box">
-          <span class="metric-title">Post Reach</span>
-          <span class="metric-num" id="metricReach">128,400</span>
-          <span class="metric-tag">▲ +24.5% vs previous</span>
-        </div>
-        <div class="luxe-metric-box">
-          <span class="metric-title">Content Interactions</span>
-          <span class="metric-num" id="metricInteractions">14,124</span>
-          <span class="metric-tag">▲ +18.2% vs previous</span>
-        </div>
-        <div class="luxe-metric-box">
-          <span class="metric-title">3-Second Video Views</span>
-          <span class="metric-num" id="metric3sViews">89,200</span>
-          <span class="metric-tag">▲ +31.0% vs previous</span>
-        </div>
-        <div class="luxe-metric-box">
-          <span class="metric-title">1-Minute Video Views</span>
-          <span class="metric-num" id="metric1mViews">33,896</span>
-          <span class="metric-tag">▲ +14.8% vs previous</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Dedicated Monetization Hub (Comprehensive Breakdown) -->
-    <section class="gold-section" id="sectionMonetization">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 class="section-title-gold">💎 Monetization Tools & Programs</h3>
-        <span style="font-size:11px; color:var(--fb-green); font-weight:800;">● ZERO VIOLATIONS</span>
-      </div>
-      <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">Official Meta earning programs eligibility audit & live status</p>
-
-      <div class="monetization-grid" id="monetizationToolsContainer">
-        <!-- Dynamically rendered tools (Stars, In-Stream Ads, Reels Overlay, Bonus, Subscriptions, Branded Content) -->
-      </div>
-
-      <div style="margin-top:14px; text-align:center;">
-        <a href="https://business.facebook.com/latest/monetization/tools" target="_blank" class="action-link-btn" style="display:inline-flex; width:auto; padding:10px 20px; color:var(--gold-bright); border-color:var(--gold-primary);">
-          <span>↗</span> <span>Open Meta Business Suite Monetization</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- Audience Demographics (Country Progress Bars) -->
-    <section class="gold-section" id="sectionAudience">
-      <h3 class="section-title-gold">🌍 Audience & Country Demographics</h3>
-      <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">High-CPM Tier 1 viewership distribution</p>
-      <div id="goldCountriesContainer" style="margin-top:10px;">
-        <!-- Dynamically populated country bars -->
-      </div>
-    </section>
-
-    <!-- Recent Posted Videos & Reels -->
-    <section class="gold-section" id="sectionContent">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3 class="section-title-gold">🎬 Videos & Reels Library</h3>
-        <span style="font-size:12px; color:var(--gold-bright); font-weight:700;" id="badgeVideoCount">0 Videos</span>
-      </div>
-      <div id="goldVideosContainer" style="margin-top:8px;">
-        <!-- Video list -->
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Add Page Information Modal -->
-  <div class="modal-backdrop" id="addPageModal">
-    <div class="modal-content-gold">
-      <div class="modal-header-row">
-        <h3 style="color:var(--gold-bright); font-size:18px;">➕ Add New Facebook Page</h3>
-        <button class="btn-close-modal" id="btnCloseModal">✕</button>
-      </div>
-      <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.5;">
-        You can add as many pages as you want (Page 16, 17, 20+). All pages are automatically managed by the automation pipeline and displayed here in real time.
-      </p>
-      <div style="background:rgba(0,0,0,0.5); padding:12px; border-radius:10px; border:1px solid var(--border-gold-subtle); font-size:12px; color:var(--text-gold);">
-        <strong>How to add a new page:</strong>
-        <ol style="margin-left:18px; margin-top:6px; line-height:1.6; color:var(--text-secondary);">
-          <li>Open your Facebook profile and create or switch to the new Page.</li>
-          <li>Add the Page ID and Permanent Token to <code style="color:var(--gold-bright);">pages_tokens.json</code>.</li>
-          <li>Add the Page entry in <code style="color:var(--gold-bright);">config.yaml</code> with its Google Drive folder ID.</li>
-          <li>Run <code style="color:var(--gold-bright);">python scripts/sync_dashboard_data.py</code> or push to GitHub.</li>
-        </ol>
-      </div>
-      <button class="btn-gold-trigger" id="btnModalGotIt" style="width:100%; text-align:center; padding:12px;">Got It</button>
-    </div>
+  <!-- Mobile View Switcher Tabs -->
+  <div class="mobile-view-tabs" id="mobileTabs">
+    <button class="mobile-tab-btn active" data-tab="pages">📑 Pages & Upload IP</button>
+    <button class="mobile-tab-btn" data-tab="main">📊 Page Analytics & Content</button>
   </div>
 
-  <!-- Bottom Navigation Bar (App Feel) -->
-  <footer class="luxe-bottom-bar">
-    <div class="luxe-nav-btn active" data-target="top">
-      <div class="luxe-nav-icon">🏠</div>
-      <span>Overview</span>
-    </div>
-    <div class="luxe-nav-btn" data-target="sectionMonetization">
-      <div class="luxe-nav-icon">💎</div>
-      <span>Monetize</span>
-    </div>
-    <div class="luxe-nav-btn" data-target="sectionContent">
-      <div class="luxe-nav-icon">🎬</div>
-      <span>Content</span>
-    </div>
-    <div class="luxe-nav-btn" data-target="sectionAudience">
-      <div class="luxe-nav-icon">🌍</div>
-      <span>Audience</span>
-    </div>
-  </footer>
+  <!-- 2-Column Dashboard Layout Container -->
+  <div class="dashboard-layout-container">
+
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="left-sidebar-col" id="leftSidebarCol">
+
+      <!-- Box 1: All Pages List -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header">
+          <h2 class="sidebar-box-title">📑 All Facebook Pages</h2>
+          <span style="font-size:11px; color:var(--gold-bright); font-weight:800;" id="sidebarPagesCountBadge">15 Pages</span>
+        </div>
+        <input type="text" class="pages-search-input" id="sidebarPagesSearch" placeholder="Search pages by name...">
+        <div class="pages-vertical-list" id="sidebarPagesList">
+          <!-- Dynamically populated page items -->
+        </div>
+      </div>
+
+      <!-- Box 2: Today's Upload Status & Remaining Counter -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header">
+          <h2 class="sidebar-box-title">⏱️ Today's Uploads</h2>
+          <span style="font-size:11px; color:var(--fb-green); font-weight:700;">4 SLOTS/DAY</span>
+        </div>
+        <div class="today-status-grid">
+          <div class="today-stat-tile">
+            <span class="today-tile-label">Target Today</span>
+            <div class="today-tile-val" id="todayTargetVal">60 Videos</div>
+          </div>
+          <div class="today-stat-tile">
+            <span class="today-tile-label">Already Uploaded</span>
+            <div class="today-tile-val" style="color:var(--fb-green);" id="todayUploadedVal">0</div>
+          </div>
+          <div class="today-stat-tile" style="grid-column: span 2; border-color:var(--border-gold-mid);">
+            <span class="today-tile-label">Remaining Today</span>
+            <div class="today-tile-val" style="color:var(--gold-bright);" id="todayRemainingVal">60 Videos Remaining</div>
+          </div>
+        </div>
+        <div class="today-countdown-bar">
+          <div>
+            <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Next USA Slot</div>
+            <div style="font-size:13px; color:#fff; font-weight:800;" id="todayCountdown">Calculating...</div>
+          </div>
+          <button id="btnSidebarPostNow" class="btn-icon-sync" style="width:32px; height:32px; font-size:13px;" title="Trigger Upload">⚡</button>
+        </div>
+      </div>
+
+      <!-- Box 3: Last Upload Real IP & Location Tracker -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header">
+          <h2 class="sidebar-box-title">🌐 Last Upload IP & Location</h2>
+          <span style="font-size:10px; color:var(--fb-green); font-weight:800;">● REAL EGRESS</span>
+        </div>
+        <p style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">Real network IP & location Facebook sees when posting:</p>
+        
+        <div class="ip-telemetry-card">
+          <div class="ip-row">
+            <span style="color:var(--text-muted); font-size:11px;">Upload IP Address:</span>
+            <span class="ip-badge" id="ipAddressVal">20.124.89.14</span>
+          </div>
+          <div class="ip-row">
+            <span style="color:var(--text-muted); font-size:11px;">Egress Location:</span>
+            <span class="ip-location-val" id="ipLocationVal">🇺🇸 Ashburn, VA (United States)</span>
+          </div>
+          <div class="ip-row" style="flex-direction:column; align-items:flex-start; gap:2px; margin-top:2px;">
+            <span style="color:var(--text-muted); font-size:10.5px;">Cloud Runner Provider:</span>
+            <span class="ip-org-val" id="ipOrgVal">Microsoft Azure Cloud Infrastructure</span>
+          </div>
+          <div class="ip-row" style="border-top:1px solid rgba(255,255,255,0.06); padding-top:6px; margin-top:4px;">
+            <span style="color:var(--text-muted); font-size:10.5px;">Status for <span id="ipPageTargetName">Selected Page</span>:</span>
+            <span style="color:var(--gold-bright); font-size:10.5px; font-weight:700;" id="ipUploadStatus">Verified Clean</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ================= CENTER MAIN CONTENT ================= -->
+    <main class="main-content-col" id="mainContentCol">
+
+      <!-- Hero Profile Banner -->
+      <section class="hero-gold-card" id="heroCard">
+        <div class="hero-top-row">
+          <img id="heroAvatarImg" class="hero-avatar-img" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" alt="Page Avatar">
+          <div style="flex-grow:1;">
+            <div class="hero-title-row">
+              <h2 class="hero-page-title" id="heroPageName">All Pages Portfolio</h2>
+              <span class="badge-gold-verified">✓</span>
+            </div>
+            <div class="hero-page-subtitle" id="heroPageSub">15 Active Pages • Multi-Page Automation Command</div>
+          </div>
+        </div>
+
+        <div class="page-action-links">
+          <a id="linkFbApp" href="https://www.facebook.com/" target="_blank" class="action-link-btn">
+            <span>📱</span> <span>Open in FB App</span>
+          </a>
+          <a id="linkBizSuite" href="https://business.facebook.com/latest/home" target="_blank" class="action-link-btn">
+            <span>💼</span> <span>Business Suite</span>
+          </a>
+          <a id="linkProDash" href="https://www.facebook.com/professional_dashboard/" target="_blank" class="action-link-btn">
+            <span>📊</span> <span>Pro Dashboard</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Box A: Uploaded Videos Library (with Previews & Views) -->
+      <section class="box-video-library">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <h3 class="section-title-gold">🎬 Uploaded Videos & Reels Library</h3>
+          <span style="font-size:12px; color:var(--gold-bright); font-weight:700;" id="badgeVideosCount">0 Videos</span>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">All uploaded reels with video previews and live view counts</p>
+        
+        <div class="videos-horizontal-scroll" id="videosListContainer">
+          <!-- Dynamically populated video cards with previews -->
+        </div>
+      </section>
+
+      <!-- Box B: Key Analytics (Views, Engagement, Real Country, Page Recommendation) -->
+      <section class="box-analytics-grid">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <h3 class="section-title-gold">📊 Key Analytics & Performance</h3>
+          <span class="recommendation-status-badge" id="badgeRecomStatus">
+            <span>✓</span> <span id="labelRecomStatus">Page is Recommendable</span>
+          </span>
+        </div>
+
+        <div class="analytics-tiles-3col">
+          <div class="analytics-tile">
+            <span class="analytics-tile-title">Total Video Views</span>
+            <div class="analytics-tile-num" id="metricTotalViews">0</div>
+            <span style="font-size:11px; color:var(--gold-bright); font-weight:700;">Live Facebook Count</span>
+          </div>
+          <div class="analytics-tile">
+            <span class="analytics-tile-title">Total Interactions</span>
+            <div class="analytics-tile-num" id="metricInteractions">0</div>
+            <span style="font-size:11px; color:var(--fb-green); font-weight:700;">Reactions & Comments</span>
+          </div>
+          <div class="analytics-tile">
+            <span class="analytics-tile-title">Page Followers</span>
+            <div class="analytics-tile-num" id="metricFollowers">17,295</div>
+            <span style="font-size:11px; color:var(--fb-green); font-weight:700;">Active Audience</span>
+          </div>
+        </div>
+
+        <!-- Strict Real Country Demographics Box -->
+        <div class="country-demographics-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h4 style="font-size:13px; font-weight:800; color:#fff;">🌍 Audience Country Demographics</h4>
+            <span style="font-size:11px; color:var(--text-muted);">Real Meta Insights</span>
+          </div>
+          <div id="countryDemographicsContainer">
+            <!-- Dynamically populated or Strict No-Data Box -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Box C: Modern Meta Content Monetization Hub (2025/2026 Model) -->
+      <section class="box-monetization-hub">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="section-title-gold">💎 Facebook Monetization Tools Hub</h3>
+          <span style="font-size:11px; color:var(--fb-green); font-weight:800;">● ZERO VIOLATIONS</span>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+          Unified Meta creator monetization structure (Criteria-Based vs Invite-Only Tools)
+        </p>
+
+        <!-- Category 1: Criteria-Based Tools -->
+        <div class="monetize-category-title">
+          <span>🎯 Criteria-Based Tools</span>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:500;">(Eligibility criteria poori karne par milte hain)</span>
+        </div>
+        <div id="criteriaToolsContainer">
+          <!-- Stars, Subscriptions, Branded Content -->
+        </div>
+
+        <!-- Category 2: Invite-Only Tools -->
+        <div class="monetize-category-title" style="margin-top:20px;">
+          <span>📨 Invite-Only Programs</span>
+          <span style="font-size:10px; color:var(--text-muted); font-weight:500;">(Meta ke direct invitation se activate hote hain)</span>
+        </div>
+        <div id="inviteToolsContainer">
+          <!-- Content Monetization Program Beta, Bonus Challenges -->
+        </div>
+
+        <div style="margin-top:16px; text-align:center;">
+          <a href="https://business.facebook.com/latest/monetization/tools" target="_blank" class="action-link-btn" style="display:inline-flex; width:auto; padding:10px 22px; color:var(--gold-bright); border-color:var(--gold-primary);">
+            <span>↗</span> <span>Open Meta Business Suite Monetization</span>
+          </a>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <script src="js/gold_app.js"></script>
 </body>

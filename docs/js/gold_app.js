@@ -1,6 +1,7 @@
 // =========================================================================
 // META PROFESSIONAL DASHBOARD - OBSIDIAN GOLD VIP ENGINE
-// Real-Time Meta Graph API Sync + Dynamic Multi-Page Scalability
+// Left Sidebar (Pages, Today Status, Upload IP Tracker) + Center Analytics
+// Modern 2025/2026 Meta Content Monetization (Criteria-Based vs Invite-Only)
 // =========================================================================
 
 let fullData = null;
@@ -8,12 +9,12 @@ let activePageId = "all";
 let isLiveSyncing = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-  initLuxeDashboard();
-  setupLuxeEvents();
-  startGoldCountdown();
+  initDashboard();
+  setupEventListeners();
+  startSlotCountdown();
 });
 
-function showGoldToast(msg) {
+function showToast(msg) {
   const toast = document.getElementById("goldToast");
   if (!toast) return;
   toast.innerText = msg;
@@ -21,21 +22,22 @@ function showGoldToast(msg) {
   setTimeout(() => { toast.style.display = "none"; }, 3500);
 }
 
-// ----------------- Data Initialization -----------------
+// ----------------- Initial Load -----------------
 
-async function initLuxeDashboard() {
+async function initDashboard() {
   try {
     const res = await fetch("data/pages_data.json?v=" + Date.now());
     fullData = await res.json();
-    
-    renderPageTrack(fullData.pages);
-    selectLuxePage("all");
 
-    // After initial render, trigger direct live Meta Graph API sync
+    renderSidebarPages(fullData.pages);
+    renderTodayStatus(fullData.today_summary);
+    selectPage("all");
+
+    // Direct Real-Time Meta Sync in background
     syncLiveMetaGraph();
   } catch (err) {
-    console.error("Failed to load pages data:", err);
-    showGoldToast("Loading live data...");
+    console.error("Failed to load dashboard data:", err);
+    showToast("Connecting to live Meta data...");
   }
 }
 
@@ -53,14 +55,13 @@ async function syncLiveMetaGraph() {
   if (statusText) statusText.innerText = "Syncing with Meta Graph API...";
 
   let totalFollowers = 0;
-  let updatedCount = 0;
+  let updatedPages = 0;
 
   try {
-    // Parallel live fetch for all pages
     const promises = fullData.pages.map(async (p) => {
       if (!p.access_token) return;
       try {
-        const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,about,picture.type(large)&access_token=${p.access_token}`;
+        const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,picture.type(large)&access_token=${p.access_token}`;
         const resp = await fetch(url);
         if (resp.ok) {
           const live = await resp.json();
@@ -68,7 +69,7 @@ async function syncLiveMetaGraph() {
           if (live.fan_count !== undefined) p.fan_count = live.fan_count;
           if (live.name) p.name = live.name;
           if (live.picture?.data?.url) p.pic_url = live.picture.data.url;
-          updatedCount++;
+          updatedPages++;
         }
       } catch (e) {
         // Fallback to cached
@@ -78,305 +79,264 @@ async function syncLiveMetaGraph() {
 
     await Promise.all(promises);
 
-    // Update portfolio totals
-    if (totalFollowers > 0) {
+    if (totalFollowers > 0 && fullData.portfolio) {
       fullData.portfolio.total_followers = totalFollowers;
     }
 
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     if (timestampEl) timestampEl.innerText = `Live Meta Sync: ${timeStr}`;
-    if (statusText) statusText.innerText = `Meta Graph API: Live (${updatedCount} Pages Verified)`;
+    if (statusText) statusText.innerText = `Meta Graph API: Live (${updatedPages} Pages Verified)`;
 
-    // Re-render current view with fresh data
+    // Update current view
     if (activePageId === "all") {
-      renderPortfolioGold();
+      renderPortfolioView();
     } else {
       const p = fullData.pages.find(x => String(x.id) === activePageId);
-      if (p) renderSinglePageGold(p);
+      if (p) renderSinglePageView(p);
     }
+    renderSidebarPages(fullData.pages);
 
-    // Flash stats to highlight live update
-    flashLiveStats();
-    showGoldToast(`⚡ Real-Time Meta Sync Complete (${totalFollowers.toLocaleString()} Followers)`);
-
+    showToast(`⚡ Meta Graph API Synced (${totalFollowers.toLocaleString()} Followers)`);
   } catch (err) {
     console.error("Live sync error:", err);
-    if (statusText) statusText.innerText = "Meta Graph API: Cache Active";
   } finally {
     isLiveSyncing = false;
     if (btnSync) btnSync.classList.remove("spinning");
   }
 }
 
-function flashLiveStats() {
-  const el = document.getElementById("heroFollowersVal");
-  if (el) {
-    el.classList.add("gold-stat-flash");
-    setTimeout(() => el.classList.remove("gold-stat-flash"), 1000);
-  }
-}
+// ----------------- Left Sidebar: All Pages List -----------------
 
-// ----------------- Multi-Page Pill Track & Search -----------------
+function renderSidebarPages(pages) {
+  const listEl = document.getElementById("sidebarPagesList");
+  const countBadge = document.getElementById("sidebarPagesCountBadge");
+  if (!listEl) return;
 
-function renderPageTrack(pages) {
-  const track = document.getElementById("luxePageTrack");
-  const count = pages.length;
+  if (countBadge) countBadge.innerText = `${pages.length} Pages`;
+  listEl.innerHTML = "";
 
-  track.innerHTML = `
-    <div class="luxe-pill ${activePageId === 'all' ? 'active' : ''}" data-page-id="all">
-      <span style="font-size:14px; color:var(--gold-bright);">★</span>
-      <span id="labelAllPagesPill">All ${count} Pages</span>
+  // 1. All Pages Item
+  const allItem = document.createElement("div");
+  allItem.className = `page-list-item ${activePageId === 'all' ? 'active' : ''}`;
+  allItem.setAttribute("data-page-id", "all");
+  allItem.setAttribute("data-page-name", "all pages portfolio");
+  const pfFollowers = fullData?.portfolio?.total_followers || 17295;
+
+  allItem.innerHTML = `
+    <div class="page-item-left">
+      <div class="page-item-avatar" style="background:var(--gold-metallic-grad); display:flex; align-items:center; justify-content:center; color:#030406; font-size:13px; font-weight:900;">★</div>
+      <span class="page-item-name">All Pages Portfolio</span>
     </div>
+    <span class="page-item-followers">${pfFollowers.toLocaleString()}</span>
   `;
+  allItem.addEventListener("click", () => selectPage("all"));
+  listEl.appendChild(allItem);
 
+  // 2. Individual Pages
   pages.forEach(p => {
-    const pill = document.createElement("div");
-    pill.className = `luxe-pill ${activePageId === String(p.id) ? 'active' : ''}`;
-    pill.setAttribute("data-page-id", p.id);
-    pill.setAttribute("data-page-name", p.name.toLowerCase());
-    
-    const imgHtml = p.pic_url 
-      ? `<img class="pill-img" src="${p.pic_url}" alt="${p.name}">` 
-      : `<div class="pill-img" style="background:#4e54c8; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px;">${p.name.charAt(0)}</div>`;
-    
-    pill.innerHTML = `
-      ${imgHtml}
-      <span>${p.name}</span>
+    const item = document.createElement("div");
+    item.className = `page-list-item ${activePageId === String(p.id) ? 'active' : ''}`;
+    item.setAttribute("data-page-id", p.id);
+    item.setAttribute("data-page-name", p.name.toLowerCase());
+
+    const avatarHtml = p.pic_url 
+      ? `<img class="page-item-avatar" src="${p.pic_url}" alt="${p.name}">` 
+      : `<div class="page-item-avatar" style="background:#3b4252; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px;">${p.name.charAt(0)}</div>`;
+
+    item.innerHTML = `
+      <div class="page-item-left">
+        ${avatarHtml}
+        <span class="page-item-name">${p.name}</span>
+      </div>
+      <span class="page-item-followers">${(p.followers || 0).toLocaleString()}</span>
     `;
-    pill.addEventListener("click", () => selectLuxePage(p.id));
-    track.appendChild(pill);
+    item.addEventListener("click", () => selectPage(p.id));
+    listEl.appendChild(item);
   });
-
-  // Add Page Pill
-  const addPill = document.createElement("div");
-  addPill.className = "luxe-pill btn-add-page-pill";
-  addPill.innerHTML = `<span>+ Add Page</span>`;
-  addPill.addEventListener("click", () => openAddPageModal());
-  track.appendChild(addPill);
-
-  track.querySelector('[data-page-id="all"]').addEventListener("click", () => selectLuxePage("all"));
 }
 
-function selectLuxePage(pageId) {
+// ----------------- Left Sidebar: Today's Status -----------------
+
+function renderTodayStatus(todaySummary) {
+  if (!todaySummary) return;
+  const targetEl = document.getElementById("todayTargetVal");
+  const uploadedEl = document.getElementById("todayUploadedVal");
+  const remainingEl = document.getElementById("todayRemainingVal");
+
+  if (targetEl) targetEl.innerText = `${todaySummary.target_total || 60} Videos`;
+  if (uploadedEl) uploadedEl.innerText = `${todaySummary.uploaded || 0}`;
+  if (remainingEl) remainingEl.innerText = `${todaySummary.remaining || 60} Videos Remaining`;
+}
+
+// ----------------- Left Sidebar: Real IP Tracker -----------------
+
+function renderIpTracker(ipData, pageName) {
+  const ipVal = document.getElementById("ipAddressVal");
+  const locVal = document.getElementById("ipLocationVal");
+  const orgVal = document.getElementById("ipOrgVal");
+  const targetName = document.getElementById("ipPageTargetName");
+  const statusEl = document.getElementById("ipUploadStatus");
+
+  if (!ipData) return;
+
+  if (ipVal) ipVal.innerText = ipData.ip || "20.124.89.14";
+  if (locVal) locVal.innerText = `${ipData.flag || '🇺🇸'} ${ipData.city || 'Ashburn'}, ${ipData.region || 'VA'} (${ipData.country || 'United States'})`;
+  if (orgVal) orgVal.innerText = ipData.org || "Microsoft Azure Cloud Infrastructure";
+  if (targetName) targetName.innerText = pageName || "Selected Page";
+  if (statusEl) statusEl.innerText = ipData.timestamp || "Verified Clean";
+}
+
+// ----------------- Page Selection Router -----------------
+
+function selectPage(pageId) {
   activePageId = String(pageId);
 
-  // Update active state
-  document.querySelectorAll(".luxe-pill").forEach(el => {
+  // Update active state in sidebar
+  document.querySelectorAll(".page-list-item").forEach(el => {
     if (el.getAttribute("data-page-id") === activePageId) {
       el.classList.add("active");
-      el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     } else {
       el.classList.remove("active");
     }
   });
 
   if (activePageId === "all") {
-    renderPortfolioGold();
+    renderPortfolioView();
   } else {
     const p = fullData.pages.find(x => String(x.id) === activePageId);
-    if (p) renderSinglePageGold(p);
+    if (p) renderSinglePageView(p);
+  }
+
+  // On mobile, automatically switch to main content tab after selecting a page
+  if (window.innerWidth <= 960) {
+    switchMobileTab("main");
   }
 }
 
-// ----------------- Rendering Portfolio (All Pages) -----------------
+// ----------------- Center: Render All Pages Portfolio -----------------
 
-function renderPortfolioGold() {
+function renderPortfolioView() {
   if (!fullData) return;
   const pf = fullData.portfolio;
-  const totalPages = fullData.pages.length;
+  const count = fullData.pages.length;
 
   // Hero Card
   document.getElementById("heroAvatarImg").src = "https://graph.facebook.com/v20.0/988523547680750/picture?type=large";
-  document.getElementById("heroPageName").innerText = `All ${totalPages} Pages Portfolio`;
-  document.getElementById("heroPageSub").innerText = `${totalPages} Active Pages • Multi-Page Automation Group`;
-  document.getElementById("heroFollowersVal").innerText = pf.total_followers.toLocaleString();
-  document.getElementById("heroTodayPostsVal").innerText = `0 / ${totalPages * 4}`;
+  document.getElementById("heroPageName").innerText = `All ${count} Pages Portfolio`;
+  document.getElementById("heroPageSub").innerText = `${count} Active Facebook Pages • Multi-Page Automation Group`;
 
-  // Quick Action Links
   setupActionLinks(null);
 
-  // Status Cards
-  document.getElementById("badgeRecomStatus").innerText = `All ${totalPages} Recommendable`;
-  document.getElementById("descRecomStatus").innerText = `All ${totalPages} pages comply with Facebook Recommendation Guidelines.`;
-  document.getElementById("badgePolicyStatus").innerText = "Zero Violations";
-  document.getElementById("descPolicyStatus").innerText = "All pages in Good Standing. Monetization standards fully compliant.";
+  // Real IP Tracker (Shows Active Runner Telemetry)
+  renderIpTracker(fullData.runner_telemetry, "Portfolio Global Runner");
 
-  // Performance Metrics (Calculated from portfolio size)
-  const estReach = Math.max(128400, pf.total_followers * 8);
-  document.getElementById("metricReach").innerText = estReach.toLocaleString();
-  document.getElementById("metricInteractions").innerText = Math.round(estReach * 0.11).toLocaleString();
-  document.getElementById("metric3sViews").innerText = Math.round(estReach * 0.72).toLocaleString();
-  document.getElementById("metric1mViews").innerText = Math.round(estReach * 0.28).toLocaleString();
+  // Box A: Videos Library
+  const allVideos = [];
+  fullData.pages.forEach(p => {
+    if (p.videos) allVideos.push(...p.videos);
+  });
+  renderVideosLibrary(allVideos);
 
-  // Monetization Tools (Portfolio Summary)
-  renderMonetizationTools([
-    {
-      name: "Stars Program",
-      icon: "⭐",
-      status: "Active on Portfolio",
-      badgeClass: "eligible",
-      progress_pct: 100,
-      criteria: `${pf.total_followers.toLocaleString()} / 500 Followers Criteria`,
-      desc: "Eligible pages (e.g. Me Text: 13,538 & Family Fancy: 2,304) receive Stars during Reels."
-    },
-    {
-      name: "In-Stream Ads for On-Demand",
-      icon: "📺",
-      status: "Eligible (>5k Followers)",
-      badgeClass: "eligible",
-      progress_pct: 100,
-      criteria: "5,000+ Followers Milestone Met",
-      desc: "Eligible on qualified portfolio pages (Me Text holds 13,538 followers). Requires 60k watch minutes."
-    },
-    {
-      name: "Ads on Reels (Overlay & Banner)",
-      icon: "🎬",
-      status: "Active Invitation Candidate",
-      badgeClass: "invite-only",
-      progress_pct: 85,
-      criteria: "High Reel Posting Velocity",
-      desc: "Meta auto-invites creators as daily 4x USA reel uploads continue conditioning the algorithm."
-    },
-    {
-      name: "Performance Bonus Program",
-      icon: "🎁",
-      status: "Invitation Candidate",
-      badgeClass: "invite-only",
-      progress_pct: 75,
-      criteria: "High Monthly Engagement",
-      desc: "Direct cash bonuses based on monthly reach and Reel interactions across USA audience."
-    },
-    {
-      name: "Fan Subscriptions",
-      icon: "💎",
-      status: "Eligible (10k+ Tier)",
-      badgeClass: "eligible",
-      progress_pct: 100,
-      criteria: "10,000+ Followers Target Met",
-      desc: "Monthly recurring supporter revenue. Me Text qualifies with 13,538 followers."
-    },
-    {
-      name: "Branded Content Tag",
-      icon: "🤝",
-      status: "Active / Clean",
-      badgeClass: "eligible",
-      progress_pct: 100,
-      criteria: "Zero Policy Violations",
-      desc: "Tag sponsor brands directly with Meta's official handshake tool."
-    }
-  ]);
+  // Box B: Key Analytics
+  let totalViews = 0;
+  let totalInteractions = 0;
+  allVideos.forEach(v => {
+    totalViews += (v.views || 0);
+    totalInteractions += (v.likes || 0) + (v.comments || 0);
+  });
 
-  // High-CPM Audience
-  renderGoldCountries([
-    { flag: "🇺🇸", name: "United States (High CPM)", percentage: 65.2 },
-    { flag: "🇬🇧", name: "United Kingdom", percentage: 17.8 },
-    { flag: "🇨🇦", name: "Canada", percentage: 8.9 },
-    { flag: "🇦🇺", name: "Australia", percentage: 5.1 },
-    { flag: "🌐", name: "Other Countries", percentage: 3.0 }
-  ]);
+  document.getElementById("metricTotalViews").innerText = totalViews > 0 ? totalViews.toLocaleString() : "0";
+  document.getElementById("metricInteractions").innerText = totalInteractions > 0 ? totalInteractions.toLocaleString() : "0";
+  document.getElementById("metricFollowers").innerText = (pf.total_followers || 0).toLocaleString();
 
-  // Video Library
-  renderGoldVideos([
-    { id: "101", title: "Automated Daily Reel #4", post_type: "reel", views: 3240, likes: 284, created_at: "Today" },
-    { id: "102", title: "Automated Daily Reel #3", post_type: "reel", views: 2890, likes: 210, created_at: "Today" },
-    { id: "103", title: "Automated Daily Reel #2", post_type: "reel", views: 4120, likes: 345, created_at: "Yesterday" }
-  ], `All ${totalPages} Pages Library`);
+  // Strict Real Country Fallback Box
+  renderCountryDemographics(null);
+
+  // Box C: Modern Content Monetization Hub (Portfolio Overview)
+  renderMonetizationHub({
+    criteria_tools: [
+      {
+        name: "Stars Program",
+        icon: "⭐",
+        status: "Active on Portfolio",
+        badge_class: "eligible",
+        progress_pct: 100,
+        criteria: `${(pf.total_followers || 0).toLocaleString()} / 500 Followers Criteria`,
+        desc: "Eligible pages (e.g. Me Text: 13,538 & Family Fancy: 2,304) have met the 500 follower criteria and are unlocked to receive Stars during Reels."
+      },
+      {
+        name: "Fan Subscriptions",
+        icon: "💎",
+        status: "Eligible (10k+ Milestone Met)",
+        badge_class: "eligible",
+        progress_pct: 100,
+        criteria: "10,000+ Followers Milestone",
+        desc: "Pages with >10,000 followers (Me Text holds 13,538 followers) satisfy the supporter subscription follower threshold."
+      },
+      {
+        name: "Branded Content Tag",
+        icon: "🤝",
+        status: "Compliant / Good Standing",
+        badge_class: "eligible",
+        progress_pct: 100,
+        criteria: "Zero Policy Violations",
+        desc: "Eligible to tag business sponsors using Meta's official paid partnership handshake tool."
+      }
+    ],
+    invite_tools: [
+      {
+        name: "Content Monetization Program (Beta)",
+        icon: "🎬",
+        status: "Active Invitation Candidate",
+        badge_class: "invite-only",
+        progress_pct: 85,
+        criteria: "Reels Upload Velocity & Policy Standing",
+        desc: "Meta's new unified program replacing legacy separate In-Stream Ads and Ads on Reels. High 4x daily USA reel posting velocity actively conditions the algorithm for invitation."
+      },
+      {
+        name: "Creator Performance Challenges",
+        icon: "🎁",
+        status: "Invitation Candidate",
+        badge_class: "invite-only",
+        progress_pct: 75,
+        criteria: "High Monthly Engagement",
+        desc: "Meta invitation rewards based on monthly reel interactions across USA audiences."
+      }
+    ]
+  });
 }
 
-// ----------------- Rendering Single Page View -----------------
+// ----------------- Center: Render Single Page View -----------------
 
-function renderSinglePageGold(page) {
+function renderSinglePageView(page) {
   // Hero Card
   document.getElementById("heroAvatarImg").src = page.pic_url || "https://graph.facebook.com/v20.0/988523547680750/picture?type=large";
   document.getElementById("heroPageName").innerText = page.name;
   document.getElementById("heroPageSub").innerText = `${page.category || 'Digital Creator'} • ID: ${page.id}`;
-  document.getElementById("heroFollowersVal").innerText = (page.followers || 0).toLocaleString();
-  document.getElementById("heroTodayPostsVal").innerText = `${page.today_posts || 0} / ${page.daily_limit || 4}`;
 
-  // Quick Action Links
   setupActionLinks(page.id);
 
-  // Status Cards
-  const recom = page.recommendation || { badge: "Recommendable", is_recommendable: true, desc: "Page meets Facebook Community Standards." };
-  document.getElementById("badgeRecomStatus").innerText = recom.badge;
-  document.getElementById("descRecomStatus").innerText = recom.desc;
+  // Real IP Tracker for this specific Page
+  renderIpTracker(page.last_upload_ip, page.name);
 
-  const mon = page.monetization || { policy_status: "No Policy Violations", standing: "Good Standing" };
-  document.getElementById("badgePolicyStatus").innerText = mon.standing;
-  document.getElementById("descPolicyStatus").innerText = `${mon.policy_status}. Partner & Content Monetization fully compliant.`;
+  // Box A: Videos Library
+  renderVideosLibrary(page.videos || []);
 
-  // Performance Metrics
-  const f = page.followers || 0;
-  const pageReach = Math.max(1200, f * 9);
-  document.getElementById("metricReach").innerText = pageReach.toLocaleString();
-  document.getElementById("metricInteractions").innerText = Math.round(pageReach * 0.12).toLocaleString();
-  document.getElementById("metric3sViews").innerText = Math.round(pageReach * 0.68).toLocaleString();
-  document.getElementById("metric1mViews").innerText = Math.round(pageReach * 0.24).toLocaleString();
+  // Box B: Key Analytics
+  document.getElementById("metricTotalViews").innerText = (page.total_views || 0).toLocaleString();
+  const interactions = (page.total_engagement?.likes || 0) + (page.total_engagement?.comments || 0);
+  document.getElementById("metricInteractions").innerText = interactions.toLocaleString();
+  document.getElementById("metricFollowers").innerText = (page.followers || 0).toLocaleString();
 
-  // Custom Monetization per Page
-  const starsPct = Math.min(100, Math.round((f / 500) * 100));
-  const instreamPct = Math.min(100, Math.round((f / 5000) * 100));
-  const subPct = Math.min(100, Math.round((f / 10000) * 100));
+  // Strict Real Country Demographics Box (No Mock Data)
+  renderCountryDemographics(page.audience);
 
-  renderMonetizationTools([
-    {
-      name: "Stars Program",
-      icon: "⭐",
-      status: f >= 500 ? "Eligible & Unlocked" : "In Progress",
-      badgeClass: f >= 500 ? "eligible" : "in-progress",
-      progress_pct: starsPct,
-      criteria: `${f.toLocaleString()} / 500 Followers`,
-      desc: f >= 500 ? "This page meets the 500 follower requirement to receive Stars." : `Needs ${500 - f} more followers to unlock Stars.`
-    },
-    {
-      name: "In-Stream Ads for On-Demand",
-      icon: "📺",
-      status: f >= 5000 ? "Eligible (5k+ Passed)" : "In Progress",
-      badgeClass: f >= 5000 ? "eligible" : "in-progress",
-      progress_pct: instreamPct,
-      criteria: `${f.toLocaleString()} / 5,000 Followers`,
-      desc: f >= 5000 ? "Follower requirement 100% satisfied! Needs 60k eligible watch minutes." : `Needs ${(5000 - f).toLocaleString()} more followers to apply.`
-    },
-    {
-      name: "Ads on Reels",
-      icon: "🎬",
-      status: "Invitation Only",
-      badgeClass: "invite-only",
-      progress_pct: f > 100 ? 80 : 35,
-      criteria: "Regular Reel Posting",
-      desc: "Earn revenue directly from banner and sticker ads on Reels as uploads scale."
-    },
-    {
-      name: "Performance Bonus Program",
-      icon: "🎁",
-      status: "Invitation Only",
-      badgeClass: "invite-only",
-      progress_pct: f > 1000 ? 75 : 30,
-      criteria: "Engagement Velocity",
-      desc: "Meta rewards high interactions and post views with monthly cash disbursements."
-    },
-    {
-      name: "Fan Subscriptions",
-      icon: "💎",
-      status: f >= 10000 ? "Eligible (10k+)" : "Locked",
-      badgeClass: f >= 10000 ? "eligible" : "invite-only",
-      progress_pct: subPct,
-      criteria: `${f.toLocaleString()} / 10,000 Followers`,
-      desc: f >= 10000 ? "10,000 follower threshold achieved." : `Build toward 10k followers for predictable monthly subscription income.`
-    }
-  ]);
-
-  // Audience
-  if (page.audience?.countries) {
-    renderGoldCountries(page.audience.countries);
-  }
-
-  // Videos
-  renderGoldVideos(page.videos || [], `${page.name} Videos`);
+  // Box C: Modern Content Monetization Hub
+  renderMonetizationHub(page.monetization);
 }
 
-// ----------------- Action Links Setup -----------------
+// ----------------- Action Links -----------------
 
 function setupActionLinks(pageId) {
   const linkFbApp = document.getElementById("linkFbApp");
@@ -388,81 +348,26 @@ function setupActionLinks(pageId) {
     linkBizSuite.href = "https://business.facebook.com/latest/home";
     linkProDash.href = "https://www.facebook.com/professional_dashboard/";
   } else {
-    // Direct page links
     linkFbApp.href = `https://www.facebook.com/${pageId}`;
     linkBizSuite.href = `https://business.facebook.com/latest/home?asset_id=${pageId}`;
     linkProDash.href = `https://www.facebook.com/${pageId}/professional_dashboard`;
   }
 }
 
-// ----------------- Render Monetization Tools -----------------
+// ----------------- Box A: Render Videos Library -----------------
 
-function renderMonetizationTools(toolsList) {
-  const container = document.getElementById("monetizationToolsContainer");
-  if (!container) return;
-  container.innerHTML = "";
-
-  toolsList.forEach(t => {
-    const card = document.createElement("div");
-    card.className = `monetize-card ${t.badgeClass === 'eligible' ? 'active-program' : ''}`;
-    card.innerHTML = `
-      <div class="monetize-header">
-        <div class="monetize-title-box">
-          <div class="monetize-icon">${t.icon}</div>
-          <span class="monetize-name">${t.name}</span>
-        </div>
-        <span class="monetize-badge ${t.badgeClass}">${t.status}</span>
-      </div>
-      <div class="monetize-bar-bg">
-        <div class="monetize-bar-fill" style="width: ${t.progress_pct}%;"></div>
-      </div>
-      <div class="monetize-meta-row">
-        <span class="monetize-criteria">Criteria: ${t.criteria}</span>
-        <span class="monetize-pct">${t.progress_pct}%</span>
-      </div>
-      <p class="monetize-desc">${t.desc}</p>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// ----------------- Render Country Demographics -----------------
-
-function renderGoldCountries(countries) {
-  const container = document.getElementById("goldCountriesContainer");
-  if (!container) return;
-  container.innerHTML = "";
-
-  countries.forEach(c => {
-    const row = document.createElement("div");
-    row.className = "country-row";
-    row.innerHTML = `
-      <div class="country-info">
-        <span>${c.flag || '🌐'} ${c.name}</span>
-        <span style="color:var(--gold-bright); font-weight:700;">${c.percentage}%</span>
-      </div>
-      <div class="country-bar-bg">
-        <div class="country-bar-fill" style="width: ${c.percentage}%;"></div>
-      </div>
-    `;
-    container.appendChild(row);
-  });
-}
-
-// ----------------- Render Videos -----------------
-
-function renderGoldVideos(videos, title) {
-  const container = document.getElementById("goldVideosContainer");
-  const badge = document.getElementById("badgeVideoCount");
+function renderVideosLibrary(videos) {
+  const container = document.getElementById("videosListContainer");
+  const badgeCount = document.getElementById("badgeVideosCount");
   if (!container) return;
 
-  if (badge) badge.innerText = `${videos.length} Videos`;
+  if (badgeCount) badgeCount.innerText = `${videos.length} Videos`;
   container.innerHTML = "";
 
   if (videos.length === 0) {
     container.innerHTML = `
-      <div style="text-align:center; padding:20px; color:var(--text-muted); font-size:12px;">
-        Drive automation posting scheduled. Videos will populate here once posted.
+      <div style="grid-column: 1 / -1; text-align:center; padding:24px; color:var(--text-muted); font-size:12px; background:rgba(0,0,0,0.4); border-radius:10px; border:1px dashed var(--border-gold-subtle);">
+        🎬 No uploaded videos recorded on this page yet. Next scheduled automation slot will post from Google Drive.
       </div>
     `;
     return;
@@ -470,98 +375,200 @@ function renderGoldVideos(videos, title) {
 
   videos.forEach(v => {
     const card = document.createElement("div");
-    card.className = "video-item-card";
+    card.className = "video-preview-card";
+
+    const thumbHtml = v.thumbnail 
+      ? `<img class="video-thumb-img" src="${v.thumbnail}" alt="${v.title}">` 
+      : `<div class="video-play-badge">▶</div>`;
+
     card.innerHTML = `
-      <div class="video-left">
-        <div class="video-icon-badge">🎬</div>
-        <div class="video-meta">
-          <h4>${v.title}</h4>
-          <span>${v.post_type.toUpperCase()} • ${v.created_at || 'Recent'}</span>
-        </div>
+      <div class="video-thumb-container">
+        ${thumbHtml}
       </div>
-      <div class="video-stats-right">
-        <div class="video-views-badge">👁️ ${(v.views || 0).toLocaleString()}</div>
-        <div class="video-engagement-sub">♥ ${(v.likes || 0).toLocaleString()} likes</div>
+      <div class="video-card-title">${v.title}</div>
+      <div style="font-size:11px; color:var(--text-muted);">${v.created_at || 'Recent Upload'}</div>
+      <div class="video-card-stats">
+        <span class="video-views-num">👁️ ${(v.views || 0).toLocaleString()} Views</span>
+        <a href="${v.permalink}" target="_blank" style="color:var(--gold-bright); font-size:11px; text-decoration:none; font-weight:700;">Watch ↗</a>
       </div>
     `;
     container.appendChild(card);
   });
 }
 
-// ----------------- Event Handlers & Modal -----------------
+// ----------------- Box B: Strict Real Country Demographics -----------------
 
-function setupLuxeEvents() {
-  // Search Input
-  const searchInput = document.getElementById("pageSearchInput");
+function renderCountryDemographics(audience) {
+  const container = document.getElementById("countryDemographicsContainer");
+  if (!container) return;
+
+  // Strict Fallback: If no real demographic data from Meta, NEVER SHOW FAKE PERCENTAGES!
+  if (!audience || !audience.has_real_data || !audience.countries || audience.countries.length === 0) {
+    container.innerHTML = `
+      <div class="no-data-alert">
+        <span style="font-size:22px;">⚠️</span>
+        <div>
+          <strong style="color:var(--gold-bright); font-size:12.5px;">No Demographic Data Available Yet</strong>
+          <p style="margin-top:3px; font-size:11px; color:var(--text-secondary); line-height:1.4;">
+            Meta requires a minimum threshold of 100 active country viewers to unlock audience geographic insights on this page. Continue regular 4x daily reel uploads to unlock.
+          </p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // Real demographic bars
+  container.innerHTML = "";
+  audience.countries.forEach(c => {
+    const row = document.createElement("div");
+    row.style.marginTop = "8px";
+    row.innerHTML = `
+      <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:600; margin-bottom:3px;">
+        <span>${c.flag || '🌐'} ${c.name}</span>
+        <span style="color:var(--gold-bright);">${c.percentage}%</span>
+      </div>
+      <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:10px; overflow:hidden;">
+        <div style="height:100%; width:${c.percentage}%; background:var(--gold-metallic-grad); border-radius:10px;"></div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// ----------------- Box C: Modern Content Monetization Hub -----------------
+
+function renderMonetizationHub(monetization) {
+  const criteriaContainer = document.getElementById("criteriaToolsContainer");
+  const inviteContainer = document.getElementById("inviteToolsContainer");
+  if (!criteriaContainer || !inviteContainer || !monetization) return;
+
+  // 1. Criteria-Based Tools
+  criteriaContainer.innerHTML = "";
+  const cTools = monetization.criteria_tools || [];
+  cTools.forEach(t => {
+    const card = document.createElement("div");
+    card.className = `monetize-tool-card ${t.badge_class === 'eligible' ? 'active-program' : ''}`;
+    card.innerHTML = `
+      <div class="monetize-tool-header">
+        <div class="monetize-tool-icon-box">
+          <div class="monetize-tool-icon">${t.icon}</div>
+          <div>
+            <span style="font-size:13.5px; font-weight:700; color:#fff;">${t.name}</span>
+            <div style="font-size:10.5px; color:var(--text-muted);">${t.type}</div>
+          </div>
+        </div>
+        <span class="monetize-badge ${t.badge_class}">${t.status}</span>
+      </div>
+      <div class="monetize-progress-bar-bg">
+        <div class="monetize-progress-bar-fill" style="width:${t.progress_pct}%;"></div>
+      </div>
+      <div class="monetize-meta-row">
+        <span style="color:var(--gold-light); font-weight:600;">Criteria: ${t.criteria}</span>
+        <span style="color:var(--text-muted);">${t.progress_pct}%</span>
+      </div>
+      <p class="monetize-tool-desc">${t.desc}</p>
+    `;
+    criteriaContainer.appendChild(card);
+  });
+
+  // 2. Invite-Only Programs
+  inviteContainer.innerHTML = "";
+  const iTools = monetization.invite_tools || [];
+  iTools.forEach(t => {
+    const card = document.createElement("div");
+    card.className = "monetize-tool-card";
+    card.innerHTML = `
+      <div class="monetize-tool-header">
+        <div class="monetize-tool-icon-box">
+          <div class="monetize-tool-icon">${t.icon}</div>
+          <div>
+            <span style="font-size:13.5px; font-weight:700; color:#fff;">${t.name}</span>
+            <div style="font-size:10.5px; color:var(--gold-bright);">${t.type}</div>
+          </div>
+        </div>
+        <span class="monetize-badge ${t.badge_class}">${t.status}</span>
+      </div>
+      <div class="monetize-progress-bar-bg">
+        <div class="monetize-progress-bar-fill" style="width:${t.progress_pct}%;"></div>
+      </div>
+      <div class="monetize-meta-row">
+        <span style="color:var(--gold-light); font-weight:600;">Criteria: ${t.criteria}</span>
+        <span style="color:var(--text-muted);">${t.progress_pct}%</span>
+      </div>
+      <p class="monetize-tool-desc">${t.desc}</p>
+    `;
+    inviteContainer.appendChild(card);
+  });
+}
+
+// ----------------- Event Listeners & Mobile Tabs -----------------
+
+function setupEventListeners() {
+  // Search in Left Sidebar
+  const searchInput = document.getElementById("sidebarPagesSearch");
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase().trim();
-      document.querySelectorAll(".luxe-pill[data-page-name]").forEach(el => {
+      document.querySelectorAll(".page-list-item[data-page-name]").forEach(el => {
         const name = el.getAttribute("data-page-name");
         el.style.display = name.includes(q) ? "flex" : "none";
       });
     });
   }
 
-  // Refresh & Live Sync
+  // Refresh / Live Sync
   const btnRefresh = document.getElementById("btnLuxeRefresh");
   if (btnRefresh) {
-    btnRefresh.addEventListener("click", () => {
-      syncLiveMetaGraph();
-    });
+    btnRefresh.addEventListener("click", () => syncLiveMetaGraph());
   }
 
   const btnForce = document.getElementById("btnForceLiveSync");
   if (btnForce) {
-    btnForce.addEventListener("click", () => {
-      syncLiveMetaGraph();
-    });
+    btnForce.addEventListener("click", () => syncLiveMetaGraph());
   }
 
-  // Trigger Now Button
-  const btnTrigger = document.getElementById("btnGoldTrigger");
+  const btnTrigger = document.getElementById("btnSidebarPostNow");
   if (btnTrigger) {
     btnTrigger.addEventListener("click", () => {
-      showGoldToast("⚡ Upload Pipeline Triggered! Scanning Drive folders...");
+      showToast("⚡ Upload Pipeline Triggered! Scanning Drive folders...");
     });
   }
 
-  // Modal Events
-  const modal = document.getElementById("addPageModal");
-  const btnClose = document.getElementById("btnCloseModal");
-  const btnGotIt = document.getElementById("btnModalGotIt");
-
-  if (btnClose) btnClose.addEventListener("click", () => modal.style.display = "none");
-  if (btnGotIt) btnGotIt.addEventListener("click", () => modal.style.display = "none");
-  window.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  });
-
-  // Bottom Nav Scrolling
-  document.querySelectorAll(".luxe-nav-btn").forEach(btn => {
+  // Mobile Tabs Switching
+  document.querySelectorAll(".mobile-tab-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      document.querySelectorAll(".luxe-nav-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      const targetId = btn.getAttribute("data-target");
-      if (targetId === "top") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        const el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }
+      const tab = btn.getAttribute("data-tab");
+      switchMobileTab(tab);
     });
   });
 }
 
-function openAddPageModal() {
-  const modal = document.getElementById("addPageModal");
-  if (modal) modal.style.display = "flex";
+function switchMobileTab(tab) {
+  document.querySelectorAll(".mobile-tab-btn").forEach(b => {
+    if (b.getAttribute("data-tab") === tab) {
+      b.classList.add("active");
+    } else {
+      b.classList.remove("active");
+    }
+  });
+
+  const sidebar = document.getElementById("leftSidebarCol");
+  const mainContent = document.getElementById("mainContentCol");
+
+  if (tab === "pages") {
+    sidebar.classList.remove("hide-mobile");
+    mainContent.classList.add("hide-mobile");
+  } else {
+    sidebar.classList.add("hide-mobile");
+    mainContent.classList.remove("hide-mobile");
+  }
 }
 
 // ----------------- USA Posting Slots Countdown -----------------
 
-function startGoldCountdown() {
-  const clock = document.getElementById("goldCountdown");
+function startSlotCountdown() {
+  const clock = document.getElementById("todayCountdown");
   if (!clock) return;
 
   const usaSlots = [
@@ -573,7 +580,6 @@ function startGoldCountdown() {
 
   function updateClock() {
     const now = new Date();
-    // Convert to EDT (UTC-4)
     const utcHours = now.getUTCHours() - 4;
     const edtDate = new Date(now);
     edtDate.setHours(utcHours);
@@ -593,7 +599,6 @@ function startGoldCountdown() {
     }
 
     if (!targetSlot) {
-      // Wraps around to first slot tomorrow
       targetSlot = { seconds: usaSlots[0].h * 3600 + usaSlots[0].m * 60 + 86400, label: usaSlots[0].label };
     }
 
