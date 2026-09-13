@@ -15,7 +15,8 @@ let currentTimeframeMultiplier = 1.0;
 
 function setTimeframe(days) {
   currentTimeframe = days;
-  if (days === 28) currentTimeframeMultiplier = 1.0;
+  if (days === 7) currentTimeframeMultiplier = 0.26;
+  else if (days === 28) currentTimeframeMultiplier = 1.0;
   else if (days === 60) currentTimeframeMultiplier = 2.08;
   else if (days === 90) currentTimeframeMultiplier = 3.15;
 
@@ -707,7 +708,8 @@ function setupEventListeners() {
   document.getElementById("pagesDrawerOverlay")?.addEventListener("click", closePageDrawer);
   document.getElementById("btnSelectAllPages")?.addEventListener("click", () => selectPage("all"));
 
-  // Timeframe Pills (28, 60, 90 Days)
+  // Timeframe Pills (7, 28, 60, 90 Days)
+  document.getElementById("btnTf7")?.addEventListener("click", () => setTimeframe(7));
   document.getElementById("btnTf28")?.addEventListener("click", () => setTimeframe(28));
   document.getElementById("btnTf60")?.addEventListener("click", () => setTimeframe(60));
   document.getElementById("btnTf90")?.addEventListener("click", () => setTimeframe(90));
