@@ -62,6 +62,8 @@ jobs:
       - name: Run Automation Engine
         env:
           GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
+          GDRIVE_OWNER_REFRESH_TOKEN: ${{ secrets.GDRIVE_OWNER_REFRESH_TOKEN }}
+          GDRIVE_CLIENT_SECRET_JSON: ${{ secrets.GDRIVE_CLIENT_SECRET_JSON }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           FB_TOKEN_PAGE_1: ${{ secrets.FB_TOKEN_PAGE_1 }}

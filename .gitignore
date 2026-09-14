@@ -35,6 +35,7 @@ logs/
 .pytest_cache/
 .coverage
 
-# Scratch
-scratch/
+auth_url_gdrive.txt
+check_hist*.py
+find_code.py
 
