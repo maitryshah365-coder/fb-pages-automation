@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=3.7.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=4.0.0">
 </head>
 <body>
 
@@ -608,29 +608,42 @@
   </main>
   </div> <!-- /.studio-app-layout -->
 
-  <!-- Fixed Bottom Navigation Panel (Mobile / Phone Only - Matching User Request) -->
+  <!-- Fixed Bottom Navigation Panel (Mobile / Phone Only - YouTube Studio Style 4 Boxes) -->
   <nav class="mobile-bottom-panel" id="mobileBottomPanel">
     <button type="button" id="bottomNavDashboard" class="bottom-nav-item active" onclick="selectPage('all'); switchMainView('dashboard')" title="Master Dashboard">
-      <span class="bottom-nav-icon">📊</span>
+      <div class="bottom-nav-icon-box">
+        <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z"/>
+        </svg>
+      </div>
       <span class="bottom-nav-label">Dashboard</span>
     </button>
     <button type="button" id="bottomNavPages" class="bottom-nav-item" onclick="openPageDrawer()" title="All 15 Pages List">
-      <span class="bottom-nav-icon">📑</span>
-      <span class="bottom-nav-label">Pages</span>
+      <div class="bottom-nav-icon-box">
+        <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="3" width="14" height="14" rx="2"></rect>
+          <path d="M3 7v13a1 1 0 001 1h13"/>
+          <line x1="11" y1="8" x2="17" y2="8"/>
+          <line x1="11" y1="12" x2="17" y2="12"/>
+        </svg>
+      </div>
+      <span class="bottom-nav-label">Pages List</span>
     </button>
-    <!-- SINGLE ELEVATED POST NOW FOR MOBILE -->
-    <button type="button" id="bottomNavPostNow" class="bottom-nav-item bottom-nav-post-now" onclick="switchMainView('studio')" title="Instant Post Studio">
-      <div class="bottom-post-glow">
-        <span class="bottom-nav-icon">🚀</span>
+    <button type="button" id="bottomNavPostNow" class="bottom-nav-item" onclick="switchMainView('studio')" title="Instant Post Studio">
+      <div class="bottom-nav-icon-box">
+        <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 16V4M12 4l-4 4M12 4l4 4"/>
+          <path d="M4 17v2a2 2 0 002 2h16a2 2 0 002-2v-2"/>
+        </svg>
       </div>
       <span class="bottom-nav-label">Post Now</span>
     </button>
-    <button type="button" id="bottomNavDrive" class="bottom-nav-item" onclick="switchMainView('dashboard'); document.getElementById('driveStockVal')?.scrollIntoView({ behavior: 'smooth', block: 'center' });" title="Drive Queue Stock">
-      <span class="bottom-nav-icon">📁</span>
-      <span class="bottom-nav-label">Drive</span>
-    </button>
     <button type="button" id="bottomNavSync" class="bottom-nav-item" onclick="syncLiveMetaGraph()" title="Sync Meta API">
-      <span class="bottom-nav-icon">⚡</span>
+      <div class="bottom-nav-icon-box">
+        <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+          <path d="M13 2L3 14h8l-2 8 10-12h-8l2-8z"/>
+        </svg>
+      </div>
       <span class="bottom-nav-label">Sync</span>
     </button>
   </nav>
@@ -650,6 +663,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=3.8.1"></script>
+  <script src="js/gold_app.js?v=4.0.0"></script>
 </body>
 </html>

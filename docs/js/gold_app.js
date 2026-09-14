@@ -1698,8 +1698,8 @@ const DRIVE_CONFIGURED_PAGES = {
   "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 125, handle: "botmask" }
 };
 
-// Selected page IDs for studio post now
-let studioSelectedPageIds = new Set(["640019675857269", "503358542855153"]);
+// Selected page IDs for studio post now (starts empty, user selects on click)
+let studioSelectedPageIds = new Set();
 let isStudioDispatching = false;
 
 // ----------------- View Switcher (Studio vs Dashboard) -----------------
