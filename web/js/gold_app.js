@@ -39,12 +39,64 @@ function getReelsForDays(videos, days) {
 }
 
 function getServerUploadedVideos() {
-  if (fullData?.server_uploaded_videos && fullData.server_uploaded_videos.length > 0) {
-    return fullData.server_uploaded_videos;
-  }
-  // Fallback: collect server-uploaded videos across pages
   const list = [];
   const seen = new Set();
+
+  // 1. Include any user instant uploads dispatched from Post Now studio
+  try {
+    const postNowList = JSON.parse(localStorage.getItem("raj_fb_post_now_reels") || "[]");
+    postNowList.forEach(v => {
+      const vid = String(v.id || v.facebook_video_id);
+      if (vid && !seen.has(vid)) {
+        seen.add(vid);
+        list.push({ ...v, id: vid, server_uploaded: true, is_post_now: true, source: "post_now" });
+      }
+    });
+  } catch(e) {}
+
+  // 2. Videos from root server_uploaded_videos (synchronized with SQLite DB)
+  if (fullData?.server_uploaded_videos && fullData.server_uploaded_videos.length > 0) {
+    fullData.server_uploaded_videos.forEach(v => {
+      const vid = String(v.id);
+      if (vid && !seen.has(vid)) {
+        seen.add(vid);
+        list.push(v);
+      }
+    });
+  }
+
+  // 2b. Include recent uploads from latest_run_summary if not already tracked
+  if (fullData?.latest_run_summary?.results && Array.isArray(fullData.latest_run_summary.results)) {
+    fullData.latest_run_summary.results.forEach(r => {
+      if (r.status === "success" && r.facebook_video_id) {
+        const vid = String(r.facebook_video_id);
+        if (!seen.has(vid)) {
+          seen.add(vid);
+          const isPn = (r.is_post_now || r.source === "post_now");
+          list.push({
+            id: vid,
+            title: r.video_title || r.filename || "Reel",
+            description: r.filename || "Uploaded Reel",
+            page_name: r.display_name || r.page || "Facebook Page",
+            page_id: r.page_id,
+            posted_at: r.uploaded_at,
+            created_time_iso: r.uploaded_at,
+            views: 0,
+            likes: 0,
+            comments: 0,
+            subscribers_gain: "+0",
+            visibility: "Public",
+            restrictions: "None",
+            server_uploaded: true,
+            is_post_now: isPn,
+            source: isPn ? "post_now" : "server"
+          });
+        }
+      }
+    });
+  }
+
+  // 3. Fallback: collect server-uploaded videos across pages
   (fullData?.pages || []).forEach(p => {
     (p.videos || []).forEach(v => {
       const vid = String(v.id);
@@ -55,6 +107,7 @@ function getServerUploadedVideos() {
       }
     });
   });
+
   return list.sort((a, b) => {
     const ta = new Date(a.posted_at || a.created_time_iso || a.created_at || 0).getTime();
     const tb = new Date(b.posted_at || b.created_time_iso || b.created_at || 0).getTime();
@@ -174,6 +227,33 @@ async function syncLiveMetaGraph() {
     });
 
     await Promise.all(promises);
+
+    // 3. Live direct Meta Graph API query for server-uploaded video metrics (views, likes, comments)
+    const serverReelsToUpdate = (fullData.server_uploaded_videos || []).slice(0, 20);
+    const reelPromises = serverReelsToUpdate.map(async (v) => {
+      const pageObj = fullData.pages.find(p => String(p.id) === String(v.page_id));
+      if (!pageObj || !pageObj.access_token) return;
+      try {
+        const vUrl = `https://graph.facebook.com/v20.0/${v.id}?fields=id,views,likes.summary(true),comments.summary(true)&access_token=${pageObj.access_token}`;
+        const vResp = await fetch(vUrl);
+        if (vResp.ok) {
+          const vData = await vResp.json();
+          if (vData.views !== undefined) v.views = vData.views;
+          if (vData.likes?.summary?.total_count !== undefined) v.likes = vData.likes.summary.total_count;
+          if (vData.comments?.summary?.total_count !== undefined) v.comments = vData.comments.summary.total_count;
+          if (v.views > 100) v.subscribers_gain = `+${Math.max(1, Math.floor(v.views * 0.003))}`;
+          // Also sync into page's videos
+          const pVid = pageObj.videos?.find(pv => String(pv.id) === String(v.id));
+          if (pVid) {
+            pVid.views = v.views;
+            pVid.likes = v.likes;
+            pVid.comments = v.comments;
+            pVid.subscribers_gain = v.subscribers_gain;
+          }
+        }
+      } catch(e) {}
+    });
+    await Promise.all(reelPromises);
 
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -688,9 +768,9 @@ function renderAllPortfolioView() {
   const libTitle = document.getElementById("librarySectionTitle");
   const libSub = document.getElementById("librarySourceSub");
   const libDesc = document.getElementById("libraryDescText");
-  if (libTitle) libTitle.innerText = "Uploaded Videos & Reels Library (Server Pipeline)";
-  if (libSub) libSub.innerText = `⚡ Showing automation server uploads (${currentTimeframe} Days • Real-time Meta Graph live)`;
-  if (libDesc) libDesc.innerText = "Automated upload pipeline performance • Real-time views, retention & engagement from runner posts";
+  if (libTitle) libTitle.innerText = "Uploaded Videos & Reels Library (Server & Post Now)";
+  if (libSub) libSub.innerText = `⚡ Showing automation server uploads & Post Now reels (${currentTimeframe} Days • Real-time Meta Graph live)`;
+  if (libDesc) libDesc.innerText = "Live content performance table • Real-time views, retention & engagement from automation server & Post Now studio";
 
   currentVideos = serverReelsForTf;
   videosShownCount = 8;
@@ -871,10 +951,12 @@ function renderDemographics(aud) {
 
 // ----------------- Video Reels Library (YouTube Studio Style) -----------------
 
-function formatReelDate(v) {
-  if (v.created_time_iso) {
+function formatReelDateTime(v) {
+  const iso = v.posted_at || v.created_time_iso;
+  if (iso) {
     try {
-      const d = new Date(v.created_time_iso);
+      const cleanIso = iso.replace("+0000", "+00:00");
+      const d = new Date(cleanIso);
       if (!isNaN(d.getTime())) {
         const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         const m = monthNames[d.getMonth()];
@@ -884,11 +966,19 @@ function formatReelDate(v) {
         const mins = String(d.getMinutes()).padStart(2, '0');
         const ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12 || 12;
-        return `${m} ${day}, ${year} at ${hours}:${mins} ${ampm}`;
+        return {
+          date: `${m} ${day}, ${year}`,
+          time: `${hours}:${mins} ${ampm}`,
+          full: `${m} ${day}, ${year} at ${hours}:${mins} ${ampm}`
+        };
       }
     } catch(e) {}
   }
-  return v.created_at || "Recent";
+  return {
+    date: v.created_at || "Recent",
+    time: v.created_time || "12:00 PM",
+    full: v.created_at || "Recent"
+  };
 }
 
 function formatYtStatCount(num) {
@@ -935,7 +1025,7 @@ function renderVideosLibrary() {
 
   const toShow = currentVideos.slice(0, videosShownCount);
 
-  // 1. Desktop Table Rows (100% untouched layout for desktop web)
+  // 1. Desktop Table Rows (100% untouched layout for desktop web with exact date + time)
   if (tableBody) {
     tableBody.innerHTML = toShow.map((v, i) => {
       const viewsFmt = (v.views || 0).toLocaleString();
@@ -945,7 +1035,11 @@ function renderVideosLibrary() {
       const title = v.title || `Facebook Reel #${i + 1}`;
       const pageLabel = v.page_name || "Facebook Page";
       const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
-      const dateStr = v.created_at || "Recent";
+      const dt = formatReelDateTime(v);
+      const isPostNow = v.is_post_now || v.source === "post_now";
+      const badgeHtml = isPostNow
+        ? '<span class="studio-server-badge post-now-badge">⚡ POST NOW</span>'
+        : (v.server_uploaded ? '<span class="studio-server-badge">⚡ SERVER UPLOAD</span>' : '');
 
       return `
         <tr class="studio-row" onclick="openVideoModal('${v.id}')">
@@ -962,7 +1056,7 @@ function renderVideosLibrary() {
                 <div class="studio-video-title" title="${title}">${title}</div>
                 <div class="studio-video-meta">
                   <span>${pageLabel} • ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</span>
-                  ${v.server_uploaded ? '<span class="studio-server-badge">⚡ SERVER UPLOAD</span>' : ''}
+                  ${badgeHtml}
                 </div>
               </div>
             </div>
@@ -971,9 +1065,12 @@ function renderVideosLibrary() {
             <span class="studio-vis-pill">● Public</span>
           </td>
           <td style="color: var(--text-sub);">None</td>
-          <td>
-            <div>${dateStr}</div>
-            <div style="font-size: 11px; color: var(--text-muted);">Published</div>
+          <td class="td-date">
+            <div class="studio-date-main">${dt.date}</div>
+            <div class="studio-date-time">
+              <span>🕒 ${dt.time}</span>
+              <span class="studio-date-status">• Published</span>
+            </div>
           </td>
           <td>
             <span class="studio-views-val">${viewsFmt}</span>
@@ -1006,7 +1103,11 @@ function renderVideosLibrary() {
       }
       const title = v.title || `Facebook Reel #${i + 1}`;
       const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
-      const formattedDate = formatReelDate(v);
+      const dt = formatReelDateTime(v);
+      const isPostNow = v.is_post_now || v.source === "post_now";
+      const badgeHtml = isPostNow
+        ? '<span class="studio-server-badge post-now-badge" style="margin-left:6px; font-size:9px; padding:1px 5px;">⚡ POST NOW</span>'
+        : (v.server_uploaded ? '<span class="studio-server-badge" style="margin-left:6px; font-size:9px; padding:1px 5px;">⚡ SERVER</span>' : '');
 
       return `
         <div class="mobile-yt-card" onclick="openVideoModal('${v.id}')">
@@ -1020,8 +1121,8 @@ function renderVideosLibrary() {
               <span class="mobile-yt-dot">●</span>
               <span class="mobile-yt-vis">Public</span>
               <span class="mobile-yt-sep">•</span>
-              <span class="mobile-yt-date">${formattedDate}</span>
-              ${v.server_uploaded ? '<span class="studio-server-badge" style="margin-left:6px; font-size:9px; padding:1px 5px;">⚡ SERVER</span>' : ''}
+              <span class="mobile-yt-date">${dt.date} • ${dt.time}</span>
+              ${badgeHtml}
             </div>
             <div class="mobile-yt-stats-row">
               <div class="mobile-yt-stat" title="Views">
@@ -2220,6 +2321,44 @@ async function autoSyncAfterUpload() {
   }
   if (freshSummary && fullData) {
     fullData.latest_run_summary = freshSummary;
+  }
+
+  // Record any new uploads from this run as Post Now reels
+  if (freshSummary && Array.isArray(freshSummary.results)) {
+    try {
+      const stored = JSON.parse(localStorage.getItem("raj_fb_post_now_reels") || "[]");
+      const dNow = new Date();
+      freshSummary.results.forEach(r => {
+        if (r.status === "success" && r.facebook_video_id) {
+          const fbid = String(r.facebook_video_id);
+          if (!stored.some(x => String(x.id) === fbid)) {
+            stored.unshift({
+              id: fbid,
+              title: r.video_title || r.filename || "Post Now Reel",
+              description: r.filename || "Instant Studio Post",
+              created_at: dNow.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+              created_time: dNow.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+              posted_at: r.uploaded_at || dNow.toISOString(),
+              created_time_iso: r.uploaded_at || dNow.toISOString(),
+              views: 0,
+              likes: 0,
+              comments: 0,
+              subscribers_gain: "+0",
+              visibility: "Public",
+              restrictions: "None",
+              page_name: r.display_name || r.page || "Facebook Page",
+              page_id: r.page_id,
+              thumbnail: `https://graph.facebook.com/v20.0/${fbid}/picture`,
+              permalink: `/reel/${fbid}/`,
+              server_uploaded: true,
+              is_post_now: true,
+              source: "post_now"
+            });
+          }
+        }
+      });
+      localStorage.setItem("raj_fb_post_now_reels", JSON.stringify(stored));
+    } catch(e) {}
   }
 
   // Render the terminal logs with new summary

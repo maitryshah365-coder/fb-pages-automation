@@ -1033,6 +1033,12 @@ body {
   text-transform: uppercase;
 }
 
+.studio-server-badge.post-now-badge {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #f87171;
+}
+
 /* ================= YOUTUBE STUDIO CONTENT TABLE ================= */
 .studio-table-wrapper {
   width: 100%;
@@ -1081,6 +1087,37 @@ body {
   font-size: 12.5px;
   vertical-align: middle;
 }
+
+.th-date, .td-date {
+  min-width: 145px;
+  white-space: nowrap;
+}
+
+.studio-date-main {
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 13px;
+  white-space: nowrap;
+  line-height: 1.25;
+}
+
+.studio-date-time {
+  font-size: 11px;
+  color: var(--gold-primary);
+  font-weight: 600;
+  margin-top: 3px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.studio-date-status {
+  color: var(--text-muted);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
 
 .th-check, .td-check {
   width: 38px;
