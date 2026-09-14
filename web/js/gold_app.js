@@ -87,6 +87,7 @@ async function initDashboard() {
     const res = await fetch("data/pages_data.json?v=" + Date.now());
     fullData = await res.json();
 
+    renderSidebarPagesList(fullData.pages);
     renderDrawerPages(fullData.pages);
     selectPage("all");
 
@@ -113,8 +114,12 @@ async function syncLiveMetaGraph() {
   if (!fullData || isLiveSyncing) return;
   isLiveSyncing = true;
 
-  const btnSync = document.getElementById("btnLuxeRefresh");
-  if (btnSync) btnSync.classList.add("spinning");
+  const btnSideSync = document.getElementById("btnSideLiveSync");
+  const btnMobSync = document.getElementById("btnMobileSync");
+  const btnBottomSync = document.getElementById("bottomNavSync");
+  if (btnSideSync) btnSideSync.classList.add("spinning");
+  if (btnMobSync) btnMobSync.classList.add("spinning");
+  if (btnBottomSync) btnBottomSync.classList.add("spinning");
 
   const statusText = document.getElementById("liveSyncStatusText");
   const timestampEl = document.getElementById("liveSyncTimestamp");
@@ -164,6 +169,7 @@ async function syncLiveMetaGraph() {
     if (statusText) statusText.innerText = `Meta Graph API: Live (${updatedPages || fullData.pages.length} Pages Verified)`;
     if (timestampEl) timestampEl.innerText = `Live: ${timeStr}`;
 
+    renderSidebarPagesList(fullData.pages);
     renderDrawerPages(fullData.pages);
     selectPage(activePageId);
   } catch (err) {
@@ -171,8 +177,55 @@ async function syncLiveMetaGraph() {
     if (statusText) statusText.innerText = "Meta Graph API: Connected (100% Real Data)";
   } finally {
     isLiveSyncing = false;
-    if (btnSync) btnSync.classList.remove("spinning");
+    if (btnSideSync) btnSideSync.classList.remove("spinning");
+    if (btnMobSync) btnMobSync.classList.remove("spinning");
+    if (btnBottomSync) btnBottomSync.classList.remove("spinning");
   }
+}
+
+// ----------------- Desktop Left Sidebar Page List -----------------
+
+function renderSidebarPagesList(pages) {
+  const container = document.getElementById("sidebarPagesScrollList");
+  if (!container) return;
+
+  const searchInput = document.getElementById("sidePagesSearchInput");
+  const searchTerm = (searchInput?.value || "").toLowerCase().trim();
+  const pageList = pages || (fullData?.pages || []);
+  const filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
+
+  container.innerHTML = filtered.map(p => {
+    const isPageActive = String(p.id) === activePageId;
+    const followersStr = (p.followers || 0).toLocaleString();
+    const isUploaded = (p.today_posts || 0) > 0;
+
+    return `
+      <div class="side-page-item ${isPageActive ? 'active' : ''}" 
+           data-page-id="${p.id}"
+           onclick="onSelectSidebarPage('${p.id}')"
+           title="${p.name} • ${followersStr} followers">
+        <div class="side-page-item-left">
+          <img class="side-page-avatar" 
+               src="${p.pic_url || ''}" 
+               alt="${p.name}" 
+               onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
+          <div class="side-page-meta">
+            <div class="side-page-name">${p.name}</div>
+            <div class="side-page-followers">${followersStr} followers</div>
+          </div>
+        </div>
+        <span class="side-page-dot ${isUploaded ? 'green' : 'gray'}" title="${isUploaded ? 'Uploaded Today' : 'Pending Today'}"></span>
+      </div>
+    `;
+  }).join("");
+
+  const countBadge = document.getElementById("sidePagesCountBadge");
+  if (countBadge) countBadge.innerText = `${pages.length} Pages`;
+}
+
+function onSelectSidebarPage(pageId) {
+  selectPage(pageId);
+  switchMainView("dashboard");
 }
 
 // ----------------- Drawer Page List -----------------
@@ -232,6 +285,48 @@ function selectPage(pageId) {
   if (allTile) {
     if (activePageId === "all") allTile.style.borderColor = "var(--gold-primary)";
     else allTile.style.borderColor = "var(--border-gold)";
+  }
+
+  // Update Desktop Left Sidebar active state
+  document.querySelectorAll(".side-page-item").forEach(el => {
+    const pid = el.dataset.pageId;
+    el.classList.toggle("active", pid === activePageId);
+  });
+
+  const sideDashBtn = document.getElementById("sideNavDashboard");
+  const sideActiveSub = document.getElementById("sideActivePageSub");
+  const sideBadgeVideos = document.getElementById("sideBadgeVideosCount");
+  const sideBadgeDrive = document.getElementById("sideBadgeDriveCount");
+  const mobHeaderName = document.getElementById("mobileHeaderActivePageName");
+
+  if (activePageId === "all") {
+    if (sideDashBtn) sideDashBtn.classList.add("active");
+    if (sideActiveSub) sideActiveSub.innerText = "Click to open in middle";
+    if (mobHeaderName) mobHeaderName.innerText = "All Portfolio";
+    if (sideBadgeVideos && fullData?.videos) {
+      sideBadgeVideos.innerText = fullData.videos.length.toLocaleString();
+    }
+    if (sideBadgeDrive) {
+      let totalStock = 0;
+      (fullData?.pages || []).forEach(p => {
+        totalStock += (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0));
+      });
+      sideBadgeDrive.innerText = totalStock.toLocaleString();
+    }
+  } else {
+    if (sideDashBtn) sideDashBtn.classList.remove("active");
+    const pageObj = fullData?.pages?.find(p => String(p.id) === activePageId);
+    if (pageObj) {
+      if (sideActiveSub) sideActiveSub.innerText = `Active: ${pageObj.name}`;
+      if (mobHeaderName) mobHeaderName.innerText = pageObj.name;
+      if (sideBadgeVideos) {
+        sideBadgeVideos.innerText = (pageObj.videos?.length || 0).toLocaleString();
+      }
+      if (sideBadgeDrive) {
+        const dCount = pageObj.drive_videos_count !== undefined ? pageObj.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(pageObj.id)]?.videoCount || 0);
+        sideBadgeDrive.innerText = dCount.toLocaleString();
+      }
+    }
   }
 }
 
@@ -353,71 +448,31 @@ function renderSinglePageView(p) {
 // ----------------- Studio Left Sidebar & Dashboard Cards Dynamic Sync -----------------
 
 function updateStudioDashboardCards(isPortfolio, pageObj, videos) {
-  const sideAvatar = document.getElementById("sidebarAvatarImg");
-  const sideTitle = document.getElementById("sidebarChannelTitle");
-  const dashFleetLabel = document.getElementById("dashFleetSelectorLabel");
-  const dashTitle = document.getElementById("dashStudioPageTitle");
-  const sideBadgeContent = document.getElementById("sideBadgeContent");
-  const sideBadgeDrive = document.getElementById("sideBadgeDrive");
-
-  const latestThumb = document.getElementById("latestPerfThumbImg");
-  const latestDuration = document.getElementById("latestPerfDurationTag");
-  const latestTitle = document.getElementById("latestPerfVideoTitle");
-  const latestTime = document.getElementById("latestPerfPublishTime");
-  const latestRank = document.getElementById("latestPerfRankingVal");
-  const latestViews = document.getElementById("latestPerfViewsVal");
-  const latestLikes = document.getElementById("latestPerfLikesVal");
-  const latestEng = document.getElementById("latestPerfEngagementVal");
-  const linkFb = document.getElementById("linkWatchOnFacebook");
+  const sideBadgeVideos = document.getElementById("sideBadgeVideosCount");
+  const sideBadgeDrive = document.getElementById("sideBadgeDriveCount");
+  const linkFb = document.getElementById("sideLinkFacebook");
 
   if (isPortfolio) {
-    if (sideTitle) sideTitle.innerText = "All Pages Fleet";
-    if (dashFleetLabel) dashFleetLabel.innerText = `${fullData?.pages?.length || 15} Pages Fleet`;
-    if (dashTitle) dashTitle.innerText = "Channel dashboard";
-    if (sideAvatar) sideAvatar.src = "icons/icon-192.png";
     if (linkFb) linkFb.href = "https://facebook.com";
+    if (sideBadgeVideos && fullData?.videos) {
+      sideBadgeVideos.innerText = (videos?.length || fullData.videos.length).toLocaleString();
+    }
+    if (sideBadgeDrive) {
+      let driveTotal = 0;
+      Object.values(DRIVE_CONFIGURED_PAGES).forEach(d => {
+        if (d.ready) driveTotal += d.videoCount || 0;
+      });
+      sideBadgeDrive.innerText = driveTotal.toLocaleString();
+    }
   } else if (pageObj) {
-    if (sideTitle) sideTitle.innerText = pageObj.name;
-    if (dashFleetLabel) dashFleetLabel.innerText = pageObj.name;
-    if (dashTitle) dashTitle.innerText = `${pageObj.name} Dashboard`;
-    if (sideAvatar) sideAvatar.src = pageObj.pic_url || "icons/icon-192.png";
     if (linkFb) linkFb.href = `https://facebook.com/${pageObj.id}`;
-  }
-
-  // Update badge counters
-  if (sideBadgeContent && fullData?.videos) {
-    sideBadgeContent.innerText = (videos?.length || fullData.videos.length).toLocaleString();
-  }
-  if (sideBadgeDrive) {
-    let driveTotal = 0;
-    Object.values(DRIVE_CONFIGURED_PAGES).forEach(d => {
-      if (d.ready) driveTotal += d.videoCount || 0;
-    });
-    sideBadgeDrive.innerText = driveTotal.toLocaleString();
-  }
-
-  // Update latest video performance card
-  const latestVideo = (videos && videos.length > 0) ? videos[0] : null;
-  if (latestVideo) {
-    if (latestTitle) latestTitle.innerText = latestVideo.title || latestVideo.description || "Hollywood's Biggest Secret Revealed Like Never Before #BehindTheScenes #Film";
-    if (latestThumb && (latestVideo.picture || latestVideo.thumbnail)) {
-      latestThumb.src = latestVideo.picture || latestVideo.thumbnail;
-    } else if (latestThumb && pageObj?.pic_url) {
-      latestThumb.src = pageObj.pic_url;
+    if (sideBadgeVideos) {
+      sideBadgeVideos.innerText = (videos?.length || pageObj.videos?.length || 0).toLocaleString();
     }
-    if (latestTime) {
-      const dt = latestVideo.created_time || latestVideo.created_time_iso;
-      latestTime.innerText = dt ? `Published ${new Date(dt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}` : "Published Today • 2:36 PM";
-    }
-    const vCount = latestVideo.views || 0;
-    const lCount = latestVideo.likes || 0;
-    const cCount = latestVideo.comments || 0;
-    if (latestViews) latestViews.innerText = vCount.toLocaleString();
-    if (latestLikes) latestLikes.innerText = lCount.toLocaleString();
-    if (latestRank) latestRank.innerText = `1 of ${Math.min(10, Math.max(1, (videos || []).length))}`;
-    if (latestEng) {
-      const rate = vCount > 0 ? (((lCount + cCount) / vCount) * 100).toFixed(1) : "0.0";
-      latestEng.innerText = `${rate}%`;
+    if (sideBadgeDrive) {
+      const dInfo = DRIVE_CONFIGURED_PAGES[String(pageObj.id)];
+      const dCount = pageObj.drive_videos_count !== undefined ? pageObj.drive_videos_count : (dInfo?.videoCount || 0);
+      sideBadgeDrive.innerText = dCount.toLocaleString();
     }
   }
 }
@@ -1187,65 +1242,86 @@ function closePageDrawer() {
 
 function setupEventListeners() {
   // Desktop Left Sidebar Navigation
-  document.getElementById("sideNavDashboard")?.addEventListener("click", () => switchMainView("dashboard"));
+  document.getElementById("sideNavDashboard")?.addEventListener("click", () => {
+    selectPage("all");
+    switchMainView("dashboard");
+  });
   document.getElementById("sideNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
-  document.getElementById("sideNavContent")?.addEventListener("click", () => {
+
+  // Desktop Left Sidebar Live Sync ("synk vala bhi side me lele")
+  document.getElementById("btnSideLiveSync")?.addEventListener("click", () => {
+    showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
+    syncLiveMetaGraph();
+  });
+
+  // Desktop Left Sidebar All Pages Filter & Toggle
+  document.getElementById("sidePagesSearchInput")?.addEventListener("input", () => {
+    if (fullData && fullData.pages) renderSidebarPagesList(fullData.pages);
+  });
+
+  document.getElementById("btnSidePagesListToggle")?.addEventListener("click", () => {
+    const list = document.getElementById("sidebarPagesScrollList");
+    const searchRow = document.querySelector(".sidebar-pages-search-row");
+    if (list) {
+      const isHidden = list.style.display === "none";
+      list.style.display = isHidden ? "flex" : "none";
+      if (searchRow) searchRow.style.display = isHidden ? "block" : "none";
+    }
+  });
+
+  // Desktop Left Sidebar Quick Jump Links
+  document.getElementById("sideLinkAnalytics")?.addEventListener("click", () => {
+    switchMainView("dashboard");
+    setTimeout(() => {
+      document.getElementById("timeframeSelector")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  });
+  document.getElementById("sideLinkVideos")?.addEventListener("click", () => {
     switchMainView("dashboard");
     setTimeout(() => {
       const el = document.getElementById("videosTableBody") || document.getElementById("videosMobileCardsList");
       el?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   });
-  document.getElementById("sideNavAnalytics")?.addEventListener("click", () => {
-    switchMainView("dashboard");
-    setTimeout(() => {
-      document.getElementById("timeframeSelector")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
-  });
-  document.getElementById("sideNavDrive")?.addEventListener("click", () => {
+  document.getElementById("sideLinkDrive")?.addEventListener("click", () => {
     switchMainView("dashboard");
     setTimeout(() => {
       document.getElementById("driveStockVal")?.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 100);
   });
-  document.getElementById("sideNavHealth")?.addEventListener("click", () => {
+  document.getElementById("sideLinkIp")?.addEventListener("click", () => {
     switchMainView("dashboard");
     setTimeout(() => {
-      document.querySelector(".channel-health-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("ipAddressVal")?.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 100);
   });
-  document.getElementById("sideNavIp")?.addEventListener("click", () => {
-    document.querySelector(".global-downside-ip-strip")?.scrollIntoView({ behavior: "smooth", block: "center" });
-  });
-  document.getElementById("sideNavSettings")?.addEventListener("click", toggleStudioAuthDrawer);
+  document.getElementById("sideLinkSettings")?.addEventListener("click", toggleStudioAuthDrawer);
 
   // Mobile Bottom Navigation Panel
-  document.getElementById("bottomNavDashboard")?.addEventListener("click", () => switchMainView("dashboard"));
-  document.getElementById("bottomNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
-  document.getElementById("bottomNavContent")?.addEventListener("click", () => {
+  document.getElementById("bottomNavDashboard")?.addEventListener("click", () => {
+    selectPage("all");
     switchMainView("dashboard");
-    setTimeout(() => {
-      const el = document.getElementById("videosMobileCardsList") || document.getElementById("videosTableBody");
-      el?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
   });
+  document.getElementById("bottomNavPages")?.addEventListener("click", openPageDrawer);
+  document.getElementById("bottomNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
   document.getElementById("bottomNavDrive")?.addEventListener("click", () => {
     switchMainView("dashboard");
     setTimeout(() => {
       document.getElementById("driveStockVal")?.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 100);
   });
-  document.getElementById("bottomNavIp")?.addEventListener("click", () => {
-    document.querySelector(".global-downside-ip-strip")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  document.getElementById("bottomNavSync")?.addEventListener("click", () => {
+    showToast(`⚡ Syncing Live Meta Graph API...`);
+    syncLiveMetaGraph();
   });
 
-  // Top header actions
-  document.getElementById("btnToggleSidebar")?.addEventListener("click", openPageDrawer);
-  document.getElementById("btnDashFleetSelector")?.addEventListener("click", openPageDrawer);
-  document.getElementById("btnViewAllHealthModal")?.addEventListener("click", openPageDrawer);
-  document.getElementById("btnGoToAnalytics")?.addEventListener("click", () => {
-    document.getElementById("timeframeSelector")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Mobile Header buttons
+  document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
+  document.getElementById("btnMobileSync")?.addEventListener("click", () => {
+    showToast(`⚡ Syncing Live Meta Graph API...`);
+    syncLiveMetaGraph();
   });
+  document.getElementById("btnSelectAllPagesDrawer")?.addEventListener("click", () => selectPage("all"));
 
   // Global search input in header
   document.getElementById("headerGlobalSearch")?.addEventListener("input", (e) => {
@@ -1454,6 +1530,7 @@ function switchMainView(viewName) {
     // Toggle active classes on Desktop Sidebar
     if (sidePostNow) sidePostNow.classList.add("active");
     if (sideDashboard) sideDashboard.classList.remove("active");
+    document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
 
     // Toggle active classes on Mobile Bottom Panel
     if (bottomPostNow) bottomPostNow.classList.add("active");
@@ -1467,7 +1544,15 @@ function switchMainView(viewName) {
 
     // Toggle active classes on Desktop Sidebar
     if (sidePostNow) sidePostNow.classList.remove("active");
-    if (sideDashboard) sideDashboard.classList.add("active");
+    if (activePageId === "all") {
+      if (sideDashboard) sideDashboard.classList.add("active");
+      document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
+    } else {
+      if (sideDashboard) sideDashboard.classList.remove("active");
+      document.querySelectorAll(".side-page-item").forEach(el => {
+        el.classList.toggle("active", el.dataset.pageId === activePageId);
+      });
+    }
 
     // Toggle active classes on Mobile Bottom Panel
     if (bottomPostNow) bottomPostNow.classList.remove("active");

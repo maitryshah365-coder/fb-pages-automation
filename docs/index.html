@@ -22,52 +22,25 @@
   <!-- Toast Notification -->
   <div id="goldToast" class="luxe-toast">Action Confirmed</div>
 
-  <!-- Top Navigation Header (Matching YouTube Studio / Raj Tube Pro) -->
-  <header class="app-header">
-    <div class="header-container">
-      <div class="brand-section">
-        <button id="btnToggleSidebar" class="btn-sidebar-hamburger" title="Toggle Navigation Sidebar" aria-label="Toggle Sidebar">
-          <span>☰</span>
-        </button>
-        <div class="app-logo">
-          <span class="logo-r">R</span>
-          <span class="logo-dot"></span>
-        </div>
-        <div class="brand-info">
-          <div class="brand-title-row">
-            <h1 class="brand-name">Raj FB Pro</h1>
-          </div>
-          <span class="brand-sub">Automation & Real-Time Analytics</span>
-        </div>
+  <!-- Slim Mobile-Only Header (Hidden on Desktop Web - Top Clean) -->
+  <header class="mobile-app-header">
+    <div class="mobile-header-container">
+      <button id="btnMobileToggleDrawer" class="btn-mobile-drawer" title="Select Facebook Page">
+        <span class="mob-icon">📑</span>
+        <span class="mob-label" id="mobileHeaderActivePageName">All Portfolio</span>
+        <span class="mob-arrow">▼</span>
+      </button>
+      <div class="mobile-brand-group">
+        <div class="app-logo-mini">R</div>
+        <span class="mobile-brand-name">Raj FB Pro</span>
       </div>
-
-      <!-- Center Search Bar matching YouTube Studio -->
-      <div class="header-search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="headerGlobalSearch" class="header-search-input" placeholder="Search across your channel videos / pages...">
-      </div>
-
-      <div class="header-controls">
-        <div class="header-live-badge">
-          <span class="ping-circle"></span>
-          <span class="live-badge-text">LIVE • Just Now</span>
-        </div>
-
-        <button id="btnLuxeRefresh" class="btn-live-sync" title="Sync Real-Time Meta Graph API">
-          <span class="sync-icon">⚡</span>
-          <span class="sync-label">Sync</span>
-        </button>
-
-        <button id="btnOpenPageDrawer" class="btn-drawer-trigger" title="Open Pages List">
-          <span class="drawer-icon">📑</span>
-          <span class="drawer-label"><span id="headerActivePageShortName">All Portfolio</span></span>
-          <span class="drawer-arrow">▼</span>
-        </button>
-      </div>
+      <button id="btnMobileSync" class="btn-mobile-sync" title="Sync Real-Time Meta Graph API">
+        <span>⚡ Sync</span>
+      </button>
     </div>
   </header>
 
-  <!-- Slide-Over Pages Drawer (Opens Only When Clicked) -->
+  <!-- Slide-Over Pages Drawer (For Mobile Device Navigation) -->
   <div id="pagesDrawerOverlay" class="drawer-overlay"></div>
   <aside id="pagesDrawer" class="pages-drawer">
     <div class="drawer-header">
@@ -83,7 +56,7 @@
     </div>
 
     <!-- Quick All-Portfolio Tile -->
-    <div class="drawer-all-portfolio-tile" id="btnSelectAllPages">
+    <div class="drawer-all-portfolio-tile" id="btnSelectAllPagesDrawer">
       <div class="portfolio-tile-left">
         <div class="portfolio-avatar">🌐</div>
         <div>
@@ -91,7 +64,7 @@
           <div class="portfolio-desc">Combined Reach, Views & Analytics</div>
         </div>
       </div>
-      <span class="portfolio-badge">Overview</span>
+      <span class="portfolio-badge">Master</span>
     </div>
 
     <!-- Scrollable Page Items List -->
@@ -103,72 +76,112 @@
   <!-- Studio App Layout Wrapper (Left Sidebar + Main Content) -->
   <div class="studio-app-layout">
 
-    <!-- Left Navigation Sidebar Panel (Desktop / Web - Matching Raj Tube Pro Studio) -->
+    <!-- Dedicated Left Sidebar Panel (Command Center) -->
     <aside id="studioLeftSidebar" class="studio-left-sidebar">
-      <!-- Profile Box -->
-      <div class="sidebar-profile-box" id="sidebarProfileBox">
-        <div class="sidebar-avatar-ring">
-          <img id="sidebarAvatarImg" class="sidebar-avatar" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" alt="Fleet Avatar">
+
+      <!-- Brand & Live Status in Left Sidebar -->
+      <div class="sidebar-brand-card">
+        <div class="brand-row-left">
+          <div class="app-logo">
+            <span class="logo-r">R</span>
+            <span class="logo-dot"></span>
+          </div>
+          <div class="brand-text-block">
+            <h1 class="brand-app-title">Raj FB Pro</h1>
+            <span class="brand-app-sub"><span class="pulse-green-dot">●</span> Meta Graph Live</span>
+          </div>
         </div>
-        <div class="sidebar-profile-sub">Your pages</div>
-        <div class="sidebar-profile-title" id="sidebarChannelTitle">All Pages Fleet</div>
+
+        <!-- Sync Button in Left Sidebar ("synk vala bhi side me lele") -->
+        <button type="button" id="btnSideLiveSync" class="btn-sidebar-sync" title="Sync Real-Time Meta Graph API">
+          <span class="sync-icon">⚡</span>
+          <span class="sync-text">Sync Meta API Live</span>
+        </button>
       </div>
 
-      <!-- Navigation Menu -->
-      <nav class="sidebar-nav-menu">
-        <button type="button" id="sideNavDashboard" class="side-nav-item active">
-          <span class="side-nav-icon">📊</span>
-          <span class="side-nav-label">Dashboard</span>
+      <!-- BOX 1: DASHBOARD (SARE PAGES KA DATA) -->
+      <div class="sidebar-nav-box">
+        <button type="button" id="sideNavDashboard" class="sidebar-action-tile active" title="Master Dashboard (All Pages Overview)">
+          <div class="tile-content-left">
+            <span class="tile-icon">📊</span>
+            <div class="tile-text">
+              <span class="tile-title">Dashboard</span>
+              <span class="tile-sub">All 15 Pages Portfolio</span>
+            </div>
+          </div>
+          <span class="tile-badge-gold">Master</span>
         </button>
+      </div>
 
-        <button type="button" id="sideNavContent" class="side-nav-item">
-          <span class="side-nav-icon">🎬</span>
-          <span class="side-nav-label">Content</span>
-          <span class="side-badge" id="sideBadgeContent">108</span>
-        </button>
+      <!-- BOX 2: ALL PAGES LIST (TOUCH KARNE SE SARE PAGES SHOW HONGE OR CLICK PAR ANALYTICS KHULENGE BICH ME) -->
+      <div class="sidebar-nav-box sidebar-pages-list-box">
+        <div class="sidebar-pages-header" id="btnSidePagesListToggle">
+          <div class="pages-header-left">
+            <span class="pages-header-icon">📑</span>
+            <div class="pages-header-text">
+              <span class="pages-header-title">All Pages List</span>
+              <span class="pages-header-sub" id="sideActivePageSub">Click to open in middle</span>
+            </div>
+          </div>
+          <span class="pages-count-pill" id="sidePagesCountBadge">15 Pages</span>
+        </div>
 
-        <button type="button" id="sideNavAnalytics" class="side-nav-item">
-          <span class="side-nav-icon">📈</span>
-          <span class="side-nav-label">Analytics</span>
-        </button>
+        <!-- Fast Search input inside sidebar -->
+        <div class="sidebar-pages-search-row">
+          <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 15 pages...">
+        </div>
 
-        <button type="button" id="sideNavDrive" class="side-nav-item">
-          <span class="side-nav-icon">📁</span>
-          <span class="side-nav-label">Drive Queue</span>
-          <span class="side-badge side-badge-green" id="sideBadgeDrive">1,731</span>
-        </button>
+        <!-- Scrollable Pages List Right in the Left Panel -->
+        <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
+          <!-- Dynamically populated with all 15 pages: avatar, name, followers, status dot -->
+        </div>
+      </div>
 
-        <button type="button" id="sideNavHealth" class="side-nav-item">
-          <span class="side-nav-icon">🛡️</span>
-          <span class="side-nav-label">Page Health</span>
-          <span class="side-badge side-badge-green">100%</span>
-        </button>
-
-        <button type="button" id="sideNavIp" class="side-nav-item">
-          <span class="side-nav-icon">🌐</span>
-          <span class="side-nav-label">IP & Geo Radar</span>
-          <span class="side-badge side-badge-blue">15 NODES</span>
-        </button>
-
-        <!-- SINGLE POST NOW OPTION (No duplicates) -->
-        <button type="button" id="sideNavPostNow" class="side-nav-item side-nav-post-now">
-          <span class="side-nav-icon">🚀</span>
-          <span class="side-nav-label">Post Now</span>
+      <!-- BOX 3: POST NOW (JISE HUM POST KARENGE) -->
+      <div class="sidebar-nav-box">
+        <button type="button" id="sideNavPostNow" class="sidebar-action-tile side-tile-post-now" title="Post Now Studio (Select Pages & Upload)">
+          <div class="tile-content-left">
+            <span class="tile-icon">🚀</span>
+            <div class="tile-text">
+              <span class="tile-title">Post Now</span>
+              <span class="tile-sub">Multi-Page Upload Studio</span>
+            </div>
+          </div>
           <span class="side-instant-pill">INSTANT</span>
         </button>
+      </div>
 
-        <div class="side-nav-divider"></div>
-
-        <button type="button" id="sideNavSettings" class="side-nav-item">
-          <span class="side-nav-icon">⚙️</span>
-          <span class="side-nav-label">Settings</span>
+      <!-- Quick Nav Links inside Sidebar -->
+      <div class="sidebar-quick-nav">
+        <div class="quick-nav-header">PAGE QUICK JUMP</div>
+        <button type="button" id="sideLinkAnalytics" class="quick-nav-btn">
+          <span class="q-icon">📈</span>
+          <span class="q-label">Key Analytics</span>
         </button>
-
-        <a href="https://facebook.com" target="_blank" rel="noopener" id="sideNavFacebook" class="side-nav-item">
-          <span class="side-nav-icon">↗️</span>
-          <span class="side-nav-label">Open Facebook</span>
+        <button type="button" id="sideLinkVideos" class="quick-nav-btn">
+          <span class="q-icon">🎬</span>
+          <span class="q-label">Reels Library</span>
+          <span class="q-badge" id="sideBadgeVideosCount">0</span>
+        </button>
+        <button type="button" id="sideLinkDrive" class="quick-nav-btn">
+          <span class="q-icon">📁</span>
+          <span class="q-label">Drive Queue</span>
+          <span class="q-badge green" id="sideBadgeDriveCount">1,731</span>
+        </button>
+        <button type="button" id="sideLinkIp" class="quick-nav-btn">
+          <span class="q-icon">🌐</span>
+          <span class="q-label">IP & Egress Runner</span>
+        </button>
+        <button type="button" id="sideLinkSettings" class="quick-nav-btn">
+          <span class="q-icon">⚙️</span>
+          <span class="q-label">Settings / Token</span>
+        </button>
+        <a href="https://facebook.com" target="_blank" rel="noopener" id="sideLinkFacebook" class="quick-nav-btn">
+          <span class="q-icon">↗️</span>
+          <span class="q-label">Open Facebook</span>
         </a>
-      </nav>
+      </div>
+
     </aside>
 
     <!-- Main App Content Container -->
@@ -283,132 +296,15 @@
     <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER (DEFAULT VIEW) ================= -->
     <div id="dashboardAnalyticsView" class="dashboard-view-container">
 
-      <!-- Channel Dashboard Header (Matching Reference Screenshot) -->
-      <div class="dash-studio-header-row">
-        <div class="dash-title-group">
-          <h2 class="dash-studio-title" id="dashStudioPageTitle">Channel dashboard</h2>
+      <!-- Real-Time Meta Graph Status Strip -->
+      <div class="dash-page-status-strip">
+        <div class="status-strip-left">
+          <span class="live-dot-pulse">●</span>
+          <span class="status-strip-text"><strong>100% REAL-TIME META GRAPH LIVE DATA</strong> • Directly connected to Meta Graph API v20.0 & Google Drive</span>
         </div>
-        <div class="dash-fleet-selector-badge" id="btnDashFleetSelector" title="Switch Page or View Fleet">
-          <span class="fleet-badge-dot">●</span>
-          <span id="dashFleetSelectorLabel">All 15 Pages Fleet</span>
+        <div class="status-strip-right">
+          <span class="badge-meta-verified">META GRAPH API v20.0 VERIFIED</span>
         </div>
-      </div>
-
-      <!-- 100% Real-Time Live Data Ribbon (Matching Reference Screenshot) -->
-      <div class="dash-studio-live-banner">
-        <div class="live-banner-left">
-          <span class="live-banner-pulse">●</span>
-          <span class="live-banner-text"><strong>100% REAL-TIME LIVE DATA</strong> • Directly fetched from Meta Graph API v20.0 & Google Drive API</span>
-        </div>
-        <span class="live-banner-pill-verified">META GRAPH API v20.0 VERIFIED</span>
-      </div>
-
-      <!-- Two Studio Cards: Latest Video Performance + Channel Violations & Health -->
-      <div class="dash-studio-cards-row">
-
-        <!-- Card 1: Latest Video Performance -->
-        <div class="studio-card latest-perf-card">
-          <div class="studio-card-top">
-            <h3 class="studio-card-heading">Latest video performance</h3>
-          </div>
-          <div class="latest-perf-content">
-            <div class="latest-video-thumb-row">
-              <div class="video-thumb-wrapper">
-                <img id="latestPerfThumbImg" class="video-thumb-img" src="icons/icon-192.png" alt="Latest Video">
-                <span class="video-duration-tag" id="latestPerfDurationTag">0:45</span>
-              </div>
-              <div class="video-info-wrapper">
-                <h4 class="video-headline" id="latestPerfVideoTitle">Hollywood's Biggest Secret Revealed Like Never Before #BehindTheScenes #Film</h4>
-                <div class="video-sub-time" id="latestPerfPublishTime">Published Sep 14, 2026 • 2:36 PM</div>
-              </div>
-            </div>
-
-            <div class="perf-stats-table">
-              <div class="perf-stat-item">
-                <span class="perf-stat-name">Ranking by views</span>
-                <span class="perf-stat-value" id="latestPerfRankingVal">1 of 10</span>
-              </div>
-              <div class="perf-stat-item">
-                <span class="perf-stat-name">Views</span>
-                <span class="perf-stat-value" id="latestPerfViewsVal">0</span>
-              </div>
-              <div class="perf-stat-item">
-                <span class="perf-stat-name">Likes</span>
-                <span class="perf-stat-value" id="latestPerfLikesVal">0</span>
-              </div>
-              <div class="perf-stat-item">
-                <span class="perf-stat-name">Engagement rate</span>
-                <span class="perf-stat-value" id="latestPerfEngagementVal">0.0%</span>
-              </div>
-            </div>
-
-            <div class="perf-card-footer-links">
-              <button type="button" id="btnGoToAnalytics" class="studio-text-link">GO TO VIDEO ANALYTICS</button>
-              <a href="https://facebook.com" target="_blank" rel="noopener" id="linkWatchOnFacebook" class="studio-text-link">WATCH ON FACEBOOK</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 2: Channel Violations & Health -->
-        <div class="studio-card channel-health-card">
-          <div class="studio-card-top flex-between">
-            <h3 class="studio-card-heading">Channel violations & Health</h3>
-            <span class="badge-status-clean">🛡️ Clean</span>
-          </div>
-          <div class="channel-health-content">
-            <div class="health-standing-item">
-              <span class="standing-icon green">✓</span>
-              <div class="standing-details">
-                <div class="standing-title">Community Guidelines Standing</div>
-                <div class="standing-sub">0 of 3 active strikes • Page Active & Public (Meta API Verified)</div>
-              </div>
-              <span class="standing-pill pill-clean">0 STRIKES</span>
-            </div>
-
-            <div class="health-standing-item">
-              <span class="standing-icon cyan">ℹ️</span>
-              <div class="standing-details">
-                <div class="standing-title">Copyright Standing</div>
-                <div class="standing-sub">0 copyright claims • 100% Original Audio & Video</div>
-              </div>
-              <span class="standing-pill pill-clean">CLEAN</span>
-            </div>
-
-            <div class="health-standing-item">
-              <span class="standing-icon blue">📈</span>
-              <div class="standing-details">
-                <div class="standing-title">Meta Live Velocity & Reach</div>
-                <div class="standing-sub">Meta API Verified: 1,381 avg views/video across fleet</div>
-              </div>
-              <span class="standing-pill pill-blue">1,381 AVG</span>
-            </div>
-
-            <div class="health-standing-item">
-              <span class="standing-icon green">✓</span>
-              <div class="standing-details">
-                <div class="standing-title">Meta Policy Guard & AI Disclosure</div>
-                <div class="standing-sub">Meta Policy: AI Disclosure & Safe Mode Guard Active (Self-Declared)</div>
-              </div>
-              <span class="standing-pill pill-clean">100% OK</span>
-            </div>
-
-            <div class="health-overall-meter">
-              <div class="meter-header flex-between">
-                <span class="meter-title">Overall Channel Health</span>
-                <span class="meter-score">100 / 100</span>
-              </div>
-              <div class="meter-bar-track">
-                <div class="meter-bar-fill" style="width: 100%;"></div>
-              </div>
-              <div class="meter-footer-note">Flawless (Optimal Standing)</div>
-            </div>
-
-            <div class="perf-card-footer-links">
-              <button type="button" id="btnViewAllHealthModal" class="studio-text-link">VIEW ALL CHANNELS HEALTH</button>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <!-- Active Page Profile Banner -->
@@ -728,13 +624,13 @@
 
   <!-- Fixed Bottom Navigation Panel (Mobile / Phone Only - Matching User Request) -->
   <nav class="mobile-bottom-panel" id="mobileBottomPanel">
-    <button type="button" id="bottomNavDashboard" class="bottom-nav-item active" title="Dashboard">
+    <button type="button" id="bottomNavDashboard" class="bottom-nav-item active" title="Master Dashboard">
       <span class="bottom-nav-icon">📊</span>
       <span class="bottom-nav-label">Dashboard</span>
     </button>
-    <button type="button" id="bottomNavContent" class="bottom-nav-item" title="Content Library">
-      <span class="bottom-nav-icon">🎬</span>
-      <span class="bottom-nav-label">Content</span>
+    <button type="button" id="bottomNavPages" class="bottom-nav-item" title="All 15 Pages List">
+      <span class="bottom-nav-icon">📑</span>
+      <span class="bottom-nav-label">Pages</span>
     </button>
     <!-- SINGLE ELEVATED POST NOW FOR MOBILE -->
     <button type="button" id="bottomNavPostNow" class="bottom-nav-item bottom-nav-post-now" title="Instant Post Studio">
@@ -743,13 +639,13 @@
       </div>
       <span class="bottom-nav-label">Post Now</span>
     </button>
-    <button type="button" id="bottomNavDrive" class="bottom-nav-item" title="Drive Queue">
+    <button type="button" id="bottomNavDrive" class="bottom-nav-item" title="Drive Queue Stock">
       <span class="bottom-nav-icon">📁</span>
       <span class="bottom-nav-label">Drive</span>
     </button>
-    <button type="button" id="bottomNavIp" class="bottom-nav-item" title="IP Radar Telemetry">
-      <span class="bottom-nav-icon">🌐</span>
-      <span class="bottom-nav-label">Radar</span>
+    <button type="button" id="bottomNavSync" class="bottom-nav-item" title="Sync Meta API">
+      <span class="bottom-nav-icon">⚡</span>
+      <span class="bottom-nav-label">Sync</span>
     </button>
   </nav>
 
