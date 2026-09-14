@@ -93,6 +93,12 @@ async function initDashboard() {
     // Initialize Post Now Studio (Fleet selection, Live Console, and Queue counters)
     initStudioView();
 
+    // Ensure default active view is Dashboard
+    switchMainView("dashboard");
+
+    // Update persistent downside IP runner strip
+    updateDownsideIpStrip();
+
     // Background live Meta Graph API verification
     syncLiveMetaGraph();
   } catch (err) {
@@ -1105,15 +1111,6 @@ function setupEventListeners() {
   // Navigation Switcher Tabs (Post Now Studio vs Dashboard)
   document.getElementById("tabNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
   document.getElementById("tabNavDashboard")?.addEventListener("click", () => switchMainView("dashboard"));
-  document.getElementById("tabNavDrive")?.addEventListener("click", () => {
-    switchMainView("studio");
-    const total = fullData?.pages ? fullData.pages.reduce((acc, p) => acc + (p.drive_videos_count || 0), 0) : 1743;
-    showToast(`📁 Drive Queue: ${total.toLocaleString()} Videos Ready in Cloud Folders`);
-  });
-  document.getElementById("tabNavIpRadar")?.addEventListener("click", () => {
-    const ip = fullData?.latest_run_summary?.runner_telemetry?.ip || "52.157.33.38";
-    showToast(`🌐 Cloud Runner Telemetry: ${ip} (San Jose, California 🇺🇸)`);
-  });
   document.getElementById("btnOpenInstantPost")?.addEventListener("click", () => switchMainView("studio"));
 
   // Post Now Studio Controls (Matching Raj Tube Pro Studio)
@@ -1308,6 +1305,11 @@ function switchMainView(viewName) {
     if (tabStudio) tabStudio.classList.remove("active");
     if (tabDashboard) tabDashboard.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // When exiting studio, clear terminal logs so past execution data disappears
+    if (!isStudioDispatching) {
+      resetStudioTerminalLogs();
+    }
   }
 }
 
@@ -1364,15 +1366,26 @@ function initStudioView() {
   updateStudioSelectionUI();
   checkStudioAuthStatus();
 
-  // Populate terminal console with previous run summary or standby ready state
-  if (fullData && fullData.latest_run_summary) {
-    renderStudioTerminalLogs(fullData.latest_run_summary, false);
-  } else {
-    initDefaultTerminalLogs();
-  }
+  // Reset terminal console to clean standby state (do NOT show past logs on load)
+  resetStudioTerminalLogs();
 
-  // Update navbar Drive queue count
-  updateNavQueueCounter();
+  // Update persistent downside IP runner telemetry
+  updateDownsideIpStrip();
+}
+
+function updateDownsideIpStrip(telemetry) {
+  const tel = telemetry || fullData?.latest_run_summary?.runner_telemetry;
+  const ip = tel?.ip || "52.157.33.38";
+  const flag = tel?.flag || "🇺🇸";
+  const location = [tel?.city, tel?.region, tel?.country].filter(Boolean).join(", ") || "San Jose, California, United States";
+
+  const elIp = document.getElementById("footerActiveIp");
+  const elFlag = document.getElementById("footerActiveFlag");
+  const elLoc = document.getElementById("footerActiveLocation");
+
+  if (elIp) elIp.innerText = ip;
+  if (elFlag) elFlag.innerText = flag;
+  if (elLoc) elLoc.innerText = `(${location})`;
 }
 
 function updateNavQueueCounter() {
@@ -1529,12 +1542,25 @@ function updateStudioSelectionUI() {
   const execBtn = document.getElementById("btnStudioExecutePublish");
 
   if (execText) {
-    execText.innerText = count > 0
-      ? `PUBLISH ${count} REEL${count === 1 ? '' : 'S'} NOW TO FACEBOOK (${selectedStock.toLocaleString()} AVAILABLE)`
-      : `SELECT PAGES TO PUBLISH (0 SELECTED)`;
+    if (isStudioDispatching) {
+      execText.innerText = "⏳ PUBLISHING IN PROGRESS... PLEASE WAIT";
+    } else {
+      execText.innerText = count > 0
+        ? `PUBLISH ${count} REEL${count === 1 ? '' : 'S'} NOW TO FACEBOOK (${selectedStock.toLocaleString()} AVAILABLE)`
+        : `SELECT PAGES TO PUBLISH (0 SELECTED)`;
+    }
   }
   if (execBtn) {
     execBtn.disabled = count === 0 || isStudioDispatching;
+    if (isStudioDispatching) {
+      execBtn.style.pointerEvents = "none";
+      execBtn.style.opacity = "0.5";
+      execBtn.style.cursor = "not-allowed";
+    } else {
+      execBtn.style.pointerEvents = "";
+      execBtn.style.opacity = "";
+      execBtn.style.cursor = "";
+    }
   }
 
   // 3. Render Selected Chips Grid (matching YouTube Studio style)
@@ -1590,23 +1616,23 @@ function updateStudioSelectionUI() {
 // ----------------- Terminal Console Display Engine -----------------
 
 function initDefaultTerminalLogs() {
+  resetStudioTerminalLogs();
+}
+
+function resetStudioTerminalLogs() {
   const terminal = document.getElementById("terminalConsoleBody");
   const badge = document.getElementById("terminalStatusBadge");
   if (!terminal) return;
 
   if (badge) {
-    badge.innerText = "🟢 PIPELINE STANDBY";
+    badge.innerText = "🟢 PIPELINE READY";
     badge.style.color = "#34d399";
   }
 
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
   terminal.innerHTML = `
-<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[SYSTEM]</span> 🚀 <strong style="color:#fff;">Facebook Reel Automation Studio Initialized</strong>
-<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[FLEET]</span> 7 Active Google Drive Queues Synced • 1,743 Total Reels Ready
-<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#f5ba23;">[CRON]</span> Scheduled 4x daily automation protected (02:00, 14:00, 19:00, 23:00 UTC)
-<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#34d399;">[READY]</span> Select desired pages from the fleet sidebar on the left and click "PUBLISH NOW".
+<span style="color:#64748b;">[STANDBY]</span> <span style="color:#38bdf8;">[SYSTEM]</span> 🚀 <strong style="color:#fff;">Facebook Reel Automation Studio Initialized</strong>
+<span style="color:#64748b;">[STANDBY]</span> <span style="color:#94a3b8;">Select desired pages from the fleet on the left and click "PUBLISH NOW".</span>
+<span style="color:#64748b;">[STANDBY]</span> <span style="color:#64748b;">Live runner logs and post URLs will stream here in real time during execution...</span>
 `;
 }
 

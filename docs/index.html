@@ -80,24 +80,14 @@
   <nav class="app-nav-bar">
     <div class="nav-bar-container">
       <div class="nav-tabs-left">
-        <button type="button" id="tabNavPostNow" class="nav-tab-btn active" title="Post Now Studio (Multi-Page Selection & Pipeline Console)">
-          <span class="nav-tab-icon">🚀</span>
-          <span class="nav-tab-text">Post Now</span>
-          <span class="nav-instant-pill">INSTANT</span>
-        </button>
-        <button type="button" id="tabNavDashboard" class="nav-tab-btn tab-dashboard" title="Dashboard & Performance Analytics">
+        <button type="button" id="tabNavDashboard" class="nav-tab-btn tab-dashboard active" title="Dashboard & Performance Analytics">
           <span class="nav-tab-icon">📊</span>
           <span class="nav-tab-text">Dashboard</span>
         </button>
-        <button type="button" id="tabNavDrive" class="nav-tab-btn" title="Drive Video Queue & Storage Status">
-          <span class="nav-tab-icon">📁</span>
-          <span class="nav-tab-text">Drive Queue</span>
-          <span class="nav-count-pill" id="navDriveQueueCount">1,743</span>
-        </button>
-        <button type="button" id="tabNavIpRadar" class="nav-tab-btn" title="IP & Telemetry Node">
-          <span class="nav-tab-icon">🌐</span>
-          <span class="nav-tab-text">IP Radar</span>
-          <span class="nav-count-pill green" id="navIpRadarBadge">15 NODES</span>
+        <button type="button" id="tabNavPostNow" class="nav-tab-btn" title="Post Now Studio (Multi-Page Selection & Pipeline Console)">
+          <span class="nav-tab-icon">🚀</span>
+          <span class="nav-tab-text">Post Now</span>
+          <span class="nav-instant-pill">INSTANT</span>
         </button>
       </div>
 
@@ -148,7 +138,7 @@
   <main class="app-main-container">
 
     <!-- ================= POST NOW STUDIO VIEW (MATCHING RAJ TUBE PRO YOUTUBE STUDIO STYLE) ================= -->
-    <div id="postNowStudioView" class="studio-view-container">
+    <div id="postNowStudioView" class="studio-view-container" style="display: none;">
 
       <!-- Left Sub-Sidebar: Pages Fleet Selection List with Checkboxes -->
       <aside class="studio-fleet-panel">
@@ -253,8 +243,8 @@
       </section>
     </div>
 
-    <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER ================= -->
-    <div id="dashboardAnalyticsView" class="dashboard-view-container" style="display: none;">
+    <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER (DEFAULT VIEW) ================= -->
+    <div id="dashboardAnalyticsView" class="dashboard-view-container">
 
       <!-- Active Page Profile Banner -->
       <section class="profile-hero-card" id="heroCard">
@@ -550,6 +540,23 @@
     </section>
 
     </div> <!-- /#dashboardAnalyticsView -->
+
+    <!-- Persistent Down-Side IP Runner Telemetry Strip (Always visible at down side) -->
+    <div class="global-downside-ip-strip">
+      <div class="downside-ip-container">
+        <div class="downside-ip-left">
+          <span class="downside-live-dot">●</span>
+          <span class="downside-ip-label">Active Egress Runner:</span>
+          <span class="downside-ip-val" id="footerActiveIp">52.157.33.38</span>
+          <span class="downside-ip-flag" id="footerActiveFlag">🇺🇸</span>
+          <span class="downside-ip-location" id="footerActiveLocation">(San Jose, California, United States)</span>
+        </div>
+        <div class="downside-ip-right">
+          <span class="downside-tag green">✓ Safe USA Egress Verified</span>
+          <span class="downside-tag">Meta Graph API Protected</span>
+        </div>
+      </div>
+    </div>
 
   </main>
 
