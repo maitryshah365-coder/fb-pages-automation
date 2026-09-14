@@ -11,36 +11,61 @@ TOKENS_PATH = r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-80
 
 def get_pages_list():
     pages = []
-    if os.path.exists(TOKENS_PATH):
+    # 1. First load existing docs/data/pages_data.json to keep ALL previously fetched metadata & videos
+    existing_json = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
+    if os.path.exists(existing_json):
         try:
-            with open(TOKENS_PATH, "r", encoding="utf-8") as f:
-                pages = json.load(f)
-        except Exception:
-            pass
+            with open(existing_json, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                pages = data.get("pages", [])
+        except Exception as e:
+            print("Error loading existing pages_data.json:", e)
 
-    if not pages:
-        existing_json = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
-        if os.path.exists(existing_json):
+    # 2. Token candidate paths
+    token_candidates = [
+        os.path.join(BASE_DIR, "data", "pages_tokens.json"),
+        os.path.join(BASE_DIR, "scratch", "pages_tokens.json"),
+        TOKENS_PATH
+    ]
+    tokens_from_file = {}
+    for tf in token_candidates:
+        if os.path.exists(tf):
             try:
-                with open(existing_json, "r", encoding="utf-8") as f:
-                    data = json.load(f)
-                    for p in data.get("pages", []):
-                        pages.append({
-                            "index": p.get("index", 1),
-                            "id": p.get("id"),
-                            "name": p.get("name"),
-                            "access_token": p.get("access_token", "")
-                        })
+                with open(tf, "r", encoding="utf-8") as f:
+                    t_list = json.load(f)
+                    for item in t_list:
+                        if item.get("id"):
+                            tokens_from_file[str(item["id"])] = item.get("access_token", "")
+                        if item.get("index"):
+                            tokens_from_file[f"idx_{item['index']}"] = item.get("access_token", "")
+                break
             except Exception:
                 pass
 
-    # Ensure access token fallback from environment variables
-    for p in pages:
-        idx = p.get("index", 1)
-        if not p.get("access_token"):
-            env_tok = os.environ.get(f"FB_TOKEN_PAGE_{idx}") or os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
-            if env_tok:
-                p["access_token"] = env_tok
+    if not pages:
+        for tf in token_candidates:
+            if os.path.exists(tf):
+                try:
+                    with open(tf, "r", encoding="utf-8") as f:
+                        pages = json.load(f)
+                    break
+                except Exception:
+                    pass
+
+    # Ensure each page has the best token possible
+    for idx, p in enumerate(pages, 1):
+        p_id = str(p.get("id", ""))
+        p_idx = p.get("index", idx)
+
+        if not p.get("access_token") or p_id in tokens_from_file:
+            if p_id in tokens_from_file:
+                p["access_token"] = tokens_from_file[p_id]
+            elif f"idx_{p_idx}" in tokens_from_file:
+                p["access_token"] = tokens_from_file[f"idx_{p_idx}"]
+
+        env_tok = os.environ.get(f"FB_TOKEN_PAGE_{p_idx}") or os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
+        if env_tok:
+            p["access_token"] = env_tok
 
     return pages
 
@@ -81,12 +106,12 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
     fields = "name,followers_count,fan_count,category,picture.type(large),link,verification_status"
     today_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    live_followers = 0
-    live_fans = 0
+    live_followers = p.get("followers", 0)
+    live_fans = p.get("fan_count", 0)
     p_name = p.get("name", f"Page {idx}")
-    category = "Digital Creator"
-    pic_url = f"https://graph.facebook.com/v20.0/{pid}/picture?type=large"
-    link = f"https://www.facebook.com/{pid}"
+    category = p.get("category", "Digital Creator")
+    pic_url = p.get("pic_url") or f"https://graph.facebook.com/v20.0/{pid}/picture?type=large"
+    link = p.get("link") or f"https://www.facebook.com/{pid}"
 
     # 1. Fetch live page details
     if token:
@@ -161,13 +186,15 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 total_page_likes += likes
                 total_page_comments += comments
 
-                # Format clean date
+                # Format clean date & time
                 try:
                     clean_iso = c_iso.replace("+0000", "+00:00")
                     c_dt = datetime.fromisoformat(clean_iso)
                     display_date = c_dt.strftime("%b %d, %Y")
+                    display_time = c_dt.strftime("%I:%M %p")
                 except Exception:
                     display_date = "Recent"
+                    display_time = "12:00 PM"
 
                 raw_desc = (rv.get("description") or "Facebook Reel").strip()
                 v_title = raw_desc.split("\n")[0][:50]
@@ -180,6 +207,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                     "title": v_title,
                     "description": raw_desc[:120],
                     "created_at": display_date,
+                    "created_time": display_time,
                     "created_time_iso": c_iso,
                     "views": views,
                     "likes": likes,
@@ -211,9 +239,12 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                     c_iso = rv.get("created_time", "2026-08-19T22:00:00+0000")
                     try:
                         clean_iso = c_iso.replace("+0000", "+00:00")
-                        display_date = datetime.fromisoformat(clean_iso).strftime("%b %d, %Y")
+                        c_dt = datetime.fromisoformat(clean_iso)
+                        display_date = c_dt.strftime("%b %d, %Y")
+                        display_time = c_dt.strftime("%I:%M %p")
                     except Exception:
                         display_date = "Recent"
+                        display_time = "12:00 PM"
 
                     total_page_views += views
                     total_page_likes += likes
@@ -224,6 +255,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                         "id": rv.get("id"),
                         "title": raw_title,
                         "created_at": display_date,
+                        "created_time": display_time,
                         "created_time_iso": c_iso,
                         "views": views,
                         "likes": likes,
@@ -234,8 +266,54 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             except Exception as e:
                 pass
 
-    # Merge with SQLite videos if Meta API returned empty
+    # If meta_videos is empty (e.g. Meta API auth error or network timeout), retain previously cached videos
+    if not meta_videos:
+        meta_videos = list(p.get("videos", []))
+
+    # Merge with SQLite posted videos to guarantee all server-uploaded videos are present
     db_videos = posted_by_page.get(pid, [])
+    existing_video_ids = {str(v.get("id")) for v in meta_videos}
+    for db_v in db_videos:
+        fb_vid = str(db_v.get("facebook_video_id") or "")
+        if fb_vid and fb_vid not in existing_video_ids:
+            existing_video_ids.add(fb_vid)
+            p_time = db_v.get("posted_at") or "2026-09-14T12:00:00+00:00"
+            try:
+                dt_obj = datetime.fromisoformat(p_time.replace("Z", "+00:00"))
+                disp_d = dt_obj.strftime("%b %d, %Y")
+                disp_t = dt_obj.strftime("%I:%M %p")
+            except Exception:
+                disp_d = "Recent"
+                disp_t = "12:00 PM"
+            meta_videos.insert(0, {
+                "id": fb_vid,
+                "title": db_v.get("title") or "Uploaded Reel",
+                "description": db_v.get("title") or "Server Upload",
+                "created_at": disp_d,
+                "created_time": disp_t,
+                "created_time_iso": p_time,
+                "posted_at": p_time,
+                "views": 0,
+                "likes": 0,
+                "comments": 0,
+                "subscribers_gain": "+0",
+                "visibility": "Public",
+                "restrictions": "None",
+                "page_name": p_name,
+                "page_id": pid,
+                "thumbnail": f"https://graph.facebook.com/v20.0/{fb_vid}/picture",
+                "permalink": f"https://www.facebook.com/reel/{fb_vid}",
+                "server_uploaded": True
+            })
+
+    # Recalculate totals from final videos if they were 0
+    if total_page_views == 0 and meta_videos:
+        total_page_views = sum(v.get("views", 0) for v in meta_videos)
+    if total_page_likes == 0 and meta_videos:
+        total_page_likes = sum(v.get("likes", 0) for v in meta_videos)
+    if total_page_comments == 0 and meta_videos:
+        total_page_comments = sum(v.get("comments", 0) for v in meta_videos)
+
     today_posts = len([v for v in db_videos if today_str in str(v.get("posted_at", ""))])
 
     # 3. Resolve Real Last Upload IP & Location
