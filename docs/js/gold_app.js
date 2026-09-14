@@ -2197,8 +2197,6 @@ async function executeStudioPost() {
   });
 
   const pageParam = selectedList.join(",");
-  const promptConfirm = confirm(`Are you sure you want to trigger immediate Google Drive post for ${selectedList.length} pages?\n\nTarget Pages:\n• ${selectedDisplayNames.join("\n• ")}\n\nVideos will be uploaded to Facebook and automatically deleted from Drive upon success.`);
-  if (!promptConfirm) return;
 
   isStudioDispatching = true;
   updateStudioSelectionUI();
