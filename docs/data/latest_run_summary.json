@@ -1,9 +1,9 @@
 {
-  "run_id": "34850944676",
-  "run_number": "11",
-  "completed_at": "2026-09-14T13:43:29.779733+00:00",
+  "run_id": "34854388970",
+  "run_number": "12",
+  "completed_at": "2026-09-14T14:18:01.728428+00:00",
   "runner_telemetry": {
-    "ip": "172.178.119.43",
+    "ip": "172.203.253.208",
     "city": "Dulles Town Center",
     "region": "Virginia",
     "country": "US",
@@ -16,21 +16,130 @@
   "dry_run": false,
   "results": [
     {
-      "status": "success",
+      "status": "skipped",
+      "page": "page_1",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "988523547680750",
+      "page_config_name": "page_1",
+      "display_name": "page_1"
+    },
+    {
+      "status": "failed",
+      "page": "page_2",
+      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "page_id": "1040244259164767",
+      "page_config_name": "page_2",
+      "display_name": "page_2"
+    },
+    {
+      "status": "skipped",
+      "page": "page_3",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "965629596638624",
+      "page_config_name": "page_3",
+      "display_name": "page_3"
+    },
+    {
+      "status": "skipped",
+      "page": "page_4",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "956622247541040",
+      "page_config_name": "page_4",
+      "display_name": "page_4"
+    },
+    {
+      "status": "failed",
+      "page": "page_5",
+      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "page_id": "1034326643100670",
+      "page_config_name": "page_5",
+      "display_name": "page_5"
+    },
+    {
+      "status": "skipped",
+      "page": "page_6",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "924636817403215",
+      "page_config_name": "page_6",
+      "display_name": "page_6"
+    },
+    {
+      "status": "skipped",
+      "page": "page_7",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "795016603693140",
+      "page_config_name": "page_7",
+      "display_name": "page_7"
+    },
+    {
+      "status": "failed",
+      "page": "page_8",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "page_id": "637367679454577",
+      "page_config_name": "page_8",
+      "display_name": "page_8"
+    },
+    {
+      "status": "skipped",
       "page": "page_9",
-      "drive_file_id": "1LvEwuIwLPVMMxTdLdAVqHK697sHErZyh",
-      "facebook_video_id": "1351437430117877",
-      "filename": "Mouse trap with aquarium #mousetraptp #mouse #rattrap #bucketmousetrap .mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "640019675857269",
       "page_config_name": "page_9",
       "display_name": "page_9"
+    },
+    {
+      "status": "skipped",
+      "page": "page_10",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "626061003919674",
+      "page_config_name": "page_10",
+      "display_name": "page_10"
+    },
+    {
+      "status": "failed",
+      "page": "page_11",
+      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "page_id": "528360240361556",
+      "page_config_name": "page_11",
+      "display_name": "page_11"
+    },
+    {
+      "status": "failed",
+      "page": "page_12",
+      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "page_id": "503358542855153",
+      "page_config_name": "page_12",
+      "display_name": "page_12"
+    },
+    {
+      "status": "skipped",
+      "page": "page_13",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "500794979779192",
+      "page_config_name": "page_13",
+      "display_name": "page_13"
+    },
+    {
+      "status": "failed",
+      "page": "page_14",
+      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "page_id": "468230386376818",
+      "page_config_name": "page_14",
+      "display_name": "page_14"
+    },
+    {
+      "status": "skipped",
+      "page": "page_15",
+      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "page_id": "106309715659174",
+      "page_config_name": "page_15",
+      "display_name": "page_15"
     }
   ],
   "stats": {
-    "total": 1,
-    "success": 1,
-    "skipped": 0,
-    "failed": 0
+    "total": 15,
+    "success": 0,
+    "skipped": 9,
+    "failed": 6
   }
 }
