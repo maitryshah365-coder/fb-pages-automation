@@ -469,15 +469,28 @@
 
     <!-- Section 3: Uploaded Videos & Reels Library (YouTube Studio Style) -->
     <section class="content-box">
-      <div class="box-header flex-between">
+      <div class="box-header flex-between library-box-header">
         <div class="box-title-group">
           <span class="box-icon">🎬</span>
-          <h3 class="box-title">Uploaded Videos & Reels Library</h3>
+          <div>
+            <h3 class="box-title" id="librarySectionTitle">Uploaded Videos & Reels Library</h3>
+            <span class="library-pipeline-tag" id="librarySourceSub">
+              ⚡ Showing automation server uploads (Real-time Meta Graph live)
+            </span>
+          </div>
         </div>
-        <span class="pill-badge pill-gold" id="badgeVideosCount">0 Videos</span>
+        <div class="library-header-actions">
+          <div class="timeframe-toggle-wrapper" id="reelsTimeframeSelector">
+            <button class="timeframe-pill" data-days="7" id="btnReelTf7">7 Days</button>
+            <button class="timeframe-pill active" data-days="28" id="btnReelTf28">28 Days</button>
+            <button class="timeframe-pill" data-days="60" id="btnReelTf60">60 Days</button>
+            <button class="timeframe-pill" data-days="90" id="btnReelTf90">90 Days</button>
+          </div>
+          <span class="pill-badge pill-gold" id="badgeVideosCount">0 Videos</span>
+        </div>
       </div>
 
-      <p class="section-desc">Channel content performance table • Real-time views, retention & engagement</p>
+      <p class="section-desc" id="libraryDescText">Channel content performance table • Real-time views, retention & engagement</p>
 
       <!-- YouTube Studio Table Container (Desktop Only) -->
       <div class="studio-table-wrapper desktop-only">
@@ -637,6 +650,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=3.5.0"></script>
+  <script src="js/gold_app.js?v=3.6.0"></script>
 </body>
 </html>

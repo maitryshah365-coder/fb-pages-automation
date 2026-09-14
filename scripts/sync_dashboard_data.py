@@ -173,6 +173,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 v_title = raw_desc.split("\n")[0][:50]
                 sub_gain = f"+{max(0, int(views * 0.003))}" if views > 100 else "+0"
 
+                is_server_video = any(str(pv.get("facebook_video_id")) == str(rid) for pv in posted_by_page.get(pid, []))
+
                 meta_videos.append({
                     "id": rid,
                     "title": v_title,
@@ -188,7 +190,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                     "page_name": p_name,
                     "page_id": pid,
                     "thumbnail": rv.get("picture") or f"https://graph.facebook.com/v20.0/{rid}/picture",
-                    "permalink": rv.get("permalink_url") or f"https://www.facebook.com/reel/{rid}"
+                    "permalink": rv.get("permalink_url") or f"https://www.facebook.com/reel/{rid}",
+                    "server_uploaded": is_server_video
                 })
         except Exception as e:
             print(f"Error fetching video_reels for {pid}:", e)
@@ -746,6 +749,18 @@ def sync_data():
         except Exception:
             pass
 
+    # Collect all server uploaded videos across all pages
+    server_uploaded_videos = []
+    seen_server_ids = set()
+    for p in page_records:
+        for v in p.get("videos", []):
+            vid = str(v.get("id"))
+            if v.get("server_uploaded") and vid not in seen_server_ids:
+                seen_server_ids.add(vid)
+                server_uploaded_videos.append(v)
+
+    server_uploaded_videos.sort(key=lambda x: x.get("created_time_iso") or x.get("created_at") or "", reverse=True)
+
     payload = {
         "synced_at": datetime.now(timezone.utc).isoformat(),
         "today_summary": {
@@ -756,6 +771,7 @@ def sync_data():
         },
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
+        "server_uploaded_videos": server_uploaded_videos,
         "portfolio": {
             "total_pages": len(page_records),
             "total_followers": total_portfolio_followers,

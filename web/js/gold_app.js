@@ -17,30 +17,17 @@ function getReelsForDays(videos, days) {
   if (!videos || !videos.length) return [];
   // Sort by date newest first
   const sorted = [...videos].sort((a, b) => {
-    const ta = new Date(a.created_time_iso || a.created_at || 0).getTime();
-    const tb = new Date(b.created_time_iso || b.created_at || 0).getTime();
+    const ta = new Date(a.posted_at || a.created_time_iso || a.created_at || 0).getTime();
+    const tb = new Date(b.posted_at || b.created_time_iso || b.created_at || 0).getTime();
     return tb - ta;
   });
 
   // Calculate cutoff based on the newest video in the dataset
-  const newestTime = new Date(sorted[0].created_time_iso || sorted[0].created_at || Date.now()).getTime();
-
-  let effectiveDays = days;
-  if (days === 7) {
-    // 7 days corresponds to the immediate recent burst of uploads (last 24-36h)
-    effectiveDays = 0.8;
-  } else if (days === 28) {
-    effectiveDays = 28;
-  } else if (days === 60) {
-    effectiveDays = 60;
-  } else if (days === 90) {
-    effectiveDays = 90;
-  }
-
-  const cutoffTime = newestTime - (effectiveDays * 24 * 60 * 60 * 1000);
+  const newestTime = new Date(sorted[0].posted_at || sorted[0].created_time_iso || sorted[0].created_at || Date.now()).getTime();
+  const cutoffTime = newestTime - (days * 24 * 60 * 60 * 1000);
 
   const matched = sorted.filter(v => {
-    const vt = new Date(v.created_time_iso || v.created_at || 0).getTime();
+    const vt = new Date(v.posted_at || v.created_time_iso || v.created_at || 0).getTime();
     return vt >= cutoffTime;
   });
 
@@ -49,6 +36,30 @@ function getReelsForDays(videos, days) {
   // Exact slice fallback if timestamps are uniform
   const count = Math.max(1, Math.min(sorted.length, Math.round(sorted.length * (days / 90))));
   return sorted.slice(0, count);
+}
+
+function getServerUploadedVideos() {
+  if (fullData?.server_uploaded_videos && fullData.server_uploaded_videos.length > 0) {
+    return fullData.server_uploaded_videos;
+  }
+  // Fallback: collect server-uploaded videos across pages
+  const list = [];
+  const seen = new Set();
+  (fullData?.pages || []).forEach(p => {
+    (p.videos || []).forEach(v => {
+      const vid = String(v.id);
+      const isServer = v.server_uploaded || fullData?.latest_run_summary?.results?.some(r => String(r.facebook_video_id) === vid);
+      if (isServer && !seen.has(vid)) {
+        seen.add(vid);
+        list.push({ ...v, page_name: v.page_name || p.name, page_id: v.page_id || p.id, server_uploaded: true });
+      }
+    });
+  });
+  return list.sort((a, b) => {
+    const ta = new Date(a.posted_at || a.created_time_iso || a.created_at || 0).getTime();
+    const tb = new Date(b.posted_at || b.created_time_iso || b.created_at || 0).getTime();
+    return tb - ta;
+  });
 }
 
 function setTimeframe(days) {
@@ -470,7 +481,14 @@ function renderSinglePageView(p) {
   // 5. Demographics
   renderDemographics(p.audience);
 
-  // 6. Video Reels Library (matching exact timeframe reels)
+  // 6. Video Reels Library (matching exact timeframe reels for this page)
+  const libTitle = document.getElementById("librarySectionTitle");
+  const libSub = document.getElementById("librarySourceSub");
+  const libDesc = document.getElementById("libraryDescText");
+  if (libTitle) libTitle.innerText = `${p.name} - Uploaded Videos & Reels`;
+  if (libSub) libSub.innerText = `Showing published reels for ${p.name} (${currentTimeframe} Days)`;
+  if (libDesc) libDesc.innerText = `Channel content performance table • Real-time views, retention & engagement`;
+
   currentVideos = reelsForTf;
   videosShownCount = 8;
   renderVideosLibrary();
@@ -663,8 +681,18 @@ function renderAllPortfolioView() {
   // Combined Demographics from Verified Pages
   renderDemographics(getPortfolioAudience());
 
-  // Videos
-  currentVideos = allVideosForTf;
+  // Videos: Strictly Server-Uploaded Automation Reels for Master Dashboard
+  const serverReels = getServerUploadedVideos();
+  const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
+
+  const libTitle = document.getElementById("librarySectionTitle");
+  const libSub = document.getElementById("librarySourceSub");
+  const libDesc = document.getElementById("libraryDescText");
+  if (libTitle) libTitle.innerText = "Uploaded Videos & Reels Library (Server Pipeline)";
+  if (libSub) libSub.innerText = `⚡ Showing automation server uploads (${currentTimeframe} Days • Real-time Meta Graph live)`;
+  if (libDesc) libDesc.innerText = "Automated upload pipeline performance • Real-time views, retention & engagement from runner posts";
+
+  currentVideos = serverReelsForTf;
   videosShownCount = 8;
   renderVideosLibrary();
 
@@ -672,7 +700,7 @@ function renderAllPortfolioView() {
   renderTelemetry({ isPortfolio: true });
 
   // Update Studio Left Sidebar & Dashboard Top Cards
-  updateStudioDashboardCards(true, null, allVideosForTf);
+  updateStudioDashboardCards(true, null, serverReelsForTf);
 }
 
 // ----------------- Demographics Tabs -----------------
@@ -932,7 +960,10 @@ function renderVideosLibrary() {
               </div>
               <div class="studio-video-info">
                 <div class="studio-video-title" title="${title}">${title}</div>
-                <div class="studio-video-meta">${pageLabel} • ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</div>
+                <div class="studio-video-meta">
+                  <span>${pageLabel} • ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</span>
+                  ${v.server_uploaded ? '<span class="studio-server-badge">⚡ SERVER UPLOAD</span>' : ''}
+                </div>
               </div>
             </div>
           </td>
@@ -990,6 +1021,7 @@ function renderVideosLibrary() {
               <span class="mobile-yt-vis">Public</span>
               <span class="mobile-yt-sep">•</span>
               <span class="mobile-yt-date">${formattedDate}</span>
+              ${v.server_uploaded ? '<span class="studio-server-badge" style="margin-left:6px; font-size:9px; padding:1px 5px;">⚡ SERVER</span>' : ''}
             </div>
             <div class="mobile-yt-stats-row">
               <div class="mobile-yt-stat" title="Views">
@@ -1352,11 +1384,14 @@ function setupEventListeners() {
   document.getElementById("pagesDrawerOverlay")?.addEventListener("click", closePageDrawer);
   document.getElementById("btnSelectAllPages")?.addEventListener("click", () => selectPage("all"));
 
-  // Timeframe Pills (7, 28, 60, 90 Days)
-  document.getElementById("btnTf7")?.addEventListener("click", () => setTimeframe(7));
-  document.getElementById("btnTf28")?.addEventListener("click", () => setTimeframe(28));
-  document.getElementById("btnTf60")?.addEventListener("click", () => setTimeframe(60));
-  document.getElementById("btnTf90")?.addEventListener("click", () => setTimeframe(90));
+  // Timeframe Pills (7, 28, 60, 90 Days) - Analytics & Reels Library
+  document.querySelectorAll(".timeframe-pill").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const days = parseInt(btn.dataset.days);
+      if (days) setTimeframe(days);
+    });
+  });
 
   // Select All Checkbox in Studio Table
   document.getElementById("chkSelectAllVideos")?.addEventListener("change", (e) => {
