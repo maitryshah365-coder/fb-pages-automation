@@ -80,14 +80,19 @@ jobs:
           FB_TOKEN_PAGE_14: ${{ secrets.FB_TOKEN_PAGE_14 }}
           FB_TOKEN_PAGE_15: ${{ secrets.FB_TOKEN_PAGE_15 }}
         run: |
-          ARGS=""
-          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-            ARGS="$ARGS --dry-run"
-          fi
           if [ -n "${{ github.event.inputs.page }}" ]; then
-            ARGS="$ARGS --page \"${{ github.event.inputs.page }}\""
+            if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+              python main.py --config config.yaml --dry-run --page "${{ github.event.inputs.page }}"
+            else
+              python main.py --config config.yaml --page "${{ github.event.inputs.page }}"
+            fi
+          else
+            if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+              python main.py --config config.yaml --dry-run
+            else
+              python main.py --config config.yaml
+            fi
           fi
-          python main.py --config config.yaml $ARGS
 
       - name: Sync Dashboard Data
         if: always()

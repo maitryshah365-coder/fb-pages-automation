@@ -131,7 +131,7 @@ def main():
 
     pages_to_run = config.pages
     if args.page:
-        raw_items = [x.strip() for x in args.page.split(",") if x.strip()]
+        raw_items = [x.strip(' "\'').strip() for x in args.page.split(",") if x.strip(' "\'').strip()]
         selected = []
         for item in raw_items:
             p = config.get_page_by_name(item) or config.get_page_by_id(item)
@@ -155,10 +155,19 @@ def main():
     for page in pages_to_run:
         try:
             res = runner.run_page(page)
+            # Enrich result with human-friendly metadata
+            res["page_id"] = page.page_id
+            res["page_config_name"] = page.name
+            res["display_name"] = getattr(page, "display_name", page.name)
             results.append(res)
         except Exception as err:
             logger.error(f"Unhandled exception while processing Page '{page.name}': {err}", exc_info=True)
-            results.append({"status": "error", "page": page.name, "error": str(err)})
+            results.append({
+                "status": "error",
+                "page": page.name,
+                "page_id": page.page_id,
+                "error": str(err)
+            })
 
     logger.info("======================= RUN SUMMARY =======================")
     for r in results:
@@ -167,6 +176,30 @@ def main():
         detail = r.get("filename") or r.get("reason") or r.get("error") or ""
         logger.info(f"Page: {p_name:<15} | Status: {status.upper():<12} | {detail}")
     logger.info("===========================================================")
+
+    # Export structured run summary for immediate dashboard display & auto-sync
+    summary_data = {
+        "run_id": os.environ.get("GITHUB_RUN_ID", "local"),
+        "run_number": os.environ.get("GITHUB_RUN_NUMBER", "1"),
+        "completed_at": datetime.now(timezone.utc).isoformat(),
+        "runner_telemetry": telemetry,
+        "dry_run": args.dry_run,
+        "results": results,
+        "stats": {
+            "total": len(results),
+            "success": sum(1 for r in results if r.get("status") in ["success", "dry_run_success"]),
+            "skipped": sum(1 for r in results if r.get("status") in ["skipped", "no_content"]),
+            "failed": sum(1 for r in results if r.get("status") in ["failed", "error"])
+        }
+    }
+    for folder in ["data", "docs/data", "web/data"]:
+        try:
+            os.makedirs(folder, exist_ok=True)
+            summary_file = os.path.join(folder, "latest_run_summary.json")
+            with open(summary_file, "w", encoding="utf-8") as sf:
+                json.dump(summary_data, sf, indent=2, ensure_ascii=False)
+        except Exception as e:
+            logger.warning(f"Could not write run summary to {folder}: {e}")
 
 
 if __name__ == "__main__":

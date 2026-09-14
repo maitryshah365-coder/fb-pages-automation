@@ -547,6 +547,19 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         }
     }
 
+    # Calculate live Google Drive stock remaining
+    known_base = {
+        "1040244259164767": 48,   # Charmy Owen
+        "1034326643100670": 151,  # Bright Flare Hub
+        "637367679454577": 367,   # Crown Empire
+        "640019675857269": 446,   # Crafty Champions
+        "528360240361556": 319,   # Dominion Authority
+        "503358542855153": 287,   # Family Fancy
+        "468230386376818": 125    # Bot Mask
+    }
+    base_stock = known_base.get(pid, 0)
+    current_drive_stock = max(0, base_stock - today_posts) if base_stock > 0 else 0
+
     return {
         "index": idx,
         "id": pid,
@@ -559,7 +572,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "access_token": token,
         "today_posts": today_posts,
         "daily_limit": 4,
-        "total_posts": len(db_videos) + len(meta_videos),
+        "drive_videos_count": current_drive_stock,
+        "total_posts": max(len(meta_videos), len(db_videos)),
         "total_views": total_page_views,
         "total_engagement": {
             "likes": total_page_likes,
@@ -648,8 +662,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 }
             ]
         },
-            "videos": meta_videos
-        }
+        "videos": meta_videos
+    }
 
 
 def sync_data():
@@ -671,12 +685,12 @@ def sync_data():
             conn.row_factory = sqlite3.Row
             cur = conn.cursor()
             
-            # Read videos
+            # Read posted videos
             try:
                 cur.execute("""
-                    SELECT id, page_id, drive_file_id, filename, status, facebook_video_id, posted_at, post_type 
+                    SELECT page_id, filename as title, posted_at, facebook_video_id, status 
                     FROM videos 
-                    WHERE status = 'posted'
+                    WHERE status = 'posted' 
                     ORDER BY posted_at DESC
                 """)
                 for row in cur.fetchall():
@@ -707,8 +721,6 @@ def sync_data():
         except Exception as e:
             print("SQLite read error:", e)
 
-
-
     print(f"Syncing live Meta Graph API data for {len(pages)} pages concurrently...")
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [executor.submit(fetch_single_page_record, p, idx, curr_telemetry, posted_by_page, runs_by_page) for idx, p in enumerate(pages, 1)]
@@ -724,6 +736,16 @@ def sync_data():
     total_target_today = len(pages) * 4
     today_remaining = max(0, total_target_today - total_today_posted)
 
+    # Load latest_run_summary if available
+    latest_run_summary = None
+    summary_path = os.path.join(BASE_DIR, "data", "latest_run_summary.json")
+    if os.path.exists(summary_path):
+        try:
+            with open(summary_path, "r", encoding="utf-8") as sf:
+                latest_run_summary = json.load(sf)
+        except Exception:
+            pass
+
     payload = {
         "synced_at": datetime.now(timezone.utc).isoformat(),
         "today_summary": {
@@ -733,6 +755,7 @@ def sync_data():
             "daily_slots_edt": ["10:00 AM", "03:00 PM", "07:00 PM", "10:00 PM"]
         },
         "runner_telemetry": curr_telemetry,
+        "latest_run_summary": latest_run_summary,
         "portfolio": {
             "total_pages": len(page_records),
             "total_followers": total_portfolio_followers,

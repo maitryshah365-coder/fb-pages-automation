@@ -1283,6 +1283,11 @@ function openInstantUploadModal() {
   updateInstantSelectionUI();
   checkAuthStatus();
 
+  // If previous run summary exists and not currently dispatching, display it!
+  if (!isDispatchingUpload && fullData && fullData.latest_run_summary) {
+    renderInstantExecutionSummary(fullData.latest_run_summary, false);
+  }
+
   modal.style.display = "flex";
   backdrop.style.display = "block";
 }
@@ -1492,8 +1497,10 @@ async function executeInstantPost() {
   const headline = document.getElementById("execHeadline");
   const sub = document.getElementById("execSub");
   const actions = document.getElementById("execActions");
+  const summaryDetails = document.getElementById("instantSummaryDetails");
 
   if (execBox) execBox.style.display = "block";
+  if (summaryDetails) summaryDetails.style.display = "none";
   if (spinner) spinner.className = "exec-spinner";
   if (headline) headline.innerText = "Triggering Cloud Pipeline...";
   if (sub) sub.innerText = `Sending dispatch request for ${selectedList.length} pages to GitHub Actions...`;
@@ -1575,16 +1582,18 @@ async function pollWorkflowRun(pat, pageNames) {
           if (spinner) spinner.className = "exec-spinner done";
           if (conclusion === "success") {
             if (headline) headline.innerText = "✅ Upload & Post Complete!";
-            if (sub) sub.innerText = "All selected pages published successfully and Drive cleaned up!";
-            showToast("✅ Selected Pages Published & Verified!");
+            if (sub) sub.innerText = "All selected pages published successfully! Auto-syncing with Git & App...";
+            showToast("✅ Selected Pages Published! Syncing data...");
           } else {
             if (headline) headline.innerText = "⚠️ Execution Finished with Warnings";
-            if (sub) sub.innerText = `Conclusion: ${conclusion}. Check run logs on GitHub.`;
+            if (sub) sub.innerText = `Conclusion: ${conclusion}. Syncing latest execution summary...`;
           }
+
+          // Trigger automated Git & App synchronization
+          await autoSyncAfterUpload();
+
           isDispatchingUpload = false;
           updateInstantSelectionUI();
-          // Trigger live sync to refresh dashboard numbers
-          setTimeout(() => syncLiveMetaGraph(), 4000);
           return;
         }
       }
@@ -1596,6 +1605,257 @@ async function pollWorkflowRun(pat, pageNames) {
   // Continue polling every 4 seconds if still dispatching
   if (isDispatchingUpload) {
     setTimeout(() => pollWorkflowRun(pat, pageNames), 4000);
+  }
+}
+
+// Automatically fetch fresh data committed by GitHub Actions to sync local state immediately
+async function autoSyncAfterUpload() {
+  const headline = document.getElementById("execHeadline");
+  const sub = document.getElementById("execSub");
+
+  if (headline) headline.innerText = "🔄 Auto-Syncing with Git & Meta...";
+  if (sub) sub.innerText = "Fetching latest upload summary and syncing dashboard state...";
+
+  let freshSummary = null;
+  let freshPagesData = null;
+
+  // Poll for GitHub Actions commits to propagate to raw CDN (with cache busting)
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    try {
+      const cacheBust = Date.now() + "_" + attempt;
+      const rawSummaryUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/main/docs/data/latest_run_summary.json?cb=${cacheBust}`;
+      const rawPagesUrl = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/main/docs/data/pages_data.json?cb=${cacheBust}`;
+
+      const [sumResp, pagesResp] = await Promise.all([
+        fetch(rawSummaryUrl),
+        fetch(rawPagesUrl)
+      ]);
+
+      if (sumResp.ok) freshSummary = await sumResp.json();
+      if (pagesResp.ok) freshPagesData = await pagesResp.json();
+
+      if (freshSummary && freshPagesData) break;
+    } catch (e) {
+      console.warn(`Sync attempt ${attempt} warning:`, e);
+    }
+    await new Promise(r => setTimeout(r, 2000));
+  }
+
+  // Fallback to local files if raw fetch didn't return or on local development server
+  if (!freshSummary || !freshPagesData) {
+    try {
+      const [localSumResp, localPagesResp] = await Promise.all([
+        fetch(`data/latest_run_summary.json?v=${Date.now()}`),
+        fetch(`data/pages_data.json?v=${Date.now()}`)
+      ]);
+      if (localSumResp.ok) freshSummary = await localSumResp.json();
+      if (localPagesResp.ok) freshPagesData = await localPagesResp.json();
+    } catch (e) {
+      console.warn("Local fallback error:", e);
+    }
+  }
+
+  if (freshPagesData) {
+    fullData = freshPagesData;
+  }
+  if (freshSummary && fullData) {
+    fullData.latest_run_summary = freshSummary;
+  }
+
+  // Render the detailed summary box inside the modal
+  if (fullData && fullData.latest_run_summary) {
+    renderInstantExecutionSummary(fullData.latest_run_summary, true);
+  }
+
+  // Re-render dashboard overview and drawer pages with updated numbers
+  if (fullData && fullData.pages) {
+    renderDrawerPages(fullData.pages);
+    selectPage(activePageId);
+    renderInstantPagesList();
+    updateInstantSelectionUI();
+  }
+
+  // Trigger live Meta sync in background to update reel view counts & followers
+  setTimeout(() => syncLiveMetaGraph(), 2000);
+  showToast("✅ Auto-Synced with Git & Dashboard Data!");
+}
+
+// Render the dedicated execution summary box showing uploaded reels, drive status, time, and IP
+function renderInstantExecutionSummary(summaryData, isLive = false) {
+  const container = document.getElementById("instantSummaryDetails");
+  const execBox = document.getElementById("instantExecutionBox");
+  const spinner = document.getElementById("execSpinner");
+  const headline = document.getElementById("execHeadline");
+  const sub = document.getElementById("execSub");
+  const actions = document.getElementById("execActions");
+
+  if (!container || !summaryData) return;
+  if (execBox) execBox.style.display = "block";
+
+  const isSuccess = (summaryData.stats?.failed || 0) === 0;
+  if (spinner) {
+    spinner.className = "exec-spinner done";
+  }
+
+  // Format timestamps
+  let localTimeStr = "Recent";
+  let relativeTimeStr = "";
+  if (summaryData.completed_at) {
+    try {
+      const dt = new Date(summaryData.completed_at);
+      localTimeStr = dt.toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }) + ", " +
+                     dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      relativeTimeStr = formatRelativeTime(summaryData.completed_at);
+    } catch (e) {
+      localTimeStr = summaryData.completed_at;
+    }
+  }
+
+  if (headline) {
+    if (isLive) {
+      headline.innerText = isSuccess ? "✅ Upload & Post Complete! (Synced with Git & App)" : "⚠️ Upload Finished with Warnings";
+    } else {
+      headline.innerText = `📋 Latest Automation Run Summary (Run #${summaryData.run_number || 'Latest'})`;
+    }
+  }
+  if (sub) {
+    sub.innerText = `Completed: ${localTimeStr} ${relativeTimeStr ? `(${relativeTimeStr})` : ''} • Drive Cleaned & Synced`;
+  }
+
+  if (actions && summaryData.run_id && summaryData.run_id !== "local") {
+    actions.innerHTML = `
+      <a class="exec-link" href="https://github.com/${GH_OWNER}/${GH_REPO}/actions/runs/${summaryData.run_id}" target="_blank" rel="noopener">
+        🔗 View GitHub Actions Run #${summaryData.run_number || ''} Logs ↗
+      </a>
+      <span style="font-size: 11px; color: #64748b;">•</span>
+      <span style="font-size: 11px; color: #10b981; font-weight: 700;">🟢 Live Git & App Synced</span>
+    `;
+  }
+
+  // Runner telemetry
+  const tel = summaryData.runner_telemetry || {};
+  const flag = tel.flag || "🌐";
+  const ip = tel.ip || "Cloud Runner";
+  const location = [tel.city, tel.region, tel.country].filter(Boolean).join(", ") || "Cloud Environment";
+
+  // Build Results Cards
+  const results = summaryData.results || [];
+  let pagesHtml = "";
+
+  if (results.length === 0) {
+    pagesHtml = `<div style="font-size: 12px; color: #94a3b8; text-align: center; padding: 12px;">No individual page uploads logged for this run.</div>`;
+  } else {
+    results.forEach(res => {
+      const pageId = String(res.page_id || "");
+      const matchedPage = fullData?.pages?.find(p => String(p.id) === pageId);
+      const avatarUrl = matchedPage?.pic_url || "icons/icon-192.png";
+      const displayName = res.display_name || matchedPage?.name || res.page || `Page ${pageId}`;
+
+      let badgeHtml = "";
+      let detailHtml = "";
+      let chipsHtml = "";
+
+      if (res.status === "success" || res.status === "dry_run_success") {
+        badgeHtml = `<span class="summary-card-badge success">✅ Reel Published</span>`;
+        detailHtml = `
+          <div class="summary-video-row">
+            <span style="color: #f5ba23; flex-shrink: 0;">🎬</span>
+            <span class="summary-video-title">${res.video_title || res.filename || 'Reel Video'}</span>
+          </div>
+        `;
+
+        const chips = [];
+        if (res.facebook_video_id) {
+          chips.push(`<a href="https://www.facebook.com/reel/${res.facebook_video_id}" target="_blank" rel="noopener" class="summary-chip-link">▶️ Reel ID: ${res.facebook_video_id} ↗</a>`);
+        }
+        if (res.drive_file_deleted) {
+          chips.push(`<span class="summary-chip chip-deleted">🗑️ Drive Cleaned (Deleted)</span>`);
+        }
+        if (res.drive_files_remaining !== undefined) {
+          chips.push(`<span class="summary-chip chip-drive">📦 ${res.drive_files_remaining} Videos Left</span>`);
+        }
+        chipsHtml = `<div class="summary-meta-chips">${chips.join("")}</div>`;
+
+      } else if (res.status === "skipped" || res.status === "no_content") {
+        badgeHtml = `<span class="summary-card-badge skipped">⏭️ Skipped</span>`;
+        detailHtml = `
+          <div class="summary-video-row" style="color: #94a3b8;">
+            <span>ℹ️</span>
+            <span>${res.reason || res.message || 'No video ready in Drive or quota reached'}</span>
+          </div>
+        `;
+      } else {
+        badgeHtml = `<span class="summary-card-badge error">❌ Failed</span>`;
+        detailHtml = `
+          <div class="summary-video-row" style="color: #f87171;">
+            <span>⚠️</span>
+            <span>${res.error || 'Upload could not complete'}</span>
+          </div>
+        `;
+      }
+
+      pagesHtml += `
+        <div class="summary-card">
+          <div class="summary-card-top">
+            <div class="summary-card-left">
+              <img class="summary-card-avatar" src="${avatarUrl}" alt="${displayName}" onerror="this.src='icons/icon-192.png'">
+              <span class="summary-card-name" title="${displayName}">${displayName}</span>
+            </div>
+            ${badgeHtml}
+          </div>
+          ${detailHtml}
+          ${chipsHtml}
+        </div>
+      `;
+    });
+  }
+
+  container.innerHTML = `
+    <div class="summary-header-badge-row">
+      <div class="summary-header-title">
+        <span>📊 Upload Summary & Verification</span>
+        <span style="font-size: 11px; opacity: 0.85; font-weight: normal;">• Run #${summaryData.run_number || 'Latest'}</span>
+      </div>
+      <div class="summary-header-time">
+        🕒 ${localTimeStr}
+      </div>
+    </div>
+
+    <div class="summary-telemetry-strip">
+      <div class="summary-telemetry-item">
+        <span>🌐 Runner:</span>
+        <strong>${flag} ${ip}</strong>
+        <span style="opacity: 0.75; font-size: 10.5px;">(${location})</span>
+      </div>
+      <div class="summary-telemetry-item" style="margin-left: auto;">
+        <span style="color: #34d399; font-weight: 700;">✅ ${summaryData.stats?.success || 0} Published</span>
+        ${summaryData.stats?.skipped ? `<span style="color: #fbbf24; font-weight: 700;">• ⏭️ ${summaryData.stats.skipped} Skipped</span>` : ''}
+        ${summaryData.stats?.failed ? `<span style="color: #f87171; font-weight: 700;">• ❌ ${summaryData.stats.failed} Failed</span>` : ''}
+      </div>
+    </div>
+
+    <div class="summary-pages-list">
+      ${pagesHtml}
+    </div>
+  `;
+
+  container.style.display = "flex";
+}
+
+function formatRelativeTime(isoStr) {
+  if (!isoStr) return "";
+  try {
+    const diffMs = Date.now() - new Date(isoStr).getTime();
+    const diffSec = Math.floor(diffMs / 1000);
+    if (diffSec < 60) return "Just now";
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `${diffMin}m ago`;
+    const diffHr = Math.floor(diffMin / 60);
+    if (diffHr < 24) return `${diffHr}h ago`;
+    const diffDay = Math.floor(diffHr / 24);
+    return `${diffDay}d ago`;
+  } catch (e) {
+    return "";
   }
 }
 

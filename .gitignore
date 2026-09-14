@@ -34,3 +34,7 @@ logs/
 # Pytest / Cache
 .pytest_cache/
 .coverage
+
+# Scratch
+scratch/
+
