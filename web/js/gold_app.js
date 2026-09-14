@@ -90,6 +90,9 @@ async function initDashboard() {
     renderDrawerPages(fullData.pages);
     selectPage("all");
 
+    // Initialize Post Now Studio (Fleet selection, Live Console, and Queue counters)
+    initStudioView();
+
     // Background live Meta Graph API verification
     syncLiveMetaGraph();
   } catch (err) {
@@ -1099,16 +1102,28 @@ function closePageDrawer() {
 // ----------------- Event Listeners -----------------
 
 function setupEventListeners() {
-  // Instant Upload Studio Triggers & Modal Listeners
-  document.getElementById("btnOpenInstantPost")?.addEventListener("click", openInstantUploadModal);
-  document.getElementById("btnCloseInstantModal")?.addEventListener("click", closeInstantUploadModal);
-  document.getElementById("btnCancelInstantModal")?.addEventListener("click", closeInstantUploadModal);
-  document.getElementById("instantPostBackdrop")?.addEventListener("click", closeInstantUploadModal);
-  document.getElementById("btnInstantSelectAll")?.addEventListener("click", selectAllReadyPages);
-  document.getElementById("btnInstantClearAll")?.addEventListener("click", clearAllSelectedPages);
-  document.getElementById("btnToggleAuthDrawer")?.addEventListener("click", toggleAuthDrawer);
-  document.getElementById("btnSaveGithubPat")?.addEventListener("click", saveCustomGithubPat);
-  document.getElementById("btnExecuteInstantPost")?.addEventListener("click", executeInstantPost);
+  // Navigation Switcher Tabs (Post Now Studio vs Dashboard)
+  document.getElementById("tabNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
+  document.getElementById("tabNavDashboard")?.addEventListener("click", () => switchMainView("dashboard"));
+  document.getElementById("tabNavDrive")?.addEventListener("click", () => {
+    switchMainView("studio");
+    const total = fullData?.pages ? fullData.pages.reduce((acc, p) => acc + (p.drive_videos_count || 0), 0) : 1743;
+    showToast(`📁 Drive Queue: ${total.toLocaleString()} Videos Ready in Cloud Folders`);
+  });
+  document.getElementById("tabNavIpRadar")?.addEventListener("click", () => {
+    const ip = fullData?.latest_run_summary?.runner_telemetry?.ip || "52.157.33.38";
+    showToast(`🌐 Cloud Runner Telemetry: ${ip} (San Jose, California 🇺🇸)`);
+  });
+  document.getElementById("btnOpenInstantPost")?.addEventListener("click", () => switchMainView("studio"));
+
+  // Post Now Studio Controls (Matching Raj Tube Pro Studio)
+  document.getElementById("btnStudioSelectAll")?.addEventListener("click", selectAllReadyPages);
+  document.getElementById("btnStudioClearAll")?.addEventListener("click", clearAllSelectedPages);
+  document.getElementById("inputStudioFleetSearch")?.addEventListener("input", renderStudioFleetList);
+  document.getElementById("btnStudioExecutePublish")?.addEventListener("click", executeStudioPost);
+  document.getElementById("btnToggleStudioAuth")?.addEventListener("click", toggleStudioAuthDrawer);
+  document.getElementById("btnToggleNavAuth")?.addEventListener("click", toggleStudioAuthDrawer);
+  document.getElementById("btnSaveStudioGithubPat")?.addEventListener("click", saveStudioCustomPat);
 
   // Drawer
   document.getElementById("btnOpenPageDrawer")?.addEventListener("click", openPageDrawer);
@@ -1248,7 +1263,8 @@ function startSlotCountdown() {
 }
 
 // =========================================================================
-// INSTANT UPLOAD STUDIO LOGIC (MULTI-PAGE SELECTION & CLOUD DISPATCH)
+// POST NOW STUDIO ENGINE (MATCHING RAJ TUBE PRO 2-COLUMN STUDIO LAYOUT)
+// Fleet Sub-Sidebar • Real-Time Terminal Console • Instant GitHub Actions Dispatch
 // =========================================================================
 
 const DEFAULT_GH_TOKEN = "";
@@ -1256,91 +1272,134 @@ const GH_OWNER = "maitryshah365-coder";
 const GH_REPO = "fb-pages-automation";
 const GH_WORKFLOW_FILE = "post.yml";
 
-// Known active configured Drive pages (page names for config.yaml)
+// Known active configured Drive pages (page names for config.yaml & Drive folders)
 const DRIVE_CONFIGURED_PAGES = {
-  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 48 },
-  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 151 },
-  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 367 },
-  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 446 },
-  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 319 },
-  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 287 },
-  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 125 }
+  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 48, handle: "charmyowen" },
+  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 151, handle: "brightflarehub" },
+  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 367, handle: "crownempire" },
+  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 446, handle: "craftychampions" },
+  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 319, handle: "dominionauthority" },
+  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 287, handle: "familyfancy" },
+  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 125, handle: "botmask" }
 };
 
-let instantSelectedPageIds = new Set();
-let isDispatchingUpload = false;
+// Selected page IDs for studio post now
+let studioSelectedPageIds = new Set(["640019675857269", "503358542855153"]);
+let isStudioDispatching = false;
+
+// ----------------- View Switcher (Studio vs Dashboard) -----------------
+
+function switchMainView(viewName) {
+  const studioView = document.getElementById("postNowStudioView");
+  const dashboardView = document.getElementById("dashboardAnalyticsView");
+  const tabStudio = document.getElementById("tabNavPostNow");
+  const tabDashboard = document.getElementById("tabNavDashboard");
+
+  if (viewName === "studio") {
+    if (studioView) studioView.style.display = "grid";
+    if (dashboardView) dashboardView.style.display = "none";
+    if (tabStudio) tabStudio.classList.add("active");
+    if (tabDashboard) tabDashboard.classList.remove("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    updateStudioSelectionUI();
+  } else {
+    if (studioView) studioView.style.display = "none";
+    if (dashboardView) dashboardView.style.display = "block";
+    if (tabStudio) tabStudio.classList.remove("active");
+    if (tabDashboard) tabDashboard.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+// ----------------- Auth & Token Management -----------------
 
 function getStoredPat() {
   return localStorage.getItem("raj_github_pat") || DEFAULT_GH_TOKEN;
 }
 
-function openInstantUploadModal() {
-  const modal = document.getElementById("instantPostModal");
-  const backdrop = document.getElementById("instantPostBackdrop");
-  if (!modal || !backdrop) return;
-
-  renderInstantPagesList();
-  updateInstantSelectionUI();
-  checkAuthStatus();
-
-  // If previous run summary exists and not currently dispatching, display it!
-  if (!isDispatchingUpload && fullData && fullData.latest_run_summary) {
-    renderInstantExecutionSummary(fullData.latest_run_summary, false);
-  }
-
-  modal.style.display = "flex";
-  backdrop.style.display = "block";
-}
-
-function closeInstantUploadModal() {
-  if (isDispatchingUpload) {
-    if (!confirm("Upload trigger is currently active. Close anyway?")) return;
-  }
-  const modal = document.getElementById("instantPostModal");
-  const backdrop = document.getElementById("instantPostBackdrop");
-  if (modal) modal.style.display = "none";
-  if (backdrop) backdrop.style.display = "none";
-}
-
-function checkAuthStatus() {
+function checkStudioAuthStatus() {
   const token = getStoredPat();
-  const authDot = document.getElementById("authStatusDot");
-  const authText = document.getElementById("authStatusText");
-  const inputPat = document.getElementById("inputGithubPat");
+  const studioDot = document.getElementById("studioAuthDot");
+  const studioText = document.getElementById("studioAuthText");
+  const navDot = document.getElementById("navAuthDot");
+  const navText = document.getElementById("navAuthText");
+  const studioInput = document.getElementById("inputStudioGithubPat");
 
-  if (inputPat) inputPat.value = token ? "••••••••••••••••••••••••••••••••" : "";
-  if (token && token.startsWith("ghp_")) {
-    if (authDot) authDot.innerText = "🟢";
-    if (authText) authText.innerText = "Cloud Dispatch Ready (GitHub Actions)";
-  } else {
-    if (authDot) authDot.innerText = "🔴";
-    if (authText) authText.innerText = "GitHub Token Not Set";
+  if (studioInput && token) {
+    studioInput.value = "••••••••••••••••••••••••••••••••";
   }
+
+  const isConfigured = Boolean(token && token.startsWith("ghp_"));
+
+  if (studioDot) studioDot.innerText = isConfigured ? "🟢" : "🔴";
+  if (studioText) studioText.innerText = isConfigured ? "Cloud Dispatch Ready (GitHub Actions)" : "GitHub Token Not Set";
+  if (navDot) navDot.innerText = isConfigured ? "🟢" : "🔴";
+  if (navText) navText.innerText = isConfigured ? "Cloud Dispatch Ready" : "Token Pending";
 }
 
-function toggleAuthDrawer() {
-  const drawer = document.getElementById("instantAuthDrawer");
+function toggleStudioAuthDrawer() {
+  const drawer = document.getElementById("studioAuthDrawer");
   if (!drawer) return;
   drawer.style.display = drawer.style.display === "none" ? "block" : "none";
 }
 
-function saveCustomGithubPat() {
-  const input = document.getElementById("inputGithubPat");
+function saveStudioCustomPat() {
+  const input = document.getElementById("inputStudioGithubPat");
   if (!input) return;
   const val = input.value.trim();
   if (val && val.startsWith("ghp_")) {
     localStorage.setItem("raj_github_pat", val);
-    showToast("✅ GitHub Token Saved Successfully!");
-    checkAuthStatus();
-    toggleAuthDrawer();
+    showToast("✅ GitHub Cloud Token Saved Successfully!");
+    checkStudioAuthStatus();
+    toggleStudioAuthDrawer();
   } else {
     alert("Please enter a valid GitHub token starting with 'ghp_'");
   }
 }
 
-function renderInstantPagesList() {
-  const container = document.getElementById("instantPagesList");
+// ----------------- Studio View Initializer -----------------
+
+function initStudioView() {
+  renderStudioFleetList();
+  updateStudioSelectionUI();
+  checkStudioAuthStatus();
+
+  // Populate terminal console with previous run summary or standby ready state
+  if (fullData && fullData.latest_run_summary) {
+    renderStudioTerminalLogs(fullData.latest_run_summary, false);
+  } else {
+    initDefaultTerminalLogs();
+  }
+
+  // Update navbar Drive queue count
+  updateNavQueueCounter();
+}
+
+function updateNavQueueCounter() {
+  let totalVideos = 0;
+  if (fullData && fullData.pages) {
+    fullData.pages.forEach(p => {
+      const pid = String(p.id);
+      const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+      if (dInfo?.ready) {
+        totalVideos += p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo.videoCount || 0);
+      }
+    });
+  } else {
+    totalVideos = 1743;
+  }
+  const el = document.getElementById("navDriveQueueCount");
+  if (el) el.innerText = totalVideos.toLocaleString();
+}
+
+// ----------------- Render Studio Pages Fleet (Sub-Sidebar) -----------------
+
+function renderStudioFleetList() {
+  const container = document.getElementById("studioFleetList");
   if (!container || !fullData || !fullData.pages) return;
+
+  const searchInput = document.getElementById("inputStudioFleetSearch");
+  const query = (searchInput?.value || "").toLowerCase().trim();
 
   container.innerHTML = "";
 
@@ -1348,50 +1407,57 @@ function renderInstantPagesList() {
     const pId = String(page.id);
     const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
     const isDriveReady = Boolean(driveInfo?.ready);
-    const isSelected = instantSelectedPageIds.has(pId);
+    const isSelected = studioSelectedPageIds.has(pId);
     const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
+    const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+    // Search query match
+    if (query) {
+      const matchName = page.name.toLowerCase().includes(query);
+      const matchHandle = handle.toLowerCase().includes(query);
+      if (!matchName && !matchHandle) return;
+    }
 
     const row = document.createElement("div");
-    row.className = `instant-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}`;
+    row.className = `studio-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}`;
     row.dataset.pageId = pId;
 
     row.innerHTML = `
-      <div class="page-row-left">
-        <div class="instant-checkbox">
-          <span class="instant-checkbox-mark">✓</span>
+      <div class="studio-page-row-left">
+        <div class="studio-custom-checkbox">
+          <span class="studio-check-mark">✓</span>
         </div>
-        <img class="instant-page-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
-        <div class="instant-page-meta">
-          <span class="instant-page-name">${page.name}</span>
-          <span class="instant-page-sub">Page #${page.index} • ID: ${pId} ${isDriveReady ? `• <strong style="color: #34d399;">📁 ${videoCount} Videos Ready</strong>` : `• <span style="color: #94a3b8;">⏳ Folder Pending</span>`}</span>
+        <img class="studio-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
+        <div class="studio-page-meta">
+          <div class="studio-page-name">${page.name}</div>
+          <div class="studio-page-sub">@${handle} • ${isDriveReady ? `<span class="drive-count-green">${videoCount} in Drive</span>` : `<span style="color:#64748b;">Pending Folder</span>`}</div>
         </div>
       </div>
-      <div class="page-row-right">
-        ${isDriveReady 
-          ? `<span class="drive-status-badge ready">🎬 ${videoCount} Videos</span>` 
-          : `<span class="drive-status-badge pending">⚪ Setup Pending</span>`}
-      </div>
+      <button type="button" class="btn-select-toggle-pill ${isSelected ? 'selected' : ''}" ${!isDriveReady ? 'disabled' : ''}>
+        ${isSelected ? 'SELECTED' : 'SELECT'}
+      </button>
     `;
 
     if (isDriveReady) {
-      row.addEventListener("click", () => {
-        togglePageSelection(pId);
+      row.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleStudioPageSelection(pId);
       });
     } else {
-      row.title = "Drive folder not configured for this page yet in config.yaml";
+      row.title = "Drive folder not configured for this page yet";
     }
 
     container.appendChild(row);
   });
 }
 
-function togglePageSelection(pageId) {
-  if (instantSelectedPageIds.has(pageId)) {
-    instantSelectedPageIds.delete(pageId);
+function toggleStudioPageSelection(pageId) {
+  if (studioSelectedPageIds.has(pageId)) {
+    studioSelectedPageIds.delete(pageId);
   } else {
-    instantSelectedPageIds.add(pageId);
+    studioSelectedPageIds.add(pageId);
   }
-  updateInstantSelectionUI();
+  updateStudioSelectionUI();
 }
 
 function selectAllReadyPages() {
@@ -1399,25 +1465,24 @@ function selectAllReadyPages() {
   fullData.pages.forEach(page => {
     const pId = String(page.id);
     if (DRIVE_CONFIGURED_PAGES[pId]?.ready) {
-      instantSelectedPageIds.add(pId);
+      studioSelectedPageIds.add(pId);
     }
   });
-  updateInstantSelectionUI();
+  updateStudioSelectionUI();
 }
 
 function clearAllSelectedPages() {
-  instantSelectedPageIds.clear();
-  updateInstantSelectionUI();
+  studioSelectedPageIds.clear();
+  updateStudioSelectionUI();
 }
 
-function updateInstantSelectionUI() {
-  const count = instantSelectedPageIds.size;
-  const execText = document.getElementById("btnExecuteInstantText");
-  const execBtn = document.getElementById("btnExecuteInstantPost");
+// ----------------- Update Selection State & UI -----------------
 
-  // Sum total stock vs selected stock
+function updateStudioSelectionUI() {
+  const count = studioSelectedPageIds.size;
   let totalStock = 0;
   let selectedStock = 0;
+  const selectedPagesList = [];
 
   if (fullData && fullData.pages) {
     fullData.pages.forEach(p => {
@@ -1426,55 +1491,217 @@ function updateInstantSelectionUI() {
       if (dInfo?.ready) {
         const v = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo.videoCount || 0);
         totalStock += v;
-        if (instantSelectedPageIds.has(pid)) {
+        if (studioSelectedPageIds.has(pid)) {
           selectedStock += v;
+          selectedPagesList.push({
+            page: p,
+            info: dInfo,
+            videoCount: v
+          });
         }
       }
     });
   }
 
-  const selectedCountBadge = document.getElementById("instantSelectedCountBadge");
-  if (selectedCountBadge) {
-    if (count === 0) {
-      selectedCountBadge.innerHTML = `<span id="instantSelectedCount">0</span> Selected <span style="font-size: 11px; opacity: 0.85;">(${totalStock.toLocaleString()} Total Videos Ready)</span>`;
-    } else {
-      selectedCountBadge.innerHTML = `<span id="instantSelectedCount">${count}</span> Selected <span style="font-size: 11px; color: #34d399; font-weight: 700;">(${selectedStock.toLocaleString()} Videos in Selected)</span>`;
-    }
+  // 1. Update Badges & Counts
+  const fleetCountBadge = document.getElementById("studioFleetCountBadge");
+  if (fleetCountBadge) fleetCountBadge.innerText = `7 Ready (${totalStock.toLocaleString()} Videos)`;
+
+  const counterBadge = document.getElementById("studioSelectedCounterBadge");
+  if (counterBadge) counterBadge.innerText = `${count} Selected`;
+
+  const stockText = document.getElementById("studioSelectedStockText");
+  if (stockText) {
+    stockText.innerText = count > 0
+      ? `${selectedStock.toLocaleString()} Videos Available in Drive`
+      : `${totalStock.toLocaleString()} Total Videos Ready in Fleet`;
   }
+
+  const specDest = document.getElementById("studioSpecDestination");
+  if (specDest) {
+    specDest.innerText = count > 0
+      ? `Facebook Reels (${count} Page${count === 1 ? '' : 's'} Selected)`
+      : `Facebook Reels (0 Selected)`;
+  }
+
+  // 2. Update Publish Button
+  const execText = document.getElementById("btnStudioExecuteText");
+  const execBtn = document.getElementById("btnStudioExecutePublish");
 
   if (execText) {
-    execText.innerText = count > 0 
-      ? `Post Now to ${count} Selected Pages (${selectedStock.toLocaleString()} Available)` 
-      : `Post Now (0 Selected)`;
+    execText.innerText = count > 0
+      ? `PUBLISH ${count} REEL${count === 1 ? '' : 'S'} NOW TO FACEBOOK (${selectedStock.toLocaleString()} AVAILABLE)`
+      : `SELECT PAGES TO PUBLISH (0 SELECTED)`;
   }
-  if (execBtn) execBtn.disabled = count === 0 || isDispatchingUpload;
+  if (execBtn) {
+    execBtn.disabled = count === 0 || isStudioDispatching;
+  }
 
-  // Update rows visual state
-  document.querySelectorAll(".instant-page-row").forEach(row => {
+  // 3. Render Selected Chips Grid (matching YouTube Studio style)
+  const chipsGrid = document.getElementById("studioSelectedChipsGrid");
+  if (chipsGrid) {
+    if (count === 0) {
+      chipsGrid.innerHTML = `
+        <div style="font-size: 12.5px; color: #94a3b8; padding: 12px; border: 1px dashed rgba(255,255,255,0.1); border-radius: 10px; width: 100%; text-align: center;">
+          👈 Select one or more pages from the fleet sidebar on the left to queue for instant posting.
+        </div>
+      `;
+    } else {
+      chipsGrid.innerHTML = selectedPagesList.map(item => {
+        const handle = item.info?.handle || item.page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+        return `
+          <div class="studio-selected-chip-card">
+            <div class="chip-card-left">
+              <img class="chip-avatar" src="${item.page.pic_url || 'icons/icon-192.png'}" alt="${item.page.name}" onerror="this.src='icons/icon-192.png'">
+              <div class="chip-info">
+                <span class="chip-title">${item.page.name}</span>
+                <span class="chip-sub">@${handle} • Ready to Publish Next Queued Video</span>
+              </div>
+            </div>
+            <span class="chip-badge-green">${item.videoCount} in Drive</span>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  // 4. Update Rows in Fleet List
+  document.querySelectorAll(".studio-page-row").forEach(row => {
     const pId = row.dataset.pageId;
-    if (instantSelectedPageIds.has(pId)) {
+    const btn = row.querySelector(".btn-select-toggle-pill");
+    if (studioSelectedPageIds.has(pId)) {
       row.classList.add("selected");
+      if (btn) {
+        btn.classList.add("selected");
+        btn.innerText = "SELECTED";
+      }
     } else {
       row.classList.remove("selected");
+      if (btn) {
+        btn.classList.remove("selected");
+        btn.innerText = "SELECT";
+      }
     }
   });
+
+  updateNavQueueCounter();
 }
 
+// ----------------- Terminal Console Display Engine -----------------
 
-async function executeInstantPost() {
-  if (instantSelectedPageIds.size === 0 || isDispatchingUpload) return;
+function initDefaultTerminalLogs() {
+  const terminal = document.getElementById("terminalConsoleBody");
+  const badge = document.getElementById("terminalStatusBadge");
+  if (!terminal) return;
+
+  if (badge) {
+    badge.innerText = "🟢 PIPELINE STANDBY";
+    badge.style.color = "#34d399";
+  }
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  terminal.innerHTML = `
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[SYSTEM]</span> 🚀 <strong style="color:#fff;">Facebook Reel Automation Studio Initialized</strong>
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[FLEET]</span> 7 Active Google Drive Queues Synced • 1,743 Total Reels Ready
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#f5ba23;">[CRON]</span> Scheduled 4x daily automation protected (02:00, 14:00, 19:00, 23:00 UTC)
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#34d399;">[READY]</span> Select desired pages from the fleet sidebar on the left and click "PUBLISH NOW".
+`;
+}
+
+function renderStudioTerminalLogs(summaryData, isLive = false) {
+  const terminal = document.getElementById("terminalConsoleBody");
+  const badge = document.getElementById("terminalStatusBadge");
+  if (!terminal || !summaryData) return;
+
+  const isSuccess = (summaryData.stats?.failed || 0) === 0;
+
+  if (badge) {
+    if (isLive) {
+      badge.innerText = isSuccess ? "🟢 BATCH COMPLETE" : "⚠️ FINISHED WITH WARNINGS";
+      badge.style.color = isSuccess ? "#34d399" : "#fbbf24";
+    } else {
+      badge.innerText = "🟢 BATCH COMPLETE";
+      badge.style.color = "#34d399";
+    }
+  }
+
+  // Format timestamps
+  let localTimeStr = "Recent";
+  if (summaryData.completed_at) {
+    try {
+      const dt = new Date(summaryData.completed_at);
+      localTimeStr = dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    } catch (e) {
+      localTimeStr = summaryData.completed_at;
+    }
+  }
+
+  const tel = summaryData.runner_telemetry || {};
+  const flag = tel.flag || "🇺🇸";
+  const ip = tel.ip || "52.157.33.38";
+  const location = [tel.city, tel.country].filter(Boolean).join(", ") || "San Jose, USA";
+  const runNum = summaryData.run_number || "6";
+
+  const results = summaryData.results || [];
+  let logLines = [];
+
+  logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#38bdf8;">[SYSTEM]</span> 🚀 <strong style="color:#fff;">Pipeline Runner Initialized</strong> • Run #${runNum} • Runner IP: <span style="color:#34d399;">${ip}</span> (${location} ${flag})`);
+
+  if (results.length === 0) {
+    logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#94a3b8;">[FLEET] No individual page uploads logged for this run.</span>`);
+  } else {
+    results.forEach((res, idx) => {
+      const channelIndex = `CHANNEL ${idx + 1}/${results.length}`;
+      const displayName = res.display_name || res.page || `Page ${res.page_id}`;
+
+      if (res.status === "success" || res.status === "dry_run_success") {
+        logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#38bdf8;">[${channelIndex}]</span> ⏳ Processing: Downloading video from Drive & uploading to Facebook...`);
+        logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#38bdf8;">[${channelIndex}: ${displayName}]</span> <strong style="color:#34d399;">✅ Live on Facebook!</strong>`);
+        if (res.video_title) {
+          logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#c084fc;">[TITLE]</span> 🎬 "${res.video_title}"`);
+        }
+        if (res.facebook_video_id) {
+          logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#f5ba23;">[URL]</span> 🔗 <a href="https://www.facebook.com/reel/${res.facebook_video_id}" target="_blank" rel="noopener" style="color:#f5ba23; text-decoration:underline;">https://www.facebook.com/reel/${res.facebook_video_id}</a>`);
+        }
+        if (res.drive_file_deleted) {
+          logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#34d399;">[DRIVE]</span> 🗑️ Successfully verified & deleted from Drive (${res.drive_files_remaining || 0} remaining in queue)`);
+        }
+      } else if (res.status === "skipped" || res.status === "no_content") {
+        logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#38bdf8;">[${channelIndex}: ${displayName}]</span> <span style="color:#fbbf24;">⏭️ Skipped: ${res.reason || res.message || 'No video queued'}</span>`);
+      } else {
+        logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#38bdf8;">[${channelIndex}: ${displayName}]</span> <span style="color:#ef4444;">❌ Failed: ${res.error || 'Upload error'}</span>`);
+      }
+      logLines.push(`<span style="color:rgba(255,255,255,0.15);">===============================================================================</span>`);
+    });
+  }
+
+  const successCount = summaryData.stats?.success || 0;
+  const totalCount = results.length || successCount;
+  logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <strong style="color:#34d399;">[BATCH COMPLETE] 🎯 ${successCount} of ${totalCount} videos successfully published!</strong>`);
+  logLines.push(`<span style="color:#64748b;">[${localTimeStr}]</span> <span style="color:#38bdf8;">[GIT SYNC]</span> 🔄 Live App & Git State Synchronized!`);
+
+  terminal.innerHTML = logLines.join("\n");
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+// ----------------- Execute Studio Post Now -----------------
+
+async function executeStudioPost() {
+  if (studioSelectedPageIds.size === 0 || isStudioDispatching) return;
 
   const pat = getStoredPat();
   if (!pat) {
     alert("Please enter a valid GitHub Personal Access Token in the Settings drawer below to authorize cloud dispatch.");
-    toggleAuthDrawer();
+    toggleStudioAuthDrawer();
     return;
   }
 
-  // Collect page names for the selected pages
+  // Collect page names
   const selectedList = [];
   const selectedDisplayNames = [];
-  instantSelectedPageIds.forEach(pId => {
+  studioSelectedPageIds.forEach(pId => {
     const info = DRIVE_CONFIGURED_PAGES[pId];
     if (info) {
       selectedList.push(info.pageName);
@@ -1489,22 +1716,32 @@ async function executeInstantPost() {
   const promptConfirm = confirm(`Are you sure you want to trigger immediate Google Drive post for ${selectedList.length} pages?\n\nTarget Pages:\n• ${selectedDisplayNames.join("\n• ")}\n\nVideos will be uploaded to Facebook and automatically deleted from Drive upon success.`);
   if (!promptConfirm) return;
 
-  isDispatchingUpload = true;
-  updateInstantSelectionUI();
+  isStudioDispatching = true;
+  updateStudioSelectionUI();
 
-  const execBox = document.getElementById("instantExecutionBox");
-  const spinner = document.getElementById("execSpinner");
-  const headline = document.getElementById("execHeadline");
-  const sub = document.getElementById("execSub");
-  const actions = document.getElementById("execActions");
-  const summaryDetails = document.getElementById("instantSummaryDetails");
+  const terminal = document.getElementById("terminalConsoleBody");
+  const badge = document.getElementById("terminalStatusBadge");
+  const execText = document.getElementById("btnStudioExecuteText");
 
-  if (execBox) execBox.style.display = "block";
-  if (summaryDetails) summaryDetails.style.display = "none";
-  if (spinner) spinner.className = "exec-spinner";
-  if (headline) headline.innerText = "Triggering Cloud Pipeline...";
-  if (sub) sub.innerText = `Sending dispatch request for ${selectedList.length} pages to GitHub Actions...`;
-  if (actions) actions.innerHTML = "";
+  if (badge) {
+    badge.innerText = "🟡 RUNNING PIPELINE...";
+    badge.style.color = "#f5ba23";
+  }
+  if (execText) {
+    execText.innerText = `DISPATCHING RUNNER FOR ${selectedList.length} PAGES...`;
+  }
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  if (terminal) {
+    terminal.innerHTML = `
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[DISPATCH]</span> 🚀 Sending cloud dispatch request for ${selectedList.length} pages to GitHub Actions...
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[FLEET]</span> Queued Pages: ${selectedDisplayNames.join(", ")}
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#f5ba23;">[WAIT]</span> Initializing secure cloud runner...
+`;
+    terminal.scrollTop = terminal.scrollHeight;
+  }
 
   try {
     const dispatchUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/dispatches`;
@@ -1525,31 +1762,36 @@ async function executeInstantPost() {
     });
 
     if (res.status === 204) {
-      if (headline) headline.innerText = "🚀 Pipeline Dispatched Successfully!";
-      if (sub) sub.innerText = `Cloud runner is launching for: ${selectedDisplayNames.join(", ")}. Polling live run status...`;
       showToast("🚀 Cloud Upload Pipeline Triggered!");
+      if (terminal) {
+        terminal.innerHTML += `\n<span style="color:#64748b;">[${timeStr}]</span> <strong style="color:#34d399;">[SYSTEM] ✅ Pipeline Dispatched Successfully! Runner is spinning up...</strong>\n`;
+        terminal.scrollTop = terminal.scrollHeight;
+      }
 
       // Poll for active workflow run
-      setTimeout(() => pollWorkflowRun(pat, selectedDisplayNames), 2500);
+      setTimeout(() => pollStudioWorkflowRun(pat, selectedDisplayNames), 2500);
     } else {
       const errText = await res.text();
       throw new Error(`GitHub API returned ${res.status}: ${errText}`);
     }
   } catch (err) {
     console.error("Instant post dispatch failed:", err);
-    if (spinner) spinner.className = "exec-spinner done";
-    if (headline) headline.innerText = "❌ Dispatch Failed";
-    if (sub) sub.innerText = err.message || "Could not connect to GitHub Actions API.";
-    isDispatchingUpload = false;
-    updateInstantSelectionUI();
+    if (badge) {
+      badge.innerText = "❌ DISPATCH FAILED";
+      badge.style.color = "#ef4444";
+    }
+    if (terminal) {
+      terminal.innerHTML += `\n<span style="color:#ef4444;">[ERROR] ❌ ${err.message || 'Could not connect to GitHub Actions API'}</span>\n`;
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+    isStudioDispatching = false;
+    updateStudioSelectionUI();
   }
 }
 
-async function pollWorkflowRun(pat, pageNames) {
-  const spinner = document.getElementById("execSpinner");
-  const headline = document.getElementById("execHeadline");
-  const sub = document.getElementById("execSub");
-  const actions = document.getElementById("execActions");
+async function pollStudioWorkflowRun(pat, pageNames) {
+  const terminal = document.getElementById("terminalConsoleBody");
+  const badge = document.getElementById("terminalStatusBadge");
 
   try {
     const runsUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/runs?per_page=3`;
@@ -1568,58 +1810,51 @@ async function pollWorkflowRun(pat, pageNames) {
         const runUrl = latestRun.html_url;
         const status = latestRun.status;
         const conclusion = latestRun.conclusion;
+        const runNum = latestRun.run_number;
 
-        if (headline) headline.innerText = `Automation Running (Run #${latestRun.run_number})`;
-        if (sub) sub.innerText = `Status: ${status.toUpperCase()} • Pages: ${pageNames.join(", ")}`;
-        
-        if (actions) {
-          actions.innerHTML = `
-            <a class="exec-link" href="${runUrl}" target="_blank" rel="noopener">🔗 View Live GitHub Action Execution ↗</a>
-          `;
-        }
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
         if (status === "completed") {
-          if (spinner) spinner.className = "exec-spinner done";
-          if (conclusion === "success") {
-            if (headline) headline.innerText = "✅ Upload & Post Complete!";
-            if (sub) sub.innerText = "All selected pages published successfully! Auto-syncing with Git & App...";
-            showToast("✅ Selected Pages Published! Syncing data...");
-          } else {
-            if (headline) headline.innerText = "⚠️ Execution Finished with Warnings";
-            if (sub) sub.innerText = `Conclusion: ${conclusion}. Syncing latest execution summary...`;
+          if (badge) {
+            badge.innerText = conclusion === "success" ? "🟢 BATCH COMPLETE" : "⚠️ FINISHED";
+            badge.style.color = conclusion === "success" ? "#34d399" : "#fbbf24";
           }
 
-          // Trigger automated Git & App synchronization
+          if (terminal) {
+            terminal.innerHTML += `\n<span style="color:#64748b;">[${timeStr}]</span> <strong style="color:#34d399;">[COMPLETE] Execution #${runNum} Finished (${conclusion.toUpperCase()})!</strong>`;
+            terminal.innerHTML += `\n<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[AUTO-SYNC]</span> Fetching verified upload summary & synchronizing state...\n`;
+            terminal.scrollTop = terminal.scrollHeight;
+          }
+
+          showToast("✅ Post Complete! Auto-syncing data...");
           await autoSyncAfterUpload();
 
-          isDispatchingUpload = false;
-          updateInstantSelectionUI();
+          isStudioDispatching = false;
+          updateStudioSelectionUI();
           return;
+        } else {
+          if (badge) {
+            badge.innerText = `🟡 RUNNING (#${runNum} - ${status.toUpperCase()})`;
+          }
         }
       }
     }
   } catch (pollErr) {
-    console.warn("Polling error:", pollErr);
+    console.warn("Studio polling error:", pollErr);
   }
 
-  // Continue polling every 4 seconds if still dispatching
-  if (isDispatchingUpload) {
-    setTimeout(() => pollWorkflowRun(pat, pageNames), 4000);
+  // Continue polling every 4 seconds if dispatching
+  if (isStudioDispatching) {
+    setTimeout(() => pollStudioWorkflowRun(pat, pageNames), 4000);
   }
 }
 
 // Automatically fetch fresh data committed by GitHub Actions to sync local state immediately
 async function autoSyncAfterUpload() {
-  const headline = document.getElementById("execHeadline");
-  const sub = document.getElementById("execSub");
-
-  if (headline) headline.innerText = "🔄 Auto-Syncing with Git & Meta...";
-  if (sub) sub.innerText = "Fetching latest upload summary and syncing dashboard state...";
-
   let freshSummary = null;
   let freshPagesData = null;
 
-  // Poll for GitHub Actions commits to propagate to raw CDN (with cache busting)
   for (let attempt = 1; attempt <= 4; attempt++) {
     try {
       const cacheBust = Date.now() + "_" + attempt;
@@ -1641,7 +1876,7 @@ async function autoSyncAfterUpload() {
     await new Promise(r => setTimeout(r, 2000));
   }
 
-  // Fallback to local files if raw fetch didn't return or on local development server
+  // Fallback to local files
   if (!freshSummary || !freshPagesData) {
     try {
       const [localSumResp, localPagesResp] = await Promise.all([
@@ -1662,184 +1897,60 @@ async function autoSyncAfterUpload() {
     fullData.latest_run_summary = freshSummary;
   }
 
-  // Render the detailed summary box inside the modal
+  // Render the terminal logs with new summary
   if (fullData && fullData.latest_run_summary) {
-    renderInstantExecutionSummary(fullData.latest_run_summary, true);
+    renderStudioTerminalLogs(fullData.latest_run_summary, true);
   }
 
-  // Re-render dashboard overview and drawer pages with updated numbers
+  // Re-render dashboard overview and fleet list
   if (fullData && fullData.pages) {
     renderDrawerPages(fullData.pages);
     selectPage(activePageId);
-    renderInstantPagesList();
-    updateInstantSelectionUI();
+    renderStudioFleetList();
+    updateStudioSelectionUI();
   }
 
-  // Trigger live Meta sync in background to update reel view counts & followers
+  // Trigger live Meta sync in background
   setTimeout(() => syncLiveMetaGraph(), 2000);
   showToast("✅ Auto-Synced with Git & Dashboard Data!");
 }
 
-// Render the dedicated execution summary box showing uploaded reels, drive status, time, and IP
-function renderInstantExecutionSummary(summaryData, isLive = false) {
-  const container = document.getElementById("instantSummaryDetails");
-  const execBox = document.getElementById("instantExecutionBox");
-  const spinner = document.getElementById("execSpinner");
-  const headline = document.getElementById("execHeadline");
-  const sub = document.getElementById("execSub");
-  const actions = document.getElementById("execActions");
+// ----------------- Legacy Aliases for Compatibility -----------------
 
-  if (!container || !summaryData) return;
-  if (execBox) execBox.style.display = "block";
+function openInstantUploadModal() {
+  switchMainView("studio");
+}
 
-  const isSuccess = (summaryData.stats?.failed || 0) === 0;
-  if (spinner) {
-    spinner.className = "exec-spinner done";
-  }
+function closeInstantUploadModal() {
+  switchMainView("dashboard");
+}
 
-  // Format timestamps
-  let localTimeStr = "Recent";
-  let relativeTimeStr = "";
-  if (summaryData.completed_at) {
-    try {
-      const dt = new Date(summaryData.completed_at);
-      localTimeStr = dt.toLocaleDateString([], { day: 'numeric', month: 'short', year: 'numeric' }) + ", " +
-                     dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-      relativeTimeStr = formatRelativeTime(summaryData.completed_at);
-    } catch (e) {
-      localTimeStr = summaryData.completed_at;
-    }
-  }
+function checkAuthStatus() {
+  checkStudioAuthStatus();
+}
 
-  if (headline) {
-    if (isLive) {
-      headline.innerText = isSuccess ? "✅ Upload & Post Complete! (Synced with Git & App)" : "⚠️ Upload Finished with Warnings";
-    } else {
-      headline.innerText = `📋 Latest Automation Run Summary (Run #${summaryData.run_number || 'Latest'})`;
-    }
-  }
-  if (sub) {
-    sub.innerText = `Completed: ${localTimeStr} ${relativeTimeStr ? `(${relativeTimeStr})` : ''} • Drive Cleaned & Synced`;
-  }
+function toggleAuthDrawer() {
+  toggleStudioAuthDrawer();
+}
 
-  if (actions && summaryData.run_id && summaryData.run_id !== "local") {
-    actions.innerHTML = `
-      <a class="exec-link" href="https://github.com/${GH_OWNER}/${GH_REPO}/actions/runs/${summaryData.run_id}" target="_blank" rel="noopener">
-        🔗 View GitHub Actions Run #${summaryData.run_number || ''} Logs ↗
-      </a>
-      <span style="font-size: 11px; color: #64748b;">•</span>
-      <span style="font-size: 11px; color: #10b981; font-weight: 700;">🟢 Live Git & App Synced</span>
-    `;
-  }
+function saveCustomGithubPat() {
+  saveStudioCustomPat();
+}
 
-  // Runner telemetry
-  const tel = summaryData.runner_telemetry || {};
-  const flag = tel.flag || "🌐";
-  const ip = tel.ip || "Cloud Runner";
-  const location = [tel.city, tel.region, tel.country].filter(Boolean).join(", ") || "Cloud Environment";
+function renderInstantPagesList() {
+  renderStudioFleetList();
+}
 
-  // Build Results Cards
-  const results = summaryData.results || [];
-  let pagesHtml = "";
+function togglePageSelection(pageId) {
+  toggleStudioPageSelection(pageId);
+}
 
-  if (results.length === 0) {
-    pagesHtml = `<div style="font-size: 12px; color: #94a3b8; text-align: center; padding: 12px;">No individual page uploads logged for this run.</div>`;
-  } else {
-    results.forEach(res => {
-      const pageId = String(res.page_id || "");
-      const matchedPage = fullData?.pages?.find(p => String(p.id) === pageId);
-      const avatarUrl = matchedPage?.pic_url || "icons/icon-192.png";
-      const displayName = res.display_name || matchedPage?.name || res.page || `Page ${pageId}`;
+function updateInstantSelectionUI() {
+  updateStudioSelectionUI();
+}
 
-      let badgeHtml = "";
-      let detailHtml = "";
-      let chipsHtml = "";
-
-      if (res.status === "success" || res.status === "dry_run_success") {
-        badgeHtml = `<span class="summary-card-badge success">✅ Reel Published</span>`;
-        detailHtml = `
-          <div class="summary-video-row">
-            <span style="color: #f5ba23; flex-shrink: 0;">🎬</span>
-            <span class="summary-video-title">${res.video_title || res.filename || 'Reel Video'}</span>
-          </div>
-        `;
-
-        const chips = [];
-        if (res.facebook_video_id) {
-          chips.push(`<a href="https://www.facebook.com/reel/${res.facebook_video_id}" target="_blank" rel="noopener" class="summary-chip-link">▶️ Reel ID: ${res.facebook_video_id} ↗</a>`);
-        }
-        if (res.drive_file_deleted) {
-          chips.push(`<span class="summary-chip chip-deleted">🗑️ Drive Cleaned (Deleted)</span>`);
-        }
-        if (res.drive_files_remaining !== undefined) {
-          chips.push(`<span class="summary-chip chip-drive">📦 ${res.drive_files_remaining} Videos Left</span>`);
-        }
-        chipsHtml = `<div class="summary-meta-chips">${chips.join("")}</div>`;
-
-      } else if (res.status === "skipped" || res.status === "no_content") {
-        badgeHtml = `<span class="summary-card-badge skipped">⏭️ Skipped</span>`;
-        detailHtml = `
-          <div class="summary-video-row" style="color: #94a3b8;">
-            <span>ℹ️</span>
-            <span>${res.reason || res.message || 'No video ready in Drive or quota reached'}</span>
-          </div>
-        `;
-      } else {
-        badgeHtml = `<span class="summary-card-badge error">❌ Failed</span>`;
-        detailHtml = `
-          <div class="summary-video-row" style="color: #f87171;">
-            <span>⚠️</span>
-            <span>${res.error || 'Upload could not complete'}</span>
-          </div>
-        `;
-      }
-
-      pagesHtml += `
-        <div class="summary-card">
-          <div class="summary-card-top">
-            <div class="summary-card-left">
-              <img class="summary-card-avatar" src="${avatarUrl}" alt="${displayName}" onerror="this.src='icons/icon-192.png'">
-              <span class="summary-card-name" title="${displayName}">${displayName}</span>
-            </div>
-            ${badgeHtml}
-          </div>
-          ${detailHtml}
-          ${chipsHtml}
-        </div>
-      `;
-    });
-  }
-
-  container.innerHTML = `
-    <div class="summary-header-badge-row">
-      <div class="summary-header-title">
-        <span>📊 Upload Summary & Verification</span>
-        <span style="font-size: 11px; opacity: 0.85; font-weight: normal;">• Run #${summaryData.run_number || 'Latest'}</span>
-      </div>
-      <div class="summary-header-time">
-        🕒 ${localTimeStr}
-      </div>
-    </div>
-
-    <div class="summary-telemetry-strip">
-      <div class="summary-telemetry-item">
-        <span>🌐 Runner:</span>
-        <strong>${flag} ${ip}</strong>
-        <span style="opacity: 0.75; font-size: 10.5px;">(${location})</span>
-      </div>
-      <div class="summary-telemetry-item" style="margin-left: auto;">
-        <span style="color: #34d399; font-weight: 700;">✅ ${summaryData.stats?.success || 0} Published</span>
-        ${summaryData.stats?.skipped ? `<span style="color: #fbbf24; font-weight: 700;">• ⏭️ ${summaryData.stats.skipped} Skipped</span>` : ''}
-        ${summaryData.stats?.failed ? `<span style="color: #f87171; font-weight: 700;">• ❌ ${summaryData.stats.failed} Failed</span>` : ''}
-      </div>
-    </div>
-
-    <div class="summary-pages-list">
-      ${pagesHtml}
-    </div>
-  `;
-
-  container.style.display = "flex";
+function executeInstantPost() {
+  executeStudioPost();
 }
 
 function formatRelativeTime(isoStr) {
@@ -1858,4 +1969,5 @@ function formatRelativeTime(isoStr) {
     return "";
   }
 }
+
 

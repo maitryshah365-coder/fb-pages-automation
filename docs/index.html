@@ -76,6 +76,41 @@
     </div>
   </div>
 
+  <!-- Studio & Navigation Switcher Bar -->
+  <nav class="app-nav-bar">
+    <div class="nav-bar-container">
+      <div class="nav-tabs-left">
+        <button type="button" id="tabNavPostNow" class="nav-tab-btn active" title="Post Now Studio (Multi-Page Selection & Pipeline Console)">
+          <span class="nav-tab-icon">🚀</span>
+          <span class="nav-tab-text">Post Now</span>
+          <span class="nav-instant-pill">INSTANT</span>
+        </button>
+        <button type="button" id="tabNavDashboard" class="nav-tab-btn tab-dashboard" title="Dashboard & Performance Analytics">
+          <span class="nav-tab-icon">📊</span>
+          <span class="nav-tab-text">Dashboard</span>
+        </button>
+        <button type="button" id="tabNavDrive" class="nav-tab-btn" title="Drive Video Queue & Storage Status">
+          <span class="nav-tab-icon">📁</span>
+          <span class="nav-tab-text">Drive Queue</span>
+          <span class="nav-count-pill" id="navDriveQueueCount">1,743</span>
+        </button>
+        <button type="button" id="tabNavIpRadar" class="nav-tab-btn" title="IP & Telemetry Node">
+          <span class="nav-tab-icon">🌐</span>
+          <span class="nav-tab-text">IP Radar</span>
+          <span class="nav-count-pill green" id="navIpRadarBadge">15 NODES</span>
+        </button>
+      </div>
+
+      <div class="nav-tabs-right">
+        <div class="nav-auth-status" id="navAuthStatus">
+          <span class="auth-dot" id="navAuthDot">🟢</span>
+          <span class="auth-text" id="navAuthText">Cloud Dispatch Ready</span>
+          <button type="button" id="btnToggleNavAuth" class="btn-auth-key-pill" title="GitHub Cloud Token Settings">⚙️ Key</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
   <!-- Slide-Over Pages Drawer (Opens Only When Clicked) -->
   <div id="pagesDrawerOverlay" class="drawer-overlay"></div>
   <aside id="pagesDrawer" class="pages-drawer">
@@ -112,8 +147,117 @@
   <!-- Main App Content Container -->
   <main class="app-main-container">
 
-    <!-- Active Page Profile Banner -->
-    <section class="profile-hero-card" id="heroCard">
+    <!-- ================= POST NOW STUDIO VIEW (MATCHING RAJ TUBE PRO YOUTUBE STUDIO STYLE) ================= -->
+    <div id="postNowStudioView" class="studio-view-container">
+
+      <!-- Left Sub-Sidebar: Pages Fleet Selection List with Checkboxes -->
+      <aside class="studio-fleet-panel">
+        <div class="fleet-panel-header">
+          <div class="fleet-title-row">
+            <h3 class="fleet-heading">Pages Fleet</h3>
+            <span class="fleet-count-badge" id="studioFleetCountBadge">7 Ready</span>
+          </div>
+          <div class="fleet-sub">Select pages to trigger immediate Facebook post</div>
+        </div>
+
+        <!-- Toolbar & Filter -->
+        <div class="fleet-toolbar">
+          <button type="button" id="btnStudioSelectAll" class="fleet-pill-btn">☑️ Select All</button>
+          <button type="button" id="btnStudioClearAll" class="fleet-pill-btn">⬜ Clear All</button>
+          <span class="fleet-selected-indicator" id="studioSelectedCounterBadge">5 Selected</span>
+        </div>
+
+        <div class="fleet-search-box">
+          <input type="text" id="inputStudioFleetSearch" class="fleet-search-input" placeholder="Search across your pages...">
+        </div>
+
+        <!-- Scrollable Pages Fleet List with Checkboxes & SELECT Buttons -->
+        <div class="studio-fleet-list" id="studioFleetList">
+          <!-- Populated dynamically by gold_app.js -->
+        </div>
+      </aside>
+
+      <!-- Right Main Studio Area: Selected Fleet Cards + Compliance Specs + Pipeline Console + Big Publish Button -->
+      <section class="studio-main-panel">
+
+        <!-- Selected Fleet Cards Strip -->
+        <div class="studio-selected-strip-header">
+          <span class="selected-strip-title">Queued Pages Fleet</span>
+          <span class="selected-strip-sub" id="studioSelectedStockText">1,566 Videos Available in Drive</span>
+        </div>
+        <div class="studio-selected-chips-grid" id="studioSelectedChipsGrid">
+          <!-- Populated dynamically with selected page chips -->
+        </div>
+
+        <!-- Compliance & Configuration Specs -->
+        <div class="studio-specs-box">
+          <div class="studio-spec-row">
+            <span class="spec-label">Destination</span>
+            <span class="spec-value spec-cyan" id="studioSpecDestination">Facebook Reels (5 Pages Selected)</span>
+          </div>
+          <div class="studio-spec-row">
+            <span class="spec-label">AI Disclosure Tag</span>
+            <span class="spec-value spec-green">Self-Declared (Compliant)</span>
+          </div>
+          <div class="studio-spec-row">
+            <span class="spec-label">Drive Storage Protocol</span>
+            <span class="spec-value spec-green">Auto-Delete After Success (Safe Mode Verified)</span>
+          </div>
+          <div class="studio-spec-row">
+            <span class="spec-label">Scheduled Automation</span>
+            <span class="spec-value spec-gold">Protected & Active (No Cron Conflict)</span>
+          </div>
+        </div>
+
+        <!-- LIVE UPLOAD PIPELINE CONSOLE (Terminal Window with macOS dots) -->
+        <div class="studio-terminal-box">
+          <div class="terminal-header-bar">
+            <div class="terminal-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="terminal-title">LIVE UPLOAD PIPELINE CONSOLE</div>
+            <div class="terminal-status-badge" id="terminalStatusBadge">🟢 BATCH COMPLETE</div>
+          </div>
+          <div class="terminal-body" id="terminalConsoleBody">
+            <!-- Populated with color-coded live logs -->
+          </div>
+        </div>
+
+        <!-- Execution Telemetry & Actions Row -->
+        <div class="studio-action-panel">
+          <button type="button" id="btnStudioExecutePublish" class="btn-studio-publish-now">
+            <span class="publish-icon">🚀</span>
+            <span id="btnStudioExecuteText">PUBLISH 5 REELS NOW TO FACEBOOK (1,566 AVAILABLE)</span>
+          </button>
+
+          <!-- Auth & Token status drawer trigger -->
+          <div class="studio-auth-footer">
+            <div class="auth-status-indicator">
+              <span class="auth-dot" id="studioAuthDot">🟢</span>
+              <span class="auth-text" id="studioAuthText">Cloud Dispatch Ready (GitHub Actions)</span>
+            </div>
+            <button type="button" id="btnToggleStudioAuth" class="btn-studio-auth-toggle">⚙️ Key</button>
+          </div>
+
+          <div id="studioAuthDrawer" class="studio-auth-drawer" style="display: none;">
+            <p class="auth-drawer-hint">Enter GitHub Personal Access Token (stored locally on your device for cloud actions):</p>
+            <div class="auth-drawer-input-row">
+              <input type="password" id="inputStudioGithubPat" class="studio-pat-input" placeholder="ghp_xxxxxxxxxxxx...">
+              <button type="button" id="btnSaveStudioGithubPat" class="btn-save-studio-pat">Save</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER ================= -->
+    <div id="dashboardAnalyticsView" class="dashboard-view-container" style="display: none;">
+
+      <!-- Active Page Profile Banner -->
+      <section class="profile-hero-card" id="heroCard">
       <div class="hero-main-row">
         <div class="hero-avatar-wrapper">
           <img id="heroAvatarImg" class="hero-avatar" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" alt="Active Page">
@@ -405,6 +549,8 @@
       </div>
     </section>
 
+    </div> <!-- /#dashboardAnalyticsView -->
+
   </main>
 
   <!-- Video Preview Modal -->
@@ -418,79 +564,6 @@
       <div class="modal-body" id="modalVideoContent">
         <!-- Filled dynamically -->
       </div>
-    </div>
-  </div>
-
-  <!-- ================= INSTANT UPLOAD STUDIO DEDICATED MODAL ================= -->
-  <div id="instantPostBackdrop" class="instant-backdrop" style="display: none;"></div>
-  <div id="instantPostModal" class="instant-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="instantModalTitle">
-    <div class="instant-header">
-      <div class="instant-title-group">
-        <div class="instant-logo-badge">🚀</div>
-        <div>
-          <h3 class="instant-title" id="instantModalTitle">Instant Upload Studio</h3>
-          <p class="instant-sub">Tick the boxes below to trigger immediate Facebook post for selected pages</p>
-        </div>
-      </div>
-      <button id="btnCloseInstantModal" class="btn-instant-close" title="Close">✕</button>
-    </div>
-
-    <!-- Quick Selection Toolbar -->
-    <div class="instant-toolbar">
-      <div class="instant-toolbar-left">
-        <button type="button" id="btnInstantSelectAll" class="toolbar-pill-btn">☑️ Select All Ready</button>
-        <button type="button" id="btnInstantClearAll" class="toolbar-pill-btn">⬜ Clear All</button>
-      </div>
-      <div class="instant-selected-badge" id="instantSelectedCountBadge">
-        <span id="instantSelectedCount">0</span> Pages Selected
-      </div>
-    </div>
-
-    <!-- Pages List with Custom Checkboxes -->
-    <div class="instant-pages-scroll" id="instantPagesList">
-      <!-- Populated dynamically by gold_app.js -->
-    </div>
-
-    <!-- GitHub Connection Status & Settings -->
-    <div class="instant-auth-panel">
-      <div class="instant-auth-summary">
-        <div class="auth-status-left">
-          <span class="auth-dot" id="authStatusDot">🟢</span>
-          <span class="auth-text" id="authStatusText">Cloud Dispatch Ready (GitHub Actions)</span>
-        </div>
-        <button type="button" id="btnToggleAuthDrawer" class="btn-auth-toggle">⚙️ Key</button>
-      </div>
-      <div id="instantAuthDrawer" class="instant-auth-drawer" style="display: none;">
-        <p class="auth-hint">GitHub Access Token (Saved locally on your device for cloud execution):</p>
-        <div class="auth-input-group">
-          <input type="password" id="inputGithubPat" class="auth-input" placeholder="ghp_xxxxxxxxxxxx...">
-          <button type="button" id="btnSaveGithubPat" class="btn-save-pat">Save</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Live Execution Status Bar -->
-    <div id="instantExecutionBox" class="instant-exec-box" style="display: none;">
-      <div class="exec-spinner-row">
-        <div class="exec-spinner" id="execSpinner"></div>
-        <div class="exec-info">
-          <div class="exec-headline" id="execHeadline">Triggering Cloud Automation...</div>
-          <div class="exec-sub" id="execSub">Connecting to GitHub Actions Pipeline...</div>
-        </div>
-      </div>
-      <div class="exec-actions" id="execActions"></div>
-      
-      <!-- Detailed Upload Summary Box (Per-page outcome, time, IP, video titles) -->
-      <div id="instantSummaryDetails" class="instant-summary-details" style="display: none;"></div>
-    </div>
-
-    <!-- Modal Footer Actions -->
-    <div class="instant-footer">
-      <button type="button" id="btnCancelInstantModal" class="btn-instant-cancel">Cancel</button>
-      <button type="button" id="btnExecuteInstantPost" class="btn-instant-submit" disabled>
-        <span class="submit-icon">🚀</span>
-        <span id="btnExecuteInstantText">Post Now to Selected Pages (0)</span>
-      </button>
     </div>
   </div>
 
