@@ -1,9 +1,9 @@
 {
-  "run_id": "34885581169",
-  "run_number": "13",
-  "completed_at": "2026-09-14T19:15:09.748153+00:00",
+  "run_id": "34907751245",
+  "run_number": "14",
+  "completed_at": "2026-09-14T23:15:12.121766+00:00",
   "runner_telemetry": {
-    "ip": "134.33.99.130",
+    "ip": "20.169.75.144",
     "city": "Phoenix",
     "region": "Arizona",
     "country": "US",
@@ -26,9 +26,9 @@
     {
       "status": "success",
       "page": "page_2",
-      "drive_file_id": "1R30TlzhbpfmszXkAKQe6S6vG3KdYfzRB",
-      "facebook_video_id": "2091214221465192",
-      "filename": "Tiny Bakery Fire Almost Destroyed Everything! #bakeryfire #miniatureworld #macrovideo #viralreels #fire #cinematic #rescue #fyp #tinyworld #satisfying.mp4",
+      "drive_file_id": "1oNX5Y5Tla5o8Q2a9ggITWgaE0WHz65vn",
+      "facebook_video_id": "1070497199306709",
+      "filename": "Tiny Bird Nest Fell During Storm! #birdnest #miniatureworld #macrovideo #viralshorts #nature #cinematic #fyp #tinyworld #storm #rescue.mp4",
       "post_type": "classic_video",
       "page_id": "1040244259164767",
       "page_config_name": "page_2",
@@ -43,20 +43,20 @@
       "display_name": "page_3"
     },
     {
-      "status": "skipped",
+      "status": "success",
       "page": "page_4",
-      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "drive_file_id": "1jOVWkAA62kMfRgYzgTG0U8DH5t-6dfg4",
+      "facebook_video_id": "1129793849711371",
+      "filename": "Nobody Could Escape This #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
+      "post_type": "classic_video",
       "page_id": "956622247541040",
       "page_config_name": "page_4",
       "display_name": "page_4"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_5",
-      "drive_file_id": "1b-NcU3mPexPTa_wSuEG_kn6aedGcbMIh",
-      "facebook_video_id": "1984082025635196",
-      "filename": "Nobody Wanted This Outcome #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals._1.mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "1034326643100670",
       "page_config_name": "page_5",
       "display_name": "page_5"
@@ -70,20 +70,20 @@
       "display_name": "page_6"
     },
     {
-      "status": "skipped",
+      "status": "success",
       "page": "page_7",
-      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "drive_file_id": "1GoUhBe1R6n0TQW8X1qbckt-4nZul9Wzm",
+      "facebook_video_id": "1797095534871611",
+      "filename": "'Will it Flush？' - Rainbow Plastic Eggs .mp4",
+      "post_type": "classic_video",
       "page_id": "795016603693140",
       "page_config_name": "page_7",
       "display_name": "page_7"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_8",
-      "drive_file_id": "1nb7pjUjBd82r5q0pwEU9rX6awWzeSQwy",
-      "facebook_video_id": "1759908175347564",
-      "filename": "#Shorts _54.mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "637367679454577",
       "page_config_name": "page_8",
       "display_name": "page_8"
@@ -97,31 +97,28 @@
       "display_name": "page_9"
     },
     {
-      "status": "skipped",
+      "status": "success",
       "page": "page_10",
-      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "drive_file_id": "1wyYTM2gEtCzg8ppYYIg3BaktmSshcaXP",
+      "facebook_video_id": "1606251034328876",
+      "filename": "11 Minutes Satisfying with Unboxing Pink Fashion Beauty Make Up Set ASMR No Talking #makeup .mp4",
+      "post_type": "classic_video",
       "page_id": "626061003919674",
       "page_config_name": "page_10",
       "display_name": "page_10"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_11",
-      "drive_file_id": "1Zwta5fCWUrMYhr_TqWHsTIm0KAnMo3dX",
-      "facebook_video_id": "1589556139616419",
-      "filename": "Mom ate his finger 🍟😱🤣 .mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "528360240361556",
       "page_config_name": "page_11",
       "display_name": "page_11"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_12",
-      "drive_file_id": "1dSpT-4NT3OKlJ-miVvntegp43k74GlYc",
-      "facebook_video_id": "1778930133122770",
-      "filename": "😂 Baby’s Reaction Is Too Funny #baby #funny #shorts #cute .mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "503358542855153",
       "page_config_name": "page_12",
       "display_name": "page_12"
@@ -137,18 +134,21 @@
     {
       "status": "success",
       "page": "page_14",
-      "drive_file_id": "16cQRr7ChsSB4oWOwHaKTY5SQLSAAFhcB",
-      "facebook_video_id": "1596438775413088",
-      "filename": "#FoodChallenge #CandyLover #TasteTest #ReelChallenge #FoodieFun (432).mp4",
+      "drive_file_id": "1n3JCRJ99HouL55Xr3OlDioHldSdu8kUj",
+      "facebook_video_id": "1802645637849719",
+      "filename": "#FoodChallenge #CandyLover #TasteTest #ReelChallenge #FoodieFun (433).mp4",
       "post_type": "classic_video",
       "page_id": "468230386376818",
       "page_config_name": "page_14",
       "display_name": "page_14"
     },
     {
-      "status": "skipped",
+      "status": "success",
       "page": "page_15",
-      "reason": "Google Drive folder ID pending setup. Skipping until folder is configured.",
+      "drive_file_id": "12xXyZrvB5VxHovH_-_3R_CQ39I-OClDo",
+      "facebook_video_id": "918842870915257",
+      "filename": "#Shorts #Trend #Fun (172).mp4",
+      "post_type": "classic_video",
       "page_id": "106309715659174",
       "page_config_name": "page_15",
       "display_name": "page_15"
