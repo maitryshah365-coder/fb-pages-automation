@@ -90,10 +90,10 @@ class PageRunner:
 
         # 3. Find next unposted video in Drive
         if not page.drive_folder_id or "REPLACE" in page.drive_folder_id:
-            err = "Google Drive folder ID not configured."
-            logger.error(f"[{page_name}] {err}")
-            self.db.finish_run(db_run_id, status="failed", error_message=err, runner_telemetry=self.runner_telemetry)
-            return {"status": "failed", "page": page_name, "error": err}
+            msg = "Google Drive folder ID pending setup. Skipping until folder is configured."
+            logger.info(f"[{page_name}] {msg}")
+            self.db.finish_run(db_run_id, status="skipped", error_message=msg, runner_telemetry=self.runner_telemetry)
+            return {"status": "skipped", "page": page_name, "reason": msg}
 
         posted_ids = self.db.get_posted_drive_file_ids(page_id)
         permanent_failed_ids = self.db.get_permanently_failed_file_ids(page_id)

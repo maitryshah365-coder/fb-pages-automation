@@ -1043,13 +1043,13 @@ const GH_WORKFLOW_FILE = "post.yml";
 
 // Known active configured Drive pages (page names for config.yaml)
 const DRIVE_CONFIGURED_PAGES = {
-  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true },
-  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true },
-  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true },
-  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true },
-  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true },
-  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true },
-  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true }
+  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 48 },
+  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 151 },
+  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 367 },
+  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 446 },
+  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 319 },
+  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 287 },
+  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 125 }
 };
 
 let instantSelectedPageIds = new Set();
@@ -1129,6 +1129,7 @@ function renderInstantPagesList() {
     const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
     const isDriveReady = Boolean(driveInfo?.ready);
     const isSelected = instantSelectedPageIds.has(pId);
+    const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
 
     const row = document.createElement("div");
     row.className = `instant-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}`;
@@ -1142,12 +1143,12 @@ function renderInstantPagesList() {
         <img class="instant-page-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
         <div class="instant-page-meta">
           <span class="instant-page-name">${page.name}</span>
-          <span class="instant-page-sub">Page #${page.index} • ID: ${pId}</span>
+          <span class="instant-page-sub">Page #${page.index} • ID: ${pId} ${isDriveReady ? `• <strong style="color: #34d399;">📁 ${videoCount} Videos Ready</strong>` : `• <span style="color: #94a3b8;">⏳ Folder Pending</span>`}</span>
         </div>
       </div>
       <div class="page-row-right">
         ${isDriveReady 
-          ? `<span class="drive-status-badge ready">🟢 Ready in Drive</span>` 
+          ? `<span class="drive-status-badge ready">🎬 ${videoCount} Videos</span>` 
           : `<span class="drive-status-badge pending">⚪ Setup Pending</span>`}
       </div>
     `;
@@ -1191,12 +1192,41 @@ function clearAllSelectedPages() {
 
 function updateInstantSelectionUI() {
   const count = instantSelectedPageIds.size;
-  const countBadge = document.getElementById("instantSelectedCount");
   const execText = document.getElementById("btnExecuteInstantText");
   const execBtn = document.getElementById("btnExecuteInstantPost");
 
-  if (countBadge) countBadge.innerText = count;
-  if (execText) execText.innerText = count > 0 ? `Post Now to ${count} Selected Pages` : `Post Now (0 Selected)`;
+  // Sum total stock vs selected stock
+  let totalStock = 0;
+  let selectedStock = 0;
+
+  if (fullData && fullData.pages) {
+    fullData.pages.forEach(p => {
+      const pid = String(p.id);
+      const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+      if (dInfo?.ready) {
+        const v = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo.videoCount || 0);
+        totalStock += v;
+        if (instantSelectedPageIds.has(pid)) {
+          selectedStock += v;
+        }
+      }
+    });
+  }
+
+  const selectedCountBadge = document.getElementById("instantSelectedCountBadge");
+  if (selectedCountBadge) {
+    if (count === 0) {
+      selectedCountBadge.innerHTML = `<span id="instantSelectedCount">0</span> Selected <span style="font-size: 11px; opacity: 0.85;">(${totalStock.toLocaleString()} Total Videos Ready)</span>`;
+    } else {
+      selectedCountBadge.innerHTML = `<span id="instantSelectedCount">${count}</span> Selected <span style="font-size: 11px; color: #34d399; font-weight: 700;">(${selectedStock.toLocaleString()} Videos in Selected)</span>`;
+    }
+  }
+
+  if (execText) {
+    execText.innerText = count > 0 
+      ? `Post Now to ${count} Selected Pages (${selectedStock.toLocaleString()} Available)` 
+      : `Post Now (0 Selected)`;
+  }
   if (execBtn) execBtn.disabled = count === 0 || isDispatchingUpload;
 
   // Update rows visual state
@@ -1209,6 +1239,7 @@ function updateInstantSelectionUI() {
     }
   });
 }
+
 
 async function executeInstantPost() {
   if (instantSelectedPageIds.size === 0 || isDispatchingUpload) return;
