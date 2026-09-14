@@ -1,16 +1,16 @@
 {
-  "run_id": "34854388970",
-  "run_number": "12",
-  "completed_at": "2026-09-14T14:18:01.728428+00:00",
+  "run_id": "34885581169",
+  "run_number": "13",
+  "completed_at": "2026-09-14T19:15:09.748153+00:00",
   "runner_telemetry": {
-    "ip": "172.203.253.208",
-    "city": "Dulles Town Center",
-    "region": "Virginia",
+    "ip": "134.33.99.130",
+    "city": "Phoenix",
+    "region": "Arizona",
     "country": "US",
-    "loc": "39.0376,-77.4158",
+    "loc": "33.4484,-112.0740",
     "org": "AS8075 Microsoft Corporation",
-    "postal": "20164",
-    "timezone": "America/New_York",
+    "postal": "85003",
+    "timezone": "America/Phoenix",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
@@ -24,9 +24,12 @@
       "display_name": "page_1"
     },
     {
-      "status": "failed",
+      "status": "success",
       "page": "page_2",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "drive_file_id": "1R30TlzhbpfmszXkAKQe6S6vG3KdYfzRB",
+      "facebook_video_id": "2091214221465192",
+      "filename": "Tiny Bakery Fire Almost Destroyed Everything! #bakeryfire #miniatureworld #macrovideo #viralreels #fire #cinematic #rescue #fyp #tinyworld #satisfying.mp4",
+      "post_type": "classic_video",
       "page_id": "1040244259164767",
       "page_config_name": "page_2",
       "display_name": "page_2"
@@ -48,9 +51,12 @@
       "display_name": "page_4"
     },
     {
-      "status": "failed",
+      "status": "success",
       "page": "page_5",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "drive_file_id": "1b-NcU3mPexPTa_wSuEG_kn6aedGcbMIh",
+      "facebook_video_id": "1984082025635196",
+      "filename": "Nobody Wanted This Outcome #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals._1.mp4",
+      "post_type": "classic_video",
       "page_id": "1034326643100670",
       "page_config_name": "page_5",
       "display_name": "page_5"
@@ -72,9 +78,12 @@
       "display_name": "page_7"
     },
     {
-      "status": "failed",
+      "status": "success",
       "page": "page_8",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "drive_file_id": "1nb7pjUjBd82r5q0pwEU9rX6awWzeSQwy",
+      "facebook_video_id": "1759908175347564",
+      "filename": "#Shorts _54.mp4",
+      "post_type": "reel",
       "page_id": "637367679454577",
       "page_config_name": "page_8",
       "display_name": "page_8"
@@ -96,17 +105,23 @@
       "display_name": "page_10"
     },
     {
-      "status": "failed",
+      "status": "success",
       "page": "page_11",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "drive_file_id": "1Zwta5fCWUrMYhr_TqWHsTIm0KAnMo3dX",
+      "facebook_video_id": "1589556139616419",
+      "filename": "Mom ate his finger 🍟😱🤣 .mp4",
+      "post_type": "classic_video",
       "page_id": "528360240361556",
       "page_config_name": "page_11",
       "display_name": "page_11"
     },
     {
-      "status": "failed",
+      "status": "success",
       "page": "page_12",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "drive_file_id": "1dSpT-4NT3OKlJ-miVvntegp43k74GlYc",
+      "facebook_video_id": "1778930133122770",
+      "filename": "😂 Baby’s Reaction Is Too Funny #baby #funny #shorts #cute .mp4",
+      "post_type": "classic_video",
       "page_id": "503358542855153",
       "page_config_name": "page_12",
       "display_name": "page_12"
@@ -120,9 +135,12 @@
       "display_name": "page_13"
     },
     {
-      "status": "failed",
+      "status": "success",
       "page": "page_14",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 200 (subcode: None, type: OAuthException): Cannot call API for app 1366459798891922 on behalf of user 122124593774879226",
+      "drive_file_id": "16cQRr7ChsSB4oWOwHaKTY5SQLSAAFhcB",
+      "facebook_video_id": "1596438775413088",
+      "filename": "#FoodChallenge #CandyLover #TasteTest #ReelChallenge #FoodieFun (432).mp4",
+      "post_type": "classic_video",
       "page_id": "468230386376818",
       "page_config_name": "page_14",
       "display_name": "page_14"
@@ -138,8 +156,8 @@
   ],
   "stats": {
     "total": 15,
-    "success": 0,
+    "success": 6,
     "skipped": 9,
-    "failed": 6
+    "failed": 0
   }
 }
