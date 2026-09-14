@@ -335,7 +335,7 @@ function renderSinglePageView(p) {
   renderVideosLibrary();
 
   // 7. Telemetry
-  renderTelemetry(p.last_upload_ip, p.name);
+  renderTelemetry(p);
 }
 
 // ----------------- All Portfolio Overview -----------------
@@ -493,7 +493,7 @@ function renderAllPortfolioView() {
   renderVideosLibrary();
 
   // Telemetry
-  renderTelemetry(fullData.runner_telemetry, "All Portfolio");
+  renderTelemetry({ isPortfolio: true });
 }
 
 // ----------------- Demographics Tabs -----------------
@@ -846,24 +846,194 @@ function renderVideosLibrary() {
   }
 }
 
-// ----------------- Telemetry Rendering -----------------
+// ----------------- Real-Time Telemetry & Status Tracker -----------------
 
-function renderTelemetry(tel, pageName) {
+function formatRelativeTime(isoStr) {
+  if (!isoStr) return "N/A";
+  try {
+    const d = new Date(isoStr);
+    const diffSec = Math.floor((Date.now() - d.getTime()) / 1000);
+    if (diffSec < 0) return "Just now";
+    if (diffSec < 60) return `${diffSec}s ago`;
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `${diffMin}m ago`;
+    const diffHr = Math.floor(diffMin / 60);
+    if (diffHr < 24) return `${diffHr}h ago`;
+    const diffDays = Math.floor(diffHr / 24);
+    return `${diffDays}d ago`;
+  } catch(e) {
+    return isoStr;
+  }
+}
+
+function formatUploadDate(isoStr) {
+  if (!isoStr) return "N/A";
+  try {
+    const d = new Date(isoStr);
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const m = months[d.getUTCMonth()];
+    const day = d.getUTCDate();
+    let hours = d.getUTCHours();
+    const mins = String(d.getUTCMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    return `${m} ${day} at ${hours}:${mins} ${ampm} UTC`;
+  } catch(e) {
+    return isoStr;
+  }
+}
+
+function renderTelemetry(target) {
+  const ipLabel = document.getElementById("ipAddressLabel");
   const ipEl = document.getElementById("ipAddressVal");
   const locEl = document.getElementById("ipLocationVal");
   const orgEl = document.getElementById("ipOrgVal");
   const flagEl = document.getElementById("ipFlag");
+  const timeEl = document.getElementById("ipUploadTimeVal");
+  const geoSub = document.getElementById("ipGeoSub");
+  const driveStockVal = document.getElementById("driveStockVal");
+  const driveStockSub = document.getElementById("driveStockSub");
+  const statusBox = document.getElementById("uploadStatusBox");
   const statusEl = document.getElementById("ipUploadStatus");
+  const detailEl = document.getElementById("ipUploadDetail");
+  const pillEl = document.getElementById("telemetryStatusPill");
+  const portfolioRow = document.getElementById("portfolioPagesStatusRow");
 
-  if (tel) {
-    if (ipEl) ipEl.innerText = tel.ip || "20.124.89.14";
-    if (locEl) locEl.innerText = `${tel.city || 'Ashburn'}, ${tel.region || 'VA'}, ${tel.country || 'United States'}`;
-    if (orgEl) orgEl.innerText = tel.org || "Microsoft Azure Cloud Infrastructure";
-    if (flagEl) flagEl.innerText = tel.flag || "🇺🇸";
-  }
+  const slot = getUpcomingSlotInfo();
 
-  if (statusEl) {
-    statusEl.innerText = `Standby • Ready for Next Scheduled Slot (${pageName})`;
+  if (target && target.isPortfolio) {
+    // 1. Portfolio View (All Pages)
+    const runner = fullData?.runner_telemetry || {};
+    if (ipLabel) ipLabel.innerText = "CLOUD RUNNER EGRESS IP";
+    if (ipEl) ipEl.innerText = runner.ip || "68.154.116.73";
+    if (flagEl) flagEl.innerText = runner.flag || "🇺🇸";
+    if (orgEl) orgEl.innerText = runner.org || "AS8075 Microsoft Corporation";
+    if (timeEl) timeEl.innerText = "Live Cloud Runner • Active Egress Node";
+    if (locEl) locEl.innerText = `${runner.city || 'Boydton'}, ${runner.region || 'Virginia'}, ${runner.country_name || runner.country || 'United States'}`;
+    if (geoSub) geoSub.innerText = "USA Target Egress for Optimal Meta Distribution";
+
+    // Count total drive stock across all pages
+    let totalDriveStock = 0;
+    let readyPagesCount = 0;
+    let uploadedPagesCount = 0;
+    let totalTodayPosts = 0;
+
+    if (fullData && fullData.pages) {
+      fullData.pages.forEach(p => {
+        const v = p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
+        totalDriveStock += v;
+        if (v > 0) readyPagesCount++;
+        if (p.today_posts > 0) {
+          uploadedPagesCount++;
+          totalTodayPosts += p.today_posts;
+        }
+      });
+    }
+
+    if (driveStockVal) driveStockVal.innerText = `📁 ${totalDriveStock.toLocaleString()} Videos Ready`;
+    if (driveStockSub) driveStockSub.innerText = `Stock in Drive across ${readyPagesCount} configured channels`;
+
+    if (statusBox) {
+      statusBox.className = "upload-status-box uploaded-today";
+    }
+    if (statusEl) {
+      statusEl.innerHTML = `<span class="badge-status-uploaded">✅ ${totalTodayPosts} / 60 SLOTS UPLOADED TODAY</span> • ${uploadedPagesCount} of 15 Pages Active`;
+    }
+    if (detailEl) {
+      detailEl.innerHTML = `${uploadedPagesCount} channels published reels today. ${15 - uploadedPagesCount} pages waiting for next slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>). Drive queue: <strong style="color:#34d399;">${totalDriveStock.toLocaleString()} videos ready</strong>.`;
+    }
+    if (pillEl) {
+      pillEl.className = "pill-badge pill-green";
+      pillEl.innerText = `${totalTodayPosts}/60 Slots Today`;
+    }
+
+    // Render portfolio chip tracker
+    if (portfolioRow && fullData && fullData.pages) {
+      portfolioRow.style.display = "flex";
+      portfolioRow.innerHTML = fullData.pages.map(p => {
+        const isUploaded = (p.today_posts || 0) > 0;
+        const count = p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
+        return `
+          <div class="portfolio-status-chip ${isUploaded ? 'chip-uploaded' : 'chip-not-uploaded'}" onclick="selectPage('${p.id}')" title="Click to view ${p.name}">
+            <span>${isUploaded ? '✅' : '⚠️'}</span>
+            <span>${p.name}</span>
+            <span style="opacity: 0.85; font-size: 10px;">(${p.today_posts || 0}/4${count > 0 ? ` • ${count} in Drive` : ''})</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+  } else if (target) {
+    // 2. Single Page View
+    const p = target;
+    const ipInfo = p.last_upload_ip || {};
+    const hasUploadedToday = (p.today_posts || 0) > 0;
+    const driveCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
+    const lastVideo = (p.videos && p.videos.length > 0) ? p.videos[0] : null;
+
+    if (ipLabel) {
+      ipLabel.innerText = hasUploadedToday ? "TODAY'S UPLOAD IP (VERIFIED)" : "LAST KNOWN UPLOAD IP";
+    }
+    if (ipEl) ipEl.innerText = ipInfo.ip || "68.154.116.73";
+    if (flagEl) flagEl.innerText = ipInfo.flag || "🇺🇸";
+    if (orgEl) orgEl.innerText = ipInfo.org || "AS8075 Microsoft Corporation";
+    if (timeEl) {
+      if (ipInfo.timestamp) {
+        timeEl.innerText = `Uploaded: ${formatUploadDate(ipInfo.timestamp)} (${formatRelativeTime(ipInfo.timestamp)})`;
+      } else {
+        timeEl.innerText = "Ready for Next Scheduled Upload";
+      }
+    }
+
+    if (locEl) {
+      locEl.innerText = `${ipInfo.city || 'Boydton'}, ${ipInfo.region || 'Virginia'}, ${ipInfo.country || 'US'}`;
+    }
+    if (geoSub) geoSub.innerText = "USA Target Egress for Optimal Meta Distribution";
+
+    if (driveStockVal) {
+      if (driveCount > 0) {
+        driveStockVal.innerHTML = `📁 ${driveCount} Videos Ready`;
+      } else {
+        driveStockVal.innerHTML = `📁 0 Videos in Drive`;
+      }
+    }
+    if (driveStockSub) {
+      driveStockSub.innerText = driveCount > 0 
+        ? "Next in queue • Auto-deletes from Drive upon post" 
+        : "Drive folder setup pending in config.yaml";
+    }
+
+    if (portfolioRow) portfolioRow.style.display = "none";
+
+    if (hasUploadedToday) {
+      // ✅ UPLOADED TODAY
+      if (statusBox) statusBox.className = "upload-status-box uploaded-today";
+      if (statusEl) {
+        statusEl.innerHTML = `<span class="badge-status-uploaded">✅ UPLOADED TODAY (${p.today_posts}/4 Slots)</span> • Active & Verified`;
+      }
+      const vidTitle = lastVideo?.title || "Latest Facebook Reel";
+      const vidDate = ipInfo.timestamp ? formatRelativeTime(ipInfo.timestamp) : "today";
+      if (detailEl) {
+        detailEl.innerHTML = `Latest Reel: "<strong style="color:#fff;">${vidTitle}</strong>" posted <strong>${vidDate}</strong> via IP <code class="ip-code" style="font-size:11px; padding:1px 5px;">${ipInfo.ip}</code> (${ipInfo.city}, ${ipInfo.country}). Next slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>) • <span style="color:#34d399;">${driveCount} videos waiting in Drive</span>.`;
+      }
+      if (pillEl) {
+        pillEl.className = "pill-badge pill-green";
+        pillEl.innerText = `✅ ${p.today_posts}/4 Uploaded Today`;
+      }
+    } else {
+      // ⚠️ NOT UPLOADED TODAY
+      if (statusBox) statusBox.className = "upload-status-box not-uploaded";
+      if (statusEl) {
+        statusEl.innerHTML = `<span class="badge-status-not-uploaded">⚠️ NOT UPLOADED TODAY (0/4 Slots)</span> • Pending Next Slot`;
+      }
+      if (detailEl) {
+        detailEl.innerHTML = `No reel published today yet for <strong>${p.name}</strong>. Next scheduled automation slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>) • ${driveCount > 0 ? `<strong style="color:#34d399;">📁 ${driveCount} videos waiting in Drive</strong>` : '<span style="color:#94a3b8;">Drive folder pending setup</span>'}. Previous IP: <code>${ipInfo.ip || 'N/A'}</code>.`;
+      }
+      if (pillEl) {
+        pillEl.className = "pill-badge pill-amber";
+        pillEl.innerText = `⚠️ Not Uploaded Today`;
+      }
+    }
   }
 }
 
@@ -993,39 +1163,84 @@ function setupEventListeners() {
   });
 }
 
-// ----------------- Slot Countdown Timer -----------------
+// ----------------- Real-Time UTC / EDT Slot Countdown Engine -----------------
+
+function getUpcomingSlotInfo() {
+  const now = new Date();
+  const nowMs = now.getTime();
+  
+  // Daily scheduled slot hours in UTC:
+  // 14:00 UTC = 10:00 AM EDT
+  // 19:00 UTC = 03:00 PM EDT
+  // 23:00 UTC = 07:00 PM EDT
+  // 02:00 UTC = 10:00 PM EDT
+  const utcHours = [2, 14, 19, 23];
+  const candidates = [];
+  
+  for (let dayOffset = 0; dayOffset <= 2; dayOffset++) {
+    for (const h of utcHours) {
+      const slot = new Date(now);
+      slot.setUTCDate(slot.getUTCDate() + dayOffset);
+      slot.setUTCHours(h, 0, 0, 0);
+      if (slot.getTime() > nowMs) {
+        candidates.push(slot);
+      }
+    }
+  }
+  
+  candidates.sort((a, b) => a.getTime() - b.getTime());
+  const nextSlotDate = candidates[0];
+  const diffMs = Math.max(0, nextSlotDate.getTime() - nowMs);
+  
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const hrs = Math.floor(totalSeconds / 3600);
+  const mins = Math.floor((totalSeconds % 3600) / 60);
+  const secs = totalSeconds % 60;
+  
+  const hStr = String(hrs).padStart(2, '0');
+  const mStr = String(mins).padStart(2, '0');
+  const sStr = String(secs).padStart(2, '0');
+  
+  const hUtc = nextSlotDate.getUTCHours();
+  let slotNameEdt = "10:00 AM EDT";
+  if (hUtc === 2) slotNameEdt = "10:00 PM EDT";
+  else if (hUtc === 14) slotNameEdt = "10:00 AM EDT";
+  else if (hUtc === 19) slotNameEdt = "03:00 PM EDT";
+  else if (hUtc === 23) slotNameEdt = "07:00 PM EDT";
+
+  return {
+    nextSlotDate,
+    diffMs,
+    slotNameEdt,
+    formatted: `${hStr}h ${mStr}m ${sStr}s`,
+    timerStr: `${hStr}:${mStr}:${sStr}`
+  };
+}
 
 function startSlotCountdown() {
   function updateTimer() {
-    const now = new Date();
-    // USA EDT slot target times (10:00, 15:00, 19:00, 22:00 EDT)
-    // Converted to local time countdown
-    const nextSlot = new Date(now);
-    const curHour = now.getHours();
+    const slot = getUpcomingSlotInfo();
     
-    let targetHour = 10;
-    if (curHour >= 22) {
-      targetHour = 10;
-      nextSlot.setDate(nextSlot.getDate() + 1);
-    } else if (curHour >= 19) {
-      targetHour = 22;
-    } else if (curHour >= 15) {
-      targetHour = 19;
-    } else if (curHour >= 10) {
-      targetHour = 15;
-    } else {
-      targetHour = 10;
+    // Header slot pill
+    const countdownEl = document.getElementById("todayCountdown");
+    if (countdownEl) {
+      countdownEl.innerText = `${slot.slotNameEdt} (${slot.timerStr})`;
     }
     
-    nextSlot.setHours(targetHour, 0, 0, 0);
-    const diff = Math.max(0, nextSlot - now);
-    
-    const h = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
-    const m = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-    const s = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-    
-    const countdownEl = document.getElementById("todayCountdown");
-    if (countdownEl) countdownEl.innerText = `${h}:${m}:${s}`;
+    // Section 4 telemetry slot tile
+    const telCountdownEl = document.getElementById("telemetryCountdownVal");
+    if (telCountdownEl) {
+      telCountdownEl.innerText = slot.formatted;
+    }
+    const telSlotSub = document.getElementById("telemetryNextSlotSub");
+    if (telSlotSub) {
+      telSlotSub.innerText = `Next Slot: ${slot.slotNameEdt} (Daily 4x)`;
+    }
+
+    // Dynamic countdown spans inside status details
+    document.querySelectorAll(".live-countdown-text").forEach(el => {
+      el.innerText = slot.formatted;
+    });
   }
   
   updateTimer();

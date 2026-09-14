@@ -353,34 +353,54 @@
           <span class="box-icon">🛰️</span>
           <h3 class="box-title">Automation Engine & Server Telemetry</h3>
         </div>
-        <span class="pill-badge pill-blue">Cloud Standby</span>
+        <span class="pill-badge pill-blue" id="telemetryStatusPill">Cloud Standby</span>
       </div>
 
       <div class="telemetry-grid">
+        <!-- Tile 1: Last Upload IP & ISP -->
         <div class="telemetry-tile">
-          <span class="tel-label">AUTOMATION ENGINE IP</span>
+          <span class="tel-label" id="ipAddressLabel">LAST UPLOAD IP</span>
           <div class="tel-val-row">
-            <span class="ip-code" id="ipAddressVal">20.124.89.14</span>
+            <span class="ip-code" id="ipAddressVal">68.154.116.73</span>
             <span class="tel-flag" id="ipFlag">🇺🇸</span>
           </div>
-          <span class="tel-sub" id="ipOrgVal">Microsoft Azure Cloud Egress</span>
+          <span class="tel-sub" id="ipOrgVal">AS8075 Microsoft Corporation</span>
+          <span class="tel-extra" id="ipUploadTimeVal">Last Upload: Today at 07:47 UTC</span>
         </div>
 
+        <!-- Tile 2: Geolocation -->
         <div class="telemetry-tile">
           <span class="tel-label">RUNNER GEOLOCATION</span>
-          <div class="tel-val" id="ipLocationVal">Ashburn, Virginia, United States</div>
-          <span class="tel-sub">USA Target Egress for Optimal Distribution</span>
+          <div class="tel-val" id="ipLocationVal">Boydton, Virginia, United States</div>
+          <span class="tel-sub" id="ipGeoSub">USA Target Egress for Optimal Distribution</span>
         </div>
 
+        <!-- Tile 3: Google Drive Queue & Stock -->
+        <div class="telemetry-tile">
+          <span class="tel-label">GOOGLE DRIVE STOCK & QUEUE</span>
+          <div class="tel-val tel-gold" id="driveStockVal">📁 48 Videos Ready</div>
+          <span class="tel-sub" id="driveStockSub">Remaining in Drive • Auto-deletes upon post</span>
+        </div>
+
+        <!-- Tile 4: Next Scheduled Slot Countdown -->
+        <div class="telemetry-tile">
+          <span class="tel-label">NEXT SCHEDULED SLOT (REAL-TIME)</span>
+          <div class="tel-val tel-countdown" id="telemetryCountdownVal">--:--:--</div>
+          <span class="tel-sub" id="telemetryNextSlotSub">Next Slot: 10:00 AM EDT (Daily 4x)</span>
+        </div>
+
+        <!-- Tile 5: Full Width Status & Today Tracker -->
         <div class="telemetry-tile full-width">
-          <span class="tel-label">TODAY'S AUTOMATION STATUS</span>
-          <div class="upload-status-box">
-            <div class="status-indicator-dot"></div>
-            <div>
+          <span class="tel-label">TODAY'S AUTOMATION TRACKER</span>
+          <div class="upload-status-box" id="uploadStatusBox">
+            <div class="status-indicator-dot" id="statusIndicatorDot"></div>
+            <div style="flex: 1;">
               <div class="status-headline" id="ipUploadStatus">Standby • Ready for Next Scheduled Slot</div>
-              <div class="status-detail">Daily 4x Schedule: 10:00 AM, 03:00 PM, 07:00 PM, 10:00 PM EDT</div>
+              <div class="status-detail" id="ipUploadDetail">Daily 4x Schedule: 10:00 AM, 03:00 PM, 07:00 PM, 10:00 PM EDT</div>
             </div>
           </div>
+          <!-- Dynamic Portfolio Breakdown Bar (shown when All Pages selected) -->
+          <div id="portfolioPagesStatusRow" class="portfolio-status-pills-row" style="display: none;"></div>
         </div>
       </div>
     </section>
