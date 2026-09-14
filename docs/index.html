@@ -113,27 +113,31 @@
         </button>
       </div>
 
-      <!-- BOX 2: ALL PAGES LIST (TOUCH KARNE SE SARE PAGES SHOW HONGE OR CLICK PAR ANALYTICS KHULENGE BICH ME) -->
-      <div class="sidebar-nav-box sidebar-pages-list-box">
-        <div class="sidebar-pages-header" id="btnSidePagesListToggle">
+      <!-- BOX 2: ALL PAGES LIST (SHUTTER BAND BY DEFAULT - CLICK PAR HI OPEN HOGA) -->
+      <div class="sidebar-nav-box sidebar-pages-list-box" id="sidePagesAccordionBox">
+        <div class="sidebar-pages-header" id="btnSidePagesListToggle" title="Click to show/hide 15 pages">
           <div class="pages-header-left">
             <span class="pages-header-icon">📑</span>
             <div class="pages-header-text">
               <span class="pages-header-title">All Pages List</span>
-              <span class="pages-header-sub" id="sideActivePageSub">Click to open in middle</span>
+              <span class="pages-header-sub" id="sideActivePageSub">Click to open pages</span>
             </div>
           </div>
-          <span class="pages-count-pill" id="sidePagesCountBadge">15 Pages</span>
+          <div class="pages-header-right">
+            <span class="pages-count-pill" id="sidePagesCountBadge">15 Pages</span>
+            <span class="pages-toggle-arrow" id="sidePagesToggleArrow">▼</span>
+          </div>
         </div>
 
-        <!-- Fast Search input inside sidebar -->
-        <div class="sidebar-pages-search-row">
-          <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 15 pages...">
-        </div>
+        <!-- Shutter Body (Closed by default - Shutter Band) -->
+        <div class="sidebar-pages-body" id="sidePagesShutterBody" style="display: none;">
+          <div class="sidebar-pages-search-row">
+            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 15 pages...">
+          </div>
 
-        <!-- Scrollable Pages List Right in the Left Panel -->
-        <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
-          <!-- Dynamically populated with all 15 pages: avatar, name, followers, status dot -->
+          <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
+            <!-- Dynamically populated with all 15 pages -->
+          </div>
         </div>
       </div>
 
@@ -149,37 +153,6 @@
           </div>
           <span class="side-instant-pill">INSTANT</span>
         </button>
-      </div>
-
-      <!-- Quick Nav Links inside Sidebar -->
-      <div class="sidebar-quick-nav">
-        <div class="quick-nav-header">PAGE QUICK JUMP</div>
-        <button type="button" id="sideLinkAnalytics" class="quick-nav-btn">
-          <span class="q-icon">📈</span>
-          <span class="q-label">Key Analytics</span>
-        </button>
-        <button type="button" id="sideLinkVideos" class="quick-nav-btn">
-          <span class="q-icon">🎬</span>
-          <span class="q-label">Reels Library</span>
-          <span class="q-badge" id="sideBadgeVideosCount">0</span>
-        </button>
-        <button type="button" id="sideLinkDrive" class="quick-nav-btn">
-          <span class="q-icon">📁</span>
-          <span class="q-label">Drive Queue</span>
-          <span class="q-badge green" id="sideBadgeDriveCount">1,731</span>
-        </button>
-        <button type="button" id="sideLinkIp" class="quick-nav-btn">
-          <span class="q-icon">🌐</span>
-          <span class="q-label">IP & Egress Runner</span>
-        </button>
-        <button type="button" id="sideLinkSettings" class="quick-nav-btn">
-          <span class="q-icon">⚙️</span>
-          <span class="q-label">Settings / Token</span>
-        </button>
-        <a href="https://facebook.com" target="_blank" rel="noopener" id="sideLinkFacebook" class="quick-nav-btn">
-          <span class="q-icon">↗️</span>
-          <span class="q-label">Open Facebook</span>
-        </a>
       </div>
 
     </aside>

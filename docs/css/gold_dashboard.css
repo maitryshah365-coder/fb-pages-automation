@@ -2957,16 +2957,27 @@ body {
   border: 1px solid rgba(245, 158, 11, 0.35);
 }
 
-/* BOX 2: ALL PAGES LIST ACCORDION BOX */
+/* BOX 2: ALL PAGES LIST ACCORDION BOX (SHUTTER BAND BY DEFAULT) */
 .sidebar-pages-list-box {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.sidebar-pages-list-box:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.sidebar-pages-list-box.open {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(56, 189, 248, 0.35);
 }
 
 .sidebar-pages-header {
@@ -2975,16 +2986,18 @@ body {
   justify-content: space-between;
   cursor: pointer;
   user-select: none;
+  width: 100%;
 }
 
 .pages-header-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .pages-header-icon {
-  font-size: 18px;
+  font-size: 20px;
+  line-height: 1;
 }
 
 .pages-header-text {
@@ -2993,25 +3006,56 @@ body {
 }
 
 .pages-header-title {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 800;
   color: #f8fafc;
 }
 
 .pages-header-sub {
-  font-size: 10.5px;
+  font-size: 11px;
   color: #38bdf8;
   font-weight: 600;
 }
 
+.pages-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .pages-count-pill {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 12px;
+  padding: 2px 7px;
+  border-radius: 6px;
   background: rgba(56, 189, 248, 0.12);
   color: #38bdf8;
   border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.pages-toggle-arrow {
+  font-size: 11px;
+  color: #64748b;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.sidebar-pages-list-box.open .pages-toggle-arrow {
+  transform: rotate(180deg);
+  color: #38bdf8;
+}
+
+/* Shutter Body (Closed by default - User explicitly requested) */
+.sidebar-pages-body {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-pages-list-box.open .sidebar-pages-body {
+  display: flex;
 }
 
 .sidebar-pages-search-row {
@@ -3042,7 +3086,7 @@ body {
 
 /* Scrollable Pages List */
 .sidebar-pages-scroll-list {
-  max-height: 240px;
+  max-height: 250px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -3122,11 +3166,21 @@ body {
 }
 
 .side-page-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #10b981;
   flex-shrink: 0;
+}
+
+.side-page-dot.green {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.side-page-dot.gray {
+  background: #64748b;
+  opacity: 0.5;
 }
 
 /* BOX 3: POST NOW TILE */
@@ -3155,76 +3209,6 @@ body {
   color: #fff;
   letter-spacing: 0.5px;
   animation: pulseGlow 2s infinite ease-in-out;
-}
-
-/* Sidebar Quick Nav Links */
-.sidebar-quick-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.quick-nav-header {
-  font-size: 10px;
-  font-weight: 800;
-  color: #475569;
-  letter-spacing: 0.8px;
-  margin-bottom: 4px;
-  padding-left: 6px;
-}
-
-.quick-nav-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  color: #94a3b8;
-  font-size: 12.5px;
-  font-weight: 600;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  text-align: left;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  transition: all 0.15s ease;
-  font-family: inherit;
-}
-
-.quick-nav-btn:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: #f8fafc;
-}
-
-.q-icon {
-  font-size: 15px;
-  width: 18px;
-  display: flex;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.q-label {
-  flex: 1;
-}
-
-.q-badge {
-  font-size: 10.5px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #cbd5e1;
-}
-
-.q-badge.green {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
 /* Main Studio Content Container */

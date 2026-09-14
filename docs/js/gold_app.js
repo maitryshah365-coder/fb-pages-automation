@@ -301,7 +301,7 @@ function selectPage(pageId) {
 
   if (activePageId === "all") {
     if (sideDashBtn) sideDashBtn.classList.add("active");
-    if (sideActiveSub) sideActiveSub.innerText = "Click to open in middle";
+    if (sideActiveSub) sideActiveSub.innerText = "Click to open pages";
     if (mobHeaderName) mobHeaderName.innerText = "All Portfolio";
     if (sideBadgeVideos && fullData?.videos) {
       sideBadgeVideos.innerText = fullData.videos.length.toLocaleString();
@@ -1259,43 +1259,24 @@ function setupEventListeners() {
     if (fullData && fullData.pages) renderSidebarPagesList(fullData.pages);
   });
 
+  // Desktop Left Sidebar All Pages Shutter Toggle (Band by default - Click to open)
   document.getElementById("btnSidePagesListToggle")?.addEventListener("click", () => {
-    const list = document.getElementById("sidebarPagesScrollList");
-    const searchRow = document.querySelector(".sidebar-pages-search-row");
-    if (list) {
-      const isHidden = list.style.display === "none";
-      list.style.display = isHidden ? "flex" : "none";
-      if (searchRow) searchRow.style.display = isHidden ? "block" : "none";
+    const box = document.getElementById("sidePagesAccordionBox");
+    const shutter = document.getElementById("sidePagesShutterBody");
+    if (box && shutter) {
+      const isOpen = box.classList.contains("open");
+      if (isOpen) {
+        box.classList.remove("open");
+        shutter.style.display = "none";
+      } else {
+        box.classList.add("open");
+        shutter.style.display = "flex";
+        setTimeout(() => {
+          document.getElementById("sidePagesSearchInput")?.focus();
+        }, 80);
+      }
     }
   });
-
-  // Desktop Left Sidebar Quick Jump Links
-  document.getElementById("sideLinkAnalytics")?.addEventListener("click", () => {
-    switchMainView("dashboard");
-    setTimeout(() => {
-      document.getElementById("timeframeSelector")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
-  });
-  document.getElementById("sideLinkVideos")?.addEventListener("click", () => {
-    switchMainView("dashboard");
-    setTimeout(() => {
-      const el = document.getElementById("videosTableBody") || document.getElementById("videosMobileCardsList");
-      el?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 100);
-  });
-  document.getElementById("sideLinkDrive")?.addEventListener("click", () => {
-    switchMainView("dashboard");
-    setTimeout(() => {
-      document.getElementById("driveStockVal")?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
-  });
-  document.getElementById("sideLinkIp")?.addEventListener("click", () => {
-    switchMainView("dashboard");
-    setTimeout(() => {
-      document.getElementById("ipAddressVal")?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
-  });
-  document.getElementById("sideLinkSettings")?.addEventListener("click", toggleStudioAuthDrawer);
 
   // Mobile Bottom Navigation Panel
   document.getElementById("bottomNavDashboard")?.addEventListener("click", () => {
