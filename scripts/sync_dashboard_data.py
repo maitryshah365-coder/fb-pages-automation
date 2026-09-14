@@ -628,15 +628,29 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         }
     }
 
-    # Calculate live Google Drive stock remaining
+    # Calculate live Google Drive stock remaining from audit file or verified counts
+    drive_audit_path = os.path.join(BASE_DIR, "data", "drive_folders_audit.json")
+    audit_data = {}
+    if os.path.exists(drive_audit_path):
+        try:
+            with open(drive_audit_path, "r", encoding="utf-8") as af:
+                audit_data = json.load(af)
+        except Exception:
+            pass
+
+    # Exact verified counts from deep Google Drive scan (all pages fully paginated)
     known_base = {
-        "1040244259164767": 48,   # Charmy Owen
-        "1034326643100670": 151,  # Bright Flare Hub
-        "637367679454577": 367,   # Crown Empire
-        "640019675857269": 446,   # Crafty Champions
-        "528360240361556": 319,   # Dominion Authority
-        "503358542855153": 287,   # Family Fancy
-        "468230386376818": 125    # Bot Mask
+        "1040244259164767": audit_data.get("Charmy Owen", {}).get("video_count", 46),
+        "956622247541040":  audit_data.get("Horizon Nest Daily", {}).get("video_count", 232),
+        "1034326643100670": audit_data.get("Bright Flare Hub", {}).get("video_count", 148),
+        "795016603693140":  audit_data.get("Lopez Edward", {}).get("video_count", 861),
+        "637367679454577":  audit_data.get("Crown Empire", {}).get("video_count", 364),
+        "640019675857269":  audit_data.get("Crafty Champions", {}).get("video_count", 443),
+        "626061003919674":  audit_data.get("Fun Life", {}).get("video_count", 349),
+        "528360240361556":  audit_data.get("Dominion Authority", {}).get("video_count", 316),
+        "503358542855153":  audit_data.get("Family Fancy", {}).get("video_count", 284),
+        "468230386376818":  audit_data.get("Bot Mask", {}).get("video_count", 123),
+        "106309715659174":  audit_data.get("Fresh Hive Network", {}).get("video_count", 336)
     }
     base_stock = known_base.get(pid, 0)
     current_drive_stock = max(0, base_stock - today_posts) if base_stock > 0 else 0

@@ -1689,13 +1689,17 @@ const GH_WORKFLOW_FILE = "post.yml";
 
 // Known active configured Drive pages (page names for config.yaml & Drive folders)
 const DRIVE_CONFIGURED_PAGES = {
-  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 48, handle: "charmyowen" },
-  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 151, handle: "brightflarehub" },
-  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 367, handle: "crownempire" },
-  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 446, handle: "craftychampions" },
-  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 319, handle: "dominionauthority" },
-  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 287, handle: "familyfancy" },
-  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 125, handle: "botmask" }
+  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 46, handle: "charmyowen" },
+  "956622247541040":  { pageName: "page_4", displayName: "Horizon Nest Daily", ready: true, videoCount: 232, handle: "horizonnestdaily" },
+  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 148, handle: "brightflarehub" },
+  "795016603693140":  { pageName: "page_7", displayName: "Lopez Edward", ready: true, videoCount: 861, handle: "lopezedward" },
+  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 364, handle: "crownempire" },
+  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 443, handle: "craftychampions" },
+  "626061003919674":  { pageName: "page_10", displayName: "Fun Life", ready: true, videoCount: 349, handle: "funlife" },
+  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 316, handle: "dominionauthority" },
+  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 284, handle: "familyfancy" },
+  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 123, handle: "botmask" },
+  "106309715659174":  { pageName: "page_15", displayName: "Fresh Hive Network", ready: true, videoCount: 336, handle: "freshhivenetwork" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
