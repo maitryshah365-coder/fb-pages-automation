@@ -85,7 +85,7 @@ jobs:
             ARGS="$ARGS --dry-run"
           fi
           if [ -n "${{ github.event.inputs.page }}" ]; then
-            ARGS="$ARGS --page ${{ github.event.inputs.page }}"
+            ARGS="$ARGS --page \"${{ github.event.inputs.page }}\""
           fi
           python main.py --config config.yaml $ARGS
 

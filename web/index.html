@@ -41,6 +41,12 @@
       </div>
 
       <div class="header-controls">
+        <button id="btnOpenInstantPost" class="btn-instant-upload" title="Instant Upload Studio (Select Pages & Post Now)">
+          <span class="instant-pulse-dot"></span>
+          <span class="instant-icon">🚀</span>
+          <span class="instant-label">Upload Now</span>
+        </button>
+
         <button id="btnOpenPageDrawer" class="btn-drawer-trigger" title="Open Pages List">
           <span class="drawer-icon">📑</span>
           <span class="drawer-label">Pages (<span id="headerActivePageShortName">All Portfolio</span>)</span>
@@ -396,7 +402,77 @@
     </div>
   </div>
 
+  <!-- ================= INSTANT UPLOAD STUDIO DEDICATED MODAL ================= -->
+  <div id="instantPostBackdrop" class="instant-backdrop" style="display: none;"></div>
+  <div id="instantPostModal" class="instant-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="instantModalTitle">
+    <div class="instant-header">
+      <div class="instant-title-group">
+        <div class="instant-logo-badge">🚀</div>
+        <div>
+          <h3 class="instant-title" id="instantModalTitle">Instant Upload Studio</h3>
+          <p class="instant-sub">Tick the boxes below to trigger immediate Facebook post for selected pages</p>
+        </div>
+      </div>
+      <button id="btnCloseInstantModal" class="btn-instant-close" title="Close">✕</button>
+    </div>
+
+    <!-- Quick Selection Toolbar -->
+    <div class="instant-toolbar">
+      <div class="instant-toolbar-left">
+        <button type="button" id="btnInstantSelectAll" class="toolbar-pill-btn">☑️ Select All Ready</button>
+        <button type="button" id="btnInstantClearAll" class="toolbar-pill-btn">⬜ Clear All</button>
+      </div>
+      <div class="instant-selected-badge" id="instantSelectedCountBadge">
+        <span id="instantSelectedCount">0</span> Pages Selected
+      </div>
+    </div>
+
+    <!-- Pages List with Custom Checkboxes -->
+    <div class="instant-pages-scroll" id="instantPagesList">
+      <!-- Populated dynamically by gold_app.js -->
+    </div>
+
+    <!-- GitHub Connection Status & Settings -->
+    <div class="instant-auth-panel">
+      <div class="instant-auth-summary">
+        <div class="auth-status-left">
+          <span class="auth-dot" id="authStatusDot">🟢</span>
+          <span class="auth-text" id="authStatusText">Cloud Dispatch Ready (GitHub Actions)</span>
+        </div>
+        <button type="button" id="btnToggleAuthDrawer" class="btn-auth-toggle">⚙️ Key</button>
+      </div>
+      <div id="instantAuthDrawer" class="instant-auth-drawer" style="display: none;">
+        <p class="auth-hint">GitHub Access Token (Saved locally on your device for cloud execution):</p>
+        <div class="auth-input-group">
+          <input type="password" id="inputGithubPat" class="auth-input" placeholder="ghp_xxxxxxxxxxxx...">
+          <button type="button" id="btnSaveGithubPat" class="btn-save-pat">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Execution Status Bar -->
+    <div id="instantExecutionBox" class="instant-exec-box" style="display: none;">
+      <div class="exec-spinner-row">
+        <div class="exec-spinner" id="execSpinner"></div>
+        <div class="exec-info">
+          <div class="exec-headline" id="execHeadline">Triggering Cloud Automation...</div>
+          <div class="exec-sub" id="execSub">Connecting to GitHub Actions Pipeline...</div>
+        </div>
+      </div>
+      <div class="exec-actions" id="execActions"></div>
+    </div>
+
+    <!-- Modal Footer Actions -->
+    <div class="instant-footer">
+      <button type="button" id="btnCancelInstantModal" class="btn-instant-cancel">Cancel</button>
+      <button type="button" id="btnExecuteInstantPost" class="btn-instant-submit" disabled>
+        <span class="submit-icon">🚀</span>
+        <span id="btnExecuteInstantText">Post Now to Selected Pages (0)</span>
+      </button>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=3.0.0"></script>
+  <script src="js/gold_app.js?v=3.1.0"></script>
 </body>
 </html>

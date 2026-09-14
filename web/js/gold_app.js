@@ -929,6 +929,17 @@ function closePageDrawer() {
 // ----------------- Event Listeners -----------------
 
 function setupEventListeners() {
+  // Instant Upload Studio Triggers & Modal Listeners
+  document.getElementById("btnOpenInstantPost")?.addEventListener("click", openInstantUploadModal);
+  document.getElementById("btnCloseInstantModal")?.addEventListener("click", closeInstantUploadModal);
+  document.getElementById("btnCancelInstantModal")?.addEventListener("click", closeInstantUploadModal);
+  document.getElementById("instantPostBackdrop")?.addEventListener("click", closeInstantUploadModal);
+  document.getElementById("btnInstantSelectAll")?.addEventListener("click", selectAllReadyPages);
+  document.getElementById("btnInstantClearAll")?.addEventListener("click", clearAllSelectedPages);
+  document.getElementById("btnToggleAuthDrawer")?.addEventListener("click", toggleAuthDrawer);
+  document.getElementById("btnSaveGithubPat")?.addEventListener("click", saveCustomGithubPat);
+  document.getElementById("btnExecuteInstantPost")?.addEventListener("click", executeInstantPost);
+
   // Drawer
   document.getElementById("btnOpenPageDrawer")?.addEventListener("click", openPageDrawer);
   document.getElementById("btnClosePageDrawer")?.addEventListener("click", closePageDrawer);
@@ -1020,3 +1031,325 @@ function startSlotCountdown() {
   updateTimer();
   setInterval(updateTimer, 1000);
 }
+
+// =========================================================================
+// INSTANT UPLOAD STUDIO LOGIC (MULTI-PAGE SELECTION & CLOUD DISPATCH)
+// =========================================================================
+
+const DEFAULT_GH_TOKEN = "";
+const GH_OWNER = "maitryshah365-coder";
+const GH_REPO = "fb-pages-automation";
+const GH_WORKFLOW_FILE = "post.yml";
+
+// Known active configured Drive pages (page names for config.yaml)
+const DRIVE_CONFIGURED_PAGES = {
+  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true },
+  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true },
+  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true },
+  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true },
+  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true },
+  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true },
+  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true }
+};
+
+let instantSelectedPageIds = new Set();
+let isDispatchingUpload = false;
+
+function getStoredPat() {
+  return localStorage.getItem("raj_github_pat") || DEFAULT_GH_TOKEN;
+}
+
+function openInstantUploadModal() {
+  const modal = document.getElementById("instantPostModal");
+  const backdrop = document.getElementById("instantPostBackdrop");
+  if (!modal || !backdrop) return;
+
+  renderInstantPagesList();
+  updateInstantSelectionUI();
+  checkAuthStatus();
+
+  modal.style.display = "flex";
+  backdrop.style.display = "block";
+}
+
+function closeInstantUploadModal() {
+  if (isDispatchingUpload) {
+    if (!confirm("Upload trigger is currently active. Close anyway?")) return;
+  }
+  const modal = document.getElementById("instantPostModal");
+  const backdrop = document.getElementById("instantPostBackdrop");
+  if (modal) modal.style.display = "none";
+  if (backdrop) backdrop.style.display = "none";
+}
+
+function checkAuthStatus() {
+  const token = getStoredPat();
+  const authDot = document.getElementById("authStatusDot");
+  const authText = document.getElementById("authStatusText");
+  const inputPat = document.getElementById("inputGithubPat");
+
+  if (inputPat) inputPat.value = token ? "••••••••••••••••••••••••••••••••" : "";
+  if (token && token.startsWith("ghp_")) {
+    if (authDot) authDot.innerText = "🟢";
+    if (authText) authText.innerText = "Cloud Dispatch Ready (GitHub Actions)";
+  } else {
+    if (authDot) authDot.innerText = "🔴";
+    if (authText) authText.innerText = "GitHub Token Not Set";
+  }
+}
+
+function toggleAuthDrawer() {
+  const drawer = document.getElementById("instantAuthDrawer");
+  if (!drawer) return;
+  drawer.style.display = drawer.style.display === "none" ? "block" : "none";
+}
+
+function saveCustomGithubPat() {
+  const input = document.getElementById("inputGithubPat");
+  if (!input) return;
+  const val = input.value.trim();
+  if (val && val.startsWith("ghp_")) {
+    localStorage.setItem("raj_github_pat", val);
+    showToast("✅ GitHub Token Saved Successfully!");
+    checkAuthStatus();
+    toggleAuthDrawer();
+  } else {
+    alert("Please enter a valid GitHub token starting with 'ghp_'");
+  }
+}
+
+function renderInstantPagesList() {
+  const container = document.getElementById("instantPagesList");
+  if (!container || !fullData || !fullData.pages) return;
+
+  container.innerHTML = "";
+
+  fullData.pages.forEach(page => {
+    const pId = String(page.id);
+    const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
+    const isDriveReady = Boolean(driveInfo?.ready);
+    const isSelected = instantSelectedPageIds.has(pId);
+
+    const row = document.createElement("div");
+    row.className = `instant-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}`;
+    row.dataset.pageId = pId;
+
+    row.innerHTML = `
+      <div class="page-row-left">
+        <div class="instant-checkbox">
+          <span class="instant-checkbox-mark">✓</span>
+        </div>
+        <img class="instant-page-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
+        <div class="instant-page-meta">
+          <span class="instant-page-name">${page.name}</span>
+          <span class="instant-page-sub">Page #${page.index} • ID: ${pId}</span>
+        </div>
+      </div>
+      <div class="page-row-right">
+        ${isDriveReady 
+          ? `<span class="drive-status-badge ready">🟢 Ready in Drive</span>` 
+          : `<span class="drive-status-badge pending">⚪ Setup Pending</span>`}
+      </div>
+    `;
+
+    if (isDriveReady) {
+      row.addEventListener("click", () => {
+        togglePageSelection(pId);
+      });
+    } else {
+      row.title = "Drive folder not configured for this page yet in config.yaml";
+    }
+
+    container.appendChild(row);
+  });
+}
+
+function togglePageSelection(pageId) {
+  if (instantSelectedPageIds.has(pageId)) {
+    instantSelectedPageIds.delete(pageId);
+  } else {
+    instantSelectedPageIds.add(pageId);
+  }
+  updateInstantSelectionUI();
+}
+
+function selectAllReadyPages() {
+  if (!fullData || !fullData.pages) return;
+  fullData.pages.forEach(page => {
+    const pId = String(page.id);
+    if (DRIVE_CONFIGURED_PAGES[pId]?.ready) {
+      instantSelectedPageIds.add(pId);
+    }
+  });
+  updateInstantSelectionUI();
+}
+
+function clearAllSelectedPages() {
+  instantSelectedPageIds.clear();
+  updateInstantSelectionUI();
+}
+
+function updateInstantSelectionUI() {
+  const count = instantSelectedPageIds.size;
+  const countBadge = document.getElementById("instantSelectedCount");
+  const execText = document.getElementById("btnExecuteInstantText");
+  const execBtn = document.getElementById("btnExecuteInstantPost");
+
+  if (countBadge) countBadge.innerText = count;
+  if (execText) execText.innerText = count > 0 ? `Post Now to ${count} Selected Pages` : `Post Now (0 Selected)`;
+  if (execBtn) execBtn.disabled = count === 0 || isDispatchingUpload;
+
+  // Update rows visual state
+  document.querySelectorAll(".instant-page-row").forEach(row => {
+    const pId = row.dataset.pageId;
+    if (instantSelectedPageIds.has(pId)) {
+      row.classList.add("selected");
+    } else {
+      row.classList.remove("selected");
+    }
+  });
+}
+
+async function executeInstantPost() {
+  if (instantSelectedPageIds.size === 0 || isDispatchingUpload) return;
+
+  const pat = getStoredPat();
+  if (!pat) {
+    alert("Please enter a valid GitHub Personal Access Token in the Settings drawer below to authorize cloud dispatch.");
+    toggleAuthDrawer();
+    return;
+  }
+
+  // Collect page names for the selected pages
+  const selectedList = [];
+  const selectedDisplayNames = [];
+  instantSelectedPageIds.forEach(pId => {
+    const info = DRIVE_CONFIGURED_PAGES[pId];
+    if (info) {
+      selectedList.push(info.pageName);
+      selectedDisplayNames.push(info.displayName);
+    } else {
+      selectedList.push(pId);
+      selectedDisplayNames.push(pId);
+    }
+  });
+
+  const pageParam = selectedList.join(",");
+  const promptConfirm = confirm(`Are you sure you want to trigger immediate Google Drive post for ${selectedList.length} pages?\n\nTarget Pages:\n• ${selectedDisplayNames.join("\n• ")}\n\nVideos will be uploaded to Facebook and automatically deleted from Drive upon success.`);
+  if (!promptConfirm) return;
+
+  isDispatchingUpload = true;
+  updateInstantSelectionUI();
+
+  const execBox = document.getElementById("instantExecutionBox");
+  const spinner = document.getElementById("execSpinner");
+  const headline = document.getElementById("execHeadline");
+  const sub = document.getElementById("execSub");
+  const actions = document.getElementById("execActions");
+
+  if (execBox) execBox.style.display = "block";
+  if (spinner) spinner.className = "exec-spinner";
+  if (headline) headline.innerText = "Triggering Cloud Pipeline...";
+  if (sub) sub.innerText = `Sending dispatch request for ${selectedList.length} pages to GitHub Actions...`;
+  if (actions) actions.innerHTML = "";
+
+  try {
+    const dispatchUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/dispatches`;
+    const res = await fetch(dispatchUrl, {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `Bearer ${pat}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ref: "main",
+        inputs: {
+          page: pageParam,
+          dry_run: false
+        }
+      })
+    });
+
+    if (res.status === 204) {
+      if (headline) headline.innerText = "🚀 Pipeline Dispatched Successfully!";
+      if (sub) sub.innerText = `Cloud runner is launching for: ${selectedDisplayNames.join(", ")}. Polling live run status...`;
+      showToast("🚀 Cloud Upload Pipeline Triggered!");
+
+      // Poll for active workflow run
+      setTimeout(() => pollWorkflowRun(pat, selectedDisplayNames), 2500);
+    } else {
+      const errText = await res.text();
+      throw new Error(`GitHub API returned ${res.status}: ${errText}`);
+    }
+  } catch (err) {
+    console.error("Instant post dispatch failed:", err);
+    if (spinner) spinner.className = "exec-spinner done";
+    if (headline) headline.innerText = "❌ Dispatch Failed";
+    if (sub) sub.innerText = err.message || "Could not connect to GitHub Actions API.";
+    isDispatchingUpload = false;
+    updateInstantSelectionUI();
+  }
+}
+
+async function pollWorkflowRun(pat, pageNames) {
+  const spinner = document.getElementById("execSpinner");
+  const headline = document.getElementById("execHeadline");
+  const sub = document.getElementById("execSub");
+  const actions = document.getElementById("execActions");
+
+  try {
+    const runsUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/runs?per_page=3`;
+    const res = await fetch(runsUrl, {
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `Bearer ${pat}`
+      }
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const latestRun = data.workflow_runs?.[0];
+
+      if (latestRun) {
+        const runUrl = latestRun.html_url;
+        const status = latestRun.status;
+        const conclusion = latestRun.conclusion;
+
+        if (headline) headline.innerText = `Automation Running (Run #${latestRun.run_number})`;
+        if (sub) sub.innerText = `Status: ${status.toUpperCase()} • Pages: ${pageNames.join(", ")}`;
+        
+        if (actions) {
+          actions.innerHTML = `
+            <a class="exec-link" href="${runUrl}" target="_blank" rel="noopener">🔗 View Live GitHub Action Execution ↗</a>
+          `;
+        }
+
+        if (status === "completed") {
+          if (spinner) spinner.className = "exec-spinner done";
+          if (conclusion === "success") {
+            if (headline) headline.innerText = "✅ Upload & Post Complete!";
+            if (sub) sub.innerText = "All selected pages published successfully and Drive cleaned up!";
+            showToast("✅ Selected Pages Published & Verified!");
+          } else {
+            if (headline) headline.innerText = "⚠️ Execution Finished with Warnings";
+            if (sub) sub.innerText = `Conclusion: ${conclusion}. Check run logs on GitHub.`;
+          }
+          isDispatchingUpload = false;
+          updateInstantSelectionUI();
+          // Trigger live sync to refresh dashboard numbers
+          setTimeout(() => syncLiveMetaGraph(), 4000);
+          return;
+        }
+      }
+    }
+  } catch (pollErr) {
+    console.warn("Polling error:", pollErr);
+  }
+
+  // Continue polling every 4 seconds if still dispatching
+  if (isDispatchingUpload) {
+    setTimeout(() => pollWorkflowRun(pat, pageNames), 4000);
+  }
+}
+

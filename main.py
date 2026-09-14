@@ -131,11 +131,23 @@ def main():
 
     pages_to_run = config.pages
     if args.page:
-        target_page = config.get_page_by_name(args.page)
-        if not target_page:
-            logger.error(f"Specified page '{args.page}' not found in configuration.")
+        raw_items = [x.strip() for x in args.page.split(",") if x.strip()]
+        selected = []
+        for item in raw_items:
+            p = config.get_page_by_name(item) or config.get_page_by_id(item)
+            if not p:
+                for cand in config.pages:
+                    if item.lower() in [cand.name.lower(), cand.page_id.lower()]:
+                        p = cand
+                        break
+            if p and p not in selected:
+                selected.append(p)
+            elif not p:
+                logger.warning(f"Requested page '{item}' not found in configuration.")
+        if not selected:
+            logger.error(f"None of the specified pages '{args.page}' were found in configuration.")
             sys.exit(1)
-        pages_to_run = [target_page]
+        pages_to_run = selected
 
     logger.info(f"Loaded {len(pages_to_run)} Facebook Pages to evaluate in this run.")
 
