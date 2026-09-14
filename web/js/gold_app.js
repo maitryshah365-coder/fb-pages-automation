@@ -255,6 +255,64 @@ async function syncLiveMetaGraph() {
     });
     await Promise.all(reelPromises);
 
+    // 4. Live discovery of newly posted reels directly from Meta Graph API for each page
+    const recentReelPromises = fullData.pages.map(async (p) => {
+      if (!p.access_token) return;
+      try {
+        const reelsUrl = `https://graph.facebook.com/v20.0/${p.id}/video_reels?fields=id,title,description,created_time,picture,permalink_url,views,likes.summary(true),comments.summary(true)&limit=5&access_token=${p.access_token}`;
+        const resp = await fetch(reelsUrl);
+        if (resp.ok) {
+          const reelsData = await resp.json();
+          const items = reelsData.data || [];
+          items.forEach(rk => {
+            const vid = String(rk.id);
+            const existing = (fullData.server_uploaded_videos || []).find(v => String(v.id) === vid);
+            if (!existing) {
+              const cleanIso = (rk.created_time || "").replace("+0000", "+00:00");
+              const d = new Date(cleanIso || Date.now());
+              const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+              const dispDate = `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+              let hours = d.getHours();
+              const mins = String(d.getMinutes()).padStart(2, '0');
+              const ampm = hours >= 12 ? 'PM' : 'AM';
+              hours = hours % 12 || 12;
+              const dispTime = `${hours}:${mins} ${ampm}`;
+
+              const newReel = {
+                id: vid,
+                title: rk.title || rk.description || `${p.name} Reel`,
+                description: rk.description || rk.title || "",
+                created_at: dispDate,
+                created_time: dispTime,
+                created_time_iso: rk.created_time,
+                posted_at: rk.created_time,
+                views: rk.views || 0,
+                likes: rk.likes?.summary?.total_count || 0,
+                comments: rk.comments?.summary?.total_count || 0,
+                subscribers_gain: "+0",
+                visibility: "Public",
+                restrictions: "None",
+                page_name: p.name,
+                page_id: p.id,
+                thumbnail: rk.picture || `https://graph.facebook.com/v20.0/${vid}/picture`,
+                permalink: rk.permalink_url || `/reel/${vid}/`,
+                server_uploaded: true,
+                is_post_now: true,
+                source: "post_now"
+              };
+              if (!fullData.server_uploaded_videos) fullData.server_uploaded_videos = [];
+              fullData.server_uploaded_videos.unshift(newReel);
+              if (!p.videos) p.videos = [];
+              if (!p.videos.some(pv => String(pv.id) === vid)) {
+                p.videos.unshift(newReel);
+              }
+            }
+          });
+        }
+      } catch (e) {}
+    });
+    await Promise.all(recentReelPromises);
+
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     if (statusText) statusText.innerText = `Meta Graph API: Live (${updatedPages || fullData.pages.length} Pages Verified)`;
@@ -2194,8 +2252,9 @@ async function executeStudioPost() {
         terminal.scrollTop = terminal.scrollHeight;
       }
 
-      // Poll for active workflow run
-      setTimeout(() => pollStudioWorkflowRun(pat, selectedDisplayNames), 2500);
+      const dispatchStartTime = Date.now();
+      // Poll for active workflow run specifically for post.yml
+      setTimeout(() => pollStudioWorkflowRun(pat, selectedDisplayNames, dispatchStartTime), 2500);
     } else {
       const errText = await res.text();
       throw new Error(`GitHub API returned ${res.status}: ${errText}`);
@@ -2215,12 +2274,12 @@ async function executeStudioPost() {
   }
 }
 
-async function pollStudioWorkflowRun(pat, pageNames) {
+async function pollStudioWorkflowRun(pat, pageNames, dispatchStartTime = 0) {
   const terminal = document.getElementById("terminalConsoleBody");
   const badge = document.getElementById("terminalStatusBadge");
 
   try {
-    const runsUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/runs?per_page=3`;
+    const runsUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/runs?per_page=5`;
     const res = await fetch(runsUrl, {
       headers: {
         "Accept": "application/vnd.github.v3+json",
@@ -2230,7 +2289,11 @@ async function pollStudioWorkflowRun(pat, pageNames) {
 
     if (res.ok) {
       const data = await res.json();
-      const latestRun = data.workflow_runs?.[0];
+      const runs = data.workflow_runs || [];
+      const latestRun = runs.find(r => {
+        const t = new Date(r.created_at).getTime();
+        return !dispatchStartTime || (t >= dispatchStartTime - 45000);
+      }) || runs[0];
 
       if (latestRun) {
         const runUrl = latestRun.html_url;
@@ -2243,17 +2306,17 @@ async function pollStudioWorkflowRun(pat, pageNames) {
 
         if (status === "completed") {
           if (badge) {
-            badge.innerText = conclusion === "success" ? "🟢 BATCH COMPLETE" : "⚠️ FINISHED";
+            badge.innerText = conclusion === "success" ? "🟢 POST PUBLISHED & SYNCED" : `⚠️ FINISHED (${(conclusion || '').toUpperCase()})`;
             badge.style.color = conclusion === "success" ? "#34d399" : "#fbbf24";
           }
 
           if (terminal) {
-            terminal.innerHTML += `\n<span style="color:#64748b;">[${timeStr}]</span> <strong style="color:#34d399;">[COMPLETE] Execution #${runNum} Finished (${conclusion.toUpperCase()})!</strong>`;
+            terminal.innerHTML += `\n<span style="color:#64748b;">[${timeStr}]</span> <strong style="color:#34d399;">[COMPLETE] Execution #${runNum} Finished (${conclusion ? conclusion.toUpperCase() : 'DONE'})!</strong>`;
             terminal.innerHTML += `\n<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[AUTO-SYNC]</span> Fetching verified upload summary & synchronizing state...\n`;
             terminal.scrollTop = terminal.scrollHeight;
           }
 
-          showToast("✅ Post Complete! Auto-syncing data...");
+          showToast("✅ Post Complete! Auto-syncing live data...");
           await autoSyncAfterUpload();
 
           isStudioDispatching = false;
@@ -2261,7 +2324,12 @@ async function pollStudioWorkflowRun(pat, pageNames) {
           return;
         } else {
           if (badge) {
-            badge.innerText = `🟡 RUNNING (#${runNum} - ${status.toUpperCase()})`;
+            badge.innerText = `🟡 RUNNING PIPELINE (Run #${runNum} - ${status.toUpperCase()})...`;
+            badge.style.color = "#f5ba23";
+          }
+          if (terminal) {
+            terminal.innerHTML += `\n<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#f5ba23;">[RUNNING]</span> Runner is executing: downloading video & publishing reel to Facebook...`;
+            terminal.scrollTop = terminal.scrollHeight;
           }
         }
       }
@@ -2272,7 +2340,7 @@ async function pollStudioWorkflowRun(pat, pageNames) {
 
   // Continue polling every 4 seconds if dispatching
   if (isStudioDispatching) {
-    setTimeout(() => pollStudioWorkflowRun(pat, pageNames), 4000);
+    setTimeout(() => pollStudioWorkflowRun(pat, pageNames, dispatchStartTime), 4000);
   }
 }
 
