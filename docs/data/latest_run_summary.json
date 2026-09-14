@@ -1,101 +1,33 @@
 {
-  "run_id": "34844544557",
-  "run_number": "7",
-  "completed_at": "2026-09-14T12:40:47.528194+00:00",
+  "run_id": "34850505832",
+  "run_number": "8",
+  "completed_at": "2026-09-14T13:39:05.006818+00:00",
   "runner_telemetry": {
-    "ip": "57.154.5.71",
-    "city": "Phoenix",
-    "region": "Arizona",
+    "ip": "130.131.231.54",
+    "city": "Des Moines",
+    "region": "Iowa",
     "country": "US",
-    "loc": "33.4484,-112.0740",
+    "loc": "41.6005,-93.6091",
     "org": "AS8075 Microsoft Corporation",
-    "postal": "85003",
-    "timezone": "America/Phoenix",
+    "postal": "50309",
+    "timezone": "America/Chicago",
     "readme": "https://ipinfo.io/missingauth"
   },
-  "dry_run": false,
+  "dry_run": true,
   "results": [
     {
-      "status": "success",
+      "status": "dry_run_success",
       "page": "page_9",
-      "drive_file_id": "1nHUb5mCR6R9AM3zWUKWm23ViZPoJiI_0",
-      "facebook_video_id": "2067400267372169",
-      "filename": "Chế bẫy chuột bằng Xô nhựa dễ dàng #mousetrap #animals #mouse .mp4",
-      "post_type": "classic_video",
+      "file": "Mouse trap with aquarium #mousetraptp #mouse #rattrap #bucketmousetrap .mp4",
+      "drive_file_id": "1LvEwuIwLPVMMxTdLdAVqHK697sHErZyh",
       "page_id": "640019675857269",
       "page_config_name": "page_9",
       "display_name": "page_9"
-    },
-    {
-      "status": "success",
-      "page": "page_12",
-      "drive_file_id": "17SbV6iZhgadUhENxa26rSycQ7THs9LXa",
-      "facebook_video_id": "1383026640135602",
-      "filename": "🤣 Baby Funny Face #baby #funny #cute #shorts #lol .mp4",
-      "post_type": "classic_video",
-      "page_id": "503358542855153",
-      "page_config_name": "page_12",
-      "display_name": "page_12"
-    },
-    {
-      "status": "success",
-      "page": "page_2",
-      "drive_file_id": "15woeNqUAUkwJ2uN3CwdOBtm_nRqMmEZk",
-      "facebook_video_id": "1401531134657917",
-      "filename": "Flood Water Destroyed Tiny Rescue Camp! #rescuecamp #miniatureworld #macrovideo #viralvideo #storm #cinematic #fyp #tinyworld #flood #rescue.mp4",
-      "post_type": "classic_video",
-      "page_id": "1040244259164767",
-      "page_config_name": "page_2",
-      "display_name": "page_2"
-    },
-    {
-      "status": "success",
-      "page": "page_5",
-      "drive_file_id": "1spZi3UIj6JWEiGUKIUbKAyDo5ZAzqn1o",
-      "facebook_video_id": "1768695044171979",
-      "filename": "Nobody Wanted This Outcome #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals..mp4",
-      "post_type": "classic_video",
-      "page_id": "1034326643100670",
-      "page_config_name": "page_5",
-      "display_name": "page_5"
-    },
-    {
-      "status": "success",
-      "page": "page_8",
-      "drive_file_id": "1PXJCVdy1aiUsaV-KDsV7VHmNu4DDa4gE",
-      "facebook_video_id": "4579686832309374",
-      "filename": "#Shorts _53.mp4",
-      "post_type": "reel",
-      "page_id": "637367679454577",
-      "page_config_name": "page_8",
-      "display_name": "page_8"
-    },
-    {
-      "status": "success",
-      "page": "page_11",
-      "drive_file_id": "1NGl5_avuYCPK8zqdtSiySEo36jJb5TKY",
-      "facebook_video_id": "1805195834013527",
-      "filename": "No baby kiss for mom 😆💋 .mp4",
-      "post_type": "classic_video",
-      "page_id": "528360240361556",
-      "page_config_name": "page_11",
-      "display_name": "page_11"
-    },
-    {
-      "status": "success",
-      "page": "page_14",
-      "drive_file_id": "1lAQ7oOvUWjATWe3s4hLeDh2BPtpty3QL",
-      "facebook_video_id": "3413799545467461",
-      "filename": "#FoodChallenge #CandyLover #TasteTest #ReelChallenge #FoodieFun (431).mp4",
-      "post_type": "classic_video",
-      "page_id": "468230386376818",
-      "page_config_name": "page_14",
-      "display_name": "page_14"
     }
   ],
   "stats": {
-    "total": 7,
-    "success": 7,
+    "total": 1,
+    "success": 1,
     "skipped": 0,
     "failed": 0
   }
