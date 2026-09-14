@@ -68,13 +68,18 @@ if os.path.exists(db_path):
     conn.close()
 
 PROTECTED_FOLDER_IDS = {
+    "1IL8OAUOfOZpisnHiGV0cKeO6x7O_UYRS", # Main Parent Folder - Usa Ids GITHUB
     "1D3y9fSqvz8Be1ted5Wic7egRJzBn--gB", # Page 2 - Charmy Owen
+    "1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs", # Page 4 - Horizon Nest Daily
     "1ohpJm22Koo_ouVSQZCwiHE0pwAyAyxDg", # Page 5 - Bright Flare Hub
+    "1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN", # Page 7 - Lopez Edward
     "1rjGrEIrCk9TlEJBABjo0K-8MKAaBxZy9", # Page 8 - Crown Empire
     "1qMwQtRtvJXbmV8iEYW1GS0IQ8VDLWA6s", # Page 9 - Crafty Champions
+    "1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ", # Page 10 - Fun Life
     "1Kir7IF-zX_XN8FoaasVJTPT_TRQ1J0Xg", # Page 11 - Dominion Authority
     "1UDZx4XRzdn-5r7O9WRfUOSui2nCWuR5R", # Page 12 - Family Fancy
     "1g_Z4BtdfNqT2jF3hL9tExTr9W3Ly1YrZ", # Page 14 - Bot Mask
+    "1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH", # Page 15 - Fresh Hive Network
 }
 
 page_token = None

@@ -49,7 +49,7 @@ pages:
   - page_id: "956622247541040"
     name: "page_4"  # Horizon Nest Daily
     enabled: true
-    drive_folder_id: "REPLACE_WITH_HORIZON_NEST_DAILY_DRIVE_FOLDER_ID"
+    drive_folder_id: "1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs"
     daily_limit: 4
     title_mode: "filename"
     description_footer: ""
@@ -76,7 +76,7 @@ pages:
   - page_id: "795016603693140"
     name: "page_7"  # Lopez Edward
     enabled: true
-    drive_folder_id: "REPLACE_WITH_LOPEZ_EDWARD_DRIVE_FOLDER_ID"
+    drive_folder_id: "1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN"
     daily_limit: 4
     title_mode: "filename"
     description_footer: ""
@@ -103,7 +103,7 @@ pages:
   - page_id: "626061003919674"
     name: "page_10"  # Fun Life
     enabled: true
-    drive_folder_id: "REPLACE_WITH_FUN_LIFE_DRIVE_FOLDER_ID"
+    drive_folder_id: "1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ"
     daily_limit: 4
     title_mode: "filename"
     description_footer: ""
@@ -148,7 +148,7 @@ pages:
   - page_id: "106309715659174"
     name: "page_15"  # Fresh Hive Network
     enabled: true
-    drive_folder_id: "REPLACE_WITH_FRESH_HIVE_NETWORK_DRIVE_FOLDER_ID"
+    drive_folder_id: "1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH"
     daily_limit: 4
     title_mode: "filename"
     description_footer: ""
