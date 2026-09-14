@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=3.2.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=3.5.0">
 </head>
 <body>
 
@@ -115,7 +115,7 @@
 
       <!-- BOX 2: ALL PAGES LIST (SHUTTER BAND BY DEFAULT - CLICK PAR HI OPEN HOGA) -->
       <div class="sidebar-nav-box sidebar-pages-list-box" id="sidePagesAccordionBox">
-        <div class="sidebar-pages-header" id="btnSidePagesListToggle" title="Click to show/hide 15 pages">
+        <button type="button" class="sidebar-pages-header" id="btnSidePagesListToggle" onclick="toggleSidePagesShutter()" title="Click to show/hide 15 pages">
           <div class="pages-header-left">
             <span class="pages-header-icon">📑</span>
             <div class="pages-header-text">
@@ -127,12 +127,12 @@
             <span class="pages-count-pill" id="sidePagesCountBadge">15 Pages</span>
             <span class="pages-toggle-arrow" id="sidePagesToggleArrow">▼</span>
           </div>
-        </div>
+        </button>
 
         <!-- Shutter Body (Closed by default - Shutter Band) -->
-        <div class="sidebar-pages-body" id="sidePagesShutterBody" style="display: none;">
+        <div class="sidebar-pages-body" id="sidePagesShutterBody">
           <div class="sidebar-pages-search-row">
-            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 15 pages...">
+            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 15 pages..." onclick="event.stopPropagation()">
           </div>
 
           <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
@@ -597,26 +597,26 @@
 
   <!-- Fixed Bottom Navigation Panel (Mobile / Phone Only - Matching User Request) -->
   <nav class="mobile-bottom-panel" id="mobileBottomPanel">
-    <button type="button" id="bottomNavDashboard" class="bottom-nav-item active" title="Master Dashboard">
+    <button type="button" id="bottomNavDashboard" class="bottom-nav-item active" onclick="selectPage('all'); switchMainView('dashboard')" title="Master Dashboard">
       <span class="bottom-nav-icon">📊</span>
       <span class="bottom-nav-label">Dashboard</span>
     </button>
-    <button type="button" id="bottomNavPages" class="bottom-nav-item" title="All 15 Pages List">
+    <button type="button" id="bottomNavPages" class="bottom-nav-item" onclick="openPageDrawer()" title="All 15 Pages List">
       <span class="bottom-nav-icon">📑</span>
       <span class="bottom-nav-label">Pages</span>
     </button>
     <!-- SINGLE ELEVATED POST NOW FOR MOBILE -->
-    <button type="button" id="bottomNavPostNow" class="bottom-nav-item bottom-nav-post-now" title="Instant Post Studio">
+    <button type="button" id="bottomNavPostNow" class="bottom-nav-item bottom-nav-post-now" onclick="switchMainView('studio')" title="Instant Post Studio">
       <div class="bottom-post-glow">
         <span class="bottom-nav-icon">🚀</span>
       </div>
       <span class="bottom-nav-label">Post Now</span>
     </button>
-    <button type="button" id="bottomNavDrive" class="bottom-nav-item" title="Drive Queue Stock">
+    <button type="button" id="bottomNavDrive" class="bottom-nav-item" onclick="switchMainView('dashboard'); document.getElementById('driveStockVal')?.scrollIntoView({ behavior: 'smooth', block: 'center' });" title="Drive Queue Stock">
       <span class="bottom-nav-icon">📁</span>
       <span class="bottom-nav-label">Drive</span>
     </button>
-    <button type="button" id="bottomNavSync" class="bottom-nav-item" title="Sync Meta API">
+    <button type="button" id="bottomNavSync" class="bottom-nav-item" onclick="syncLiveMetaGraph()" title="Sync Meta API">
       <span class="bottom-nav-icon">⚡</span>
       <span class="bottom-nav-label">Sync</span>
     </button>
@@ -637,6 +637,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=3.3.0"></script>
+  <script src="js/gold_app.js?v=3.5.0"></script>
 </body>
 </html>

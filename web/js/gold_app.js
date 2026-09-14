@@ -223,6 +223,43 @@ function renderSidebarPagesList(pages) {
   if (countBadge) countBadge.innerText = `${pages.length} Pages`;
 }
 
+let isTogglingShutter = false;
+window.toggleSidePagesShutter = function(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  if (isTogglingShutter) return;
+  isTogglingShutter = true;
+  setTimeout(() => { isTogglingShutter = false; }, 200);
+
+  const box = document.getElementById("sidePagesAccordionBox");
+  const shutter = document.getElementById("sidePagesShutterBody");
+  const arrow = document.getElementById("sidePagesToggleArrow");
+  if (!box) return;
+
+  const isCurrentlyOpen = box.classList.contains("open");
+  if (isCurrentlyOpen) {
+    box.classList.remove("open");
+    if (shutter) shutter.style.display = "none";
+    if (arrow) arrow.innerText = "▼";
+  } else {
+    box.classList.add("open");
+    if (shutter) shutter.style.display = "flex";
+    if (arrow) arrow.innerText = "▲";
+
+    // Ensure pages list is rendered
+    if (fullData && fullData.pages) {
+      renderSidebarPagesList(fullData.pages);
+    }
+    setTimeout(() => {
+      document.getElementById("sidePagesSearchInput")?.focus();
+    }, 80);
+  }
+};
+
+window.onSelectSidebarPage = function(pageId) {
+  selectPage(pageId);
+  switchMainView("dashboard");
+};
+
 function onSelectSidebarPage(pageId) {
   selectPage(pageId);
   switchMainView("dashboard");
@@ -1254,28 +1291,9 @@ function setupEventListeners() {
     syncLiveMetaGraph();
   });
 
-  // Desktop Left Sidebar All Pages Filter & Toggle
+  // Desktop Left Sidebar All Pages Filter
   document.getElementById("sidePagesSearchInput")?.addEventListener("input", () => {
     if (fullData && fullData.pages) renderSidebarPagesList(fullData.pages);
-  });
-
-  // Desktop Left Sidebar All Pages Shutter Toggle (Band by default - Click to open)
-  document.getElementById("btnSidePagesListToggle")?.addEventListener("click", () => {
-    const box = document.getElementById("sidePagesAccordionBox");
-    const shutter = document.getElementById("sidePagesShutterBody");
-    if (box && shutter) {
-      const isOpen = box.classList.contains("open");
-      if (isOpen) {
-        box.classList.remove("open");
-        shutter.style.display = "none";
-      } else {
-        box.classList.add("open");
-        shutter.style.display = "flex";
-        setTimeout(() => {
-          document.getElementById("sidePagesSearchInput")?.focus();
-        }, 80);
-      }
-    }
   });
 
   // Mobile Bottom Navigation Panel
@@ -2241,5 +2259,13 @@ function formatRelativeTime(isoStr) {
     return "";
   }
 }
+
+// Global window bindings to guarantee inline HTML onclick handlers work reliably
+window.selectPage = selectPage;
+window.switchMainView = switchMainView;
+window.syncLiveMetaGraph = syncLiveMetaGraph;
+window.openPageDrawer = openPageDrawer;
+window.closePageDrawer = closePageDrawer;
+
 
 
