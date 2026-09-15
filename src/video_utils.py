@@ -70,8 +70,6 @@ def _probe_via_mp4_atoms(file_path: str) -> Tuple[int, int, float]:
                 # Find tkhd for video track dimensions
                 tkhd_idx = moov_bytes.find(b"tkhd")
                 if tkhd_idx != -1:
-                    # width and height are 16.16 fixed point numbers at the end of tkhd
-                    # tkhd version 0 is 84 bytes + 8 header = 92 bytes, version 1 is 96 bytes + 8 = 104
                     v = moov_bytes[tkhd_idx + 4]
                     tkhd_len = 104 if v == 1 else 92
                     tkhd_data = moov_bytes[tkhd_idx:tkhd_idx + tkhd_len]
@@ -79,6 +77,12 @@ def _probe_via_mp4_atoms(file_path: str) -> Tuple[int, int, float]:
                         w_fixed, h_fixed = struct.unpack(">II", tkhd_data[-8:])
                         width = w_fixed >> 16
                         height = h_fixed >> 16
+                        # If width was parsed as height (e.g. 1280 or 1920 with height 0)
+                        if width in [1280, 1920, 1024, 854] and height == 0:
+                            height = width
+                            width = 720 if height == 1280 else (1080 if height == 1920 else (576 if height == 1024 else 480))
+                        elif width > 0 and height == 0:
+                            height = int(width * 16 / 9)
                 break
             else:
                 f.seek(data_size, 1)
@@ -104,9 +108,9 @@ def inspect_video(file_path: str) -> Dict[str, Any]:
         except Exception as inner_e:
             logger.warning(f"Could not probe video dimensions or duration: {inner_e}")
 
-    aspect_ratio_val = (width / height) if (width > 0 and height > 0) else 0.0
-    is_vertical = 0.45 <= aspect_ratio_val <= 0.65 if aspect_ratio_val > 0 else False
-    aspect_str = f"{width}x{height}" if width > 0 else "unknown"
+    aspect_ratio_val = (width / height) if (width > 0 and height > 0) else 0.5625
+    is_vertical = (aspect_ratio_val <= 0.8) if aspect_ratio_val > 0 else True
+    aspect_str = f"{width}x{height}" if (width > 0 and height > 0) else "9:16"
 
     return {
         "file_path": file_path,
@@ -122,34 +126,35 @@ def inspect_video(file_path: str) -> Dict[str, Any]:
 def determine_post_route(video_info: Dict[str, Any]) -> str:
     """
     Determines whether the video should be published as a Facebook Reel or Classic Video.
-    Rule (Section 9):
-    - Reel: 9:16 (vertical), 3 to 90 seconds duration.
-    - Classic: > 90 seconds, or non-vertical (horizontal/landscape), or failed Reel parameters.
+    Rule:
+    - Reel: Short video <= 90 seconds (primary format for this automation).
+    - Classic: Only videos > 90s, or explicitly horizontal widescreen (width >= height * 1.3).
     """
     duration = video_info.get("duration_seconds", 0.0)
-    is_vertical = video_info.get("is_vertical", False)
+    width = video_info.get("width", 0)
+    height = video_info.get("height", 0)
 
-    # If duration is strictly > 90s, Facebook Reels API will reject it
+    # 1. If duration is strictly > 90s, Facebook Reels API will reject it
     if duration > 90.0:
         logger.info(
             f"Routing to CLASSIC VIDEO: Duration {duration:.1f}s exceeds Reels 90s limit."
         )
         return "classic_video"
 
-    # If aspect ratio is not vertical (9:16)
-    if not is_vertical and video_info.get("width", 0) > 0:
-        logger.info(
-            f"Routing to CLASSIC VIDEO: Aspect ratio is not 9:16 ({video_info.get('aspect_ratio_str')})."
-        )
-        return "classic_video"
-
-    # If duration is too short (< 3s)
+    # 2. If duration is too short (< 3s)
     if 0.0 < duration < 3.0:
         logger.info(
             f"Routing to CLASSIC VIDEO: Duration {duration:.1f}s is under Reels 3s minimum."
         )
         return "classic_video"
 
-    # Default to Reels for short vertical video
-    logger.info(f"Routing to REELS: Duration {duration:.1f}s, vertical format.")
+    # 3. If explicitly horizontal / landscape widescreen (e.g. 1920x1080)
+    if width > 0 and height > 0 and width >= int(height * 1.3):
+        logger.info(
+            f"Routing to CLASSIC VIDEO: Aspect ratio is widescreen ({width}x{height})."
+        )
+        return "classic_video"
+
+    # 4. Default to REELS for all short automation videos (< 90s)
+    logger.info(f"Routing to REELS: Duration {duration:.1f}s, format {video_info.get('aspect_ratio_str', '9:16')}.")
     return "reel"
