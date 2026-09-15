@@ -323,6 +323,13 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 "server_uploaded": True
             })
 
+    # Ensure every video has page_name and page_id
+    for v in meta_videos:
+        if not v.get("page_name"):
+            v["page_name"] = p_name
+        if not v.get("page_id"):
+            v["page_id"] = pid
+
     # Recalculate totals from final videos if they were 0
     if total_page_views == 0 and meta_videos:
         total_page_views = sum(v.get("views", 0) for v in meta_videos)
@@ -844,8 +851,23 @@ def sync_data():
     total_views = sum(p.get("total_views", 0) for p in page_records)
     total_posts = sum(p.get("total_posts", 0) for p in page_records)
 
-    # Portfolio Summary
-    total_target_today = len(pages) * 4
+    # Portfolio Summary - Only active pages with configured Google Drive folders count towards daily target (11 pages * 4 = 44 Slots)
+    configured_pids = {
+        "1040244259164767",  # page_2: Charmy Owen
+        "956622247541040",   # page_4: Horizon Nest Daily
+        "1034326643100670",  # page_5: Bright Flare Hub
+        "795016603693140",   # page_7: Lopez Edward
+        "637367679454577",   # page_8: Crown Empire
+        "640019675857269",   # page_9: Crafty Champions
+        "626061003919674",   # page_10: Fun Life
+        "528360240361556",   # page_11: Dominion Authority
+        "503358542855153",   # page_12: Family Fancy
+        "468230386376818",   # page_14: Bot Mask
+        "106309715659174",   # page_15: Fresh Hive Network
+    }
+    active_pages = [p for p in page_records if str(p.get("id")) in configured_pids or p.get("today_posts", 0) > 0]
+    active_configured_count = len(active_pages) if active_pages else 11
+    total_target_today = active_configured_count * 4  # Exactly 44 Slots
     today_remaining = max(0, total_target_today - total_today_posted)
 
     # Load latest_run_summary if available
@@ -862,8 +884,12 @@ def sync_data():
     server_uploaded_videos = []
     seen_server_ids = set()
     for p in page_records:
+        p_name = p.get("name", "Facebook Page")
+        p_id = str(p.get("id"))
         for v in p.get("videos", []):
             vid = str(v.get("id"))
+            v.setdefault("page_name", p_name)
+            v.setdefault("page_id", p_id)
             if v.get("server_uploaded") and vid not in seen_server_ids:
                 seen_server_ids.add(vid)
                 server_uploaded_videos.append(v)
@@ -876,6 +902,7 @@ def sync_data():
             "target_total": total_target_today,
             "uploaded": total_today_posted,
             "remaining": today_remaining,
+            "active_pages_count": active_configured_count,
             "daily_slots_edt": ["10:00 AM", "03:00 PM", "07:00 PM", "10:00 PM"]
         },
         "runner_telemetry": curr_telemetry,
@@ -883,11 +910,12 @@ def sync_data():
         "server_uploaded_videos": server_uploaded_videos,
         "portfolio": {
             "total_pages": len(page_records),
+            "active_pages_count": active_configured_count,
+            "pending_pages_count": len(page_records) - active_configured_count,
             "total_followers": total_portfolio_followers,
             "total_likes": total_portfolio_likes,
             "total_views": total_views,
-            "total_posts": total_posts,
-            "active_pages_count": len(page_records)
+            "total_posts": total_posts
         },
         "pages": page_records
     }

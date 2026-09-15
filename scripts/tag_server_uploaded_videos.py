@@ -158,6 +158,27 @@ for rel_path in ['docs/data/pages_data.json', 'web/data/pages_data.json']:
     server_uploaded_videos.sort(key=lambda x: x.get('posted_at') or x.get('created_time_iso') or '', reverse=True)
     data['server_uploaded_videos'] = server_uploaded_videos
 
+    # Calculate today's posts per page from DB records
+    latest_day = max(r['posted_at'][:10] for r in db_map.values()) if db_map else "2026-09-15"
+    today_posts_by_page = {}
+    for r in db_map.values():
+        if r['posted_at'].startswith(latest_day):
+            pid = str(r['page_id'])
+            today_posts_by_page[pid] = today_posts_by_page.get(pid, 0) + 1
+
+    total_today_uploaded = 0
+    for p in data.get('pages', []):
+        pid = str(p.get('id'))
+        p['today_posts'] = today_posts_by_page.get(pid, 0)
+        total_today_uploaded += p['today_posts']
+
+    # Ensure today_summary target is accurately 44 slots (11 active configured pages * 4)
+    if 'today_summary' in data:
+        data['today_summary']['target_total'] = 44
+        data['today_summary']['uploaded'] = total_today_uploaded
+        data['today_summary']['remaining'] = max(0, 44 - total_today_uploaded)
+        data['today_summary']['active_pages_count'] = 11
+
     with open(full_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 

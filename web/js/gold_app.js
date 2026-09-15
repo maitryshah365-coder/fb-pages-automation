@@ -579,7 +579,17 @@ function renderSinglePageView(p) {
   if (metricFollowers) metricFollowers.innerText = followersCount.toLocaleString();
   if (metricViews) metricViews.innerText = totalRealViews.toLocaleString();
   if (metricReels) metricReels.innerText = reelsForTf.length.toLocaleString();
-  if (metricToday) metricToday.innerText = `${p.today_posts || 0} / 4 Slots`;
+  const isConfiguredPage = Boolean(DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0));
+  if (metricToday) {
+    if (isConfiguredPage) {
+      const isDone = (p.today_posts || 0) >= 4;
+      metricToday.innerText = `${p.today_posts || 0} / 4 Slots${isDone ? ' (Done)' : ''}`;
+      metricToday.className = "stat-num green-text";
+    } else {
+      metricToday.innerText = "0 / 0 (Pending Setup)";
+      metricToday.className = "stat-num text-muted";
+    }
+  }
 
   // 3. Page Recommendation Card (Tile in Grid)
   const recomVal = document.getElementById("metricRecommendation");
@@ -791,8 +801,16 @@ function renderAllPortfolioView() {
   const metricReels = document.getElementById("metricHeroReels");
   const metricToday = document.getElementById("metricHeroTodayUploaded");
 
+  const activePagesCount = (fullData.pages || []).filter(p => DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0)).length || 11;
+  const targetTotal = (fullData.today_summary?.target_total && fullData.today_summary.target_total <= 44)
+    ? fullData.today_summary.target_total
+    : (activePagesCount * 4);
+  const totalTodayUploaded = fullData.today_summary?.uploaded !== undefined
+    ? fullData.today_summary.uploaded
+    : (fullData.pages || []).reduce((sum, p) => sum + (p.today_posts || 0), 0);
+
   if (heroName) heroName.innerText = "All Pages Portfolio";
-  if (heroSub) heroSub.innerText = `Raj FB Pro Master Command • ${fullData.pages.length} Active Facebook Pages`;
+  if (heroSub) heroSub.innerText = `Raj FB Pro Master Command • ${activePagesCount} Active Facebook Pages (${targetTotal} Daily Slots)`;
   if (heroAvatar) {
     heroAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23fce07a'/><stop offset='50%25' stop-color='%23f5ba23'/><stop offset='100%25' stop-color='%23d4930b'/></linearGradient></defs><rect width='120' height='120' rx='60' fill='%230f1422'/><circle cx='60' cy='60' r='52' fill='none' stroke='url(%23g)' stroke-width='4'/><text x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='46' font-weight='900' fill='url(%23g)'>R</text></svg>";
   }
@@ -800,11 +818,11 @@ function renderAllPortfolioView() {
   if (metricFollowers) metricFollowers.innerText = totalFollowers.toLocaleString();
   if (metricViews) metricViews.innerText = totalRealViews.toLocaleString();
   if (metricReels) metricReels.innerText = allVideosForTf.length.toLocaleString();
-  const totalTodayUploaded = fullData.today_summary?.uploaded !== undefined
-    ? fullData.today_summary.uploaded
-    : (fullData.pages || []).reduce((sum, p) => sum + (p.today_posts || 0), 0);
-  const targetTotal = fullData.today_summary?.target_total || ((fullData.pages || []).length * 4);
-  if (metricToday) metricToday.innerText = `${totalTodayUploaded} / ${targetTotal} Slots`;
+  if (metricToday) {
+    const isTargetMet = totalTodayUploaded >= targetTotal;
+    metricToday.innerText = `${totalTodayUploaded} / ${targetTotal} Slots${isTargetMet ? ' (100% Met)' : ''}`;
+    metricToday.className = "stat-num green-text";
+  }
 
   // Page Recommendation Card for Portfolio
   const recomVal = document.getElementById("metricRecommendation");
@@ -1099,6 +1117,26 @@ function formatYtStatCount(num) {
   return n.toLocaleString();
 }
 
+// Helper to reliably get the human-readable Facebook Page Name for any video/reel
+function getVideoPageName(v) {
+  if (v.page_name && v.page_name !== "Facebook Page" && !v.page_name.startsWith("page_")) {
+    return v.page_name;
+  }
+  const pid = String(v.page_id || "");
+  if (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]?.displayName) {
+    return DRIVE_CONFIGURED_PAGES[pid].displayName;
+  }
+  const pObj = (fullData?.pages || []).find(p => String(p.id) === pid);
+  if (pObj?.name) return pObj.name;
+  const pKey = v.page || v.page_config_name;
+  if (pKey && typeof DRIVE_CONFIGURED_PAGES !== "undefined") {
+    for (const info of Object.values(DRIVE_CONFIGURED_PAGES)) {
+      if (info.pageName === pKey) return info.displayName;
+    }
+  }
+  return v.page_name || "Facebook Page";
+}
+
 function renderVideosLibrary() {
   const tableBody = document.getElementById("videosTableBody");
   const mobileCardsList = document.getElementById("videosMobileCardsList");
@@ -1132,7 +1170,7 @@ function renderVideosLibrary() {
 
   const toShow = currentVideos.slice(0, videosShownCount);
 
-  // 1. Desktop Table Rows (100% untouched layout for desktop web with exact date + time)
+  // 1. Desktop Table Rows (Prominent Page Name Pill + Badges)
   if (tableBody) {
     tableBody.innerHTML = toShow.map((v, i) => {
       const viewsFmt = (v.views || 0).toLocaleString();
@@ -1140,7 +1178,7 @@ function renderVideosLibrary() {
       const commentsFmt = (v.comments || 0).toLocaleString();
       const subsFmt = v.subscribers_gain || "+0";
       const title = v.title || `Facebook Reel #${i + 1}`;
-      const pageLabel = v.page_name || "Facebook Page";
+      const pageLabel = getVideoPageName(v);
       const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
       const dt = formatReelDateTime(v);
       const isPostNow = v.is_post_now || v.source === "post_now";
@@ -1160,10 +1198,16 @@ function renderVideosLibrary() {
                 <span class="studio-reels-badge">▶ REELS</span>
               </div>
               <div class="studio-video-info">
+                <div class="studio-page-tag-row">
+                  <span class="studio-page-pill" title="Facebook Page: ${pageLabel}">
+                    📄 <strong>${pageLabel}</strong>
+                  </span>
+                  ${badgeHtml}
+                </div>
                 <div class="studio-video-title" title="${title}">${title}</div>
                 <div class="studio-video-meta">
-                  <span>${pageLabel} • ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</span>
-                  ${badgeHtml}
+                  <span>🕒 ${dt.time} • Published</span>
+                  <span class="studio-reel-id">ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</span>
                 </div>
               </div>
             </div>
@@ -1196,7 +1240,7 @@ function renderVideosLibrary() {
     }).join("");
   }
 
-  // 2. Mobile YouTube Studio Style Card View (Exact layout matching Screenshot 3)
+  // 2. Mobile YouTube Studio Style Card View (Dedicated Page Name Badge Row)
   if (mobileCardsList) {
     mobileCardsList.innerHTML = toShow.map((v, i) => {
       const viewsFmt = formatYtStatCount(v.views || 0);
@@ -1209,12 +1253,13 @@ function renderVideosLibrary() {
         subsFmt = `+${subsFmt}`;
       }
       const title = v.title || `Facebook Reel #${i + 1}`;
+      const pageLabel = getVideoPageName(v);
       const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
       const dt = formatReelDateTime(v);
       const isPostNow = v.is_post_now || v.source === "post_now";
       const badgeHtml = isPostNow
-        ? '<span class="studio-server-badge post-now-badge" style="margin-left:6px; font-size:9px; padding:1px 5px;">⚡ POST NOW</span>'
-        : (v.server_uploaded ? '<span class="studio-server-badge" style="margin-left:6px; font-size:9px; padding:1px 5px;">⚡ SERVER</span>' : '');
+        ? '<span class="studio-server-badge post-now-badge" style="font-size:9px; padding:1px 5px;">⚡ POST NOW</span>'
+        : (v.server_uploaded ? '<span class="studio-server-badge" style="font-size:9px; padding:1px 5px;">⚡ SERVER</span>' : '');
 
       return `
         <div class="mobile-yt-card" onclick="openVideoModal('${v.id}')">
@@ -1223,13 +1268,18 @@ function renderVideosLibrary() {
             <span class="mobile-yt-badge">🩳 REELS</span>
           </div>
           <div class="mobile-yt-info">
+            <div class="mobile-yt-page-tag-row">
+              <span class="mobile-yt-page-badge" title="Facebook Page: ${pageLabel}">
+                📄 <strong>${pageLabel}</strong>
+              </span>
+              ${badgeHtml}
+            </div>
             <div class="mobile-yt-title" title="${title}">${title}</div>
             <div class="mobile-yt-meta">
               <span class="mobile-yt-dot">●</span>
               <span class="mobile-yt-vis">Public</span>
               <span class="mobile-yt-sep">•</span>
               <span class="mobile-yt-date">${dt.date} • ${dt.time}</span>
-              ${badgeHtml}
             </div>
             <div class="mobile-yt-stats-row">
               <div class="mobile-yt-stat" title="Views">
@@ -1352,18 +1402,20 @@ function renderTelemetry(target) {
     if (driveStockVal) driveStockVal.innerText = `📁 ${totalDriveStock.toLocaleString()} Videos Ready`;
     if (driveStockSub) driveStockSub.innerText = `Stock in Drive across ${readyPagesCount} configured channels`;
 
+    const activeFleetCount = readyPagesCount || 11;
+    const totalTargetToday = activeFleetCount * 4; // Exactly 44 Slots for active configured channels
     if (statusBox) {
       statusBox.className = "upload-status-box uploaded-today";
     }
     if (statusEl) {
-      statusEl.innerHTML = `<span class="badge-status-uploaded">✅ ${totalTodayPosts} / 60 SLOTS UPLOADED TODAY</span> • ${uploadedPagesCount} of 15 Pages Active`;
+      statusEl.innerHTML = `<span class="badge-status-uploaded">✅ ${totalTodayPosts} / ${totalTargetToday} SLOTS UPLOADED TODAY</span> • ${uploadedPagesCount} of ${activeFleetCount} Active Pages Posted`;
     }
     if (detailEl) {
-      detailEl.innerHTML = `${uploadedPagesCount} channels published reels today. ${15 - uploadedPagesCount} pages waiting for next slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>). Drive queue: <strong style="color:#34d399;">${totalDriveStock.toLocaleString()} videos ready</strong>.`;
+      detailEl.innerHTML = `${uploadedPagesCount} channels published reels today. ${activeFleetCount - uploadedPagesCount} pages waiting for next slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>). Drive queue: <strong style="color:#34d399;">${totalDriveStock.toLocaleString()} videos ready</strong>.`;
     }
     if (pillEl) {
       pillEl.className = "pill-badge pill-green";
-      pillEl.innerText = `${totalTodayPosts}/60 Slots Today`;
+      pillEl.innerText = `${totalTodayPosts}/${totalTargetToday} Slots Today`;
     }
 
     // Render portfolio chip tracker
@@ -1387,6 +1439,7 @@ function renderTelemetry(target) {
     const p = target;
     const ipInfo = p.last_upload_ip || {};
     const hasUploadedToday = (p.today_posts || 0) > 0;
+    const isConfigured = Boolean(DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || hasUploadedToday);
     const driveCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
     const lastVideo = (p.videos && p.videos.length > 0) ? p.videos[0] : null;
 
@@ -1424,7 +1477,19 @@ function renderTelemetry(target) {
 
     if (portfolioRow) portfolioRow.style.display = "none";
 
-    if (hasUploadedToday) {
+    if (!isConfigured) {
+      if (statusBox) statusBox.className = "upload-status-box not-uploaded";
+      if (statusEl) {
+        statusEl.innerHTML = `<span class="badge-status-not-uploaded" style="background:rgba(148,163,184,0.15); color:#94a3b8; border-color:rgba(148,163,184,0.3);">📁 DRIVE FOLDER PENDING SETUP (0/0 Slots)</span> • Not in Active 44 Target Fleet`;
+      }
+      if (detailEl) {
+        detailEl.innerHTML = `Google Drive folder for <strong>${p.name}</strong> is pending configuration in <code>config.yaml</code>. Once folder ID is provided, this page will automatically activate with 4 daily slots.`;
+      }
+      if (pillEl) {
+        pillEl.className = "pill-badge pill-amber";
+        pillEl.innerText = `📁 Pending Setup`;
+      }
+    } else if (hasUploadedToday) {
       // ✅ UPLOADED TODAY
       if (statusBox) statusBox.className = "upload-status-box uploaded-today";
       if (statusEl) {
@@ -1462,6 +1527,7 @@ function openVideoModal(vidId) {
   const video = currentVideos.find(v => String(v.id) === String(vidId));
   if (!video) return;
 
+  const pageLabel = getVideoPageName(video);
   const modal = document.getElementById("videoModal");
   const titleEl = document.getElementById("modalVideoTitle");
   const contentEl = document.getElementById("modalVideoContent");
@@ -1470,6 +1536,16 @@ function openVideoModal(vidId) {
   if (contentEl) {
     contentEl.innerHTML = `
       <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="background:rgba(245, 186, 35, 0.1); border:1px solid rgba(245, 186, 35, 0.3); border-radius:8px; padding:8px 12px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:16px;">📄</span>
+            <div>
+              <div style="font-size:10px; color:var(--text-muted); font-weight:700; text-transform:uppercase;">Facebook Page</div>
+              <div style="font-size:13px; font-weight:800; color:var(--gold-primary);">${pageLabel}</div>
+            </div>
+          </div>
+          <span class="studio-server-badge" style="font-size:10px;">${video.server_uploaded ? '⚡ SERVER REEL' : '● META REEL'}</span>
+        </div>
         <img src="${video.thumbnail}" style="width:100%; border-radius:var(--radius-md); max-height:260px; object-fit:cover;" onerror="this.style.display='none'">
         <div style="font-size:13px; font-weight:700; color:#fff;">${video.title}</div>
         <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; text-align:center;">
