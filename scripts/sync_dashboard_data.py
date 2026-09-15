@@ -851,23 +851,45 @@ def sync_data():
     total_views = sum(p.get("total_views", 0) for p in page_records)
     total_posts = sum(p.get("total_posts", 0) for p in page_records)
 
-    # Portfolio Summary - Only active pages with configured Google Drive folders count towards daily target (11 pages * 4 = 44 Slots)
-    configured_pids = {
-        "1040244259164767",  # page_2: Charmy Owen
-        "956622247541040",   # page_4: Horizon Nest Daily
-        "1034326643100670",  # page_5: Bright Flare Hub
-        "795016603693140",   # page_7: Lopez Edward
-        "637367679454577",   # page_8: Crown Empire
-        "640019675857269",   # page_9: Crafty Champions
-        "626061003919674",   # page_10: Fun Life
-        "528360240361556",   # page_11: Dominion Authority
-        "503358542855153",   # page_12: Family Fancy
-        "468230386376818",   # page_14: Bot Mask
-        "106309715659174",   # page_15: Fresh Hive Network
-    }
-    active_pages = [p for p in page_records if str(p.get("id")) in configured_pids or p.get("today_posts", 0) > 0]
-    active_configured_count = len(active_pages) if active_pages else 11
-    total_target_today = active_configured_count * 4  # Exactly 44 Slots
+    # Portfolio Summary - Dynamically detect active pages configured with Google Drive from config.yaml
+    configured_pids = set()
+    cfg_path = os.path.join(BASE_DIR, "config.yaml")
+    if os.path.exists(cfg_path):
+        try:
+            import yaml
+            with open(cfg_path, "r", encoding="utf-8") as cf:
+                cfg = yaml.safe_load(cf)
+                for cp in cfg.get("pages", []):
+                    f_id = str(cp.get("drive_folder_id") or "")
+                    if cp.get("enabled", True) and f_id and not f_id.startswith("REPLACE_WITH"):
+                        configured_pids.add(str(cp.get("page_id")))
+        except Exception as e:
+            print("Error reading config.yaml:", e)
+
+    # Fallback to known active page IDs if config.yaml was missing or unreadable
+    if not configured_pids:
+        configured_pids = {
+            "1040244259164767",  # page_2: Charmy Owen
+            "956622247541040",   # page_4: Horizon Nest Daily
+            "1034326643100670",  # page_5: Bright Flare Hub
+            "795016603693140",   # page_7: Lopez Edward
+            "637367679454577",   # page_8: Crown Empire
+            "640019675857269",   # page_9: Crafty Champions
+            "626061003919674",   # page_10: Fun Life
+            "528360240361556",   # page_11: Dominion Authority
+            "503358542855153",   # page_12: Family Fancy
+            "468230386376818",   # page_14: Bot Mask
+            "106309715659174",   # page_15: Fresh Hive Network
+        }
+
+    # Tag each page record with is_configured status
+    for p in page_records:
+        pid_str = str(p.get("id"))
+        p["is_configured"] = (pid_str in configured_pids or p.get("today_posts", 0) > 0)
+
+    active_pages = [p for p in page_records if p.get("is_configured")]
+    active_configured_count = len(active_pages) if active_pages else len(configured_pids)
+    total_target_today = active_configured_count * 4  # Dynamically updates: 11*4=44, 12*4=48, 15*4=60
     today_remaining = max(0, total_target_today - total_today_posted)
 
     # Load latest_run_summary if available

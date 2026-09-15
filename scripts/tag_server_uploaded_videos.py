@@ -172,12 +172,43 @@ for rel_path in ['docs/data/pages_data.json', 'web/data/pages_data.json']:
         p['today_posts'] = today_posts_by_page.get(pid, 0)
         total_today_uploaded += p['today_posts']
 
-    # Ensure today_summary target is accurately 44 slots (11 active configured pages * 4)
+    # Calculate active configured channels dynamically from config.yaml
+    configured_pids = set()
+    cfg_path = os.path.join(BASE_DIR, "config.yaml")
+    if os.path.exists(cfg_path):
+        try:
+            import yaml
+            with open(cfg_path, "r", encoding="utf-8") as cf:
+                cfg = yaml.safe_load(cf)
+                for cp in cfg.get("pages", []):
+                    f_id = str(cp.get("drive_folder_id") or "")
+                    if cp.get("enabled", True) and f_id and not f_id.startswith("REPLACE_WITH"):
+                        configured_pids.add(str(cp.get("page_id")))
+        except Exception:
+            pass
+
+    if not configured_pids:
+        configured_pids = {
+            "1040244259164767", "956622247541040", "1034326643100670", "795016603693140",
+            "637367679454577", "640019675857269", "626061003919674", "528360240361556",
+            "503358542855153", "468230386376818", "106309715659174"
+        }
+
+    for p in data.get('pages', []):
+        pid_str = str(p.get('id'))
+        p['is_configured'] = (pid_str in configured_pids or p.get('today_posts', 0) > 0)
+
+    active_pages_count = len([p for p in data.get('pages', []) if p.get('is_configured')])
+    if active_pages_count == 0:
+        active_pages_count = len(configured_pids)
+    target_total = active_pages_count * 4  # Dynamically updates: 11*4=44, 12*4=48, 15*4=60
+
+    # Ensure today_summary target is accurately calculated from active channels
     if 'today_summary' in data:
-        data['today_summary']['target_total'] = 44
+        data['today_summary']['target_total'] = target_total
         data['today_summary']['uploaded'] = total_today_uploaded
-        data['today_summary']['remaining'] = max(0, 44 - total_today_uploaded)
-        data['today_summary']['active_pages_count'] = 11
+        data['today_summary']['remaining'] = max(0, target_total - total_today_uploaded)
+        data['today_summary']['active_pages_count'] = active_pages_count
 
     with open(full_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)

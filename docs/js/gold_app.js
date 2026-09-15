@@ -801,10 +801,8 @@ function renderAllPortfolioView() {
   const metricReels = document.getElementById("metricHeroReels");
   const metricToday = document.getElementById("metricHeroTodayUploaded");
 
-  const activePagesCount = (fullData.pages || []).filter(p => DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0)).length || 11;
-  const targetTotal = (fullData.today_summary?.target_total && fullData.today_summary.target_total <= 44)
-    ? fullData.today_summary.target_total
-    : (activePagesCount * 4);
+  const activePagesCount = (fullData.pages || []).filter(p => p.is_configured || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0)).length || (fullData.today_summary?.active_pages_count || 11);
+  const targetTotal = fullData.today_summary?.target_total || (activePagesCount * 4);
   const totalTodayUploaded = fullData.today_summary?.uploaded !== undefined
     ? fullData.today_summary.uploaded
     : (fullData.pages || []).reduce((sum, p) => sum + (p.today_posts || 0), 0);
