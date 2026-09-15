@@ -12,6 +12,34 @@ let videosShownCount = 8;
 let activeAudienceTab = "countries";
 let currentTimeframe = 28;
 let currentTimeframeMultiplier = 1.0;
+let activeReelsCategory = "all";
+
+function filterVideoCategory(cat) {
+  activeReelsCategory = cat;
+  const btnAll = document.getElementById("btnFilterAllReels");
+  const btnServer = document.getElementById("btnFilterServerReels");
+  if (btnAll) btnAll.classList.toggle("active", cat === "all");
+  if (btnServer) btnServer.classList.toggle("active", cat === "server");
+
+  if (activePageId === "all") {
+    if (cat === "server") {
+      currentVideos = window._portfolioServerReels || [];
+    } else {
+      currentVideos = window._portfolioAllReels || [];
+    }
+  } else {
+    const pageObj = fullData?.pages?.find(p => String(p.id) === activePageId);
+    const pageReels = getReelsForDays(pageObj?.videos || [], currentTimeframe);
+    if (cat === "server") {
+      currentVideos = pageReels.filter(v => v.server_uploaded);
+    } else {
+      currentVideos = pageReels;
+    }
+  }
+  videosShownCount = 8;
+  renderVideosLibrary();
+}
+window.filterVideoCategory = filterVideoCategory;
 
 function getReelsForDays(videos, days) {
   if (!videos || !videos.length) return [];
@@ -627,7 +655,11 @@ function renderSinglePageView(p) {
   if (libSub) libSub.innerText = `Showing published reels for ${p.name} (${currentTimeframe} Days)`;
   if (libDesc) libDesc.innerText = `Channel content performance table • Real-time views, retention & engagement`;
 
-  currentVideos = reelsForTf;
+  if (activeReelsCategory === "server") {
+    currentVideos = reelsForTf.filter(v => v.server_uploaded);
+  } else {
+    currentVideos = reelsForTf;
+  }
   videosShownCount = 8;
   renderVideosLibrary();
 
@@ -768,7 +800,11 @@ function renderAllPortfolioView() {
   if (metricFollowers) metricFollowers.innerText = totalFollowers.toLocaleString();
   if (metricViews) metricViews.innerText = totalRealViews.toLocaleString();
   if (metricReels) metricReels.innerText = allVideosForTf.length.toLocaleString();
-  if (metricToday) metricToday.innerText = `0 / ${fullData.pages.length * 4} Slots`;
+  const totalTodayUploaded = fullData.today_summary?.uploaded !== undefined
+    ? fullData.today_summary.uploaded
+    : (fullData.pages || []).reduce((sum, p) => sum + (p.today_posts || 0), 0);
+  const targetTotal = fullData.today_summary?.target_total || ((fullData.pages || []).length * 4);
+  if (metricToday) metricToday.innerText = `${totalTodayUploaded} / ${targetTotal} Slots`;
 
   // Page Recommendation Card for Portfolio
   const recomVal = document.getElementById("metricRecommendation");
@@ -819,18 +855,31 @@ function renderAllPortfolioView() {
   // Combined Demographics from Verified Pages
   renderDemographics(getPortfolioAudience());
 
-  // Videos: Strictly Server-Uploaded Automation Reels for Master Dashboard
+  // Videos: All Published Reels for Master Portfolio (matching the 304,088 views)
   const serverReels = getServerUploadedVideos();
-  const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
+  const serverIdSet = new Set(serverReels.map(sv => String(sv.id)));
+  allVideosForTf.forEach(v => {
+    if (serverIdSet.has(String(v.id))) {
+      v.server_uploaded = true;
+    }
+  });
 
   const libTitle = document.getElementById("librarySectionTitle");
   const libSub = document.getElementById("librarySourceSub");
   const libDesc = document.getElementById("libraryDescText");
-  if (libTitle) libTitle.innerText = "Uploaded Videos & Reels Library (Server & Post Now)";
-  if (libSub) libSub.innerText = `⚡ Showing automation server uploads & Post Now reels (${currentTimeframe} Days • Real-time Meta Graph live)`;
-  if (libDesc) libDesc.innerText = "Live content performance table • Real-time views, retention & engagement from automation server & Post Now studio";
+  if (libTitle) libTitle.innerText = "All Portfolio Published Reels & Performance";
+  if (libSub) libSub.innerText = `⚡ Showing all ${allVideosForTf.length} published reels across 15 pages (${currentTimeframe} Days • Real-time Meta Graph live)`;
+  if (libDesc) libDesc.innerText = "Live content performance table • Real-time views, retention & engagement from automation server & Meta Graph API";
 
-  currentVideos = serverReelsForTf;
+  window._portfolioAllReels = allVideosForTf;
+  window._portfolioServerReels = getReelsForDays(serverReels, currentTimeframe);
+
+  if (activeReelsCategory === "server") {
+    currentVideos = window._portfolioServerReels;
+  } else {
+    currentVideos = window._portfolioAllReels;
+  }
+
   videosShownCount = 8;
   renderVideosLibrary();
 

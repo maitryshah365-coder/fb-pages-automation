@@ -1773,11 +1773,12 @@ body {
 .app-modal {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 100000;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  padding-bottom: calc(85px + env(safe-area-inset-bottom, 0px));
 }
 
 .app-modal.active {
@@ -1836,18 +1837,22 @@ body {
 /* ================= TOAST ================= */
 .luxe-toast {
   position: fixed;
-  bottom: 24px;
+  bottom: calc(85px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   background: var(--gold-gradient);
   color: #07090e;
   font-weight: 800;
-  font-size: 13px;
-  padding: 10px 20px;
+  font-size: 13.5px;
+  padding: 12px 26px;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-gold);
-  z-index: 9999;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(245, 186, 35, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 100005;
   display: none;
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.3px;
 }
 
 /* ================= RESPONSIVE MEDIA QUERIES ================= */
