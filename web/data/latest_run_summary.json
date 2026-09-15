@@ -1,15 +1,15 @@
 {
-  "run_id": "35012198096",
-  "run_number": "18",
-  "completed_at": "2026-09-15T19:15:26.994627+00:00",
+  "run_id": "35034573159",
+  "run_number": "19",
+  "completed_at": "2026-09-15T23:12:30.531869+00:00",
   "runner_telemetry": {
-    "ip": "68.154.115.182",
-    "city": "Boydton",
+    "ip": "172.174.223.96",
+    "city": "Dulles Town Center",
     "region": "Virginia",
     "country": "US",
-    "loc": "36.6676,-78.3875",
+    "loc": "39.0376,-77.4158",
     "org": "AS8075 Microsoft Corporation",
-    "postal": "23917",
+    "postal": "20164",
     "timezone": "America/New_York",
     "readme": "https://ipinfo.io/missingauth"
   },
@@ -24,12 +24,9 @@
       "display_name": "page_1"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_2",
-      "drive_file_id": "133wqQYOHaQF55gR0n7HUnQRnpwdZtOaO",
-      "facebook_video_id": "1768671834383294",
-      "filename": "Tiny Campers Vanished Inside Sandstorm! #sandstorm #miniature #desert #macro #viralshorts #cinematic #fyp #tinyworld #survival #storm.mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "1040244259164767",
       "page_config_name": "page_2",
       "display_name": "page_2"
@@ -43,23 +40,17 @@
       "display_name": "page_3"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_4",
-      "drive_file_id": "1I2EcKodD9YM7wWxZ0vV5fggxV7GSmdln",
-      "facebook_video_id": "1075297791552374",
-      "filename": "Nobody Could Predict What Happened Next #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "956622247541040",
       "page_config_name": "page_4",
       "display_name": "page_4"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_5",
-      "drive_file_id": "18dPfZJIIfrBVXOz9FYZVDZ0iSfaHX7oL",
-      "facebook_video_id": "2279055195969717",
-      "filename": "One More Mistake Added #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals._1.mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "1034326643100670",
       "page_config_name": "page_5",
       "display_name": "page_5"
@@ -73,67 +64,49 @@
       "display_name": "page_6"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_7",
-      "drive_file_id": "1rwBN5LPX6gmK3kumopY6CgWPVtLBJq-p",
-      "facebook_video_id": "1083557277870163",
-      "filename": "Shredding Plastic Balls and Other Stuff ｜ Gojzer #shorts _28.mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "795016603693140",
       "page_config_name": "page_7",
       "display_name": "page_7"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_8",
-      "drive_file_id": "13yVWcOD1I4t77vQj4ZR_VFDj2zgQ0bVf",
-      "facebook_video_id": "1730879841503818",
-      "filename": "Christmas Food challenge - Me vs my Dog vs my cat🤣🐶😺b.mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "637367679454577",
       "page_config_name": "page_8",
       "display_name": "page_8"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_9",
-      "drive_file_id": "1K1MQsWH4YoBxKTv5aDuBi79sIXpmQ02u",
-      "facebook_video_id": "2101370434102798",
-      "filename": "Best home mouse trap⧸good rat trap plastic ball .mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "640019675857269",
       "page_config_name": "page_9",
       "display_name": "page_9"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_10",
-      "drive_file_id": "11-v62WypG8eaHz6JeRSzLuRVEwmQ5Qiw",
-      "facebook_video_id": "4382719988648310",
-      "filename": "4 Minutes Satisfying with Playing Push Game Pop It Eletrônico Fidget Toy ASMR No Talking _1.mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "626061003919674",
       "page_config_name": "page_10",
       "display_name": "page_10"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_11",
-      "drive_file_id": "1_JjGK72RN8N1W6RPu_VpRX2v1uh5Qs_p",
-      "facebook_video_id": "1799896221203224",
-      "filename": "Problem solved 👶🏻😱😭 .mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "528360240361556",
       "page_config_name": "page_11",
       "display_name": "page_11"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_12",
-      "drive_file_id": "15kojzaF6CYvqPUym8t5c-j7JZUQ_tEpX",
-      "facebook_video_id": "28439749312351533",
-      "filename": "😂🎈 Baby Laughs While Everyone Panics #funnybaby #dogreaction #familyshorts #babylaugh #viralshorts .mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "503358542855153",
       "page_config_name": "page_12",
       "display_name": "page_12"
@@ -147,23 +120,17 @@
       "display_name": "page_13"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_14",
-      "drive_file_id": "18HnlUeD_svXyHzmeRgC5VGa3vzGlIdv7",
-      "facebook_video_id": "1641208237662900",
-      "filename": "#FoodChallenge #CandyLover #TasteTest #ReelChallenge #FoodieFun (437).mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "468230386376818",
       "page_config_name": "page_14",
       "display_name": "page_14"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_15",
-      "drive_file_id": "1PR-5felx6n4dETkTMe6Xbk80El7Et2Wl",
-      "facebook_video_id": "1071909378883837",
-      "filename": "#Shorts #Trend #Fun (176).mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "106309715659174",
       "page_config_name": "page_15",
       "display_name": "page_15"
@@ -171,8 +138,8 @@
   ],
   "stats": {
     "total": 15,
-    "success": 11,
-    "skipped": 4,
+    "success": 0,
+    "skipped": 15,
     "failed": 0
   }
 }
