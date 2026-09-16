@@ -1,16 +1,16 @@
 {
-  "run_id": "local",
-  "run_number": "1",
-  "completed_at": "2026-09-16T20:21:16.356446+00:00",
+  "run_id": "35161235475",
+  "run_number": "23",
+  "completed_at": "2026-09-16T23:12:50.539085+00:00",
   "runner_telemetry": {
-    "ip": "103.249.234.23",
-    "city": "Ahmedabad",
-    "region": "Gujarat",
-    "country": "IN",
-    "loc": "23.0258,72.5873",
-    "org": "AS45916 Gujarat Telelink Pvt Ltd",
-    "postal": "380001",
-    "timezone": "Asia/Kolkata",
+    "ip": "20.186.238.34",
+    "city": "Des Moines",
+    "region": "Iowa",
+    "country": "US",
+    "loc": "41.6005,-93.6091",
+    "org": "AS8075 Microsoft Corporation",
+    "postal": "50309",
+    "timezone": "America/Chicago",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
@@ -24,12 +24,9 @@
       "display_name": "page_1"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_2",
-      "drive_file_id": "1_Cjb1zaRtVCLRLTfdigizQHaDTS_ciWl",
-      "facebook_video_id": "1459318022727106",
-      "filename": "Tiny Farm Froze Solid Overnight! #frozenfarm #miniatureworld #winter #macrovideo #viralreels #cinematic #fyp #tinyworld #snow #rescue.mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "1040244259164767",
       "page_config_name": "page_2",
       "display_name": "page_2"
@@ -43,23 +40,17 @@
       "display_name": "page_3"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_4",
-      "drive_file_id": "1ZHXhD7cPg51Bz5ZcMDFkuwK7pBrf9HLa",
-      "facebook_video_id": "1070323942666497",
-      "filename": "Nobody Could Stop The Giant Threat #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "956622247541040",
       "page_config_name": "page_4",
       "display_name": "page_4"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_5",
-      "drive_file_id": "1aUwrrfjLzdkbuwzMFLGaCO7ue9fJehi7",
-      "facebook_video_id": "1628586525546959",
-      "filename": "Peak Comedy Achieved #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals..mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "1034326643100670",
       "page_config_name": "page_5",
       "display_name": "page_5"
@@ -73,67 +64,49 @@
       "display_name": "page_6"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_7",
-      "drive_file_id": "1MiaV7eNDUksnnhf9Jy5y8W118-bPTy4F",
-      "facebook_video_id": "985794644551833",
-      "filename": "Shredding Plastic Balls and Other Stuff ｜ Gojzer #shorts _32.mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "795016603693140",
       "page_config_name": "page_7",
       "display_name": "page_7"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_8",
-      "drive_file_id": "1hpAUOCLxeHNnOoNHz8OWi41np5e0zTRE",
-      "facebook_video_id": "2430903114112215",
-      "filename": "Challenge Over in Seconds Dog Left No Crumbs __2.mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "637367679454577",
       "page_config_name": "page_8",
       "display_name": "page_8"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_9",
-      "drive_file_id": "1oJM9GYZ-rRWqkluz9zFWfcu3exlcVYGL",
-      "facebook_video_id": "2137333557220832",
-      "filename": "Best home mouse trap⧸mouse trap tips #mouse #rattrap #rat .mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "640019675857269",
       "page_config_name": "page_9",
       "display_name": "page_9"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_10",
-      "drive_file_id": "1_KaILFKqXoqws3kZ6u-xp636IjIGHj6Z",
-      "facebook_video_id": "1397512282508969",
-      "filename": "4 Minutes Satisfying with Unboxing Pink Fashion Beauty Make Up Set ASMR No Talking #makeup .mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "626061003919674",
       "page_config_name": "page_10",
       "display_name": "page_10"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_11",
-      "drive_file_id": "1AOakhvTQukPBdtdmJNaplOzn2IQFlJ71",
-      "facebook_video_id": "1113546361110935",
-      "filename": "He finally found his sandal 🩴 .mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "528360240361556",
       "page_config_name": "page_11",
       "display_name": "page_11"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_12",
-      "drive_file_id": "1gfNbTW99lVBFLMpzefSijHr5E_obswt0",
-      "facebook_video_id": "2101633063769213",
-      "filename": "😂🎈 Baby Pops Balloon… Everyone Panics #babyshorts #funnypets #dogshorts #cutevideos #ytshorts .mp4",
-      "post_type": "reel",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "503358542855153",
       "page_config_name": "page_12",
       "display_name": "page_12"
@@ -147,23 +120,17 @@
       "display_name": "page_13"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_14",
-      "drive_file_id": "1nZqJDQzcM-YamrVU7JFHVC976lQQWfLU",
-      "facebook_video_id": "2021481208537910",
-      "filename": "#FoodChallenge #CandyLover #TasteTest #ReelChallenge #FoodieFun (441).mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "468230386376818",
       "page_config_name": "page_14",
       "display_name": "page_14"
     },
     {
-      "status": "success",
+      "status": "skipped",
       "page": "page_15",
-      "drive_file_id": "1-KAQu_f6nglPFvsiWvHJUKQ8dlhtGKf4",
-      "facebook_video_id": "1636939871347706",
-      "filename": "#Shorts #Trend #Fun (180).mp4",
-      "post_type": "classic_video",
+      "reason": "Daily limit reached (4/4 posts today). Skipping.",
       "page_id": "106309715659174",
       "page_config_name": "page_15",
       "display_name": "page_15"
@@ -171,8 +138,8 @@
   ],
   "stats": {
     "total": 15,
-    "success": 11,
-    "skipped": 4,
+    "success": 0,
+    "skipped": 15,
     "failed": 0
   }
 }
