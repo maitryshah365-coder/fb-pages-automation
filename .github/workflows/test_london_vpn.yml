@@ -1,0 +1,34 @@
+name: Test Surfshark London VPN Connection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-vpn:
+    name: Verify London WireGuard Tunnel & Kill-Switch
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Default GitHub Runner IP (Before VPN)
+        run: |
+          echo "Default Runner IP before VPN:"
+          curl -s https://ipinfo.io/json || true
+
+      - name: Connect Surfshark London WireGuard & Run Kill-Switch Guard
+        run: |
+          chmod +x scripts/connect_wireguard_uk.sh
+          ./scripts/connect_wireguard_uk.sh
+
+      - name: Verify Final Output
+        run: |
+          echo "🎉 London VPN Test Complete: All traffic successfully routed through United Kingdom!"
+          sudo wg-quick down wg0 || true

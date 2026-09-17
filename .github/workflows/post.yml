@@ -63,9 +63,10 @@ jobs:
         run: |
           python scripts/validate_config.py config.yaml
 
-      - name: Resolve Runner Public IP & Geolocation
+      - name: Connect Surfshark London WireGuard & Enforce UK Kill-Switch
         run: |
-          curl -s https://ipinfo.io/json || true
+          chmod +x scripts/connect_wireguard_uk.sh
+          ./scripts/connect_wireguard_uk.sh
 
       - name: Run Automation Engine
         env:
@@ -188,10 +189,7 @@ jobs:
             echo "No state changes to commit."
           fi
 
-      - name: Upload Logs Artifact
+      - name: Disconnect WireGuard Tunnel
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: facebook-logs-${{ github.run_id }}
-          path: logs/
-          retention-days: 14
+        run: |
+          sudo wg-quick down wg0 || true
