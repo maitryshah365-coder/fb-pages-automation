@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=4.6.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=4.7.0">
 </head>
 <body>
 
@@ -46,7 +46,7 @@
     <div class="drawer-header">
       <div class="drawer-title-group">
         <h3>📑 Select Facebook Page</h3>
-        <span class="badge-pages-total" id="sidebarPagesCountBadge">15 Pages</span>
+        <span class="badge-pages-total" id="sidebarPagesCountBadge">30 Pages</span>
       </div>
       <button id="btnClosePageDrawer" class="btn-close-drawer">✕</button>
     </div>
@@ -60,8 +60,8 @@
       <div class="portfolio-tile-left">
         <div class="portfolio-avatar">🌐</div>
         <div>
-          <div class="portfolio-name">All 15 Pages Portfolio</div>
-          <div class="portfolio-desc">Combined Reach, Views & Analytics</div>
+          <div class="portfolio-name">All 30 Pages Portfolio</div>
+          <div class="portfolio-desc">Combined Reach, Views & Analytics (Account 1 + Account 2)</div>
         </div>
       </div>
       <span class="portfolio-badge">Master</span>
@@ -106,7 +106,7 @@
             <span class="tile-icon">📊</span>
             <div class="tile-text">
               <span class="tile-title">Dashboard</span>
-              <span class="tile-sub">All 15 Pages Portfolio</span>
+              <span class="tile-sub">All 30 Pages Portfolio</span>
             </div>
           </div>
           <span class="tile-badge-gold">Master</span>
@@ -115,7 +115,7 @@
 
       <!-- BOX 2: ALL PAGES LIST (SHUTTER BAND BY DEFAULT - CLICK PAR HI OPEN HOGA) -->
       <div class="sidebar-nav-box sidebar-pages-list-box" id="sidePagesAccordionBox">
-        <button type="button" class="sidebar-pages-header" id="btnSidePagesListToggle" onclick="toggleSidePagesShutter()" title="Click to show/hide 15 pages">
+        <button type="button" class="sidebar-pages-header" id="btnSidePagesListToggle" onclick="toggleSidePagesShutter()" title="Click to show/hide 30 pages">
           <div class="pages-header-left">
             <span class="pages-header-icon">📑</span>
             <div class="pages-header-text">
@@ -124,7 +124,7 @@
             </div>
           </div>
           <div class="pages-header-right">
-            <span class="pages-count-pill" id="sidePagesCountBadge">15 Pages</span>
+            <span class="pages-count-pill" id="sidePagesCountBadge">30 Pages</span>
             <span class="pages-toggle-arrow" id="sidePagesToggleArrow">▼</span>
           </div>
         </button>
@@ -132,11 +132,11 @@
         <!-- Shutter Body (Closed by default - Shutter Band) -->
         <div class="sidebar-pages-body" id="sidePagesShutterBody">
           <div class="sidebar-pages-search-row">
-            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 15 pages..." onclick="event.stopPropagation()">
+            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 30 pages..." onclick="event.stopPropagation()">
           </div>
 
           <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
-            <!-- Dynamically populated with all 15 pages -->
+            <!-- Dynamically populated with all 30 pages -->
           </div>
         </div>
       </div>
@@ -667,6 +667,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=4.6.0"></script>
+  <script src="js/gold_app.js?v=4.7.0"></script>
 </body>
 </html>

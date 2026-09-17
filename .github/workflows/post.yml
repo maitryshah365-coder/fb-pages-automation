@@ -17,9 +17,12 @@ on:
   repository_dispatch:
     types: [cron_trigger, fb_post_trigger]
 
-  # Scheduled 4 times daily (USA Times: 10:00 AM, 3:00 PM, 7:00 PM, 10:00 PM EDT)
+  # Scheduled 4 times daily (USA Times EDT):
+  # Account 1 (Pages 1-15): 10:00 AM, 3:00 PM, 7:00 PM, 10:00 PM EDT (02:00, 14:00, 19:00, 23:00 UTC)
+  # Account 2 (Pages 16-30): +20 Min Offset (10:20 AM, 3:20 PM, 7:20 PM, 10:20 PM EDT)
   schedule:
     - cron: "0 2,14,19,23 * * *"
+    - cron: "20 2,14,19,23 * * *"
 
 concurrency:
   group: facebook-upload-group
@@ -32,7 +35,7 @@ jobs:
   upload:
     name: Execute Facebook Post Pipeline
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
 
     steps:
       - name: Checkout Repository
@@ -71,6 +74,7 @@ jobs:
           GDRIVE_CLIENT_SECRET_JSON: ${{ secrets.GDRIVE_CLIENT_SECRET_JSON }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          FB_USER_ACCESS_TOKEN_2: ${{ secrets.FB_USER_ACCESS_TOKEN_2 }}
           FB_TOKEN_PAGE_1: ${{ secrets.FB_TOKEN_PAGE_1 }}
           FB_TOKEN_PAGE_2: ${{ secrets.FB_TOKEN_PAGE_2 }}
           FB_TOKEN_PAGE_3: ${{ secrets.FB_TOKEN_PAGE_3 }}
@@ -86,25 +90,55 @@ jobs:
           FB_TOKEN_PAGE_13: ${{ secrets.FB_TOKEN_PAGE_13 }}
           FB_TOKEN_PAGE_14: ${{ secrets.FB_TOKEN_PAGE_14 }}
           FB_TOKEN_PAGE_15: ${{ secrets.FB_TOKEN_PAGE_15 }}
+          FB_TOKEN_PAGE_16: ${{ secrets.FB_TOKEN_PAGE_16 }}
+          FB_TOKEN_PAGE_17: ${{ secrets.FB_TOKEN_PAGE_17 }}
+          FB_TOKEN_PAGE_18: ${{ secrets.FB_TOKEN_PAGE_18 }}
+          FB_TOKEN_PAGE_19: ${{ secrets.FB_TOKEN_PAGE_19 }}
+          FB_TOKEN_PAGE_20: ${{ secrets.FB_TOKEN_PAGE_20 }}
+          FB_TOKEN_PAGE_21: ${{ secrets.FB_TOKEN_PAGE_21 }}
+          FB_TOKEN_PAGE_22: ${{ secrets.FB_TOKEN_PAGE_22 }}
+          FB_TOKEN_PAGE_23: ${{ secrets.FB_TOKEN_PAGE_23 }}
+          FB_TOKEN_PAGE_24: ${{ secrets.FB_TOKEN_PAGE_24 }}
+          FB_TOKEN_PAGE_25: ${{ secrets.FB_TOKEN_PAGE_25 }}
+          FB_TOKEN_PAGE_26: ${{ secrets.FB_TOKEN_PAGE_26 }}
+          FB_TOKEN_PAGE_27: ${{ secrets.FB_TOKEN_PAGE_27 }}
+          FB_TOKEN_PAGE_28: ${{ secrets.FB_TOKEN_PAGE_28 }}
+          FB_TOKEN_PAGE_29: ${{ secrets.FB_TOKEN_PAGE_29 }}
+          FB_TOKEN_PAGE_30: ${{ secrets.FB_TOKEN_PAGE_30 }}
         run: |
-          if [ -n "${{ github.event.inputs.page }}" ]; then
-            if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-              python main.py --config config.yaml --dry-run --page "${{ github.event.inputs.page }}"
+          DRY_ARG=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            DRY_ARG="--dry-run"
+          fi
+
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "${{ github.event.schedule }}" = "20 2,14,19,23 * * *" ]; then
+              echo "⏰ Staggered Cron Triggered: Running Account 2 (Pages 16-30) [+20 Min Offset]"
+              python main.py --config config.yaml $DRY_ARG --page "page_16,page_17,page_18,page_19,page_20,page_21,page_22,page_23,page_24,page_25,page_26,page_27,page_28,page_29,page_30"
             else
-              python main.py --config config.yaml --page "${{ github.event.inputs.page }}"
+              echo "⏰ Standard Cron Triggered: Running Account 1 (Pages 1-15)"
+              python main.py --config config.yaml $DRY_ARG --page "page_1,page_2,page_3,page_4,page_5,page_6,page_7,page_8,page_9,page_10,page_11,page_12,page_13,page_14,page_15"
+            fi
+          elif [ -n "${{ github.event.inputs.page }}" ]; then
+            REQ_PAGE="${{ github.event.inputs.page }}"
+            if [ "$REQ_PAGE" = "account_1" ]; then
+              python main.py --config config.yaml $DRY_ARG --page "page_1,page_2,page_3,page_4,page_5,page_6,page_7,page_8,page_9,page_10,page_11,page_12,page_13,page_14,page_15"
+            elif [ "$REQ_PAGE" = "account_2" ]; then
+              python main.py --config config.yaml $DRY_ARG --page "page_16,page_17,page_18,page_19,page_20,page_21,page_22,page_23,page_24,page_25,page_26,page_27,page_28,page_29,page_30"
+            elif [ "$REQ_PAGE" = "all" ]; then
+              python main.py --config config.yaml $DRY_ARG
+            else
+              python main.py --config config.yaml $DRY_ARG --page "$REQ_PAGE"
             fi
           else
-            if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
-              python main.py --config config.yaml --dry-run
-            else
-              python main.py --config config.yaml
-            fi
+            python main.py --config config.yaml $DRY_ARG
           fi
 
       - name: Sync Dashboard Data
         if: always()
         env:
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          FB_USER_ACCESS_TOKEN_2: ${{ secrets.FB_USER_ACCESS_TOKEN_2 }}
           FB_TOKEN_PAGE_1: ${{ secrets.FB_TOKEN_PAGE_1 }}
           FB_TOKEN_PAGE_2: ${{ secrets.FB_TOKEN_PAGE_2 }}
           FB_TOKEN_PAGE_3: ${{ secrets.FB_TOKEN_PAGE_3 }}
@@ -120,6 +154,21 @@ jobs:
           FB_TOKEN_PAGE_13: ${{ secrets.FB_TOKEN_PAGE_13 }}
           FB_TOKEN_PAGE_14: ${{ secrets.FB_TOKEN_PAGE_14 }}
           FB_TOKEN_PAGE_15: ${{ secrets.FB_TOKEN_PAGE_15 }}
+          FB_TOKEN_PAGE_16: ${{ secrets.FB_TOKEN_PAGE_16 }}
+          FB_TOKEN_PAGE_17: ${{ secrets.FB_TOKEN_PAGE_17 }}
+          FB_TOKEN_PAGE_18: ${{ secrets.FB_TOKEN_PAGE_18 }}
+          FB_TOKEN_PAGE_19: ${{ secrets.FB_TOKEN_PAGE_19 }}
+          FB_TOKEN_PAGE_20: ${{ secrets.FB_TOKEN_PAGE_20 }}
+          FB_TOKEN_PAGE_21: ${{ secrets.FB_TOKEN_PAGE_21 }}
+          FB_TOKEN_PAGE_22: ${{ secrets.FB_TOKEN_PAGE_22 }}
+          FB_TOKEN_PAGE_23: ${{ secrets.FB_TOKEN_PAGE_23 }}
+          FB_TOKEN_PAGE_24: ${{ secrets.FB_TOKEN_PAGE_24 }}
+          FB_TOKEN_PAGE_25: ${{ secrets.FB_TOKEN_PAGE_25 }}
+          FB_TOKEN_PAGE_26: ${{ secrets.FB_TOKEN_PAGE_26 }}
+          FB_TOKEN_PAGE_27: ${{ secrets.FB_TOKEN_PAGE_27 }}
+          FB_TOKEN_PAGE_28: ${{ secrets.FB_TOKEN_PAGE_28 }}
+          FB_TOKEN_PAGE_29: ${{ secrets.FB_TOKEN_PAGE_29 }}
+          FB_TOKEN_PAGE_30: ${{ secrets.FB_TOKEN_PAGE_30 }}
         run: |
           python scripts/sync_dashboard_data.py || true
 

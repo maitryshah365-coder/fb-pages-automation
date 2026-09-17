@@ -18,10 +18,15 @@ app = Flask(__name__, static_folder=os.path.join(BASE_DIR, "docs"), static_url_p
 API_CACHE = {}
 
 def get_page_tokens():
-    """Loads all 15 Facebook Page access tokens."""
-    if os.path.exists(TOKENS_PATH):
-        with open(TOKENS_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
+    """Loads all Facebook Page access tokens (all 30 pages)."""
+    paths = [os.path.join(BASE_DIR, "data", "pages_tokens.json"), TOKENS_PATH]
+    for p in paths:
+        if os.path.exists(p):
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
     return []
 
 def get_db_connection():

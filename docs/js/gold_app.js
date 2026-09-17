@@ -378,6 +378,11 @@ function renderSidebarPagesList(pages) {
     const isUploaded = (p.today_posts || 0) > 0;
     const dotClass = isConfigured ? 'green' : 'gray';
     const dotTitle = isUploaded ? `Active • ${p.today_posts}/4 Uploaded Today` : (isConfigured ? 'Active Fleet Page • Scheduled' : 'Pending Configuration');
+    const accLabel = p.account || (p.index <= 15 ? 'Account 1' : 'Account 2');
+    const accPillText = accLabel === 'Account 2' ? 'A2 • Mia' : 'A1';
+    const accPillStyle = accLabel === 'Account 2'
+      ? 'background:rgba(212,147,11,0.18);color:#f5ba23;border:1px solid rgba(212,147,11,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;'
+      : 'background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
 
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" 
@@ -385,15 +390,18 @@ function renderSidebarPagesList(pages) {
            role="button"
            tabindex="0"
            onclick="onSelectSidebarPage('${p.id}', event)"
-           title="${p.name} • ${followersStr} followers">
+           title="${p.name} • ${followersStr} followers • ${accLabel}">
         <div class="side-page-item-left">
           <img class="side-page-avatar" 
                src="${p.pic_url || ''}" 
                alt="${p.name}" 
                onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
           <div class="side-page-meta">
-            <div class="side-page-name">${p.name}</div>
-            <div class="side-page-followers">${followersStr} followers</div>
+            <div class="side-page-name" style="display:flex;align-items:center;">
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</span>
+              <span style="${accPillStyle}">${accPillText}</span>
+            </div>
+            <div class="side-page-followers">${followersStr} followers • ${accLabel}</div>
           </div>
         </div>
         <span class="side-page-dot ${dotClass}" title="${dotTitle}"></span>
@@ -402,7 +410,7 @@ function renderSidebarPagesList(pages) {
   }).join("");
 
   const countBadge = document.getElementById("sidePagesCountBadge");
-  if (countBadge) countBadge.innerText = `${pages.length} Pages`;
+  if (countBadge) countBadge.innerText = `${(pages || []).length} Pages`;
 }
 
 let isTogglingShutter = false;
@@ -586,7 +594,9 @@ function renderSinglePageView(p) {
   const metricToday = document.getElementById("metricHeroTodayUploaded");
 
   if (heroName) heroName.innerText = p.name;
-  if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id}`;
+  const accTag = p.account || (p.index <= 15 ? 'Account 1' : 'Account 2');
+  const ownerTag = p.account_owner || (p.index > 15 ? 'Mia Shah' : 'Account 1 Admin');
+  if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id} • ${accTag} (${ownerTag})`;
   if (heroAvatar) heroAvatar.src = p.pic_url;
 
   // Filter 100% real reels for the selected timeframe
@@ -856,7 +866,7 @@ function renderAllPortfolioView() {
     recomVal.innerText = "Recommendable";
     recomVal.className = "kpi-value green-text";
   }
-  if (recomSub) recomSub.innerText = "15 / 15 Pages Recommendable";
+  if (recomSub) recomSub.innerText = `${activePagesCount} / ${activePagesCount} Pages Recommendable`;
   if (recomIcon) {
     recomIcon.innerText = "✓";
     recomIcon.style.color = "var(--green-fb)";
@@ -1844,23 +1854,41 @@ const GH_OWNER = "maitryshah365-coder";
 const GH_REPO = "fb-pages-automation";
 const GH_WORKFLOW_FILE = "post.yml";
 
-// Known active configured Drive pages (all 15 Facebook Pages)
+// Known active configured Drive pages (all 30 Facebook Pages - Account 1 & Account 2)
 const DRIVE_CONFIGURED_PAGES = {
-  "988523547680750":  { pageName: "page_1", displayName: "Mix Mood", ready: true, videoCount: 75, handle: "mixmood" },
-  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 36, handle: "charmyowen" },
-  "965629596638624":  { pageName: "page_3", displayName: "Silent Peak Social", ready: true, videoCount: 192, handle: "silentpeaksocial" },
-  "956622247541040":  { pageName: "page_4", displayName: "Horizon Nest Daily", ready: true, videoCount: 222, handle: "horizonnestdaily" },
-  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 139, handle: "brightflarehub" },
-  "924636817403215":  { pageName: "page_6", displayName: "LuxeEpic Frames", ready: true, videoCount: 360, handle: "luxeepicframes" },
-  "795016603693140":  { pageName: "page_7", displayName: "Lopez Edward", ready: true, videoCount: 851, handle: "lopezedward" },
-  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 355, handle: "crownempire" },
-  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 434, handle: "craftychampions" },
-  "626061003919674":  { pageName: "page_10", displayName: "Fun Life", ready: true, videoCount: 339, handle: "funlife" },
-  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 307, handle: "dominionauthority" },
-  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 275, handle: "familyfancy" },
-  "500794979779192":  { pageName: "page_13", displayName: "Me Text", ready: true, videoCount: 184, handle: "metext" },
-  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 113, handle: "botmask" },
-  "106309715659174":  { pageName: "page_15", displayName: "Fresh Hive Network", ready: true, videoCount: 326, handle: "freshhivenetwork" }
+  // Account 1 Pages (15 Pages)
+  "988523547680750":  { pageName: "page_1", displayName: "Mix Mood", ready: true, videoCount: 75, handle: "mixmood", account: "Account 1" },
+  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 36, handle: "charmyowen", account: "Account 1" },
+  "965629596638624":  { pageName: "page_3", displayName: "Silent Peak Social", ready: true, videoCount: 192, handle: "silentpeaksocial", account: "Account 1" },
+  "956622247541040":  { pageName: "page_4", displayName: "Horizon Nest Daily", ready: true, videoCount: 222, handle: "horizonnestdaily", account: "Account 1" },
+  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 139, handle: "brightflarehub", account: "Account 1" },
+  "924636817403215":  { pageName: "page_6", displayName: "LuxeEpic Frames", ready: true, videoCount: 360, handle: "luxeepicframes", account: "Account 1" },
+  "795016603693140":  { pageName: "page_7", displayName: "Lopez Edward", ready: true, videoCount: 851, handle: "lopezedward", account: "Account 1" },
+  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 355, handle: "crownempire", account: "Account 1" },
+  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 434, handle: "craftychampions", account: "Account 1" },
+  "626061003919674":  { pageName: "page_10", displayName: "Fun Life", ready: true, videoCount: 339, handle: "funlife", account: "Account 1" },
+  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 307, handle: "dominionauthority", account: "Account 1" },
+  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 275, handle: "familyfancy", account: "Account 1" },
+  "500794979779192":  { pageName: "page_13", displayName: "Me Text", ready: true, videoCount: 184, handle: "metext", account: "Account 1" },
+  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 113, handle: "botmask", account: "Account 1" },
+  "106309715659174":  { pageName: "page_15", displayName: "Fresh Hive Network", ready: true, videoCount: 326, handle: "freshhivenetwork", account: "Account 1" },
+
+  // Account 2 Pages (Mia Shah - 15 Pages, +20m Staggered Schedule)
+  "1069951959531260": { pageName: "page_16", displayName: "Crimson Authority", ready: true, videoCount: 0, handle: "crimsonauthority", account: "Account 2" },
+  "979493165253123":  { pageName: "page_17", displayName: "Heven Made", ready: true, videoCount: 0, handle: "hevenmade", account: "Account 2" },
+  "920161364524597":  { pageName: "page_18", displayName: "Evening Wise", ready: true, videoCount: 0, handle: "eveningwise", account: "Account 2" },
+  "1005402935985498": { pageName: "page_19", displayName: "Glow City Stories", ready: true, videoCount: 0, handle: "glowcitystories", account: "Account 2" },
+  "802674512937262":  { pageName: "page_20", displayName: "Gonzales Jordan", ready: true, videoCount: 0, handle: "gonzalesjordan", account: "Account 2" },
+  "765106526695498":  { pageName: "page_21", displayName: "Gonzales Bradley", ready: true, videoCount: 0, handle: "gonzalesbradley", account: "Account 2" },
+  "568171476378321":  { pageName: "page_22", displayName: "The Showdown Hub", ready: true, videoCount: 0, handle: "theshowdownhub", account: "Account 2" },
+  "454880037713018":  { pageName: "page_23", displayName: "Garden Super", ready: true, videoCount: 0, handle: "gardensuper", account: "Account 2" },
+  "368653459672717":  { pageName: "page_24", displayName: "Gold encloud Studio", ready: true, videoCount: 0, handle: "goldencloudstudio", account: "Account 2" },
+  "359780240556577":  { pageName: "page_25", displayName: "Gintube", ready: true, videoCount: 0, handle: "gintube", account: "Account 2" },
+  "211294825398492":  { pageName: "page_26", displayName: "Sovereign Labs", ready: true, videoCount: 0, handle: "sovereignlabs", account: "Account 2" },
+  "166448239894078":  { pageName: "page_27", displayName: "Prestige Frontier", ready: true, videoCount: 0, handle: "prestigefrontier", account: "Account 2" },
+  "176892285514777":  { pageName: "page_28", displayName: "Zenith Empire", ready: true, videoCount: 0, handle: "zenithempire", account: "Account 2" },
+  "199046363282913":  { pageName: "page_29", displayName: "Crown Voltage", ready: true, videoCount: 0, handle: "crownvoltage", account: "Account 2" },
+  "169686166222750":  { pageName: "page_30", displayName: "Supreme Ledger", ready: true, videoCount: 0, handle: "supremeledger", account: "Account 2" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)

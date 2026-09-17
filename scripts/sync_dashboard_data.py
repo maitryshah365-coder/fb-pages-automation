@@ -10,64 +10,79 @@ TOKENS_PATH = r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-80
 
 
 def get_pages_list():
-    pages = []
     # 1. First load existing docs/data/pages_data.json to keep ALL previously fetched metadata & videos
     existing_json = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
+    existing_by_id = {}
     if os.path.exists(existing_json):
         try:
             with open(existing_json, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                pages = data.get("pages", [])
+                for ep in data.get("pages", []):
+                    existing_by_id[str(ep.get("id"))] = ep
         except Exception as e:
             print("Error loading existing pages_data.json:", e)
 
     # 2. Token candidate paths
     token_candidates = [
         os.path.join(BASE_DIR, "data", "pages_tokens.json"),
+        os.path.join(BASE_DIR, "data", "account2_verified_pages.json"),
         os.path.join(BASE_DIR, "scratch", "pages_tokens.json"),
         TOKENS_PATH
     ]
     tokens_from_file = {}
+    pages_from_file = []
     for tf in token_candidates:
         if os.path.exists(tf):
             try:
                 with open(tf, "r", encoding="utf-8") as f:
                     t_list = json.load(f)
+                    if len(t_list) > len(pages_from_file):
+                        pages_from_file = t_list
                     for item in t_list:
-                        if item.get("id"):
-                            tokens_from_file[str(item["id"])] = item.get("access_token", "")
-                        if item.get("index"):
-                            tokens_from_file[f"idx_{item['index']}"] = item.get("access_token", "")
-                break
+                        pid = str(item.get("id") or item.get("page_id") or "")
+                        tok = item.get("access_token") or item.get("page_access_token") or ""
+                        if pid and tok:
+                            tokens_from_file[pid] = tok
+                        if item.get("index") and tok:
+                            tokens_from_file[f"idx_{item['index']}"] = tok
             except Exception:
                 pass
 
-    if not pages:
-        for tf in token_candidates:
-            if os.path.exists(tf):
-                try:
-                    with open(tf, "r", encoding="utf-8") as f:
-                        pages = json.load(f)
-                    break
-                except Exception:
-                    pass
+    # Build final comprehensive 30 pages list
+    final_pages = []
+    seen_ids = set()
 
-    # Ensure each page has the best token possible
-    for idx, p in enumerate(pages, 1):
-        p_id = str(p.get("id", ""))
-        p_idx = p.get("index", idx)
+    for idx, item in enumerate(pages_from_file, 1):
+        pid = str(item.get("id") or item.get("page_id") or "")
+        if not pid or pid in seen_ids:
+            continue
+        seen_ids.add(pid)
+        p_idx = item.get("index", idx)
 
-        if not p.get("access_token") or p_id in tokens_from_file:
-            if p_id in tokens_from_file:
-                p["access_token"] = tokens_from_file[p_id]
-            elif f"idx_{p_idx}" in tokens_from_file:
-                p["access_token"] = tokens_from_file[f"idx_{p_idx}"]
+        # Merge with existing page data if available
+        base_p = existing_by_id.get(pid, {})
+        merged_p = dict(base_p)
+        merged_p["id"] = pid
+        merged_p["index"] = p_idx
+        merged_p["name"] = item.get("name") or merged_p.get("name") or f"Page {p_idx}"
+        merged_p["account"] = item.get("account") or ("Account 1" if p_idx <= 15 else "Account 2")
+        merged_p["account_owner"] = "Mia Shah" if p_idx > 15 else "Account 1"
+        merged_p["pic_url"] = item.get("pic_url") or merged_p.get("pic_url")
 
-        env_tok = os.environ.get(f"FB_TOKEN_PAGE_{p_idx}") or os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
-        if env_tok:
-            p["access_token"] = env_tok
+        # Resolve token
+        tok = (
+            os.environ.get(f"FB_TOKEN_PAGE_{p_idx}") or
+            tokens_from_file.get(pid) or
+            tokens_from_file.get(f"idx_{p_idx}") or
+            item.get("access_token") or
+            item.get("page_access_token") or
+            merged_p.get("access_token") or
+            os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
+        )
+        merged_p["access_token"] = tok
+        final_pages.append(merged_p)
 
-    return pages
+    return final_pages
 
 
 def get_current_telemetry():
@@ -711,6 +726,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "index": idx,
         "id": pid,
         "name": p_name,
+        "account": p.get("account", "Account 1" if idx <= 15 else "Account 2"),
+        "account_owner": p.get("account_owner", "Mia Shah" if idx > 15 else "Account 1"),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,
@@ -721,6 +738,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "daily_limit": 4,
         "drive_folder_id": drive_folder_id,
         "is_configured": True,
+        "has_drive_folder": bool(drive_folder_id and not drive_folder_id.startswith("REPLACE_WITH")),
         "drive_videos_count": current_drive_stock,
         "total_posts": max(len(meta_videos), len(db_videos)),
         "total_views": total_page_views,
@@ -955,19 +973,23 @@ def sync_data():
     payload = {
         "synced_at": datetime.now(timezone.utc).isoformat(),
         "today_summary": {
-            "target_total": total_target_today,
+            "target_total": len(page_records) * 4,
             "uploaded": total_today_posted,
-            "remaining": today_remaining,
-            "active_pages_count": active_configured_count,
-            "daily_slots_edt": ["10:00 AM", "03:00 PM", "07:00 PM", "10:00 PM"]
+            "remaining": max(0, (len(page_records) * 4) - total_today_posted),
+            "active_pages_count": len(page_records),
+            "daily_slots_edt": ["10:00 AM", "03:00 PM", "07:00 PM", "10:00 PM"],
+            "account2_offset_minutes": 20,
+            "account2_slots_edt": ["10:20 AM", "03:20 PM", "07:20 PM", "10:20 PM"]
         },
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
         "server_uploaded_videos": server_uploaded_videos,
         "portfolio": {
             "total_pages": len(page_records),
-            "active_pages_count": active_configured_count,
-            "pending_pages_count": len(page_records) - active_configured_count,
+            "account1_pages_count": len([p for p in page_records if p.get("account") == "Account 1"]),
+            "account2_pages_count": len([p for p in page_records if p.get("account") == "Account 2"]),
+            "active_pages_count": len(page_records),
+            "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,
             "total_likes": total_portfolio_likes,
             "total_views": total_views,

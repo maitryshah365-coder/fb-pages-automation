@@ -43,8 +43,9 @@ class PageConfig:
 
         # 4. Check pages_tokens.json files locally
         token_candidates = [
-            "scratch/pages_tokens.json",
             "data/pages_tokens.json",
+            "data/account2_verified_pages.json",
+            "scratch/pages_tokens.json",
             r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-8050-53be5bd48383\scratch\pages_tokens.json"
         ]
         for tf in token_candidates:
@@ -53,8 +54,11 @@ class PageConfig:
                     with open(tf, "r", encoding="utf-8") as f:
                         pages_list = json.load(f)
                         for p in pages_list:
-                            if str(p.get("id")) == str(self.page_id) or str(p.get("index")) == str(self.name).replace("page_", ""):
-                                return p.get("access_token", "").strip()
+                            pid = str(p.get("id") or p.get("page_id") or "")
+                            tok = p.get("access_token") or p.get("page_access_token") or ""
+                            if pid == str(self.page_id) or str(p.get("index")) == str(self.name).replace("page_", ""):
+                                if tok:
+                                    return tok.strip()
                 except Exception:
                     pass
 
