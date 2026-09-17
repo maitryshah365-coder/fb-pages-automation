@@ -382,7 +382,9 @@ function renderSidebarPagesList(pages) {
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" 
            data-page-id="${p.id}"
-           onclick="onSelectSidebarPage('${p.id}')"
+           role="button"
+           tabindex="0"
+           onclick="onSelectSidebarPage('${p.id}', event)"
            title="${p.name} • ${followersStr} followers">
         <div class="side-page-item-left">
           <img class="side-page-avatar" 
@@ -398,6 +400,14 @@ function renderSidebarPagesList(pages) {
       </div>
     `;
   }).join("");
+
+  // Direct touch and click listeners for mobile/tablet sidebar shutter
+  container.querySelectorAll(".side-page-item").forEach(item => {
+    const pid = item.dataset.pageId;
+    if (!pid) return;
+    item.addEventListener("click", (e) => onSelectSidebarPage(pid, e));
+    item.addEventListener("touchend", (e) => onSelectSidebarPage(pid, e), { passive: true });
+  });
 
   const countBadge = document.getElementById("sidePagesCountBadge");
   if (countBadge) countBadge.innerText = `${pages.length} Pages`;
@@ -435,24 +445,42 @@ window.toggleSidePagesShutter = function(e) {
   }
 };
 
-window.onSelectSidebarPage = function(pageId) {
+window.onSelectSidebarPage = function(pageId, e) {
+  if (e) {
+    if (e.stopPropagation) e.stopPropagation();
+  }
   selectPage(pageId);
   switchMainView("dashboard");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
-function onSelectSidebarPage(pageId) {
-  selectPage(pageId);
-  switchMainView("dashboard");
+function onSelectSidebarPage(pageId, e) {
+  window.onSelectSidebarPage(pageId, e);
 }
 
-// ----------------- Drawer Page List -----------------
+// ----------------- Drawer Page Selection & Touch Engine -----------------
+
+window.onSelectDrawerPage = function(pageId, e) {
+  if (e) {
+    if (e.stopPropagation) e.stopPropagation();
+  }
+  selectPage(pageId);
+  closePageDrawer();
+  switchMainView("dashboard");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+function onSelectDrawerPage(pageId, e) {
+  window.onSelectDrawerPage(pageId, e);
+}
 
 function renderDrawerPages(pages) {
   const container = document.getElementById("sidebarPagesList");
   if (!container) return;
 
   const searchTerm = (document.getElementById("sidebarPagesSearch")?.value || "").toLowerCase().trim();
-  const filtered = pages.filter(p => !searchTerm || p.name.toLowerCase().includes(searchTerm));
+  const pageList = pages || (fullData?.pages || []);
+  const filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
 
   container.innerHTML = filtered.map(p => {
     const isActive = String(p.id) === activePageId;
@@ -460,9 +488,13 @@ function renderDrawerPages(pages) {
     const followersFormatted = (p.followers || 0).toLocaleString();
 
     return `
-      <div class="drawer-page-item ${isActive ? 'active' : ''}" onclick="selectPage('${p.id}')">
+      <div class="drawer-page-item ${isActive ? 'active' : ''}" 
+           data-page-id="${p.id}"
+           role="button"
+           tabindex="0"
+           onclick="onSelectDrawerPage('${p.id}', event)">
         <div class="page-item-left">
-          <img class="page-item-img" src="${p.pic_url}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
+          <img class="page-item-img" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
           <div class="page-item-info">
             <div class="page-item-name">${p.name}</div>
             <div class="page-item-meta">${viewsFormatted} views • ${p.category || 'Creator'}</div>
@@ -473,8 +505,16 @@ function renderDrawerPages(pages) {
     `;
   }).join("");
 
+  // Attach direct touch and click listeners to guarantee 100% responsiveness on touch devices
+  container.querySelectorAll(".drawer-page-item").forEach(item => {
+    const pid = item.dataset.pageId;
+    if (!pid) return;
+    item.addEventListener("click", (e) => onSelectDrawerPage(pid, e));
+    item.addEventListener("touchend", (e) => onSelectDrawerPage(pid, e), { passive: true });
+  });
+
   const countBadge = document.getElementById("sidebarPagesCountBadge");
-  if (countBadge) countBadge.innerText = `${pages.length} Pages`;
+  if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
 }
 
 // ----------------- Page Selection Engine -----------------
@@ -494,11 +534,15 @@ function selectPage(pageId) {
     }
   }
 
+  // Ensure dashboard view is visible and scroll to top on phone & desktop
+  switchMainView("dashboard");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   // Update Drawer active state
   document.querySelectorAll(".drawer-page-item").forEach(el => {
-    el.classList.remove("active");
+    el.classList.toggle("active", el.dataset.pageId === activePageId);
   });
-  const allTile = document.getElementById("btnSelectAllPages");
+  const allTile = document.getElementById("btnSelectAllPagesDrawer") || document.getElementById("btnSelectAllPages");
   if (allTile) {
     if (activePageId === "all") allTile.style.borderColor = "var(--gold-primary)";
     else allTile.style.borderColor = "var(--border-gold)";
@@ -1583,6 +1627,9 @@ function closeVideoModal() {
 // ----------------- Drawer Toggle Controls -----------------
 
 function openPageDrawer() {
+  if (fullData && fullData.pages) {
+    renderDrawerPages(fullData.pages);
+  }
   document.getElementById("pagesDrawer")?.classList.add("active");
   document.getElementById("pagesDrawerOverlay")?.classList.add("active");
   document.body.style.overflow = "hidden";
@@ -1639,7 +1686,11 @@ function setupEventListeners() {
     showToast(`⚡ Syncing Live Meta Graph API...`);
     syncLiveMetaGraph();
   });
-  document.getElementById("btnSelectAllPagesDrawer")?.addEventListener("click", () => selectPage("all"));
+  const allDrawerTile = document.getElementById("btnSelectAllPagesDrawer");
+  if (allDrawerTile) {
+    allDrawerTile.addEventListener("click", (e) => onSelectDrawerPage("all", e));
+    allDrawerTile.addEventListener("touchend", (e) => onSelectDrawerPage("all", e), { passive: true });
+  }
 
   // Global search input in header
   document.getElementById("headerGlobalSearch")?.addEventListener("input", (e) => {
@@ -2638,6 +2689,8 @@ function formatRelativeTime(isoStr) {
 
 // Global window bindings to guarantee inline HTML onclick handlers work reliably
 window.selectPage = selectPage;
+window.onSelectDrawerPage = onSelectDrawerPage;
+window.onSelectSidebarPage = onSelectSidebarPage;
 window.switchMainView = switchMainView;
 window.syncLiveMetaGraph = syncLiveMetaGraph;
 window.openPageDrawer = openPageDrawer;
