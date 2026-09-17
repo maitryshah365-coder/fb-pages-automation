@@ -474,10 +474,6 @@ body {
   transform: scale(0.98);
 }
 
-.drawer-all-portfolio-tile * {
-  pointer-events: none;
-}
-
 .drawer-all-portfolio-tile:hover {
   background: rgba(245, 186, 35, 0.14);
 }
@@ -557,10 +553,6 @@ body {
 .drawer-page-item.active {
   background: rgba(245, 186, 35, 0.1);
   border-color: var(--border-gold);
-}
-
-.drawer-page-item * {
-  pointer-events: none;
 }
 
 .page-item-left {
@@ -3302,10 +3294,6 @@ body {
 .side-page-item.active {
   background: rgba(56, 189, 248, 0.14);
   border-color: rgba(56, 189, 248, 0.4);
-}
-
-.side-page-item * {
-  pointer-events: none;
 }
 
 .side-page-item-left {

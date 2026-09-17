@@ -401,14 +401,6 @@ function renderSidebarPagesList(pages) {
     `;
   }).join("");
 
-  // Direct touch and click listeners for mobile/tablet sidebar shutter
-  container.querySelectorAll(".side-page-item").forEach(item => {
-    const pid = item.dataset.pageId;
-    if (!pid) return;
-    item.addEventListener("click", (e) => onSelectSidebarPage(pid, e));
-    item.addEventListener("touchend", (e) => onSelectSidebarPage(pid, e), { passive: true });
-  });
-
   const countBadge = document.getElementById("sidePagesCountBadge");
   if (countBadge) countBadge.innerText = `${pages.length} Pages`;
 }
@@ -445,34 +437,20 @@ window.toggleSidePagesShutter = function(e) {
   }
 };
 
-window.onSelectSidebarPage = function(pageId, e) {
-  if (e) {
-    if (e.stopPropagation) e.stopPropagation();
-  }
-  selectPage(pageId);
-  switchMainView("dashboard");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
 function onSelectSidebarPage(pageId, e) {
-  window.onSelectSidebarPage(pageId, e);
+  if (e && e.stopPropagation) e.stopPropagation();
+  selectPage(pageId);
 }
+window.onSelectSidebarPage = onSelectSidebarPage;
 
 // ----------------- Drawer Page Selection & Touch Engine -----------------
 
-window.onSelectDrawerPage = function(pageId, e) {
-  if (e) {
-    if (e.stopPropagation) e.stopPropagation();
-  }
+function onSelectDrawerPage(pageId, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
   selectPage(pageId);
   closePageDrawer();
-  switchMainView("dashboard");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
-function onSelectDrawerPage(pageId, e) {
-  window.onSelectDrawerPage(pageId, e);
 }
+window.onSelectDrawerPage = onSelectDrawerPage;
 
 function renderDrawerPages(pages) {
   const container = document.getElementById("sidebarPagesList");
@@ -505,14 +483,6 @@ function renderDrawerPages(pages) {
     `;
   }).join("");
 
-  // Attach direct touch and click listeners to guarantee 100% responsiveness on touch devices
-  container.querySelectorAll(".drawer-page-item").forEach(item => {
-    const pid = item.dataset.pageId;
-    if (!pid) return;
-    item.addEventListener("click", (e) => onSelectDrawerPage(pid, e));
-    item.addEventListener("touchend", (e) => onSelectDrawerPage(pid, e), { passive: true });
-  });
-
   const countBadge = document.getElementById("sidebarPagesCountBadge");
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
 }
@@ -521,22 +491,30 @@ function renderDrawerPages(pages) {
 
 function selectPage(pageId) {
   activePageId = String(pageId);
-  closePageDrawer();
+  try {
+    closePageDrawer();
+  } catch (e) {}
 
   if (!fullData) return;
 
-  if (activePageId === "all") {
-    renderAllPortfolioView();
-  } else {
-    const pageObj = fullData.pages.find(p => String(p.id) === activePageId);
-    if (pageObj) {
-      renderSinglePageView(pageObj);
+  try {
+    if (activePageId === "all") {
+      renderAllPortfolioView();
+    } else {
+      const pageObj = fullData.pages.find(p => String(p.id) === activePageId);
+      if (pageObj) {
+        renderSinglePageView(pageObj);
+      }
     }
+  } catch (err) {
+    console.error("Error rendering view for page", activePageId, err);
   }
 
   // Ensure dashboard view is visible and scroll to top on phone & desktop
-  switchMainView("dashboard");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  try {
+    switchMainView("dashboard");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (e) {}
 
   // Update Drawer active state
   document.querySelectorAll(".drawer-page-item").forEach(el => {
@@ -935,7 +913,8 @@ function renderAllPortfolioView() {
   if (libDesc) libDesc.innerText = "Live content performance table • Real-time views, retention & engagement from automation server & Meta Graph API";
 
   window._portfolioAllReels = allVideosForTf;
-  window._portfolioServerReels = getReelsForDays(serverReels, currentTimeframe);
+  const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
+  window._portfolioServerReels = serverReelsForTf;
 
   if (activeReelsCategory === "server") {
     currentVideos = window._portfolioServerReels;
@@ -950,7 +929,7 @@ function renderAllPortfolioView() {
   renderTelemetry({ isPortfolio: true });
 
   // Update Studio Left Sidebar & Dashboard Top Cards
-  updateStudioDashboardCards(true, null, serverReelsForTf);
+  updateStudioDashboardCards(true, null, allVideosForTf);
 }
 
 // ----------------- Demographics Tabs -----------------
@@ -1689,7 +1668,6 @@ function setupEventListeners() {
   const allDrawerTile = document.getElementById("btnSelectAllPagesDrawer");
   if (allDrawerTile) {
     allDrawerTile.addEventListener("click", (e) => onSelectDrawerPage("all", e));
-    allDrawerTile.addEventListener("touchend", (e) => onSelectDrawerPage("all", e), { passive: true });
   }
 
   // Global search input in header
@@ -2695,6 +2673,7 @@ window.switchMainView = switchMainView;
 window.syncLiveMetaGraph = syncLiveMetaGraph;
 window.openPageDrawer = openPageDrawer;
 window.closePageDrawer = closePageDrawer;
+window.getActivePageId = () => activePageId;
 
 
 
