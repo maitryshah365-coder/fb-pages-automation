@@ -1874,21 +1874,21 @@ const DRIVE_CONFIGURED_PAGES = {
   "106309715659174":  { pageName: "page_15", displayName: "Fresh Hive Network", ready: true, videoCount: 326, handle: "freshhivenetwork", account: "Account 1" },
 
   // Account 2 Pages (Mia Shah - 15 Pages, +20m Staggered Schedule)
-  "1069951959531260": { pageName: "page_16", displayName: "Crimson Authority", ready: true, videoCount: 0, handle: "crimsonauthority", account: "Account 2" },
-  "979493165253123":  { pageName: "page_17", displayName: "Heven Made", ready: true, videoCount: 0, handle: "hevenmade", account: "Account 2" },
-  "920161364524597":  { pageName: "page_18", displayName: "Evening Wise", ready: true, videoCount: 0, handle: "eveningwise", account: "Account 2" },
-  "1005402935985498": { pageName: "page_19", displayName: "Glow City Stories", ready: true, videoCount: 0, handle: "glowcitystories", account: "Account 2" },
-  "802674512937262":  { pageName: "page_20", displayName: "Gonzales Jordan", ready: true, videoCount: 0, handle: "gonzalesjordan", account: "Account 2" },
-  "765106526695498":  { pageName: "page_21", displayName: "Gonzales Bradley", ready: true, videoCount: 0, handle: "gonzalesbradley", account: "Account 2" },
-  "568171476378321":  { pageName: "page_22", displayName: "The Showdown Hub", ready: true, videoCount: 0, handle: "theshowdownhub", account: "Account 2" },
-  "454880037713018":  { pageName: "page_23", displayName: "Garden Super", ready: true, videoCount: 0, handle: "gardensuper", account: "Account 2" },
-  "368653459672717":  { pageName: "page_24", displayName: "Gold encloud Studio", ready: true, videoCount: 0, handle: "goldencloudstudio", account: "Account 2" },
-  "359780240556577":  { pageName: "page_25", displayName: "Gintube", ready: true, videoCount: 0, handle: "gintube", account: "Account 2" },
-  "211294825398492":  { pageName: "page_26", displayName: "Sovereign Labs", ready: true, videoCount: 0, handle: "sovereignlabs", account: "Account 2" },
-  "166448239894078":  { pageName: "page_27", displayName: "Prestige Frontier", ready: true, videoCount: 0, handle: "prestigefrontier", account: "Account 2" },
-  "176892285514777":  { pageName: "page_28", displayName: "Zenith Empire", ready: true, videoCount: 0, handle: "zenithempire", account: "Account 2" },
-  "199046363282913":  { pageName: "page_29", displayName: "Crown Voltage", ready: true, videoCount: 0, handle: "crownvoltage", account: "Account 2" },
-  "169686166222750":  { pageName: "page_30", displayName: "Supreme Ledger", ready: true, videoCount: 0, handle: "supremeledger", account: "Account 2" }
+  "1069951959531260": { pageName: "page_16", displayName: "Crimson Authority", ready: true, videoCount: 207, handle: "crimsonauthority", account: "Account 2" },
+  "979493165253123":  { pageName: "page_17", displayName: "Heven Made", ready: true, videoCount: 206, handle: "hevenmade", account: "Account 2" },
+  "920161364524597":  { pageName: "page_18", displayName: "Evening Wise", ready: true, videoCount: 1252, handle: "eveningwise", account: "Account 2" },
+  "1005402935985498": { pageName: "page_19", displayName: "Glow City Stories", ready: true, videoCount: 68, handle: "glowcitystories", account: "Account 2" },
+  "802674512937262":  { pageName: "page_20", displayName: "Gonzales Jordan", ready: true, videoCount: 163, handle: "gonzalesjordan", account: "Account 2" },
+  "765106526695498":  { pageName: "page_21", displayName: "Gonzales Bradley", ready: true, videoCount: 20, handle: "gonzalesbradley", account: "Account 2" },
+  "568171476378321":  { pageName: "page_22", displayName: "The Showdown Hub", ready: true, videoCount: 568, handle: "theshowdownhub", account: "Account 2" },
+  "454880037713018":  { pageName: "page_23", displayName: "Garden Super", ready: true, videoCount: 300, handle: "gardensuper", account: "Account 2" },
+  "368653459672717":  { pageName: "page_24", displayName: "Gold encloud Studio", ready: true, videoCount: 367, handle: "goldencloudstudio", account: "Account 2" },
+  "359780240556577":  { pageName: "page_25", displayName: "Gintube", ready: true, videoCount: 295, handle: "gintube", account: "Account 2" },
+  "211294825398492":  { pageName: "page_26", displayName: "Sovereign Labs", ready: true, videoCount: 17, handle: "sovereignlabs", account: "Account 2" },
+  "166448239894078":  { pageName: "page_27", displayName: "Prestige Frontier", ready: true, videoCount: 39, handle: "prestigefrontier", account: "Account 2" },
+  "176892285514777":  { pageName: "page_28", displayName: "Zenith Empire", ready: true, videoCount: 466, handle: "zenithempire", account: "Account 2" },
+  "199046363282913":  { pageName: "page_29", displayName: "Crown Voltage", ready: true, videoCount: 140, handle: "crownvoltage", account: "Account 2" },
+  "169686166222750":  { pageName: "page_30", displayName: "Supreme Ledger", ready: true, videoCount: 200, handle: "supremeledger", account: "Account 2" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)

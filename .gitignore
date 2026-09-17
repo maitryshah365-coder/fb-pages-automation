@@ -39,4 +39,5 @@ logs/
 auth_url_gdrive.txt
 check_hist*.py
 find_code.py
-
+scratch/
+scripts/fetch_account2.py

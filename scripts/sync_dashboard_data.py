@@ -710,7 +710,24 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "503358542855153":  audit_data.get("Family Fancy", {}).get("video_count", 275),
         "500794979779192":  audit_data.get("Me Text", {}).get("video_count", 184),
         "468230386376818":  audit_data.get("Bot Mask", {}).get("video_count", 113),
-        "106309715659174":  audit_data.get("Fresh Hive Network", {}).get("video_count", 326)
+        "106309715659174":  audit_data.get("Fresh Hive Network", {}).get("video_count", 326),
+
+        # Account 2 Pages (Mia Shah - 15 Pages)
+        "1069951959531260": audit_data.get("Crimson Authority", {}).get("video_count", 207),
+        "979493165253123":  audit_data.get("Heven Made", {}).get("video_count", 206),
+        "920161364524597":  audit_data.get("Evening Wise", {}).get("video_count", 1252),
+        "1005402935985498": audit_data.get("Glow City Stories", {}).get("video_count", 68),
+        "802674512937262":  audit_data.get("Gonzales Jordan", {}).get("video_count", 163),
+        "765106526695498":  audit_data.get("Gonzales Bradley", {}).get("video_count", 20),
+        "568171476378321":  audit_data.get("The Showdown Hub", {}).get("video_count", 568),
+        "454880037713018":  audit_data.get("Garden Super", {}).get("video_count", 300),
+        "368653459672717":  audit_data.get("Gold encloud Studio", {}).get("video_count", 367),
+        "359780240556577":  audit_data.get("Gintube", {}).get("video_count", 295),
+        "211294825398492":  audit_data.get("Sovereign Labs", {}).get("video_count", 17),
+        "166448239894078":  audit_data.get("Prestige Frontier", {}).get("video_count", 39),
+        "176892285514777":  audit_data.get("Zenith Empire", {}).get("video_count", 466),
+        "199046363282913":  audit_data.get("Crown Voltage", {}).get("video_count", 140),
+        "169686166222750":  audit_data.get("Supreme Ledger", {}).get("video_count", 200)
     }
     base_stock = 0
     if drive_folder_id:
