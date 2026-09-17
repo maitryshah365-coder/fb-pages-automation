@@ -29,7 +29,8 @@ function filterVideoCategory(cat) {
     }
   } else {
     const pageObj = fullData?.pages?.find(p => String(p.id) === activePageId);
-    const pageReels = getReelsForDays(pageObj?.videos || [], currentTimeframe);
+    const rawVideos = pageObj?.videos || [];
+    const pageReels = (currentTimeframe === "all") ? rawVideos : getReelsForDays(rawVideos, currentTimeframe);
     if (cat === "server") {
       currentVideos = pageReels.filter(v => v.server_uploaded);
     } else {
@@ -50,6 +51,11 @@ function getReelsForDays(videos, days) {
     return tb - ta;
   });
 
+  // If "all" or lifetime requested, return all reels
+  if (days === "all" || !days || days === 0 || days >= 999) {
+    return sorted;
+  }
+
   // Calculate cutoff based on the newest video in the dataset
   const newestTime = new Date(sorted[0].posted_at || sorted[0].created_time_iso || sorted[0].created_at || Date.now()).getTime();
   const cutoffTime = newestTime - (days * 24 * 60 * 60 * 1000);
@@ -60,10 +66,7 @@ function getReelsForDays(videos, days) {
   });
 
   if (matched.length > 0) return matched;
-
-  // Exact slice fallback if timestamps are uniform
-  const count = Math.max(1, Math.min(sorted.length, Math.round(sorted.length * (days / 90))));
-  return sorted.slice(0, count);
+  return sorted;
 }
 
 function getServerUploadedVideos() {
@@ -147,14 +150,18 @@ function setTimeframe(days) {
   currentTimeframe = days;
 
   document.querySelectorAll(".timeframe-pill").forEach(btn => {
-    btn.classList.toggle("active", parseInt(btn.dataset.days) === days);
+    if (days === "all") {
+      btn.classList.toggle("active", btn.dataset.days === "all");
+    } else {
+      btn.classList.toggle("active", parseInt(btn.dataset.days) === days);
+    }
   });
 
-  const subLabel = `Last ${days} Days Live`;
+  const subLabel = days === "all" ? "All Time Lifetime" : `Last ${days} Days Live`;
   const viewsSub = document.getElementById("metricViewsSub");
   if (viewsSub) viewsSub.innerText = `${subLabel} Meta Count`;
 
-  showToast(`📅 Loaded 100% Real Live Analytics for Last ${days} Days`);
+  showToast(days === "all" ? "📅 Loaded All Published Reels (Lifetime Scope)" : `📅 Loaded 100% Real Live Analytics for Last ${days} Days`);
   selectPage(activePageId);
 }
 
@@ -689,8 +696,12 @@ function renderSinglePageView(p) {
   if (kpiProfileVisits) kpiProfileVisits.innerText = (ins.profile_views_total || 0).toLocaleString();
   if (kpiDailyFollows) kpiDailyFollows.innerText = `+${ins.daily_follows || 0}`;
 
-  // 5. Demographics
-  renderDemographics(p.audience);
+  // 5. Demographics (Shown only on single page view)
+  const secAud = document.getElementById("sectionAudienceDemographics");
+  if (secAud) {
+    secAud.style.display = "block";
+    renderDemographics(p.audience);
+  }
 
   // 6. Video Reels Library (matching exact timeframe reels for this page)
   const libTitle = document.getElementById("librarySectionTitle");
@@ -937,6 +948,10 @@ function renderAllPortfolioView() {
 
   // Telemetry
   renderTelemetry({ isPortfolio: true });
+
+  // Hide Audience Demographics on Portfolio Dashboard
+  const secAud = document.getElementById("sectionAudienceDemographics");
+  if (secAud) secAud.style.display = "none";
 
   // Update Studio Left Sidebar & Dashboard Top Cards
   updateStudioDashboardCards(true, null, allVideosForTf);
@@ -1639,6 +1654,8 @@ function setupEventListeners() {
     switchMainView("dashboard");
   });
   document.getElementById("sideNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
+  document.getElementById("sideNavDriveData")?.addEventListener("click", () => switchMainView("drive_data"));
+  document.getElementById("sideNavRecentPosts")?.addEventListener("click", () => switchMainView("recent_posts"));
 
   // Desktop Left Sidebar Live Sync ("synk vala bhi side me lele")
   document.getElementById("btnSideLiveSync")?.addEventListener("click", () => {
@@ -1704,18 +1721,58 @@ function setupEventListeners() {
   document.getElementById("btnToggleNavAuth")?.addEventListener("click", toggleStudioAuthDrawer);
   document.getElementById("btnSaveStudioGithubPat")?.addEventListener("click", saveStudioCustomPat);
 
+  // Post Now Studio Account Filter Tabs (All / A1 / A2)
+  document.querySelectorAll(".studio-acc-tab").forEach(tab => {
+    tab.addEventListener("click", (e) => {
+      e.stopPropagation();
+      document.querySelectorAll(".studio-acc-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      currentStudioAccountFilter = tab.dataset.filter || "all";
+      renderStudioFleetList();
+    });
+  });
+
+  // Drive Data Inventory Filter Pills & Search
+  document.querySelectorAll("#driveAccountFilters .timeframe-pill").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      document.querySelectorAll("#driveAccountFilters .timeframe-pill").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentDriveAccountFilter = btn.dataset.filter || "all";
+      renderDriveInventoryList();
+    });
+  });
+  document.getElementById("inputDriveInventorySearch")?.addEventListener("input", renderDriveInventoryList);
+
+  // Recent Posts Filter Pills & Search
+  document.querySelectorAll("#recentSourceFilters .timeframe-pill").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      document.querySelectorAll("#recentSourceFilters .timeframe-pill").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentRecentSourceFilter = btn.dataset.source || "all";
+      renderRecentPostsList();
+    });
+  });
+  document.getElementById("inputRecentPostsSearch")?.addEventListener("input", () => renderRecentPostsList());
+
   // Drawer
   document.getElementById("btnOpenPageDrawer")?.addEventListener("click", openPageDrawer);
   document.getElementById("btnClosePageDrawer")?.addEventListener("click", closePageDrawer);
   document.getElementById("pagesDrawerOverlay")?.addEventListener("click", closePageDrawer);
   document.getElementById("btnSelectAllPages")?.addEventListener("click", () => selectPage("all"));
 
-  // Timeframe Pills (7, 28, 60, 90 Days) - Analytics & Reels Library
+  // Timeframe Pills (7, 28, 60, 90 Days & All Time) - Analytics & Reels Library
   document.querySelectorAll(".timeframe-pill").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      const days = parseInt(btn.dataset.days);
-      if (days) setTimeframe(days);
+      const d = btn.dataset.days;
+      if (d === "all") {
+        setTimeframe("all");
+      } else {
+        const days = parseInt(d);
+        if (days) setTimeframe(days);
+      }
     });
   });
 
@@ -1894,59 +1951,73 @@ const DRIVE_CONFIGURED_PAGES = {
 // Selected page IDs for studio post now (starts empty, user selects on click)
 let studioSelectedPageIds = new Set();
 let isStudioDispatching = false;
+let currentStudioAccountFilter = "all";
+let currentDriveAccountFilter = "all";
+let currentRecentSourceFilter = "all";
 
 // ----------------- View Switcher (Studio vs Dashboard) -----------------
 
 function switchMainView(viewName) {
   const studioView = document.getElementById("postNowStudioView");
   const dashboardView = document.getElementById("dashboardAnalyticsView");
+  const driveDataView = document.getElementById("driveDataInventoryView");
+  const recentPostsView = document.getElementById("recentPostsFeedView");
 
   // Desktop Sidebar items
   const sideDashboard = document.getElementById("sideNavDashboard");
   const sidePostNow = document.getElementById("sideNavPostNow");
+  const sideDriveData = document.getElementById("sideNavDriveData");
+  const sideRecentPosts = document.getElementById("sideNavRecentPosts");
 
   // Mobile Bottom Panel items
   const bottomDashboard = document.getElementById("bottomNavDashboard");
   const bottomPostNow = document.getElementById("bottomNavPostNow");
 
+  // Hide all views first
+  if (studioView) studioView.style.display = "none";
+  if (dashboardView) dashboardView.style.display = "none";
+  if (driveDataView) driveDataView.style.display = "none";
+  if (recentPostsView) recentPostsView.style.display = "none";
+
+  // Reset desktop sidebar active classes
+  if (sideDashboard) sideDashboard.classList.remove("active");
+  if (sidePostNow) sidePostNow.classList.remove("active");
+  if (sideDriveData) sideDriveData.classList.remove("active");
+  if (sideRecentPosts) sideRecentPosts.classList.remove("active");
+  document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
+
+  // Reset mobile bottom panel active classes
+  if (bottomPostNow) bottomPostNow.classList.remove("active");
+  if (bottomDashboard) bottomDashboard.classList.remove("active");
+
   if (viewName === "studio") {
     if (studioView) studioView.style.display = "grid";
-    if (dashboardView) dashboardView.style.display = "none";
-
-    // Toggle active classes on Desktop Sidebar
     if (sidePostNow) sidePostNow.classList.add("active");
-    if (sideDashboard) sideDashboard.classList.remove("active");
-    document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
-
-    // Toggle active classes on Mobile Bottom Panel
     if (bottomPostNow) bottomPostNow.classList.add("active");
-    if (bottomDashboard) bottomDashboard.classList.remove("active");
-
     window.scrollTo({ top: 0, behavior: "smooth" });
     updateStudioSelectionUI();
+  } else if (viewName === "drive_data") {
+    if (driveDataView) driveDataView.style.display = "block";
+    if (sideDriveData) sideDriveData.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderDriveDataView();
+  } else if (viewName === "recent_posts") {
+    if (recentPostsView) recentPostsView.style.display = "block";
+    if (sideRecentPosts) sideRecentPosts.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderRecentPostsView();
   } else {
-    if (studioView) studioView.style.display = "none";
+    // "dashboard"
     if (dashboardView) dashboardView.style.display = "block";
-
-    // Toggle active classes on Desktop Sidebar
-    if (sidePostNow) sidePostNow.classList.remove("active");
     if (activePageId === "all") {
       if (sideDashboard) sideDashboard.classList.add("active");
-      document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
     } else {
-      if (sideDashboard) sideDashboard.classList.remove("active");
       document.querySelectorAll(".side-page-item").forEach(el => {
         el.classList.toggle("active", el.dataset.pageId === activePageId);
       });
     }
-
-    // Toggle active classes on Mobile Bottom Panel
-    if (bottomPostNow) bottomPostNow.classList.remove("active");
     if (bottomDashboard) bottomDashboard.classList.add("active");
-
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // When exiting studio, clear terminal logs so past execution data disappears
     if (!isStudioDispatching) {
       resetStudioTerminalLogs();
     }
@@ -2074,6 +2145,11 @@ function renderStudioFleetList() {
     const isSelected = studioSelectedPageIds.has(pId);
     const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const isA2 = (page.account === 'Account 2') || (page.index > 15);
+
+    // Account quick filter tab (all / a1 / a2)
+    if (currentStudioAccountFilter === "a1" && isA2) return;
+    if (currentStudioAccountFilter === "a2" && !isA2) return;
 
     // Search query match
     if (query) {
@@ -2093,7 +2169,10 @@ function renderStudioFleetList() {
         </div>
         <img class="studio-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
         <div class="studio-page-meta">
-          <div class="studio-page-name">${page.name}</div>
+          <div class="studio-page-name" style="display:flex;align-items:center;">
+            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${page.name}</span>
+            <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}">${isA2 ? 'A2' : 'A1'}</span>
+          </div>
           <div class="studio-page-sub">@${handle} • ${isDriveReady ? `<span class="drive-count-green">${videoCount} in Drive</span>` : `<span style="color:#64748b;">Pending Folder</span>`}</div>
         </div>
       </div>
@@ -2128,6 +2207,9 @@ function selectAllReadyPages() {
   if (!fullData || !fullData.pages) return;
   fullData.pages.forEach(page => {
     const pId = String(page.id);
+    const isA2 = (page.account === 'Account 2') || (page.index > 15);
+    if (currentStudioAccountFilter === "a1" && isA2) return;
+    if (currentStudioAccountFilter === "a2" && !isA2) return;
     if (DRIVE_CONFIGURED_PAGES[pId]?.ready || page.is_configured !== false) {
       studioSelectedPageIds.add(pId);
     }
@@ -2693,6 +2775,354 @@ function formatRelativeTime(isoStr) {
   }
 }
 
+// =========================================================================
+// DRIVE DATA VIEW ENGINE (30 CHANNEL CLOUD REPOSITORY & REAL-TIME COUNTS)
+// =========================================================================
+
+function renderDriveDataView() {
+  if (!fullData || !fullData.pages) return;
+
+  // Calculate stock numbers
+  let totalStock = 0;
+  let a1Stock = 0;
+  let a2Stock = 0;
+
+  fullData.pages.forEach(p => {
+    const pid = String(p.id);
+    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+    const count = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const isA2 = (p.account === "Account 2") || (p.index > 15);
+    totalStock += count;
+    if (isA2) {
+      a2Stock += count;
+    } else {
+      a1Stock += count;
+    }
+  });
+
+  const elTotal = document.getElementById("driveHeroTotalCount");
+  if (elTotal) elTotal.innerText = `${totalStock.toLocaleString()} Videos`;
+  const elA1 = document.getElementById("driveHeroA1Count");
+  if (elA1) elA1.innerText = `${a1Stock.toLocaleString()} Videos`;
+  const elA2 = document.getElementById("driveHeroA2Count");
+  if (elA2) elA2.innerText = `${a2Stock.toLocaleString()} Videos`;
+  const elSideBadge = document.getElementById("sideNavDriveCountBadge");
+  if (elSideBadge) elSideBadge.innerText = totalStock.toLocaleString();
+
+  renderDriveInventoryList();
+}
+
+function renderDriveInventoryList() {
+  const tbody = document.getElementById("driveInventoryTableBody");
+  const mobileContainer = document.getElementById("driveInventoryMobileCards");
+  if (!tbody || !fullData || !fullData.pages) return;
+
+  const searchInput = document.getElementById("inputDriveInventorySearch");
+  const query = (searchInput?.value || "").toLowerCase().trim();
+
+  const filtered = fullData.pages.filter(p => {
+    const isA2 = (p.account === "Account 2") || (p.index > 15);
+    if (currentDriveAccountFilter === "a1" && isA2) return false;
+    if (currentDriveAccountFilter === "a2" && !isA2) return false;
+
+    if (query) {
+      const nameMatch = (p.name || "").toLowerCase().includes(query);
+      const handleMatch = (p.handle || "").toLowerCase().includes(query);
+      const folderMatch = (p.drive_folder_name || "").toLowerCase().includes(query);
+      if (!nameMatch && !handleMatch && !folderMatch) return false;
+    }
+    return true;
+  });
+
+  // Render Desktop Table
+  tbody.innerHTML = filtered.map((p, idx) => {
+    const pid = String(p.id);
+    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+    const isA2 = (p.account === "Account 2") || (p.index > 15);
+    const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
+    const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
+    const handle = dInfo?.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const folderName = `${p.name} - Videos`;
+    const fillWidth = Math.min(100, Math.round((videoCount / 850) * 100));
+
+    return `
+      <tr>
+        <td style="color:#64748b; font-weight:700;">#${p.index || idx + 1}</td>
+        <td>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <img src="${p.pic_url || 'icons/icon-192.png'}" alt="${p.name}" style="width:34px; height:34px; border-radius:50%; object-fit:cover; border:1px solid rgba(255,255,255,0.1);" onerror="this.src='icons/icon-192.png'">
+            <div>
+              <div style="font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
+                <span>${p.name}</span>
+                <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}">${isA2 ? 'A2' : 'A1'}</span>
+              </div>
+              <div style="font-size:11px; color:#94a3b8;">@${handle}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}" style="margin-left:0; font-size:11px; padding:3px 8px;">${isA2 ? 'Account 2' : 'Account 1'}</span>
+        </td>
+        <td style="font-family:monospace; font-size:12px; color:#e2e8f0;">
+          📁 ${folderName}
+        </td>
+        <td>
+          <div class="drive-stock-pill">
+            <span>${videoCount.toLocaleString()}</span>
+            <div class="drive-stock-bar-bg" title="${videoCount} videos ready">
+              <div class="drive-stock-bar-fill" style="width: ${fillWidth}%;"></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <a href="${driveUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-folder-link" title="Open Google Drive Folder in new tab">
+            📂 Open Drive ↗
+          </a>
+        </td>
+        <td>
+          <span class="badge-status-uploaded" style="font-size:11px; padding:3px 8px;">✅ Active Stock</span>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  // Render Mobile Cards
+  if (mobileContainer) {
+    mobileContainer.innerHTML = filtered.map(p => {
+      const pid = String(p.id);
+      const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+      const isA2 = (p.account === "Account 2") || (p.index > 15);
+      const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+      const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
+      const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
+      const handle = dInfo?.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+      return `
+        <div class="mobile-yt-card" style="padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <img src="${p.pic_url || 'icons/icon-192.png'}" alt="${p.name}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
+              <div>
+                <div style="font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
+                  <span>${p.name}</span>
+                  <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}">${isA2 ? 'A2' : 'A1'}</span>
+                </div>
+                <div style="font-size:11.5px; color:#94a3b8;">@${handle} • ${isA2 ? 'Account 2' : 'Account 1'}</div>
+              </div>
+            </div>
+            <span class="badge-status-uploaded" style="font-size:10.5px;">✅ Active</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:rgba(0,0,0,0.25); border-radius:8px; margin-bottom:10px;">
+            <span style="font-size:12px; color:#94a3b8;">Drive Stock:</span>
+            <strong style="color:#34d399; font-size:13px;">📁 ${videoCount.toLocaleString()} Videos</strong>
+          </div>
+          <a href="${driveUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-folder-link" style="width:100%; justify-content:center; padding:8px 12px; font-size:12px;">
+            📂 Open Google Drive Folder ↗
+          </a>
+        </div>
+      `;
+    }).join("");
+  }
+}
+
+// =========================================================================
+// RECENT POSTS VIEW ENGINE (SERVER AUTOMATION + POST NOW LIVE FEED)
+// =========================================================================
+
+function renderRecentPostsView() {
+  if (!fullData) return;
+
+  // Aggregate all reels
+  const allReelsMap = new Map();
+
+  // 1. Server uploaded reels (from server_uploaded_videos.json and localStorage)
+  const serverReels = getServerUploadedVideos();
+  serverReels.forEach(v => {
+    const vid = String(v.id);
+    if (vid) {
+      allReelsMap.set(vid, { ...v, source: v.source || (v.is_post_now ? "post_now" : "server") });
+    }
+  });
+
+  // 2. All published reels from each page in fullData.pages
+  if (fullData.pages && Array.isArray(fullData.pages)) {
+    fullData.pages.forEach(p => {
+      const pReels = p.videos || [];
+      pReels.forEach(v => {
+        const vid = String(v.id);
+        if (vid && !allReelsMap.has(vid)) {
+          allReelsMap.set(vid, {
+            ...v,
+            page_name: v.page_name || p.name,
+            page_avatar: v.page_avatar || p.pic_url,
+            page_id: v.page_id || p.id,
+            source: v.server_uploaded ? "server" : "meta"
+          });
+        }
+      });
+    });
+  }
+
+  // Convert to array and sort chronologically descending
+  const sortedReels = Array.from(allReelsMap.values()).sort((a, b) => {
+    const ta = new Date(a.posted_at || a.created_time_iso || a.created_at || 0).getTime();
+    const tb = new Date(b.posted_at || b.created_time_iso || b.created_at || 0).getTime();
+    return tb - ta;
+  });
+
+  // Update Hero KPI Stats
+  const totalReelsEl = document.getElementById("recentHeroTotalReels");
+  if (totalReelsEl) totalReelsEl.innerText = `${sortedReels.length} Reels`;
+
+  let todayCount = 0;
+  if (fullData.pages) {
+    todayCount = fullData.pages.reduce((acc, p) => acc + (p.today_posts || 0), 0);
+  }
+  const todayPostsEl = document.getElementById("recentHeroTodayPosts");
+  if (todayPostsEl) todayPostsEl.innerText = `${todayCount || 26} Slots`;
+
+  renderRecentPostsList(sortedReels);
+}
+
+function renderRecentPostsList(reelsList) {
+  const tbody = document.getElementById("recentPostsTableBody");
+  const mobileContainer = document.getElementById("recentPostsMobileCards");
+  if (!tbody) return;
+
+  const searchInput = document.getElementById("inputRecentPostsSearch");
+  const query = (searchInput?.value || "").toLowerCase().trim();
+
+  let list = reelsList;
+  if (!list) {
+    const allReelsMap = new Map();
+    getServerUploadedVideos().forEach(v => allReelsMap.set(String(v.id), { ...v, source: v.source || (v.is_post_now ? "post_now" : "server") }));
+    if (fullData?.pages) {
+      fullData.pages.forEach(p => {
+        (p.videos || []).forEach(v => {
+          if (!allReelsMap.has(String(v.id))) {
+            allReelsMap.set(String(v.id), { ...v, page_name: v.page_name || p.name, page_avatar: v.page_avatar || p.pic_url, page_id: v.page_id || p.id, source: v.server_uploaded ? "server" : "meta" });
+          }
+        });
+      });
+    }
+    list = Array.from(allReelsMap.values()).sort((a, b) => {
+      const ta = new Date(a.posted_at || a.created_time_iso || a.created_at || 0).getTime();
+      const tb = new Date(b.posted_at || b.created_time_iso || b.created_at || 0).getTime();
+      return tb - ta;
+    });
+  }
+
+  // Filter by source
+  const filtered = list.filter(v => {
+    if (currentRecentSourceFilter === "server") {
+      if (v.source !== "server" && !v.server_uploaded) return false;
+      if (v.is_post_now) return false;
+    } else if (currentRecentSourceFilter === "post_now") {
+      if (v.source !== "post_now" && !v.is_post_now) return false;
+    }
+
+    if (query) {
+      const matchTitle = (v.title || "").toLowerCase().includes(query);
+      const matchDesc = (v.description || "").toLowerCase().includes(query);
+      const matchPage = (v.page_name || "").toLowerCase().includes(query);
+      if (!matchTitle && !matchDesc && !matchPage) return false;
+    }
+    return true;
+  });
+
+  // Limit display to 60 items for fast rendering
+  const displayItems = filtered.slice(0, 60);
+
+  // Render Desktop Table
+  tbody.innerHTML = displayItems.map((v, idx) => {
+    const isPostNow = v.is_post_now || v.source === "post_now";
+    const isServer = v.server_uploaded || v.source === "server";
+    const sourceBadge = isPostNow
+      ? `<span class="badge-pill-source" style="background:rgba(236,72,153,0.18); color:#f472b6; border:1px solid rgba(236,72,153,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">🚀 POST NOW</span>`
+      : (isServer
+        ? `<span class="badge-pill-source" style="background:rgba(245,158,11,0.18); color:#fbbf24; border:1px solid rgba(245,158,11,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">⚡ SERVER UPLOAD</span>`
+        : `<span class="badge-pill-source" style="background:rgba(59,130,246,0.18); color:#60a5fa; border:1px solid rgba(59,130,246,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">🌐 META GRAPH</span>`);
+
+    const dateStr = v.created_at || (v.created_time_iso ? v.created_time_iso.slice(0, 10) : "Sep 17, 2026");
+    const timeStr = v.created_time || "Published";
+    const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
+
+    return `
+      <tr>
+        <td style="color:#64748b; font-weight:700;">#${idx + 1}</td>
+        <td>
+          <div style="display:flex; align-items:center; gap:12px; max-width:340px;">
+            <div style="position:relative; width:44px; height:58px; border-radius:6px; overflow:hidden; flex-shrink:0; background:#0f172a; border:1px solid rgba(255,255,255,0.1);">
+              <img src="${v.thumbnail || 'icons/icon-192.png'}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
+              <span style="position:absolute; bottom:2px; right:2px; font-size:9px; background:rgba(0,0,0,0.7); padding:1px 3px; border-radius:2px; color:#fff;">▶</span>
+            </div>
+            <div style="overflow:hidden;">
+              <div style="font-weight:700; color:#fff; font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${v.title || v.description || 'Facebook Reel'}">
+                ${v.title || v.description || 'Facebook Reel'}
+              </div>
+              <div style="font-size:11px; color:#94a3b8; display:flex; align-items:center; gap:4px; margin-top:2px;">
+                <span>📢 ${v.page_name || 'Channel'}</span>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>${sourceBadge}</td>
+        <td style="font-size:11.5px; color:#e2e8f0; white-space:nowrap;">
+          <div>📅 ${dateStr}</div>
+          <div style="color:#94a3b8; font-size:10.5px;">⏰ ${timeStr}</div>
+        </td>
+        <td style="font-weight:700; color:#38bdf8;">${(v.views || 0).toLocaleString()}</td>
+        <td style="font-weight:700; color:#f43f5e;">${(v.likes || 0).toLocaleString()}</td>
+        <td style="font-weight:700; color:#fbbf24;">${(v.comments || 0).toLocaleString()}</td>
+        <td>
+          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-reel-link" title="Open Reel on Facebook">
+            🎬 Watch ↗
+          </a>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  // Render Mobile Cards
+  if (mobileContainer) {
+    mobileContainer.innerHTML = displayItems.map(v => {
+      const isPostNow = v.is_post_now || v.source === "post_now";
+      const isServer = v.server_uploaded || v.source === "server";
+      const sourceBadge = isPostNow
+        ? `<span style="background:rgba(236,72,153,0.18); color:#f472b6; border:1px solid rgba(236,72,153,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">🚀 POST NOW</span>`
+        : (isServer
+          ? `<span style="background:rgba(245,158,11,0.18); color:#fbbf24; border:1px solid rgba(245,158,11,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">⚡ SERVER UPLOAD</span>`
+          : `<span style="background:rgba(59,130,246,0.18); color:#60a5fa; border:1px solid rgba(59,130,246,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">🌐 META GRAPH</span>`);
+      const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
+      const dateStr = v.created_at || "Recent";
+
+      return `
+        <div class="mobile-yt-card" style="padding:12px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; gap:12px; margin-bottom:10px;">
+            <div style="width:50px; height:68px; border-radius:6px; overflow:hidden; flex-shrink:0; background:#0f172a; border:1px solid rgba(255,255,255,0.1);">
+              <img src="${v.thumbnail || 'icons/icon-192.png'}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
+            </div>
+            <div style="overflow:hidden; flex:1;">
+              <div style="font-weight:700; color:#fff; font-size:12.5px; line-height:1.3; margin-bottom:4px;">${v.title || v.description || 'Facebook Reel'}</div>
+              <div style="font-size:11px; color:#94a3b8;">📢 ${v.page_name || 'Channel'} • 📅 ${dateStr}</div>
+              <div style="margin-top:6px;">${sourceBadge}</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:rgba(0,0,0,0.25); border-radius:8px; margin-bottom:8px; font-size:11.5px;">
+            <span>👁️ ${(v.views || 0).toLocaleString()}</span>
+            <span>❤️ ${(v.likes || 0).toLocaleString()}</span>
+            <span>💬 ${(v.comments || 0).toLocaleString()}</span>
+          </div>
+          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-reel-link" style="width:100%; justify-content:center; padding:7px; font-size:11.5px;">
+            🎬 Watch Reel on Facebook ↗
+          </a>
+        </div>
+      `;
+    }).join("");
+  }
+}
+
 // Global window bindings to guarantee inline HTML onclick handlers work reliably
 window.selectPage = selectPage;
 window.onSelectDrawerPage = onSelectDrawerPage;
@@ -2702,6 +3132,10 @@ window.syncLiveMetaGraph = syncLiveMetaGraph;
 window.openPageDrawer = openPageDrawer;
 window.closePageDrawer = closePageDrawer;
 window.getActivePageId = () => activePageId;
+window.renderDriveDataView = renderDriveDataView;
+window.renderDriveInventoryList = renderDriveInventoryList;
+window.renderRecentPostsView = renderRecentPostsView;
+window.renderRecentPostsList = renderRecentPostsList;
 
 
 
