@@ -703,7 +703,10 @@ function renderSinglePageView(p) {
     renderDemographics(p.audience);
   }
 
-  // 6. Video Reels Library (matching exact timeframe reels for this page)
+  // 6. Video Reels Library (Shown only for individual single page)
+  const libSec = document.getElementById("sectionVideoLibrary");
+  if (libSec) libSec.style.display = "block";
+
   const libTitle = document.getElementById("librarySectionTitle");
   const libSub = document.getElementById("librarySourceSub");
   const libDesc = document.getElementById("libraryDescText");
@@ -952,6 +955,10 @@ function renderAllPortfolioView() {
   // Hide Audience Demographics on Portfolio Dashboard
   const secAud = document.getElementById("sectionAudienceDemographics");
   if (secAud) secAud.style.display = "none";
+
+  // Hide Video Library on Portfolio Dashboard (moved to dedicated "Recent Posts" view)
+  const libSec = document.getElementById("sectionVideoLibrary");
+  if (libSec) libSec.style.display = "none";
 
   // Update Studio Left Sidebar & Dashboard Top Cards
   updateStudioDashboardCards(true, null, allVideosForTf);
@@ -1234,6 +1241,7 @@ function renderVideosLibrary() {
       const badgeHtml = isPostNow
         ? '<span class="studio-server-badge post-now-badge">⚡ POST NOW</span>'
         : (v.server_uploaded ? '<span class="studio-server-badge">⚡ SERVER UPLOAD</span>' : '');
+      const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
 
       return `
         <tr class="studio-row" onclick="openVideoModal('${v.id}')">
@@ -1242,7 +1250,7 @@ function renderVideosLibrary() {
           </td>
           <td class="td-video">
             <div class="studio-video-cell">
-              <div class="studio-thumb-wrapper">
+              <div class="studio-thumb-wrapper" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open Reel in new tab">
                 <img class="studio-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
                 <span class="studio-reels-badge">▶ REELS</span>
               </div>
@@ -1253,7 +1261,7 @@ function renderVideosLibrary() {
                   </span>
                   ${badgeHtml}
                 </div>
-                <div class="studio-video-title" title="${title}">${title}</div>
+                <div class="studio-video-title" title="${title}" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" style="cursor:pointer;">${title}</div>
                 <div class="studio-video-meta">
                   <span>🕒 ${dt.time} • Published</span>
                   <span class="studio-reel-id">ID: ${v.id ? String(v.id).slice(-8) : 'Reel'}</span>
@@ -1284,6 +1292,11 @@ function renderVideosLibrary() {
           <td>
             <span class="studio-stat-val">${likesFmt}</span>
           </td>
+          <td style="text-align:center;" onclick="event.stopPropagation()">
+            <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-view-reel-link" title="Open Reel on Facebook in new tab" style="font-size:11px; padding:3px 8px;">
+              🎬 Watch ↗
+            </a>
+          </td>
         </tr>
       `;
     }).join("");
@@ -1309,10 +1322,11 @@ function renderVideosLibrary() {
       const badgeHtml = isPostNow
         ? '<span class="studio-server-badge post-now-badge" style="font-size:9px; padding:1px 5px;">⚡ POST NOW</span>'
         : (v.server_uploaded ? '<span class="studio-server-badge" style="font-size:9px; padding:1px 5px;">⚡ SERVER</span>' : '');
+      const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
 
       return `
-        <div class="mobile-yt-card" onclick="openVideoModal('${v.id}')">
-          <div class="mobile-yt-thumb-box">
+        <div class="mobile-yt-card">
+          <div class="mobile-yt-thumb-box" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();">
             <img class="mobile-yt-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
             <span class="mobile-yt-badge">🩳 REELS</span>
           </div>
@@ -1323,7 +1337,7 @@ function renderVideosLibrary() {
               </span>
               ${badgeHtml}
             </div>
-            <div class="mobile-yt-title" title="${title}">${title}</div>
+            <div class="mobile-yt-title" title="${title}" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" style="cursor:pointer;">${title}</div>
             <div class="mobile-yt-meta">
               <span class="mobile-yt-dot">●</span>
               <span class="mobile-yt-vis">Public</span>
@@ -1348,6 +1362,9 @@ function renderVideosLibrary() {
                 <span class="mobile-yt-stat-val">${commentsFmt}</span>
               </div>
             </div>
+            <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-view-reel-link" style="width:100%; justify-content:center; padding:7px 10px; font-size:11.5px; margin-top:8px;">
+              🎬 Watch Reel on Facebook (New Tab) ↗
+            </a>
           </div>
         </div>
       `;
@@ -1616,6 +1633,9 @@ function openVideoModal(vidId) {
         <div style="font-size:11px; color:var(--text-sub); border-top:1px solid var(--border-subtle); padding-top:8px;">
           Published Date: <strong>${video.created_at || 'Recent'}</strong> • Reel ID: <code>${video.id}</code>
         </div>
+        <a href="${video.permalink?.startsWith('http') ? video.permalink : 'https://www.facebook.com' + (video.permalink || '/reel/' + video.id)}" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-primary" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:12px 18px; border-radius:8px; background:linear-gradient(135deg, #1877f2, #0d65d9); color:#fff; text-decoration:none; font-weight:800; font-size:13px; box-shadow:0 4px 14px rgba(24,119,242,0.4); margin-top:8px;">
+          🎬 Open & Watch Reel on Facebook (New Window) ↗
+        </a>
       </div>
     `;
   }
@@ -1675,16 +1695,8 @@ function setupEventListeners() {
   });
   document.getElementById("bottomNavPages")?.addEventListener("click", openPageDrawer);
   document.getElementById("bottomNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
-  document.getElementById("bottomNavDrive")?.addEventListener("click", () => {
-    switchMainView("dashboard");
-    setTimeout(() => {
-      document.getElementById("driveStockVal")?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
-  });
-  document.getElementById("bottomNavSync")?.addEventListener("click", () => {
-    showToast(`⚡ Syncing Live Meta Graph API...`);
-    syncLiveMetaGraph();
-  });
+  document.getElementById("bottomNavDriveData")?.addEventListener("click", () => switchMainView("drive_data"));
+  document.getElementById("bottomNavRecentPosts")?.addEventListener("click", () => switchMainView("recent_posts"));
 
   // Mobile Header buttons
   document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
@@ -1971,7 +1983,10 @@ function switchMainView(viewName) {
 
   // Mobile Bottom Panel items
   const bottomDashboard = document.getElementById("bottomNavDashboard");
+  const bottomPages = document.getElementById("bottomNavPages");
   const bottomPostNow = document.getElementById("bottomNavPostNow");
+  const bottomDriveData = document.getElementById("bottomNavDriveData");
+  const bottomRecentPosts = document.getElementById("bottomNavRecentPosts");
 
   // Hide all views first
   if (studioView) studioView.style.display = "none";
@@ -1987,8 +2002,11 @@ function switchMainView(viewName) {
   document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
 
   // Reset mobile bottom panel active classes
-  if (bottomPostNow) bottomPostNow.classList.remove("active");
   if (bottomDashboard) bottomDashboard.classList.remove("active");
+  if (bottomPages) bottomPages.classList.remove("active");
+  if (bottomPostNow) bottomPostNow.classList.remove("active");
+  if (bottomDriveData) bottomDriveData.classList.remove("active");
+  if (bottomRecentPosts) bottomRecentPosts.classList.remove("active");
 
   if (viewName === "studio") {
     if (studioView) studioView.style.display = "grid";
@@ -1999,11 +2017,13 @@ function switchMainView(viewName) {
   } else if (viewName === "drive_data") {
     if (driveDataView) driveDataView.style.display = "block";
     if (sideDriveData) sideDriveData.classList.add("active");
+    if (bottomDriveData) bottomDriveData.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderDriveDataView();
   } else if (viewName === "recent_posts") {
     if (recentPostsView) recentPostsView.style.display = "block";
     if (sideRecentPosts) sideRecentPosts.classList.add("active");
+    if (bottomRecentPosts) bottomRecentPosts.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderRecentPostsView();
   } else {
@@ -3076,7 +3096,7 @@ function renderRecentPostsList(reelsList) {
         <td style="font-weight:700; color:#f43f5e;">${(v.likes || 0).toLocaleString()}</td>
         <td style="font-weight:700; color:#fbbf24;">${(v.comments || 0).toLocaleString()}</td>
         <td>
-          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-reel-link" title="Open Reel on Facebook">
+          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-view-reel-link" title="Open Reel on Facebook in new window">
             🎬 Watch ↗
           </a>
         </td>
@@ -3100,11 +3120,11 @@ function renderRecentPostsList(reelsList) {
       return `
         <div class="mobile-yt-card" style="padding:12px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
           <div style="display:flex; gap:12px; margin-bottom:10px;">
-            <div style="width:50px; height:68px; border-radius:6px; overflow:hidden; flex-shrink:0; background:#0f172a; border:1px solid rgba(255,255,255,0.1);">
+            <div style="width:50px; height:68px; border-radius:6px; overflow:hidden; flex-shrink:0; background:#0f172a; border:1px solid rgba(255,255,255,0.1); cursor:pointer;" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open reel in new tab">
               <img src="${v.thumbnail || 'icons/icon-192.png'}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
             </div>
             <div style="overflow:hidden; flex:1;">
-              <div style="font-weight:700; color:#fff; font-size:12.5px; line-height:1.3; margin-bottom:4px;">${v.title || v.description || 'Facebook Reel'}</div>
+              <div style="font-weight:700; color:#fff; font-size:12.5px; line-height:1.3; margin-bottom:4px; cursor:pointer;" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open reel in new tab">${v.title || v.description || 'Facebook Reel'}</div>
               <div style="font-size:11px; color:#94a3b8;">📢 ${v.page_name || 'Channel'} • 📅 ${dateStr}</div>
               <div style="margin-top:6px;">${sourceBadge}</div>
             </div>
@@ -3114,8 +3134,8 @@ function renderRecentPostsList(reelsList) {
             <span>❤️ ${(v.likes || 0).toLocaleString()}</span>
             <span>💬 ${(v.comments || 0).toLocaleString()}</span>
           </div>
-          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-reel-link" style="width:100%; justify-content:center; padding:7px; font-size:11.5px;">
-            🎬 Watch Reel on Facebook ↗
+          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-view-reel-link" style="width:100%; justify-content:center; padding:7px; font-size:11.5px;">
+            🎬 Watch Reel on Facebook (New Tab) ↗
           </a>
         </div>
       `;

@@ -3467,7 +3467,7 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 9999;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   align-items: center;
   padding-left: 2px;
   padding-right: 2px;
@@ -3482,7 +3482,7 @@ body {
   background: transparent;
   border: none;
   color: #94a3b8;
-  padding: 4px 2px;
+  padding: 4px 1px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: inherit;
@@ -3494,26 +3494,32 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 28px;
-  border-radius: 12px;
+  width: 32px;
+  height: 26px;
+  border-radius: 10px;
   transition: all 0.2s ease;
 }
 
 .bottom-nav-item:hover,
 .bottom-nav-item.active {
-  color: #ff3366;
+  color: var(--gold-primary);
 }
 
+#bottomNavDashboard.active { color: #f5ba23; }
+#bottomNavPages.active { color: #38bdf8; }
+#bottomNavPostNow.active { color: #ff3366; }
+#bottomNavDriveData.active { color: #34d399; }
+#bottomNavRecentPosts.active { color: #fbbf24; }
+
 .yt-bottom-icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   display: block;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bottom-nav-icon {
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -3521,16 +3527,37 @@ body {
 }
 
 .bottom-nav-label {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 9.5px;
+  font-weight: 600;
   letter-spacing: -0.1px;
-  margin-top: 3px;
+  margin-top: 2px;
   white-space: nowrap;
 }
 
 .bottom-nav-item.active .bottom-nav-label {
-  color: #ff3366;
+  font-weight: 800;
+}
+
+.drawer-sub-tiles-grid {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.drawer-action-chip {
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: 8px;
+  font-size: 11px;
   font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.drawer-action-chip:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
 }
 
 .bottom-nav-item.active .yt-bottom-icon {
