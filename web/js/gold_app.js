@@ -920,7 +920,7 @@ function renderAllPortfolioView() {
   // Combined Demographics from Verified Pages
   renderDemographics(getPortfolioAudience());
 
-  // Videos: All Published Reels for Master Portfolio (matching the 304,088 views)
+  // Videos: Tag server-uploaded reels (for Recent Posts section only)
   const serverReels = getServerUploadedVideos();
   const serverIdSet = new Set(serverReels.map(sv => String(sv.id)));
   allVideosForTf.forEach(v => {
@@ -929,36 +929,26 @@ function renderAllPortfolioView() {
     }
   });
 
-  const libTitle = document.getElementById("librarySectionTitle");
-  const libSub = document.getElementById("librarySourceSub");
-  const libDesc = document.getElementById("libraryDescText");
-  if (libTitle) libTitle.innerText = "All Portfolio Published Reels & Performance";
-  if (libSub) libSub.innerText = `⚡ Showing all ${allVideosForTf.length} published reels across 15 pages (${currentTimeframe} Days • Real-time Meta Graph live)`;
-  if (libDesc) libDesc.innerText = "Live content performance table • Real-time views, retention & engagement from automation server & Meta Graph API";
-
   window._portfolioAllReels = allVideosForTf;
   const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
   window._portfolioServerReels = serverReelsForTf;
 
-  if (activeReelsCategory === "server") {
-    currentVideos = window._portfolioServerReels;
-  } else {
-    currentVideos = window._portfolioAllReels;
-  }
-
-  videosShownCount = 8;
-  renderVideosLibrary();
-
-  // Telemetry
-  renderTelemetry({ isPortfolio: true });
+  // DO NOT render video library table on master portfolio dashboard
+  // (Videos are only shown in individual page views & Recent Posts panel)
 
   // Hide Audience Demographics on Portfolio Dashboard
   const secAud = document.getElementById("sectionAudienceDemographics");
   if (secAud) secAud.style.display = "none";
 
-  // Hide Video Library on Portfolio Dashboard (moved to dedicated "Recent Posts" view)
+  // Hide Video Library Section completely on Portfolio Dashboard
   const libSec = document.getElementById("sectionVideoLibrary");
-  if (libSec) libSec.style.display = "none";
+  if (libSec) {
+    libSec.style.display = "none";
+    libSec.style.visibility = "hidden";
+  }
+
+  // Telemetry
+  renderTelemetry({ isPortfolio: true });
 
   // Update Studio Left Sidebar & Dashboard Top Cards
   updateStudioDashboardCards(true, null, allVideosForTf);
