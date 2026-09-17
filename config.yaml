@@ -22,7 +22,7 @@ pages:
   - page_id: "988523547680750"
     name: "page_1"  # Mix Mood
     enabled: true
-    drive_folder_id: "REPLACE_WITH_MIX_MOOD_DRIVE_FOLDER_ID"
+    drive_folder_id: "17BbHIA91odhMXfphN0JlblzWbR0IQKsy"
     daily_limit: 4
     title_mode: "filename"  # Options: filename, fixed
     description_footer: ""
@@ -40,7 +40,7 @@ pages:
   - page_id: "965629596638624"
     name: "page_3"  # Silent Peak Social
     enabled: true
-    drive_folder_id: "REPLACE_WITH_SILENT_PEAK_SOCIAL_DRIVE_FOLDER_ID"
+    drive_folder_id: "14C9FurpGwA_QUyK14cM3EyfFJrDB3YUp"
     daily_limit: 4
     title_mode: "filename"
     description_footer: ""
@@ -67,7 +67,7 @@ pages:
   - page_id: "924636817403215"
     name: "page_6"  # LuxeEpic Frames
     enabled: true
-    drive_folder_id: "REPLACE_WITH_LUXEEPIC_FRAMES_DRIVE_FOLDER_ID"
+    drive_folder_id: "1QTgVkYEc269hX7630a_LI4AWnlid7kHk"
     daily_limit: 4
     title_mode: "filename"
     description_footer: ""
@@ -130,7 +130,7 @@ pages:
   - page_id: "500794979779192"
     name: "page_13"  # Me Text
     enabled: true
-    drive_folder_id: "REPLACE_WITH_ME_TEXT_DRIVE_FOLDER_ID"
+    drive_folder_id: "1qcMeV4Fe8e15G1qQ5HhSIKZcrrI6FAZm"
     daily_limit: 4
     title_mode: "filename"
     description_footer: ""
