@@ -705,7 +705,10 @@ function renderSinglePageView(p) {
 
   // 6. Video Reels Library (Shown only for individual single page)
   const libSec = document.getElementById("sectionVideoLibrary");
-  if (libSec) libSec.style.display = "block";
+  if (libSec) {
+    libSec.style.display = "block";
+    libSec.style.visibility = "visible"; // Reset from master portfolio hidden state
+  }
 
   const libTitle = document.getElementById("librarySectionTitle");
   const libSub = document.getElementById("librarySourceSub");
