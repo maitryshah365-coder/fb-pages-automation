@@ -696,18 +696,10 @@ function renderSinglePageView(p) {
   if (kpiProfileVisits) kpiProfileVisits.innerText = (ins.profile_views_total || 0).toLocaleString();
   if (kpiDailyFollows) kpiDailyFollows.innerText = `+${ins.daily_follows || 0}`;
 
-  // 5. Demographics (Shown only on single page view)
-  const secAud = document.getElementById("sectionAudienceDemographics");
-  if (secAud) {
-    secAud.style.display = "block";
-    renderDemographics(p.audience);
-  }
-
-  // 6. Video Reels Library (Shown only for individual single page)
+  // 5. Video Reels Library (Shown prominently directly under KPIs for individual page)
   const libSec = document.getElementById("sectionVideoLibrary");
   if (libSec) {
     libSec.style.display = "block";
-    libSec.style.visibility = "visible"; // Reset from master portfolio hidden state
   }
 
   const libTitle = document.getElementById("librarySectionTitle");
@@ -722,8 +714,15 @@ function renderSinglePageView(p) {
   } else {
     currentVideos = reelsForTf;
   }
-  videosShownCount = 8;
+  videosShownCount = 20;
   renderVideosLibrary();
+
+  // 6. Demographics (Shown below video library on single page view)
+  const secAud = document.getElementById("sectionAudienceDemographics");
+  if (secAud) {
+    secAud.style.display = "block";
+    renderDemographics(p.audience);
+  }
 
   // 7. Telemetry
   renderTelemetry(p);
@@ -947,7 +946,6 @@ function renderAllPortfolioView() {
   const libSec = document.getElementById("sectionVideoLibrary");
   if (libSec) {
     libSec.style.display = "none";
-    libSec.style.visibility = "hidden";
   }
 
   // Telemetry

@@ -702,29 +702,7 @@
       </div>
     </section>
 
-    <!-- Section 2: Real Audience Demographics & Discovery (Hidden on main dashboard; shown inside individual page view) -->
-    <section class="content-box" id="sectionAudienceDemographics" style="display: none;">
-      <div class="box-header flex-between">
-        <div class="box-title-group">
-          <span class="box-icon">🌍</span>
-          <h3 class="box-title">Audience Demographics & Discovery</h3>
-        </div>
-
-        <!-- Demographic Sub-Tabs -->
-        <div class="demo-tabs-nav" id="audSubTabs">
-          <button class="demo-tab-btn active" data-tab="countries">Countries</button>
-          <button class="demo-tab-btn" data-tab="age_gender">Age & Gender</button>
-          <button class="demo-tab-btn" data-tab="cities">Cities</button>
-          <button class="demo-tab-btn" data-tab="discovery">⚡ Live Meta Insights</button>
-        </div>
-      </div>
-
-      <div class="demographics-body" id="countryDemographicsContainer">
-        <!-- Dynamically rendered demographics or threshold message -->
-      </div>
-    </section>
-
-    <!-- Section 3: Uploaded Videos & Reels Library (YouTube Studio Style - Shown inside Single Page View) -->
+    <!-- Section 2: Uploaded Videos & Reels Library (YouTube Studio Style - Prominent in Single Page View) -->
     <section class="content-box" id="sectionVideoLibrary" style="display: none;">
       <div class="box-header flex-between library-box-header">
         <div class="box-title-group">
@@ -785,8 +763,30 @@
       <!-- Load More Button -->
       <div class="load-more-wrapper">
         <button id="btnLoadMoreVideos" class="btn-load-more">
-          <span>⬇️ Load More Videos (8 at a time)</span>
+          <span>⬇️ Load More Videos (20 at a time)</span>
         </button>
+      </div>
+    </section>
+
+    <!-- Section 3: Real Audience Demographics & Discovery (Shown below Video Library inside individual page view) -->
+    <section class="content-box" id="sectionAudienceDemographics" style="display: none;">
+      <div class="box-header flex-between">
+        <div class="box-title-group">
+          <span class="box-icon">🌍</span>
+          <h3 class="box-title">Audience Demographics & Discovery</h3>
+        </div>
+
+        <!-- Demographic Sub-Tabs -->
+        <div class="demo-tabs-nav" id="audSubTabs">
+          <button class="demo-tab-btn active" data-tab="countries">Countries</button>
+          <button class="demo-tab-btn" data-tab="age_gender">Age & Gender</button>
+          <button class="demo-tab-btn" data-tab="cities">Cities</button>
+          <button class="demo-tab-btn" data-tab="discovery">⚡ Live Meta Insights</button>
+        </div>
+      </div>
+
+      <div class="demographics-body" id="countryDemographicsContainer">
+        <!-- Dynamically rendered demographics or threshold message -->
       </div>
     </section>
 
@@ -930,6 +930,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=4.7.0"></script>
+  <script src="js/gold_app.js?v=5.0.0"></script>
 </body>
 </html>
