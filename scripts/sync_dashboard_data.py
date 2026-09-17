@@ -652,6 +652,23 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         }
     }
 
+    # Map from config.yaml
+    cfg_path = os.path.join(BASE_DIR, "config.yaml")
+    drive_folder_id = None
+    if os.path.exists(cfg_path):
+        try:
+            import yaml
+            with open(cfg_path, "r", encoding="utf-8") as cf:
+                cfg = yaml.safe_load(cf)
+                for cp in cfg.get("pages", []):
+                    if str(cp.get("page_id")) == pid:
+                        f_id = str(cp.get("drive_folder_id") or "")
+                        if f_id and not f_id.startswith("REPLACE_WITH"):
+                            drive_folder_id = f_id
+                        break
+        except Exception:
+            pass
+
     # Calculate live Google Drive stock remaining from audit file or verified counts
     drive_audit_path = os.path.join(BASE_DIR, "data", "drive_folders_audit.json")
     audit_data = {}
@@ -662,21 +679,32 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         except Exception:
             pass
 
-    # Exact verified counts from deep Google Drive scan (all pages fully paginated)
+    # Exact verified counts from deep Google Drive scan (all 15 pages fully paginated)
     known_base = {
-        "1040244259164767": audit_data.get("Charmy Owen", {}).get("video_count", 46),
-        "956622247541040":  audit_data.get("Horizon Nest Daily", {}).get("video_count", 232),
-        "1034326643100670": audit_data.get("Bright Flare Hub", {}).get("video_count", 148),
-        "795016603693140":  audit_data.get("Lopez Edward", {}).get("video_count", 861),
-        "637367679454577":  audit_data.get("Crown Empire", {}).get("video_count", 364),
-        "640019675857269":  audit_data.get("Crafty Champions", {}).get("video_count", 443),
-        "626061003919674":  audit_data.get("Fun Life", {}).get("video_count", 349),
-        "528360240361556":  audit_data.get("Dominion Authority", {}).get("video_count", 316),
-        "503358542855153":  audit_data.get("Family Fancy", {}).get("video_count", 284),
-        "468230386376818":  audit_data.get("Bot Mask", {}).get("video_count", 123),
-        "106309715659174":  audit_data.get("Fresh Hive Network", {}).get("video_count", 336)
+        "988523547680750":  audit_data.get("Mix Mood", {}).get("video_count", 75),
+        "1040244259164767": audit_data.get("Charmy Owen", {}).get("video_count", 36),
+        "965629596638624":  audit_data.get("Silent Peak Social", {}).get("video_count", 192),
+        "956622247541040":  audit_data.get("Horizon Nest Daily", {}).get("video_count", 222),
+        "1034326643100670": audit_data.get("Bright Flare Hub", {}).get("video_count", 139),
+        "924636817403215":  audit_data.get("LuxeEpic Frames ", {}).get("video_count", 360) or audit_data.get("LuxeEpic Frames", {}).get("video_count", 360),
+        "795016603693140":  audit_data.get("Lopez  Edward", {}).get("video_count", 851) or audit_data.get("Lopez Edward", {}).get("video_count", 851),
+        "637367679454577":  audit_data.get("Crown Empire", {}).get("video_count", 355),
+        "640019675857269":  audit_data.get("Crafty Champions", {}).get("video_count", 434),
+        "626061003919674":  audit_data.get("Fun Life", {}).get("video_count", 339),
+        "528360240361556":  audit_data.get("Dominion Authority", {}).get("video_count", 307),
+        "503358542855153":  audit_data.get("Family Fancy", {}).get("video_count", 275),
+        "500794979779192":  audit_data.get("Me Text", {}).get("video_count", 184),
+        "468230386376818":  audit_data.get("Bot Mask", {}).get("video_count", 113),
+        "106309715659174":  audit_data.get("Fresh Hive Network", {}).get("video_count", 326)
     }
-    base_stock = known_base.get(pid, 0)
+    base_stock = 0
+    if drive_folder_id:
+        for audit_entry in audit_data.values():
+            if isinstance(audit_entry, dict) and audit_entry.get("folder_id") == drive_folder_id:
+                base_stock = audit_entry.get("video_count", 0)
+                break
+    if base_stock == 0:
+        base_stock = known_base.get(pid, 0)
     current_drive_stock = max(0, base_stock - today_posts) if base_stock > 0 else 0
 
     return {
@@ -691,6 +719,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "access_token": token,
         "today_posts": today_posts,
         "daily_limit": 4,
+        "drive_folder_id": drive_folder_id,
+        "is_configured": True,
         "drive_videos_count": current_drive_stock,
         "total_posts": max(len(meta_videos), len(db_videos)),
         "total_views": total_page_views,
@@ -869,15 +899,19 @@ def sync_data():
     # Fallback to known active page IDs if config.yaml was missing or unreadable
     if not configured_pids:
         configured_pids = {
+            "988523547680750",   # page_1: Mix Mood
             "1040244259164767",  # page_2: Charmy Owen
+            "965629596638624",   # page_3: Silent Peak Social
             "956622247541040",   # page_4: Horizon Nest Daily
             "1034326643100670",  # page_5: Bright Flare Hub
+            "924636817403215",   # page_6: LuxeEpic Frames
             "795016603693140",   # page_7: Lopez Edward
             "637367679454577",   # page_8: Crown Empire
             "640019675857269",   # page_9: Crafty Champions
             "626061003919674",   # page_10: Fun Life
             "528360240361556",   # page_11: Dominion Authority
             "503358542855153",   # page_12: Family Fancy
+            "500794979779192",   # page_13: Me Text
             "468230386376818",   # page_14: Bot Mask
             "106309715659174",   # page_15: Fresh Hive Network
         }

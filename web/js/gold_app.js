@@ -374,7 +374,10 @@ function renderSidebarPagesList(pages) {
   container.innerHTML = filtered.map(p => {
     const isPageActive = String(p.id) === activePageId;
     const followersStr = (p.followers || 0).toLocaleString();
+    const isConfigured = Boolean(p.is_configured !== false || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts || 0) > 0);
     const isUploaded = (p.today_posts || 0) > 0;
+    const dotClass = isConfigured ? 'green' : 'gray';
+    const dotTitle = isUploaded ? `Active • ${p.today_posts}/4 Uploaded Today` : (isConfigured ? 'Active Fleet Page • Scheduled' : 'Pending Configuration');
 
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" 
@@ -391,7 +394,7 @@ function renderSidebarPagesList(pages) {
             <div class="side-page-followers">${followersStr} followers</div>
           </div>
         </div>
-        <span class="side-page-dot ${isUploaded ? 'green' : 'gray'}" title="${isUploaded ? 'Uploaded Today' : 'Pending Today'}"></span>
+        <span class="side-page-dot ${dotClass}" title="${dotTitle}"></span>
       </div>
     `;
   }).join("");
@@ -579,7 +582,7 @@ function renderSinglePageView(p) {
   if (metricFollowers) metricFollowers.innerText = followersCount.toLocaleString();
   if (metricViews) metricViews.innerText = totalRealViews.toLocaleString();
   if (metricReels) metricReels.innerText = reelsForTf.length.toLocaleString();
-  const isConfiguredPage = Boolean(DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0));
+  const isConfiguredPage = Boolean(DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0) || p.is_configured !== false);
   if (metricToday) {
     if (isConfiguredPage) {
       const isDone = (p.today_posts || 0) >= 4;
@@ -1437,8 +1440,10 @@ function renderTelemetry(target) {
     const p = target;
     const ipInfo = p.last_upload_ip || {};
     const hasUploadedToday = (p.today_posts || 0) > 0;
-    const isConfigured = Boolean(DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || hasUploadedToday);
-    const driveCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
+    const isConfigured = Boolean(DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || hasUploadedToday || p.is_configured !== false);
+    const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
+      ? p.drive_videos_count
+      : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
     const lastVideo = (p.videos && p.videos.length > 0) ? p.videos[0] : null;
 
     if (ipLabel) {
@@ -1478,7 +1483,7 @@ function renderTelemetry(target) {
     if (!isConfigured) {
       if (statusBox) statusBox.className = "upload-status-box not-uploaded";
       if (statusEl) {
-        statusEl.innerHTML = `<span class="badge-status-not-uploaded" style="background:rgba(148,163,184,0.15); color:#94a3b8; border-color:rgba(148,163,184,0.3);">📁 DRIVE FOLDER PENDING SETUP (0/0 Slots)</span> • Not in Active 44 Target Fleet`;
+        statusEl.innerHTML = `<span class="badge-status-not-uploaded" style="background:rgba(148,163,184,0.15); color:#94a3b8; border-color:rgba(148,163,184,0.3);">📁 DRIVE FOLDER PENDING SETUP (0/0 Slots)</span> • Not in Active Fleet`;
       }
       if (detailEl) {
         detailEl.innerHTML = `Google Drive folder for <strong>${p.name}</strong> is pending configuration in <code>config.yaml</code>. Once folder ID is provided, this page will automatically activate with 4 daily slots.`;
@@ -1810,19 +1815,23 @@ const GH_OWNER = "maitryshah365-coder";
 const GH_REPO = "fb-pages-automation";
 const GH_WORKFLOW_FILE = "post.yml";
 
-// Known active configured Drive pages (page names for config.yaml & Drive folders)
+// Known active configured Drive pages (all 15 Facebook Pages)
 const DRIVE_CONFIGURED_PAGES = {
-  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 46, handle: "charmyowen" },
-  "956622247541040":  { pageName: "page_4", displayName: "Horizon Nest Daily", ready: true, videoCount: 232, handle: "horizonnestdaily" },
-  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 148, handle: "brightflarehub" },
-  "795016603693140":  { pageName: "page_7", displayName: "Lopez Edward", ready: true, videoCount: 861, handle: "lopezedward" },
-  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 364, handle: "crownempire" },
-  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 443, handle: "craftychampions" },
-  "626061003919674":  { pageName: "page_10", displayName: "Fun Life", ready: true, videoCount: 349, handle: "funlife" },
-  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 316, handle: "dominionauthority" },
-  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 284, handle: "familyfancy" },
-  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 123, handle: "botmask" },
-  "106309715659174":  { pageName: "page_15", displayName: "Fresh Hive Network", ready: true, videoCount: 336, handle: "freshhivenetwork" }
+  "988523547680750":  { pageName: "page_1", displayName: "Mix Mood", ready: true, videoCount: 75, handle: "mixmood" },
+  "1040244259164767": { pageName: "page_2", displayName: "Charmy Owen", ready: true, videoCount: 36, handle: "charmyowen" },
+  "965629596638624":  { pageName: "page_3", displayName: "Silent Peak Social", ready: true, videoCount: 192, handle: "silentpeaksocial" },
+  "956622247541040":  { pageName: "page_4", displayName: "Horizon Nest Daily", ready: true, videoCount: 222, handle: "horizonnestdaily" },
+  "1034326643100670": { pageName: "page_5", displayName: "Bright Flare Hub", ready: true, videoCount: 139, handle: "brightflarehub" },
+  "924636817403215":  { pageName: "page_6", displayName: "LuxeEpic Frames", ready: true, videoCount: 360, handle: "luxeepicframes" },
+  "795016603693140":  { pageName: "page_7", displayName: "Lopez Edward", ready: true, videoCount: 851, handle: "lopezedward" },
+  "637367679454577":  { pageName: "page_8", displayName: "Crown Empire", ready: true, videoCount: 355, handle: "crownempire" },
+  "640019675857269":  { pageName: "page_9", displayName: "Crafty Champions", ready: true, videoCount: 434, handle: "craftychampions" },
+  "626061003919674":  { pageName: "page_10", displayName: "Fun Life", ready: true, videoCount: 339, handle: "funlife" },
+  "528360240361556":  { pageName: "page_11", displayName: "Dominion Authority", ready: true, videoCount: 307, handle: "dominionauthority" },
+  "503358542855153":  { pageName: "page_12", displayName: "Family Fancy", ready: true, videoCount: 275, handle: "familyfancy" },
+  "500794979779192":  { pageName: "page_13", displayName: "Me Text", ready: true, videoCount: 184, handle: "metext" },
+  "468230386376818":  { pageName: "page_14", displayName: "Bot Mask", ready: true, videoCount: 113, handle: "botmask" },
+  "106309715659174":  { pageName: "page_15", displayName: "Fresh Hive Network", ready: true, videoCount: 326, handle: "freshhivenetwork" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
@@ -2062,7 +2071,7 @@ function selectAllReadyPages() {
   if (!fullData || !fullData.pages) return;
   fullData.pages.forEach(page => {
     const pId = String(page.id);
-    if (DRIVE_CONFIGURED_PAGES[pId]?.ready) {
+    if (DRIVE_CONFIGURED_PAGES[pId]?.ready || page.is_configured !== false) {
       studioSelectedPageIds.add(pId);
     }
   });
