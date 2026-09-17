@@ -62,13 +62,14 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           FB_USER_ACCESS_TOKEN_2: ${{ secrets.FB_USER_ACCESS_TOKEN_2 }}
+          REQUIRE_UK_IP: "true"
         run: |
           DRY_ARG=""
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             DRY_ARG="--dry-run"
           fi
-          # Run UK London pipeline (config can be customized for UK pages)
-          python main.py --config config.yaml $DRY_ARG
+          # Run UK London pipeline with strict in-code Kill-Switch verification
+          python main.py --config config.yaml $DRY_ARG --require-uk
 
       - name: Disconnect WireGuard Tunnel
         if: always()

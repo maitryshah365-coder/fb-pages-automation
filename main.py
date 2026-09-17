@@ -77,6 +77,7 @@ def main():
     parser.add_argument("--config", default="config.yaml", help="Path to config.yaml")
     parser.add_argument("--page", help="Run automation for a single specific Page name")
     parser.add_argument("--dry-run", action="store_true", help="Simulate upload without publishing to Facebook")
+    parser.add_argument("--require-uk", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United Kingdom (GB)")
     args = parser.parse_args()
 
     logger = setup_logging()
@@ -90,6 +91,20 @@ def main():
     if telemetry.get("ip"):
         loc = ", ".join(filter(None, [telemetry.get("city"), telemetry.get("region"), telemetry.get("country")]))
         logger.info(f"Runner Cloud IP: {telemetry.get('ip')} | Location: {loc} | Org: {telemetry.get('org', 'Unknown')}")
+
+    # HARD FAIL-SAFE KILL-SWITCH: Enforce UK Egress if requested
+    require_uk = args.require_uk or os.environ.get("REQUIRE_UK_IP", "").lower() in ["true", "1", "yes"]
+    if require_uk:
+        detected_country = (telemetry.get("country") or "").strip().upper()
+        if detected_country not in ["GB", "UK"]:
+            logger.critical("==================================================================")
+            logger.critical("🚨 HARD KILL-SWITCH ACTIVATED: IP IS NOT IN THE UNITED KINGDOM!")
+            logger.critical(f"   Detected Country: '{detected_country}' | IP: {telemetry.get('ip')}")
+            logger.critical("   ABORTING ENTIRE PIPELINE TO PREVENT NON-UK UPLOADS.")
+            logger.critical("==================================================================")
+            sys.exit(1)
+        else:
+            logger.info(f"🛡️ UK VERIFICATION CONFIRMED: Egress IP {telemetry.get('ip')} is located in United Kingdom ({telemetry.get('city')}, {detected_country}). Safe to upload!")
 
     try:
         config = load_config(args.config)
