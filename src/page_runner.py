@@ -14,9 +14,15 @@ from src.notifier import DiscordNotifier
 logger = logging.getLogger("fb_automation")
 
 
+import re
+
+
 def build_caption(page: PageConfig, filename: str) -> str:
     """Constructs caption/title based on configuration rules."""
     base_name = os.path.splitext(filename)[0]
+    # Strip common video extensions if double-dotted (e.g., name..mp4 or name.mp4)
+    base_name = re.sub(r"\.(mp4|mov|avi|mkv)$", "", base_name, flags=re.IGNORECASE).strip(". ")
+
     if page.title_mode == "fixed" and page.fixed_title:
         title = page.fixed_title
     else:

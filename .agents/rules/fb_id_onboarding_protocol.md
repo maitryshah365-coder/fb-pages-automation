@@ -16,22 +16,33 @@ Whenever onboarding any Facebook ID (for UK London or USA setups), ALWAYS follow
 
 ---
 
-### Step 2: App Basic Settings & Publish (The 2 GitHub Links)
-- **Link:**
+### Step 2: App Basic Settings & MANDATORY "Live Mode" (1000% Compulsory for Views)
+> **CRITICAL RULE:** Jab tak App "Live" nahi hoti, Meta Graph API se post hone wali Reels ko "Development Mode" me lock rakhta hai aur external public discovery feed me 0 views aate hain. Har nayi ID/App par ye step 1000% proactively complete karwana compulsory hai!
+
+- **Settings Link:**
   ```text
   https://developers.facebook.com/apps/<APP_ID>/settings/basic/
   ```
+- **App domains:**
+  ```text
+  maitryshah365-coder.github.io
+  ```
 - **Privacy policy URL:**
   ```text
-  https://maitryshah365-coder.github.io/fb-pages-automation/
+  https://maitryshah365-coder.github.io/fb-pages-automation/privacy.html
   ```
-- **User data deletion URL:**
+- **User data deletion:** (Dropdown: "Data deletion instructions URL")
+  ```text
+  https://maitryshah365-coder.github.io/fb-pages-automation/data-deletion.html
+  ```
+- **Category:** Select `"Business and Pages"`
+- **App icon:** Mandatory square icon (Drag & drop or upload from `docs/icons/icon-512.png` or any 512x512 square logo).
+- **Add Platform:** Niche scroll karke `+ Add platform` -> `Website` select karo -> Site URL me:
   ```text
   https://maitryshah365-coder.github.io/fb-pages-automation/
   ```
-- **Category:** Select "Business and Pages"
-- Click **"Save changes"** at the bottom.
-- Left sidebar me **"Publish"** tab me jakar app ko **Published / Live** karo.
+- Click **"Save changes"** at the bottom right.
+- **Top Header Toggle:** Top bar par **"App Mode: In development"** toggle switch par click karke **"Live"** chuno aur popup me confirm karo. Verify app is now **LIVE**.
 
 ---
 
