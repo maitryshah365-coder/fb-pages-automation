@@ -9,21 +9,25 @@ on:
         type: boolean
         default: false
       page:
-        description: "Optional: Specific UK page name or group (e.g. uk_account_1)"
+        description: "Optional: Specific UK page name or group (e.g. uk_account_1, uk_account_2, uk_account_3)"
         required: false
         type: string
         default: ""
 
   # Scheduled 4 times daily (London Time BST / UTC):
-  # UK Account 1 (Pages 31-42): 09:00 AM, 01:00 PM, 05:00 PM, 09:30 PM London (01:30 PM, 05:30 PM, 09:30 PM, 02:00 AM IST)
-  # UK Account 2 (Pages 43-54): +20 Min Offset (09:20 AM, 01:20 PM, 05:20 PM, 09:50 PM London - 01:50 PM, 05:50 PM, 09:50 PM, 02:20 AM IST)
+  # UK Account 1 (Pages 31-42): 09:00 AM, 01:00 PM, 05:00 PM, 09:30 PM London (08:00, 12:00, 16:00, 20:30 UTC)
+  # UK Account 2 (Pages 43-54): +20 Min Offset (09:20 AM, 01:20 PM, 05:20 PM, 09:50 PM London - 08:20, 12:20, 16:20, 20:50 UTC)
+  # UK Account 3 (Pages 55-66): +30 Min Offset (09:30 AM, 01:30 PM, 05:30 PM, 10:00 PM London - 08:30, 12:30, 16:30, 21:00 UTC)
   schedule:
-    # UK Account 1:
+    # UK Account 1 (Binjal Mehra):
     - cron: "0 8,12,16 * * *"
     - cron: "30 20 * * *"
-    # UK Account 2 (Chanda Nai - Staggered Offset):
+    # UK Account 2 (Chanda Nai - Staggered +20 Min Offset):
     - cron: "20 8,12,16 * * *"
     - cron: "50 20 * * *"
+    # UK Account 3 (Mahi Patel - Staggered +30 Min Offset):
+    - cron: "30 8,12,16 * * *"
+    - cron: "0 21 * * *"
 
 concurrency:
   group: uk-facebook-upload-group
@@ -80,11 +84,14 @@ jobs:
             DRY_ARG="--dry-run"
           fi
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "20 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "50 20 * * *" ]; then
-              echo "⏰ Staggered Cron Triggered: Running UK Account 2 (Chanda Nai - 12 Pages) [+20 Min Offset]"
+            if [ "${{ github.event.schedule }}" = "30 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "0 21 * * *" ]; then
+              echo "⏰ UK Account 3 Cron Triggered: Running UK Account 3 (Mahi Patel - 12 Pages) [+30 Min Offset]"
+              python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
+            elif [ "${{ github.event.schedule }}" = "20 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "50 20 * * *" ]; then
+              echo "⏰ UK Account 2 Cron Triggered: Running UK Account 2 (Chanda Nai - 12 Pages) [+20 Min Offset]"
               python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
             else
-              echo "⏰ Standard Cron Triggered: Running UK Account 1 (Binjal Mehra - 12 Pages)"
+              echo "⏰ UK Account 1 Cron Triggered: Running UK Account 1 (Binjal Mehra - 12 Pages)"
               python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
@@ -93,13 +100,17 @@ jobs:
               python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
             elif [ "$REQ_PAGE" = "uk_account_2" ] || [ "$REQ_PAGE" = "uk2" ]; then
               python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+            elif [ "$REQ_PAGE" = "uk_account_3" ] || [ "$REQ_PAGE" = "uk3" ]; then
+              python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
             else
               python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
               python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+              python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
             fi
           else
             python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
             python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+            python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
           fi
 
       - name: Disconnect WireGuard Tunnel

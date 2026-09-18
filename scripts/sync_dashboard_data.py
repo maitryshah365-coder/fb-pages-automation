@@ -75,6 +75,21 @@ FLEET_UK_02_IDS = [
     "1165355063335637"  # YO TO Gone
 ]
 
+FLEET_UK_03_IDS = [
+    "1190983047436826", # Shifting Stone
+    "1224317344092240", # Heavy Whistle
+    "1185315564665369", # Lost Glossary
+    "960349707172371",  # Noble Frequency
+    "1063063230214331", # Prime Syndicate
+    "1063289593524919", # Empire Catalyst
+    "938570059349598",  # Obsidian Theory
+    "982581511610694",  # Nova District
+    "994921357036127",  # New Moon Diaries
+    "1039102779276966", # Dream Harbor
+    "1023389020850189", # Maple Vision
+    "855237054348766"   # Perez Steven
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -94,7 +109,8 @@ def get_pages_list():
         {"account": "Account 1", "owner": "Account 1 Admin", "region": "US", "file": os.path.join(BASE_DIR, "data", "pages_tokens.json")},
         {"account": "Account 2", "owner": "Mia Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "account2_verified_pages.json")},
         {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")},
-        {"account": "UK Account 2", "owner": "Chanda Nai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account2_chanda_permanent_pages.json")}
+        {"account": "UK Account 2", "owner": "Chanda Nai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account2_chanda_permanent_pages.json")},
+        {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -116,12 +132,13 @@ def get_pages_list():
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
 
-    # Build the 54 pages strictly ordered by the 4 fleets
+    # Build the 66 pages strictly ordered by the 5 fleets
     fleet_order = [
         (FLEET_USA_01_IDS, "Account 1", "Account 1 Admin", "US", 1),
         (FLEET_USA_02_IDS, "Account 2", "Mia Shah", "US", 16),
         (FLEET_UK_01_IDS, "UK Account 1", "Binjal Mehra", "GB", 31),
-        (FLEET_UK_02_IDS, "UK Account 2", "Chanda Nai", "GB", 43)
+        (FLEET_UK_02_IDS, "UK Account 2", "Chanda Nai", "GB", 43),
+        (FLEET_UK_03_IDS, "UK Account 3", "Mahi Patel", "GB", 55)
     ]
 
     final_pages = []
@@ -845,7 +862,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         os.path.join(BASE_DIR, "config.yaml"),
         os.path.join(BASE_DIR, "config_uk_account1.yaml"),
         os.path.join(BASE_DIR, "config_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account2.yaml")
+        os.path.join(BASE_DIR, "config_uk_account2.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account3.yaml")
     ]
     drive_folder_id = None
     for cp_path in cfg_paths:
@@ -1133,7 +1151,8 @@ def sync_data():
         os.path.join(BASE_DIR, "config.yaml"),
         os.path.join(BASE_DIR, "config_uk_account1.yaml"),
         os.path.join(BASE_DIR, "config_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account2.yaml")
+        os.path.join(BASE_DIR, "config_uk_account2.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account3.yaml")
     ]:
         if os.path.exists(cp_path):
             try:
@@ -1195,7 +1214,9 @@ def sync_data():
             "account2_slots_edt": ["10:20 AM", "03:20 PM", "07:20 PM", "10:20 PM"],
             "uk_account1_slots_bst": ["09:00 AM", "01:00 PM", "05:00 PM", "09:30 PM"],
             "uk_account2_offset_minutes": 20,
-            "uk_account2_slots_bst": ["09:20 AM", "01:20 PM", "05:20 PM", "09:50 PM"]
+            "uk_account2_slots_bst": ["09:20 AM", "01:20 PM", "05:20 PM", "09:50 PM"],
+            "uk_account3_offset_minutes": 30,
+            "uk_account3_slots_bst": ["09:30 AM", "01:30 PM", "05:30 PM", "10:00 PM"]
         },
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
@@ -1206,6 +1227,7 @@ def sync_data():
             "account2_pages_count": len([p for p in page_records if p.get("account") == "Account 2"]),
             "uk_account1_pages_count": len([p for p in page_records if p.get("account") == "UK Account 1"]),
             "uk_account2_pages_count": len([p for p in page_records if p.get("account") == "UK Account 2"]),
+            "uk_account3_pages_count": len([p for p in page_records if p.get("account") == "UK Account 3"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,
