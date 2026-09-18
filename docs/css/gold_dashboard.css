@@ -3501,76 +3501,88 @@ body {
   margin-bottom: 2px;
 }
 
-.sidebar-box-usa1 {
-  border: 1px solid rgba(59, 130, 246, 0.3);
+.sidebar-section-box,
+.studio-fleet-box,
+.drawer-account-section {
+  border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(15, 23, 42, 0.65);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.sidebar-box-usa2 {
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  background: rgba(15, 23, 42, 0.65);
+.sidebar-section-box:hover,
+.studio-fleet-box:hover,
+.drawer-account-section:hover {
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
-.sidebar-box-uk1 {
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  background: rgba(15, 23, 42, 0.65);
+/* Subtle Country Flag Watermark Backgrounds */
+.account-box-us .sidebar-box-header,
+.drawer-account-section.sec-us .drawer-box-header {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0%, rgba(59, 130, 246, 0.06) 50%, rgba(239, 68, 68, 0.04) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.account-box-uk .sidebar-box-header,
+.drawer-account-section.sec-uk .drawer-box-header {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0%, rgba(239, 68, 68, 0.05) 50%, rgba(59, 130, 246, 0.06) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-box-header {
-  padding: 9px 10px;
+  padding: 10px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
   user-select: none;
-  transition: background 0.15s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.2s ease;
 }
 
 .sidebar-box-header:hover {
-  filter: brightness(1.15);
+  background: rgba(255, 255, 255, 0.07) !important;
 }
 
 .sidebar-box-header:active {
   filter: brightness(0.92);
 }
 
-.sidebar-box-usa1 .sidebar-box-header {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.22), rgba(30, 58, 138, 0.12));
-}
-
-.sidebar-box-usa2 .sidebar-box-header {
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.22), rgba(180, 83, 9, 0.12));
-}
-
-.sidebar-box-uk1 .sidebar-box-header {
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.22), rgba(6, 95, 70, 0.12));
-}
-
 .sidebar-box-title {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
+  gap: 8px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.3px;
-}
-
-.sidebar-box-usa1 .sidebar-box-title {
-  color: #93c5fd;
-}
-
-.sidebar-box-usa2 .sidebar-box-title {
-  color: #fcd34d;
-}
-
-.sidebar-box-uk1 .sidebar-box-title {
-  color: #6ee7b7;
+  color: #f8fafc;
 }
 
 .sidebar-box-right {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+}
+
+.btn-box-select-toggle {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-box-select-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
 }
 
 .sidebar-box-badge {
@@ -3578,38 +3590,26 @@ body {
   font-weight: 700;
   padding: 2px 7px;
   border-radius: 4px;
-}
-
-.sidebar-box-usa1 .sidebar-box-badge {
-  background: rgba(59, 130, 246, 0.2);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.35);
-}
-
-.sidebar-box-usa2 .sidebar-box-badge {
-  background: rgba(245, 158, 11, 0.2);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.35);
-}
-
-.sidebar-box-uk1 .sidebar-box-badge {
-  background: rgba(16, 185, 129, 0.2);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-box-chevron {
   font-size: 10px;
+  color: #94a3b8;
   transition: transform 0.25s ease;
-  opacity: 0.7;
 }
 
-.sidebar-box-usa1 .sidebar-box-chevron { color: #93c5fd; }
-.sidebar-box-usa2 .sidebar-box-chevron { color: #fcd34d; }
-.sidebar-box-uk1 .sidebar-box-chevron { color: #6ee7b7; }
-
-.sidebar-section-box.expanded .sidebar-box-chevron {
+.sidebar-section-box.expanded .sidebar-box-chevron,
+.studio-fleet-box.expanded .sidebar-box-chevron {
   transform: rotate(180deg);
+}
+
+.sidebar-section-box.expanded,
+.studio-fleet-box.expanded {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 /* Pages body: collapsed by default, expand with smooth transition */
@@ -3647,19 +3647,6 @@ body {
   background: rgba(56, 189, 248, 0.6);
 }
 
-/* Active glow on expanded box border */
-.sidebar-section-box.expanded.sidebar-box-usa1 {
-  border-color: rgba(59, 130, 246, 0.55);
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.12);
-}
-.sidebar-section-box.expanded.sidebar-box-usa2 {
-  border-color: rgba(245, 158, 11, 0.55);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.12);
-}
-.sidebar-section-box.expanded.sidebar-box-uk1 {
-  border-color: rgba(16, 185, 129, 0.55);
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.12);
-}
 
 /* Studio Fleet Collapsible Accordion Box */
 .studio-fleet-box {

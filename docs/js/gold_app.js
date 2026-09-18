@@ -119,12 +119,14 @@ function enforceStrictFleetSorting(pages) {
     const p = map.get(id);
     if (p) {
       p.index = i + 1;
-      p.account = "Account 1";
-      p.account_tag = "USA A1";
-      p.account_badge = "A1";
-      p.box_group = "USA 01";
+      p.account = "Meghal Chauhan";
+      p.account_owner = "Meghal Chauhan";
+      p.account_tag = "Meghal Chauhan (USA)";
+      p.account_badge = "USA";
+      p.box_group = "Meghal Chauhan (USA)";
       p.region = "US";
       p.country = "US";
+      p.flag = "🇺🇸";
       usa1.push(p);
     }
   });
@@ -133,12 +135,14 @@ function enforceStrictFleetSorting(pages) {
     const p = map.get(id);
     if (p) {
       p.index = 16 + i;
-      p.account = "Account 2";
-      p.account_tag = "USA A2";
-      p.account_badge = "A2";
-      p.box_group = "USA 02";
+      p.account = "Mia Shah";
+      p.account_owner = "Mia Shah";
+      p.account_tag = "Mia Shah (USA)";
+      p.account_badge = "USA";
+      p.box_group = "Mia Shah (USA)";
       p.region = "US";
       p.country = "US";
+      p.flag = "🇺🇸";
       usa2.push(p);
     }
   });
@@ -147,12 +151,14 @@ function enforceStrictFleetSorting(pages) {
     const p = map.get(id);
     if (p) {
       p.index = 31 + i;
-      p.account = "UK Account 1";
-      p.account_tag = "UK A1";
-      p.account_badge = "UK1";
-      p.box_group = "UK 01";
+      p.account = "Binjal Mehra";
+      p.account_owner = "Binjal Mehra";
+      p.account_tag = "Binjal Mehra (UK)";
+      p.account_badge = "UK";
+      p.box_group = "Binjal Mehra (UK)";
       p.region = "GB";
       p.country = "UK";
+      p.flag = "🇬🇧";
       uk1.push(p);
     }
   });
@@ -161,12 +167,14 @@ function enforceStrictFleetSorting(pages) {
     const p = map.get(id);
     if (p) {
       p.index = 43 + i;
-      p.account = "UK Account 2";
-      p.account_tag = "UK A2";
-      p.account_badge = "UK2";
-      p.box_group = "UK 02";
+      p.account = "Chanda Nai";
+      p.account_owner = "Chanda Nai";
+      p.account_tag = "Chanda Nai (UK)";
+      p.account_badge = "UK";
+      p.box_group = "Chanda Nai (UK)";
       p.region = "GB";
       p.country = "UK";
+      p.flag = "🇬🇧";
       uk2.push(p);
     }
   });
@@ -175,12 +183,14 @@ function enforceStrictFleetSorting(pages) {
     const p = map.get(id);
     if (p) {
       p.index = 55 + i;
-      p.account = "UK Account 3";
-      p.account_tag = "UK A3";
-      p.account_badge = "UK3";
-      p.box_group = "UK 03";
+      p.account = "Mahi Patel";
+      p.account_owner = "Mahi Patel";
+      p.account_tag = "Mahi Patel (UK)";
+      p.account_badge = "UK";
+      p.box_group = "Mahi Patel (UK)";
       p.region = "GB";
       p.country = "UK";
+      p.flag = "🇬🇧";
       uk3.push(p);
     }
   });
@@ -1095,65 +1105,36 @@ function renderDrawerPages(pages) {
     `;
   }
 
+  function renderDrawerSection(title, flag, count, items, accKey, flagClass) {
+    return `
+      <div class="drawer-account-section ${flagClass}">
+        <div class="drawer-box-header sidebar-box-header">
+          <div class="sidebar-box-title">
+            <span style="font-size:14px;">${flag}</span>
+            <span>${title}</span>
+          </div>
+          <span class="sidebar-box-badge">${count} Pages</span>
+        </div>
+        <div>${items.map(p => renderDrawerItem(p, accKey)).join("")}</div>
+      </div>
+    `;
+  }
+
   let html = "";
   if (usa1List.length > 0) {
-    html += `
-      <div style="margin-bottom:10px; border:1px solid rgba(59,130,246,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
-        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(59,130,246,0.22), rgba(30,58,138,0.12)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-size:11px; font-weight:800; color:#93c5fd;">🇺🇸 USA 01 (Account 1)</span>
-          <span style="font-size:10px; font-weight:700; color:#60a5fa; background:rgba(59,130,246,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(59,130,246,0.35);">${usa1List.length} Pages • A1</span>
-        </div>
-        <div>${usa1List.map(p => renderDrawerItem(p, 'usa1')).join("")}</div>
-      </div>
-    `;
+    html += renderDrawerSection("Meghal Chauhan (USA)", "🇺🇸", usa1List.length, usa1List, "usa1", "sec-us");
   }
-
   if (usa2List.length > 0) {
-    html += `
-      <div style="margin-bottom:10px; border:1px solid rgba(245,158,11,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
-        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(245,158,11,0.22), rgba(180,83,9,0.12)); border-bottom:1px solid rgba(245,158,11,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-size:11px; font-weight:800; color:#fcd34d;">🇺🇸 USA 02 (Account 2)</span>
-          <span style="font-size:10px; font-weight:700; color:#fbbf24; background:rgba(245,158,11,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(245,158,11,0.35);">${usa2List.length} Pages • A2</span>
-        </div>
-        <div>${usa2List.map(p => renderDrawerItem(p, 'usa2')).join("")}</div>
-      </div>
-    `;
+    html += renderDrawerSection("Mia Shah (USA)", "🇺🇸", usa2List.length, usa2List, "usa2", "sec-us");
   }
-
   if (uk1List.length > 0) {
-    html += `
-      <div style="margin-bottom:8px; border:1px solid rgba(16,185,129,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
-        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(16,185,129,0.22), rgba(6,95,70,0.12)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-size:11px; font-weight:800; color:#6ee7b7;">🇬🇧 UK 01 (London Account 1)</span>
-          <span style="font-size:10px; font-weight:700; color:#34d399; background:rgba(16,185,129,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(16,185,129,0.35);">${uk1List.length} Pages • UK1</span>
-        </div>
-        <div>${uk1List.map(p => renderDrawerItem(p, 'uk1')).join("")}</div>
-      </div>
-    `;
+    html += renderDrawerSection("Binjal Mehra (UK)", "🇬🇧", uk1List.length, uk1List, "uk1", "sec-uk");
   }
-
   if (uk2List.length > 0) {
-    html += `
-      <div style="margin-bottom:8px; border:1px solid rgba(168,85,247,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
-        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(168,85,247,0.22), rgba(126,34,206,0.12)); border-bottom:1px solid rgba(168,85,247,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-size:11px; font-weight:800; color:#d8b4fe;">🇬🇧 UK 02 (London Account 2)</span>
-          <span style="font-size:10px; font-weight:700; color:#c084fc; background:rgba(168,85,247,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(168,85,247,0.35);">${uk2List.length} Pages • UK2</span>
-        </div>
-        <div>${uk2List.map(p => renderDrawerItem(p, 'uk2')).join("")}</div>
-      </div>
-    `;
+    html += renderDrawerSection("Chanda Nai (UK)", "🇬🇧", uk2List.length, uk2List, "uk2", "sec-uk");
   }
-
   if (uk3List.length > 0) {
-    html += `
-      <div style="margin-bottom:8px; border:1px solid rgba(251,146,60,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
-        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(251,146,60,0.22), rgba(194,65,12,0.12)); border-bottom:1px solid rgba(251,146,60,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-size:11px; font-weight:800; color:#fed7aa;">🇬🇧 UK 03 (London Account 3)</span>
-          <span style="font-size:10px; font-weight:700; color:#fb923c; background:rgba(251,146,60,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(251,146,60,0.35);">${uk3List.length} Pages • UK3</span>
-        </div>
-        <div>${uk3List.map(p => renderDrawerItem(p, 'uk3')).join("")}</div>
-      </div>
-    `;
+    html += renderDrawerSection("Mahi Patel (UK)", "🇬🇧", uk3List.length, uk3List, "uk3", "sec-uk");
   }
 
   container.innerHTML = html;
@@ -2679,6 +2660,7 @@ const DRIVE_CONFIGURED_PAGES = {
 let studioSelectedPageIds = new Set();
 let isStudioDispatching = false;
 let currentStudioAccountFilter = "all";
+let expandedStudioBoxes = new Set(["a1", "a2", "uk1", "uk2", "uk3"]);
 let currentDriveAccountFilter = "all";
 let currentRecentSourceFilter = "all";
 
@@ -2944,18 +2926,21 @@ function renderStudioFleetList() {
     `;
   }
 
-  function buildStudioBox(cssClass, fleetId, emoji, title, badge, items, accType) {
-    const isSingleTab = currentStudioAccountFilter === fleetId;
-    const shouldExpand = isSingleTab || Boolean(query);
+  function buildStudioBox(cssClass, fleetId, flag, title, count, items, accType) {
+    const isExpanded = expandedStudioBoxes.has(fleetId);
+    const allSelectedInBox = items.length > 0 && items.every(p => studioSelectedPageIds.has(String(p.id)));
     return `
-      <div class="sidebar-section-box studio-fleet-box ${cssClass} ${shouldExpand ? 'expanded' : ''}" data-fleet="${fleetId}" id="studioFleetBox_${fleetId}">
+      <div class="sidebar-section-box studio-fleet-box ${cssClass} ${isExpanded ? 'expanded' : ''}" data-fleet="${fleetId}" id="studioFleetBox_${fleetId}">
         <div class="sidebar-box-header" onclick="toggleStudioFleetBox('${fleetId}', event)">
           <div class="sidebar-box-title">
-            <span>${emoji}</span>
+            <span style="font-size:15px;">${flag}</span>
             <span>${title}</span>
           </div>
           <div class="sidebar-box-right">
-            <span class="sidebar-box-badge">${badge}</span>
+            <button type="button" class="btn-box-select-toggle" onclick="toggleBoxSelectAll('${fleetId}', event)" title="Toggle select all in ${title}">
+              ${allSelectedInBox ? 'Deselect All' : 'Select All'}
+            </button>
+            <span class="sidebar-box-badge">${count} Pages</span>
             <span class="sidebar-box-chevron">▼</span>
           </div>
         </div>
@@ -2967,30 +2952,20 @@ function renderStudioFleetList() {
   }
 
   let html = "";
-  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "a1") {
-    if (usa1List.length > 0) {
-      html += buildStudioBox("sidebar-box-usa1", "a1", "🇺🇸", "USA 01 (Account 1)", `${usa1List.length} Pages • A1`, usa1List, "usa1");
-    }
+  if (usa1List.length > 0) {
+    html += buildStudioBox("account-box-us", "a1", "🇺🇸", "Meghal Chauhan (USA)", usa1List.length, usa1List, "usa1");
   }
-  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "a2") {
-    if (usa2List.length > 0) {
-      html += buildStudioBox("sidebar-box-usa2", "a2", "🇺🇸", "USA 02 (Account 2)", `${usa2List.length} Pages • A2`, usa2List, "usa2");
-    }
+  if (usa2List.length > 0) {
+    html += buildStudioBox("account-box-us", "a2", "🇺🇸", "Mia Shah (USA)", usa2List.length, usa2List, "usa2");
   }
-  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "uk1") {
-    if (uk1List.length > 0) {
-      html += buildStudioBox("sidebar-box-uk1", "uk1", "🇬🇧", "UK 01 (London Account 1)", `${uk1List.length} Pages • UK1`, uk1List, "uk1");
-    }
+  if (uk1List.length > 0) {
+    html += buildStudioBox("account-box-uk", "uk1", "🇬🇧", "Binjal Mehra (UK)", uk1List.length, uk1List, "uk1");
   }
-  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "uk2") {
-    if (uk2List.length > 0) {
-      html += buildStudioBox("sidebar-box-uk2", "uk2", "🇬🇧", "UK 02 (London Account 2)", `${uk2List.length} Pages • UK2`, uk2List, "uk2");
-    }
+  if (uk2List.length > 0) {
+    html += buildStudioBox("account-box-uk", "uk2", "🇬🇧", "Chanda Nai (UK)", uk2List.length, uk2List, "uk2");
   }
-  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "uk3") {
-    if (uk3List.length > 0) {
-      html += buildStudioBox("sidebar-box-uk3", "uk3", "🇬🇧", "UK 03 (London Account 3)", `${uk3List.length} Pages • UK3`, uk3List, "uk3");
-    }
+  if (uk3List.length > 0) {
+    html += buildStudioBox("account-box-uk", "uk3", "🇬🇧", "Mahi Patel (UK)", uk3List.length, uk3List, "uk3");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
@@ -3008,19 +2983,36 @@ window.toggleStudioFleetBox = function(fleetId, e) {
   if (!box) return;
 
   const isExpanded = box.classList.contains("expanded");
-
-  // Close all other boxes if in 'all' filter so only 1 open at a time
-  if (currentStudioAccountFilter === "all") {
-    document.querySelectorAll(".studio-fleet-box.expanded").forEach(b => {
-      if (b !== box) b.classList.remove("expanded");
-    });
-  }
-
   if (isExpanded) {
     box.classList.remove("expanded");
+    expandedStudioBoxes.delete(fleetId);
   } else {
     box.classList.add("expanded");
+    expandedStudioBoxes.add(fleetId);
   }
+};
+
+window.toggleBoxSelectAll = function(fleetId, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  let list = [];
+  if (fleetId === "a1") list = FLEET_USA_01_IDS;
+  else if (fleetId === "a2") list = FLEET_USA_02_IDS;
+  else if (fleetId === "uk1") list = FLEET_UK_01_IDS;
+  else if (fleetId === "uk2") list = FLEET_UK_02_IDS;
+  else if (fleetId === "uk3") list = FLEET_UK_03_IDS;
+
+  const allSelected = list.length > 0 && list.every(id => studioSelectedPageIds.has(String(id)));
+  list.forEach(id => {
+    const sId = String(id);
+    if (allSelected) {
+      studioSelectedPageIds.delete(sId);
+    } else {
+      studioSelectedPageIds.add(sId);
+    }
+  });
+
+  renderStudioFleetList();
+  updateStudioSelectionUI();
 };
 
 function toggleStudioPageSelection(pageId, e) {
@@ -3769,23 +3761,23 @@ function renderDriveInventoryList() {
     const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
     const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54);
 
-    let badgeText = 'A1', badgeClass = 'badge-a1', accountLabel = 'Account 1';
+    let badgeText = '🇺🇸 US', badgeClass = 'badge-us', accountLabel = 'Meghal Chauhan (USA)';
     if (isUK3) {
-      badgeText = 'UK3';
+      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'UK Account 3';
+      accountLabel = 'Mahi Patel (UK)';
     } else if (isUK2) {
-      badgeText = 'UK2';
+      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'UK Account 2';
+      accountLabel = 'Chanda Nai (UK)';
     } else if (isUK1) {
-      badgeText = 'UK1';
+      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'UK Account 1';
+      accountLabel = 'Binjal Mehra (UK)';
     } else if (isUSA2) {
-      badgeText = 'A2';
-      badgeClass = 'badge-a2';
-      accountLabel = 'Account 2';
+      badgeText = '🇺🇸 US';
+      badgeClass = 'badge-us';
+      accountLabel = 'Mia Shah (USA)';
     }
 
     const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);

@@ -134,11 +134,11 @@ def get_pages_list():
 
     # Build the 66 pages strictly ordered by the 5 fleets
     fleet_order = [
-        (FLEET_USA_01_IDS, "Account 1", "Account 1 Admin", "US", 1),
-        (FLEET_USA_02_IDS, "Account 2", "Mia Shah", "US", 16),
-        (FLEET_UK_01_IDS, "UK Account 1", "Binjal Mehra", "GB", 31),
-        (FLEET_UK_02_IDS, "UK Account 2", "Chanda Nai", "GB", 43),
-        (FLEET_UK_03_IDS, "UK Account 3", "Mahi Patel", "GB", 55)
+        (FLEET_USA_01_IDS, "Meghal Chauhan (USA)", "Meghal Chauhan", "US", 1),
+        (FLEET_USA_02_IDS, "Mia Shah (USA)", "Mia Shah", "US", 16),
+        (FLEET_UK_01_IDS, "Binjal Mehra (UK)", "Binjal Mehra", "GB", 31),
+        (FLEET_UK_02_IDS, "Chanda Nai (UK)", "Chanda Nai", "GB", 43),
+        (FLEET_UK_03_IDS, "Mahi Patel (UK)", "Mahi Patel", "GB", 55)
     ]
 
     final_pages = []
@@ -971,8 +971,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "index": idx,
         "id": pid,
         "name": p_name,
-        "account": p.get("account", "Account 1" if idx <= 15 else ("Account 2" if idx <= 30 else ("UK Account 1" if idx <= 42 else "UK Account 2"))),
-        "account_owner": p.get("account_owner", "Account 1 Admin" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else "Chanda Nai"))),
+        "account": p.get("account", "Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else "Mahi Patel (UK)")))),
+        "account_owner": p.get("account_owner", "Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else "Mahi Patel")))),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,
@@ -1223,11 +1223,11 @@ def sync_data():
         "server_uploaded_videos": server_uploaded_videos,
         "portfolio": {
             "total_pages": len(page_records),
-            "account1_pages_count": len([p for p in page_records if p.get("account") == "Account 1"]),
-            "account2_pages_count": len([p for p in page_records if p.get("account") == "Account 2"]),
-            "uk_account1_pages_count": len([p for p in page_records if p.get("account") == "UK Account 1"]),
-            "uk_account2_pages_count": len([p for p in page_records if p.get("account") == "UK Account 2"]),
-            "uk_account3_pages_count": len([p for p in page_records if p.get("account") == "UK Account 3"]),
+            "account1_pages_count": len([p for p in page_records if "Meghal" in p.get("account", "") or p.get("account") == "Account 1"]),
+            "account2_pages_count": len([p for p in page_records if "Mia" in p.get("account", "") or p.get("account") == "Account 2"]),
+            "uk_account1_pages_count": len([p for p in page_records if "Binjal" in p.get("account", "") or p.get("account") == "UK Account 1"]),
+            "uk_account2_pages_count": len([p for p in page_records if "Chanda" in p.get("account", "") or p.get("account") == "UK Account 2"]),
+            "uk_account3_pages_count": len([p for p in page_records if "Mahi" in p.get("account", "") or p.get("account") == "UK Account 3"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,
