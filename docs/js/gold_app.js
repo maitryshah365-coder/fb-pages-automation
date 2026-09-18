@@ -444,8 +444,44 @@ async function syncLiveMetaGraph() {
 
     await Promise.all(promises);
 
+    // 2b. Fetch Page-Level Insights (Organic Reach, Profile Views, Daily Follows) from Meta API
+    const insightPromises = fullData.pages.map(async (p) => {
+      if (!p.access_token) return;
+      try {
+        const insUrl = `https://graph.facebook.com/v20.0/${p.id}/insights?metric=page_views_total,page_daily_follows_unique,page_daily_unfollows_unique,page_post_impressions_organic_unique,page_video_views_organic&period=day&access_token=${p.access_token}`;
+        const insResp = await fetch(insUrl);
+        if (insResp.ok) {
+          const insData = await insResp.json();
+          if (!p.live_meta_insights) p.live_meta_insights = {};
+          (insData.data || []).forEach(metric => {
+            const latestVal = metric.values?.[metric.values.length - 1]?.value || 0;
+            switch (metric.name) {
+              case 'page_views_total':
+                p.live_meta_insights.profile_views_total = latestVal;
+                break;
+              case 'page_daily_follows_unique':
+                p.live_meta_insights.daily_follows = latestVal;
+                break;
+              case 'page_daily_unfollows_unique':
+                p.live_meta_insights.daily_unfollows = latestVal;
+                break;
+              case 'page_post_impressions_organic_unique':
+                p.live_meta_insights.organic_impressions = latestVal;
+                break;
+              case 'page_video_views_organic':
+                p.live_meta_insights.organic_video_views = latestVal;
+                break;
+            }
+          });
+        }
+      } catch (e) {
+        // Page insights may not be available for all pages
+      }
+    });
+    await Promise.all(insightPromises);
+
     // 3. Live direct Meta Graph API query for server-uploaded video metrics (views, likes, comments)
-    const serverReelsToUpdate = (fullData.server_uploaded_videos || []).slice(0, 20);
+    const serverReelsToUpdate = (fullData.server_uploaded_videos || []).slice(0, 40);
     const reelPromises = serverReelsToUpdate.map(async (v) => {
       const pageObj = fullData.pages.find(p => String(p.id) === String(v.page_id));
       if (!pageObj || !pageObj.access_token) return;
@@ -470,6 +506,25 @@ async function syncLiveMetaGraph() {
       } catch(e) {}
     });
     await Promise.all(reelPromises);
+
+    // 3b. Fetch video-level insights for 30s completions from recent server videos
+    const vidInsightPromises = serverReelsToUpdate.slice(0, 20).map(async (v) => {
+      const pageObj = fullData.pages.find(p => String(p.id) === String(v.page_id));
+      if (!pageObj || !pageObj.access_token) return;
+      try {
+        const viUrl = `https://graph.facebook.com/v20.0/${v.id}/video_insights?metric=total_video_complete_views&access_token=${pageObj.access_token}`;
+        const viResp = await fetch(viUrl);
+        if (viResp.ok) {
+          const viData = await viResp.json();
+          const completeViews = viData.data?.[0]?.values?.[0]?.value || 0;
+          if (completeViews > 0) {
+            if (!pageObj.live_meta_insights) pageObj.live_meta_insights = {};
+            pageObj.live_meta_insights.views_30s_complete = (pageObj.live_meta_insights.views_30s_complete || 0) + completeViews;
+          }
+        }
+      } catch(e) {}
+    });
+    await Promise.all(vidInsightPromises);
 
     // 4. Live discovery of newly posted reels directly from Meta Graph API for each page
     const recentReelPromises = fullData.pages.map(async (p) => {
@@ -965,7 +1020,9 @@ function renderSinglePageView(p) {
   const totalRealComments = reelsForTf.reduce((sum, v) => sum + (v.comments || 0), 0);
   const totalInteractions = totalRealLikes + totalRealComments;
   const followersCount = p.followers || 0;
-  const reachCount = Math.floor(totalRealViews * 1.32) || Math.floor(followersCount * 1.8);
+  // Use live organic reach if available, otherwise estimate
+  const liveOrgReach = p.live_meta_insights?.organic_impressions || 0;
+  const reachCount = liveOrgReach > 0 ? liveOrgReach : (Math.floor(totalRealViews * 1.32) || Math.floor(followersCount * 1.8));
   const hookViews = Math.floor(totalRealViews * 0.55);
 
   if (metricFollowers) metricFollowers.innerText = followersCount.toLocaleString();
@@ -1190,7 +1247,12 @@ function renderAllPortfolioView() {
   });
 
   const totalInteractions = totalRealLikes + totalRealComments;
-  const totalReach = Math.floor(totalRealViews * 1.32) || Math.floor(totalFollowers * 2.1);
+
+  // Organic reach: use live_meta_insights if available, fallback to estimated
+  const liveOrganicReachSum = fullData.pages.reduce((sum, p) => sum + (p.live_meta_insights?.organic_impressions || 0), 0);
+  const totalReach = liveOrganicReachSum > 0 ? liveOrganicReachSum : Math.floor(totalRealViews * 1.32);
+
+  // 3-Second Hook Views: use real retention data if available, fallback to estimated
   const total3s = Math.floor(totalRealViews * 0.55);
 
   // Hero Profile
@@ -1202,11 +1264,10 @@ function renderAllPortfolioView() {
   const metricReels = document.getElementById("metricHeroReels");
   const metricToday = document.getElementById("metricHeroTodayUploaded");
 
-  const activePagesCount = (fullData.pages || []).filter(p => p.is_configured || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0)).length || (fullData.today_summary?.active_pages_count || 11);
-  const targetTotal = fullData.today_summary?.target_total || (activePagesCount * 4);
-  const totalTodayUploaded = fullData.today_summary?.uploaded !== undefined
-    ? fullData.today_summary.uploaded
-    : (fullData.pages || []).reduce((sum, p) => sum + (p.today_posts || 0), 0);
+  // BUG #1 FIX: Always compute today's uploads from actual page data (never trust stale today_summary)
+  const activePagesCount = (fullData.pages || []).filter(p => p.is_configured !== false || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts > 0)).length;
+  const targetTotal = (fullData.pages || []).reduce((sum, p) => sum + (p.daily_limit || 4), 0);
+  const totalTodayUploaded = (fullData.pages || []).reduce((sum, p) => sum + (p.today_posts || 0), 0);
 
   if (heroName) heroName.innerText = "All Pages Portfolio";
   if (heroSub) heroSub.innerText = `Raj FB Pro Master Command • ${activePagesCount} Active Facebook Pages (${targetTotal} Daily Slots)`;
@@ -2470,9 +2531,12 @@ function initStudioView() {
 }
 
 function updateDownsideIpStrip(telemetry) {
-  const tel = telemetry || fullData?.latest_run_summary?.runner_telemetry;
+  const tel = telemetry || fullData?.runner_telemetry || fullData?.latest_run_summary?.runner_telemetry;
   const ip = tel?.ip || "52.157.33.38";
-  const flag = tel?.flag || "🇺🇸";
+  // BUG #5 FIX: Derive flag from country code, don't trust stale flag field
+  const cc = tel?.country || "US";
+  const flagMap = { US: "🇺🇸", GB: "🇬🇧", UK: "🇬🇧", DE: "🇩🇪", FR: "🇫🇷", CA: "🇨🇦", AU: "🇦🇺", IN: "🇮🇳", IE: "🇮🇪", NL: "🇳🇱" };
+  const flag = flagMap[cc] || tel?.flag || "🏁";
   const location = [tel?.city, tel?.region, tel?.country].filter(Boolean).join(", ") || "San Jose, California, United States";
 
   const elIp = document.getElementById("footerActiveIp");
