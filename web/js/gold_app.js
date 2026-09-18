@@ -14,6 +14,91 @@ let currentTimeframe = 28;
 let currentTimeframeMultiplier = 1.0;
 let activeReelsCategory = "all";
 
+// =========================================================================
+// STRICT FLEET ID REGISTRY (PREVENTS KHICHDI / ZERO OVERLAP GUARANTEE)
+// =========================================================================
+const FLEET_USA_01_IDS = [
+  "100259869680371", "110544525330349", "115065401540673", "115274191522295",
+  "116812854703816", "117950551254395", "118430744540455", "118464301202868",
+  "120253457692226", "120938531024349", "122424887474251", "123381634042848",
+  "123657380687158", "124239857294206", "127926880407767"
+];
+
+const FLEET_USA_02_IDS = [
+  "178262278709426", "191024227429188", "174092799127599", "180429445155979",
+  "188448834346944", "188989124294336", "175825318956942", "183060161556948",
+  "184323678097960", "185864197940173", "186256921235334", "187900767735398",
+  "176892285514777", "199046363282913", "169686166222750"
+];
+
+const FLEET_UK_01_IDS = [
+  "1275440552308410", "1094091620443741", "883030611569420", "876743625532242",
+  "954228904442447", "884416694753956", "766333629906067", "838517782676673",
+  "860013240524658", "802792259592614", "439151942618231", "297665506763102"
+];
+
+const FLEET_USA_01_SET = new Set(FLEET_USA_01_IDS);
+const FLEET_USA_02_SET = new Set(FLEET_USA_02_IDS);
+const FLEET_UK_01_SET = new Set(FLEET_UK_01_IDS);
+
+function enforceStrictFleetSorting(pages) {
+  if (!pages || !Array.isArray(pages)) return [];
+  const map = new Map();
+  pages.forEach(p => map.set(String(p.id), p));
+
+  const usa1 = [];
+  const usa2 = [];
+  const uk1 = [];
+
+  FLEET_USA_01_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = i + 1;
+      p.account = "Account 1";
+      p.account_tag = "USA A1";
+      p.account_badge = "A1";
+      p.box_group = "USA 01";
+      p.region = "US";
+      p.country = "US";
+      usa1.push(p);
+    }
+  });
+
+  FLEET_USA_02_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 16 + i;
+      p.account = "Account 2";
+      p.account_tag = "USA A2";
+      p.account_badge = "A2";
+      p.box_group = "USA 02";
+      p.region = "US";
+      p.country = "US";
+      usa2.push(p);
+    }
+  });
+
+  FLEET_UK_01_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 31 + i;
+      p.account = "UK Account 1";
+      p.account_tag = "UK A1";
+      p.account_badge = "UK1";
+      p.box_group = "UK 01";
+      p.region = "GB";
+      p.country = "UK";
+      uk1.push(p);
+    }
+  });
+
+  // Collect any remaining pages if any
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS]);
+  const others = pages.filter(p => !usedIds.has(String(p.id)));
+
+  return [...usa1, ...usa2, ...uk1, ...others];
+}
+
 function filterVideoCategory(cat) {
   activeReelsCategory = cat;
   const btnAll = document.getElementById("btnFilterAllReels");
@@ -203,6 +288,9 @@ async function initDashboard() {
     ]);
 
     fullData = resPages || {};
+    if (fullData.pages && Array.isArray(fullData.pages)) {
+      fullData.pages = enforceStrictFleetSorting(fullData.pages);
+    }
 
     if (resServerVideos && Array.isArray(resServerVideos) && resServerVideos.length > 0) {
       fullData.server_uploaded_videos = resServerVideos;
@@ -451,45 +539,46 @@ function renderSidebarPagesList(pages) {
   const searchInput = document.getElementById("sidePagesSearchInput");
   const searchTerm = (searchInput?.value || "").toLowerCase().trim();
   const pageList = pages || (fullData?.pages || []);
-  
-  // 1. Text Search filtering
-  let filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
 
-  // 2. Tab Quick Filtering (Like Post Now: all / a1 / a2 / uk1)
-  if (currentSidePagesFilter === "a1") {
-    filtered = filtered.filter(p => p.account_tag === "USA A1" || (p.index <= 15 && p.region !== "GB"));
-  } else if (currentSidePagesFilter === "a2") {
-    filtered = filtered.filter(p => p.account_tag === "USA A2" || (p.index > 15 && p.index <= 30 && p.region !== "GB"));
-  } else if (currentSidePagesFilter === "uk1") {
-    filtered = filtered.filter(p => p.account_tag === "UK A1" || p.region === "GB" || p.account === "UK Account 1" || p.index > 30);
-  }
+  const usa1List = [];
+  const usa2List = [];
+  const uk1List = [];
 
-  // Separate strictly into USA (1-30) and UK (31-42)
-  const usaList = filtered.filter(p => p.region !== "GB" && p.account !== "UK Account 1" && (p.index <= 30 || !p.index));
-  const ukList = filtered.filter(p => p.region === "GB" || p.account === "UK Account 1" || p.index > 30);
+  pageList.forEach(p => {
+    const pid = String(p.id);
+    if (searchTerm && !(p.name || "").toLowerCase().includes(searchTerm)) {
+      return;
+    }
+    if (FLEET_USA_01_SET.has(pid)) {
+      usa1List.push(p);
+    } else if (FLEET_USA_02_SET.has(pid)) {
+      usa2List.push(p);
+    } else if (FLEET_UK_01_SET.has(pid)) {
+      uk1List.push(p);
+    } else {
+      if (p.region === "GB" || p.account === "UK Account 1") uk1List.push(p);
+      else if (p.account === "Account 2" || p.index > 15) usa2List.push(p);
+      else usa1List.push(p);
+    }
+  });
 
-  function renderPageItem(p) {
+  function renderPageItem(p, accountType) {
     const isPageActive = String(p.id) === activePageId;
     const followersStr = (p.followers || 0).toLocaleString();
     const isConfigured = Boolean(p.is_configured !== false || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts || 0) > 0);
     const isUploaded = (p.today_posts || 0) > 0;
     const dotClass = isConfigured ? 'green' : 'gray';
     const dotTitle = isUploaded ? `Active • ${p.today_posts}/4 Uploaded Today` : (isConfigured ? 'Active Fleet Page • Scheduled' : 'Pending Configuration');
-    
-    // Tag formatting requested by user:
-    // First 15 USA: USA A1
-    // Next 15 USA: USA A2
-    // UK: UK A1
-    const idx = p.index || 1;
+
     let accPillText = 'USA A1';
     let accPillStyle = 'background:rgba(59,130,246,0.18);color:#60a5fa;border:1px solid rgba(59,130,246,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
     let accLabel = 'USA Account 1';
 
-    if (p.account === 'UK Account 1' || p.region === 'GB' || idx > 30) {
+    if (accountType === 'uk1') {
       accPillText = 'UK A1';
       accPillStyle = 'background:rgba(16,185,129,0.18);color:#34d399;border:1px solid rgba(16,185,129,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
       accLabel = 'UK London Account 1';
-    } else if (p.account === 'Account 2' || idx > 15) {
+    } else if (accountType === 'usa2') {
       accPillText = 'USA A2';
       accPillStyle = 'background:rgba(212,147,11,0.18);color:#f5ba23;border:1px solid rgba(212,147,11,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
       accLabel = 'USA Account 2 (Mia)';
@@ -497,10 +586,10 @@ function renderSidebarPagesList(pages) {
 
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" 
-           data-page-id="${p.id}"
-           role="button"
-           tabindex="0"
-           onclick="onSelectSidebarPage('${p.id}', event)"
+           data-page-id="${p.id}" 
+           role="button" 
+           tabindex="0" 
+           onclick="onSelectSidebarPage('${p.id}', event)" 
            title="${p.name} • ${followersStr} followers • ${accLabel}">
         <div class="side-page-item-left">
           <img class="side-page-avatar" 
@@ -522,47 +611,61 @@ function renderSidebarPagesList(pages) {
 
   let html = "";
 
-  // If filtered down to single account tab, render flat clean list without nested redundant box
-  if (currentSidePagesFilter === "a1" || currentSidePagesFilter === "a2" || currentSidePagesFilter === "uk1") {
-    html = filtered.map(renderPageItem).join("");
-  } else {
-    // "all" tab: Show 2 distinct boxes as requested
-    if (usaList.length > 0) {
-      html += `
-        <div class="sidebar-section-box sidebar-usa-box" style="margin-bottom:10px; border:1px solid rgba(59,130,246,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
-          <div class="sidebar-section-header" style="padding:6px 10px; background:linear-gradient(90deg, rgba(59,130,246,0.18), rgba(30,58,138,0.1)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:13px;">🇺🇸</span>
-              <span style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:0.4px;">USA PAGES (1ST BOX)</span>
-            </div>
-            <span style="font-size:10px; font-weight:700; color:#60a5fa; background:rgba(59,130,246,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(59,130,246,0.3);">${usaList.length} Pages • A1 / A2</span>
+  // 1st Vertical Box: USA 01 (15 Pages)
+  if (usa1List.length > 0) {
+    html += `
+      <div class="sidebar-section-box sidebar-box-usa1">
+        <div class="sidebar-box-header">
+          <div class="sidebar-box-title">
+            <span>🇺🇸</span>
+            <span>USA 01 (Account 1)</span>
           </div>
-          <div style="padding:3px 0;">
-            ${usaList.map(renderPageItem).join("")}
-          </div>
+          <span class="sidebar-box-badge">${usa1List.length} Pages • A1</span>
         </div>
-      `;
-    }
-
-    if (ukList.length > 0) {
-      html += `
-        <div class="sidebar-section-box sidebar-uk-box" style="margin-bottom:6px; border:1px solid rgba(16,185,129,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
-          <div class="sidebar-section-header" style="padding:6px 10px; background:linear-gradient(90deg, rgba(16,185,129,0.18), rgba(6,78,59,0.1)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-size:13px;">🇬🇧</span>
-              <span style="font-size:11px; font-weight:800; color:#6ee7b7; letter-spacing:0.4px;">UK LONDON PAGES (2ND BOX)</span>
-            </div>
-            <span style="font-size:10px; font-weight:700; color:#34d399; background:rgba(16,185,129,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">${ukList.length} Pages • UK A1</span>
-          </div>
-          <div style="padding:3px 0;">
-            ${ukList.map(renderPageItem).join("")}
-          </div>
+        <div class="sidebar-box-body">
+          ${usa1List.map(p => renderPageItem(p, 'usa1')).join("")}
         </div>
-      `;
-    }
+      </div>
+    `;
   }
 
-  container.innerHTML = html || `<div style="padding:14px;text-align:center;color:#64748b;font-size:11px;">No pages found</div>`;
+  // 2nd Vertical Box: USA 02 (15 Pages)
+  if (usa2List.length > 0) {
+    html += `
+      <div class="sidebar-section-box sidebar-box-usa2">
+        <div class="sidebar-box-header">
+          <div class="sidebar-box-title">
+            <span>🇺🇸</span>
+            <span>USA 02 (Account 2)</span>
+          </div>
+          <span class="sidebar-box-badge">${usa2List.length} Pages • A2</span>
+        </div>
+        <div class="sidebar-box-body">
+          ${usa2List.map(p => renderPageItem(p, 'usa2')).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  // 3rd Vertical Box: UK 01 (12 Pages)
+  if (uk1List.length > 0) {
+    html += `
+      <div class="sidebar-section-box sidebar-box-uk1">
+        <div class="sidebar-box-header">
+          <div class="sidebar-box-title">
+            <span>🇬🇧</span>
+            <span>UK 01 (London Account 1)</span>
+          </div>
+          <span class="sidebar-box-badge">${uk1List.length} Pages • UK1</span>
+        </div>
+        <div class="sidebar-box-body">
+          ${uk1List.map(p => renderPageItem(p, 'uk1')).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages matching search</div>`;
 
   const countBadge = document.getElementById("sidePagesCountBadge");
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
@@ -602,9 +705,14 @@ window.toggleSidePagesShutter = function(e) {
 
 function onSelectSidebarPage(pageId, e) {
   if (e && e.stopPropagation) e.stopPropagation();
+
+  // 1. Switch to dashboard view
+  switchMainView("dashboard");
+
+  // 2. Load page details and render view
   selectPage(pageId);
 
-  // Update header subtext
+  // 3. Update header subtext
   const pageObj = fullData?.pages?.find(p => String(p.id) === String(pageId));
   const sub = document.getElementById("sideActivePageSub");
   if (sub && pageObj) {
@@ -612,7 +720,7 @@ function onSelectSidebarPage(pageId, e) {
     sub.style.color = "#38bdf8";
   }
 
-  // Auto-close the shutter so user can immediately view and interact with the page dashboard
+  // 4. Smoothly close the shutter accordion
   const box = document.getElementById("sidePagesAccordionBox");
   const shutter = document.getElementById("sidePagesShutterBody");
   const arrow = document.getElementById("sidePagesToggleArrow");
@@ -624,7 +732,7 @@ function onSelectSidebarPage(pageId, e) {
 
   window.scrollTo({ top: 0, behavior: "smooth" });
   if (pageObj) {
-    showToast(`📊 Loaded ${pageObj.name} Dashboard`);
+    showToast(`📊 Opened ${pageObj.name} Dashboard`);
   }
 }
 window.onSelectSidebarPage = onSelectSidebarPage;
@@ -646,20 +754,32 @@ function renderDrawerPages(pages) {
   const pageList = pages || (fullData?.pages || []);
   const filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
 
-  const usaList = filtered.filter(p => (p.region !== 'GB' && p.account !== 'UK Account 1' && (p.index <= 30 || !p.index)));
-  const ukList = filtered.filter(p => (p.region === 'GB' || p.account === 'UK Account 1' || p.index > 30));
+  const usa1List = [];
+  const usa2List = [];
+  const uk1List = [];
 
-  function renderDrawerItem(p) {
+  filtered.forEach(p => {
+    const pid = String(p.id);
+    if (FLEET_USA_01_SET.has(pid)) usa1List.push(p);
+    else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
+    else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
+    else {
+      if (p.region === "GB" || p.account === "UK Account 1") uk1List.push(p);
+      else if (p.account === "Account 2" || p.index > 15) usa2List.push(p);
+      else usa1List.push(p);
+    }
+  });
+
+  function renderDrawerItem(p, accountType) {
     const isActive = String(p.id) === activePageId;
     const viewsFormatted = (p.total_views || 0).toLocaleString();
     const followersFormatted = (p.followers || 0).toLocaleString();
-    const idx = p.index || 1;
     let accPillText = 'USA A1';
     let badgeClass = 'badge-a1';
-    if (p.account === 'UK Account 1' || p.region === 'GB' || idx > 30) {
+    if (accountType === 'uk1') {
       accPillText = 'UK A1';
       badgeClass = 'badge-uk';
-    } else if (p.account === 'Account 2' || idx > 15) {
+    } else if (accountType === 'usa2') {
       accPillText = 'USA A2';
       badgeClass = 'badge-a2';
     }
@@ -686,26 +806,38 @@ function renderDrawerPages(pages) {
   }
 
   let html = "";
-  if (usaList.length > 0) {
+  if (usa1List.length > 0) {
     html += `
-      <div style="margin-bottom:12px; border:1px solid rgba(59,130,246,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
-        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(59,130,246,0.18), rgba(30,58,138,0.1)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-size:11px; font-weight:800; color:#93c5fd;">🇺🇸 USA PAGES (1ST BOX)</span>
-          <span style="font-size:10px; font-weight:700; color:#60a5fa;">${usaList.length} Pages • A1 / A2</span>
+      <div style="margin-bottom:10px; border:1px solid rgba(59,130,246,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
+        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(59,130,246,0.22), rgba(30,58,138,0.12)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:11px; font-weight:800; color:#93c5fd;">🇺🇸 USA 01 (Account 1)</span>
+          <span style="font-size:10px; font-weight:700; color:#60a5fa; background:rgba(59,130,246,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(59,130,246,0.35);">${usa1List.length} Pages • A1</span>
         </div>
-        <div>${usaList.map(renderDrawerItem).join("")}</div>
+        <div>${usa1List.map(p => renderDrawerItem(p, 'usa1')).join("")}</div>
       </div>
     `;
   }
 
-  if (ukList.length > 0) {
+  if (usa2List.length > 0) {
     html += `
-      <div style="margin-bottom:8px; border:1px solid rgba(16,185,129,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
-        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(16,185,129,0.18), rgba(6,78,59,0.1)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-size:11px; font-weight:800; color:#6ee7b7;">🇬🇧 UK LONDON PAGES (2ND BOX)</span>
-          <span style="font-size:10px; font-weight:700; color:#34d399;">${ukList.length} Pages • UK A1</span>
+      <div style="margin-bottom:10px; border:1px solid rgba(245,158,11,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
+        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(245,158,11,0.22), rgba(180,83,9,0.12)); border-bottom:1px solid rgba(245,158,11,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:11px; font-weight:800; color:#fcd34d;">🇺🇸 USA 02 (Account 2)</span>
+          <span style="font-size:10px; font-weight:700; color:#fbbf24; background:rgba(245,158,11,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(245,158,11,0.35);">${usa2List.length} Pages • A2</span>
         </div>
-        <div>${ukList.map(renderDrawerItem).join("")}</div>
+        <div>${usa2List.map(p => renderDrawerItem(p, 'usa2')).join("")}</div>
+      </div>
+    `;
+  }
+
+  if (uk1List.length > 0) {
+    html += `
+      <div style="margin-bottom:8px; border:1px solid rgba(16,185,129,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
+        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(16,185,129,0.22), rgba(6,95,70,0.12)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:11px; font-weight:800; color:#6ee7b7;">🇬🇧 UK 01 (London Account 1)</span>
+          <span style="font-size:10px; font-weight:700; color:#34d399; background:rgba(16,185,129,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(16,185,129,0.35);">${uk1List.length} Pages • UK1</span>
+        </div>
+        <div>${uk1List.map(p => renderDrawerItem(p, 'uk1')).join("")}</div>
       </div>
     `;
   }
@@ -2376,6 +2508,10 @@ function renderStudioFleetList() {
 
   container.innerHTML = "";
 
+  let shownUsa1Header = false;
+  let shownUsa2Header = false;
+  let shownUk1Header = false;
+
   fullData.pages.forEach(page => {
     const pId = String(page.id);
     const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
@@ -2383,15 +2519,15 @@ function renderStudioFleetList() {
     const isSelected = studioSelectedPageIds.has(pId);
     const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
-    const isA2 = (page.account === 'Account 2') || (page.index > 15 && page.index <= 30);
-    const isUK = (page.account === 'UK Account 1') || (page.index > 30) || (page.region === 'GB');
-    const badgeText = isUK ? 'UK1' : (isA2 ? 'A2' : 'A1');
-    const badgeClass = isUK ? 'badge-uk' : (isA2 ? 'badge-a2' : 'badge-a1');
+
+    const isUSA1 = FLEET_USA_01_SET.has(pId);
+    const isUSA2 = FLEET_USA_02_SET.has(pId);
+    const isUK1 = FLEET_UK_01_SET.has(pId);
 
     // Account quick filter tab (all / a1 / a2 / uk1)
-    if (currentStudioAccountFilter === "a1" && (isA2 || isUK)) return;
-    if (currentStudioAccountFilter === "a2" && (!isA2 || isUK)) return;
-    if (currentStudioAccountFilter === "uk1" && !isUK) return;
+    if (currentStudioAccountFilter === "a1" && !isUSA1) return;
+    if (currentStudioAccountFilter === "a2" && !isUSA2) return;
+    if (currentStudioAccountFilter === "uk1" && !isUK1) return;
 
     // Search query match
     if (query) {
@@ -2399,6 +2535,32 @@ function renderStudioFleetList() {
       const matchHandle = handle.toLowerCase().includes(query);
       if (!matchName && !matchHandle) return;
     }
+
+    // When "all" tab is active and not searching, show clear section dividers separating the fleets
+    if (currentStudioAccountFilter === "all" && !query) {
+      if (isUSA1 && !shownUsa1Header) {
+        shownUsa1Header = true;
+        const div = document.createElement("div");
+        div.className = "studio-section-divider studio-divider-usa1";
+        div.innerHTML = `<span>🇺🇸 USA 01 — Account 1 (15 Pages)</span><span class="studio-divider-badge">USA A1</span>`;
+        container.appendChild(div);
+      } else if (isUSA2 && !shownUsa2Header) {
+        shownUsa2Header = true;
+        const div = document.createElement("div");
+        div.className = "studio-section-divider studio-divider-usa2";
+        div.innerHTML = `<span>🇺🇸 USA 02 — Account 2 (15 Pages)</span><span class="studio-divider-badge">USA A2</span>`;
+        container.appendChild(div);
+      } else if (isUK1 && !shownUk1Header) {
+        shownUk1Header = true;
+        const div = document.createElement("div");
+        div.className = "studio-section-divider studio-divider-uk1";
+        div.innerHTML = `<span>🇬🇧 UK London — Account 1 (12 Pages)</span><span class="studio-divider-badge">UK A1</span>`;
+        container.appendChild(div);
+      }
+    }
+
+    const badgeText = isUK1 ? 'UK1' : (isUSA2 ? 'A2' : 'A1');
+    const badgeClass = isUK1 ? 'badge-uk' : (isUSA2 ? 'badge-a2' : 'badge-a1');
 
     const row = document.createElement("div");
     row.className = `studio-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}`;
@@ -2449,11 +2611,12 @@ function selectAllReadyPages() {
   if (!fullData || !fullData.pages) return;
   fullData.pages.forEach(page => {
     const pId = String(page.id);
-    const isA2 = (page.account === 'Account 2') || (page.index > 15 && page.index <= 30);
-    const isUK = (page.account === 'UK Account 1') || (page.index > 30) || (page.region === 'GB');
-    if (currentStudioAccountFilter === "a1" && (isA2 || isUK)) return;
-    if (currentStudioAccountFilter === "a2" && (!isA2 || isUK)) return;
-    if (currentStudioAccountFilter === "uk1" && !isUK) return;
+    const isUSA1 = FLEET_USA_01_SET.has(pId);
+    const isUSA2 = FLEET_USA_02_SET.has(pId);
+    const isUK1 = FLEET_UK_01_SET.has(pId);
+    if (currentStudioAccountFilter === "a1" && !isUSA1) return;
+    if (currentStudioAccountFilter === "a2" && !isUSA2) return;
+    if (currentStudioAccountFilter === "uk1" && !isUK1) return;
     if (DRIVE_CONFIGURED_PAGES[pId]?.ready || page.is_configured !== false) {
       studioSelectedPageIds.add(pId);
     }
