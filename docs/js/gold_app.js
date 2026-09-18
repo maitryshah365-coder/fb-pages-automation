@@ -997,21 +997,11 @@ function renderAllPortfolioView() {
   const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
   window._portfolioServerReels = serverReelsForTf;
 
-  // Video Library Section: ALWAYS VISIBLE ON MASTER PORTFOLIO DASHBOARD
+  // Video Library Section: HIDE on Main Portfolio Dashboard (Videos are viewed in Recent Posts & Individual Page views)
   const libSec = document.getElementById("sectionVideoLibrary");
   if (libSec) {
-    libSec.style.display = "block";
+    libSec.style.display = "none";
   }
-  const libTitle = document.getElementById("librarySectionTitle");
-  const libSub = document.getElementById("librarySourceSub");
-  const libDesc = document.getElementById("libraryDescText");
-  if (libTitle) libTitle.innerText = "Master Portfolio - Uploaded Videos & Reels Feed";
-  if (libSub) libSub.innerText = `Showing published reels across ${fullData.pages.length} Pages (${currentTimeframe} Days)`;
-  if (libDesc) libDesc.innerText = `Portfolio content stream • Real-time views, retention & server uploads`;
-
-  currentVideos = serverReelsForTf.length > 0 ? serverReelsForTf : allVideosForTf;
-  videosShownCount = 20;
-  renderVideosLibrary();
 
   // Hide Audience Demographics on Portfolio Dashboard
   const secAud = document.getElementById("sectionAudienceDemographics");
