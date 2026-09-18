@@ -85,6 +85,11 @@ jobs:
         run: |
           sudo wg-quick down wg0 || true
 
+      - name: Sync Live Dashboard Data
+        if: always()
+        run: |
+          python scripts/sync_dashboard_data.py || true
+
       - name: Persist Database & State
         if: always()
         run: |
