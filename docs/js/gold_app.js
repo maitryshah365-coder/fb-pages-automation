@@ -73,14 +73,16 @@ function getServerUploadedVideos() {
   const list = [];
   const seen = new Set();
 
-  // 1. Include any user instant uploads dispatched from Post Now studio
+  // 1. Only include true Post Now studio dispatches if explicitly user-triggered
   try {
     const postNowList = JSON.parse(localStorage.getItem("raj_fb_post_now_reels") || "[]");
     postNowList.forEach(v => {
-      const vid = String(v.id || v.facebook_video_id);
-      if (vid && !seen.has(vid)) {
-        seen.add(vid);
-        list.push({ ...v, id: vid, server_uploaded: true, is_post_now: true, source: "post_now" });
+      if (v.explicit_studio_click) {
+        const vid = String(v.id || v.facebook_video_id);
+        if (vid && !seen.has(vid)) {
+          seen.add(vid);
+          list.push({ ...v, id: vid, server_uploaded: true, is_post_now: true, source: "post_now" });
+        }
       }
     });
   } catch(e) {}
@@ -91,7 +93,7 @@ function getServerUploadedVideos() {
       const vid = String(v.id);
       if (vid && !seen.has(vid)) {
         seen.add(vid);
-        list.push(v);
+        list.push({ ...v, server_uploaded: true, is_post_now: false, source: "server" });
       }
     });
   }
@@ -103,15 +105,15 @@ function getServerUploadedVideos() {
         const vid = String(r.facebook_video_id);
         if (!seen.has(vid)) {
           seen.add(vid);
-          const isPn = (r.is_post_now || r.source === "post_now");
+          const isPn = Boolean(r.explicit_studio_click);
           list.push({
             id: vid,
             title: r.video_title || r.filename || "Reel",
             description: r.filename || "Uploaded Reel",
             page_name: r.display_name || r.page || "Facebook Page",
             page_id: r.page_id,
-            posted_at: r.uploaded_at,
-            created_time_iso: r.uploaded_at,
+            posted_at: r.uploaded_at || fullData.latest_run_summary.completed_at,
+            created_time_iso: r.uploaded_at || fullData.latest_run_summary.completed_at,
             views: 0,
             likes: 0,
             comments: 0,
@@ -131,10 +133,10 @@ function getServerUploadedVideos() {
   (fullData?.pages || []).forEach(p => {
     (p.videos || []).forEach(v => {
       const vid = String(v.id);
-      const isServer = v.server_uploaded || fullData?.latest_run_summary?.results?.some(r => String(r.facebook_video_id) === vid);
+      const isServer = Boolean(v.server_uploaded || v.source === "server" || fullData?.latest_run_summary?.results?.some(r => String(r.facebook_video_id) === vid));
       if (isServer && !seen.has(vid)) {
         seen.add(vid);
-        list.push({ ...v, page_name: v.page_name || p.name, page_id: v.page_id || p.id, server_uploaded: true });
+        list.push({ ...v, page_name: v.page_name || p.name, page_id: v.page_id || p.id, server_uploaded: true, is_post_now: false, source: "server" });
       }
     });
   });
@@ -183,8 +185,68 @@ function showToast(msg) {
 
 async function initDashboard() {
   try {
-    const res = await fetch("data/pages_data.json?v=" + Date.now());
-    fullData = await res.json();
+    // 1. Sanitize localStorage: purge any automatically dumped server runs that were tagged as post_now
+    try {
+      const rawStored = localStorage.getItem("raj_fb_post_now_reels");
+      if (rawStored) {
+        const parsed = JSON.parse(rawStored);
+        const cleaned = Array.isArray(parsed) ? parsed.filter(x => x.explicit_studio_click === true) : [];
+        localStorage.setItem("raj_fb_post_now_reels", JSON.stringify(cleaned));
+      }
+    } catch(e) {}
+
+    // 2. Load latest pages_data, latest_run_summary and server_uploaded_videos concurrently
+    const [resPages, resSummary, resServerVideos] = await Promise.all([
+      fetch("data/pages_data.json?v=" + Date.now()).then(r => r.ok ? r.json() : null),
+      fetch("data/latest_run_summary.json?v=" + Date.now()).then(r => r.ok ? r.json() : null),
+      fetch("data/server_uploaded_videos.json?v=" + Date.now()).then(r => r.ok ? r.json() : null)
+    ]);
+
+    fullData = resPages || {};
+
+    if (resServerVideos && Array.isArray(resServerVideos) && resServerVideos.length > 0) {
+      fullData.server_uploaded_videos = resServerVideos;
+    }
+
+    if (resSummary && resSummary.results) {
+      fullData.latest_run_summary = resSummary;
+      // Sync new successful uploads into pages if missing
+      (resSummary.results || []).forEach(r => {
+        if (r.status === "success" && r.facebook_video_id) {
+          const fbid = String(r.facebook_video_id);
+          const p = (fullData.pages || []).find(x => String(x.id) === String(r.page_id) || fbid === String(x.last_video_id) || x.index === parseInt((r.page || '').replace('page_', '')));
+          if (p) {
+            p.today_posts = Math.max(p.today_posts || 0, 1);
+            if (!p.videos) p.videos = [];
+            if (!p.videos.some(v => String(v.id) === fbid)) {
+              const dUp = new Date(r.uploaded_at || resSummary.completed_at || Date.now());
+              p.videos.unshift({
+                id: fbid,
+                title: r.video_title || (r.filename ? r.filename.rsplit('.', 1)[0] : `${p.name} Reel`),
+                description: r.filename || "Uploaded Facebook Reel",
+                created_at: dUp.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                created_time: dUp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+                created_time_iso: r.uploaded_at || resSummary.completed_at,
+                posted_at: r.uploaded_at || resSummary.completed_at,
+                views: 0,
+                likes: 0,
+                comments: 0,
+                subscribers_gain: "+0",
+                visibility: "Public",
+                restrictions: "None",
+                page_name: p.name,
+                page_id: p.id,
+                thumbnail: `https://graph.facebook.com/v20.0/${fbid}/picture`,
+                permalink: `/reel/${fbid}/`,
+                server_uploaded: true,
+                is_post_now: false,
+                source: "server"
+              });
+            }
+          }
+        }
+      });
+    }
 
     renderSidebarPagesList(fullData.pages);
     renderDrawerPages(fullData.pages);
@@ -332,8 +394,8 @@ async function syncLiveMetaGraph() {
                 thumbnail: rk.picture || `https://graph.facebook.com/v20.0/${vid}/picture`,
                 permalink: rk.permalink_url || `/reel/${vid}/`,
                 server_uploaded: true,
-                is_post_now: true,
-                source: "post_now"
+                is_post_now: false,
+                source: "server"
               };
               if (!fullData.server_uploaded_videos) fullData.server_uploaded_videos = [];
               fullData.server_uploaded_videos.unshift(newReel);
@@ -935,18 +997,25 @@ function renderAllPortfolioView() {
   const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
   window._portfolioServerReels = serverReelsForTf;
 
-  // DO NOT render video library table on master portfolio dashboard
-  // (Videos are only shown in individual page views & Recent Posts panel)
+  // Video Library Section: ALWAYS VISIBLE ON MASTER PORTFOLIO DASHBOARD
+  const libSec = document.getElementById("sectionVideoLibrary");
+  if (libSec) {
+    libSec.style.display = "block";
+  }
+  const libTitle = document.getElementById("librarySectionTitle");
+  const libSub = document.getElementById("librarySourceSub");
+  const libDesc = document.getElementById("libraryDescText");
+  if (libTitle) libTitle.innerText = "Master Portfolio - Uploaded Videos & Reels Feed";
+  if (libSub) libSub.innerText = `Showing published reels across ${fullData.pages.length} Pages (${currentTimeframe} Days)`;
+  if (libDesc) libDesc.innerText = `Portfolio content stream • Real-time views, retention & server uploads`;
+
+  currentVideos = serverReelsForTf.length > 0 ? serverReelsForTf : allVideosForTf;
+  videosShownCount = 20;
+  renderVideosLibrary();
 
   // Hide Audience Demographics on Portfolio Dashboard
   const secAud = document.getElementById("sectionAudienceDemographics");
   if (secAud) secAud.style.display = "none";
-
-  // Hide Video Library Section completely on Portfolio Dashboard
-  const libSec = document.getElementById("sectionVideoLibrary");
-  if (libSec) {
-    libSec.style.display = "none";
-  }
 
   // Telemetry
   renderTelemetry({ isPortfolio: true });
@@ -1228,10 +1297,11 @@ function renderVideosLibrary() {
       const pageLabel = getVideoPageName(v);
       const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
       const dt = formatReelDateTime(v);
-      const isPostNow = v.is_post_now || v.source === "post_now";
+      const isPostNow = Boolean(v.is_post_now && v.source === "post_now");
+      const isServer = Boolean(v.server_uploaded || v.source === "server");
       const badgeHtml = isPostNow
-        ? '<span class="studio-server-badge post-now-badge">⚡ POST NOW</span>'
-        : (v.server_uploaded ? '<span class="studio-server-badge">⚡ SERVER UPLOAD</span>' : '');
+        ? '<span class="studio-server-badge post-now-badge">🚀 POST NOW</span>'
+        : (isServer ? '<span class="studio-server-badge">⚡ SERVER UPLOAD</span>' : '');
       const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
 
       return `
@@ -1309,10 +1379,11 @@ function renderVideosLibrary() {
       const pageLabel = getVideoPageName(v);
       const thumb = v.thumbnail || 'https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel';
       const dt = formatReelDateTime(v);
-      const isPostNow = v.is_post_now || v.source === "post_now";
+      const isPostNow = Boolean(v.is_post_now && v.source === "post_now");
+      const isServer = Boolean(v.server_uploaded || v.source === "server");
       const badgeHtml = isPostNow
-        ? '<span class="studio-server-badge post-now-badge" style="font-size:9px; padding:1px 5px;">⚡ POST NOW</span>'
-        : (v.server_uploaded ? '<span class="studio-server-badge" style="font-size:9px; padding:1px 5px;">⚡ SERVER</span>' : '');
+        ? '<span class="studio-server-badge post-now-badge" style="font-size:9px; padding:1px 5px;">🚀 POST NOW</span>'
+        : (isServer ? '<span class="studio-server-badge" style="font-size:9px; padding:1px 5px;">⚡ SERVER UPLOAD</span>' : '');
       const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
 
       return `
@@ -2675,7 +2746,7 @@ async function autoSyncAfterUpload() {
     fullData.latest_run_summary = freshSummary;
   }
 
-  // Record any new uploads from this run as Post Now reels
+  // Record any new uploads from this run (only if genuine studio post now)
   if (freshSummary && Array.isArray(freshSummary.results)) {
     try {
       const stored = JSON.parse(localStorage.getItem("raj_fb_post_now_reels") || "[]");
@@ -2683,9 +2754,11 @@ async function autoSyncAfterUpload() {
       freshSummary.results.forEach(r => {
         if (r.status === "success" && r.facebook_video_id) {
           const fbid = String(r.facebook_video_id);
-          if (!stored.some(x => String(x.id) === fbid)) {
+          const isStudioRun = Boolean(r.is_post_now || r.source === "post_now");
+          if (isStudioRun && !stored.some(x => String(x.id) === fbid)) {
             stored.unshift({
               id: fbid,
+              explicit_studio_click: true,
               title: r.video_title || r.filename || "Post Now Reel",
               description: r.filename || "Instant Studio Post",
               created_at: dNow.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
@@ -3047,8 +3120,8 @@ function renderRecentPostsList(reelsList) {
 
   // Render Desktop Table
   tbody.innerHTML = displayItems.map((v, idx) => {
-    const isPostNow = v.is_post_now || v.source === "post_now";
-    const isServer = v.server_uploaded || v.source === "server";
+    const isPostNow = Boolean(v.is_post_now && v.source === "post_now");
+    const isServer = Boolean(v.server_uploaded || v.source === "server");
     const sourceBadge = isPostNow
       ? `<span class="badge-pill-source" style="background:rgba(236,72,153,0.18); color:#f472b6; border:1px solid rgba(236,72,153,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">🚀 POST NOW</span>`
       : (isServer
@@ -3098,34 +3171,39 @@ function renderRecentPostsList(reelsList) {
   // Render Mobile Cards
   if (mobileContainer) {
     mobileContainer.innerHTML = displayItems.map(v => {
-      const isPostNow = v.is_post_now || v.source === "post_now";
-      const isServer = v.server_uploaded || v.source === "server";
+      const isPostNow = Boolean(v.is_post_now && v.source === "post_now");
+      const isServer = Boolean(v.server_uploaded || v.source === "server");
       const sourceBadge = isPostNow
-        ? `<span style="background:rgba(236,72,153,0.18); color:#f472b6; border:1px solid rgba(236,72,153,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">🚀 POST NOW</span>`
+        ? `<span style="background:rgba(236,72,153,0.18); color:#f472b6; border:1px solid rgba(236,72,153,0.35); font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">🚀 POST NOW</span>`
         : (isServer
-          ? `<span style="background:rgba(245,158,11,0.18); color:#fbbf24; border:1px solid rgba(245,158,11,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">⚡ SERVER UPLOAD</span>`
-          : `<span style="background:rgba(59,130,246,0.18); color:#60a5fa; border:1px solid rgba(59,130,246,0.35); font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:4px;">🌐 META GRAPH</span>`);
+          ? `<span style="background:rgba(245,158,11,0.18); color:#fbbf24; border:1px solid rgba(245,158,11,0.35); font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">⚡ SERVER UPLOAD</span>`
+          : `<span style="background:rgba(59,130,246,0.18); color:#60a5fa; border:1px solid rgba(59,130,246,0.35); font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">🌐 META GRAPH</span>`);
       const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
-      const dateStr = v.created_at || "Recent";
+      const dateStr = v.created_at || (v.created_time_iso ? v.created_time_iso.slice(0, 10) : "Recent");
+      const timeStr = v.created_time || "Published";
 
       return `
-        <div class="mobile-yt-card" style="padding:12px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
-          <div style="display:flex; gap:12px; margin-bottom:10px;">
-            <div style="width:50px; height:68px; border-radius:6px; overflow:hidden; flex-shrink:0; background:#0f172a; border:1px solid rgba(255,255,255,0.1); cursor:pointer;" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open reel in new tab">
-              <img src="${v.thumbnail || 'icons/icon-192.png'}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
+        <div class="recent-mobile-card">
+          <div class="recent-mob-top">
+            <div class="recent-mob-thumb" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open reel in new tab">
+              <img src="${v.thumbnail || 'icons/icon-192.png'}" alt="Thumbnail" onerror="this.src='icons/icon-192.png'">
+              <span class="recent-mob-badge">▶ REEL</span>
             </div>
-            <div style="overflow:hidden; flex:1;">
-              <div style="font-weight:700; color:#fff; font-size:12.5px; line-height:1.3; margin-bottom:4px; cursor:pointer;" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open reel in new tab">${v.title || v.description || 'Facebook Reel'}</div>
-              <div style="font-size:11px; color:#94a3b8;">📢 ${v.page_name || 'Channel'} • 📅 ${dateStr}</div>
-              <div style="margin-top:6px;">${sourceBadge}</div>
+            <div class="recent-mob-details">
+              <div class="recent-mob-title" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="${v.title || v.description || 'Facebook Reel'}">${v.title || v.description || 'Facebook Reel'}</div>
+              <div class="recent-mob-meta">
+                <span class="recent-mob-page">📢 ${v.page_name || 'Channel'}</span>
+                <span class="recent-mob-date">📅 ${dateStr} • ${timeStr}</span>
+              </div>
+              <div class="recent-mob-badge-row">${sourceBadge}</div>
             </div>
           </div>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:rgba(0,0,0,0.25); border-radius:8px; margin-bottom:8px; font-size:11.5px;">
-            <span>👁️ ${(v.views || 0).toLocaleString()}</span>
-            <span>❤️ ${(v.likes || 0).toLocaleString()}</span>
-            <span>💬 ${(v.comments || 0).toLocaleString()}</span>
+          <div class="recent-mob-stats">
+            <span class="mob-stat-item">👁️ ${(v.views || 0).toLocaleString()} <small>Views</small></span>
+            <span class="mob-stat-item">❤️ ${(v.likes || 0).toLocaleString()} <small>Likes</small></span>
+            <span class="mob-stat-item">💬 ${(v.comments || 0).toLocaleString()} <small>Comments</small></span>
           </div>
-          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-view-reel-link" style="width:100%; justify-content:center; padding:7px; font-size:11.5px;">
+          <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-view-reel-link recent-mob-btn">
             🎬 Watch Reel on Facebook (New Tab) ↗
           </a>
         </div>
