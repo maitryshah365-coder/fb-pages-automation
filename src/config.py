@@ -16,6 +16,8 @@ class PageConfig:
     fixed_title: str = ""
     description_footer: str = ""
     default_hashtags: List[str] = field(default_factory=list)
+    page_access_token: str = ""
+    display_name: str = ""
 
     @property
     def token_env_var(self) -> str:
@@ -24,7 +26,11 @@ class PageConfig:
         return f"FB_TOKEN_{safe_name}"
 
     def get_access_token(self) -> Optional[str]:
-        """Resolves Page Access Token from environment or token file."""
+        """Resolves Page Access Token from configuration, environment or token file."""
+        # 0. Direct token from page configuration
+        if self.page_access_token:
+            return self.page_access_token.strip()
+
         # 1. Check Page-specific environment variable e.g. FB_TOKEN_PAGE_1
         token = os.environ.get(self.token_env_var)
         if token:
@@ -41,10 +47,11 @@ class PageConfig:
             with open(token_file, "r", encoding="utf-8") as f:
                 return f.read().strip()
 
-        # 4. Check pages_tokens.json files locally
+        # 4. Check pages_tokens.json and verified pages files locally
         token_candidates = [
             "data/pages_tokens.json",
             "data/account2_verified_pages.json",
+            "data/uk_account1_binjal_permanent_pages.json",
             "scratch/pages_tokens.json",
             r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-8050-53be5bd48383\scratch\pages_tokens.json"
         ]
@@ -52,11 +59,12 @@ class PageConfig:
             if os.path.exists(tf):
                 try:
                     with open(tf, "r", encoding="utf-8") as f:
-                        pages_list = json.load(f)
+                        raw = json.load(f)
+                        pages_list = raw.get("pages", []) if isinstance(raw, dict) else raw
                         for p in pages_list:
                             pid = str(p.get("id") or p.get("page_id") or "")
                             tok = p.get("access_token") or p.get("page_access_token") or ""
-                            if pid == str(self.page_id) or str(p.get("index")) == str(self.name).replace("page_", ""):
+                            if pid == str(self.page_id) or str(p.get("index")) == str(self.name).replace("page_", "").replace("uk1_page_", ""):
                                 if tok:
                                     return tok.strip()
                 except Exception:
@@ -142,7 +150,9 @@ def load_config(config_path: str = "config.yaml") -> AppConfig:
             title_mode=str(p.get("title_mode", "filename")),
             fixed_title=str(p.get("fixed_title", "")),
             description_footer=str(p.get("description_footer", "")),
-            default_hashtags=p.get("default_hashtags", []) or []
+            default_hashtags=p.get("default_hashtags", []) or [],
+            page_access_token=str(p.get("page_access_token", "")),
+            display_name=str(p.get("display_name", ""))
         )
         pages.append(page)
 

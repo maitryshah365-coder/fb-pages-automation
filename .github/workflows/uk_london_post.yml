@@ -14,6 +14,15 @@ on:
         type: string
         default: ""
 
+  # Scheduled 4 times daily (London Time BST / UTC):
+  # Slot 1: 09:00 AM London (08:00 UTC / 01:30 PM IST)
+  # Slot 2: 01:00 PM London (12:00 UTC / 05:30 PM IST)
+  # Slot 3: 05:00 PM London (16:00 UTC / 09:30 PM IST)
+  # Slot 4: 09:30 PM London (20:30 UTC / 02:00 AM IST)
+  schedule:
+    - cron: "0 8,12,16 * * *"
+    - cron: "30 20 * * *"
+
 concurrency:
   group: uk-facebook-upload-group
   cancel-in-progress: false
@@ -69,7 +78,7 @@ jobs:
             DRY_ARG="--dry-run"
           fi
           # Run UK London pipeline with strict in-code Kill-Switch verification
-          python main.py --config config.yaml $DRY_ARG --require-uk
+          python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
 
       - name: Disconnect WireGuard Tunnel
         if: always()

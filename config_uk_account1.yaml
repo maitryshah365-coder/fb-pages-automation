@@ -1,0 +1,137 @@
+page_group: uk_london_id_1_binjal
+account_name: Binjal Mehra
+country_code: GB
+target_location: London, United Kingdom
+require_uk_ip: true
+ai_disclosure_status: pending_determination
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1275440552308410'
+  name: uk1_page_1
+  display_name: Bitter Lullaby
+  enabled: true
+  drive_folder_id: 17SQXMG8HL8tGgXI1-Tn5I5mQ8Ce0h0a2
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSsfmK2RDITdmfMuCLq0FPTiV6aftA5kc7YZBkIKGMGviy4seXAa0xIryqZAxmwXsRp6FEpWbZCoW7ZCz7PIClmUD0oCCRVcDZBqO899tyS5ECkaAfGtck5SHumqNKKwm0WqmjSa7cSQR08xDEPfzNZAngBdSCEqmMgFG8qeWWVb1ZBfPSdTSVBEZBZBCJRGDa
+- page_id: '1094091620443741'
+  name: uk1_page_2
+  display_name: Apex Dominion
+  enabled: true
+  drive_folder_id: 1hhkz2KlqkCJ7wpbgKk4ya_361AtlAjvw
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSiGYu2DCKIfZAbNzqT81GDX3a4vmSgFVOJRwAZBPU1E76RMvvC0j9e6dan3XVsB2ZCL9yL54AYBpmoUaMDp50Sv7GWr6MK9jRLXG8rt2ZBNLvEvCJdnxrSTGJDfvau0yZC0sf0XCbxkwqLeC0fcJ4o66GcZB6KSmZAItowlgtsxPVRdwLJ2Xc1ZChzIVJHqB
+- page_id: '883030611569420'
+  name: uk1_page_3
+  display_name: Apex Narrative
+  enabled: true
+  drive_folder_id: 1vTdVLboxrjH3lRqCDChX6r0MvlOW_6xZ
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSsfjPfYFUcikTA5AhRwB4PxPJdvKSR3JHpx2k6SYBQxZCyaFc3l6R1pJm2duvlegZAPejiHJiqL7Ph5zTVem7dudfxmbJNOcutAak1H0FKtE1GIP7HoZBdy9VpdZB0DqrvWQf31fiCH58y8ZACjUJDivCZCZBTtCB2Aq5doMSJvMKa1Wz7bVO2wt20j1iW0
+- page_id: '876743625532242'
+  name: uk1_page_4
+  display_name: Young  Bradley
+  enabled: true
+  drive_folder_id: 1PBRUGAoXqpmr_2L6YuxkVACX3LBEFJiE
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSiIZBFzx387KfQlZCXo7QTj5W1HrNUN8Dnmt4ZB6solytptRfHSyORZBXfXL6MKYti2RcIpSxMrZBZByxC0EtGt6igXDbhZCwFYHr6RUW4z2lzYHUwPmWQPflSDk7U3PVgK9aMlTpUjZAalBf9Us5PSyOMLxSnSoyGNI3kIUkigY2qC5xozoWbGUf0bNUyqv
+- page_id: '954228904442447'
+  name: uk1_page_5
+  display_name: Scott  Dennis
+  enabled: true
+  drive_folder_id: 1JmtVwNgjy0ze94TaUe3_a1GKxZKmh7oY
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSpkMc2vtYgZB57b9f9zxG5FZCo4Wtf3u2PGub75G0eNUBnZArr0LJAXra5lALZB5IENIZBmZAalPxXgKttYPjFGRKh0bDFzwUsKKDMgr6Bn2SeZCq23bR5s4UpbiQduRZBKMPC2AjudXrgI8SpkovzhWOVyjnf2W8ZB2P2CJIiyYO4Gzh0h6JLoc09CBqNjJd
+- page_id: '884416694753956'
+  name: uk1_page_6
+  display_name: Wood  Stephen
+  enabled: true
+  drive_folder_id: 1Z9Ov642iD-iilWbIVOm0b-jdbFbDNdoB
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSmZBOrj0jf6zWNSVWcPZAsqCFoNyD59qzyD05cjLukd7gexcWAQwPVHxCdpf7cZBawdRjzuEs6nzMyswJwiwdpHYgN3wbJpwAWbIyz8rFFsimGSb9V5OmlFnvzPnFV2zDT1Ysb5GPEzkHnkhgy5EMAaZCsKa0wR56hk2kwMkmhq9IqlSXbeHL8JeluBh
+- page_id: '766333629906067'
+  name: uk1_page_7
+  display_name: Morgan  Donald
+  enabled: true
+  drive_folder_id: 1ISgWlF4cUFvRzDhyqRf7n41UGNSqBHlP
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBStm7j6xV60M1SZAd3MbCqZBBhouQCcedFa2DwJfGRbMxQYc5SVkhOzvLAYjeZAqc1PsG1EWSoWEIZCgI1Uhg1FvAVUh6ccZABUZBPImtZAW22kKHc8WinGcz9NZCmK8Vuh9pntBpH0hTRWEkNYpHZAuswvHAZAlVDSXnI84z0rzTnghSw2hqxkvLdvD4NB9Bhi
+- page_id: '838517782676673'
+  name: uk1_page_8
+  display_name: Rogers  Albert
+  enabled: true
+  drive_folder_id: 1zkNs_XzwXhiElCQimHdHxORUnJnPLXSJ
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSq2MJYzGaiqZCWIB4h33kZC8UwGNhWKrYO0dJSP8LGywhKB8yB7ZBp781WK5qRoyfgtmtnsrkD5cbeZBD43WU30W3FsiZA2nRfQoermPw9kVtYUDhQB8suIT8pG5CTj7NRLtwX6vcMCJLjrVWLmIKglJEs6Ciun1dmFIAs1guNWelOyMWVuYYGmZB0OmCF
+- page_id: '860013240524658'
+  name: uk1_page_9
+  display_name: Roberts  Austin
+  enabled: true
+  drive_folder_id: 1gm2neO5u2CWo-xBUP1nN507GUeoSqmRk
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSte5H9E0ZBjejPAkImHPr1TRKCZCgZAosEbEYduCL2C1UHrb6kIMZCw2mgq6q9HuYzZCGfnxWrFx2ZAIzSaWNfWZBHPfFfZA92rsiZBKzHXdfh4kQvyMUfJynVTfeHsxJZAexP3tZBsFCK0GNC3xRQrrr6UYW8tppUid9gfBLy7nZCfMZAVKeKrWOB5NRhDGEykWo
+- page_id: '802792259592614'
+  name: uk1_page_10
+  display_name: Mitchell  Jack
+  enabled: true
+  drive_folder_id: 1hOeE4b28ph5m5QiTvYZyQ8Mduc8bLhbO
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBStmyYpjWggbzBYfCdvCFi7MDkfbk0g3kZBlSTXdpJdxwYOmfKgMykncymqy4msWl4z1vSYEZBjoJLvOKzeB1bzkEWZCK3OKVJG1MOGJZCrE8B9zRrWhrttGUAdOpBu2TMoNqJzWS7zZAgMRNonSJcZAslWVsadPJS5SUHEu74iObsoCfs8lZAuvOnQLAr3Y
+- page_id: '439151942618231'
+  name: uk1_page_11
+  display_name: Words Though
+  enabled: true
+  drive_folder_id: 1BpkOd2UoI5-XbRvdVmaL2m3KJGO5ci29
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSmhKnHbLZB3NtbCRo6aaSLMJ2gTWiQbZAFQAKIh2WuznHj34sL0UN7vbCuJaAKkDWGIAJcteWa17rgZC8d4onRpZA3HHYB4zsIIXd8o2jaFufhUULHMbQK4ByJVYvs8vxMJh0QI1N9fn8rzgprI5squ19lHgm54a7k5STLw0jyuptKx4emYYMB8kNllF
+- page_id: '297665506763102'
+  name: uk1_page_12
+  display_name: Quantum Collective
+  enabled: true
+  drive_folder_id: 1DiHP1KqZXnPqlIghqDiyk1_733vzUmtM
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAMQQKyfacIBSmezj22ZCUFGECuCgppqlHzwaLHoHtJEEQI793TlnbsZAUM4OqMSPTh9bNwoAK2PoZA8BcmU25UyvOv9hMmHeClwTBNWhlnFbUpZCEy4TZA0bBUOCuueZCPis5IVS1aB7ZB4ZC3YrflxN211g5qOz9bXpnfrkZBrfSWCoSLI4EcH0btGEZA2NrpabcyRlxTkW8
