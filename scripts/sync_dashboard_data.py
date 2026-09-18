@@ -22,60 +22,61 @@ def get_pages_list():
         except Exception as e:
             print("Error loading existing pages_data.json:", e)
 
-    # 2. Token candidate paths
-    token_candidates = [
-        os.path.join(BASE_DIR, "data", "pages_tokens.json"),
-        os.path.join(BASE_DIR, "data", "account2_verified_pages.json"),
-        os.path.join(BASE_DIR, "scratch", "pages_tokens.json"),
-        TOKENS_PATH
+    # 2. Structured Account Files (Account 1, Account 2, UK Account 1)
+    account_configs = [
+        {"account": "Account 1", "owner": "Account 1 Admin", "region": "US", "file": os.path.join(BASE_DIR, "data", "pages_tokens.json")},
+        {"account": "Account 2", "owner": "Mia Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "account2_verified_pages.json")},
+        {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")}
     ]
-    tokens_from_file = {}
-    pages_from_file = []
-    for tf in token_candidates:
-        if os.path.exists(tf):
-            try:
-                with open(tf, "r", encoding="utf-8") as f:
-                    t_list = json.load(f)
-                    if len(t_list) > len(pages_from_file):
-                        pages_from_file = t_list
-                    for item in t_list:
-                        pid = str(item.get("id") or item.get("page_id") or "")
-                        tok = item.get("access_token") or item.get("page_access_token") or ""
-                        if pid and tok:
-                            tokens_from_file[pid] = tok
-                        if item.get("index") and tok:
-                            tokens_from_file[f"idx_{item['index']}"] = tok
-            except Exception:
-                pass
 
-    # Build final comprehensive 30 pages list
-    final_pages = []
+    all_raw_pages = []
     seen_ids = set()
 
-    for idx, item in enumerate(pages_from_file, 1):
+    for acc in account_configs:
+        fpath = acc["file"]
+        if os.path.exists(fpath):
+            try:
+                with open(fpath, "r", encoding="utf-8") as f:
+                    raw = json.load(f)
+                    p_list = raw.get("pages", []) if isinstance(raw, dict) else raw
+                    for p in p_list:
+                        pid = str(p.get("id") or p.get("page_id") or "")
+                        if pid and pid not in seen_ids:
+                            seen_ids.add(pid)
+                            p["_account_tag"] = acc["account"]
+                            p["_owner_tag"] = acc["owner"]
+                            p["_region_tag"] = acc["region"]
+                            all_raw_pages.append(p)
+            except Exception as e:
+                print(f"Error loading {fpath}: {e}")
+
+    # Build final comprehensive pages list
+    final_pages = []
+
+    for idx, item in enumerate(all_raw_pages, 1):
         pid = str(item.get("id") or item.get("page_id") or "")
-        if not pid or pid in seen_ids:
-            continue
-        seen_ids.add(pid)
         p_idx = item.get("index", idx)
 
         # Merge with existing page data if available
         base_p = existing_by_id.get(pid, {})
         merged_p = dict(base_p)
         merged_p["id"] = pid
-        merged_p["index"] = p_idx
-        merged_p["name"] = item.get("name") or merged_p.get("name") or f"Page {p_idx}"
-        merged_p["account"] = item.get("account") or ("Account 1" if p_idx <= 15 else "Account 2")
-        merged_p["account_owner"] = "Mia Shah" if p_idx > 15 else "Account 1"
+        merged_p["index"] = idx
+        merged_p["name"] = item.get("name") or merged_p.get("name") or f"Page {idx}"
+        merged_p["account"] = item.get("_account_tag") or item.get("account") or ("Account 1" if idx <= 15 else ("Account 2" if idx <= 30 else "UK Account 1"))
+        merged_p["account_owner"] = item.get("_owner_tag") or item.get("account_owner") or ("Binjal Mehra" if idx > 30 else ("Mia Shah" if idx > 15 else "Account 1 Admin"))
+        merged_p["region"] = item.get("_region_tag") or ("GB" if idx > 30 else "US")
         merged_p["pic_url"] = item.get("pic_url") or merged_p.get("pic_url")
+        if item.get("drive_folder_id"):
+            merged_p["drive_folder_id"] = item.get("drive_folder_id")
+        if item.get("drive_videos_count") is not None:
+            merged_p["drive_videos_count"] = item.get("drive_videos_count")
 
         # Resolve token
         tok = (
-            os.environ.get(f"FB_TOKEN_PAGE_{p_idx}") or
-            tokens_from_file.get(pid) or
-            tokens_from_file.get(f"idx_{p_idx}") or
-            item.get("access_token") or
             item.get("page_access_token") or
+            item.get("access_token") or
+            os.environ.get(f"FB_TOKEN_PAGE_{idx}") or
             merged_p.get("access_token") or
             os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
         )
