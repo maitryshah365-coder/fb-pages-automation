@@ -2399,6 +2399,7 @@ function setupEventListeners() {
   // Post Now Studio Controls (Matching Raj Tube Pro Studio)
   document.getElementById("btnStudioSelectAll")?.addEventListener("click", selectAllReadyPages);
   document.getElementById("btnStudioClearAll")?.addEventListener("click", clearAllSelectedPages);
+  document.getElementById("btnStudioClearLogs")?.addEventListener("click", clearStudioTerminalLogs);
   document.getElementById("inputStudioFleetSearch")?.addEventListener("input", renderStudioFleetList);
   document.getElementById("btnStudioExecutePublish")?.addEventListener("click", executeStudioPost);
   document.getElementById("btnToggleStudioAuth")?.addEventListener("click", toggleStudioAuthDrawer);
@@ -3585,10 +3586,21 @@ async function autoSyncAfterUpload() {
     renderStudioTerminalLogs(fullData.latest_run_summary, true);
   }
 
-  // Re-render dashboard overview and fleet list
+  // Re-render dashboard overview and fleet list without kicking user out of Studio!
+  const wasInStudio = (typeof currentMainView !== "undefined" && currentMainView === "studio");
   if (fullData && fullData.pages) {
     renderDrawerPages(fullData.pages);
-    selectPage(activePageId);
+    if (!wasInStudio) {
+      selectPage(activePageId);
+    } else {
+      if (activePageId === "all") {
+        renderAllPortfolioView();
+      } else {
+        const pageObj = fullData.pages.find(p => String(p.id) === activePageId);
+        if (pageObj) renderSinglePageView(pageObj);
+      }
+      switchMainView("studio");
+    }
     renderStudioFleetList();
     updateStudioSelectionUI();
   }
@@ -3596,6 +3608,27 @@ async function autoSyncAfterUpload() {
   // Trigger live Meta sync in background
   setTimeout(() => syncLiveMetaGraph(), 2000);
   showToast("✅ Auto-Synced with Git & Dashboard Data!");
+}
+
+function clearStudioTerminalLogs() {
+  const terminal = document.getElementById("terminalConsoleBody");
+  const badge = document.getElementById("terminalStatusBadge");
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  if (terminal) {
+    terminal.innerHTML = `
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[CONSOLE]</span> Console cleared by operator.
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#34d399;">[READY]</span> System is ready for next dispatch. Select pages above and click Publish Now.
+`;
+  }
+  if (badge) {
+    badge.innerText = "IDLE";
+    badge.style.color = "#94a3b8";
+    badge.style.background = "rgba(148, 163, 184, 0.1)";
+    badge.style.borderColor = "rgba(148, 163, 184, 0.25)";
+  }
+  showToast("🗑️ Terminal logs cleared!");
 }
 
 // ----------------- Legacy Aliases for Compatibility -----------------

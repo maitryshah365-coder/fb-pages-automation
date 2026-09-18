@@ -4474,6 +4474,36 @@ body {
   color: #34d399;
 }
 
+.btn-terminal-clear-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 5px;
+  color: #fca5a5;
+  font-family: 'JetBrains Mono', Consolas, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.btn-terminal-clear-action:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn-terminal-clear-action:active {
+  transform: translateY(0);
+}
+
 .terminal-body {
   padding: 14px;
   font-family: 'JetBrains Mono', Consolas, monospace;

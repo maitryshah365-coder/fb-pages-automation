@@ -96,22 +96,63 @@ jobs:
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
+            echo "📋 Dispatched UK Execution Request: $REQ_PAGE"
+
             if [ "$REQ_PAGE" = "uk_account_1" ] || [ "$REQ_PAGE" = "uk1" ]; then
               python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
             elif [ "$REQ_PAGE" = "uk_account_2" ] || [ "$REQ_PAGE" = "uk2" ]; then
               python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
             elif [ "$REQ_PAGE" = "uk_account_3" ] || [ "$REQ_PAGE" = "uk3" ]; then
               python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
-            elif [[ "$REQ_PAGE" == uk1_page_* ]]; then
-              python main.py --config config_uk_account1.yaml --page "$REQ_PAGE" $DRY_ARG --require-uk
-            elif [[ "$REQ_PAGE" == uk2_page_* ]]; then
-              python main.py --config config_uk_account2.yaml --page "$REQ_PAGE" $DRY_ARG --require-uk
-            elif [[ "$REQ_PAGE" == uk3_page_* ]]; then
-              python main.py --config config_uk_account3.yaml --page "$REQ_PAGE" $DRY_ARG --require-uk
             else
-              python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
-              python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
-              python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
+              python -c "
+import sys, subprocess, yaml
+
+req = sys.argv[1].strip()
+dry = sys.argv[2] == 'true'
+dry_flag = ['--dry-run'] if dry else []
+
+configs = [
+    ('config_uk_account1.yaml', 'UK Account 1 (Binjal)'),
+    ('config_uk_account2.yaml', 'UK Account 2 (Chanda)'),
+    ('config_uk_account3.yaml', 'UK Account 3 (Mahi)')
+]
+
+items = [x.strip() for x in req.split(',') if x.strip()]
+ran_any = False
+
+for cfg_file, name in configs:
+    try:
+        with open(cfg_file, 'r', encoding='utf-8') as f:
+            cdata = yaml.safe_load(f)
+        cfg_page_ids = set()
+        for p in cdata.get('pages', []):
+            cfg_page_ids.add(str(p.get('id', '')))
+            cfg_page_ids.add(str(p.get('name', '')).lower())
+            cfg_page_ids.add(str(p.get('display_name', '')).lower())
+
+        matched = []
+        for itm in items:
+            if itm in cfg_page_ids or itm.lower() in cfg_page_ids or any(itm.lower() == str(x).lower() for x in cfg_page_ids):
+                matched.append(itm)
+        
+        if matched:
+            ran_any = True
+            print(f'🚀 [RUNNER] Dispatching {name} for {len(matched)} pages: {matched}')
+            cmd = [sys.executable, 'main.py', '--config', cfg_file, '--page', ','.join(matched), '--require-uk'] + dry_flag
+            subprocess.run(cmd, check=False)
+    except Exception as e:
+        print(f'Error processing {cfg_file}: {e}')
+
+if not ran_any:
+    print(f'⚠️ No direct page matches found, executing fallback with direct page arg: {req}')
+    if 'uk3' in req.lower():
+        subprocess.run([sys.executable, 'main.py', '--config', 'config_uk_account3.yaml', '--page', req, '--require-uk'] + dry_flag, check=False)
+    elif 'uk2' in req.lower():
+        subprocess.run([sys.executable, 'main.py', '--config', 'config_uk_account2.yaml', '--page', req, '--require-uk'] + dry_flag, check=False)
+    else:
+        subprocess.run([sys.executable, 'main.py', '--config', 'config_uk_account1.yaml', '--page', req, '--require-uk'] + dry_flag, check=False)
+" "$REQ_PAGE" "${{ github.event.inputs.dry_run }}"
             fi
           else
             python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
