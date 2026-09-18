@@ -546,130 +546,103 @@ function renderSidebarPagesList(pages) {
 
   pageList.forEach(p => {
     const pid = String(p.id);
-    if (searchTerm && !(p.name || "").toLowerCase().includes(searchTerm)) {
-      return;
-    }
-    if (FLEET_USA_01_SET.has(pid)) {
-      usa1List.push(p);
-    } else if (FLEET_USA_02_SET.has(pid)) {
-      usa2List.push(p);
-    } else if (FLEET_UK_01_SET.has(pid)) {
-      uk1List.push(p);
-    } else {
+    if (searchTerm && !(p.name || "").toLowerCase().includes(searchTerm)) return;
+    if (FLEET_USA_01_SET.has(pid)) usa1List.push(p);
+    else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
+    else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
+    else {
       if (p.region === "GB" || p.account === "UK Account 1") uk1List.push(p);
       else if (p.account === "Account 2" || p.index > 15) usa2List.push(p);
       else usa1List.push(p);
     }
   });
 
-  function renderPageItem(p, accountType) {
+  function renderPageItem(p, accType) {
     const isPageActive = String(p.id) === activePageId;
     const followersStr = (p.followers || 0).toLocaleString();
     const isConfigured = Boolean(p.is_configured !== false || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts || 0) > 0);
     const isUploaded = (p.today_posts || 0) > 0;
     const dotClass = isConfigured ? 'green' : 'gray';
-    const dotTitle = isUploaded ? `Active • ${p.today_posts}/4 Uploaded Today` : (isConfigured ? 'Active Fleet Page • Scheduled' : 'Pending Configuration');
-
-    let accPillText = 'USA A1';
-    let accPillStyle = 'background:rgba(59,130,246,0.18);color:#60a5fa;border:1px solid rgba(59,130,246,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
-    let accLabel = 'USA Account 1';
-
-    if (accountType === 'uk1') {
-      accPillText = 'UK A1';
-      accPillStyle = 'background:rgba(16,185,129,0.18);color:#34d399;border:1px solid rgba(16,185,129,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
-      accLabel = 'UK London Account 1';
-    } else if (accountType === 'usa2') {
-      accPillText = 'USA A2';
-      accPillStyle = 'background:rgba(212,147,11,0.18);color:#f5ba23;border:1px solid rgba(212,147,11,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
-      accLabel = 'USA Account 2 (Mia)';
-    }
-
+    const dotTitle = isUploaded ? `Active • ${p.today_posts}/4 Uploaded Today` : (isConfigured ? 'Active' : 'Pending');
+    let pillText = 'USA A1', pillClass = 'badge-a1';
+    if (accType === 'uk1') { pillText = 'UK A1'; pillClass = 'badge-uk'; }
+    else if (accType === 'usa2') { pillText = 'USA A2'; pillClass = 'badge-a2'; }
     return `
-      <div class="side-page-item ${isPageActive ? 'active' : ''}" 
-           data-page-id="${p.id}" 
-           role="button" 
-           tabindex="0" 
-           onclick="onSelectSidebarPage('${p.id}', event)" 
-           title="${p.name} • ${followersStr} followers • ${accLabel}">
+      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${p.name} • ${followersStr} followers">
         <div class="side-page-item-left">
-          <img class="side-page-avatar" 
-               src="${p.pic_url || ''}" 
-               alt="${p.name}" 
-               onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
+          <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
           <div class="side-page-meta">
             <div class="side-page-name" style="display:flex;align-items:center;">
               <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</span>
-              <span style="${accPillStyle}">${accPillText}</span>
+              <span class="page-account-badge ${pillClass}" style="font-size:9px;padding:1px 5px;margin-left:5px;">${pillText}</span>
             </div>
-            <div class="side-page-followers">${followersStr} followers • ${accPillText}</div>
+            <div class="side-page-followers">${followersStr} followers</div>
           </div>
         </div>
         <span class="side-page-dot ${dotClass}" title="${dotTitle}"></span>
-      </div>
-    `;
+      </div>`;
+  }
+
+  function buildBox(cssClass, flag, emoji, title, badge, items, accType) {
+    return `
+      <div class="sidebar-section-box ${cssClass}" data-fleet="${accType}" id="fleetBox_${accType}">
+        <div class="sidebar-box-header" onclick="toggleFleetBox('${accType}', event)">
+          <div class="sidebar-box-title">
+            <span>${emoji}</span>
+            <span>${title}</span>
+          </div>
+          <div class="sidebar-box-right">
+            <span class="sidebar-box-badge">${badge}</span>
+            <span class="sidebar-box-chevron">▼</span>
+          </div>
+        </div>
+        <div class="sidebar-box-body">
+          ${items.map(p => renderPageItem(p, accType)).join("")}
+        </div>
+      </div>`;
   }
 
   let html = "";
-
-  // 1st Vertical Box: USA 01 (15 Pages)
   if (usa1List.length > 0) {
-    html += `
-      <div class="sidebar-section-box sidebar-box-usa1">
-        <div class="sidebar-box-header">
-          <div class="sidebar-box-title">
-            <span>🇺🇸</span>
-            <span>USA 01 (Account 1)</span>
-          </div>
-          <span class="sidebar-box-badge">${usa1List.length} Pages • A1</span>
-        </div>
-        <div class="sidebar-box-body">
-          ${usa1List.map(p => renderPageItem(p, 'usa1')).join("")}
-        </div>
-      </div>
-    `;
+    html += buildBox("sidebar-box-usa1", "usa1", "🇺🇸", "USA A1", `${usa1List.length} Pages`, usa1List, "usa1");
   }
-
-  // 2nd Vertical Box: USA 02 (15 Pages)
   if (usa2List.length > 0) {
-    html += `
-      <div class="sidebar-section-box sidebar-box-usa2">
-        <div class="sidebar-box-header">
-          <div class="sidebar-box-title">
-            <span>🇺🇸</span>
-            <span>USA 02 (Account 2)</span>
-          </div>
-          <span class="sidebar-box-badge">${usa2List.length} Pages • A2</span>
-        </div>
-        <div class="sidebar-box-body">
-          ${usa2List.map(p => renderPageItem(p, 'usa2')).join("")}
-        </div>
-      </div>
-    `;
+    html += buildBox("sidebar-box-usa2", "usa2", "🇺🇸", "USA A2", `${usa2List.length} Pages`, usa2List, "usa2");
   }
-
-  // 3rd Vertical Box: UK 01 (12 Pages)
   if (uk1List.length > 0) {
-    html += `
-      <div class="sidebar-section-box sidebar-box-uk1">
-        <div class="sidebar-box-header">
-          <div class="sidebar-box-title">
-            <span>🇬🇧</span>
-            <span>UK 01 (London Account 1)</span>
-          </div>
-          <span class="sidebar-box-badge">${uk1List.length} Pages • UK1</span>
-        </div>
-        <div class="sidebar-box-body">
-          ${uk1List.map(p => renderPageItem(p, 'uk1')).join("")}
-        </div>
-      </div>
-    `;
+    html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "UK A1", `${uk1List.length} Pages`, uk1List, "uk1");
   }
 
-  container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages matching search</div>`;
+  container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
 
   const countBadge = document.getElementById("sidePagesCountBadge");
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
 }
+
+// Toggle expand/collapse for fleet sub-boxes inside All Pages List
+window.toggleFleetBox = function(fleetId, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const box = document.getElementById("fleetBox_" + fleetId);
+  if (!box) return;
+
+  const isExpanded = box.classList.contains("expanded");
+
+  // Close all other boxes first (only 1 open at a time)
+  document.querySelectorAll(".sidebar-section-box.expanded").forEach(b => {
+    if (b !== box) b.classList.remove("expanded");
+  });
+
+  // Toggle this box
+  if (isExpanded) {
+    box.classList.remove("expanded");
+  } else {
+    box.classList.add("expanded");
+    // Scroll the box into view smoothly within the scroll container
+    setTimeout(() => {
+      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 50);
+  }
+};
 
 let isTogglingShutter = false;
 window.toggleSidePagesShutter = function(e) {
