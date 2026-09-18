@@ -440,18 +440,36 @@ function renderSidebarPagesList(pages) {
   const pageList = pages || (fullData?.pages || []);
   const filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
 
-  container.innerHTML = filtered.map(p => {
+  // Separate into USA and UK
+  const usaList = filtered.filter(p => (p.region !== 'GB' && p.account !== 'UK Account 1' && (p.index <= 30 || !p.index)));
+  const ukList = filtered.filter(p => (p.region === 'GB' || p.account === 'UK Account 1' || p.index > 30));
+
+  function renderPageItem(p) {
     const isPageActive = String(p.id) === activePageId;
     const followersStr = (p.followers || 0).toLocaleString();
     const isConfigured = Boolean(p.is_configured !== false || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (p.today_posts || 0) > 0);
     const isUploaded = (p.today_posts || 0) > 0;
     const dotClass = isConfigured ? 'green' : 'gray';
     const dotTitle = isUploaded ? `Active • ${p.today_posts}/4 Uploaded Today` : (isConfigured ? 'Active Fleet Page • Scheduled' : 'Pending Configuration');
-    const accLabel = p.account || (p.index <= 15 ? 'Account 1' : 'Account 2');
-    const accPillText = accLabel === 'Account 2' ? 'A2 • Mia' : 'A1';
-    const accPillStyle = accLabel === 'Account 2'
-      ? 'background:rgba(212,147,11,0.18);color:#f5ba23;border:1px solid rgba(212,147,11,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;'
-      : 'background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
+    
+    // Tag formatting requested by user:
+    // First 15 USA: USA A1
+    // Next 15 USA: USA A2
+    // UK: UK A1
+    const idx = p.index || 1;
+    let accPillText = 'USA A1';
+    let accPillStyle = 'background:rgba(59,130,246,0.18);color:#60a5fa;border:1px solid rgba(59,130,246,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
+    let accLabel = 'USA Account 1';
+
+    if (p.account === 'UK Account 1' || p.region === 'GB' || idx > 30) {
+      accPillText = 'UK A1';
+      accPillStyle = 'background:rgba(16,185,129,0.18);color:#34d399;border:1px solid rgba(16,185,129,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
+      accLabel = 'UK London Account 1';
+    } else if (p.account === 'Account 2' || idx > 15) {
+      accPillText = 'USA A2';
+      accPillStyle = 'background:rgba(212,147,11,0.18);color:#f5ba23;border:1px solid rgba(212,147,11,0.35);font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px;flex-shrink:0;';
+      accLabel = 'USA Account 2 (Mia)';
+    }
 
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" 
@@ -470,16 +488,54 @@ function renderSidebarPagesList(pages) {
               <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</span>
               <span style="${accPillStyle}">${accPillText}</span>
             </div>
-            <div class="side-page-followers">${followersStr} followers • ${accLabel}</div>
+            <div class="side-page-followers">${followersStr} followers • ${accPillText}</div>
           </div>
         </div>
         <span class="side-page-dot ${dotClass}" title="${dotTitle}"></span>
       </div>
     `;
-  }).join("");
+  }
+
+  let html = "";
+
+  if (usaList.length > 0) {
+    html += `
+      <div class="sidebar-section-box sidebar-usa-box" style="margin-bottom:12px; border:1px solid rgba(59,130,246,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
+        <div class="sidebar-section-header" style="padding:7px 10px; background:linear-gradient(90deg, rgba(59,130,246,0.18), rgba(30,58,138,0.1)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:13px;">🇺🇸</span>
+            <span style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:0.4px;">USA PAGES (1ST BOX)</span>
+          </div>
+          <span style="font-size:10px; font-weight:700; color:#60a5fa; background:rgba(59,130,246,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(59,130,246,0.3);">${usaList.length} Pages • A1 / A2</span>
+        </div>
+        <div style="padding:3px 0;">
+          ${usaList.map(renderPageItem).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  if (ukList.length > 0) {
+    html += `
+      <div class="sidebar-section-box sidebar-uk-box" style="margin-bottom:8px; border:1px solid rgba(16,185,129,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
+        <div class="sidebar-section-header" style="padding:7px 10px; background:linear-gradient(90deg, rgba(16,185,129,0.18), rgba(6,78,59,0.1)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:13px;">🇬🇧</span>
+            <span style="font-size:11px; font-weight:800; color:#6ee7b7; letter-spacing:0.4px;">UK LONDON PAGES (2ND BOX)</span>
+          </div>
+          <span style="font-size:10px; font-weight:700; color:#34d399; background:rgba(16,185,129,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">${ukList.length} Pages • UK A1</span>
+        </div>
+        <div style="padding:3px 0;">
+          ${ukList.map(renderPageItem).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
 
   const countBadge = document.getElementById("sidePagesCountBadge");
-  if (countBadge) countBadge.innerText = `${(pages || []).length} Pages`;
+  if (countBadge) countBadge.innerText = `${(pageList || []).length} Pages`;
 }
 
 let isTogglingShutter = false;
@@ -537,10 +593,23 @@ function renderDrawerPages(pages) {
   const pageList = pages || (fullData?.pages || []);
   const filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
 
-  container.innerHTML = filtered.map(p => {
+  const usaList = filtered.filter(p => (p.region !== 'GB' && p.account !== 'UK Account 1' && (p.index <= 30 || !p.index)));
+  const ukList = filtered.filter(p => (p.region === 'GB' || p.account === 'UK Account 1' || p.index > 30));
+
+  function renderDrawerItem(p) {
     const isActive = String(p.id) === activePageId;
     const viewsFormatted = (p.total_views || 0).toLocaleString();
     const followersFormatted = (p.followers || 0).toLocaleString();
+    const idx = p.index || 1;
+    let accPillText = 'USA A1';
+    let badgeClass = 'badge-a1';
+    if (p.account === 'UK Account 1' || p.region === 'GB' || idx > 30) {
+      accPillText = 'UK A1';
+      badgeClass = 'badge-uk';
+    } else if (p.account === 'Account 2' || idx > 15) {
+      accPillText = 'USA A2';
+      badgeClass = 'badge-a2';
+    }
 
     return `
       <div class="drawer-page-item ${isActive ? 'active' : ''}" 
@@ -551,14 +620,44 @@ function renderDrawerPages(pages) {
         <div class="page-item-left">
           <img class="page-item-img" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
           <div class="page-item-info">
-            <div class="page-item-name">${p.name}</div>
-            <div class="page-item-meta">${viewsFormatted} views • ${p.category || 'Creator'}</div>
+            <div class="page-item-name" style="display:flex;align-items:center;gap:6px;">
+              <span>${p.name}</span>
+              <span class="page-account-badge ${badgeClass}" style="font-size:9px;padding:1px 5px;">${accPillText}</span>
+            </div>
+            <div class="page-item-meta">${viewsFormatted} views • ${accPillText}</div>
           </div>
         </div>
         <div class="page-item-badge">${followersFormatted} followers</div>
       </div>
     `;
-  }).join("");
+  }
+
+  let html = "";
+  if (usaList.length > 0) {
+    html += `
+      <div style="margin-bottom:12px; border:1px solid rgba(59,130,246,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
+        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(59,130,246,0.18), rgba(30,58,138,0.1)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:11px; font-weight:800; color:#93c5fd;">🇺🇸 USA PAGES (1ST BOX)</span>
+          <span style="font-size:10px; font-weight:700; color:#60a5fa;">${usaList.length} Pages • A1 / A2</span>
+        </div>
+        <div>${usaList.map(renderDrawerItem).join("")}</div>
+      </div>
+    `;
+  }
+
+  if (ukList.length > 0) {
+    html += `
+      <div style="margin-bottom:8px; border:1px solid rgba(16,185,129,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
+        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(16,185,129,0.18), rgba(6,78,59,0.1)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:11px; font-weight:800; color:#6ee7b7;">🇬🇧 UK LONDON PAGES (2ND BOX)</span>
+          <span style="font-size:10px; font-weight:700; color:#34d399;">${ukList.length} Pages • UK A1</span>
+        </div>
+        <div>${ukList.map(renderDrawerItem).join("")}</div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
 
   const countBadge = document.getElementById("sidebarPagesCountBadge");
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;

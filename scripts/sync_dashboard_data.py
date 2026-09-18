@@ -22,8 +22,9 @@ def get_pages_list():
         except Exception as e:
             print("Error loading existing pages_data.json:", e)
 
-    # 2. Structured Account Files (Account 1, Account 2, UK Account 1)
+    # 2. Structured Account Files (Fleet registry, Account 1, Account 2, UK Account 1)
     account_configs = [
+        {"account": "Fleet Registry", "owner": "", "region": "", "file": os.path.join(BASE_DIR, "data", "fleet_pages_registry.json")},
         {"account": "Account 1", "owner": "Account 1 Admin", "region": "US", "file": os.path.join(BASE_DIR, "data", "pages_tokens.json")},
         {"account": "Account 2", "owner": "Mia Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "account2_verified_pages.json")},
         {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")}
@@ -43,14 +44,22 @@ def get_pages_list():
                         pid = str(p.get("id") or p.get("page_id") or "")
                         if pid and pid not in seen_ids:
                             seen_ids.add(pid)
-                            p["_account_tag"] = acc["account"]
-                            p["_owner_tag"] = acc["owner"]
-                            p["_region_tag"] = acc["region"]
+                            if acc["account"] != "Fleet Registry":
+                                p["_account_tag"] = acc["account"]
+                                p["_owner_tag"] = acc["owner"]
+                                p["_region_tag"] = acc["region"]
                             all_raw_pages.append(p)
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
 
-    # Build final comprehensive pages list
+    # Retain any previously verified page from existing_by_id that wasn't in seen_ids
+    for pid, ep in existing_by_id.items():
+        if pid not in seen_ids:
+            seen_ids.add(pid)
+            all_raw_pages.append(ep)
+
+    # Sort pages stably by index
+    all_raw_pages.sort(key=lambda x: x.get("index", 999))
     final_pages = []
 
     for idx, item in enumerate(all_raw_pages, 1):
