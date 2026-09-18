@@ -222,7 +222,7 @@ async function initDashboard() {
               const dUp = new Date(r.uploaded_at || resSummary.completed_at || Date.now());
               p.videos.unshift({
                 id: fbid,
-                title: r.video_title || (r.filename ? r.filename.rsplit('.', 1)[0] : `${p.name} Reel`),
+                title: r.video_title || (r.filename ? r.filename.replace(/\.[^/.]+$/, '') : `${p.name} Reel`),
                 description: r.filename || "Uploaded Facebook Reel",
                 created_at: dUp.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
                 created_time: dUp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
@@ -3117,6 +3117,34 @@ function renderRecentPostsList(reelsList) {
 
   // Limit display to 60 items for fast rendering
   const displayItems = filtered.slice(0, 60);
+
+  // Empty State handling
+  if (displayItems.length === 0) {
+    const filterLabel = currentRecentSourceFilter === "post_now" ? "Instant Post Now" : (currentRecentSourceFilter === "server" ? "Server Uploaded" : "Recent");
+    const emptyMsg = `
+      <div class="no-demo-card" style="margin: 16px 0; padding: 32px 16px; text-align: center; background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; width: 100%; box-sizing: border-box;">
+        <span style="font-size: 34px;">${currentRecentSourceFilter === "post_now" ? "🚀" : "🎬"}</span>
+        <div style="font-weight: 800; color: #f8fafc; font-size: 15px; margin: 10px 0 4px;">No ${filterLabel} Reels Found</div>
+        <div style="font-size: 12px; color: #94a3b8; max-width: 320px; margin: 0 auto 14px; line-height: 1.4;">
+          ${currentRecentSourceFilter === "post_now" 
+            ? "No instant studio reels posted yet. Use Post Now Studio to publish instant reels on demand!"
+            : "No published reels match the current search or filter."}
+        </div>
+        ${currentRecentSourceFilter === "post_now" ? `
+          <button type="button" onclick="switchMainView('studio')" class="btn-primary-action" style="background: linear-gradient(135deg, #ec4899, #db2777); font-size: 12px; padding: 7px 16px; border-radius: 6px; color: #fff; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 2px 10px rgba(236,72,153,0.35);">
+            🚀 Open Post Now Studio
+          </button>
+        ` : ''}
+      </div>
+    `;
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding: 24px;">${emptyMsg}</td></tr>`;
+    }
+    if (mobileContainer) {
+      mobileContainer.innerHTML = emptyMsg;
+    }
+    return;
+  }
 
   // Render Desktop Table
   tbody.innerHTML = displayItems.map((v, idx) => {

@@ -1295,16 +1295,20 @@ body {
   
   .mobile-only {
     display: flex !important;
+    flex-direction: column !important;
   }
 }
 
 /* ================= YOUTUBE STUDIO MOBILE CARDS (EXACT YOUTUBE APP REPLICA) ================= */
-.mobile-yt-cards-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.mobile-yt-cards-list,
+.mobile-yt-cards-container,
+#recentPostsMobileCards {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px;
   margin-bottom: 16px;
-  width: 100%;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .mobile-yt-card {
