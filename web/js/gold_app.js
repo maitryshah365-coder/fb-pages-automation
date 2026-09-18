@@ -703,6 +703,21 @@ function renderSidebarPagesList(pages) {
 
   const countBadge = document.getElementById("sidePagesCountBadge");
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
+
+  // Attach wheel containment to isolate sidebar scroll and prevent window underneath from scrolling
+  container.querySelectorAll(".sidebar-box-body").forEach(bodyEl => {
+    bodyEl.addEventListener("wheel", function(e) {
+      e.stopPropagation();
+      const delta = e.deltaY;
+      const up = delta < 0;
+      const scrollHeight = bodyEl.scrollHeight;
+      const clientHeight = bodyEl.clientHeight;
+      const scrollTop = bodyEl.scrollTop;
+      if ((up && scrollTop <= 0) || (!up && scrollTop + clientHeight >= scrollHeight - 1)) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  });
 }
 
 // Toggle expand/collapse for fleet sub-boxes inside All Pages List
@@ -723,10 +738,14 @@ window.toggleFleetBox = function(fleetId, e) {
     box.classList.remove("expanded");
   } else {
     box.classList.add("expanded");
-    // Scroll the box into view smoothly within the scroll container
-    setTimeout(() => {
-      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }, 50);
+    // Scroll ONLY the sidebar container - NEVER scroll the main document window
+    const scrollContainer = document.getElementById("sidebarPagesScrollList");
+    if (scrollContainer) {
+      setTimeout(() => {
+        const topOffset = box.offsetTop - scrollContainer.offsetTop;
+        scrollContainer.scrollTo({ top: topOffset, behavior: "smooth" });
+      }, 50);
+    }
   }
 };
 
@@ -2704,9 +2723,6 @@ window.toggleStudioFleetBox = function(fleetId, e) {
     box.classList.remove("expanded");
   } else {
     box.classList.add("expanded");
-    setTimeout(() => {
-      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }, 50);
   }
 };
 

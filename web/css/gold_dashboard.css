@@ -3080,6 +3080,8 @@ body {
   top: 0;
   height: 100vh;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 18px 14px 30px;
   display: flex;
   flex-direction: column;
@@ -3403,21 +3405,33 @@ body {
 
 /* Scrollable Pages List */
 .sidebar-pages-scroll-list {
-  max-height: 380px;
+  max-height: 520px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
   gap: 6px;
   padding-right: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.4) rgba(255, 255, 255, 0.03);
 }
 
 .sidebar-pages-scroll-list::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
+}
+
+.sidebar-pages-scroll-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
 }
 
 .sidebar-pages-scroll-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(56, 189, 248, 0.35);
   border-radius: 4px;
+}
+
+.sidebar-pages-scroll-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
 }
 
 .side-page-item {
@@ -3570,13 +3584,35 @@ body {
 .sidebar-box-body {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.25s ease;
   padding: 0 2px;
 }
 
 .sidebar-section-box.expanded .sidebar-box-body {
-  max-height: 2000px;
-  padding: 3px 2px;
+  max-height: 360px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 4px 2px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.4) rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 4px;
+}
+
+.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.35);
+  border-radius: 4px;
+}
+
+.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
 }
 
 /* Active glow on expanded box border */
@@ -3611,7 +3647,9 @@ body {
 
 .studio-fleet-box.expanded .sidebar-box-body {
   padding: 8px 6px;
-  max-height: 2500px;
+  max-height: 480px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 /* Studio Section Dividers */
