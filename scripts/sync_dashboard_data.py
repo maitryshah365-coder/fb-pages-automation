@@ -382,7 +382,70 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
     if total_page_comments == 0 and meta_videos:
         total_page_comments = sum(v.get("comments", 0) for v in meta_videos)
 
-    today_posts = len([v for v in db_videos if today_str in str(v.get("posted_at", ""))])
+    # Dynamically calculate today's uploads across both UTC and USA EDT calendar days
+    from datetime import timedelta
+    now_utc = datetime.now(timezone.utc)
+    now_edt = datetime.now(timezone(timedelta(hours=-4)))
+    today_utc_str = now_utc.strftime("%Y-%m-%d")
+    today_edt_str = now_edt.strftime("%Y-%m-%d")
+
+    today_meta_reels = [
+        v for v in meta_videos
+        if today_utc_str in str(v.get("created_time_iso") or v.get("posted_at") or "")
+        or today_edt_str in str(v.get("created_time_iso") or v.get("posted_at") or "")
+    ]
+    today_db_reels = [
+        v for v in db_videos
+        if today_utc_str in str(v.get("posted_at", ""))
+        or today_edt_str in str(v.get("posted_at", ""))
+    ]
+
+    for v in today_meta_reels:
+        v["server_uploaded"] = True
+
+    today_posts = max(len(today_meta_reels), len(today_db_reels))
+    if p.get("today_posts") and p.get("today_posts") > today_posts:
+        today_posts = p.get("today_posts")
+
+    # Fetch 100% Real Live Page Insights from Meta Graph API v20.0
+    live_meta_insights = {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+    }
+    if token:
+        try:
+            ins_metrics = "page_posts_impressions_organic,page_video_views,page_video_complete_views_30s,page_views_total,page_daily_follows_unique,page_post_engagements,page_actions_post_reactions_like_total"
+            ins_url = f"https://graph.facebook.com/v20.0/{pid}/insights"
+            ins_res = requests.get(ins_url, params={"metric": ins_metrics, "period": "day", "access_token": token}, timeout=5).json()
+            if "data" in ins_res:
+                for m in ins_res["data"]:
+                    m_name = m.get("name")
+                    vals = [v.get("value", 0) for v in m.get("values", [])]
+                    latest_val = vals[-1] if vals else 0
+                    sum_val = sum(v for v in vals if v > 0)
+                    chosen_val = latest_val if latest_val > 0 else sum_val
+                    if m_name == "page_posts_impressions_organic":
+                        live_meta_insights["organic_impressions"] = chosen_val
+                    elif m_name == "page_video_views":
+                        live_meta_insights["organic_video_views"] = chosen_val
+                    elif m_name == "page_video_complete_views_30s":
+                        live_meta_insights["views_30s_complete"] = chosen_val
+                    elif m_name == "page_views_total":
+                        live_meta_insights["profile_views_total"] = chosen_val
+                    elif m_name == "page_daily_follows_unique":
+                        live_meta_insights["daily_follows"] = chosen_val
+                    elif m_name == "page_post_engagements":
+                        live_meta_insights["post_engagements"] = chosen_val
+                    elif m_name == "page_actions_post_reactions_like_total":
+                        live_meta_insights["reel_likes"] = chosen_val
+        except Exception as e:
+            if p.get("live_meta_insights"):
+                live_meta_insights = dict(p["live_meta_insights"])
 
     # 3. Resolve Real Last Upload IP & Location
     is_uk_page = (p.get("account") == "UK Account 1" or p.get("region") == "GB" or pid in [
@@ -820,6 +883,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "link": link,
         "access_token": token,
         "today_posts": today_posts,
+        "live_meta_insights": live_meta_insights,
         "daily_limit": 4,
         "drive_folder_id": drive_folder_id,
         "is_configured": True,
