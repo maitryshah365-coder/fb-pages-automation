@@ -1,295 +1,268 @@
-# Google Drive to Facebook Pages Automation Configuration
-# Master Spec - Page Group Configuration for 15 Facebook Pages
-
-page_group: "personal_fb_id_1"
-ai_disclosure_status: "pending_determination"  # Options: api_flag, embedded_metadata, unresolved_recorded
-delete_after_post: true  # Automatically delete video from Google Drive after successful post to free cloud storage
-
+page_group: personal_fb_id_1
+ai_disclosure_status: pending_determination
+delete_after_post: true
 database:
-  path: "data/posted_videos.db"
-
+  path: data/posted_videos.db
 retry:
   max_attempts: 3
   base_delay_seconds: 5
   max_delay_seconds: 60
-
 notifications:
   discord_enabled: false
-  discord_webhook_url: ""  # Can be set via DISCORD_WEBHOOK_URL env var/secret
-
-# List of 15 Facebook Pages sharing this Page Group (Single Personal FB Admin)
+  discord_webhook_url: ''
 pages:
-  - page_id: "988523547680750"
-    name: "page_1"  # Mix Mood
-    enabled: true
-    drive_folder_id: "17BbHIA91odhMXfphN0JlblzWbR0IQKsy"
-    daily_limit: 4
-    title_mode: "filename"  # Options: filename, fixed
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "1040244259164767"
-    name: "page_2"  # Charmy Owen
-    enabled: true
-    drive_folder_id: "1D3y9fSqvz8Be1ted5Wic7egRJzBn--gB"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "965629596638624"
-    name: "page_3"  # Silent Peak Social
-    enabled: true
-    drive_folder_id: "14C9FurpGwA_QUyK14cM3EyfFJrDB3YUp"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "956622247541040"
-    name: "page_4"  # Horizon Nest Daily
-    enabled: true
-    drive_folder_id: "1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "1034326643100670"
-    name: "page_5"  # Bright Flare Hub
-    enabled: true
-    drive_folder_id: "1ohpJm22Koo_ouVSQZCwiHE0pwAyAyxDg"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "924636817403215"
-    name: "page_6"  # LuxeEpic Frames
-    enabled: true
-    drive_folder_id: "1QTgVkYEc269hX7630a_LI4AWnlid7kHk"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "795016603693140"
-    name: "page_7"  # Lopez Edward
-    enabled: true
-    drive_folder_id: "1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "637367679454577"
-    name: "page_8"  # Crown Empire
-    enabled: true
-    drive_folder_id: "1rjGrEIrCk9TlEJBABjo0K-8MKAaBxZy9"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "640019675857269"
-    name: "page_9"  # Crafty Champions
-    enabled: true
-    drive_folder_id: "1qMwQtRtvJXbmV8iEYW1GS0IQ8VDLWA6s"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "626061003919674"
-    name: "page_10"  # Fun Life
-    enabled: true
-    drive_folder_id: "1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "528360240361556"
-    name: "page_11"  # Dominion Authority
-    enabled: true
-    drive_folder_id: "1Kir7IF-zX_XN8FoaasVJTPT_TRQ1J0Xg"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "503358542855153"
-    name: "page_12"  # Family Fancy
-    enabled: true
-    drive_folder_id: "1UDZx4XRzdn-5r7O9WRfUOSui2nCWuR5R"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "500794979779192"
-    name: "page_13"  # Me Text
-    enabled: true
-    drive_folder_id: "1qcMeV4Fe8e15G1qQ5HhSIKZcrrI6FAZm"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "468230386376818"
-    name: "page_14"  # Bot Mask
-    enabled: true
-    drive_folder_id: "1g_Z4BtdfNqT2jF3hL9tExTr9W3Ly1YrZ"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "106309715659174"
-    name: "page_15"  # Fresh Hive Network
-    enabled: true
-    drive_folder_id: "1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-# ==================================================================
-# Account 2 Pages (Mia Shah - 15 Facebook Pages)
-# ==================================================================
-
-  - page_id: "1069951959531260"
-    name: "page_16"  # Crimson Authority
-    enabled: true
-    drive_folder_id: "1r0GTk9iza1TiPpOqw9lx2zgkJER7u4rE"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "979493165253123"
-    name: "page_17"  # Heven Made
-    enabled: true
-    drive_folder_id: "1UYolyoRJJRmGOOX2-cVXW3v54j4uGWmx"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "920161364524597"
-    name: "page_18"  # Evening Wise
-    enabled: true
-    drive_folder_id: "1Mku1ublcXUl9yXtUqI7elvqGYJu5r1q4"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "1005402935985498"
-    name: "page_19"  # Glow City Stories
-    enabled: true
-    drive_folder_id: "1ENSslOPlICVXbfReiNUseXdlTSVpUxl7"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "802674512937262"
-    name: "page_20"  # Gonzales  Jordan
-    enabled: true
-    drive_folder_id: "1MwFCsFG1ZqDuQ4Fho8X8B4r75poMXrrr"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "765106526695498"
-    name: "page_21"  # Gonzales  Bradley
-    enabled: true
-    drive_folder_id: "1a_DSwQNT0Fe5zW_NyitXF5_O7a1RgGqd"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "568171476378321"
-    name: "page_22"  # The Showdown Hub
-    enabled: true
-    drive_folder_id: "12WpeflSfnQ7tIQMcxvBeqB1EkimP04Lm"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "454880037713018"
-    name: "page_23"  # Garden Super
-    enabled: true
-    drive_folder_id: "1CAWiUuoA9ObfEYPWYXTkWDrXQbFd80Ap"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "368653459672717"
-    name: "page_24"  # Gold encloud Studio
-    enabled: true
-    drive_folder_id: "1k4NsbkmZMmGNXJH_egsHGrY150MpUD49"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "359780240556577"
-    name: "page_25"  # Gintube
-    enabled: true
-    drive_folder_id: "1tjUfLMHLd7DBRFyvoRbaYBaM7lJjnfPz"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "211294825398492"
-    name: "page_26"  # Sovereign Labs
-    enabled: true
-    drive_folder_id: "1YaPfOqlG20D89o4jUcBSbylP3XmbFRWD"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "166448239894078"
-    name: "page_27"  # Prestige Frontier
-    enabled: true
-    drive_folder_id: "1nB6AnKW6ubj4WjJdMJSErgL-zOe9gGsQ"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "176892285514777"
-    name: "page_28"  # Zenith Empire
-    enabled: true
-    drive_folder_id: "1T08BZA_E_RlB3Y3w8fiMqhOXnlTWbINR"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "199046363282913"
-    name: "page_29"  # Crown Voltage
-    enabled: true
-    drive_folder_id: "1w1rNyesYpatr1gqMgTgTqbF4aTPLsDhu"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
-  - page_id: "169686166222750"
-    name: "page_30"  # Supreme Ledger
-    enabled: true
-    drive_folder_id: "1IZzrDjRxAVTTXb4suo5tmFEKa4q6RN7v"
-    daily_limit: 4
-    title_mode: "filename"
-    description_footer: ""
-    default_hashtags: []
-
+- page_id: '988523547680750'
+  name: page_1
+  enabled: true
+  drive_folder_id: 17BbHIA91odhMXfphN0JlblzWbR0IQKsy
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '1040244259164767'
+  name: page_2
+  enabled: true
+  drive_folder_id: 1D3y9fSqvz8Be1ted5Wic7egRJzBn--gB
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '965629596638624'
+  name: page_3
+  enabled: true
+  drive_folder_id: 14C9FurpGwA_QUyK14cM3EyfFJrDB3YUp
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '956622247541040'
+  name: page_4
+  enabled: true
+  drive_folder_id: 1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '1034326643100670'
+  name: page_5
+  enabled: true
+  drive_folder_id: 1ohpJm22Koo_ouVSQZCwiHE0pwAyAyxDg
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '924636817403215'
+  name: page_6
+  enabled: true
+  drive_folder_id: 1QTgVkYEc269hX7630a_LI4AWnlid7kHk
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '795016603693140'
+  name: page_7
+  enabled: true
+  drive_folder_id: 1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '637367679454577'
+  name: page_8
+  enabled: true
+  drive_folder_id: 1rjGrEIrCk9TlEJBABjo0K-8MKAaBxZy9
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '640019675857269'
+  name: page_9
+  enabled: true
+  drive_folder_id: 1qMwQtRtvJXbmV8iEYW1GS0IQ8VDLWA6s
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '626061003919674'
+  name: page_10
+  enabled: true
+  drive_folder_id: 1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '528360240361556'
+  name: page_11
+  enabled: true
+  drive_folder_id: 1Kir7IF-zX_XN8FoaasVJTPT_TRQ1J0Xg
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '503358542855153'
+  name: page_12
+  enabled: true
+  drive_folder_id: 1UDZx4XRzdn-5r7O9WRfUOSui2nCWuR5R
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '500794979779192'
+  name: page_13
+  enabled: true
+  drive_folder_id: 1qcMeV4Fe8e15G1qQ5HhSIKZcrrI6FAZm
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '468230386376818'
+  name: page_14
+  enabled: true
+  drive_folder_id: 1g_Z4BtdfNqT2jF3hL9tExTr9W3Ly1YrZ
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '106309715659174'
+  name: page_15
+  enabled: true
+  drive_folder_id: 1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+- page_id: '1069951959531260'
+  name: page_16
+  enabled: true
+  drive_folder_id: 1r0GTk9iza1TiPpOqw9lx2zgkJER7u4rE
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSkYqZBe4E9hGQ9R4Qt0FAMlbInwBqZAXdas6ZAVRdgL5yZCVXa6NCkZAK4hyGwIRWj36DDAuTXf4psrjjZA1SjZCNIffPJIAboK4esUmahZCzCJlbGAh2Vi4bSWTbZA5oZALrRh8Trmx6roIRUTz5Jz2SZCaMws4syRT4uLnB6KerqbQKEHInG65lOrgXXoSyiGy21lytWrvt6WACZCfqcsAMGogYHKu8qaQKBx1LsMf2XGSDksZD
+- page_id: '979493165253123'
+  name: page_17
+  enabled: true
+  drive_folder_id: 1UYolyoRJJRmGOOX2-cVXW3v54j4uGWmx
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSgduI3wcZAvZBPASUe5WM7YJ6IEeaEtJ5hZCOeZCyTLEuEwWqeWnODDtZBSMZBYVXRJmGf78ZC5M5WaZBPOVnc02zYVMYlTlx5Nthuo0Vfv0VJSXMoVbUYgZBYdmMvUNfeFetx8oZBHfFSrJZCk9lLMO5ZC35wZBt74pLUCIDqjfQKOX8IUpPMLz1X2O4YXshKZB3WFw79OqoHNtSyVicACzABwnk3ZBh2dYQpPol2I5fJsJtzbOAQZD
+- page_id: '920161364524597'
+  name: page_18
+  enabled: true
+  drive_folder_id: 1Mku1ublcXUl9yXtUqI7elvqGYJu5r1q4
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSnR1NPd2ZAT8s41qFKeMi2eL07c9140oDc2y5dDX0Oy6YgmrkTIDXgWt4sqiqqnffxTgQ6Uqw9ycnXv4m9BKI3aSYGnzQiKnLIKqGTkHnVmJNlh3UoVmtJCQyiLwEWzVWNyquZANvnz1GqrXYZBARq5ZCe3QjcK0XReZCquII6kV38hM3GCSmWsBpdMbWIFjqcE75RmQ5VL2FPjmCp9ZCwT7Yhe3sb9prgLo0sSIswuDoZD
+- page_id: '1005402935985498'
+  name: page_19
+  enabled: true
+  drive_folder_id: 1ENSslOPlICVXbfReiNUseXdlTSVpUxl7
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSmCakZCWqRM6fObl4Gju0z3tapTVNC4geNfcCVnzF3av5EbUZBEIiJJ0UOhISDLmjunbCRZAmdnGLw7onj86qbGrjXHlP4T24sb2K6X6fNmglZCcPf7whXK3YbBSTd1PqqKwCULsxjHwc21l1KDCPTBxwQWGolZCXZButYh72gNMatmCbZC6jxUSdmUozp0q4ZA6mMCfZAp4uMF6Lf4uqQ7mMFmw7OJZCYTheegH7YyUE02qcZD
+- page_id: '802674512937262'
+  name: page_20
+  enabled: true
+  drive_folder_id: 1MwFCsFG1ZqDuQ4Fho8X8B4r75poMXrrr
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSviVoN4iXBScX70B7vSEE2Ly2ZC7NkOOtDlTRLJdIqvyOny9RZAqgg94Q5XhG494ZAny3wfCqjN0cu3IKJGFY8jCRxE8NWp3NtWkJUDqNcQWd7ikk74ttmpowjdLRxB0WEuvsGZCo5mkf7YTUDa5JlmFrZAnX8bxyeC4jNtQa0Jg9uJZA86vLmiI5nlVJZCWGAH99J4koXJGUnBEoZAmseHXDG9MrRXZBf1rggiJpXRF4JSIZD
+- page_id: '765106526695498'
+  name: page_21
+  enabled: true
+  drive_folder_id: 1a_DSwQNT0Fe5zW_NyitXF5_O7a1RgGqd
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSufoplHgQ0eQlZCM5hllZCZBygO9mwoJGrZA71S6LYSNHI2HSmhvjDHVeAtoeMN5Kn8CeI13vytNZCamkFZCp0iYWZBO1ZBZBO5loxVjBMBYS0bklHSZCqUtdtDUUBZCMYYDrnWG5AYLQ5MbONacai57hehsyE42QKMZAqbRo84HNZBYp4Jq6QRsdYaQYG1OgxfYdoZBDb2SDpBrOW8vdzUTHuzZACgBLpUqUnVePioTv9sbenhl4EZD
+- page_id: '568171476378321'
+  name: page_22
+  enabled: true
+  drive_folder_id: 12WpeflSfnQ7tIQMcxvBeqB1EkimP04Lm
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSh5YQQ2IOSCAvTZBC6qaWw2nZAkEp6FFw4ZCbI9ELZBJ3JB23y2aGGU6PQJdm7Yb49uDhspfeVcjHHLigtE98qPsn12ugxSpS0G6kaHcTHqRTUfW9gAXlIgPpgTyU18l61ydaS0jphaD96GQ1MZBZBkejBZBjIjaG0FkUxiKBRZCwSekAg7uFtIsGDZA6PbS4kZAOQFC1XtBJjGtbCZAYjEKWNmWZBEcXdTwn62vlqQZC5Tr6lvsZD
+- page_id: '454880037713018'
+  name: page_23
+  enabled: true
+  drive_folder_id: 1CAWiUuoA9ObfEYPWYXTkWDrXQbFd80Ap
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSrmMVIR6SEzpRoLrmgLgWqyEYQuzUQBhZAiZCTfPUuH4Y6EcPZBIVyLFKzyZBVd611ryhMojeHNHzMoZAbLiST55jfdJvLv15Mj028wg4vdFgiCDXLQFIKKyMjn2r3pmqzvSrAmPkQj4oZBG8q90HrwJ6EgKjje98bZB7Aft5M3fhZB9RSabz626ElISX8CiZCGrAoUNZCpYWT87nBKnMFR8A9uqbNabZCQV6FNQwgdwnQQkUwZD
+- page_id: '368653459672717'
+  name: page_24
+  enabled: true
+  drive_folder_id: 1k4NsbkmZMmGNXJH_egsHGrY150MpUD49
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSnRuOCeRaEyFK4jZBgloWxk58pe5JdjekF7l2ubedHZAIixqqKbHYd5YLO7vxJ0ld73cDZB83FSZBxsjzD0F5LPZCfVhN112aEkPqhEDY0l6ISm3aiJ3CO8QwWqpEewSdiwB4SfOOQWkZBZC4WsXAR2rDe1K5Uij9AQyZC9bQ0ZCaZAONXyHrOO9sppLKGK7Don5a0eAY44xMQq2EZCSzsCtonmCDhaxxJ9eNsYoeKNbfm1aUsZD
+- page_id: '359780240556577'
+  name: page_25
+  enabled: true
+  drive_folder_id: 1tjUfLMHLd7DBRFyvoRbaYBaM7lJjnfPz
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSmVdNiefPoQzI9q8tKUnqsNa9JjTWcoEaOcVjb9ArZBcsep0lcst5Al2vCpxLTksHozpjzIAWwgr45GzzYJGChaz9UPlCH6E45b6fQPLeZBrLXrp1XICSuT63WqAqYuKxYnjk8SKVHX0VDsBul95folKXUoy5L4DIy0NvGDdkZCKbJFmkVFZCF8JVUK1YvebbpGjH7MiYMXOmuY9HPpcrfji7zLERpQc57PI3HCxfIUZD
+- page_id: '211294825398492'
+  name: page_26
+  enabled: true
+  drive_folder_id: 1YaPfOqlG20D89o4jUcBSbylP3XmbFRWD
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSnhwfyOzKlJNaBwr8CJypz6ZB9VwZAY4zaaZBRuAOuTthyneA0ssg0AYPFOcgxfu8D7TGFkUpv4J8fijlBzZCIebIhX3InxjvCEhOLI8J03e2eZBx12CCjzolnBQX8O3abtLg5nu4qQu2oa8fIZB2wY8WywK14ULoTP22R8HWEQuAiM1Q8imFzgLscZAXTNo8SvRwGBbcwSVzRUKgucq62RiWCwwnKn6Iu22Leu7tjW8wZDZD
+- page_id: '166448239894078'
+  name: page_27
+  enabled: true
+  drive_folder_id: 1nB6AnKW6ubj4WjJdMJSErgL-zOe9gGsQ
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBShZCkUtBKwHsZBBsen2icZA4VOBAuupF0xM3f1w9TvPYHcEILxPwSPeax6yiFr9z9ehSlGXtLNAP1GeOeqcz59bsfmxw6cOVGQF9ezaZAE3WfFybYIorZC25SEPvDnADMBjgh4XKDS1LuzlTP2nXu8DZA6rps5AOuNlebEfVW57cdutgZBuyZAfuPZAqOQ8FVk5MVRxZAeaJ8YUGRgNtYgDmu671kFD6RocyZC32ZAToFgxdAgZDZD
+- page_id: '176892285514777'
+  name: page_28
+  enabled: true
+  drive_folder_id: 1T08BZA_E_RlB3Y3w8fiMqhOXnlTWbINR
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBShMKskjnjmwgrlXYJZC9iQZCEDO4GfSTY5PiqyQNcfUGnyLDYSqhxW0HH6gvts14dMks3UyoGbqsBbI0fgfKKNdEzOckFo6FC3lX1SZAVssZBCZAT5pbAh90GWBgg7EkDQhfKgMpUyBu4JjDEXWvczn4ZChBgkOoSf5qnJrXXsOm5IIzpOQAcZBtlrZCAO7y2bn00dd3SFV9dA7kRaQMZAOsRaR1cdVYbTz806POZBXmnMKAZDZD
+- page_id: '199046363282913'
+  name: page_29
+  enabled: true
+  drive_folder_id: 1w1rNyesYpatr1gqMgTgTqbF4aTPLsDhu
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSjskZBLUq62ZBZBgXbLYnHp3pigIS0LZA5tbr4SCOyy7iXjiBdTgSgycaZB7JMTtkLURaGnDxxxhBIY31RBGt4loMxuyro6tgadvvSupPB6fHb5hZBe9u0BwOkw4UUjPZCQZBwzDOZCwG7XVQWIR5ZCOZCPoyuULsUBzLbTHpF6HOKdKE4GoW2cyO0j6hUQoVCvkuS27FCywfXwQGDTJeUwg1SKp2DBslGNX4CT9Ez04ggtZAQZDZD
+- page_id: '169686166222750'
+  name: page_30
+  enabled: true
+  drive_folder_id: 1IZzrDjRxAVTTXb4suo5tmFEKa4q6RN7v
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBShtQaPclbIavRpyk57lMb52qA6lOuPiJm81yAeF7fJL0mGIYDSU24srZB7okVhpe496efW5FrXZAVJckANO9pEDIlFMTv7x6Rh1dcKnmTgZCo0EyT67gRP7hZC7NtbSulo1GomhGDZBHhfhZCGUgvlmOobw8eZCdwy93GcVOEo5zgWqMzewdiQkHTrZCVT31IVjzJeVwIXEbfWFUCtLFaIKBuy4vGjYTgS7VZAgjqlBFdJwZDZD
