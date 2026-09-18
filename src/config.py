@@ -52,6 +52,11 @@ class PageConfig:
             "data/pages_tokens.json",
             "data/account2_verified_pages.json",
             "data/uk_account1_binjal_permanent_pages.json",
+            "data/uk_account1_binjal_pages.json",
+            "data/uk_account2_chanda_permanent_pages.json",
+            "data/uk_account2_chanda_pages.json",
+            "data/uk_account3_mahi_permanent_pages.json",
+            "data/uk_account3_mahi_pages.json",
             "scratch/pages_tokens.json",
             r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-8050-53be5bd48383\scratch\pages_tokens.json"
         ]
@@ -64,7 +69,14 @@ class PageConfig:
                         for p in pages_list:
                             pid = str(p.get("id") or p.get("page_id") or "")
                             tok = p.get("access_token") or p.get("page_access_token") or ""
-                            if pid == str(self.page_id) or str(p.get("index")) == str(self.name).replace("page_", "").replace("uk1_page_", ""):
+                            normalized_name = (
+                                str(self.name)
+                                .replace("uk3_page_", "")
+                                .replace("uk2_page_", "")
+                                .replace("uk1_page_", "")
+                                .replace("page_", "")
+                            )
+                            if pid == str(self.page_id) or str(p.get("index")) == normalized_name:
                                 if tok:
                                     return tok.strip()
                 except Exception:

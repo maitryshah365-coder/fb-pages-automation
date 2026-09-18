@@ -49,7 +49,7 @@
     <div class="drawer-header">
       <div class="drawer-title-group">
         <h3>📑 Select Facebook Page</h3>
-        <span class="badge-pages-total" id="sidebarPagesCountBadge">54 Pages</span>
+        <span class="badge-pages-total" id="sidebarPagesCountBadge">66 Pages</span>
       </div>
       <button id="btnClosePageDrawer" class="btn-close-drawer">✕</button>
     </div>
@@ -64,7 +64,7 @@
         <div class="portfolio-tile-left">
           <div class="portfolio-avatar">🌐</div>
           <div>
-            <div class="portfolio-name">All 54 Pages Portfolio</div>
+            <div class="portfolio-name">All 66 Pages Portfolio</div>
             <div class="portfolio-desc">Combined Reach, Views & Analytics</div>
           </div>
         </div>
@@ -122,7 +122,7 @@
             <span class="tile-icon">📊</span>
             <div class="tile-text">
               <span class="tile-title">Dashboard</span>
-              <span class="tile-sub">All 54 Pages Portfolio</span>
+              <span class="tile-sub">All 66 Pages Portfolio</span>
             </div>
           </div>
           <span class="tile-badge-gold">Master</span>
@@ -131,7 +131,7 @@
 
       <!-- BOX 2: ALL PAGES LIST (SHUTTER BAND BY DEFAULT - CLICK PAR HI OPEN HOGA) -->
       <div class="sidebar-nav-box sidebar-pages-list-box" id="sidePagesAccordionBox">
-        <button type="button" class="sidebar-pages-header" id="btnSidePagesListToggle" onclick="toggleSidePagesShutter()" title="Click to show/hide 54 pages (30 USA + 24 UK)">
+        <button type="button" class="sidebar-pages-header" id="btnSidePagesListToggle" onclick="toggleSidePagesShutter()" title="Click to show/hide 66 pages (30 USA + 36 UK)">
           <div class="pages-header-left">
             <span class="pages-header-icon">📑</span>
             <div class="pages-header-text">
@@ -140,7 +140,7 @@
             </div>
           </div>
           <div class="pages-header-right">
-            <span class="pages-count-pill" id="sidePagesCountBadge">54 Pages</span>
+            <span class="pages-count-pill" id="sidePagesCountBadge">66 Pages</span>
             <span class="pages-toggle-arrow" id="sidePagesToggleArrow">▼</span>
           </div>
         </button>
@@ -148,11 +148,11 @@
         <!-- Shutter Body (Closed by default - Shutter Band) -->
         <div class="sidebar-pages-body" id="sidePagesShutterBody">
           <div class="sidebar-pages-search-row">
-            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search across 42 channels..." onclick="event.stopPropagation()">
+            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search across 66 channels..." onclick="event.stopPropagation()">
           </div>
 
           <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
-            <!-- Dynamically populated with 3 vertical boxes (USA 01, USA 02, UK 01) -->
+            <!-- Dynamically populated with 5 vertical boxes (USA 01, USA 02, UK 01, UK 02, UK 03) -->
           </div>
         </div>
       </div>
@@ -226,11 +226,12 @@
 
         <!-- Account Quick Filter Tabs (A1 / A2 / UK1 / UK2) -->
         <div class="studio-account-filters">
-          <button type="button" class="studio-acc-tab active" data-filter="all" id="studioTabAll">All (54)</button>
+          <button type="button" class="studio-acc-tab active" data-filter="all" id="studioTabAll">All (66)</button>
           <button type="button" class="studio-acc-tab" data-filter="a1" id="studioTabA1">USA 01 (15)</button>
           <button type="button" class="studio-acc-tab" data-filter="a2" id="studioTabA2">USA 02 (15)</button>
           <button type="button" class="studio-acc-tab" data-filter="uk1" id="studioTabUK1">UK 01 (12)</button>
           <button type="button" class="studio-acc-tab" data-filter="uk2" id="studioTabUK2">UK 02 (12)</button>
+          <button type="button" class="studio-acc-tab" data-filter="uk3" id="studioTabUK3">UK 03 (12)</button>
         </div>
 
         <div class="fleet-search-box">
@@ -345,7 +346,7 @@
               <h2 class="hero-title">Google Drive Video Fleet</h2>
               <span class="verified-icon">✓</span>
             </div>
-            <div class="hero-meta">42 Channel Folders Configured • Zero Setup Pending • 24/7 Automated USA & UK Upload Stock</div>
+            <div class="hero-meta">66 Channel Folders Configured • Zero Setup Pending • 24/7 Automated USA & UK Upload Stock</div>
           </div>
         </div>
 
@@ -368,7 +369,7 @@
           </div>
           <div class="strip-stat">
             <span class="stat-label">Active Folders</span>
-            <span class="stat-num green-text">42 / 42 Ready</span>
+            <span class="stat-num green-text">66 / 66 Ready</span>
           </div>
         </div>
       </section>
@@ -385,11 +386,12 @@
           </div>
           <div class="library-header-actions">
             <div class="timeframe-toggle-wrapper" id="driveAccountFilters">
-              <button type="button" class="timeframe-pill active" data-filter="all" id="btnDriveFilterAll">All (54 Pages)</button>
+              <button type="button" class="timeframe-pill active" data-filter="all" id="btnDriveFilterAll">All (66 Pages)</button>
               <button type="button" class="timeframe-pill" data-filter="a1" id="btnDriveFilterA1">USA A1 (15 Pages)</button>
               <button type="button" class="timeframe-pill" data-filter="a2" id="btnDriveFilterA2">USA A2 (15 Pages)</button>
               <button type="button" class="timeframe-pill" data-filter="uk1" id="btnDriveFilterUK1">UK A1 (12 Pages)</button>
               <button type="button" class="timeframe-pill" data-filter="uk2" id="btnDriveFilterUK2">UK A2 (12 Pages)</button>
+              <button type="button" class="timeframe-pill" data-filter="uk3" id="btnDriveFilterUK3">UK A3 (12 Pages)</button>
             </div>
           </div>
         </div>
@@ -451,7 +453,7 @@
               <h2 class="hero-title">Recent Posts Activity Stream</h2>
               <span class="verified-icon">✓</span>
             </div>
-            <div class="hero-meta">All 54 Pages Aggregated • Server Cron Automation + Instant Studio Uploads</div>
+            <div class="hero-meta">All 66 Pages Aggregated • Server Cron Automation + Instant Studio Uploads</div>
           </div>
         </div>
 
@@ -559,7 +561,7 @@
             <h2 id="heroPageName" class="hero-title">All Pages Portfolio</h2>
             <span class="verified-icon">✓</span>
           </div>
-          <div id="heroPageSub" class="hero-meta">42 Active Facebook Pages (168 Daily Slots) • 24/7 Automated Upload Engine</div>
+          <div id="heroPageSub" class="hero-meta">66 Active Facebook Pages (264 Daily Slots) • 24/7 Automated Upload Engine</div>
         </div>
       </div>
 
@@ -892,7 +894,7 @@
       </div>
       <span class="bottom-nav-label">Dashboard</span>
     </button>
-    <button type="button" id="bottomNavPages" class="bottom-nav-item" onclick="openPageDrawer()" title="All 54 Pages List">
+    <button type="button" id="bottomNavPages" class="bottom-nav-item" onclick="openPageDrawer()" title="All 66 Pages List">
       <div class="bottom-nav-icon-box">
         <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="7" y="3" width="14" height="14" rx="2"></rect>

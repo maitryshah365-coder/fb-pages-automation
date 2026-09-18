@@ -83,10 +83,26 @@ const FLEET_UK_02_IDS = [
   "1165355063335637"  // YO TO Gone
 ];
 
+const FLEET_UK_03_IDS = [
+  "1190983047436826", // Shifting Stone
+  "1224317344092240", // Heavy Whistle
+  "1185315564665369", // Lost Glossary
+  "960349707172371",  // Noble Frequency
+  "1063063230214331", // Prime Syndicate
+  "1063289593524919", // Empire Catalyst
+  "938570059349598",  // Obsidian Theory
+  "982581511610694",  // Nova District
+  "994921357036127",  // New Moon Diaries
+  "1039102779276966", // Dream Harbor
+  "1023389020850189", // Maple Vision
+  "855237054348766"   // Perez Steven
+];
+
 const FLEET_USA_01_SET = new Set(FLEET_USA_01_IDS);
 const FLEET_USA_02_SET = new Set(FLEET_USA_02_IDS);
 const FLEET_UK_01_SET = new Set(FLEET_UK_01_IDS);
 const FLEET_UK_02_SET = new Set(FLEET_UK_02_IDS);
+const FLEET_UK_03_SET = new Set(FLEET_UK_03_IDS);
 
 function enforceStrictFleetSorting(pages) {
   if (!pages || !Array.isArray(pages)) return [];
@@ -97,6 +113,7 @@ function enforceStrictFleetSorting(pages) {
   const usa2 = [];
   const uk1 = [];
   const uk2 = [];
+  const uk3 = [];
 
   FLEET_USA_01_IDS.forEach((id, i) => {
     const p = map.get(id);
@@ -154,11 +171,25 @@ function enforceStrictFleetSorting(pages) {
     }
   });
 
+  FLEET_UK_03_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 55 + i;
+      p.account = "UK Account 3";
+      p.account_tag = "UK A3";
+      p.account_badge = "UK3";
+      p.box_group = "UK 03";
+      p.region = "GB";
+      p.country = "UK";
+      uk3.push(p);
+    }
+  });
+
   // Collect any remaining pages if any
-  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS]);
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
-  return [...usa1, ...usa2, ...uk1, ...uk2, ...others];
+  return [...usa1, ...usa2, ...uk1, ...uk2, ...uk3, ...others];
 }
 
 function filterVideoCategory(cat) {
@@ -784,6 +815,7 @@ function renderSidebarPagesList(pages) {
   const usa2List = [];
   const uk1List = [];
   const uk2List = [];
+  const uk3List = [];
 
   pageList.forEach(p => {
     const pid = String(p.id);
@@ -792,8 +824,10 @@ function renderSidebarPagesList(pages) {
     else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
+    else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
     else {
-      if (p.account === "UK Account 2" || p.index > 42) uk2List.push(p);
+      if (p.account === "UK Account 3" || p.index > 54) uk3List.push(p);
+      else if (p.account === "UK Account 2" || (p.index > 42 && p.index <= 54)) uk2List.push(p);
       else if (p.region === "GB" || p.account === "UK Account 1") uk1List.push(p);
       else if (p.account === "Account 2" || p.index > 15) usa2List.push(p);
       else usa1List.push(p);
@@ -809,7 +843,8 @@ function renderSidebarPagesList(pages) {
     const dotClass = isConfigured ? 'green' : 'gray';
     const dotTitle = isUploaded ? `Active • ${pToday}/4 Uploaded Today` : (isConfigured ? 'Active' : 'Pending');
     let pillText = 'USA A1', pillClass = 'badge-a1';
-    if (accType === 'uk2') { pillText = 'UK A2'; pillClass = 'badge-uk'; }
+    if (accType === 'uk3') { pillText = 'UK A3'; pillClass = 'badge-uk'; }
+    else if (accType === 'uk2') { pillText = 'UK A2'; pillClass = 'badge-uk'; }
     else if (accType === 'uk1') { pillText = 'UK A1'; pillClass = 'badge-uk'; }
     else if (accType === 'usa2') { pillText = 'USA A2'; pillClass = 'badge-a2'; }
     return `
@@ -859,6 +894,9 @@ function renderSidebarPagesList(pages) {
   }
   if (uk2List.length > 0) {
     html += buildBox("sidebar-box-uk2", "uk2", "🇬🇧", "UK A2", `${uk2List.length} Pages`, uk2List, "uk2");
+  }
+  if (uk3List.length > 0) {
+    html += buildBox("sidebar-box-uk3", "uk3", "🇬🇧", "UK A3", `${uk3List.length} Pages`, uk3List, "uk3");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
@@ -998,6 +1036,7 @@ function renderDrawerPages(pages) {
   const usa2List = [];
   const uk1List = [];
   const uk2List = [];
+  const uk3List = [];
 
   filtered.forEach(p => {
     const pid = String(p.id);
@@ -1005,8 +1044,10 @@ function renderDrawerPages(pages) {
     else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
+    else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
     else {
-      if (p.account === "UK Account 2" || p.index > 42) uk2List.push(p);
+      if (p.account === "UK Account 3" || p.index > 54) uk3List.push(p);
+      else if (p.account === "UK Account 2" || (p.index > 42 && p.index <= 54)) uk2List.push(p);
       else if (p.region === "GB" || p.account === "UK Account 1") uk1List.push(p);
       else if (p.account === "Account 2" || p.index > 15) usa2List.push(p);
       else usa1List.push(p);
@@ -1019,7 +1060,10 @@ function renderDrawerPages(pages) {
     const followersFormatted = (p.followers || 0).toLocaleString();
     let accPillText = 'USA A1';
     let badgeClass = 'badge-a1';
-    if (accountType === 'uk2') {
+    if (accountType === 'uk3') {
+      accPillText = 'UK A3';
+      badgeClass = 'badge-uk';
+    } else if (accountType === 'uk2') {
       accPillText = 'UK A2';
       badgeClass = 'badge-uk';
     } else if (accountType === 'uk1') {
@@ -1096,6 +1140,18 @@ function renderDrawerPages(pages) {
           <span style="font-size:10px; font-weight:700; color:#c084fc; background:rgba(168,85,247,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(168,85,247,0.35);">${uk2List.length} Pages • UK2</span>
         </div>
         <div>${uk2List.map(p => renderDrawerItem(p, 'uk2')).join("")}</div>
+      </div>
+    `;
+  }
+
+  if (uk3List.length > 0) {
+    html += `
+      <div style="margin-bottom:8px; border:1px solid rgba(251,146,60,0.3); background:rgba(15,23,42,0.65); border-radius:10px; overflow:hidden;">
+        <div style="padding:7px 12px; background:linear-gradient(90deg, rgba(251,146,60,0.22), rgba(194,65,12,0.12)); border-bottom:1px solid rgba(251,146,60,0.2); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:11px; font-weight:800; color:#fed7aa;">🇬🇧 UK 03 (London Account 3)</span>
+          <span style="font-size:10px; font-weight:700; color:#fb923c; background:rgba(251,146,60,0.2); padding:1px 6px; border-radius:4px; border:1px solid rgba(251,146,60,0.35);">${uk3List.length} Pages • UK3</span>
+        </div>
+        <div>${uk3List.map(p => renderDrawerItem(p, 'uk3')).join("")}</div>
       </div>
     `;
   }
@@ -2601,7 +2657,21 @@ const DRIVE_CONFIGURED_PAGES = {
   "779283818590888":  { pageName: "uk2_page_9", displayName: "Titan Republic", ready: true, videoCount: 124, folderId: "1lrpqZhufJxUotz2sO4G_u8GE8POzWrq8", handle: "titanrepublic", account: "UK Account 2" },
   "514777565046552":  { pageName: "uk2_page_10", displayName: "Dandelion Diaries", ready: true, videoCount: 264, folderId: "1zdfwUiZlN8H0QzXDEKtpBp4UQjk0q1MV", handle: "dandeliondiaries", account: "UK Account 2" },
   "500491343147382":  { pageName: "uk2_page_11", displayName: "Infinite Stories", ready: true, videoCount: 283, folderId: "1VH4Ca2nFhnjvSuBrwS803DEtaZlLlCGB", handle: "infinitestories", account: "UK Account 2" },
-  "490559100806079":  { pageName: "uk2_page_12", displayName: "Idea Acy", ready: true, videoCount: 367, folderId: "1_a9DIPESOnEZ7BSbFNo7sHOn4uUi74xp", handle: "ideaacy", account: "UK Account 2" }
+  "490559100806079":  { pageName: "uk2_page_12", displayName: "Idea Acy", ready: true, videoCount: 367, folderId: "1_a9DIPESOnEZ7BSbFNo7sHOn4uUi74xp", handle: "ideaacy", account: "UK Account 2" },
+
+  // UK London Account 3 Pages (Mahi Patel - 12 Pages, London WireGuard Egress)
+  "1190983047436826": { pageName: "uk3_page_1",  displayName: "Shifting Stone",    ready: true, videoCount: 0, folderId: "12KLecp9a14wb8mpv25SBtSBz_G3ggD3H", handle: "shiftingstone",    account: "UK Account 3" },
+  "1224317344092240": { pageName: "uk3_page_2",  displayName: "Heavy Whistle",     ready: true, videoCount: 0, folderId: "1qRO-UGA5bvxgBOU5ecFt7QLPCp9I5QgO", handle: "heavywhistle",     account: "UK Account 3" },
+  "1185315564665369": { pageName: "uk3_page_3",  displayName: "Lost Glossary",     ready: true, videoCount: 0, folderId: "11mH7IVu6Nv5MP00jpxRAnngU2Blgcam3", handle: "lostglossary",     account: "UK Account 3" },
+  "960349707172371":  { pageName: "uk3_page_4",  displayName: "Noble Frequency",   ready: true, videoCount: 0, folderId: "1kQRM_1mLb2TkWtDpXL_2k5ABrEFdo2rj", handle: "noblefrequency",   account: "UK Account 3" },
+  "1063063230214331": { pageName: "uk3_page_5",  displayName: "Prime Syndicate",   ready: true, videoCount: 0, folderId: "1ty72KRjCUo6rfEoECVipYtJ8z9_EJKH8", handle: "primesyndicate",   account: "UK Account 3" },
+  "1063289593524919": { pageName: "uk3_page_6",  displayName: "Empire Catalyst",   ready: true, videoCount: 0, folderId: "1rGFyfznO6crcBJm2iIMAGP07c2KhgoOu", handle: "empirecatalyst",   account: "UK Account 3" },
+  "938570059349598":  { pageName: "uk3_page_7",  displayName: "Obsidian Theory",   ready: true, videoCount: 0, folderId: "1-rnWGv5ubF2V0jJtBCarzYBPetRMzhAX", handle: "obsidiantheory",   account: "UK Account 3" },
+  "982581511610694":  { pageName: "uk3_page_8",  displayName: "Nova District",     ready: true, videoCount: 0, folderId: "1v97_7qE5YKzl3paJ7mcVKZH8O2r87hre", handle: "novadistrict",     account: "UK Account 3" },
+  "994921357036127":  { pageName: "uk3_page_9",  displayName: "New Moon Diaries",  ready: true, videoCount: 0, folderId: "1kpk_XGNplLiSnYxb9B0bGGTq8Po8wjKQ", handle: "newmoondiaries",   account: "UK Account 3" },
+  "1039102779276966": { pageName: "uk3_page_10", displayName: "Dream Harbor",      ready: true, videoCount: 0, folderId: "1tYfVrfivBZBYhx736ihaZ2Mgb0UCo1Hj", handle: "dreamharbor",      account: "UK Account 3" },
+  "1023389020850189": { pageName: "uk3_page_11", displayName: "Maple Vision",      ready: true, videoCount: 0, folderId: "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3", handle: "maplevision",      account: "UK Account 3" },
+  "855237054348766":  { pageName: "uk3_page_12", displayName: "Perez Steven",      ready: true, videoCount: 0, folderId: "1m4zcAJErDtVSRPiZupC067ildpuCp4Xn", handle: "perezsteven",      account: "UK Account 3" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
@@ -2809,6 +2879,7 @@ function renderStudioFleetList() {
   const usa2List = [];
   const uk1List = [];
   const uk2List = [];
+  const uk3List = [];
 
   fullData.pages.forEach(page => {
     const pId = String(page.id);
@@ -2826,8 +2897,10 @@ function renderStudioFleetList() {
     else if (FLEET_USA_02_SET.has(pId)) usa2List.push(page);
     else if (FLEET_UK_01_SET.has(pId)) uk1List.push(page);
     else if (FLEET_UK_02_SET.has(pId)) uk2List.push(page);
+    else if (FLEET_UK_03_SET.has(pId)) uk3List.push(page);
     else {
-      if (page.account === "UK Account 2" || page.index > 42) uk2List.push(page);
+      if (page.account === "UK Account 3" || page.index > 54) uk3List.push(page);
+      else if (page.account === "UK Account 2" || (page.index > 42 && page.index <= 54)) uk2List.push(page);
       else if (page.region === "GB" || page.account === "UK Account 1") uk1List.push(page);
       else if (page.account === "Account 2" || page.index > 15) usa2List.push(page);
       else usa1List.push(page);
@@ -2842,8 +2915,8 @@ function renderStudioFleetList() {
     const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-    const badgeText = accType === 'uk2' ? 'UK2' : (accType === 'uk1' ? 'UK1' : (accType === 'usa2' ? 'A2' : 'A1'));
-    const badgeClass = (accType === 'uk1' || accType === 'uk2') ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
+    const badgeText = accType === 'uk3' ? 'UK3' : (accType === 'uk2' ? 'UK2' : (accType === 'uk1' ? 'UK1' : (accType === 'usa2' ? 'A2' : 'A1')));
+    const badgeClass = (accType === 'uk1' || accType === 'uk2' || accType === 'uk3') ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
 
     return `
       <div class="studio-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}"
@@ -2913,11 +2986,16 @@ function renderStudioFleetList() {
       html += buildStudioBox("sidebar-box-uk2", "uk2", "🇬🇧", "UK 02 (London Account 2)", `${uk2List.length} Pages • UK2`, uk2List, "uk2");
     }
   }
+  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "uk3") {
+    if (uk3List.length > 0) {
+      html += buildStudioBox("sidebar-box-uk3", "uk3", "🇬🇧", "UK 03 (London Account 3)", `${uk3List.length} Pages • UK3`, uk3List, "uk3");
+    }
+  }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
 
   const countBadge = document.getElementById("studioFleetCountBadge");
-  const totalCount = usa1List.length + usa2List.length + uk1List.length + uk2List.length;
+  const totalCount = usa1List.length + usa2List.length + uk1List.length + uk2List.length + uk3List.length;
   if (countBadge) {
     countBadge.innerText = `${totalCount} Ready`;
   }
@@ -2982,10 +3060,12 @@ function selectAllReadyPages() {
     const isUSA2 = FLEET_USA_02_SET.has(pId);
     const isUK1 = FLEET_UK_01_SET.has(pId);
     const isUK2 = FLEET_UK_02_SET.has(pId);
+    const isUK3 = FLEET_UK_03_SET.has(pId);
     if (currentStudioAccountFilter === "a1" && !isUSA1) return;
     if (currentStudioAccountFilter === "a2" && !isUSA2) return;
     if (currentStudioAccountFilter === "uk1" && !isUK1) return;
     if (currentStudioAccountFilter === "uk2" && !isUK2) return;
+    if (currentStudioAccountFilter === "uk3" && !isUK3) return;
     if (DRIVE_CONFIGURED_PAGES[pId]?.ready || page.is_configured !== false) {
       studioSelectedPageIds.add(pId);
     }
@@ -3625,12 +3705,14 @@ function renderDriveInventoryList() {
     const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || (p.index >= 1 && p.index <= 15);
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
     const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || (p.index > 30 && p.index <= 42);
-    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42);
+    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
+    const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54);
 
     if (currentDriveAccountFilter === "a1" && !isUSA1) return false;
     if (currentDriveAccountFilter === "a2" && !isUSA2) return false;
     if (currentDriveAccountFilter === "uk1" && !isUK1) return false;
     if (currentDriveAccountFilter === "uk2" && !isUK2) return false;
+    if (currentDriveAccountFilter === "uk3" && !isUK3) return false;
 
     if (query) {
       const nameMatch = (p.name || "").toLowerCase().includes(query);
@@ -3647,10 +3729,15 @@ function renderDriveInventoryList() {
     const dInfo = DRIVE_CONFIGURED_PAGES[pid];
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
     const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || (p.index > 30 && p.index <= 42);
-    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42);
+    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
+    const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54);
 
     let badgeText = 'A1', badgeClass = 'badge-a1', accountLabel = 'Account 1';
-    if (isUK2) {
+    if (isUK3) {
+      badgeText = 'UK3';
+      badgeClass = 'badge-uk';
+      accountLabel = 'UK Account 3';
+    } else if (isUK2) {
       badgeText = 'UK2';
       badgeClass = 'badge-uk';
       accountLabel = 'UK Account 2';
@@ -3719,10 +3806,15 @@ function renderDriveInventoryList() {
       const dInfo = DRIVE_CONFIGURED_PAGES[pid];
       const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
       const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || (p.index > 30 && p.index <= 42);
-      const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42);
+      const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
+      const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54);
 
       let badgeText = 'A1', badgeClass = 'badge-a1', accountLabel = 'Account 1';
-      if (isUK2) {
+      if (isUK3) {
+        badgeText = 'UK3';
+        badgeClass = 'badge-uk';
+        accountLabel = 'UK Account 3';
+      } else if (isUK2) {
         badgeText = 'UK2';
         badgeClass = 'badge-uk';
         accountLabel = 'UK Account 2';
