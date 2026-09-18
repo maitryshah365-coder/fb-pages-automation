@@ -13,9 +13,15 @@ Whenever a new Facebook ID or Meta Developer App is created, the assistant MUST 
    - **Add Platform:** `+ Add platform` -> `Website` -> Site URL: `https://maitryshah365-coder.github.io/fb-pages-automation/`
    - **Save changes:** Must click Save Changes button.
 
-2. **Top Header Toggle -> Switch to "Live" Mode:**
+2. **Top Header Toggle -> Switch to "Live" Mode & Automated Verification:**
    - **WHY THIS IS CRITICAL:** If an app stays in "In development" mode, Meta suppresses Reels from public recommendation (Explore/FYP feed), resulting in 0 views for all uploaded videos.
-   - **Assistant Responsibility:** Proactively provide the direct dashboard link, copy-paste inputs, and verify that the toggle is flipped to **"Live"** immediately before any first video upload.
+   - **Assistant Responsibility (1000% Enforced):** The assistant is DIRECTLY RESPONSIBLE for verifying whether every Meta App is published/live. When setup is done or when auditing, the assistant MUST run an automated check to verify that:
+     1. App is in Live Mode (not in Development).
+     2. Privacy policy URL is set (`privacy.html`).
+     3. User data deletion URL is set (`data-deletion.html`).
+     4. App domain is set (`maitryshah365-coder.github.io`).
+     5. App icon and Website platform are configured.
+   - The assistant MUST NEVER ask the user to remember this; it must be checked and reported proactively in every verification report.
 
-3. **No Guessing / Verification:**
-   - Always verify token permissions and app live status via Graph API before scheduling bulk posts.
+3. **No Guessing / Verification Checklist:**
+   - Always verify token permissions, app publish/live status, and view metrics via Graph API before scheduling bulk posts.
