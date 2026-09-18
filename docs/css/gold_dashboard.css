@@ -1281,10 +1281,15 @@ body {
 
 /* ================= YOUTUBE STUDIO DESKTOP VS MOBILE SWITCHING ================= */
 .desktop-only {
-  display: block;
+  display: block !important;
 }
 
-.mobile-only {
+.mobile-only,
+.mobile-yt-cards-list,
+.mobile-yt-cards-container,
+#recentPostsMobileCards,
+#videosMobileCardsList,
+#driveInventoryMobileCards {
   display: none !important;
 }
 
@@ -1293,22 +1298,19 @@ body {
     display: none !important;
   }
   
-  .mobile-only {
+  .mobile-only,
+  .mobile-yt-cards-list,
+  .mobile-yt-cards-container,
+  #recentPostsMobileCards,
+  #videosMobileCardsList,
+  #driveInventoryMobileCards {
     display: flex !important;
     flex-direction: column !important;
+    gap: 12px;
+    margin-bottom: 16px;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
-}
-
-/* ================= YOUTUBE STUDIO MOBILE CARDS (EXACT YOUTUBE APP REPLICA) ================= */
-.mobile-yt-cards-list,
-.mobile-yt-cards-container,
-#recentPostsMobileCards {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 12px;
-  margin-bottom: 16px;
-  width: 100% !important;
-  box-sizing: border-box !important;
 }
 
 .mobile-yt-card {
