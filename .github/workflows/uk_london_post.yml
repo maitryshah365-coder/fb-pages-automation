@@ -77,8 +77,9 @@ jobs:
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             DRY_ARG="--dry-run"
           fi
-          # Run UK London pipeline with strict in-code Kill-Switch verification
+          # Run UK London pipeline with strict in-code Kill-Switch verification (Account 1 & Account 2)
           python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
+          python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
 
       - name: Disconnect WireGuard Tunnel
         if: always()

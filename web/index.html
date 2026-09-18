@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=7.0.1">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=7.1.0">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
     <div class="drawer-header">
       <div class="drawer-title-group">
         <h3>📑 Select Facebook Page</h3>
-        <span class="badge-pages-total" id="sidebarPagesCountBadge">42 Pages</span>
+        <span class="badge-pages-total" id="sidebarPagesCountBadge">54 Pages</span>
       </div>
       <button id="btnClosePageDrawer" class="btn-close-drawer">✕</button>
     </div>
@@ -64,7 +64,7 @@
         <div class="portfolio-tile-left">
           <div class="portfolio-avatar">🌐</div>
           <div>
-            <div class="portfolio-name">All 42 Pages Portfolio</div>
+            <div class="portfolio-name">All 54 Pages Portfolio</div>
             <div class="portfolio-desc">Combined Reach, Views & Analytics</div>
           </div>
         </div>
@@ -122,7 +122,7 @@
             <span class="tile-icon">📊</span>
             <div class="tile-text">
               <span class="tile-title">Dashboard</span>
-              <span class="tile-sub">All 42 Pages Portfolio</span>
+              <span class="tile-sub">All 54 Pages Portfolio</span>
             </div>
           </div>
           <span class="tile-badge-gold">Master</span>
@@ -131,7 +131,7 @@
 
       <!-- BOX 2: ALL PAGES LIST (SHUTTER BAND BY DEFAULT - CLICK PAR HI OPEN HOGA) -->
       <div class="sidebar-nav-box sidebar-pages-list-box" id="sidePagesAccordionBox">
-        <button type="button" class="sidebar-pages-header" id="btnSidePagesListToggle" onclick="toggleSidePagesShutter()" title="Click to show/hide 42 pages (30 USA + 12 UK)">
+        <button type="button" class="sidebar-pages-header" id="btnSidePagesListToggle" onclick="toggleSidePagesShutter()" title="Click to show/hide 54 pages (30 USA + 24 UK)">
           <div class="pages-header-left">
             <span class="pages-header-icon">📑</span>
             <div class="pages-header-text">
@@ -140,7 +140,7 @@
             </div>
           </div>
           <div class="pages-header-right">
-            <span class="pages-count-pill" id="sidePagesCountBadge">42 Pages</span>
+            <span class="pages-count-pill" id="sidePagesCountBadge">54 Pages</span>
             <span class="pages-toggle-arrow" id="sidePagesToggleArrow">▼</span>
           </div>
         </button>
@@ -224,12 +224,13 @@
           <span class="fleet-selected-indicator" id="studioSelectedCounterBadge">0 Selected</span>
         </div>
 
-        <!-- Account Quick Filter Tabs (A1 / A2 / UK1) -->
+        <!-- Account Quick Filter Tabs (A1 / A2 / UK1 / UK2) -->
         <div class="studio-account-filters">
-          <button type="button" class="studio-acc-tab active" data-filter="all" id="studioTabAll">All (42)</button>
+          <button type="button" class="studio-acc-tab active" data-filter="all" id="studioTabAll">All (54)</button>
           <button type="button" class="studio-acc-tab" data-filter="a1" id="studioTabA1">USA 01 (15)</button>
           <button type="button" class="studio-acc-tab" data-filter="a2" id="studioTabA2">USA 02 (15)</button>
           <button type="button" class="studio-acc-tab" data-filter="uk1" id="studioTabUK1">UK 01 (12)</button>
+          <button type="button" class="studio-acc-tab" data-filter="uk2" id="studioTabUK2">UK 02 (12)</button>
         </div>
 
         <div class="fleet-search-box">
@@ -384,10 +385,11 @@
           </div>
           <div class="library-header-actions">
             <div class="timeframe-toggle-wrapper" id="driveAccountFilters">
-              <button type="button" class="timeframe-pill active" data-filter="all" id="btnDriveFilterAll">All (42 Pages)</button>
-              <button type="button" class="timeframe-pill" data-filter="a1" id="btnDriveFilterA1">Account 1 (15 Pages)</button>
-              <button type="button" class="timeframe-pill" data-filter="a2" id="btnDriveFilterA2">Account 2 (15 Pages)</button>
-              <button type="button" class="timeframe-pill" data-filter="uk1" id="btnDriveFilterUK1">UK London (12 Pages)</button>
+              <button type="button" class="timeframe-pill active" data-filter="all" id="btnDriveFilterAll">All (54 Pages)</button>
+              <button type="button" class="timeframe-pill" data-filter="a1" id="btnDriveFilterA1">USA A1 (15 Pages)</button>
+              <button type="button" class="timeframe-pill" data-filter="a2" id="btnDriveFilterA2">USA A2 (15 Pages)</button>
+              <button type="button" class="timeframe-pill" data-filter="uk1" id="btnDriveFilterUK1">UK A1 (12 Pages)</button>
+              <button type="button" class="timeframe-pill" data-filter="uk2" id="btnDriveFilterUK2">UK A2 (12 Pages)</button>
             </div>
           </div>
         </div>
@@ -449,7 +451,7 @@
               <h2 class="hero-title">Recent Posts Activity Stream</h2>
               <span class="verified-icon">✓</span>
             </div>
-            <div class="hero-meta">All 42 Pages Aggregated • Server Cron Automation + Instant Studio Uploads</div>
+            <div class="hero-meta">All 54 Pages Aggregated • Server Cron Automation + Instant Studio Uploads</div>
           </div>
         </div>
 
@@ -890,7 +892,7 @@
       </div>
       <span class="bottom-nav-label">Dashboard</span>
     </button>
-    <button type="button" id="bottomNavPages" class="bottom-nav-item" onclick="openPageDrawer()" title="All 42 Pages List">
+    <button type="button" id="bottomNavPages" class="bottom-nav-item" onclick="openPageDrawer()" title="All 54 Pages List">
       <div class="bottom-nav-icon-box">
         <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="7" y="3" width="14" height="14" rx="2"></rect>
@@ -939,6 +941,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=7.0.1"></script>
+  <script src="js/gold_app.js?v=7.1.0"></script>
 </body>
 </html>

@@ -9,8 +9,75 @@ DB_PATH = os.path.join(BASE_DIR, "data", "posted_videos.db")
 TOKENS_PATH = r"C:\Users\Win\.gemini\antigravity-ide\brain\313a3f26-ac39-434f-8050-53be5bd48383\scratch\pages_tokens.json"
 
 
+FLEET_USA_01_IDS = [
+    "988523547680750",  # Mix Mood
+    "1040244259164767", # Charmy Owen
+    "965629596638624",  # Silent Peak Social
+    "956622247541040",  # Horizon Nest Daily
+    "1034326643100670", # Bright Flare Hub
+    "924636817403215",  # LuxeEpic Frames
+    "795016603693140",  # Lopez Edward
+    "637367679454577",  # Crown Empire
+    "640019675857269",  # Crafty Champions
+    "626061003919674",  # Fun Life
+    "528360240361556",  # Dominion Authority
+    "503358542855153",  # Family Fancy
+    "500794979779192",  # Me Text
+    "468230386376818",  # Bot Mask
+    "106309715659174"   # Fresh Hive Network
+]
+
+FLEET_USA_02_IDS = [
+    "1069951959531260", # Crimson Authority
+    "979493165253123",  # Heven Made
+    "920161364524597",  # Evening Wise
+    "1005402935985498", # Glow City Stories
+    "802674512937262",  # Gonzales Jordan
+    "765106526695498",  # Gonzales Bradley
+    "568171476378321",  # The Showdown Hub
+    "454880037713018",  # Garden Super
+    "368653459672717",  # Gold encloud Studio
+    "359780240556577",  # Gintube
+    "211294825398492",  # Sovereign Labs
+    "166448239894078",  # Prestige Frontier
+    "176892285514777",  # Zenith Empire
+    "199046363282913",  # Crown Voltage
+    "169686166222750"   # Supreme Ledger
+]
+
+FLEET_UK_01_IDS = [
+    "1275440552308410", # Bitter Lullaby
+    "1094091620443741", # Apex Dominion
+    "883030611569420",  # Apex Narrative
+    "876743625532242",  # Young Bradley
+    "954228904442447",  # Scott Dennis
+    "884416694753956",  # Wood Stephen
+    "766333629906067",  # Morgan Donald
+    "838517782676673",  # Rogers Albert
+    "860013240524658",  # Roberts Austin
+    "802792259592614",  # Mitchell Jack
+    "439151942618231",  # Words Though
+    "297665506763102"   # Quantum Collective
+]
+
+FLEET_UK_02_IDS = [
+    "514777565046552",  # Dandelion Diaries
+    "820574291145280",  # Hill Alan
+    "490559100806079",  # Idea Acy
+    "500491343147382",  # Infinite Stories
+    "870381232821932",  # James Jose
+    "1020848977772131", # Johnson Jerry
+    "1278509768670990", # Rusted Compass
+    "1257864287403392", # Silent Atlas
+    "779283818590888",  # Titan Republic
+    "1058909860631103", # Urban Drift
+    "1054813994376761", # Velvet Authority
+    "1165355063335637"  # YO TO Gone
+]
+
+
 def get_pages_list():
-    # 1. First load existing docs/data/pages_data.json to keep ALL previously fetched metadata & videos
+    # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
     existing_json = os.path.join(BASE_DIR, "docs", "data", "pages_data.json")
     existing_by_id = {}
     if os.path.exists(existing_json):
@@ -22,16 +89,15 @@ def get_pages_list():
         except Exception as e:
             print("Error loading existing pages_data.json:", e)
 
-    # 2. Structured Account Files (Fleet registry, Account 1, Account 2, UK Account 1)
+    # 2. Structured Account Files
     account_configs = [
-        {"account": "Fleet Registry", "owner": "", "region": "", "file": os.path.join(BASE_DIR, "data", "fleet_pages_registry.json")},
         {"account": "Account 1", "owner": "Account 1 Admin", "region": "US", "file": os.path.join(BASE_DIR, "data", "pages_tokens.json")},
         {"account": "Account 2", "owner": "Mia Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "account2_verified_pages.json")},
-        {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")}
+        {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")},
+        {"account": "UK Account 2", "owner": "Chanda Nai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account2_chanda_permanent_pages.json")}
     ]
 
-    all_raw_pages = []
-    seen_ids = set()
+    all_found_by_id = {}
 
     for acc in account_configs:
         fpath = acc["file"]
@@ -42,55 +108,53 @@ def get_pages_list():
                     p_list = raw.get("pages", []) if isinstance(raw, dict) else raw
                     for p in p_list:
                         pid = str(p.get("id") or p.get("page_id") or "")
-                        if pid and pid not in seen_ids:
-                            seen_ids.add(pid)
-                            if acc["account"] != "Fleet Registry":
-                                p["_account_tag"] = acc["account"]
-                                p["_owner_tag"] = acc["owner"]
-                                p["_region_tag"] = acc["region"]
-                            all_raw_pages.append(p)
+                        if pid:
+                            p["_account_tag"] = acc["account"]
+                            p["_owner_tag"] = acc["owner"]
+                            p["_region_tag"] = acc["region"]
+                            all_found_by_id[pid] = p
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
 
-    # Retain any previously verified page from existing_by_id that wasn't in seen_ids
-    for pid, ep in existing_by_id.items():
-        if pid not in seen_ids:
-            seen_ids.add(pid)
-            all_raw_pages.append(ep)
+    # Build the 54 pages strictly ordered by the 4 fleets
+    fleet_order = [
+        (FLEET_USA_01_IDS, "Account 1", "Account 1 Admin", "US", 1),
+        (FLEET_USA_02_IDS, "Account 2", "Mia Shah", "US", 16),
+        (FLEET_UK_01_IDS, "UK Account 1", "Binjal Mehra", "GB", 31),
+        (FLEET_UK_02_IDS, "UK Account 2", "Chanda Nai", "GB", 43)
+    ]
 
-    # Sort pages stably by index
-    all_raw_pages.sort(key=lambda x: x.get("index", 999))
     final_pages = []
 
-    for idx, item in enumerate(all_raw_pages, 1):
-        pid = str(item.get("id") or item.get("page_id") or "")
-        p_idx = item.get("index", idx)
+    for id_list, acc_name, acc_owner, acc_region, start_idx in fleet_order:
+        for offset, pid in enumerate(id_list):
+            idx = start_idx + offset
+            source_p = all_found_by_id.get(pid, {})
+            base_p = existing_by_id.get(pid, {})
+            merged_p = dict(base_p)
+            merged_p.update({k: v for k, v in source_p.items() if v is not None and not k.startswith("_")})
+            merged_p["id"] = pid
+            merged_p["index"] = idx
+            merged_p["name"] = source_p.get("name") or base_p.get("name") or f"Page {idx}"
+            merged_p["account"] = acc_name
+            merged_p["account_owner"] = acc_owner
+            merged_p["region"] = acc_region
+            merged_p["pic_url"] = source_p.get("pic_url") or base_p.get("pic_url") or f"https://graph.facebook.com/v20.0/{pid}/picture?type=large"
+            if source_p.get("drive_folder_id"):
+                merged_p["drive_folder_id"] = source_p.get("drive_folder_id")
+            if source_p.get("drive_videos_count") is not None:
+                merged_p["drive_videos_count"] = source_p.get("drive_videos_count")
 
-        # Merge with existing page data if available
-        base_p = existing_by_id.get(pid, {})
-        merged_p = dict(base_p)
-        merged_p["id"] = pid
-        merged_p["index"] = idx
-        merged_p["name"] = item.get("name") or merged_p.get("name") or f"Page {idx}"
-        merged_p["account"] = item.get("_account_tag") or item.get("account") or ("Account 1" if idx <= 15 else ("Account 2" if idx <= 30 else "UK Account 1"))
-        merged_p["account_owner"] = item.get("_owner_tag") or item.get("account_owner") or ("Binjal Mehra" if idx > 30 else ("Mia Shah" if idx > 15 else "Account 1 Admin"))
-        merged_p["region"] = item.get("_region_tag") or ("GB" if idx > 30 else "US")
-        merged_p["pic_url"] = item.get("pic_url") or merged_p.get("pic_url")
-        if item.get("drive_folder_id"):
-            merged_p["drive_folder_id"] = item.get("drive_folder_id")
-        if item.get("drive_videos_count") is not None:
-            merged_p["drive_videos_count"] = item.get("drive_videos_count")
-
-        # Resolve token
-        tok = (
-            item.get("page_access_token") or
-            item.get("access_token") or
-            os.environ.get(f"FB_TOKEN_PAGE_{idx}") or
-            merged_p.get("access_token") or
-            os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
-        )
-        merged_p["access_token"] = tok
-        final_pages.append(merged_p)
+            # Resolve token
+            tok = (
+                source_p.get("access_token") or
+                source_p.get("page_access_token") or
+                os.environ.get(f"FB_TOKEN_PAGE_{idx}") or
+                base_p.get("access_token") or
+                os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
+            )
+            merged_p["access_token"] = tok
+            final_pages.append(merged_p)
 
     return final_pages
 
@@ -776,11 +840,12 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         }
     }
 
-    # Map from all configs (config.yaml, config_uk_account1.yaml, config_account2.yaml)
+    # Map from all configs (config.yaml, config_uk_account1.yaml, config_account2.yaml, config_uk_account2.yaml)
     cfg_paths = [
         os.path.join(BASE_DIR, "config.yaml"),
         os.path.join(BASE_DIR, "config_uk_account1.yaml"),
-        os.path.join(BASE_DIR, "config_account2.yaml")
+        os.path.join(BASE_DIR, "config_account2.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account2.yaml")
     ]
     drive_folder_id = None
     for cp_path in cfg_paths:
@@ -810,7 +875,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         except Exception:
             pass
 
-    # Exact verified counts from deep Google Drive scan (all 42 pages fully paginated)
+    # Exact verified counts from deep Google Drive scan (all 54 pages fully paginated)
     known_base = {
         # Account 1 Pages (15 Pages)
         "988523547680750":  audit_data.get("Mix Mood", {}).get("video_count", 75),
@@ -858,7 +923,21 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "860013240524658":  audit_data.get("Roberts  Austin", {}).get("video_count", 302) or audit_data.get("Roberts Austin", {}).get("video_count", 302),
         "802792259592614":  audit_data.get("Mitchell  Jack", {}).get("video_count", 431) or audit_data.get("Mitchell Jack", {}).get("video_count", 431),
         "439151942618231":  audit_data.get("Words Though", {}).get("video_count", 108),
-        "297665506763102":  audit_data.get("Quantum Collective", {}).get("video_count", 216)
+        "297665506763102":  audit_data.get("Quantum Collective", {}).get("video_count", 216),
+
+        # UK Account 2 Pages (Chanda Nai - 12 Pages, London WireGuard Egress)
+        "514777565046552":  audit_data.get("Dandelion Diaries", {}).get("video_count", 264),
+        "820574291145280":  audit_data.get("Hill Alan", {}).get("video_count", 411) or audit_data.get("Hill  Alan", {}).get("video_count", 411),
+        "490559100806079":  audit_data.get("Idea Acy", {}).get("video_count", 367),
+        "500491343147382":  audit_data.get("Infinite Stories", {}).get("video_count", 283),
+        "870381232821932":  audit_data.get("James Jose", {}).get("video_count", 192) or audit_data.get("James  Jose", {}).get("video_count", 192),
+        "1020848977772131": audit_data.get("Johnson Jerry", {}).get("video_count", 188) or audit_data.get("Johnson  Jerry", {}).get("video_count", 188),
+        "1278509768670990": audit_data.get("Rusted Compass", {}).get("video_count", 129),
+        "1257864287403392": audit_data.get("Silent Atlas", {}).get("video_count", 255),
+        "779283818590888":  audit_data.get("Titan Republic", {}).get("video_count", 124),
+        "1058909860631103": audit_data.get("Urban Drift", {}).get("video_count", 187),
+        "1054813994376761": audit_data.get("Velvet Authority", {}).get("video_count", 317),
+        "1165355063335637": audit_data.get("YO TO Gone", {}).get("video_count", 265) or audit_data.get("Yo to Gone", {}).get("video_count", 265)
     }
     base_stock = 0
     if drive_folder_id:
@@ -874,8 +953,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "index": idx,
         "id": pid,
         "name": p_name,
-        "account": p.get("account", "Account 1" if idx <= 15 else "Account 2"),
-        "account_owner": p.get("account_owner", "Mia Shah" if idx > 15 else "Account 1"),
+        "account": p.get("account", "Account 1" if idx <= 15 else ("Account 2" if idx <= 30 else ("UK Account 1" if idx <= 42 else "UK Account 2"))),
+        "account_owner": p.get("account_owner", "Account 1 Admin" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else "Chanda Nai"))),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,
@@ -1050,7 +1129,12 @@ def sync_data():
 
     # Portfolio Summary - Dynamically detect active pages configured with Google Drive across ALL configs
     configured_pids = set()
-    for cp_path in [os.path.join(BASE_DIR, "config.yaml"), os.path.join(BASE_DIR, "config_uk_account1.yaml"), os.path.join(BASE_DIR, "config_account2.yaml")]:
+    for cp_path in [
+        os.path.join(BASE_DIR, "config.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account1.yaml"),
+        os.path.join(BASE_DIR, "config_account2.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account2.yaml")
+    ]:
         if os.path.exists(cp_path):
             try:
                 import yaml

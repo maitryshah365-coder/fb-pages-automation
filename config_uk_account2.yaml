@@ -1,0 +1,137 @@
+page_group: uk_london_id_2_chanda
+account_name: Chanda Nai
+country_code: GB
+target_location: London, United Kingdom
+require_uk_ip: true
+ai_disclosure_status: pending_determination
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1257864287403392'
+  name: uk2_page_1
+  display_name: Silent Atlas
+  enabled: true
+  drive_folder_id: 1OGQOLu-9Eyrj3lDe3ciuD5dZnH6D09kx
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSgLIRJOwLvwsRZAbAbffNcmVkjDUmKJ5pYnSCSzok6HMfZBs4hpMpLdHZAiSMHSIU88yiB1bc7faR9U8rwPL3YozZBCo1g0W1dR1lgov6K4zs6ZBRvAe6HKqyJ3wB6YJWQW8sOvuYfhBBwmcJCfWYyjFojZAiGmub7a4wPNbuL2QVtAFF2ZCQtAgG2q0RwuZCXfPolm5KW0Do3fK
+- page_id: '1278509768670990'
+  name: uk2_page_2
+  display_name: Rusted Compass
+  enabled: true
+  drive_folder_id: 1y9HGtyLg8q5drHn1vaREFKcnh2bGum74
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSiynB1l6gJIZCokHPNCdB1ZCV9XzMpegfDYFHndwja4qZA3bve6lQIjJgMjMNEhgXNIBAIsLJBybURQYjKZA00YHU9pbAlu6XfPGE3ewbqWsm4ItgpPKIFbiH5RdRZCpfMscnmxv5ZBerYn8XFA4kNWLhOmT9aEQgmYolOESieMQTOaqAbRAPxgxFJcBVNm4DWRoQk60BWuEFg
+- page_id: '1165355063335637'
+  name: uk2_page_3
+  display_name: Yo to Gone
+  enabled: true
+  drive_folder_id: 15XTWHGdBlk4vZfhWNVB1nqNUTg449ocx
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSuZAebmxvC0LZBoSnQpMRVNzCWSndNqAe5QWAr5rOK9E4NBg9lc9crTbkHzM3R2WRuSUjyHhPmwoZCvJZBHdZCV1VnEgcFinynIezHpI5xpKukzVBTCk9F223gCsJIvHXsFyzQdQUXbWCjbZAsFjN9iuu2qQjaDb6QfTCJsCgVZAPZCgZAZBtKv2bs53XAYp1ofKhCxkN8DbBACL23
+- page_id: '1054813994376761'
+  name: uk2_page_4
+  display_name: Velvet Authority
+  enabled: true
+  drive_folder_id: 1Nc1y9TjqkTP-Si20ChGRd0VbC8sMjbWV
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSur8AOEoB6jzOhpFRpj69gHopKabWcxAf1pbrijhG4vkdrdrybJ866UB0tqZBEfU9WZCXNZCeOC99QcDNZC54kYM6wPujzteUbl1AKqHUNZAVTZBVX37b3TohkNOniSYlNMsNOgf99yzsWL5oKM0ZAAKNRS56y7mZBKMCho8NeJmkXxWUwtXhstfC3ctZAG9jEtoHGL9CvwVVwBOb
+- page_id: '1058909860631103'
+  name: uk2_page_5
+  display_name: Urban Drift
+  enabled: true
+  drive_folder_id: 1Ty_piHhtKXG1TghvpQiPsL3fY0Z8dvvM
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSl6ihR9h3K6sDZCZBSomFuO96k8yIPPT3GJLOAlctkm1s6bi1JNuuKKBZCB6psKl23ZBucgkIDiZCyNHHY4uopQrwPcV2HUKX5hYcLD9BF4oGeqHWh5MmVbzGunLn7Ro55MuSZANH6U82nPTRqHKH5ZCDoO2zWvzaAisbrRI2bWOR0qTTgOHUWB5ym4rwuvpZB3CgMzHmm1sFcUL
+- page_id: '1020848977772131'
+  name: uk2_page_6
+  display_name: Johnson  Jerry
+  enabled: true
+  drive_folder_id: 1lftaQxHI_cbKfNsmFBzmgBVcWl4f7QpB
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSkBEQMqRDfAtL0n84hSi3H01NXAard51hbZAdjNUC6Iqn9AVGqy91jbyXCnBV1E606i4cysKLWMlqZBL9kqXTYKmOsMLaNziLoTt9ZAr2xo1Nja1tnBcdsOUdvciAutLWOTCGpBl4rg77RQRmwO612dWZCyqrt1ZBD6lZCzX5ouXIYGH8fMragSUO8jf6nZCOVGKsDDrdeWgQEJ
+- page_id: '820574291145280'
+  name: uk2_page_7
+  display_name: Hill  Alan
+  enabled: true
+  drive_folder_id: 1dvWHkAVYOmArdtqYGZ0pyKgVXHFlXkPH
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSgqZA3MjbD3yBL7ZAMLf5vh8yFTfEVoU3YZA6nhvlFguVM4eHFfOs81QdR6EJzLWR5KrClK5ZCCvesKcUo7Vn2U8eed0vOQZANrM0zW1nLMhHcTSI8f7Sa87kvmgyKZCUrtmff17Oqy2hleS3gTZBBrVvHkuITnHvyMaBotsFDlMZBZBDFqWFszEdFOJ9ALqGetDMjqUChybACVP6
+- page_id: '870381232821932'
+  name: uk2_page_8
+  display_name: James  Jose
+  enabled: true
+  drive_folder_id: 1fRa1X-SMP4KtvVAOOQzsx2Pk7dpC7Mn7
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSoCwqTSnHJx3jnm3XALTYGjBtuzXMvnSvxz0BZCzggZAp8ZCTzfyPTDYd4XUAMgZALx859zVcRoe6ojRoOUOeuTq9rCVVANMG3fkBmshXBfHreWmSVjqt2SaOOVAERPFG1nS6jtRYjwcvIZCAZC89KCxTwC1I1xUipDOosQWXljrZBNa1qhT2gZBF9kUtY3CHJjKscXmfrANtLRI
+- page_id: '779283818590888'
+  name: uk2_page_9
+  display_name: Titan Republic
+  enabled: true
+  drive_folder_id: 1lrpqZhufJxUotz2sO4G_u8GE8POzWrq8
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSqIx2VeS232JJ7iH7RcSupqRgNIeOo3zXK3nXiRKZAuZC6a9ogN4YaeAZAZBvS5gMk4sQQ5EijNbwcFvABrTpbCctDSbcWdFtIuj6gsQCG4B65fZAA44XYeUdnkq1rXpMwc9nf6GjIf9dgUMQiS70oFbNzL1vEZATEauNMbc8bgnb0S0MvEfpEGj3eBzBtbpAZCDJVo7bSxZB3ip
+- page_id: '514777565046552'
+  name: uk2_page_10
+  display_name: Dandelion Diaries
+  enabled: true
+  drive_folder_id: 1zdfwUiZlN8H0QzXDEKtpBp4UQjk0q1MV
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSiHv90jTjvCiXypJppIQRoB5CZCrgQmredJs7cyDpulK7ixPrJo0GxH9HzwpWtxFh1eIMoJMgztfPTxahar0H3adF8VZCQBGOZApYbGh1imYGMfFPnJK4V1gg4zIvoBLQcPakXn1c7wXwAIudT3T650CJgxfGW4UImMk1x9jmWn8qziPEbZBL9GYyCnQl0ZAnpSBxwMD3d2ag
+- page_id: '500491343147382'
+  name: uk2_page_11
+  display_name: Infinite Stories
+  enabled: true
+  drive_folder_id: 1VH4Ca2nFhnjvSuBrwS803DEtaZlLlCGB
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSqLigAzEPHjhLLN4ihg3iFlUrDMiuCKZASdQC97wuSuraL3RDx6Ngzu2kVNslo7lwyR8DZBWHCpkQ7bQ0dBxBNZAYM722AjIqOFkpoWCXzcRkWjzVuHgTdenQ0BHWZCOaZCQZAf1XF9HNjd5BPS7cXhkHakyZAZBCYMln2nfQ1dXZAWgW7ttqbhcZA6yNoRS48ZCa6iqZAP8p2rXSOtQ
+- page_id: '490559100806079'
+  name: uk2_page_12
+  display_name: Idea Acy
+  enabled: true
+  drive_folder_id: 1_a9DIPESOnEZ7BSbFNo7sHOn4uUi74xp
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAUoHP9uV2oBSmtgQ1UF0Lp1HZAr8gu46DokatDbPmAx7Mi0D2dhvivLZC8YTxjh4UGHaulUd7qVNzS5BpvLsZBX4Eo8ORwm5OvwKhJBLZCs7d5jQ7f0ai2hZBGE0QH5nGxkaYclSxeVjXihxXN1RyP5Y4ZCrhwFir34h54SlAV09a5BZBuUYACiXEK7BcaYlPI8UGlpGYSdl9yXZCMiFlUyVobi
