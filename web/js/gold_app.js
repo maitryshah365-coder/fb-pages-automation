@@ -2244,17 +2244,17 @@ function renderTelemetry(target) {
         pillEl.innerText = `✅ ${p.today_posts}/4 Uploaded Today`;
       }
     } else {
-      // ⚠️ NOT UPLOADED TODAY
-      if (statusBox) statusBox.className = "upload-status-box not-uploaded";
+      // ⏳ SCHEDULED & READY (Awaiting Next Scheduled Slot)
+      if (statusBox) statusBox.className = "upload-status-box scheduled-ready";
       if (statusEl) {
-        statusEl.innerHTML = `<span class="badge-status-not-uploaded">⚠️ NOT UPLOADED TODAY (0/4 Slots)</span> • Pending Next Slot`;
+        statusEl.innerHTML = `<span class="badge-status-scheduled">⏳ READY FOR NEXT SLOT (0/4 Slots Today)</span> • All Systems Active`;
       }
       if (detailEl) {
-        detailEl.innerHTML = `No reel published today yet for <strong>${p.name}</strong>. Next scheduled automation slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>) • ${driveCount > 0 ? `<strong style="color:#34d399;">📁 ${driveCount} videos waiting in Drive</strong>` : '<span style="color:#94a3b8;">Drive folder pending setup</span>'}. Previous IP: <code>${ipInfo.ip || 'N/A'}</code>.`;
+        detailEl.innerHTML = `All systems green for <strong>${p.name}</strong>. Next scheduled automation slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>) • ${driveCount > 0 ? `<strong style="color:#34d399;">📁 ${driveCount} videos waiting in Drive</strong>` : '<span style="color:#94a3b8;">Drive folder active</span>'}. Target IP: <code>${ipInfo.city || 'London / US'}, ${ipInfo.country || 'GB'}</code>.`;
       }
       if (pillEl) {
         pillEl.className = "pill-badge pill-amber";
-        pillEl.innerText = `⚠️ Not Uploaded Today`;
+        pillEl.innerText = `⏳ Ready For Next Slot`;
       }
     }
   }
@@ -2660,18 +2660,18 @@ const DRIVE_CONFIGURED_PAGES = {
   "490559100806079":  { pageName: "uk2_page_12", displayName: "Idea Acy", ready: true, videoCount: 367, folderId: "1_a9DIPESOnEZ7BSbFNo7sHOn4uUi74xp", handle: "ideaacy", account: "UK Account 2" },
 
   // UK London Account 3 Pages (Mahi Patel - 12 Pages, London WireGuard Egress)
-  "1190983047436826": { pageName: "uk3_page_1",  displayName: "Shifting Stone",    ready: true, videoCount: 0, folderId: "12KLecp9a14wb8mpv25SBtSBz_G3ggD3H", handle: "shiftingstone",    account: "UK Account 3" },
-  "1224317344092240": { pageName: "uk3_page_2",  displayName: "Heavy Whistle",     ready: true, videoCount: 0, folderId: "1qRO-UGA5bvxgBOU5ecFt7QLPCp9I5QgO", handle: "heavywhistle",     account: "UK Account 3" },
-  "1185315564665369": { pageName: "uk3_page_3",  displayName: "Lost Glossary",     ready: true, videoCount: 0, folderId: "11mH7IVu6Nv5MP00jpxRAnngU2Blgcam3", handle: "lostglossary",     account: "UK Account 3" },
-  "960349707172371":  { pageName: "uk3_page_4",  displayName: "Noble Frequency",   ready: true, videoCount: 0, folderId: "1kQRM_1mLb2TkWtDpXL_2k5ABrEFdo2rj", handle: "noblefrequency",   account: "UK Account 3" },
-  "1063063230214331": { pageName: "uk3_page_5",  displayName: "Prime Syndicate",   ready: true, videoCount: 0, folderId: "1ty72KRjCUo6rfEoECVipYtJ8z9_EJKH8", handle: "primesyndicate",   account: "UK Account 3" },
-  "1063289593524919": { pageName: "uk3_page_6",  displayName: "Empire Catalyst",   ready: true, videoCount: 0, folderId: "1rGFyfznO6crcBJm2iIMAGP07c2KhgoOu", handle: "empirecatalyst",   account: "UK Account 3" },
-  "938570059349598":  { pageName: "uk3_page_7",  displayName: "Obsidian Theory",   ready: true, videoCount: 0, folderId: "1-rnWGv5ubF2V0jJtBCarzYBPetRMzhAX", handle: "obsidiantheory",   account: "UK Account 3" },
-  "982581511610694":  { pageName: "uk3_page_8",  displayName: "Nova District",     ready: true, videoCount: 0, folderId: "1v97_7qE5YKzl3paJ7mcVKZH8O2r87hre", handle: "novadistrict",     account: "UK Account 3" },
-  "994921357036127":  { pageName: "uk3_page_9",  displayName: "New Moon Diaries",  ready: true, videoCount: 0, folderId: "1kpk_XGNplLiSnYxb9B0bGGTq8Po8wjKQ", handle: "newmoondiaries",   account: "UK Account 3" },
-  "1039102779276966": { pageName: "uk3_page_10", displayName: "Dream Harbor",      ready: true, videoCount: 0, folderId: "1tYfVrfivBZBYhx736ihaZ2Mgb0UCo1Hj", handle: "dreamharbor",      account: "UK Account 3" },
-  "1023389020850189": { pageName: "uk3_page_11", displayName: "Maple Vision",      ready: true, videoCount: 0, folderId: "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3", handle: "maplevision",      account: "UK Account 3" },
-  "855237054348766":  { pageName: "uk3_page_12", displayName: "Perez Steven",      ready: true, videoCount: 0, folderId: "1m4zcAJErDtVSRPiZupC067ildpuCp4Xn", handle: "perezsteven",      account: "UK Account 3" }
+  "1190983047436826": { pageName: "uk3_page_1",  displayName: "Shifting Stone",    ready: true, videoCount: 141, folderId: "12KLecp9a14wb8mpv25SBtSBz_G3ggD3H", handle: "shiftingstone",    account: "UK Account 3" },
+  "1224317344092240": { pageName: "uk3_page_2",  displayName: "Heavy Whistle",     ready: true, videoCount: 160, folderId: "1qRO-UGA5bvxgBOU5ecFt7QLPCp9I5QgO", handle: "heavywhistle",     account: "UK Account 3" },
+  "1185315564665369": { pageName: "uk3_page_3",  displayName: "Lost Glossary",     ready: true, videoCount: 289, folderId: "11mH7IVu6Nv5MP00jpxRAnngU2Blgcam3", handle: "lostglossary",     account: "UK Account 3" },
+  "960349707172371":  { pageName: "uk3_page_4",  displayName: "Noble Frequency",   ready: true, videoCount: 137, folderId: "1kQRM_1mLb2TkWtDpXL_2k5ABrEFdo2rj", handle: "noblefrequency",   account: "UK Account 3" },
+  "1063063230214331": { pageName: "uk3_page_5",  displayName: "Prime Syndicate",   ready: true, videoCount: 196, folderId: "1ty72KRjCUo6rfEoECVipYtJ8z9_EJKH8", handle: "primesyndicate",   account: "UK Account 3" },
+  "1063289593524919": { pageName: "uk3_page_6",  displayName: "Empire Catalyst",   ready: true, videoCount: 153, folderId: "1rGFyfznO6crcBJm2iIMAGP07c2KhgoOu", handle: "empirecatalyst",   account: "UK Account 3" },
+  "938570059349598":  { pageName: "uk3_page_7",  displayName: "Obsidian Theory",   ready: true, videoCount: 147, folderId: "1-rnWGv5ubF2V0jJtBCarzYBPetRMzhAX", handle: "obsidiantheory",   account: "UK Account 3" },
+  "982581511610694":  { pageName: "uk3_page_8",  displayName: "Nova District",     ready: true, videoCount: 154, folderId: "1v97_7qE5YKzl3paJ7mcVKZH8O2r87hre", handle: "novadistrict",     account: "UK Account 3" },
+  "994921357036127":  { pageName: "uk3_page_9",  displayName: "New Moon Diaries",  ready: true, videoCount: 146, folderId: "1kpk_XGNplLiSnYxb9B0bGGTq8Po8wjKQ", handle: "newmoondiaries",   account: "UK Account 3" },
+  "1039102779276966": { pageName: "uk3_page_10", displayName: "Dream Harbor",      ready: true, videoCount: 142, folderId: "1tYfVrfivBZBYhx736ihaZ2Mgb0UCo1Hj", handle: "dreamharbor",      account: "UK Account 3" },
+  "1023389020850189": { pageName: "uk3_page_11", displayName: "Maple Vision",      ready: true, videoCount: 165, folderId: "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3", handle: "maplevision",      account: "UK Account 3" },
+  "855237054348766":  { pageName: "uk3_page_12", displayName: "Perez Steven",      ready: true, videoCount: 149, folderId: "1m4zcAJErDtVSRPiZupC067ildpuCp4Xn", handle: "perezsteven",      account: "UK Account 3" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
