@@ -18,23 +18,54 @@ let activeReelsCategory = "all";
 // STRICT FLEET ID REGISTRY (PREVENTS KHICHDI / ZERO OVERLAP GUARANTEE)
 // =========================================================================
 const FLEET_USA_01_IDS = [
-  "100259869680371", "110544525330349", "115065401540673", "115274191522295",
-  "116812854703816", "117950551254395", "118430744540455", "118464301202868",
-  "120253457692226", "120938531024349", "122424887474251", "123381634042848",
-  "123657380687158", "124239857294206", "127926880407767"
+  "988523547680750",  // Mix Mood
+  "1040244259164767", // Charmy Owen
+  "965629596638624",  // Silent Peak Social
+  "956622247541040",  // Horizon Nest Daily
+  "1034326643100670", // Bright Flare Hub
+  "924636817403215",  // LuxeEpic Frames
+  "795016603693140",  // Lopez Edward
+  "637367679454577",  // Crown Empire
+  "640019675857269",  // Crafty Champions
+  "626061003919674",  // Fun Life
+  "528360240361556",  // Dominion Authority
+  "503358542855153",  // Family Fancy
+  "500794979779192",  // Me Text
+  "468230386376818",  // Bot Mask
+  "106309715659174"   // Fresh Hive Network
 ];
 
 const FLEET_USA_02_IDS = [
-  "178262278709426", "191024227429188", "174092799127599", "180429445155979",
-  "188448834346944", "188989124294336", "175825318956942", "183060161556948",
-  "184323678097960", "185864197940173", "186256921235334", "187900767735398",
-  "176892285514777", "199046363282913", "169686166222750"
+  "1069951959531260", // Crimson Authority
+  "979493165253123",  // Heven Made
+  "920161364524597",  // Evening Wise
+  "1005402935985498", // Glow City Stories
+  "802674512937262",  // Gonzales Jordan
+  "765106526695498",  // Gonzales Bradley
+  "568171476378321",  // The Showdown Hub
+  "454880037713018",  // Garden Super
+  "368653459672717",  // Gold encloud Studio
+  "359780240556577",  // Gintube
+  "211294825398492",  // Sovereign Labs
+  "166448239894078",  // Prestige Frontier
+  "176892285514777",  // Zenith Empire
+  "199046363282913",  // Crown Voltage
+  "169686166222750"   // Supreme Ledger
 ];
 
 const FLEET_UK_01_IDS = [
-  "1275440552308410", "1094091620443741", "883030611569420", "876743625532242",
-  "954228904442447", "884416694753956", "766333629906067", "838517782676673",
-  "860013240524658", "802792259592614", "439151942618231", "297665506763102"
+  "1275440552308410", // Bitter Lullaby
+  "1094091620443741", // Apex Dominion
+  "883030611569420",  // Apex Narrative
+  "876743625532242",  // Young Bradley
+  "954228904442447",  // Scott Dennis
+  "884416694753956",  // Wood Stephen
+  "766333629906067",  // Morgan Donald
+  "838517782676673",  // Rogers Albert
+  "860013240524658",  // Roberts Austin
+  "802792259592614",  // Mitchell Jack
+  "439151942618231",  // Words Though
+  "297665506763102"   // Quantum Collective
 ];
 
 const FLEET_USA_01_SET = new Set(FLEET_USA_01_IDS);
@@ -2481,26 +2512,14 @@ function renderStudioFleetList() {
 
   container.innerHTML = "";
 
-  let shownUsa1Header = false;
-  let shownUsa2Header = false;
-  let shownUk1Header = false;
+  const usa1List = [];
+  const usa2List = [];
+  const uk1List = [];
 
   fullData.pages.forEach(page => {
     const pId = String(page.id);
     const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
-    const isDriveReady = Boolean(driveInfo?.ready);
-    const isSelected = studioSelectedPageIds.has(pId);
-    const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-    const isUSA1 = FLEET_USA_01_SET.has(pId);
-    const isUSA2 = FLEET_USA_02_SET.has(pId);
-    const isUK1 = FLEET_UK_01_SET.has(pId);
-
-    // Account quick filter tab (all / a1 / a2 / uk1)
-    if (currentStudioAccountFilter === "a1" && !isUSA1) return;
-    if (currentStudioAccountFilter === "a2" && !isUSA2) return;
-    if (currentStudioAccountFilter === "uk1" && !isUK1) return;
 
     // Search query match
     if (query) {
@@ -2509,76 +2528,153 @@ function renderStudioFleetList() {
       if (!matchName && !matchHandle) return;
     }
 
-    // When "all" tab is active and not searching, show clear section dividers separating the fleets
-    if (currentStudioAccountFilter === "all" && !query) {
-      if (isUSA1 && !shownUsa1Header) {
-        shownUsa1Header = true;
-        const div = document.createElement("div");
-        div.className = "studio-section-divider studio-divider-usa1";
-        div.innerHTML = `<span>🇺🇸 USA 01 — Account 1 (15 Pages)</span><span class="studio-divider-badge">USA A1</span>`;
-        container.appendChild(div);
-      } else if (isUSA2 && !shownUsa2Header) {
-        shownUsa2Header = true;
-        const div = document.createElement("div");
-        div.className = "studio-section-divider studio-divider-usa2";
-        div.innerHTML = `<span>🇺🇸 USA 02 — Account 2 (15 Pages)</span><span class="studio-divider-badge">USA A2</span>`;
-        container.appendChild(div);
-      } else if (isUK1 && !shownUk1Header) {
-        shownUk1Header = true;
-        const div = document.createElement("div");
-        div.className = "studio-section-divider studio-divider-uk1";
-        div.innerHTML = `<span>🇬🇧 UK London — Account 1 (12 Pages)</span><span class="studio-divider-badge">UK A1</span>`;
-        container.appendChild(div);
-      }
+    if (FLEET_USA_01_SET.has(pId)) usa1List.push(page);
+    else if (FLEET_USA_02_SET.has(pId)) usa2List.push(page);
+    else if (FLEET_UK_01_SET.has(pId)) uk1List.push(page);
+    else {
+      if (page.region === "GB" || page.account === "UK Account 1") uk1List.push(page);
+      else if (page.account === "Account 2" || page.index > 15) usa2List.push(page);
+      else usa1List.push(page);
     }
+  });
 
-    const badgeText = isUK1 ? 'UK1' : (isUSA2 ? 'A2' : 'A1');
-    const badgeClass = isUK1 ? 'badge-uk' : (isUSA2 ? 'badge-a2' : 'badge-a1');
+  function renderStudioPageRow(page, accType) {
+    const pId = String(page.id);
+    const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
+    const isDriveReady = Boolean(driveInfo?.ready || page.is_configured !== false);
+    const isSelected = studioSelectedPageIds.has(pId);
+    const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
+    const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-    const row = document.createElement("div");
-    row.className = `studio-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}`;
-    row.dataset.pageId = pId;
+    const badgeText = accType === 'uk1' ? 'UK1' : (accType === 'usa2' ? 'A2' : 'A1');
+    const badgeClass = accType === 'uk1' ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
 
-    row.innerHTML = `
-      <div class="studio-page-row-left">
-        <div class="studio-custom-checkbox">
-          <span class="studio-check-mark">✓</span>
-        </div>
-        <img class="studio-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
-        <div class="studio-page-meta">
-          <div class="studio-page-name" style="display:flex;align-items:center;">
-            <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${page.name}</span>
-            <span class="page-account-badge ${badgeClass}">${badgeText}</span>
+    return `
+      <div class="studio-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}"
+           data-page-id="${pId}"
+           onclick="toggleStudioPageSelection('${pId}', event)"
+           ${!isDriveReady ? 'title="Drive folder not configured for this page yet"' : ''}>
+        <div class="studio-page-row-left">
+          <div class="studio-custom-checkbox">
+            <span class="studio-check-mark">✓</span>
           </div>
-          <div class="studio-page-sub">@${handle} • ${isDriveReady ? `<span class="drive-count-green">${videoCount} in Drive</span>` : `<span style="color:#64748b;">Pending Folder</span>`}</div>
+          <img class="studio-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
+          <div class="studio-page-meta">
+            <div class="studio-page-name" style="display:flex;align-items:center;">
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${page.name}</span>
+              <span class="page-account-badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="studio-page-sub">@${handle} • ${isDriveReady ? `<span class="drive-count-green">${videoCount} in Drive</span>` : `<span style="color:#64748b;">Pending Folder</span>`}</div>
+          </div>
+        </div>
+        <button type="button" class="btn-select-toggle-pill ${isSelected ? 'selected' : ''}" ${!isDriveReady ? 'disabled' : ''} onclick="event.stopPropagation(); toggleStudioPageSelection('${pId}', event)">
+          ${isSelected ? 'SELECTED' : 'SELECT'}
+        </button>
+      </div>
+    `;
+  }
+
+  function buildStudioBox(cssClass, fleetId, emoji, title, badge, items, accType) {
+    const isSingleTab = currentStudioAccountFilter === fleetId;
+    const shouldExpand = isSingleTab || Boolean(query);
+    return `
+      <div class="sidebar-section-box studio-fleet-box ${cssClass} ${shouldExpand ? 'expanded' : ''}" data-fleet="${fleetId}" id="studioFleetBox_${fleetId}">
+        <div class="sidebar-box-header" onclick="toggleStudioFleetBox('${fleetId}', event)">
+          <div class="sidebar-box-title">
+            <span>${emoji}</span>
+            <span>${title}</span>
+          </div>
+          <div class="sidebar-box-right">
+            <span class="sidebar-box-badge">${badge}</span>
+            <span class="sidebar-box-chevron">▼</span>
+          </div>
+        </div>
+        <div class="sidebar-box-body">
+          ${items.map(p => renderStudioPageRow(p, accType)).join("")}
         </div>
       </div>
-      <button type="button" class="btn-select-toggle-pill ${isSelected ? 'selected' : ''}" ${!isDriveReady ? 'disabled' : ''}>
-        ${isSelected ? 'SELECTED' : 'SELECT'}
-      </button>
     `;
+  }
 
-    if (isDriveReady) {
-      row.addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleStudioPageSelection(pId);
-      });
-    } else {
-      row.title = "Drive folder not configured for this page yet";
+  let html = "";
+  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "a1") {
+    if (usa1List.length > 0) {
+      html += buildStudioBox("sidebar-box-usa1", "a1", "🇺🇸", "USA 01 (Account 1)", `${usa1List.length} Pages • A1`, usa1List, "usa1");
     }
+  }
+  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "a2") {
+    if (usa2List.length > 0) {
+      html += buildStudioBox("sidebar-box-usa2", "a2", "🇺🇸", "USA 02 (Account 2)", `${usa2List.length} Pages • A2`, usa2List, "usa2");
+    }
+  }
+  if (currentStudioAccountFilter === "all" || currentStudioAccountFilter === "uk1") {
+    if (uk1List.length > 0) {
+      html += buildStudioBox("sidebar-box-uk1", "uk1", "🇬🇧", "UK 01 (London Account 1)", `${uk1List.length} Pages • UK1`, uk1List, "uk1");
+    }
+  }
 
-    container.appendChild(row);
-  });
+  container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
+
+  const countBadge = document.getElementById("studioFleetCountBadge");
+  const totalCount = usa1List.length + usa2List.length + uk1List.length;
+  if (countBadge) {
+    countBadge.innerText = `${totalCount} Ready`;
+  }
 }
 
-function toggleStudioPageSelection(pageId) {
-  if (studioSelectedPageIds.has(pageId)) {
-    studioSelectedPageIds.delete(pageId);
-  } else {
-    studioSelectedPageIds.add(pageId);
+window.toggleStudioFleetBox = function(fleetId, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const box = document.getElementById("studioFleetBox_" + fleetId);
+  if (!box) return;
+
+  const isExpanded = box.classList.contains("expanded");
+
+  // Close all other boxes if in 'all' filter so only 1 open at a time
+  if (currentStudioAccountFilter === "all") {
+    document.querySelectorAll(".studio-fleet-box.expanded").forEach(b => {
+      if (b !== box) b.classList.remove("expanded");
+    });
   }
+
+  if (isExpanded) {
+    box.classList.remove("expanded");
+  } else {
+    box.classList.add("expanded");
+    setTimeout(() => {
+      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 50);
+  }
+};
+
+function toggleStudioPageSelection(pageId, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const pId = String(pageId);
+  const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
+  const pageObj = fullData?.pages?.find(p => String(p.id) === pId);
+  const isDriveReady = Boolean(driveInfo?.ready || pageObj?.is_configured !== false);
+  if (!isDriveReady) return;
+
+  if (studioSelectedPageIds.has(pId)) {
+    studioSelectedPageIds.delete(pId);
+  } else {
+    studioSelectedPageIds.add(pId);
+  }
+
+  // Update row visual without re-rendering entire list (keeps box open)
+  const row = document.querySelector(`.studio-page-row[data-page-id="${pId}"]`);
+  if (row) {
+    const isSelected = studioSelectedPageIds.has(pId);
+    row.classList.toggle("selected", isSelected);
+    const btn = row.querySelector(".btn-select-toggle-pill");
+    if (btn) {
+      btn.classList.toggle("selected", isSelected);
+      btn.innerText = isSelected ? "SELECTED" : "SELECT";
+    }
+  }
+
   updateStudioSelectionUI();
 }
+window.toggleStudioPageSelection = toggleStudioPageSelection;
 
 function selectAllReadyPages() {
   if (!fullData || !fullData.pages) return;
@@ -2594,11 +2690,27 @@ function selectAllReadyPages() {
       studioSelectedPageIds.add(pId);
     }
   });
+  renderStudioFleetList();
+  // Keep active box expanded
+  if (currentStudioAccountFilter !== "all") {
+    const b = document.getElementById("studioFleetBox_" + currentStudioAccountFilter);
+    if (b) b.classList.add("expanded");
+  } else {
+    document.querySelectorAll(".studio-fleet-box").forEach(b => b.classList.add("expanded"));
+  }
   updateStudioSelectionUI();
 }
 
 function clearAllSelectedPages() {
   studioSelectedPageIds.clear();
+  document.querySelectorAll(".studio-page-row.selected").forEach(r => {
+    r.classList.remove("selected");
+    const btn = r.querySelector(".btn-select-toggle-pill");
+    if (btn) {
+      btn.classList.remove("selected");
+      btn.innerText = "SELECT";
+    }
+  });
   updateStudioSelectionUI();
 }
 

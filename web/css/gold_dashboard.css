@@ -3593,6 +3593,27 @@ body {
   box-shadow: 0 0 12px rgba(16, 185, 129, 0.12);
 }
 
+/* Studio Fleet Collapsible Accordion Box */
+.studio-fleet-box {
+  margin-bottom: 10px;
+}
+
+.studio-fleet-box .sidebar-box-header {
+  padding: 10px 12px;
+}
+
+.studio-fleet-box .sidebar-box-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+}
+
+.studio-fleet-box.expanded .sidebar-box-body {
+  padding: 8px 6px;
+  max-height: 2500px;
+}
+
 /* Studio Section Dividers */
 .studio-section-divider {
   display: flex;
