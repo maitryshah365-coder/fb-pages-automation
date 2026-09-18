@@ -144,12 +144,20 @@
 
         <!-- Shutter Body (Closed by default - Shutter Band) -->
         <div class="sidebar-pages-body" id="sidePagesShutterBody">
+          <!-- Account Quick Filter Tabs (Like Post Now: All / A1 / A2 / UK1) -->
+          <div class="side-pages-account-tabs" id="sidePagesAccountTabs">
+            <button type="button" class="side-acc-tab active" data-filter="all" onclick="filterSidebarPages('all', event)">All (42)</button>
+            <button type="button" class="side-acc-tab" data-filter="a1" onclick="filterSidebarPages('a1', event)">USA A1 (15)</button>
+            <button type="button" class="side-acc-tab" data-filter="a2" onclick="filterSidebarPages('a2', event)">USA A2 (15)</button>
+            <button type="button" class="side-acc-tab" data-filter="uk1" onclick="filterSidebarPages('uk1', event)">UK A1 (12)</button>
+          </div>
+
           <div class="sidebar-pages-search-row">
             <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search 42 pages (USA / UK)..." onclick="event.stopPropagation()">
           </div>
 
           <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
-            <!-- Dynamically populated with all 30 pages -->
+            <!-- Dynamically populated -->
           </div>
         </div>
       </div>

@@ -3366,13 +3366,48 @@ body {
   color: #64748b;
 }
 
+/* Account Quick Filter Tabs inside All Pages List Shutter (Like Post Now) */
+.side-pages-account-tabs {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.side-acc-tab {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 5px 2px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.side-acc-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.side-acc-tab.active {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
 /* Scrollable Pages List */
 .sidebar-pages-scroll-list {
-  max-height: 250px;
+  max-height: 380px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   padding-right: 2px;
 }
 

@@ -429,7 +429,20 @@ async function syncLiveMetaGraph() {
   }
 }
 
-// ----------------- Desktop Left Sidebar Page List -----------------
+// ----------------- Desktop Left Sidebar Page List & Filtering -----------------
+
+let currentSidePagesFilter = "all";
+
+window.filterSidebarPages = function(filter, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  currentSidePagesFilter = filter;
+  document.querySelectorAll(".side-acc-tab").forEach(tab => {
+    tab.classList.toggle("active", tab.dataset.filter === filter);
+  });
+  if (fullData && fullData.pages) {
+    renderSidebarPagesList(fullData.pages);
+  }
+};
 
 function renderSidebarPagesList(pages) {
   const container = document.getElementById("sidebarPagesScrollList");
@@ -438,11 +451,22 @@ function renderSidebarPagesList(pages) {
   const searchInput = document.getElementById("sidePagesSearchInput");
   const searchTerm = (searchInput?.value || "").toLowerCase().trim();
   const pageList = pages || (fullData?.pages || []);
-  const filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
+  
+  // 1. Text Search filtering
+  let filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
 
-  // Separate into USA and UK
-  const usaList = filtered.filter(p => (p.region !== 'GB' && p.account !== 'UK Account 1' && (p.index <= 30 || !p.index)));
-  const ukList = filtered.filter(p => (p.region === 'GB' || p.account === 'UK Account 1' || p.index > 30));
+  // 2. Tab Quick Filtering (Like Post Now: all / a1 / a2 / uk1)
+  if (currentSidePagesFilter === "a1") {
+    filtered = filtered.filter(p => p.account_tag === "USA A1" || (p.index <= 15 && p.region !== "GB"));
+  } else if (currentSidePagesFilter === "a2") {
+    filtered = filtered.filter(p => p.account_tag === "USA A2" || (p.index > 15 && p.index <= 30 && p.region !== "GB"));
+  } else if (currentSidePagesFilter === "uk1") {
+    filtered = filtered.filter(p => p.account_tag === "UK A1" || p.region === "GB" || p.account === "UK Account 1" || p.index > 30);
+  }
+
+  // Separate strictly into USA (1-30) and UK (31-42)
+  const usaList = filtered.filter(p => p.region !== "GB" && p.account !== "UK Account 1" && (p.index <= 30 || !p.index));
+  const ukList = filtered.filter(p => p.region === "GB" || p.account === "UK Account 1" || p.index > 30);
 
   function renderPageItem(p) {
     const isPageActive = String(p.id) === activePageId;
@@ -498,44 +522,50 @@ function renderSidebarPagesList(pages) {
 
   let html = "";
 
-  if (usaList.length > 0) {
-    html += `
-      <div class="sidebar-section-box sidebar-usa-box" style="margin-bottom:12px; border:1px solid rgba(59,130,246,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
-        <div class="sidebar-section-header" style="padding:7px 10px; background:linear-gradient(90deg, rgba(59,130,246,0.18), rgba(30,58,138,0.1)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <span style="font-size:13px;">🇺🇸</span>
-            <span style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:0.4px;">USA PAGES (1ST BOX)</span>
+  // If filtered down to single account tab, render flat clean list without nested redundant box
+  if (currentSidePagesFilter === "a1" || currentSidePagesFilter === "a2" || currentSidePagesFilter === "uk1") {
+    html = filtered.map(renderPageItem).join("");
+  } else {
+    // "all" tab: Show 2 distinct boxes as requested
+    if (usaList.length > 0) {
+      html += `
+        <div class="sidebar-section-box sidebar-usa-box" style="margin-bottom:10px; border:1px solid rgba(59,130,246,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
+          <div class="sidebar-section-header" style="padding:6px 10px; background:linear-gradient(90deg, rgba(59,130,246,0.18), rgba(30,58,138,0.1)); border-bottom:1px solid rgba(59,130,246,0.2); display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:13px;">🇺🇸</span>
+              <span style="font-size:11px; font-weight:800; color:#93c5fd; letter-spacing:0.4px;">USA PAGES (1ST BOX)</span>
+            </div>
+            <span style="font-size:10px; font-weight:700; color:#60a5fa; background:rgba(59,130,246,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(59,130,246,0.3);">${usaList.length} Pages • A1 / A2</span>
           </div>
-          <span style="font-size:10px; font-weight:700; color:#60a5fa; background:rgba(59,130,246,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(59,130,246,0.3);">${usaList.length} Pages • A1 / A2</span>
+          <div style="padding:3px 0;">
+            ${usaList.map(renderPageItem).join("")}
+          </div>
         </div>
-        <div style="padding:3px 0;">
-          ${usaList.map(renderPageItem).join("")}
+      `;
+    }
+
+    if (ukList.length > 0) {
+      html += `
+        <div class="sidebar-section-box sidebar-uk-box" style="margin-bottom:6px; border:1px solid rgba(16,185,129,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
+          <div class="sidebar-section-header" style="padding:6px 10px; background:linear-gradient(90deg, rgba(16,185,129,0.18), rgba(6,78,59,0.1)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:13px;">🇬🇧</span>
+              <span style="font-size:11px; font-weight:800; color:#6ee7b7; letter-spacing:0.4px;">UK LONDON PAGES (2ND BOX)</span>
+            </div>
+            <span style="font-size:10px; font-weight:700; color:#34d399; background:rgba(16,185,129,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">${ukList.length} Pages • UK A1</span>
+          </div>
+          <div style="padding:3px 0;">
+            ${ukList.map(renderPageItem).join("")}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
 
-  if (ukList.length > 0) {
-    html += `
-      <div class="sidebar-section-box sidebar-uk-box" style="margin-bottom:8px; border:1px solid rgba(16,185,129,0.25); background:rgba(15,23,42,0.6); border-radius:10px; overflow:hidden;">
-        <div class="sidebar-section-header" style="padding:7px 10px; background:linear-gradient(90deg, rgba(16,185,129,0.18), rgba(6,78,59,0.1)); border-bottom:1px solid rgba(16,185,129,0.2); display:flex; align-items:center; justify-content:space-between;">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <span style="font-size:13px;">🇬🇧</span>
-            <span style="font-size:11px; font-weight:800; color:#6ee7b7; letter-spacing:0.4px;">UK LONDON PAGES (2ND BOX)</span>
-          </div>
-          <span style="font-size:10px; font-weight:700; color:#34d399; background:rgba(16,185,129,0.18); padding:1px 6px; border-radius:4px; border:1px solid rgba(16,185,129,0.3);">${ukList.length} Pages • UK A1</span>
-        </div>
-        <div style="padding:3px 0;">
-          ${ukList.map(renderPageItem).join("")}
-        </div>
-      </div>
-    `;
-  }
-
-  container.innerHTML = html;
+  container.innerHTML = html || `<div style="padding:14px;text-align:center;color:#64748b;font-size:11px;">No pages found</div>`;
 
   const countBadge = document.getElementById("sidePagesCountBadge");
-  if (countBadge) countBadge.innerText = `${(pageList || []).length} Pages`;
+  if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
 }
 
 let isTogglingShutter = false;
@@ -573,6 +603,29 @@ window.toggleSidePagesShutter = function(e) {
 function onSelectSidebarPage(pageId, e) {
   if (e && e.stopPropagation) e.stopPropagation();
   selectPage(pageId);
+
+  // Update header subtext
+  const pageObj = fullData?.pages?.find(p => String(p.id) === String(pageId));
+  const sub = document.getElementById("sideActivePageSub");
+  if (sub && pageObj) {
+    sub.innerText = `Active: ${pageObj.name}`;
+    sub.style.color = "#38bdf8";
+  }
+
+  // Auto-close the shutter so user can immediately view and interact with the page dashboard
+  const box = document.getElementById("sidePagesAccordionBox");
+  const shutter = document.getElementById("sidePagesShutterBody");
+  const arrow = document.getElementById("sidePagesToggleArrow");
+  if (box && box.classList.contains("open")) {
+    box.classList.remove("open");
+    if (shutter) shutter.style.display = "none";
+    if (arrow) arrow.innerText = "▼";
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (pageObj) {
+    showToast(`📊 Loaded ${pageObj.name} Dashboard`);
+  }
 }
 window.onSelectSidebarPage = onSelectSidebarPage;
 
