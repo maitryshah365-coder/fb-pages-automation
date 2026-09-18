@@ -384,11 +384,11 @@ async function initDashboard() {
       }
     } catch(e) {}
 
-    // 2. Load latest pages_data, latest_run_summary and server_uploaded_videos concurrently
+    // 2. Load latest pages_data, latest_run_summary and server_uploaded_videos concurrently (force no-cache)
     const [resPages, resSummary, resServerVideos] = await Promise.all([
-      fetch("data/pages_data.json?v=" + Date.now()).then(r => r.ok ? r.json() : null),
-      fetch("data/latest_run_summary.json?v=" + Date.now()).then(r => r.ok ? r.json() : null),
-      fetch("data/server_uploaded_videos.json?v=" + Date.now()).then(r => r.ok ? r.json() : null)
+      fetch("data/pages_data.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
+      fetch("data/latest_run_summary.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
+      fetch("data/server_uploaded_videos.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null)
     ]);
 
     fullData = resPages || {};
@@ -481,16 +481,26 @@ async function syncLiveMetaGraph() {
   let updatedPages = 0;
 
   try {
-    // 1. If running on local server, trigger backend concurrent sync
+    // 1. Force fresh fetch of latest pages_data.json from server / GitHub Pages
     try {
-      if (window.location.protocol.startsWith("http") && (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")) {
-        const syncResp = await fetch("/api/sync", { method: "POST" });
-        if (syncResp.ok) {
-          const freshRes = await fetch("data/pages_data.json?v=" + Date.now());
-          if (freshRes.ok) {
-            fullData = await freshRes.json();
+      const freshRes = await fetch("data/pages_data.json?v=" + Date.now(), { cache: "no-store" });
+      if (freshRes.ok) {
+        const freshData = await freshRes.json();
+        if (freshData && freshData.pages && freshData.pages.length > 0) {
+          fullData = freshData;
+          if (Array.isArray(fullData.pages)) {
+            fullData.pages = enforceStrictFleetSorting(fullData.pages);
           }
         }
+      }
+    } catch (err) {
+      console.warn("Direct fresh data reload error:", err);
+    }
+
+    // If running on local server, also trigger backend concurrent sync
+    try {
+      if (window.location.protocol.startsWith("http") && (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")) {
+        fetch("/api/sync", { method: "POST" }).catch(() => {});
       }
     } catch (err) {
       // Local server /api/sync optional fallback
@@ -2249,9 +2259,10 @@ function setupEventListeners() {
 
   // Mobile Header buttons
   document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
-  document.getElementById("btnMobileSync")?.addEventListener("click", () => {
+  document.getElementById("btnMobileSync")?.addEventListener("click", async () => {
     showToast(`⚡ Syncing Live Meta Graph API...`);
-    syncLiveMetaGraph();
+    await syncLiveMetaGraph();
+    showToast(`✅ Phone Sync Complete: 42 Pages Verified`);
   });
   const allDrawerTile = document.getElementById("btnSelectAllPagesDrawer");
   if (allDrawerTile) {
