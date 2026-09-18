@@ -4435,6 +4435,13 @@ body {
   box-shadow: 0 0 8px rgba(192, 132, 252, 0.2);
 }
 
+.page-account-badge.badge-uk {
+  background: rgba(234, 179, 8, 0.18);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.55);
+  box-shadow: 0 0 8px rgba(234, 179, 8, 0.25);
+}
+
 /* Post Now Account Filter Tabs */
 .studio-account-filters {
   display: flex;

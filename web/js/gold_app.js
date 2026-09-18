@@ -2009,7 +2009,21 @@ const DRIVE_CONFIGURED_PAGES = {
   "166448239894078":  { pageName: "page_27", displayName: "Prestige Frontier", ready: true, videoCount: 39, handle: "prestigefrontier", account: "Account 2" },
   "176892285514777":  { pageName: "page_28", displayName: "Zenith Empire", ready: true, videoCount: 466, handle: "zenithempire", account: "Account 2" },
   "199046363282913":  { pageName: "page_29", displayName: "Crown Voltage", ready: true, videoCount: 140, handle: "crownvoltage", account: "Account 2" },
-  "169686166222750":  { pageName: "page_30", displayName: "Supreme Ledger", ready: true, videoCount: 200, handle: "supremeledger", account: "Account 2" }
+  "169686166222750":  { pageName: "page_30", displayName: "Supreme Ledger", ready: true, videoCount: 200, handle: "supremeledger", account: "Account 2" },
+
+  // UK London Account 1 Pages (Binjal Mehra - 12 Pages, London WireGuard Egress)
+  "1275440552308410": { pageName: "uk1_page_1", displayName: "Bitter Lullaby", ready: true, videoCount: 367, folderId: "17SQXMG8HL8tGgXI1-Tn5I5mQ8Ce0h0a2", handle: "bitterlullaby", account: "UK Account 1" },
+  "1094091620443741": { pageName: "uk1_page_2", displayName: "Apex Dominion", ready: true, videoCount: 159, folderId: "1hhkz2KlqkCJ7wpbgKk4ya_361AtlAjvw", handle: "apexdominion", account: "UK Account 1" },
+  "883030611569420":  { pageName: "uk1_page_3", displayName: "Apex Narrative", ready: true, videoCount: 190, folderId: "1vTdVLboxrjH3lRqCDChX6r0MvlOW_6xZ", handle: "apexnarrative", account: "UK Account 1" },
+  "876743625532242":  { pageName: "uk1_page_4", displayName: "Young  Bradley", ready: true, videoCount: 259, folderId: "1PBRUGAoXqpmr_2L6YuxkVACX3LBEFJiE", handle: "youngbradley", account: "UK Account 1" },
+  "954228904442447":  { pageName: "uk1_page_5", displayName: "Scott  Dennis", ready: true, videoCount: 224, folderId: "1JmtVwNgjy0ze94TaUe3_a1GKxZKmh7oY", handle: "scottdennis", account: "UK Account 1" },
+  "884416694753956":  { pageName: "uk1_page_6", displayName: "Wood  Stephen", ready: true, videoCount: 485, folderId: "1Z9Ov642iD-iilWbIVOm0b-jdbFbDNdoB", handle: "woodstephen", account: "UK Account 1" },
+  "766333629906067":  { pageName: "uk1_page_7", displayName: "Morgan  Donald", ready: true, videoCount: 223, folderId: "1ISgWlF4cUFvRzDhyqRf7n41UGNSqBHlP", handle: "morgandonald", account: "UK Account 1" },
+  "838517782676673":  { pageName: "uk1_page_8", displayName: "Rogers  Albert", ready: true, videoCount: 449, folderId: "1zkNs_XzwXhiElCQimHdHxORUnJnPLXSJ", handle: "rogersalbert", account: "UK Account 1" },
+  "860013240524658":  { pageName: "uk1_page_9", displayName: "Roberts  Austin", ready: true, videoCount: 302, folderId: "1gm2neO5u2CWo-xBUP1nN507GUeoSqmRk", handle: "robertsaustin", account: "UK Account 1" },
+  "802792259592614":  { pageName: "uk1_page_10", displayName: "Mitchell  Jack", ready: true, videoCount: 431, folderId: "1hOeE4b28ph5m5QiTvYZyQ8Mduc8bLhbO", handle: "mitchelljack", account: "UK Account 1" },
+  "439151942618231":  { pageName: "uk1_page_11", displayName: "Words Though", ready: true, videoCount: 108, folderId: "1BpkOd2UoI5-XbRvdVmaL2m3KJGO5ci29", handle: "wordsthough", account: "UK Account 1" },
+  "297665506763102":  { pageName: "uk1_page_12", displayName: "Quantum Collective", ready: true, videoCount: 216, folderId: "1DiHP1KqZXnPqlIghqDiyk1_733vzUmtM", handle: "quantumcollective", account: "UK Account 1" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
@@ -2217,11 +2231,15 @@ function renderStudioFleetList() {
     const isSelected = studioSelectedPageIds.has(pId);
     const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
-    const isA2 = (page.account === 'Account 2') || (page.index > 15);
+    const isA2 = (page.account === 'Account 2') || (page.index > 15 && page.index <= 30);
+    const isUK = (page.account === 'UK Account 1') || (page.index > 30) || (page.region === 'GB');
+    const badgeText = isUK ? 'UK1' : (isA2 ? 'A2' : 'A1');
+    const badgeClass = isUK ? 'badge-uk' : (isA2 ? 'badge-a2' : 'badge-a1');
 
-    // Account quick filter tab (all / a1 / a2)
-    if (currentStudioAccountFilter === "a1" && isA2) return;
-    if (currentStudioAccountFilter === "a2" && !isA2) return;
+    // Account quick filter tab (all / a1 / a2 / uk1)
+    if (currentStudioAccountFilter === "a1" && (isA2 || isUK)) return;
+    if (currentStudioAccountFilter === "a2" && (!isA2 || isUK)) return;
+    if (currentStudioAccountFilter === "uk1" && !isUK) return;
 
     // Search query match
     if (query) {
@@ -2243,7 +2261,7 @@ function renderStudioFleetList() {
         <div class="studio-page-meta">
           <div class="studio-page-name" style="display:flex;align-items:center;">
             <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${page.name}</span>
-            <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}">${isA2 ? 'A2' : 'A1'}</span>
+            <span class="page-account-badge ${badgeClass}">${badgeText}</span>
           </div>
           <div class="studio-page-sub">@${handle} • ${isDriveReady ? `<span class="drive-count-green">${videoCount} in Drive</span>` : `<span style="color:#64748b;">Pending Folder</span>`}</div>
         </div>
@@ -2279,9 +2297,11 @@ function selectAllReadyPages() {
   if (!fullData || !fullData.pages) return;
   fullData.pages.forEach(page => {
     const pId = String(page.id);
-    const isA2 = (page.account === 'Account 2') || (page.index > 15);
-    if (currentStudioAccountFilter === "a1" && isA2) return;
-    if (currentStudioAccountFilter === "a2" && !isA2) return;
+    const isA2 = (page.account === 'Account 2') || (page.index > 15 && page.index <= 30);
+    const isUK = (page.account === 'UK Account 1') || (page.index > 30) || (page.region === 'GB');
+    if (currentStudioAccountFilter === "a1" && (isA2 || isUK)) return;
+    if (currentStudioAccountFilter === "a2" && (!isA2 || isUK)) return;
+    if (currentStudioAccountFilter === "uk1" && !isUK) return;
     if (DRIVE_CONFIGURED_PAGES[pId]?.ready || page.is_configured !== false) {
       studioSelectedPageIds.add(pId);
     }
@@ -2860,14 +2880,18 @@ function renderDriveDataView() {
   let totalStock = 0;
   let a1Stock = 0;
   let a2Stock = 0;
+  let ukStock = 0;
 
   fullData.pages.forEach(p => {
     const pid = String(p.id);
     const dInfo = DRIVE_CONFIGURED_PAGES[pid];
     const count = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
-    const isA2 = (p.account === "Account 2") || (p.index > 15);
+    const isA2 = (p.account === "Account 2") || (p.index > 15 && p.index <= 30);
+    const isUK = (p.account === "UK Account 1") || (p.index > 30) || (p.region === "GB");
     totalStock += count;
-    if (isA2) {
+    if (isUK) {
+      ukStock += count;
+    } else if (isA2) {
       a2Stock += count;
     } else {
       a1Stock += count;
@@ -2880,6 +2904,8 @@ function renderDriveDataView() {
   if (elA1) elA1.innerText = `${a1Stock.toLocaleString()} Videos`;
   const elA2 = document.getElementById("driveHeroA2Count");
   if (elA2) elA2.innerText = `${a2Stock.toLocaleString()} Videos`;
+  const elUK = document.getElementById("driveHeroUKCount");
+  if (elUK) elUK.innerText = `${ukStock.toLocaleString()} Videos`;
   const elSideBadge = document.getElementById("sideNavDriveCountBadge");
   if (elSideBadge) elSideBadge.innerText = totalStock.toLocaleString();
 
@@ -2895,9 +2921,11 @@ function renderDriveInventoryList() {
   const query = (searchInput?.value || "").toLowerCase().trim();
 
   const filtered = fullData.pages.filter(p => {
-    const isA2 = (p.account === "Account 2") || (p.index > 15);
-    if (currentDriveAccountFilter === "a1" && isA2) return false;
-    if (currentDriveAccountFilter === "a2" && !isA2) return false;
+    const isA2 = (p.account === "Account 2") || (p.index > 15 && p.index <= 30);
+    const isUK = (p.account === "UK Account 1") || (p.index > 30) || (p.region === "GB");
+    if (currentDriveAccountFilter === "a1" && (isA2 || isUK)) return false;
+    if (currentDriveAccountFilter === "a2" && (!isA2 || isUK)) return false;
+    if (currentDriveAccountFilter === "uk1" && !isUK) return false;
 
     if (query) {
       const nameMatch = (p.name || "").toLowerCase().includes(query);
@@ -2912,7 +2940,11 @@ function renderDriveInventoryList() {
   tbody.innerHTML = filtered.map((p, idx) => {
     const pid = String(p.id);
     const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-    const isA2 = (p.account === "Account 2") || (p.index > 15);
+    const isA2 = (p.account === "Account 2") || (p.index > 15 && p.index <= 30);
+    const isUK = (p.account === "UK Account 1") || (p.index > 30) || (p.region === "GB");
+    const badgeText = isUK ? 'UK1' : (isA2 ? 'A2' : 'A1');
+    const badgeClass = isUK ? 'badge-uk' : (isA2 ? 'badge-a2' : 'badge-a1');
+    const accountLabel = isUK ? 'UK Account 1' : (isA2 ? 'Account 2' : 'Account 1');
     const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
     const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
     const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
@@ -2929,14 +2961,14 @@ function renderDriveInventoryList() {
             <div>
               <div style="font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
                 <span>${p.name}</span>
-                <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}">${isA2 ? 'A2' : 'A1'}</span>
+                <span class="page-account-badge ${badgeClass}">${badgeText}</span>
               </div>
               <div style="font-size:11px; color:#94a3b8;">@${handle}</div>
             </div>
           </div>
         </td>
         <td>
-          <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}" style="margin-left:0; font-size:11px; padding:3px 8px;">${isA2 ? 'Account 2' : 'Account 1'}</span>
+          <span class="page-account-badge ${badgeClass}" style="margin-left:0; font-size:11px; padding:3px 8px;">${accountLabel}</span>
         </td>
         <td style="font-family:monospace; font-size:12px; color:#e2e8f0;">
           📁 ${folderName}
@@ -2966,7 +2998,11 @@ function renderDriveInventoryList() {
     mobileContainer.innerHTML = filtered.map(p => {
       const pid = String(p.id);
       const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-      const isA2 = (p.account === "Account 2") || (p.index > 15);
+      const isA2 = (p.account === "Account 2") || (p.index > 15 && p.index <= 30);
+      const isUK = (p.account === "UK Account 1") || (p.index > 30) || (p.region === "GB");
+      const badgeText = isUK ? 'UK1' : (isA2 ? 'A2' : 'A1');
+      const badgeClass = isUK ? 'badge-uk' : (isA2 ? 'badge-a2' : 'badge-a1');
+      const accountLabel = isUK ? 'UK Account 1' : (isA2 ? 'Account 2' : 'Account 1');
       const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
       const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
       const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
@@ -2980,9 +3016,9 @@ function renderDriveInventoryList() {
               <div>
                 <div style="font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
                   <span>${p.name}</span>
-                  <span class="page-account-badge ${isA2 ? 'badge-a2' : 'badge-a1'}">${isA2 ? 'A2' : 'A1'}</span>
+                  <span class="page-account-badge ${badgeClass}">${badgeText}</span>
                 </div>
-                <div style="font-size:11.5px; color:#94a3b8;">@${handle} • ${isA2 ? 'Account 2' : 'Account 1'}</div>
+                <div style="font-size:11.5px; color:#94a3b8;">@${handle} • ${accountLabel}</div>
               </div>
             </div>
             <span class="badge-status-uploaded" style="font-size:10.5px;">✅ Active</span>
