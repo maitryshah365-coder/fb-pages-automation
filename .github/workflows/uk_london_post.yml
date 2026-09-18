@@ -102,6 +102,12 @@ jobs:
               python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
             elif [ "$REQ_PAGE" = "uk_account_3" ] || [ "$REQ_PAGE" = "uk3" ]; then
               python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
+            elif [[ "$REQ_PAGE" == uk1_page_* ]]; then
+              python main.py --config config_uk_account1.yaml --page "$REQ_PAGE" $DRY_ARG --require-uk
+            elif [[ "$REQ_PAGE" == uk2_page_* ]]; then
+              python main.py --config config_uk_account2.yaml --page "$REQ_PAGE" $DRY_ARG --require-uk
+            elif [[ "$REQ_PAGE" == uk3_page_* ]]; then
+              python main.py --config config_uk_account3.yaml --page "$REQ_PAGE" $DRY_ARG --require-uk
             else
               python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
               python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk

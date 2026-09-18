@@ -3363,17 +3363,21 @@ async function executeStudioPost() {
   const now = new Date();
   const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
+  const isUKFleet = selectedList.some(p => p.startsWith("uk") || FLEET_UK_01_SET.has(p) || FLEET_UK_02_SET.has(p) || FLEET_UK_03_SET.has(p));
+  const targetWorkflow = isUKFleet ? "uk_london_post.yml" : "post.yml";
+
   if (terminal) {
     terminal.innerHTML = `
 <span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[DISPATCH]</span> 🚀 Sending cloud dispatch request for ${selectedList.length} pages to GitHub Actions...
 <span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[FLEET]</span> Queued Pages: ${selectedDisplayNames.join(", ")}
+<span style="color:#64748b;">[${timeStr}]</span> <span style="color:#38bdf8;">[GATEWAY]</span> Target Workflow: <strong>${isUKFleet ? '🇬🇧 London WireGuard Egress (uk_london_post.yml)' : '🇺🇸 USA Cloud Runner (post.yml)'}</strong>
 <span style="color:#64748b;">[${timeStr}]</span> <span style="color:#f5ba23;">[WAIT]</span> Initializing secure cloud runner...
 `;
     terminal.scrollTop = terminal.scrollHeight;
   }
 
   try {
-    const dispatchUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/dispatches`;
+    const dispatchUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${targetWorkflow}/dispatches`;
     const res = await fetch(dispatchUrl, {
       method: "POST",
       headers: {
@@ -3398,8 +3402,8 @@ async function executeStudioPost() {
       }
 
       const dispatchStartTime = Date.now();
-      // Poll for active workflow run specifically for post.yml
-      setTimeout(() => pollStudioWorkflowRun(pat, selectedDisplayNames, dispatchStartTime), 2500);
+      // Poll for active workflow run specifically for target workflow
+      setTimeout(() => pollStudioWorkflowRun(pat, selectedDisplayNames, dispatchStartTime, targetWorkflow), 2500);
     } else {
       const errText = await res.text();
       throw new Error(`GitHub API returned ${res.status}: ${errText}`);
@@ -3419,12 +3423,12 @@ async function executeStudioPost() {
   }
 }
 
-async function pollStudioWorkflowRun(pat, pageNames, dispatchStartTime = 0) {
+async function pollStudioWorkflowRun(pat, pageNames, dispatchStartTime = 0, targetWorkflow = GH_WORKFLOW_FILE) {
   const terminal = document.getElementById("terminalConsoleBody");
   const badge = document.getElementById("terminalStatusBadge");
 
   try {
-    const runsUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${GH_WORKFLOW_FILE}/runs?per_page=5`;
+    const runsUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/actions/workflows/${targetWorkflow}/runs?per_page=5`;
     const res = await fetch(runsUrl, {
       headers: {
         "Accept": "application/vnd.github.v3+json",
