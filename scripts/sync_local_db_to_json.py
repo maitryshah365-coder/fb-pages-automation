@@ -143,9 +143,8 @@ for rel_path in ['docs/data/pages_data.json', 'web/data/pages_data.json']:
     server_uploaded_videos.sort(key=lambda x: x.get('posted_at') or x.get('created_time_iso') or '', reverse=True)
     data['server_uploaded_videos'] = server_uploaded_videos
 
-    # Recalculate today's posts per page
-    # Today's date is Sep 17, 2026 (the operational test date of the latest run)
-    today_prefix = "2026-09-17"
+    # Recalculate today's posts per page strictly for today's date
+    today_prefix = datetime.utcnow().strftime("%Y-%m-%d")
     today_posts_by_page = {}
     for r in db_map.values():
         if r['posted_at'].startswith(today_prefix):
@@ -155,13 +154,7 @@ for rel_path in ['docs/data/pages_data.json', 'web/data/pages_data.json']:
     total_today_uploaded = 0
     for p in data.get('pages', []):
         pid = str(p.get('id'))
-        calc_today = today_posts_by_page.get(pid, 0)
-        # Keep existing if already higher
-        p['today_posts'] = max(p.get('today_posts', 0), calc_today)
-        # If this page was in latest_run_summary results with success, ensure at least 1
-        for res in latest_results:
-            if (res.get("page") == f"page_{p.get('index')}" or str(res.get("page_id")) == pid) and res.get("status") == "success":
-                p['today_posts'] = max(p.get('today_posts', 0), 1)
+        p['today_posts'] = today_posts_by_page.get(pid, 0)
         total_today_uploaded += p['today_posts']
         p['is_configured'] = True
 
