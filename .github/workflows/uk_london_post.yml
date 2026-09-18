@@ -15,13 +15,15 @@ on:
         default: ""
 
   # Scheduled 4 times daily (London Time BST / UTC):
-  # Slot 1: 09:00 AM London (08:00 UTC / 01:30 PM IST)
-  # Slot 2: 01:00 PM London (12:00 UTC / 05:30 PM IST)
-  # Slot 3: 05:00 PM London (16:00 UTC / 09:30 PM IST)
-  # Slot 4: 09:30 PM London (20:30 UTC / 02:00 AM IST)
+  # UK Account 1 (Pages 31-42): 09:00 AM, 01:00 PM, 05:00 PM, 09:30 PM London (01:30 PM, 05:30 PM, 09:30 PM, 02:00 AM IST)
+  # UK Account 2 (Pages 43-54): +20 Min Offset (09:20 AM, 01:20 PM, 05:20 PM, 09:50 PM London - 01:50 PM, 05:50 PM, 09:50 PM, 02:20 AM IST)
   schedule:
+    # UK Account 1:
     - cron: "0 8,12,16 * * *"
     - cron: "30 20 * * *"
+    # UK Account 2 (Chanda Nai - Staggered Offset):
+    - cron: "20 8,12,16 * * *"
+    - cron: "50 20 * * *"
 
 concurrency:
   group: uk-facebook-upload-group
@@ -77,9 +79,28 @@ jobs:
           if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
             DRY_ARG="--dry-run"
           fi
-          # Run UK London pipeline with strict in-code Kill-Switch verification (Account 1 & Account 2)
-          python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
-          python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "${{ github.event.schedule }}" = "20 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "50 20 * * *" ]; then
+              echo "⏰ Staggered Cron Triggered: Running UK Account 2 (Chanda Nai - 12 Pages) [+20 Min Offset]"
+              python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+            else
+              echo "⏰ Standard Cron Triggered: Running UK Account 1 (Binjal Mehra - 12 Pages)"
+              python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
+            fi
+          elif [ -n "${{ github.event.inputs.page }}" ]; then
+            REQ_PAGE="${{ github.event.inputs.page }}"
+            if [ "$REQ_PAGE" = "uk_account_1" ] || [ "$REQ_PAGE" = "uk1" ]; then
+              python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
+            elif [ "$REQ_PAGE" = "uk_account_2" ] || [ "$REQ_PAGE" = "uk2" ]; then
+              python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+            else
+              python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
+              python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+            fi
+          else
+            python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
+            python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
+          fi
 
       - name: Disconnect WireGuard Tunnel
         if: always()

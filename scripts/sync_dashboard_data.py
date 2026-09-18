@@ -1192,7 +1192,10 @@ def sync_data():
             "active_pages_count": len(page_records),
             "daily_slots_edt": ["10:00 AM", "03:00 PM", "07:00 PM", "10:00 PM"],
             "account2_offset_minutes": 20,
-            "account2_slots_edt": ["10:20 AM", "03:20 PM", "07:20 PM", "10:20 PM"]
+            "account2_slots_edt": ["10:20 AM", "03:20 PM", "07:20 PM", "10:20 PM"],
+            "uk_account1_slots_bst": ["09:00 AM", "01:00 PM", "05:00 PM", "09:30 PM"],
+            "uk_account2_offset_minutes": 20,
+            "uk_account2_slots_bst": ["09:20 AM", "01:20 PM", "05:20 PM", "09:50 PM"]
         },
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
@@ -1201,6 +1204,8 @@ def sync_data():
             "total_pages": len(page_records),
             "account1_pages_count": len([p for p in page_records if p.get("account") == "Account 1"]),
             "account2_pages_count": len([p for p in page_records if p.get("account") == "Account 2"]),
+            "uk_account1_pages_count": len([p for p in page_records if p.get("account") == "UK Account 1"]),
+            "uk_account2_pages_count": len([p for p in page_records if p.get("account") == "UK Account 2"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,
