@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.1.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.2.0">
 </head>
 <body>
 
@@ -647,45 +647,7 @@
             </div>
           </div>
           
-          <div class="radar-clocks-wrapper">
-            <div class="radar-clock-pill" style="border-color: rgba(255, 153, 51, 0.4); background: rgba(255, 153, 51, 0.08);">
-              <span><img src="icons/in.png" alt="IN" class="app-flag-icon"> India:</span>
-              <strong id="clockIndia" style="color:#ff9933;">--:--:-- IST</strong>
-            </div>
-            <div class="radar-clock-pill">
-              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> London:</span>
-              <strong id="clockLondon">--:--:-- BST</strong>
-            </div>
-            <div class="radar-clock-pill">
-              <span><img src="icons/us.png" alt="US" class="app-flag-icon"> New York:</span>
-              <strong id="clockNewYork">--:--:-- EDT</strong>
-            </div>
-            <div class="radar-clock-pill">
-              <span>🌐 UTC:</span>
-              <strong id="clockUTC">--:--:-- UTC</strong>
-            </div>
-          </div>
-          <script>
-            (function initLiveClocksNow() {
-              function update() {
-                try {
-                  const now = new Date();
-                  const opt = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-                  const elIndia = document.getElementById('clockIndia');
-                  const elLondon = document.getElementById('clockLondon');
-                  const elNY = document.getElementById('clockNewYork');
-                  const elUTC = document.getElementById('clockUTC');
-                  if (elIndia) elIndia.innerText = now.toLocaleTimeString('en-IN', Object.assign({ timeZone: 'Asia/Kolkata' }, opt)) + ' IST';
-                  if (elLondon) elLondon.innerText = now.toLocaleTimeString('en-GB', Object.assign({ timeZone: 'Europe/London' }, opt)) + ' BST';
-                  if (elNY) elNY.innerText = now.toLocaleTimeString('en-US', Object.assign({ timeZone: 'America/New_York' }, opt)) + ' EDT';
-                  if (elUTC) elUTC.innerText = now.toLocaleTimeString('en-GB', Object.assign({ timeZone: 'UTC' }, opt)) + ' UTC';
-                } catch(e) {}
-              }
-              update();
-              setInterval(update, 1000);
-            })();
-          </script>
-          
+
           <div class="radar-next-run-badge" id="radarNextRunBadge">
             <span>⏰ Next Run:</span>
             <span class="radar-next-timer" id="radarNextCountdownText">Calculating...</span>
@@ -697,37 +659,37 @@
           <div class="radar-timeline-card" id="radarCard_a1">
             <div class="radar-card-top"><span><img src="icons/us.png" alt="US" class="app-flag-icon"> #1</span><span>15 Pages</span></div>
             <div class="radar-card-name">Meghal Chauhan</div>
-            <div class="radar-card-time">07:30 PM IST (10:00 AM EDT)</div>
+            <div class="radar-card-time">07:30 PM IST (Slot 1)</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_a2">
             <div class="radar-card-top"><span><img src="icons/us.png" alt="US" class="app-flag-icon"> #2</span><span>15 Pages</span></div>
             <div class="radar-card-name">Mia Shah</div>
-            <div class="radar-card-time">07:50 PM IST (10:20 AM EDT)</div>
+            <div class="radar-card-time">07:50 PM IST (+20m)</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk1">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #1</span><span>12 Pages</span></div>
             <div class="radar-card-name">Binjal Mehra</div>
-            <div class="radar-card-time">01:30 PM IST (09:00 AM BST)</div>
+            <div class="radar-card-time">01:30 PM IST (Slot 1)</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk2">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #2</span><span>12 Pages</span></div>
             <div class="radar-card-name">Chanda Nai</div>
-            <div class="radar-card-time">01:50 PM IST (09:20 AM BST)</div>
+            <div class="radar-card-time">01:50 PM IST (+20m)</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk3">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #3</span><span>12 Pages</span></div>
             <div class="radar-card-name">Mahi Patel</div>
-            <div class="radar-card-time">02:00 PM IST (09:30 AM BST)</div>
+            <div class="radar-card-time">02:00 PM IST (+30m)</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk4">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #4</span><span>12 Pages</span></div>
             <div class="radar-card-name">Nidhi Desai</div>
-            <div class="radar-card-time">02:10 PM IST (09:40 AM BST)</div>
+            <div class="radar-card-time">02:10 PM IST (+40m)</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk5">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #5</span><span>11 Pages</span></div>
             <div class="radar-card-name">Richi Patel</div>
-            <div class="radar-card-time">02:20 PM IST (09:50 AM BST)</div>
+            <div class="radar-card-time">02:20 PM IST (+50m)</div>
           </div>
         </div>
       </section>
@@ -1126,6 +1088,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=8.1.0"></script>
+  <script src="js/gold_app.js?v=8.2.0"></script>
 </body>
 </html>
