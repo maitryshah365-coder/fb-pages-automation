@@ -881,9 +881,9 @@ function renderSidebarPagesList(pages) {
     return `
       <div class="sidebar-section-box ${cssClass}" data-fleet="${accType}" id="fleetBox_${accType}">
         <div class="sidebar-box-header" onclick="toggleFleetBox('${accType}', event)">
-          <div class="sidebar-box-title" style="display:flex; align-items:center; gap:8px;">
-            <img src="${flagSrc}" alt="${flagAlt}" style="width:20px; height:14px; object-fit:cover; border-radius:2.5px; vertical-align:middle; display:inline-block; box-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0;">
-            <span style="font-weight:700; font-size:12px; color:#f8fafc; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${title}</span>
+          <div class="sidebar-box-title">
+            <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
+            <span class="sidebar-box-name">${title}</span>
           </div>
           <div class="sidebar-box-right">
             <span class="sidebar-box-badge">${badge}</span>
@@ -1116,9 +1116,9 @@ function renderDrawerPages(pages) {
     return `
       <div class="drawer-account-section ${flagClass}">
         <div class="drawer-box-header sidebar-box-header">
-          <div class="sidebar-box-title" style="display:flex; align-items:center; gap:8px;">
-            <img src="${flagSrc}" alt="${flagAlt}" style="width:20px; height:14px; object-fit:cover; border-radius:2.5px; vertical-align:middle; display:inline-block; box-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0;">
-            <span style="font-weight:700;">${title}</span>
+          <div class="sidebar-box-title">
+            <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
+            <span class="sidebar-box-name">${title}</span>
           </div>
           <span class="sidebar-box-badge">${count} Pages</span>
         </div>
@@ -2942,9 +2942,9 @@ function renderStudioFleetList() {
     return `
       <div class="sidebar-section-box studio-fleet-box ${cssClass} ${isExpanded ? 'expanded' : ''}" data-fleet="${fleetId}" id="studioFleetBox_${fleetId}">
         <div class="sidebar-box-header" onclick="toggleStudioFleetBox('${fleetId}', event)">
-          <div class="sidebar-box-title" style="display:flex; align-items:center; gap:8px;">
-            <img src="${flagSrc}" alt="${flagAlt}" style="width:20px; height:14px; object-fit:cover; border-radius:2.5px; vertical-align:middle; display:inline-block; box-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0;">
-            <span style="font-weight:700;">${title}</span>
+          <div class="sidebar-box-title">
+            <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
+            <span class="sidebar-box-name">${title}</span>
           </div>
           <div class="sidebar-box-right">
             <button type="button" class="btn-box-select-toggle" onclick="toggleBoxSelectAll('${fleetId}', event)" title="Toggle select all in ${title}">
