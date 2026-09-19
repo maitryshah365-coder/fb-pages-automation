@@ -1211,11 +1211,14 @@ def sync_data():
             cur = conn.cursor()
             page_map = {str(p.get("id")): p for p in page_records}
             vid_views_map = {}
+            vid_thumb_map = {}
             for p in page_records:
                 for v in p.get("videos", []):
                     vid = str(v.get("id"))
                     if vid:
                         vid_views_map[vid] = v.get("views", 0)
+                        if v.get("thumbnail"):
+                            vid_thumb_map[vid] = v.get("thumbnail")
 
             q = """
             SELECT 
@@ -1254,6 +1257,7 @@ def sync_data():
                 
                 fvid = str(r["facebook_video_id"])
                 views_count = vid_views_map.get(fvid, 0)
+                thumb_url = vid_thumb_map.get(fvid, "")
                 post_type = r["post_type"] or "reel"
                 direct_link = f"https://www.facebook.com/reel/{fvid}/" if post_type == "reel" else f"https://www.facebook.com/watch/?v={fvid}"
                 
@@ -1273,6 +1277,7 @@ def sync_data():
                     "account": acc_name,
                     "country_code": country_code,
                     "country_flag": country_flag,
+                    "thumbnail": thumb_url,
                     "views": views_count,
                     "posted_at": r["posted_at"],
                     "post_type": post_type,

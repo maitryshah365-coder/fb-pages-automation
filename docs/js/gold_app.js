@@ -4334,26 +4334,30 @@ function renderUploadHistoryTable() {
     const locText = item.location || (item.city ? `${item.city}, ${item.country}` : "Server Cloud");
 
     let liveViews = (item.views !== undefined) ? Number(item.views) : 0;
+    let thumbSrc = item.thumbnail || "";
+
     if (window.fullData && Array.isArray(window.fullData.pages)) {
       for (const p of window.fullData.pages) {
         if (Array.isArray(p.videos)) {
           const matched = p.videos.find(v => String(v.id) === String(item.id));
-          if (matched && matched.views !== undefined) {
-            liveViews = Number(matched.views);
+          if (matched) {
+            if (matched.views !== undefined) liveViews = Number(matched.views);
+            if (!thumbSrc && matched.thumbnail) thumbSrc = matched.thumbnail;
             break;
           }
         }
       }
     }
     const viewsFormatted = liveViews.toLocaleString();
+    const hasThumb = Boolean(thumbSrc);
 
     return `
       <tr>
         <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
         <td style="text-align:center;">
           <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" title="${item.title ? item.title.replace(/"/g, '&quot;') : 'Watch Reel on Facebook'}" style="display:inline-block;">
-            <img src="https://graph.facebook.com/${item.id}/thumbnails" alt="Thumbnail" class="upload-history-thumb" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:80px; height:80px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
-            <div class="upload-thumb-fallback" style="display:none; width:80px; height:80px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:28px;">🎬</div>
+            ${hasThumb ? `<img src="${thumbSrc}" alt="Thumbnail" class="upload-history-thumb" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 2px 8px rgba(0,0,0,0.35);">` : ''}
+            <div class="upload-thumb-fallback" style="display:${hasThumb ? 'none' : 'flex'}; width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:24px;">🎬</div>
           </a>
         </td>
         <td>
@@ -4412,18 +4416,21 @@ function renderUploadHistoryTable() {
       }
 
       let mLiveViews = (item.views !== undefined) ? Number(item.views) : 0;
+      let mThumbSrc = item.thumbnail || "";
       if (window.fullData && Array.isArray(window.fullData.pages)) {
         for (const p of window.fullData.pages) {
           if (Array.isArray(p.videos)) {
             const matched = p.videos.find(v => String(v.id) === String(item.id));
-            if (matched && matched.views !== undefined) {
-              mLiveViews = Number(matched.views);
+            if (matched) {
+              if (matched.views !== undefined) mLiveViews = Number(matched.views);
+              if (!mThumbSrc && matched.thumbnail) mThumbSrc = matched.thumbnail;
               break;
             }
           }
         }
       }
       const mViewsFormatted = mLiveViews.toLocaleString();
+      const mHasThumb = Boolean(mThumbSrc);
 
       return `
         <div class="mobile-yt-card" style="padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
@@ -4440,7 +4447,7 @@ function renderUploadHistoryTable() {
 
           <div style="display:flex; gap:12px; align-items:center; margin-bottom:10px;">
             <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" style="flex-shrink:0;">
-              <img src="https://graph.facebook.com/${item.id}/thumbnails" alt="Thumbnail" style="width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.1);" onerror="this.style.display='none';">
+              ${mHasThumb ? `<img src="${mThumbSrc}" alt="Thumbnail" style="width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.15);" onerror="this.style.display='none';">` : `<div style="width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,#1e293b,#0f172a); display:flex; align-items:center; justify-content:center; font-size:24px;">🎬</div>`}
             </a>
             <div style="display:flex; flex-direction:column; gap:4px; font-size:11.5px; color:#94a3b8;">
               <div>📅 <span style="color:#f1f5f9;">${dateMain}</span></div>
