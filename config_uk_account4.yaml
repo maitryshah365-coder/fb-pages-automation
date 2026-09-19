@@ -1,0 +1,137 @@
+page_group: uk_london_id_4_nidhi
+account_name: Nidhi Desai
+country_code: GB
+target_location: London, United Kingdom
+require_uk_ip: true
+ai_disclosure_status: pending_determination
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1076375522219372'
+  name: uk4_page_1
+  display_name: Titan Archive
+  enabled: true
+  drive_folder_id: 11qk-b66GAyO0NTvHX2TUKRiVsiK-Jk7e
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSqWBsGsDAHLLkjnfL6M8oZClp6uWaFo9SWQRyq3ybj3U8Lz6efnEessQraNwTVP4Mi5qtZBMyJj8cgbeEGXdobf3K6MXZB11fK1Gb9TvI4e2G8eNqN93KR9DuV9PvlbVBhHyZBwdDvRU3JQTMRn6TR25WSiUxIjZCHxYxZCE75xlt7M8EXwk0SYfSL
+- page_id: '997596213442388'
+  name: uk4_page_2
+  display_name: Sovereign Signal
+  enabled: true
+  drive_folder_id: 1s4FC3XfpaCwLC8SjQc7ytMoXbxmW1sa1
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBShRwLr02aDKCNFAU1kIlYSVxOyGAC7jwgpoVidMLH4Rpkp2eevjStoBl6QmDCQnpdG6t5PM85h9xvXfI8Y3PkoZB0sh9dpxnUM6ysfdyTfWMXzqolyUlXeP32tvVTZC4p0QxZA19DZB0ZAkKZBK88lSn89TTmzfZA1CSK4Uy1BMXtBdB6I11bMAu9Hc
+- page_id: '1025542247301378'
+  name: uk4_page_3
+  display_name: Sunny Dusk Stories
+  enabled: true
+  drive_folder_id: 1lDezQeKpSXSOg5kafNTED2AMhAyrx4k0
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSroU15z7QZCcyBys3aoF0iLZAnq7ZCvWeKfAoEdYrX6405CoqsDMPUmmcKIWPqImesOAQclUDmcFksvm0BR6pZA9MFxw13rfAU1ziEUbzZBGtZCOOYthDeiYZCop7h6bybUnzcAJeadhNtaNWwZCnQJHJflGvQNW3GYNCXp6GuHuZC2brhqBbD2PrWUGx
+- page_id: '981214481738903'
+  name: uk4_page_4
+  display_name: Silver Oak Social
+  enabled: true
+  drive_folder_id: 15hPBojsrRBiBOR0331zGeuYxqOF4ambV
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSjDrmcKiRhrRkZBcA42Gmmq1NcL8OmiGoNLhRDJQBDWGDDLLIUcAJ9MapOSRboE9do0AQUwN4feHND84ZCDqBPg0OdBZALmmIZApccjBz3EY78xZBiI6zU4ZAQHsKwZBbn9ISZANYb0cmYA934dQ0JCLLzhPZBZCRXkkRAIaeg0OlO3cF4t2pAoxiWk0Ft
+- page_id: '929190903615356'
+  name: uk4_page_5
+  display_name: Mitchell  Gabriel
+  enabled: true
+  drive_folder_id: 1Y1wCJxMqCzWUh0YMPoh5KGG4YpEnqT6a
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSupryhR7AY16UZC3zCZCsQYE2rVtBznQ7WpIHHqGGZCX9ZB24miezXnPh7oyrucP9BNNAeWSKHzQ86kkQtfxgVL2l5jULwSwAJbTCvNBuRNYhLIHIJ3kBwabmSrL2RylPZAwT96mcX8RW8eAcnvFG7Dw9ZCmSpb9PJwMZAyw2lR9BRzyJeM44xEZCTyZC
+- page_id: '803824339488556'
+  name: uk4_page_6
+  display_name: Smith  Arthur
+  enabled: true
+  drive_folder_id: 14NWdo8WKfg9kH4OYGOcZJjCpr0MFXtXk
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSuaQm77Tu9fnU6nw2ZCmbH5mjbaeZCOoFYy2iXVavIN6Vsph2hDQZCrduLnDhPYVjMDHQtkYf1QOt8WDX1SYmLjXAEDFdlGoOzmiIlSJgp6zbvi3uZCo6ZCRiOIB0coKIDuYjpw6OlpCfN3P6N3uvmcVLTQQFARc1teLlUEnBcZCvBPEoVmoZAxZCkih
+- page_id: '857530914106167'
+  name: uk4_page_7
+  display_name: Robinson  Jerry
+  enabled: true
+  drive_folder_id: 1t6HAdbjvYUMy2dTbtwFvip4n4trRpLs6
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBShebrWVBu7trT7ZC8AylBwawhaNtZBZC4PZALNFR3DJmISNp0eSbrqdFBG084qcKToqqB9qAxNqUhPLDJ6W7OXZBYnJMlPkAFHi3Po7QFtvavZAUHbRr5G02IXuuJZBA1II7C10iLUByPn91aSLfCz9Mnn84FDzpmFD8eWOzf1RYSaPHdGNqww3tZBAM
+- page_id: '762765990263739'
+  name: uk4_page_8
+  display_name: Robinson  Stephen
+  enabled: true
+  drive_folder_id: 1iMpfR-mZdfljA1OjWOEjAMM9CtODCaLO
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSku1Sa19rJmiZAGRlTV63qUTqCcOvaAwwr9AqEg4xZBFGAt4eLZAsZCsFMH8SPHGkcEUmP7YpfguAN1oL1sMg7ZB1zSngzy7SQ5ZAkMnrEAH3WxDCXyqHCn9dyMoDMPul1c2UfXvkcmWwzweWhB1scYPwjERTknZBLcOmCbjIk2KRmrzG4VLEdwaNoG
+- page_id: '871774779344742'
+  name: uk4_page_9
+  display_name: Powell  Gabriel
+  enabled: true
+  drive_folder_id: 1OgWhFRr1Tez6SJVDBTzJF8-BbFdG9Hgu
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSopCRNOcdZCIj4E1mva5p8GSZAYbRVUkMdmNDEj6Gp6imwMHBRujF6BOeeWN56ZAFblmZBw4WtKFrcqEtb2DF1mYq0AKBZBJCdVqZBG6PSn2Pzhu44XDfjTzxv2mn0pVlipi8u77xbPOOUnF8nn9St1EKr4269luxZC0QIIEvbMkq5yMD4vzJaEe2JZB
+- page_id: '746108741929454'
+  name: uk4_page_10
+  display_name: Rodriguez  Scott
+  enabled: true
+  drive_folder_id: 1Bbn4TxIRO-mshKSg7BPvTxHVgF59x8QL
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSuz107Naq6BY2SCAqJNkvFPRtCIELAccjH9rwuc4LHn8DBslwtKCPKevxQ8ZAktuZC24YGJwIZAvZC2xMby4tmwJi6eEOnQBj06FiwC4sakvh6RYXxbkFH0XNRVhwKCIDHvs0V71PRe0YncIAPfWAs70ZCAu7rfwUPgUlALYWD6RFyoQUN463jN6D
+- page_id: '818808074651170'
+  name: uk4_page_11
+  display_name: Roberts  Richard
+  enabled: true
+  drive_folder_id: 1Imakyr8eJJvH9YwJP6pTbozbTQFO_lWz
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSnU2ZCa0OPF1zcwJuERZAq53NkWofXupORyDIXtZA1xKTPTuP8ZAAgdRFA8RCLKYwVK5GvJjzXcRwuaUdfdcwkBpRHWHSlO7EsfsohDVZC7jKDys7HQ9E9DZCsNKLsKRLZAnH3wl1CGkyVkFYy1m4y5ObtAOqG2ZAYmOilvmPRuK3NDaA2fOjgPP0ets
+- page_id: '417387901468629'
+  name: uk4_page_12
+  display_name: Serendipity Spark
+  enabled: true
+  drive_folder_id: 1gKXG4J5c2h_9Ioh8gUmRS1ytNVgNTK4s
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAT33ScZBmTcBSm7i6BLZC4b2UPZAZCmKCOAX6usqfuUZAZBvb3EaSAzXb1BjrAbFmCLGhCW6ORLhoDhclZBgnwy9h4gHqeL6fve9QzUAOZCudxMn10wx4shSmTxewgIy3UmYLxsCcHd9MTprbNGCwKT84L2ZCTYa7Dhsl0D96jvHreL2EI8bBrrYdyFtsXZB5menn1DuQ

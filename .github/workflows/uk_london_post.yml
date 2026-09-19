@@ -18,6 +18,7 @@ on:
   # UK Account 1 (Pages 31-42): 09:00 AM, 01:00 PM, 05:00 PM, 09:30 PM London (08:00, 12:00, 16:00, 20:30 UTC)
   # UK Account 2 (Pages 43-54): +20 Min Offset (09:20 AM, 01:20 PM, 05:20 PM, 09:50 PM London - 08:20, 12:20, 16:20, 20:50 UTC)
   # UK Account 3 (Pages 55-66): +30 Min Offset (09:30 AM, 01:30 PM, 05:30 PM, 10:00 PM London - 08:30, 12:30, 16:30, 21:00 UTC)
+  # UK Account 4 (Pages 67-78): +40 Min Offset (09:40 AM, 01:40 PM, 05:40 PM, 10:10 PM London - 08:40, 12:40, 16:40, 21:10 UTC)
   schedule:
     # UK Account 1 (Binjal Mehra):
     - cron: "0 8,12,16 * * *"
@@ -28,6 +29,9 @@ on:
     # UK Account 3 (Mahi Patel - Staggered +30 Min Offset):
     - cron: "30 8,12,16 * * *"
     - cron: "0 21 * * *"
+    # UK Account 4 (Nidhi Desai - Staggered +40 Min Offset):
+    - cron: "40 8,12,16 * * *"
+    - cron: "10 21 * * *"
 
 concurrency:
   group: uk-facebook-upload-group
@@ -84,7 +88,10 @@ jobs:
             DRY_ARG="--dry-run"
           fi
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "30 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "0 21 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "40 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "10 21 * * *" ]; then
+              echo "⏰ UK Account 4 Cron Triggered: Running UK Account 4 (Nidhi Desai - 12 Pages) [+40 Min Offset]"
+              python main.py --config config_uk_account4.yaml $DRY_ARG --require-uk
+            elif [ "${{ github.event.schedule }}" = "30 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "0 21 * * *" ]; then
               echo "⏰ UK Account 3 Cron Triggered: Running UK Account 3 (Mahi Patel - 12 Pages) [+30 Min Offset]"
               python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
             elif [ "${{ github.event.schedule }}" = "20 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "50 20 * * *" ]; then
@@ -102,6 +109,7 @@ jobs:
             python main.py --config config_uk_account1.yaml $DRY_ARG --require-uk
             python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
             python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
+            python main.py --config config_uk_account4.yaml $DRY_ARG --require-uk
           fi
 
       - name: Disconnect WireGuard Tunnel

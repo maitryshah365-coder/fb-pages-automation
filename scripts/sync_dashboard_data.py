@@ -90,6 +90,21 @@ FLEET_UK_03_IDS = [
     "855237054348766"   # Perez Steven
 ]
 
+FLEET_UK_04_IDS = [
+    "1076375522219372", # Titan Archive
+    "997596213442388",  # Sovereign Signal
+    "1025542247301378", # Sunny Dusk Stories
+    "981214481738903",  # Silver Oak Social
+    "929190903615356",  # Mitchell Gabriel
+    "803824339488556",  # Smith Arthur
+    "857530914106167",  # Robinson Jerry
+    "762765990263739",  # Robinson Stephen
+    "871774779344742",  # Powell Gabriel
+    "746108741929454",  # Rodriguez Scott
+    "818808074651170",  # Roberts Richard
+    "417387901468629"   # Serendipity Spark
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -110,7 +125,8 @@ def get_pages_list():
         {"account": "Account 2", "owner": "Mia Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "account2_verified_pages.json")},
         {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")},
         {"account": "UK Account 2", "owner": "Chanda Nai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account2_chanda_permanent_pages.json")},
-        {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")}
+        {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")},
+        {"account": "UK Account 4", "owner": "Nidhi Desai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account4_nidhi_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -132,13 +148,14 @@ def get_pages_list():
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
 
-    # Build the 66 pages strictly ordered by the 5 fleets
+    # Build the 78 pages strictly ordered by the 6 fleets
     fleet_order = [
         (FLEET_USA_01_IDS, "Meghal Chauhan (USA)", "Meghal Chauhan", "US", 1),
         (FLEET_USA_02_IDS, "Mia Shah (USA)", "Mia Shah", "US", 16),
         (FLEET_UK_01_IDS, "Binjal Mehra (UK)", "Binjal Mehra", "GB", 31),
         (FLEET_UK_02_IDS, "Chanda Nai (UK)", "Chanda Nai", "GB", 43),
-        (FLEET_UK_03_IDS, "Mahi Patel (UK)", "Mahi Patel", "GB", 55)
+        (FLEET_UK_03_IDS, "Mahi Patel (UK)", "Mahi Patel", "GB", 55),
+        (FLEET_UK_04_IDS, "Nidhi Desai (UK)", "Nidhi Desai", "GB", 67)
     ]
 
     final_pages = []
@@ -1307,7 +1324,9 @@ def sync_data():
             "uk_account2_offset_minutes": 20,
             "uk_account2_slots_bst": ["09:20 AM", "01:20 PM", "05:20 PM", "09:50 PM"],
             "uk_account3_offset_minutes": 30,
-            "uk_account3_slots_bst": ["09:30 AM", "01:30 PM", "05:30 PM", "10:00 PM"]
+            "uk_account3_slots_bst": ["09:30 AM", "01:30 PM", "05:30 PM", "10:00 PM"],
+            "uk_account4_offset_minutes": 40,
+            "uk_account4_slots_bst": ["09:40 AM", "01:40 PM", "05:40 PM", "10:10 PM"]
         },
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
@@ -1320,6 +1339,7 @@ def sync_data():
             "uk_account1_pages_count": len([p for p in page_records if "Binjal" in p.get("account", "") or p.get("account") == "UK Account 1"]),
             "uk_account2_pages_count": len([p for p in page_records if "Chanda" in p.get("account", "") or p.get("account") == "UK Account 2"]),
             "uk_account3_pages_count": len([p for p in page_records if "Mahi" in p.get("account", "") or p.get("account") == "UK Account 3"]),
+            "uk_account4_pages_count": len([p for p in page_records if "Nidhi" in p.get("account", "") or p.get("account") == "UK Account 4"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,
