@@ -921,15 +921,21 @@ function renderSidebarPagesList(pages) {
     const isPageActive = String(p.id) === activePageId;
     const followersStr = (p.followers || 0).toLocaleString();
     const pToday = getPageTodayPosts(p);
-    const isConfigured = Boolean(p.is_configured !== false || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || pToday > 0);
-    const isUploaded = pToday > 0;
-    const dotClass = isConfigured ? 'green' : 'gray';
-    const dotTitle = isUploaded ? `Active • ${pToday}/4 Uploaded Today` : (isConfigured ? 'Active' : 'Pending');
+    const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
+      ? p.drive_videos_count
+      : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
     const isUk = accType.startsWith("uk");
     const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
     const pillClass = isUk ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
+
+    const batteryCells = [1, 2, 3, 4].map(sNum => {
+      const isFilled = pToday >= sNum;
+      const cellClass = isFilled ? (pToday >= 4 ? 'full' : 'filled') : 'empty';
+      return `<span class="battery-slot-cell ${cellClass}"></span>`;
+    }).join("");
+
     return `
-      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${p.name} • ${followersStr} followers">
+      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${p.name} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
         <div class="side-page-item-left">
           <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
           <div class="side-page-meta">
@@ -940,11 +946,20 @@ function renderSidebarPagesList(pages) {
             <div class="side-page-followers">${followersStr} followers</div>
           </div>
         </div>
-        <span class="side-page-dot ${dotClass}" title="${dotTitle}"></span>
+        <div class="side-page-battery-group">
+          <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
+            ${batteryCells}
+          </div>
+          <span class="battery-slot-num ${pToday >= 4 ? 'done' : ''}">${pToday}/4</span>
+          ${driveCount > 0 ? `<span class="battery-drive-tag" title="${driveCount} videos ready in Drive">📁 ${driveCount}</span>` : ''}
+        </div>
       </div>`;
   }
 
   function buildBox(cssClass, flag, emoji, title, badge, items, accType) {
+    const totalFleetDone = items.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
+    const totalFleetTarget = items.length * 4;
+    const totalFleetStock = items.reduce((sum, p) => sum + (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     const isUk = accType.startsWith("uk");
     const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
     const flagAlt = isUk ? "UK" : "USA";
@@ -956,9 +971,13 @@ function renderSidebarPagesList(pages) {
             <span class="sidebar-box-name">${title}</span>
           </div>
           <div class="sidebar-box-right">
-            <span class="sidebar-box-badge">${badge}</span>
+            <span class="fleet-slots-badge ${totalFleetDone >= totalFleetTarget ? 'complete' : ''}">${totalFleetDone}/${totalFleetTarget} Slots</span>
             <span class="sidebar-box-chevron">▼</span>
           </div>
+        </div>
+        <div class="sidebar-box-sub-strip">
+          <span>${items.length} Pages</span>
+          <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
         </div>
         <div class="sidebar-box-body">
           ${items.map(p => renderPageItem(p, accType)).join("")}
@@ -1040,7 +1059,7 @@ window.toggleFleetBox = function(fleetId, e) {
 };
 
 let isTogglingShutter = false;
-window.toggleSidePagesShutter = function(e) {
+window.toggleSidePagesShutter = function(e, forceOpen) {
   if (e && e.stopPropagation) e.stopPropagation();
   if (isTogglingShutter) return;
   isTogglingShutter = true;
@@ -1052,7 +1071,9 @@ window.toggleSidePagesShutter = function(e) {
   if (!box) return;
 
   const isCurrentlyOpen = box.classList.contains("open");
-  if (isCurrentlyOpen) {
+  const shouldOpen = forceOpen !== undefined ? forceOpen : !isCurrentlyOpen;
+
+  if (!shouldOpen) {
     box.classList.remove("open");
     if (shutter) shutter.style.display = "none";
     if (arrow) arrow.innerText = "▼";
@@ -1067,6 +1088,7 @@ window.toggleSidePagesShutter = function(e) {
     }
     setTimeout(() => {
       document.getElementById("sidePagesSearchInput")?.focus();
+      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 80);
   }
 };
@@ -1158,6 +1180,16 @@ function renderDrawerPages(pages) {
     const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
     const badgeClass = isUk ? 'badge-uk' : (accountType === 'usa2' ? 'badge-a2' : 'badge-a1');
     const accOwner = accountType === 'uk5' ? 'Richi Patel' : (accountType === 'uk4' ? 'Nidhi Desai' : (accountType === 'uk3' ? 'Mahi Patel' : (accountType === 'uk2' ? 'Chanda Nai' : (accountType === 'uk1' ? 'Binjal Mehra' : (accountType === 'usa2' ? 'Mia Shah' : 'Meghal Chauhan')))));
+    const pToday = getPageTodayPosts(p);
+    const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
+      ? p.drive_videos_count
+      : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
+
+    const batteryCells = [1, 2, 3, 4].map(sNum => {
+      const isFilled = pToday >= sNum;
+      const cellClass = isFilled ? (pToday >= 4 ? 'full' : 'filled') : 'empty';
+      return `<span class="battery-slot-cell ${cellClass}"></span>`;
+    }).join("");
 
     return `
       <div class="drawer-page-item ${isActive ? 'active' : ''}" 
@@ -1172,10 +1204,16 @@ function renderDrawerPages(pages) {
               <span>${p.name}</span>
               <span class="page-account-badge ${badgeClass}" style="font-size:9px;padding:1px 5px;">${flagImg}</span>
             </div>
-            <div class="page-item-meta">${viewsFormatted} views • ${accOwner}</div>
+            <div class="page-item-meta">${followersFormatted} followers • ${accOwner}</div>
           </div>
         </div>
-        <div class="page-item-badge">${followersFormatted} followers</div>
+        <div class="side-page-battery-group">
+          <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
+            ${batteryCells}
+          </div>
+          <span class="battery-slot-num ${pToday >= 4 ? 'done' : ''}">${pToday}/4</span>
+          ${driveCount > 0 ? `<span class="battery-drive-tag">📁 ${driveCount}</span>` : ''}
+        </div>
       </div>
     `;
   }
@@ -1184,6 +1222,9 @@ function renderDrawerPages(pages) {
     const isUk = accKey.startsWith("uk");
     const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
     const flagAlt = isUk ? "UK" : "USA";
+    const totalDone = items.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
+    const totalTarget = items.length * 4;
+    const totalStock = items.reduce((sum, p) => sum + (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     return `
       <div class="drawer-account-section ${flagClass}">
         <div class="drawer-box-header sidebar-box-header">
@@ -1191,7 +1232,13 @@ function renderDrawerPages(pages) {
             <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
             <span class="sidebar-box-name">${title}</span>
           </div>
-          <span class="sidebar-box-badge">${count} Pages</span>
+          <div class="sidebar-box-right">
+            <span class="fleet-slots-badge ${totalDone >= totalTarget ? 'complete' : ''}">${totalDone}/${totalTarget} Slots</span>
+          </div>
+        </div>
+        <div class="sidebar-box-sub-strip">
+          <span>${count} Pages</span>
+          <span class="fleet-sub-drive">📁 ${totalStock.toLocaleString()} Stock</span>
         </div>
         <div>${items.map(p => renderDrawerItem(p, accKey)).join("")}</div>
       </div>
@@ -2218,21 +2265,10 @@ function renderTelemetry(target) {
       pillEl.innerText = `${totalTodayPosts}/${totalTargetToday} Slots Today`;
     }
 
-    // Render portfolio chip tracker
-    if (portfolioRow && fullData && fullData.pages) {
-      portfolioRow.style.display = "flex";
-      portfolioRow.innerHTML = fullData.pages.map(p => {
-        const pToday = getPageTodayPosts(p);
-        const isUploaded = pToday > 0;
-        const count = p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
-        return `
-          <div class="portfolio-status-chip ${isUploaded ? 'chip-uploaded' : 'chip-not-uploaded'}" onclick="selectPage('${p.id}')" title="Click to view ${p.name}">
-            <span>${isUploaded ? '✅' : '⚠️'}</span>
-            <span>${p.name}</span>
-            <span style="opacity: 0.85; font-size: 10px;">(${pToday}/4${count > 0 ? ` • ${count} in Drive` : ''})</span>
-          </div>
-        `;
-      }).join("");
+    // Render portfolio chip tracker - Cleaned & hidden (now available in 7-Fleet Sidebar Shutter)
+    if (portfolioRow) {
+      portfolioRow.style.display = "none";
+      portfolioRow.innerHTML = "";
     }
 
   } else if (target) {

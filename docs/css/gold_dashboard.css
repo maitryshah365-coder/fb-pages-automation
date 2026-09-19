@@ -5536,3 +5536,153 @@ body {
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
+/* =========================================================================
+   7-FLEET ID MATRIX & VISUAL 4-SLOT BATTERY CELLS (SIDEBAR & DRAWER)
+   ========================================================================= */
+.side-page-battery-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.battery-slot-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.battery-slot-cell {
+  width: 4px;
+  height: 9px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: all 0.2s ease;
+}
+
+.battery-slot-cell.filled {
+  background: #10b981;
+  box-shadow: 0 0 4px rgba(16, 185, 129, 0.7);
+}
+
+.battery-slot-cell.full {
+  background: #38ef7d;
+  box-shadow: 0 0 5px rgba(56, 239, 125, 0.85);
+}
+
+.battery-slot-cell.empty {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.battery-slot-num {
+  font-size: 9.5px;
+  font-weight: 700;
+  font-family: monospace;
+  color: #94a3b8;
+}
+
+.battery-slot-num.done {
+  color: #38ef7d;
+}
+
+.battery-drive-tag {
+  font-size: 9px;
+  font-weight: 600;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 4px;
+  padding: 1px 4px;
+  white-space: nowrap;
+}
+
+.fleet-slots-badge {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: monospace;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(56, 189, 248, 0.14);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.fleet-slots-badge.complete {
+  background: rgba(16, 185, 129, 0.15);
+  color: #38ef7d;
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.sidebar-box-sub-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 10px 6px;
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.fleet-sub-drive {
+  color: #34d399;
+}
+
+.today-tracker-fleet-link-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tracker-fleet-stats-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fleet-summary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-open-fleet-matrix {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-open-fleet-matrix:hover {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+
