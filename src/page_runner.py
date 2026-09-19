@@ -168,8 +168,11 @@ class PageRunner:
             }
 
         # 6. Download Video to temporary runner storage
+        # Ensure temporary filename doesn't exceed Linux 255-byte filesystem limits with long unicode titles
+        _, ext = os.path.splitext(filename)
+        safe_temp_name = f"video_{drive_file_id}{ext if ext else '.mp4'}"
         temp_dir = tempfile.mkdtemp(prefix=f"fb_post_{page_name}_")
-        temp_file_path = os.path.join(temp_dir, filename)
+        temp_file_path = os.path.join(temp_dir, safe_temp_name)
 
         try:
             self.drive_client.download_file(drive_file_id, temp_file_path)
