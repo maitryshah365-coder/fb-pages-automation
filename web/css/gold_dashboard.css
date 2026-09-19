@@ -3470,9 +3470,9 @@ body {
 .side-page-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 7px 9px;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 7px;
   background: transparent;
   border: 1px solid transparent;
   cursor: pointer;
@@ -3535,18 +3535,18 @@ body {
 }
 
 .sidebar-box-header {
-  padding: 0 10px;
+  padding: 0 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   user-select: none;
   background: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   transition: all 0.2s ease;
-  height: 42px;
-  min-height: 42px;
+  height: 38px;
+  min-height: 38px;
   box-sizing: border-box;
   width: 100%;
 }
@@ -3562,10 +3562,10 @@ body {
 .sidebar-box-title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.1px;
+  letter-spacing: -0.15px;
   color: #f8fafc;
   flex: 1 1 auto;
   min-width: 0;
@@ -3574,10 +3574,10 @@ body {
 
 .sidebar-box-title img,
 .sidebar-box-flag {
-  width: 20px;
-  height: 14px;
+  width: 18px;
+  height: 12px;
   object-fit: cover;
-  border-radius: 2.5px;
+  border-radius: 2px;
   vertical-align: middle;
   display: block;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
@@ -3593,12 +3593,13 @@ body {
   font-weight: 700;
   color: #f8fafc;
   line-height: 1.2;
+  letter-spacing: -0.15px;
 }
 
 .sidebar-box-right {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 5px;
   flex-shrink: 0;
 }
 
@@ -3789,32 +3790,85 @@ body {
 }
 
 .side-page-avatar {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.side-page-meta {
+.side-page-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.side-page-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
   min-width: 0;
 }
 
 .side-page-name {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #f8fafc;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 135px;
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.side-page-row-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
 }
 
 .side-page-followers {
-  font-size: 10px;
+  font-size: 9.5px;
   color: #64748b;
-  font-weight: 600;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+}
+
+.side-page-stats-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.side-page-slot-tag {
+  font-size: 9px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+  letter-spacing: -0.2px;
+}
+
+.side-page-slot-tag.done {
+  color: #38ef7d;
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
 .side-page-dot {
@@ -5552,13 +5606,14 @@ body {
   gap: 2px;
   background: rgba(0, 0, 0, 0.45);
   padding: 2px 4px;
-  border-radius: 4px;
+  border-radius: 3px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
 }
 
 .battery-slot-cell {
   width: 4px;
-  height: 9px;
+  height: 8px;
   border-radius: 1px;
   background: rgba(255, 255, 255, 0.12);
   transition: all 0.2s ease;
@@ -5579,9 +5634,9 @@ body {
 }
 
 .battery-slot-num {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 700;
-  font-family: monospace;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   color: #94a3b8;
 }
 
@@ -5590,25 +5645,27 @@ body {
 }
 
 .battery-drive-tag {
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 600;
   color: #34d399;
   background: rgba(16, 185, 129, 0.12);
   border: 1px solid rgba(16, 185, 129, 0.25);
-  border-radius: 4px;
+  border-radius: 3px;
   padding: 1px 4px;
   white-space: nowrap;
 }
 
 .fleet-slots-badge {
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 700;
-  font-family: monospace;
-  padding: 2px 6px;
-  border-radius: 5px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  padding: 2px 5px;
+  border-radius: 4px;
   background: rgba(56, 189, 248, 0.14);
   color: #38bdf8;
   border: 1px solid rgba(56, 189, 248, 0.3);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
 }
 
 .fleet-slots-badge.complete {

@@ -926,9 +926,6 @@ function renderSidebarPagesList(pages) {
     const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
       ? p.drive_videos_count
       : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
-    const isUk = accType.startsWith("uk");
-    const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
-    const pillClass = isUk ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
 
     const batteryCells = [1, 2, 3, 4].map(sNum => {
       const isFilled = pToday >= sNum;
@@ -938,22 +935,21 @@ function renderSidebarPagesList(pages) {
 
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${p.name} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
-        <div class="side-page-item-left">
-          <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
-          <div class="side-page-meta">
-            <div class="side-page-name" style="display:flex;align-items:center;">
-              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</span>
-              <span class="page-account-badge ${pillClass}" style="font-size:9px;padding:1px 5px;margin-left:5px;">${flagImg}</span>
+        <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
+        <div class="side-page-content">
+          <div class="side-page-row-top">
+            <span class="side-page-name" title="${p.name}">${p.name}</span>
+            <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
+              ${batteryCells}
             </div>
-            <div class="side-page-followers">${followersStr} followers</div>
           </div>
-        </div>
-        <div class="side-page-battery-group">
-          <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
-            ${batteryCells}
+          <div class="side-page-row-bottom">
+            <span class="side-page-followers">${followersStr} followers</span>
+            <div class="side-page-stats-right">
+              <span class="side-page-slot-tag ${pToday >= 4 ? 'done' : ''}">${pToday}/4 Slots</span>
+              ${driveCount > 0 ? `<span class="battery-drive-tag" title="${driveCount} videos ready in Drive">📁 ${driveCount}</span>` : ''}
+            </div>
           </div>
-          <span class="battery-slot-num ${pToday >= 4 ? 'done' : ''}">${pToday}/4</span>
-          ${driveCount > 0 ? `<span class="battery-drive-tag" title="${driveCount} videos ready in Drive">📁 ${driveCount}</span>` : ''}
         </div>
       </div>`;
   }
@@ -967,10 +963,10 @@ function renderSidebarPagesList(pages) {
     const flagAlt = isUk ? "UK" : "USA";
     return `
       <div class="sidebar-section-box ${cssClass}" data-fleet="${accType}" id="fleetBox_${accType}">
-        <div class="sidebar-box-header" onclick="toggleFleetBox('${accType}', event)">
+        <div class="sidebar-box-header" onclick="toggleFleetBox('${accType}', event)" title="${title} • ${items.length} Pages • ${totalFleetDone}/${totalFleetTarget} Slots">
           <div class="sidebar-box-title">
             <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
-            <span class="sidebar-box-name">${title}</span>
+            <span class="sidebar-box-name" title="${title}">${title}</span>
           </div>
           <div class="sidebar-box-right">
             <span class="fleet-slots-badge ${totalFleetDone >= totalFleetTarget ? 'complete' : ''}">${totalFleetDone}/${totalFleetTarget} Slots</span>
@@ -1178,9 +1174,6 @@ function renderDrawerPages(pages) {
     const isActive = String(p.id) === activePageId;
     const viewsFormatted = (p.total_views || 0).toLocaleString();
     const followersFormatted = (p.followers || 0).toLocaleString();
-    const isUk = accountType.startsWith("uk");
-    const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
-    const badgeClass = isUk ? 'badge-uk' : (accountType === 'usa2' ? 'badge-a2' : 'badge-a1');
     const accOwner = accountType === 'uk5' ? 'Richi Patel' : (accountType === 'uk4' ? 'Nidhi Desai' : (accountType === 'uk3' ? 'Mahi Patel' : (accountType === 'uk2' ? 'Chanda Nai' : (accountType === 'uk1' ? 'Binjal Mehra' : (accountType === 'usa2' ? 'Mia Shah' : 'Meghal Chauhan')))));
     const pToday = getPageTodayPosts(p);
     const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
@@ -1198,13 +1191,13 @@ function renderDrawerPages(pages) {
            data-page-id="${p.id}"
            role="button"
            tabindex="0"
-           onclick="onSelectDrawerPage('${p.id}', event)">
-        <div class="page-item-left">
+           onclick="onSelectDrawerPage('${p.id}', event)"
+           title="${p.name} • ${followersFormatted} followers • ${pToday}/4 Slots • ${driveCount} in Drive">
+        <div class="page-item-left" style="min-width:0; flex:1 1 auto;">
           <img class="page-item-img" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
-          <div class="page-item-info">
-            <div class="page-item-name" style="display:flex;align-items:center;gap:6px;">
-              <span>${p.name}</span>
-              <span class="page-account-badge ${badgeClass}" style="font-size:9px;padding:1px 5px;">${flagImg}</span>
+          <div class="page-item-info" style="min-width:0; flex:1 1 auto;">
+            <div class="page-item-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${p.name}">
+              ${p.name}
             </div>
             <div class="page-item-meta">${followersFormatted} followers • ${accOwner}</div>
           </div>
@@ -1229,10 +1222,10 @@ function renderDrawerPages(pages) {
     const totalStock = items.reduce((sum, p) => sum + (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     return `
       <div class="drawer-account-section ${flagClass}">
-        <div class="drawer-box-header sidebar-box-header">
+        <div class="drawer-box-header sidebar-box-header" title="${title} • ${count} Pages • ${totalDone}/${totalTarget} Slots">
           <div class="sidebar-box-title">
             <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
-            <span class="sidebar-box-name">${title}</span>
+            <span class="sidebar-box-name" title="${title}">${title}</span>
           </div>
           <div class="sidebar-box-right">
             <span class="fleet-slots-badge ${totalDone >= totalTarget ? 'complete' : ''}">${totalDone}/${totalTarget} Slots</span>
