@@ -55,3 +55,10 @@ if [ "$COUNTRY" != "GB" ] && [ "$COUNTRY" != "UK" ]; then
 fi
 
 echo "✅ VERIFIED: Connected successfully to London, United Kingdom 🇬🇧!"
+
+if [ -n "$GITHUB_ENV" ]; then
+    echo "RUNNER_GEO_JSON<<EOF" >> "$GITHUB_ENV"
+    echo "$GEO" >> "$GITHUB_ENV"
+    echo "EOF" >> "$GITHUB_ENV"
+fi
+

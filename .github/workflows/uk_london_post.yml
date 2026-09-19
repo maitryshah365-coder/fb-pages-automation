@@ -72,22 +72,10 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Configure WireGuard London Egress Tunnel
+      - name: Connect Surfshark London WireGuard & Enforce UK Kill-Switch
         run: |
-          sudo mkdir -p /etc/wireguard
-          echo "${{ secrets.WIREGUARD_CONFIG_BASE64 }}" | base64 -d | sudo tee /etc/wireguard/wg0.conf > /dev/null
-          sudo chmod 600 /etc/wireguard/wg0.conf
-
-      - name: Connect to UK London VPN Egress
-        run: |
-          sudo wg-quick up wg0
-          sleep 3
-
-      - name: Verify UK WireGuard IP Geolocation
-        run: |
-          GEO_DATA=$(curl -s --max-time 10 https://ipinfo.io/json)
-          echo "RUNNER_GEO_JSON=$GEO_DATA" >> $GITHUB_ENV
-          echo "🌐 Verified Egress Telemetry: $GEO_DATA"
+          chmod +x scripts/connect_wireguard_uk.sh
+          ./scripts/connect_wireguard_uk.sh
 
       - name: Execute Multi-Page UK Automation Pipeline
         env:
