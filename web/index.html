@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=7.5.3">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.1.0">
 </head>
 <body>
 
@@ -665,6 +665,26 @@
               <strong id="clockUTC">--:--:-- UTC</strong>
             </div>
           </div>
+          <script>
+            (function initLiveClocksNow() {
+              function update() {
+                try {
+                  const now = new Date();
+                  const opt = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                  const elIndia = document.getElementById('clockIndia');
+                  const elLondon = document.getElementById('clockLondon');
+                  const elNY = document.getElementById('clockNewYork');
+                  const elUTC = document.getElementById('clockUTC');
+                  if (elIndia) elIndia.innerText = now.toLocaleTimeString('en-IN', Object.assign({ timeZone: 'Asia/Kolkata' }, opt)) + ' IST';
+                  if (elLondon) elLondon.innerText = now.toLocaleTimeString('en-GB', Object.assign({ timeZone: 'Europe/London' }, opt)) + ' BST';
+                  if (elNY) elNY.innerText = now.toLocaleTimeString('en-US', Object.assign({ timeZone: 'America/New_York' }, opt)) + ' EDT';
+                  if (elUTC) elUTC.innerText = now.toLocaleTimeString('en-GB', Object.assign({ timeZone: 'UTC' }, opt)) + ' UTC';
+                } catch(e) {}
+              }
+              update();
+              setInterval(update, 1000);
+            })();
+          </script>
           
           <div class="radar-next-run-badge" id="radarNextRunBadge">
             <span>⏰ Next Run:</span>
@@ -1106,6 +1126,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=7.8.0"></script>
+  <script src="js/gold_app.js?v=8.1.0"></script>
 </body>
 </html>
