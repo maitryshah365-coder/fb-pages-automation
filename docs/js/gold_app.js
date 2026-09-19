@@ -390,6 +390,26 @@ function getPageTodayPosts(p) {
     }
   });
 
+  // Cross-check verified upload history (UK & USA uploads)
+  if (Array.isArray(uploadHistoryData)) {
+    uploadHistoryData.forEach(h => {
+      const hPid = String(h.page_id || "");
+      const hVid = String(h.id || h.video_id || "");
+      if (hPid === String(p.id) && !seenIds.has(hVid)) {
+        const iso = String(h.posted_at || "");
+        if (
+          (edtDate && iso.includes(edtDate)) ||
+          (utcDate && iso.includes(utcDate)) ||
+          (localDate && iso.includes(localDate)) ||
+          (iso && iso.slice(0, 10) === utcDate)
+        ) {
+          seenIds.add(hVid);
+          countFromVideos++;
+        }
+      }
+    });
+  }
+
   const maxDailySlots = Number(p.daily_limit) || 4;
   const rawPosts = Math.max(countFromVideos, Number(p.today_posts) || 0);
   const finalCount = Math.min(maxDailySlots, rawPosts);
@@ -638,6 +658,31 @@ async function syncLiveMetaGraph() {
       console.warn("Direct fresh data reload error:", err);
     }
 
+    // 1b. Force fresh fetch of upload_history.json & latest_run_summary.json (Bulletproof UK/USA Sync)
+    try {
+      const [histRes, sumRes] = await Promise.all([
+        fetch("data/upload_history.json?v=" + Date.now(), { cache: "no-store" }),
+        fetch("data/latest_run_summary.json?v=" + Date.now(), { cache: "no-store" })
+      ]);
+      if (histRes.ok) {
+        const histJson = await histRes.json();
+        if (histJson && Array.isArray(histJson.history)) {
+          uploadHistoryData = histJson.history;
+          const totalBadge = document.getElementById("historyTotalCountBadge");
+          if (totalBadge) totalBadge.innerText = uploadHistoryData.length;
+          renderUploadHistoryTable();
+        }
+      }
+      if (sumRes.ok) {
+        const sumJson = await sumRes.json();
+        if (sumJson && sumJson.results) {
+          fullData.latest_run_summary = sumJson;
+        }
+      }
+    } catch (err) {
+      console.warn("Direct upload history / summary reload error:", err);
+    }
+
     // If running on local server, also trigger backend concurrent sync
     try {
       if (window.location.protocol.startsWith("http") && (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")) {
@@ -856,6 +901,7 @@ async function syncLiveMetaGraph() {
     renderSidebarPagesList(fullData.pages);
     renderDrawerPages(fullData.pages);
     selectPage(activePageId);
+    showToast(`✅ Live Meta & Upload History Synced (All ${fullData.pages.length} Pages Live)`);
   } catch (err) {
     console.warn("Live sync completed with local cached data:", err);
     if (statusText) statusText.innerText = "Meta Graph API: Connected (100% Real Data)";
@@ -1134,6 +1180,18 @@ function onSelectDrawerPage(pageId, e) {
 }
 window.onSelectDrawerPage = onSelectDrawerPage;
 
+window.toggleDrawerFleetBox = function(fleetKey, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const box = document.getElementById(`drawerFleetBox_${fleetKey}`);
+  if (!box) return;
+  const isOpen = box.classList.contains("open");
+  box.classList.toggle("open", !isOpen);
+  const chevron = box.querySelector(".drawer-box-chevron");
+  if (chevron) chevron.innerText = isOpen ? "▼" : "▲";
+  const body = box.querySelector(".drawer-box-body");
+  if (body) body.style.display = isOpen ? "none" : "block";
+};
+
 function renderDrawerPages(pages) {
   const container = document.getElementById("sidebarPagesList");
   if (!container) return;
@@ -1170,11 +1228,9 @@ function renderDrawerPages(pages) {
     }
   });
 
-  function renderDrawerItem(p, accountType) {
-    const isActive = String(p.id) === activePageId;
-    const viewsFormatted = (p.total_views || 0).toLocaleString();
-    const followersFormatted = (p.followers || 0).toLocaleString();
-    const accOwner = accountType === 'uk5' ? 'Richi Patel' : (accountType === 'uk4' ? 'Nidhi Desai' : (accountType === 'uk3' ? 'Mahi Patel' : (accountType === 'uk2' ? 'Chanda Nai' : (accountType === 'uk1' ? 'Binjal Mehra' : (accountType === 'usa2' ? 'Mia Shah' : 'Meghal Chauhan')))));
+  function renderDrawerItem(p, accType) {
+    const isPageActive = String(p.id) === activePageId;
+    const followersStr = (p.followers || 0).toLocaleString();
     const pToday = getPageTodayPosts(p);
     const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
       ? p.drive_videos_count
@@ -1187,80 +1243,77 @@ function renderDrawerPages(pages) {
     }).join("");
 
     return `
-      <div class="drawer-page-item ${isActive ? 'active' : ''}" 
-           data-page-id="${p.id}"
-           role="button"
-           tabindex="0"
-           onclick="onSelectDrawerPage('${p.id}', event)"
-           title="${p.name} • ${followersFormatted} followers • ${pToday}/4 Slots • ${driveCount} in Drive">
-        <div class="page-item-left" style="min-width:0; flex:1 1 auto;">
-          <img class="page-item-img" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
-          <div class="page-item-info" style="min-width:0; flex:1 1 auto;">
-            <div class="page-item-name" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${p.name}">
-              ${p.name}
+      <div class="side-page-item drawer-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectDrawerPage('${p.id}', event)" title="${p.name} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
+        <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
+        <div class="side-page-content">
+          <div class="side-page-row-top">
+            <span class="side-page-name" title="${p.name}">${p.name}</span>
+            <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
+              ${batteryCells}
             </div>
-            <div class="page-item-meta">${followersFormatted} followers • ${accOwner}</div>
+          </div>
+          <div class="side-page-row-bottom">
+            <span class="side-page-followers">${followersStr} followers</span>
+            <div class="side-page-stats-right">
+              <span class="side-page-slot-tag ${pToday >= 4 ? 'done' : ''}">${pToday}/4 Slots</span>
+              ${driveCount > 0 ? `<span class="battery-drive-tag" title="${driveCount} videos ready in Drive">📁 ${driveCount}</span>` : ''}
+            </div>
           </div>
         </div>
-        <div class="side-page-battery-group">
-          <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
-            ${batteryCells}
-          </div>
-          <span class="battery-slot-num ${pToday >= 4 ? 'done' : ''}">${pToday}/4</span>
-          ${driveCount > 0 ? `<span class="battery-drive-tag">📁 ${driveCount}</span>` : ''}
-        </div>
-      </div>
-    `;
+      </div>`;
   }
 
-  function renderDrawerSection(title, flag, count, items, accKey, flagClass) {
-    const isUk = accKey.startsWith("uk");
-    const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
-    const flagAlt = isUk ? "UK" : "USA";
-    const totalDone = items.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
-    const totalTarget = items.length * 4;
-    const totalStock = items.reduce((sum, p) => sum + (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
+  function buildDrawerFleetBox(cssClass, accType, flagSrc, flagAlt, title, items) {
+    const totalFleetDone = items.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
+    const totalFleetTarget = items.length * 4;
+    const totalFleetStock = items.reduce((sum, p) => sum + (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
+    const hasActivePage = items.some(p => String(p.id) === activePageId);
+    // Open active fleet, or usa1 by default, or open all if searching
+    const isOpen = Boolean(searchTerm) || hasActivePage || accType === "usa1";
+
     return `
-      <div class="drawer-account-section ${flagClass}">
-        <div class="drawer-box-header sidebar-box-header" title="${title} • ${count} Pages • ${totalDone}/${totalTarget} Slots">
+      <div class="drawer-account-section ${cssClass} ${isOpen ? 'open' : ''}" id="drawerFleetBox_${accType}" data-fleet="${accType}">
+        <div class="drawer-box-header" onclick="toggleDrawerFleetBox('${accType}', event)" title="${title} • ${items.length} Pages • ${totalFleetDone}/${totalFleetTarget} Slots">
           <div class="sidebar-box-title">
             <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
             <span class="sidebar-box-name" title="${title}">${title}</span>
           </div>
           <div class="sidebar-box-right">
-            <span class="fleet-slots-badge ${totalDone >= totalTarget ? 'complete' : ''}">${totalDone}/${totalTarget} Slots</span>
+            <span class="fleet-slots-badge ${totalFleetDone >= totalFleetTarget ? 'complete' : ''}">${totalFleetDone}/${totalFleetTarget} Slots</span>
+            <span class="drawer-box-chevron">${isOpen ? '▲' : '▼'}</span>
           </div>
         </div>
         <div class="sidebar-box-sub-strip">
-          <span>${count} Pages</span>
-          <span class="fleet-sub-drive">📁 ${totalStock.toLocaleString()} Stock</span>
+          <span>${items.length} Pages</span>
+          <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
         </div>
-        <div>${items.map(p => renderDrawerItem(p, accKey)).join("")}</div>
-      </div>
-    `;
+        <div class="drawer-box-body" style="display: ${isOpen ? 'block' : 'none'};">
+          ${items.map(p => renderDrawerItem(p, accType)).join("")}
+        </div>
+      </div>`;
   }
 
   let html = "";
   if (usa1List.length > 0) {
-    html += renderDrawerSection("Meghal Chauhan", "🇺🇸", usa1List.length, usa1List, "usa1", "sec-us");
+    html += buildDrawerFleetBox("sidebar-box-usa1", "usa1", "icons/us.png", "USA", "Meghal Chauhan", usa1List);
   }
   if (usa2List.length > 0) {
-    html += renderDrawerSection("Mia Shah", "🇺🇸", usa2List.length, usa2List, "usa2", "sec-us");
+    html += buildDrawerFleetBox("sidebar-box-usa2", "usa2", "icons/us.png", "USA", "Mia Shah", usa2List);
   }
   if (uk1List.length > 0) {
-    html += renderDrawerSection("Binjal Mehra", "🇬🇧", uk1List.length, uk1List, "uk1", "sec-uk");
+    html += buildDrawerFleetBox("sidebar-box-uk1", "uk1", "icons/gb.png", "UK", "Binjal Mehra", uk1List);
   }
   if (uk2List.length > 0) {
-    html += renderDrawerSection("Chanda Nai", "🇬🇧", uk2List.length, uk2List, "uk2", "sec-uk");
+    html += buildDrawerFleetBox("sidebar-box-uk2", "uk2", "icons/gb.png", "UK", "Chanda Nai", uk2List);
   }
   if (uk3List.length > 0) {
-    html += renderDrawerSection("Mahi Patel", "🇬🇧", uk3List.length, uk3List, "uk3", "sec-uk");
+    html += buildDrawerFleetBox("sidebar-box-uk3", "uk3", "icons/gb.png", "UK", "Mahi Patel", uk3List);
   }
   if (uk4List.length > 0) {
-    html += renderDrawerSection("Nidhi Desai", "🇬🇧", uk4List.length, uk4List, "uk4", "sec-uk");
+    html += buildDrawerFleetBox("sidebar-box-uk4", "uk4", "icons/gb.png", "UK", "Nidhi Desai", uk4List);
   }
   if (uk5List.length > 0) {
-    html += renderDrawerSection("Richi Patel", "🇬🇧", uk5List.length, uk5List, "uk5", "sec-uk");
+    html += buildDrawerFleetBox("sidebar-box-uk5", "uk5", "icons/gb.png", "UK", "Richi Patel", uk5List);
   }
 
   container.innerHTML = html;
@@ -1297,6 +1350,17 @@ function selectPage(pageId) {
     switchMainView("dashboard");
     window.scrollTo({ top: 0, behavior: "smooth" });
   } catch (e) {}
+
+  // Update mobile active page name in header
+  const mobActiveName = document.getElementById("mobileActivePageName");
+  if (mobActiveName) {
+    if (activePageId === "all") {
+      mobActiveName.innerText = "All 89 Pages Portfolio";
+    } else {
+      const pObj = fullData?.pages?.find(p => String(p.id) === activePageId);
+      mobActiveName.innerText = pObj ? pObj.name : "Active Page";
+    }
+  }
 
   // Update Drawer active state
   document.querySelectorAll(".drawer-page-item").forEach(el => {
