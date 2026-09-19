@@ -28,7 +28,8 @@ def main():
         ("config_uk_account1.yaml", "UK Account 1 (Binjal Mehra)"),
         ("config_uk_account2.yaml", "UK Account 2 (Chanda Nai)"),
         ("config_uk_account3.yaml", "UK Account 3 (Mahi Patel)"),
-        ("config_uk_account4.yaml", "UK Account 4 (Nidhi Desai)")
+        ("config_uk_account4.yaml", "UK Account 4 (Nidhi Desai)"),
+        ("config_uk_account5.yaml", "UK Account 5 (Richi Patel)")
     ]
 
     # Whole account shorthand
@@ -47,6 +48,10 @@ def main():
     elif req in ["uk_account_4", "uk4"]:
         print("🚀 [UK RUNNER] Running full UK Account 4 (12 Pages)...")
         subprocess.run([sys.executable, "main.py", "--config", "config_uk_account4.yaml", "--require-uk"] + dry_flag, check=False)
+        return
+    elif req in ["uk_account_5", "uk5"]:
+        print("🚀 [UK RUNNER] Running full UK Account 5 (11 Pages)...")
+        subprocess.run([sys.executable, "main.py", "--config", "config_uk_account5.yaml", "--require-uk"] + dry_flag, check=False)
         return
 
     # Comma-separated list of pages
@@ -83,7 +88,9 @@ def main():
 
     if not ran_any:
         print(f"⚠️ No direct page matches found, executing fallback with direct page arg: {req}")
-        if "uk4" in req.lower():
+        if "uk5" in req.lower():
+            subprocess.run([sys.executable, "main.py", "--config", "config_uk_account5.yaml", "--page", req, "--require-uk"] + dry_flag, check=False)
+        elif "uk4" in req.lower():
             subprocess.run([sys.executable, "main.py", "--config", "config_uk_account4.yaml", "--page", req, "--require-uk"] + dry_flag, check=False)
         elif "uk3" in req.lower():
             subprocess.run([sys.executable, "main.py", "--config", "config_uk_account3.yaml", "--page", req, "--require-uk"] + dry_flag, check=False)

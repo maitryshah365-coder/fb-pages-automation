@@ -9,7 +9,7 @@ on:
         type: boolean
         default: false
       page:
-        description: "Optional: Specific UK page name or group (e.g. uk_account_1, uk_account_2, uk_account_3)"
+        description: "Optional: Specific UK page name or group (e.g. uk_account_1, uk_account_2, uk_account_3, uk_account_4, uk_account_5)"
         required: false
         type: string
         default: ""
@@ -19,6 +19,7 @@ on:
   # UK Account 2 (Pages 43-54): +20 Min Offset (09:20 AM, 01:20 PM, 05:20 PM, 09:50 PM London - 08:20, 12:20, 16:20, 20:50 UTC)
   # UK Account 3 (Pages 55-66): +30 Min Offset (09:30 AM, 01:30 PM, 05:30 PM, 10:00 PM London - 08:30, 12:30, 16:30, 21:00 UTC)
   # UK Account 4 (Pages 67-78): +40 Min Offset (09:40 AM, 01:40 PM, 05:40 PM, 10:10 PM London - 08:40, 12:40, 16:40, 21:10 UTC)
+  # UK Account 5 (Pages 79-89): +50 Min Offset (09:50 AM, 01:50 PM, 05:50 PM, 10:20 PM London - 08:50, 12:50, 16:50, 21:20 UTC)
   schedule:
     # UK Account 1 (Binjal Mehra):
     - cron: "0 8,12,16 * * *"
@@ -32,6 +33,9 @@ on:
     # UK Account 4 (Nidhi Desai - Staggered +40 Min Offset):
     - cron: "40 8,12,16 * * *"
     - cron: "10 21 * * *"
+    # UK Account 5 (Richi Patel - Staggered +50 Min Offset):
+    - cron: "50 8,12,16 * * *"
+    - cron: "20 21 * * *"
 
 concurrency:
   group: uk-facebook-upload-group
@@ -44,39 +48,50 @@ jobs:
   upload-uk:
     name: Execute UK London Post Pipeline
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 120
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up Python
+      - name: Set up Python Environment
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
 
-      - name: Install System Utilities & FFmpeg
+      - name: Install System Dependencies & WireGuard
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y ffmpeg
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq wireguard resolvconf curl jq
 
-      - name: Install Dependencies
+      - name: Install Python Automation Dependencies
         run: |
-          python -m pip install --upgrade pip
+          pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Connect Surfshark London WireGuard & Enforce UK Kill-Switch
+      - name: Configure WireGuard London Egress Tunnel
         run: |
-          chmod +x scripts/connect_wireguard_uk.sh
-          ./scripts/connect_wireguard_uk.sh
+          sudo mkdir -p /etc/wireguard
+          echo "${{ secrets.WIREGUARD_CONFIG_BASE64 }}" | base64 -d | sudo tee /etc/wireguard/wg0.conf > /dev/null
+          sudo chmod 600 /etc/wireguard/wg0.conf
 
-      - name: Run UK Automation Engine
+      - name: Connect to UK London VPN Egress
+        run: |
+          sudo wg-quick up wg0
+          sleep 3
+
+      - name: Verify UK WireGuard IP Geolocation
+        run: |
+          GEO_DATA=$(curl -s --max-time 10 https://ipinfo.io/json)
+          echo "RUNNER_GEO_JSON=$GEO_DATA" >> $GITHUB_ENV
+          echo "🌐 Verified Egress Telemetry: $GEO_DATA"
+
+      - name: Execute Multi-Page UK Automation Pipeline
         env:
           GDRIVE_SERVICE_ACCOUNT_JSON: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_JSON }}
-          GDRIVE_OWNER_REFRESH_TOKEN: ${{ secrets.GDRIVE_OWNER_REFRESH_TOKEN }}
           GDRIVE_CLIENT_SECRET_JSON: ${{ secrets.GDRIVE_CLIENT_SECRET_JSON }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
@@ -88,7 +103,10 @@ jobs:
             DRY_ARG="--dry-run"
           fi
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "40 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "10 21 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "50 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "20 21 * * *" ]; then
+              echo "⏰ UK Account 5 Cron Triggered: Running UK Account 5 (Richi Patel - 11 Pages) [+50 Min Offset]"
+              python main.py --config config_uk_account5.yaml $DRY_ARG --require-uk
+            elif [ "${{ github.event.schedule }}" = "40 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "10 21 * * *" ]; then
               echo "⏰ UK Account 4 Cron Triggered: Running UK Account 4 (Nidhi Desai - 12 Pages) [+40 Min Offset]"
               python main.py --config config_uk_account4.yaml $DRY_ARG --require-uk
             elif [ "${{ github.event.schedule }}" = "30 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "0 21 * * *" ]; then
@@ -110,6 +128,7 @@ jobs:
             python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
             python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
             python main.py --config config_uk_account4.yaml $DRY_ARG --require-uk
+            python main.py --config config_uk_account5.yaml $DRY_ARG --require-uk
           fi
 
       - name: Disconnect WireGuard Tunnel

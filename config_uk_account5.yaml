@@ -1,0 +1,127 @@
+page_group: uk_london_id_5_richi
+account_name: Richi Patel
+country_code: GB
+target_location: London, United Kingdom
+require_uk_ip: true
+ai_disclosure_status: pending_determination
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1282432698285787'
+  name: uk5_page_1
+  display_name: Exile The Sun
+  enabled: true
+  drive_folder_id: 1Mxn-OsHxuAr0XI8hLXdP36CHd7bu4kHY
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBStZChp3K0SixqZAyxdjyc3Lsgf7QGQuhgZCI527nASh74RZCM15dx5DAX0vZA3fn3Vf3eKhaUabfP8Qh7rEQwfqI4IepD0UzPrguuQbZA50hWBQSNKOx0NanNtL9T7znN1gj2aQEZAcFivSOgyqIloWqCvhtSgWRIojl8EivhQkiUd5ZBNzZATBEhtZAYjpzfY9xATDT10ZBG8h
+- page_id: '1292135137311847'
+  name: uk5_page_2
+  display_name: Empty Pockets
+  enabled: true
+  drive_folder_id: 1HJuayNj7NWyNqlPQvtHBa4bqXYjK7Fta
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSjqeZBrmLU2sgScKKAaz3VbF2pdZBn4iBIGr0GF3O0xUbuQy3yYtl6UAdwicqOXr02j8eaUGzDABmcxCG1Drxi9MvIHlOAweDpNt1oFjU74zHq9OetiLZCpRhZAeXUZCVWmLOiKgLrVDfwIKMZCteEWf4pPmqp5RPRGBFM9FEQf95E40DZCUBFdFN69CIon4LYR392wcv0w
+- page_id: '1372949892557936'
+  name: uk5_page_3
+  display_name: Dirty Halos
+  enabled: true
+  drive_folder_id: 1_84m7mzqO_UH7wZ7Ibu0m0zZKCPq1t9_
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSlX627WQM1z0VRsK6vIlT9VJ9Uf75wwZB5TA85zf1r779FKZB9bWUdVl19LKe8MAcSeUrqkItWSYdZAVLxuaWFGdZAaUAHRuFoZCZAywmImWZCi9nP20XUAqIZArJZAZCuNAlnLy5Dkug4Btg2lma5hRcQvZAUGkzpGr1MkpZBoRmZCiovUwQ5iyKlLoNsrKgH5PemdZCS5a5EWyZBf
+- page_id: '1246041178598806'
+  name: uk5_page_4
+  display_name: Deafening Quiet
+  enabled: true
+  drive_folder_id: 1EScmrSEvJZ-0RVZUi4EbNwwXZvFY1xj-
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSsnIoKCqZBtIWRil9iOjlzXFdWg0mlzca4zcvv6g05A1Or8NdJZAmRwRcN3v2YvReKP0XZC5MkKd9i5oE8WEb2O30k5wxfALU8JvVcgoLlib2aJofK6w3uxJIdb99wZAPaWbIGz3ZBoM2edM2wtdnkD9i9PV6sUYsZB3m7qSc9vgP6hftppjXASOvvUJRBzY9UhWCZAqZBkf
+- page_id: '1314852728368183'
+  name: uk5_page_5
+  display_name: Crooked Hymns
+  enabled: true
+  drive_folder_id: 16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSvNgKuJAsd73dMVSMzvawy843VjgdZBkDiZAudPOHguXqIOBs8lmvugvD75lG0FZCfmz1TOQG9EeTpYPVU53dnBE32KNZCPJTHqqzBXjd28lKOQwzeU9pCgBqmjjKEXQyZBfNuiXKm9VZCaWsU87N4ZCld5vhWJ3XiraGMPBD8Q9yER0SliKBENcHZAoDzoVukVzJsuRWVAh
+- page_id: '1307388065781375'
+  name: uk5_page_6
+  display_name: Cracked Bell
+  enabled: true
+  drive_folder_id: 1SLLaD5EJpjI0y3sJ-SHW54z3MbJpuSZ6
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSqubSAZCwdlV5dkckqZAzA85joNw0PlZATrTfIxpoC7m4APC6w8AtBv0fe2Qx7ZCqvsAlz0i11KNSn0zJJ5HZBybarOAR8EfeNKFguZC9ihIIZAhgLlZCA2CUbwG0ojLF70JF49gFlNAGtlWcZCJT8cZAcBlvIlxmBOXf5XeIqDDGjiJFYaa4NvUxTsihn72D2ZCtSDDViWFIx0
+- page_id: '1261317297068003'
+  name: uk5_page_7
+  display_name: Collapse The Sky
+  enabled: true
+  drive_folder_id: 121F8kWME99saVsz1ZHUDFa3kuDIYpNH9
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSuGqjgZCRjiMiPZBy2Dslox4C0J56Ke55mqKeUZBZByWE67aQgZAqXI7PpV7ekpnF5cDRpGJCZAQnUEM4ytg5CLyU1AdMGASwtNTgxjmZCQspy4IY8DXdZAE20NZCZCUkbjhNhTqP0tNhZA3NZA2B1WAo9fyhjgG0gCbn6FikPIdTinGHhxZBZAzwYkrwsNiqBZBoEpCGasRtGod0ry
+- page_id: '1314791448384472'
+  name: uk5_page_8
+  display_name: Buried Choirs
+  enabled: true
+  drive_folder_id: 1llro8tw5sNIYX3t0tvz10OERwo2km59y
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSoIZBC3Uv3V0PWzgfRjjjHfZBSTirnHGXToVsdtt0XfDzrn9NoamIC3TPACI7h0GJgLLhy8748Cb0xWrK0FxsI0EkGSjRGOkHuV9gDPMkowBtdcEj4ZC8W9HIRNOh12QvtAA8JPqPi8ZA4kAFM8iZAbT1Gtqza6mCyYAgxrjeiCrj0eiFxjvc59IGuLMl4TD1tNJ521LO
+- page_id: '1275452998982725'
+  name: uk5_page_9
+  display_name: Brittle Crown
+  enabled: true
+  drive_folder_id: 1IYB4VZUz8p7iKpF-sgCcrFPu5KiYmI0T
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSrSKLDQm7gWB4EDmcZCZCKssc3NmqfskZC02mhQhOqO7Ku5YWneaHSGHkBKfokewWFvxuakzCkr8vKVBcBTPO4fvq0kgepuAZAKM2lJdn8tg592HS2vDP4gjmd9jLOwAATjnZBnmy72hvZA2C4KZCCDpxfDjSIlqyvwmWb7FAjJZAxFmMDRswi8eoQwYCwColtqviFv1Wzxk
+- page_id: '1345748795277343'
+  name: uk5_page_10
+  display_name: Broken Halo
+  enabled: true
+  drive_folder_id: 1MTyWjVldpCHaBSkdlQOK9JhsMIC93N5G
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSqWSTSSofyF66qLwBpYPk3MmRHNRZBAXjXVYA0qiCRU8fW6QdI4ZAZCGq2ydQ7LbJGOqv2sO5Lte3QeFYLp6NfqYFEZAavdndHyDESWI05LfKZBiOARNSRP3TG1bVhQ5rm3snsD3TDorJVOS29noB7tVJlmEyhGcZCnLl4ZC8mnCB89REcq4cC68wizEfuuTv159xSx43ZCd
+- page_id: '1129800936893243'
+  name: uk5_page_11
+  display_name: Blame The Weather
+  enabled: true
+  drive_folder_id: 15Lz5f-JHrHPQskqyIxR7AVamDLxOO07V
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAZAjB8vzWrMBSsIftRMZC8yCsz1nFmE02uMVvJKpn4kvbz2i4NzFrZAnM9h2bVPx7wUKMNqS4kUA3YGV4IvZAjkP3rH0XdCmedhZCHUqeJ7qTGfn6yHxLeKecAjQY4UJOqKLZCnzKie0pV6AEREdldFHKhByrtMzgPeO4KSDRDjlZAa5nrT7TxxgZAByelz661JiqVFviAWjItEZB0YHUxh6

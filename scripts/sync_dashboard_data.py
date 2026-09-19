@@ -105,6 +105,20 @@ FLEET_UK_04_IDS = [
     "417387901468629"   # Serendipity Spark
 ]
 
+FLEET_UK_05_IDS = [
+    "1282432698285787", # Exile The Sun
+    "1292135137311847", # Empty Pockets
+    "1372949892557936", # Dirty Halos
+    "1246041178598806", # Deafening Quiet
+    "1314852728368183", # Crooked Hymns
+    "1307388065781375", # Cracked Bell
+    "1261317297068003", # Collapse The Sky
+    "1314791448384472", # Buried Choirs
+    "1275452998982725", # Brittle Crown
+    "1345748795277343", # Broken Halo
+    "1129800936893243"  # Blame The Weather
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -126,7 +140,8 @@ def get_pages_list():
         {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")},
         {"account": "UK Account 2", "owner": "Chanda Nai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account2_chanda_permanent_pages.json")},
         {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")},
-        {"account": "UK Account 4", "owner": "Nidhi Desai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account4_nidhi_pages.json")}
+        {"account": "UK Account 4", "owner": "Nidhi Desai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account4_nidhi_pages.json")},
+        {"account": "UK Account 5", "owner": "Richi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account5_richi_permanent_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -148,14 +163,15 @@ def get_pages_list():
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
 
-    # Build the 78 pages strictly ordered by the 6 fleets
+    # Build the 89 pages strictly ordered by the 7 fleets
     fleet_order = [
         (FLEET_USA_01_IDS, "Meghal Chauhan (USA)", "Meghal Chauhan", "US", 1),
         (FLEET_USA_02_IDS, "Mia Shah (USA)", "Mia Shah", "US", 16),
         (FLEET_UK_01_IDS, "Binjal Mehra (UK)", "Binjal Mehra", "GB", 31),
         (FLEET_UK_02_IDS, "Chanda Nai (UK)", "Chanda Nai", "GB", 43),
         (FLEET_UK_03_IDS, "Mahi Patel (UK)", "Mahi Patel", "GB", 55),
-        (FLEET_UK_04_IDS, "Nidhi Desai (UK)", "Nidhi Desai", "GB", 67)
+        (FLEET_UK_04_IDS, "Nidhi Desai (UK)", "Nidhi Desai", "GB", 67),
+        (FLEET_UK_05_IDS, "Richi Patel (UK)", "Richi Patel", "GB", 79)
     ]
 
     final_pages = []
@@ -880,7 +896,9 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         os.path.join(BASE_DIR, "config_uk_account1.yaml"),
         os.path.join(BASE_DIR, "config_account2.yaml"),
         os.path.join(BASE_DIR, "config_uk_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account3.yaml")
+        os.path.join(BASE_DIR, "config_uk_account3.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account4.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account5.yaml")
     ]
     drive_folder_id = None
     for cp_path in cfg_paths:
@@ -988,8 +1006,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "index": idx,
         "id": pid,
         "name": p_name,
-        "account": p.get("account", "Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else "Mahi Patel (UK)")))),
-        "account_owner": p.get("account_owner", "Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else "Mahi Patel")))),
+        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else "Richi Patel (UK)")))))),
+        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else "Richi Patel")))))),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,
@@ -1169,7 +1187,9 @@ def sync_data():
         os.path.join(BASE_DIR, "config_uk_account1.yaml"),
         os.path.join(BASE_DIR, "config_account2.yaml"),
         os.path.join(BASE_DIR, "config_uk_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account3.yaml")
+        os.path.join(BASE_DIR, "config_uk_account3.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account4.yaml"),
+        os.path.join(BASE_DIR, "config_uk_account5.yaml")
     ]:
         if os.path.exists(cp_path):
             try:
@@ -1340,6 +1360,7 @@ def sync_data():
             "uk_account2_pages_count": len([p for p in page_records if "Chanda" in p.get("account", "") or p.get("account") == "UK Account 2"]),
             "uk_account3_pages_count": len([p for p in page_records if "Mahi" in p.get("account", "") or p.get("account") == "UK Account 3"]),
             "uk_account4_pages_count": len([p for p in page_records if "Nidhi" in p.get("account", "") or p.get("account") == "UK Account 4"]),
+            "uk_account5_pages_count": len([p for p in page_records if "Richi" in p.get("account", "") or p.get("account") == "UK Account 5"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,
