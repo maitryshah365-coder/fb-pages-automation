@@ -390,7 +390,9 @@ function getPageTodayPosts(p) {
     }
   });
 
-  const finalCount = Math.max(countFromVideos, Number(p.today_posts) || 0);
+  const maxDailySlots = Number(p.daily_limit) || 4;
+  const rawPosts = Math.max(countFromVideos, Number(p.today_posts) || 0);
+  const finalCount = Math.min(maxDailySlots, rawPosts);
   p.today_posts = finalCount;
   return finalCount;
 }
