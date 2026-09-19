@@ -1,145 +1,157 @@
 {
-  "run_id": "35448722285",
-  "run_number": "47",
-  "completed_at": "2026-09-19T14:27:49.147875+00:00",
+  "run_id": "35453820807",
+  "run_number": "14",
+  "completed_at": "2026-09-19T16:10:05.668428+00:00",
   "runner_telemetry": {
-    "ip": "20.168.103.61",
-    "city": "Phoenix",
-    "region": "Arizona",
-    "country": "US",
-    "loc": "33.4484,-112.0740",
-    "org": "AS8075 Microsoft Corporation",
-    "postal": "85003",
-    "timezone": "America/Phoenix",
+    "ip": "178.238.10.147",
+    "city": "London",
+    "region": "England",
+    "country": "GB",
+    "loc": "51.5085,-0.1257",
+    "org": "AS62240 Clouvider",
+    "postal": "WC2N",
+    "timezone": "Europe/London",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
-      "status": "failed",
-      "page": "page_16",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:26:43 PDT.",
-      "page_id": "1069951959531260",
-      "page_config_name": "page_16",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_1",
+      "drive_file_id": "1r_ffiZK2pMtcaBb6MxRAY-8OFpXn7zTV",
+      "facebook_video_id": "1456320819889860",
+      "filename": "A Dragon Changed The Whole Day During A Normal Day #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1275440552308410",
+      "page_config_name": "uk1_page_1",
+      "display_name": "Bitter Lullaby"
     },
     {
-      "status": "failed",
-      "page": "page_17",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:26:47 PDT.",
-      "page_id": "979493165253123",
-      "page_config_name": "page_17",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_2",
+      "drive_file_id": "18NnuwOCmf0LcGAGBjH6PUydLSa0YBKFK",
+      "facebook_video_id": "1623883096094864",
+      "filename": "A Silent Battle Began In The Blink Of An Eye #Wildlife #Nature #WildAnimals #AnimalWorld #Survival #NatureLovers #AnimalKingdom #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1094091620443741",
+      "page_config_name": "uk1_page_2",
+      "display_name": "Apex Dominion"
     },
     {
-      "status": "failed",
-      "page": "page_18",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:26:56 PDT.",
-      "page_id": "920161364524597",
-      "page_config_name": "page_18",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_3",
+      "drive_file_id": "1mRq1qhZ22nyaCUNOnxXp7zL1Z_ZCwQnb",
+      "facebook_video_id": "1601574791517477",
+      "filename": "Don't Blink During The Reveal Like Never Before #Reveal #Unveiling #Surprise #Hidden #WaitForIt #CrowdReaction #ViralVideo #Trending #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "883030611569420",
+      "page_config_name": "uk1_page_3",
+      "display_name": "Apex Narrative"
     },
     {
-      "status": "failed",
-      "page": "page_19",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:00 PDT.",
-      "page_id": "1005402935985498",
-      "page_config_name": "page_19",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_4",
+      "drive_file_id": "1fyBbWDIyt5Gr0D6xcFYaKIHGRiiEyxJ1",
+      "facebook_video_id": "2885113791854566",
+      "filename": "太讨厌虫子了，没想太多。#万万没想到 #萌娃搞笑日常 #喜爱度激励计划 .mp4",
+      "post_type": "reel",
+      "page_id": "876743625532242",
+      "page_config_name": "uk1_page_4",
+      "display_name": "Young  Bradley"
     },
     {
-      "status": "failed",
-      "page": "page_20",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:02 PDT.",
-      "page_id": "802674512937262",
-      "page_config_name": "page_20",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_5",
+      "drive_file_id": "1XzI-pDtWhEG86ld-bm8Q-ViHAoUBOPDA",
+      "facebook_video_id": "1618688862945355",
+      "filename": "Satisfying with Unboxing & Review Miniature Kitchen Set Toys Cooking Video ｜ ASMR Videos no music _105.mp4",
+      "post_type": "reel",
+      "page_id": "954228904442447",
+      "page_config_name": "uk1_page_5",
+      "display_name": "Scott  Dennis"
     },
     {
-      "status": "failed",
-      "page": "page_21",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:06 PDT.",
-      "page_id": "765106526695498",
-      "page_config_name": "page_21",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_6",
+      "drive_file_id": "10jPd23IPbjengqeuNr4tl8-fVSHtvSHB",
+      "facebook_video_id": "28684472051190099",
+      "filename": "狗：别拿我和他们比，我嫌脏。 #萌宠出道计划 #铲屎官的乐趣 #动物的迷惑行为 #狗子成精了 #不养狗不知道养狗的乐趣 .mp4",
+      "post_type": "reel",
+      "page_id": "884416694753956",
+      "page_config_name": "uk1_page_6",
+      "display_name": "Wood  Stephen"
     },
     {
-      "status": "failed",
-      "page": "page_22",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:11 PDT.",
-      "page_id": "568171476378321",
-      "page_config_name": "page_22",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_7",
+      "drive_file_id": "1brdswAjFg0wNhoqrOkhaUf0j0lliCzKT",
+      "facebook_video_id": "1105430848715144",
+      "filename": "#快成长计划 _106.mp4",
+      "post_type": "reel",
+      "page_id": "766333629906067",
+      "page_config_name": "uk1_page_7",
+      "display_name": "Morgan  Donald"
     },
     {
-      "status": "failed",
-      "page": "page_23",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:14 PDT.",
-      "page_id": "454880037713018",
-      "page_config_name": "page_23",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_8",
+      "drive_file_id": "1PxkzTG1UH_7TdVFswmSiXq78gjNnCF1h",
+      "facebook_video_id": "2059704984662301",
+      "filename": "功夫多实践出经验 #高手在民间 .mp4",
+      "post_type": "reel",
+      "page_id": "838517782676673",
+      "page_config_name": "uk1_page_8",
+      "display_name": "Rogers  Albert"
     },
     {
-      "status": "failed",
-      "page": "page_24",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:19 PDT.",
-      "page_id": "368653459672717",
-      "page_config_name": "page_24",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_9",
+      "drive_file_id": "1ORLKS7dzkzAXCOz-rlRQcULgPYJud9_W",
+      "facebook_video_id": "2295563177651238",
+      "filename": "月下树影摇曳，风中留下的是那种恬静的感觉，如同七月的好风景，让人心顿时清新脱俗。如何把它留在画布上，你只需要一根树枝，快来试试吧#树枝画#丙烯画 #治愈系风景 #想画就画 #跟着抖音学画画 #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "860013240524658",
+      "page_config_name": "uk1_page_9",
+      "display_name": "Roberts  Austin"
     },
     {
-      "status": "failed",
-      "page": "page_25",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:29 PDT.",
-      "page_id": "359780240556577",
-      "page_config_name": "page_25",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_10",
+      "drive_file_id": "1vSA4JjKXV8D34GqlTHKyx_2a7wwbdWPG",
+      "facebook_video_id": "985124011285503",
+      "filename": "#Shorts #Dod #Pet #Fun #Trend (120).mp4",
+      "post_type": "reel",
+      "page_id": "802792259592614",
+      "page_config_name": "uk1_page_10",
+      "display_name": "Mitchell  Jack"
     },
     {
-      "status": "failed",
-      "page": "page_26",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:32 PDT.",
-      "page_id": "211294825398492",
-      "page_config_name": "page_26",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_11",
+      "drive_file_id": "1gnBZ5DL1-kLjaF-muYyI8MUVuV6h8gBg",
+      "facebook_video_id": "1092380306723603",
+      "filename": "Popular & common Well effective!! .mp4",
+      "post_type": "reel",
+      "page_id": "439151942618231",
+      "page_config_name": "uk1_page_11",
+      "display_name": "Words Though"
     },
     {
-      "status": "failed",
-      "page": "page_27",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:34 PDT.",
-      "page_id": "166448239894078",
-      "page_config_name": "page_27",
-      "display_name": ""
-    },
-    {
-      "status": "failed",
-      "page": "page_28",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:41 PDT.",
-      "page_id": "176892285514777",
-      "page_config_name": "page_28",
-      "display_name": ""
-    },
-    {
-      "status": "failed",
-      "page": "page_29",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:45 PDT.",
-      "page_id": "199046363282913",
-      "page_config_name": "page_29",
-      "display_name": ""
-    },
-    {
-      "status": "failed",
-      "page": "page_30",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: 463, type: OAuthException): Error validating access token: Session has expired on Friday, 18-Sep-26 16:00:00 PDT. The current time is Saturday, 19-Sep-26 07:27:49 PDT.",
-      "page_id": "169686166222750",
-      "page_config_name": "page_30",
-      "display_name": ""
+      "status": "success",
+      "page": "uk1_page_12",
+      "drive_file_id": "1-kOj06OixOeGN-J67Lkm-yoSH5nkJErA",
+      "facebook_video_id": "1074614715188446",
+      "filename": "Pizza Was CARDBOARD？! 😳🍕❌ K-Pop Demon Hunters Chaos 😂 .mp4",
+      "post_type": "reel",
+      "page_id": "297665506763102",
+      "page_config_name": "uk1_page_12",
+      "display_name": "Quantum Collective"
     }
   ],
   "stats": {
-    "total": 15,
-    "success": 0,
+    "total": 12,
+    "success": 12,
     "skipped": 0,
-    "failed": 15
+    "failed": 0
   }
 }
