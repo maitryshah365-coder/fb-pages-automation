@@ -2763,6 +2763,49 @@ function initAutomationRadarLiveEngine() {
       document.querySelectorAll(".radar-timeline-card").forEach(c => c.classList.remove("active-next"));
       const targetCard = document.getElementById("radarCard_" + nextSlot.fleetId);
       if (targetCard) targetCard.classList.add("active-next");
+
+      // Dynamically update each fleet card's time to its specific next upcoming run
+      const fleetIds = ["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5"];
+      fleetIds.forEach(fId => {
+        let fNextSlot = null;
+        let fMinDiffMs = Infinity;
+
+        FLEET_SCHEDULE_SLOTS.filter(s => s.fleetId === fId).forEach(slot => {
+          let targetMs = Date.UTC(
+            now.getUTCFullYear(),
+            now.getUTCMonth(),
+            now.getUTCDate(),
+            slot.h,
+            slot.m,
+            0
+          );
+          if (targetMs <= nowUtcMs) {
+            targetMs += 24 * 60 * 60 * 1000;
+          }
+          const diff = targetMs - nowUtcMs;
+          if (diff < fMinDiffMs) {
+            fMinDiffMs = diff;
+            fNextSlot = slot;
+          }
+        });
+
+        if (fNextSlot) {
+          const cardEl = document.getElementById("radarCard_" + fId);
+          if (cardEl) {
+            const timeEl = cardEl.querySelector(".radar-card-time");
+            if (timeEl) {
+              const targetDate = new Date(nowUtcMs + fMinDiffMs);
+              const istTime = targetDate.toLocaleTimeString("en-IN", {
+                timeZone: "Asia/Kolkata",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+              }).toUpperCase();
+              timeEl.innerHTML = `<span style="color:#ff9933; font-weight:700;">${istTime} IST</span> <span style="opacity:0.8; font-size:11px;">(${fNextSlot.label})</span>`;
+            }
+          }
+        }
+      });
     }
   }
 
