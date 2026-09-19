@@ -533,7 +533,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
     }
     if token:
         try:
-            ins_metrics = "page_posts_impressions_organic,page_video_views,page_video_complete_views_30s,page_views_total,page_daily_follows_unique,page_post_engagements,page_actions_post_reactions_like_total"
+            ins_metrics = "page_video_views,page_views_total,page_daily_follows_unique,page_post_engagements,page_total_actions"
             ins_url = f"https://graph.facebook.com/v20.0/{pid}/insights"
             ins_res = requests.get(ins_url, params={"metric": ins_metrics, "period": "day", "access_token": token}, timeout=5).json()
             if "data" in ins_res:
@@ -543,19 +543,15 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                     latest_val = vals[-1] if vals else 0
                     sum_val = sum(v for v in vals if v > 0)
                     chosen_val = latest_val if latest_val > 0 else sum_val
-                    if m_name == "page_posts_impressions_organic":
-                        live_meta_insights["organic_impressions"] = chosen_val
-                    elif m_name == "page_video_views":
+                    if m_name == "page_video_views":
                         live_meta_insights["organic_video_views"] = chosen_val
-                    elif m_name == "page_video_complete_views_30s":
-                        live_meta_insights["views_30s_complete"] = chosen_val
                     elif m_name == "page_views_total":
                         live_meta_insights["profile_views_total"] = chosen_val
                     elif m_name == "page_daily_follows_unique":
                         live_meta_insights["daily_follows"] = chosen_val
                     elif m_name == "page_post_engagements":
                         live_meta_insights["post_engagements"] = chosen_val
-                    elif m_name == "page_actions_post_reactions_like_total":
+                    elif m_name == "page_total_actions":
                         live_meta_insights["reel_likes"] = chosen_val
         except Exception as e:
             if p.get("live_meta_insights"):
