@@ -2705,12 +2705,14 @@ function initAutomationRadarLiveEngine() {
   function tickRadar() {
     const now = new Date();
 
-    // 1. Update Global Clocks (BST, EDT, UTC)
+    // 1. Update Global Clocks (IST, BST, EDT, UTC)
     const optTime = { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" };
+    const elIndia = document.getElementById("clockIndia");
     const elLondon = document.getElementById("clockLondon");
     const elNY = document.getElementById("clockNewYork");
     const elUTC = document.getElementById("clockUTC");
 
+    if (elIndia) elIndia.innerText = `${now.toLocaleTimeString("en-IN", { ...optTime, timeZone: "Asia/Kolkata" })} IST`;
     if (elLondon) elLondon.innerText = `${now.toLocaleTimeString("en-GB", { ...optTime, timeZone: "Europe/London" })} BST`;
     if (elNY) elNY.innerText = `${now.toLocaleTimeString("en-US", { ...optTime, timeZone: "America/New_York" })} EDT`;
     if (elUTC) elUTC.innerText = `${now.toLocaleTimeString("en-GB", { ...optTime, timeZone: "UTC" })} UTC`;
@@ -2759,7 +2761,14 @@ function initAutomationRadarLiveEngine() {
 
       const timerEl = document.getElementById("radarNextCountdownText");
       if (timerEl) {
-        timerEl.innerHTML = `<img src="${nextSlot.flagSrc}" alt="" class="app-flag-icon"> ${nextSlot.name} (${nextSlot.label}) in ${hStr}:${mStr}:${sStr}`;
+        const nextDate = new Date(nowUtcMs + minDiffMs);
+        const istNextTimeStr = nextDate.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true
+        }).toUpperCase();
+        timerEl.innerHTML = `<img src="${nextSlot.flagSrc}" alt="" class="app-flag-icon"> ${nextSlot.name} (${nextSlot.label}) @ <span style="color:#ff9933; font-weight:700;">${istNextTimeStr} IST</span> (in ${hStr}:${mStr}:${sStr})`;
       }
 
       // Highlight active next card in timeline grid
