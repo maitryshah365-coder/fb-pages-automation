@@ -154,12 +154,12 @@ function enforceStrictFleetSorting(pages) {
       p.index = i + 1;
       p.account = "Meghal Chauhan";
       p.account_owner = "Meghal Chauhan";
-      p.account_tag = "Meghal Chauhan (USA)";
-      p.account_badge = "USA";
-      p.box_group = "Meghal Chauhan (USA)";
+      p.account_tag = "Meghal Chauhan";
+      p.account_badge = "US";
+      p.box_group = "Meghal Chauhan";
       p.region = "US";
       p.country = "US";
-      p.flag = "🇺🇸";
+      p.flag = "icons/us.png";
       usa1.push(p);
     }
   });
@@ -170,12 +170,12 @@ function enforceStrictFleetSorting(pages) {
       p.index = 16 + i;
       p.account = "Mia Shah";
       p.account_owner = "Mia Shah";
-      p.account_tag = "Mia Shah (USA)";
-      p.account_badge = "USA";
-      p.box_group = "Mia Shah (USA)";
+      p.account_tag = "Mia Shah";
+      p.account_badge = "US";
+      p.box_group = "Mia Shah";
       p.region = "US";
       p.country = "US";
-      p.flag = "🇺🇸";
+      p.flag = "icons/us.png";
       usa2.push(p);
     }
   });
@@ -186,12 +186,12 @@ function enforceStrictFleetSorting(pages) {
       p.index = 31 + i;
       p.account = "Binjal Mehra";
       p.account_owner = "Binjal Mehra";
-      p.account_tag = "Binjal Mehra (UK)";
-      p.account_badge = "UK";
-      p.box_group = "Binjal Mehra (UK)";
+      p.account_tag = "Binjal Mehra";
+      p.account_badge = "GB";
+      p.box_group = "Binjal Mehra";
       p.region = "GB";
-      p.country = "UK";
-      p.flag = "🇬🇧";
+      p.country = "GB";
+      p.flag = "icons/gb.png";
       uk1.push(p);
     }
   });
@@ -202,12 +202,12 @@ function enforceStrictFleetSorting(pages) {
       p.index = 43 + i;
       p.account = "Chanda Nai";
       p.account_owner = "Chanda Nai";
-      p.account_tag = "Chanda Nai (UK)";
-      p.account_badge = "UK";
-      p.box_group = "Chanda Nai (UK)";
+      p.account_tag = "Chanda Nai";
+      p.account_badge = "GB";
+      p.box_group = "Chanda Nai";
       p.region = "GB";
-      p.country = "UK";
-      p.flag = "🇬🇧";
+      p.country = "GB";
+      p.flag = "icons/gb.png";
       uk2.push(p);
     }
   });
@@ -218,12 +218,12 @@ function enforceStrictFleetSorting(pages) {
       p.index = 55 + i;
       p.account = "Mahi Patel";
       p.account_owner = "Mahi Patel";
-      p.account_tag = "Mahi Patel (UK)";
-      p.account_badge = "UK";
-      p.box_group = "Mahi Patel (UK)";
+      p.account_tag = "Mahi Patel";
+      p.account_badge = "GB";
+      p.box_group = "Mahi Patel";
       p.region = "GB";
-      p.country = "UK";
-      p.flag = "🇬🇧";
+      p.country = "GB";
+      p.flag = "icons/gb.png";
       uk3.push(p);
     }
   });
@@ -234,12 +234,12 @@ function enforceStrictFleetSorting(pages) {
       p.index = 67 + i;
       p.account = "Nidhi Desai";
       p.account_owner = "Nidhi Desai";
-      p.account_tag = "Nidhi Desai (UK)";
-      p.account_badge = "UK";
-      p.box_group = "Nidhi Desai (UK)";
+      p.account_tag = "Nidhi Desai";
+      p.account_badge = "GB";
+      p.box_group = "Nidhi Desai";
       p.region = "GB";
-      p.country = "UK";
-      p.flag = "🇬🇧";
+      p.country = "GB";
+      p.flag = "icons/gb.png";
       uk4.push(p);
     }
   });
@@ -250,12 +250,12 @@ function enforceStrictFleetSorting(pages) {
       p.index = 79 + i;
       p.account = "Richi Patel";
       p.account_owner = "Richi Patel";
-      p.account_tag = "Richi Patel (UK)";
-      p.account_badge = "UK";
-      p.box_group = "Richi Patel (UK)";
+      p.account_tag = "Richi Patel";
+      p.account_badge = "GB";
+      p.box_group = "Richi Patel";
       p.region = "GB";
-      p.country = "UK";
-      p.flag = "🇬🇧";
+      p.country = "GB";
+      p.flag = "icons/gb.png";
       uk5.push(p);
     }
   });
@@ -925,13 +925,9 @@ function renderSidebarPagesList(pages) {
     const isUploaded = pToday > 0;
     const dotClass = isConfigured ? 'green' : 'gray';
     const dotTitle = isUploaded ? `Active • ${pToday}/4 Uploaded Today` : (isConfigured ? 'Active' : 'Pending');
-    let pillText = 'Meghal Chauhan USA', pillClass = 'badge-a1';
-    if (accType === 'uk5') { pillText = 'Richi Patel UK'; pillClass = 'badge-uk'; }
-    else if (accType === 'uk4') { pillText = 'Nidhi Desai UK'; pillClass = 'badge-uk'; }
-    else if (accType === 'uk3') { pillText = 'Mahi Patel UK'; pillClass = 'badge-uk'; }
-    else if (accType === 'uk2') { pillText = 'Chanda Nai UK'; pillClass = 'badge-uk'; }
-    else if (accType === 'uk1') { pillText = 'Binjal Mehra UK'; pillClass = 'badge-uk'; }
-    else if (accType === 'usa2') { pillText = 'Mia Shah USA'; pillClass = 'badge-a2'; }
+    const isUk = accType.startsWith("uk");
+    const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
+    const pillClass = isUk ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${p.name} • ${followersStr} followers">
         <div class="side-page-item-left">
@@ -939,7 +935,7 @@ function renderSidebarPagesList(pages) {
           <div class="side-page-meta">
             <div class="side-page-name" style="display:flex;align-items:center;">
               <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.name}</span>
-              <span class="page-account-badge ${pillClass}" style="font-size:9px;padding:1px 5px;margin-left:5px;">${pillText}</span>
+              <span class="page-account-badge ${pillClass}" style="font-size:9px;padding:1px 5px;margin-left:5px;">${flagImg}</span>
             </div>
             <div class="side-page-followers">${followersStr} followers</div>
           </div>
@@ -972,25 +968,25 @@ function renderSidebarPagesList(pages) {
 
   let html = "";
   if (usa1List.length > 0) {
-    html += buildBox("sidebar-box-usa1", "usa1", "🇺🇸", "Meghal Chauhan USA", `${usa1List.length} Pages`, usa1List, "usa1");
+    html += buildBox("sidebar-box-usa1", "usa1", "🇺🇸", "Meghal Chauhan", `${usa1List.length} Pages`, usa1List, "usa1");
   }
   if (usa2List.length > 0) {
-    html += buildBox("sidebar-box-usa2", "usa2", "🇺🇸", "Mia Shah USA", `${usa2List.length} Pages`, usa2List, "usa2");
+    html += buildBox("sidebar-box-usa2", "usa2", "🇺🇸", "Mia Shah", `${usa2List.length} Pages`, usa2List, "usa2");
   }
   if (uk1List.length > 0) {
-    html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "Binjal Mehra UK", `${uk1List.length} Pages`, uk1List, "uk1");
+    html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "Binjal Mehra", `${uk1List.length} Pages`, uk1List, "uk1");
   }
   if (uk2List.length > 0) {
-    html += buildBox("sidebar-box-uk2", "uk2", "🇬🇧", "Chanda Nai UK", `${uk2List.length} Pages`, uk2List, "uk2");
+    html += buildBox("sidebar-box-uk2", "uk2", "🇬🇧", "Chanda Nai", `${uk2List.length} Pages`, uk2List, "uk2");
   }
   if (uk3List.length > 0) {
-    html += buildBox("sidebar-box-uk3", "uk3", "🇬🇧", "Mahi Patel UK", `${uk3List.length} Pages`, uk3List, "uk3");
+    html += buildBox("sidebar-box-uk3", "uk3", "🇬🇧", "Mahi Patel", `${uk3List.length} Pages`, uk3List, "uk3");
   }
   if (uk4List.length > 0) {
-    html += buildBox("sidebar-box-uk4", "uk4", "🇬🇧", "Nidhi Desai UK", `${uk4List.length} Pages`, uk4List, "uk4");
+    html += buildBox("sidebar-box-uk4", "uk4", "🇬🇧", "Nidhi Desai", `${uk4List.length} Pages`, uk4List, "uk4");
   }
   if (uk5List.length > 0) {
-    html += buildBox("sidebar-box-uk5", "uk5", "🇬🇧", "Richi Patel UK", `${uk5List.length} Pages`, uk5List, "uk5");
+    html += buildBox("sidebar-box-uk5", "uk5", "🇬🇧", "Richi Patel", `${uk5List.length} Pages`, uk5List, "uk5");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
@@ -1158,27 +1154,10 @@ function renderDrawerPages(pages) {
     const isActive = String(p.id) === activePageId;
     const viewsFormatted = (p.total_views || 0).toLocaleString();
     const followersFormatted = (p.followers || 0).toLocaleString();
-    let accPillText = 'Meghal Chauhan USA';
-    let badgeClass = 'badge-a1';
-    if (accountType === 'uk5') {
-      accPillText = 'Richi Patel UK';
-      badgeClass = 'badge-uk';
-    } else if (accountType === 'uk4') {
-      accPillText = 'Nidhi Desai UK';
-      badgeClass = 'badge-uk';
-    } else if (accountType === 'uk3') {
-      accPillText = 'Mahi Patel UK';
-      badgeClass = 'badge-uk';
-    } else if (accountType === 'uk2') {
-      accPillText = 'Chanda Nai UK';
-      badgeClass = 'badge-uk';
-    } else if (accountType === 'uk1') {
-      accPillText = 'Binjal Mehra UK';
-      badgeClass = 'badge-uk';
-    } else if (accountType === 'usa2') {
-      accPillText = 'Mia Shah USA';
-      badgeClass = 'badge-a2';
-    }
+    const isUk = accountType.startsWith("uk");
+    const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
+    const badgeClass = isUk ? 'badge-uk' : (accountType === 'usa2' ? 'badge-a2' : 'badge-a1');
+    const accOwner = accountType === 'uk5' ? 'Richi Patel' : (accountType === 'uk4' ? 'Nidhi Desai' : (accountType === 'uk3' ? 'Mahi Patel' : (accountType === 'uk2' ? 'Chanda Nai' : (accountType === 'uk1' ? 'Binjal Mehra' : (accountType === 'usa2' ? 'Mia Shah' : 'Meghal Chauhan')))));
 
     return `
       <div class="drawer-page-item ${isActive ? 'active' : ''}" 
@@ -1191,9 +1170,9 @@ function renderDrawerPages(pages) {
           <div class="page-item-info">
             <div class="page-item-name" style="display:flex;align-items:center;gap:6px;">
               <span>${p.name}</span>
-              <span class="page-account-badge ${badgeClass}" style="font-size:9px;padding:1px 5px;">${accPillText}</span>
+              <span class="page-account-badge ${badgeClass}" style="font-size:9px;padding:1px 5px;">${flagImg}</span>
             </div>
-            <div class="page-item-meta">${viewsFormatted} views • ${accPillText}</div>
+            <div class="page-item-meta">${viewsFormatted} views • ${accOwner}</div>
           </div>
         </div>
         <div class="page-item-badge">${followersFormatted} followers</div>
@@ -1221,25 +1200,25 @@ function renderDrawerPages(pages) {
 
   let html = "";
   if (usa1List.length > 0) {
-    html += renderDrawerSection("Meghal Chauhan USA", "🇺🇸", usa1List.length, usa1List, "usa1", "sec-us");
+    html += renderDrawerSection("Meghal Chauhan", "🇺🇸", usa1List.length, usa1List, "usa1", "sec-us");
   }
   if (usa2List.length > 0) {
-    html += renderDrawerSection("Mia Shah USA", "🇺🇸", usa2List.length, usa2List, "usa2", "sec-us");
+    html += renderDrawerSection("Mia Shah", "🇺🇸", usa2List.length, usa2List, "usa2", "sec-us");
   }
   if (uk1List.length > 0) {
-    html += renderDrawerSection("Binjal Mehra UK", "🇬🇧", uk1List.length, uk1List, "uk1", "sec-uk");
+    html += renderDrawerSection("Binjal Mehra", "🇬🇧", uk1List.length, uk1List, "uk1", "sec-uk");
   }
   if (uk2List.length > 0) {
-    html += renderDrawerSection("Chanda Nai UK", "🇬🇧", uk2List.length, uk2List, "uk2", "sec-uk");
+    html += renderDrawerSection("Chanda Nai", "🇬🇧", uk2List.length, uk2List, "uk2", "sec-uk");
   }
   if (uk3List.length > 0) {
-    html += renderDrawerSection("Mahi Patel UK", "🇬🇧", uk3List.length, uk3List, "uk3", "sec-uk");
+    html += renderDrawerSection("Mahi Patel", "🇬🇧", uk3List.length, uk3List, "uk3", "sec-uk");
   }
   if (uk4List.length > 0) {
-    html += renderDrawerSection("Nidhi Desai UK", "🇬🇧", uk4List.length, uk4List, "uk4", "sec-uk");
+    html += renderDrawerSection("Nidhi Desai", "🇬🇧", uk4List.length, uk4List, "uk4", "sec-uk");
   }
   if (uk5List.length > 0) {
-    html += renderDrawerSection("Richi Patel UK", "🇬🇧", uk5List.length, uk5List, "uk5", "sec-uk");
+    html += renderDrawerSection("Richi Patel", "🇬🇧", uk5List.length, uk5List, "uk5", "sec-uk");
   }
 
   container.innerHTML = html;
@@ -1682,45 +1661,6 @@ function renderAllPortfolioView() {
   if (kpiOrganicViews) kpiOrganicViews.innerText = totalOrganicViews.toLocaleString();
   if (kpiProfileVisits) kpiProfileVisits.innerText = totalProfileVisits.toLocaleString();
   if (kpiDailyFollows) kpiDailyFollows.innerText = `+${totalDailyFollows}`;
-
-  // Update Fleet Comparison Overview Cards (USA vs UK)
-  let usaStockSum = 0;
-  let usaViewsSum = 0;
-  let ukStockSum = 0;
-  let ukViewsSum = 0;
-
-  fullData.pages.forEach(p => {
-    const pid = String(p.id);
-    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-    const stock = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
-    const pVids = getReelsForDays(p.videos || [], currentTimeframe);
-    const pViews = pVids.reduce((s, v) => s + (v.views || 0), 0);
-    const isUK = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid) || (p.index > 30) || (p.account && p.account.startsWith('UK'));
-
-    if (isUK) {
-      ukStockSum += stock;
-      ukViewsSum += pViews;
-    } else {
-      usaStockSum += stock;
-      usaViewsSum += pViews;
-    }
-  });
-
-  const elCompUSAStock = document.getElementById("compUSAStock");
-  const elCompUSAViews = document.getElementById("compUSAViews");
-  const elCompUKStock = document.getElementById("compUKStock");
-
-  if (elCompUSAStock) elCompUSAStock.innerText = usaStockSum.toLocaleString();
-  if (elCompUSAViews) {
-    if (usaViewsSum >= 1000000) {
-      elCompUSAViews.innerText = (usaViewsSum / 1000000).toFixed(1) + "M";
-    } else if (usaViewsSum >= 1000) {
-      elCompUSAViews.innerText = (usaViewsSum / 1000).toFixed(1) + "K";
-    } else {
-      elCompUSAViews.innerText = usaViewsSum.toLocaleString();
-    }
-  }
-  if (elCompUKStock) elCompUKStock.innerText = ukStockSum.toLocaleString();
 
   // Combined Demographics from Verified Pages
   renderDemographics(getPortfolioAudience());
@@ -2718,47 +2658,47 @@ function startSlotCountdown() {
 // 24/7 AUTOMATION RADAR & LIVE ENGINE (STAGGERED MULTI-FLEET CRON MATRIX)
 // =========================================================================
 const FLEET_SCHEDULE_SLOTS = [
-  // USA 1 (Meghal Chauhan - 15 Pages)
-  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 2, m: 0, label: "Slot 1" },
-  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 14, m: 0, label: "Slot 2" },
-  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 19, m: 0, label: "Slot 3" },
-  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 23, m: 0, label: "Slot 4" },
+  // Meghal Chauhan - 15 Pages
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 2, m: 0, label: "Slot 1" },
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 14, m: 0, label: "Slot 2" },
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 19, m: 0, label: "Slot 3" },
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 23, m: 0, label: "Slot 4" },
 
-  // USA 2 (Mia Shah - 15 Pages, +20m)
-  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 2, m: 20, label: "Slot 1" },
-  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 14, m: 20, label: "Slot 2" },
-  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 19, m: 20, label: "Slot 3" },
-  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 23, m: 20, label: "Slot 4" },
+  // Mia Shah - 15 Pages, +20m
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 2, m: 20, label: "Slot 1" },
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 14, m: 20, label: "Slot 2" },
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 19, m: 20, label: "Slot 3" },
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 23, m: 20, label: "Slot 4" },
 
-  // UK 1 (Binjal Mehra - 12 Pages, London)
-  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 8, m: 0, label: "Slot 1" },
-  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 12, m: 0, label: "Slot 2" },
-  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 16, m: 0, label: "Slot 3" },
-  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 20, m: 30, label: "Slot 4" },
+  // Binjal Mehra - 12 Pages
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 0, label: "Slot 2" },
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 16, m: 0, label: "Slot 3" },
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 20, m: 30, label: "Slot 4" },
 
-  // UK 2 (Chanda Nai - 12 Pages, London)
-  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 8, m: 20, label: "Slot 1" },
-  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 12, m: 20, label: "Slot 2" },
-  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 16, m: 20, label: "Slot 3" },
-  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 20, m: 50, label: "Slot 4" },
+  // Chanda Nai - 12 Pages
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 8, m: 20, label: "Slot 1" },
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 12, m: 20, label: "Slot 2" },
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 16, m: 20, label: "Slot 3" },
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 20, m: 50, label: "Slot 4" },
 
-  // UK 3 (Mahi Patel - 12 Pages, London)
-  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 8, m: 30, label: "Slot 1" },
-  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 12, m: 30, label: "Slot 2" },
-  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 16, m: 30, label: "Slot 3" },
-  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 21, m: 0, label: "Slot 4" },
+  // Mahi Patel - 12 Pages
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 8, m: 30, label: "Slot 1" },
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 12, m: 30, label: "Slot 2" },
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 16, m: 30, label: "Slot 3" },
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 21, m: 0, label: "Slot 4" },
 
-  // UK 4 (Nidhi Desai - 12 Pages, London)
-  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 8, m: 40, label: "Slot 1" },
-  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 12, m: 40, label: "Slot 2" },
-  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 16, m: 40, label: "Slot 3" },
-  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 21, m: 10, label: "Slot 4" },
+  // Nidhi Desai - 12 Pages
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 8, m: 40, label: "Slot 1" },
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 12, m: 40, label: "Slot 2" },
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 16, m: 40, label: "Slot 3" },
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 21, m: 10, label: "Slot 4" },
 
-  // UK 5 (Richi Patel - 11 Pages, London)
-  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 8, m: 50, label: "Slot 1" },
-  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 12, m: 50, label: "Slot 2" },
-  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 16, m: 50, label: "Slot 3" },
-  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 21, m: 20, label: "Slot 4" }
+  // Richi Patel - 11 Pages
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 8, m: 50, label: "Slot 1" },
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 12, m: 50, label: "Slot 2" },
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 16, m: 50, label: "Slot 3" },
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 21, m: 20, label: "Slot 4" }
 ];
 
 function initAutomationRadarLiveEngine() {
@@ -2819,7 +2759,7 @@ function initAutomationRadarLiveEngine() {
 
       const timerEl = document.getElementById("radarNextCountdownText");
       if (timerEl) {
-        timerEl.innerText = `${nextSlot.flag} ${nextSlot.name} (${nextSlot.label}) in ${hStr}:${mStr}:${sStr}`;
+        timerEl.innerHTML = `<img src="${nextSlot.flagSrc}" alt="" class="app-flag-icon"> ${nextSlot.name} (${nextSlot.label}) in ${hStr}:${mStr}:${sStr}`;
       }
 
       // Highlight active next card in timeline grid
@@ -3197,8 +3137,9 @@ function renderStudioFleetList() {
     const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-    const badgeText = accType === 'uk5' ? 'UK5' : (accType === 'uk4' ? 'UK4' : (accType === 'uk3' ? 'UK3' : (accType === 'uk2' ? 'UK2' : (accType === 'uk1' ? 'UK1' : (accType === 'usa2' ? 'A2' : 'A1')))));
-    const badgeClass = (accType === 'uk1' || accType === 'uk2' || accType === 'uk3' || accType === 'uk4' || accType === 'uk5') ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
+    const isUk = accType.startsWith("uk");
+    const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
+    const badgeClass = isUk ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
 
     return `
       <div class="studio-page-row ${isSelected ? "selected" : ""} ${!isDriveReady ? "disabled" : ""}"
@@ -3213,7 +3154,7 @@ function renderStudioFleetList() {
           <div class="studio-page-meta">
             <div class="studio-page-name" style="display:flex;align-items:center;">
               <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${page.name}</span>
-              <span class="page-account-badge ${badgeClass}">${badgeText}</span>
+              <span class="page-account-badge ${badgeClass}" style="padding:1px 5px;">${flagImg}</span>
             </div>
             <div class="studio-page-sub">@${handle} • ${isDriveReady ? `<span class="drive-count-green">${videoCount} in Drive</span>` : `<span style="color:#64748b;">Pending Folder</span>`}</div>
           </div>
@@ -3255,25 +3196,25 @@ function renderStudioFleetList() {
 
   let html = "";
   if (usa1List.length > 0) {
-    html += buildStudioBox("account-box-us", "a1", "🇺🇸", "Meghal Chauhan USA", usa1List.length, usa1List, "usa1");
+    html += buildStudioBox("account-box-us", "a1", "🇺🇸", "Meghal Chauhan", usa1List.length, usa1List, "usa1");
   }
   if (usa2List.length > 0) {
-    html += buildStudioBox("account-box-us", "a2", "🇺🇸", "Mia Shah USA", usa2List.length, usa2List, "usa2");
+    html += buildStudioBox("account-box-us", "a2", "🇺🇸", "Mia Shah", usa2List.length, usa2List, "usa2");
   }
   if (uk1List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk1", "🇬🇧", "Binjal Mehra UK", uk1List.length, uk1List, "uk1");
+    html += buildStudioBox("account-box-uk", "uk1", "🇬🇧", "Binjal Mehra", uk1List.length, uk1List, "uk1");
   }
   if (uk2List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk2", "🇬🇧", "Chanda Nai UK", uk2List.length, uk2List, "uk2");
+    html += buildStudioBox("account-box-uk", "uk2", "🇬🇧", "Chanda Nai", uk2List.length, uk2List, "uk2");
   }
   if (uk3List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk3", "🇬🇧", "Mahi Patel UK", uk3List.length, uk3List, "uk3");
+    html += buildStudioBox("account-box-uk", "uk3", "🇬🇧", "Mahi Patel", uk3List.length, uk3List, "uk3");
   }
   if (uk4List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk4", "🇬🇧", "Nidhi Desai UK", uk4List.length, uk4List, "uk4");
+    html += buildStudioBox("account-box-uk", "uk4", "🇬🇧", "Nidhi Desai", uk4List.length, uk4List, "uk4");
   }
   if (uk5List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk5", "🇬🇧", "Richi Patel UK", uk5List.length, uk5List, "uk5");
+    html += buildStudioBox("account-box-uk", "uk5", "🇬🇧", "Richi Patel", uk5List.length, uk5List, "uk5");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
@@ -4135,31 +4076,27 @@ function renderDriveInventoryList() {
     const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
     const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.index > 78;
 
-    let badgeText = '🇺🇸 US', badgeClass = 'badge-us', accountLabel = 'Meghal Chauhan (USA)';
+    const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5;
+    const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
+    let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : 'badge-us', accountLabel = 'Meghal Chauhan';
     if (isUK5) {
-      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'Richi Patel (UK)';
+      accountLabel = 'Richi Patel';
     } else if (isUK4) {
-      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'Nidhi Desai (UK)';
+      accountLabel = 'Nidhi Desai';
     } else if (isUK3) {
-      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'Mahi Patel (UK)';
+      accountLabel = 'Mahi Patel';
     } else if (isUK2) {
-      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'Chanda Nai (UK)';
+      accountLabel = 'Chanda Nai';
     } else if (isUK1) {
-      badgeText = '🇬🇧 UK';
       badgeClass = 'badge-uk';
-      accountLabel = 'Binjal Mehra (UK)';
+      accountLabel = 'Binjal Mehra';
     } else if (isUSA2) {
-      badgeText = '🇺🇸 US';
       badgeClass = 'badge-us';
-      accountLabel = 'Mia Shah (USA)';
+      accountLabel = 'Mia Shah';
     }
 
     const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
@@ -4187,7 +4124,7 @@ function renderDriveInventoryList() {
             <div>
               <div style="font-weight:700; color:#fff; display:flex; align-items:center; gap:6px;">
                 <span>${p.name}</span>
-                <span class="page-account-badge ${badgeClass}">${badgeText}</span>
+                <span class="page-account-badge ${badgeClass}" style="padding:1px 5px;">${badgeText}</span>
               </div>
               <div style="font-size:11px; color:#94a3b8;">@${handle}</div>
             </div>
@@ -4234,31 +4171,27 @@ function renderDriveInventoryList() {
       const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
       const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.index > 78;
 
-      let badgeText = 'A1', badgeClass = 'badge-a1', accountLabel = 'Account 1';
+      const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5;
+      const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
+      let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : (isUSA2 ? 'badge-a2' : 'badge-a1'), accountLabel = 'Meghal Chauhan';
       if (isUK5) {
-        badgeText = 'UK5';
         badgeClass = 'badge-uk';
-        accountLabel = 'UK Account 5';
+        accountLabel = 'Richi Patel';
       } else if (isUK4) {
-        badgeText = 'UK4';
         badgeClass = 'badge-uk';
-        accountLabel = 'UK Account 4';
+        accountLabel = 'Nidhi Desai';
       } else if (isUK3) {
-        badgeText = 'UK3';
         badgeClass = 'badge-uk';
-        accountLabel = 'UK Account 3';
+        accountLabel = 'Mahi Patel';
       } else if (isUK2) {
-        badgeText = 'UK2';
         badgeClass = 'badge-uk';
-        accountLabel = 'UK Account 2';
+        accountLabel = 'Chanda Nai';
       } else if (isUK1) {
-        badgeText = 'UK1';
         badgeClass = 'badge-uk';
-        accountLabel = 'UK Account 1';
+        accountLabel = 'Binjal Mehra';
       } else if (isUSA2) {
-        badgeText = 'A2';
         badgeClass = 'badge-a2';
-        accountLabel = 'Account 2';
+        accountLabel = 'Mia Shah';
       }
 
       const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
