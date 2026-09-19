@@ -4333,18 +4333,28 @@ function renderUploadHistoryTable() {
     const avatar = item.page_pic || "icons/icon-192.png";
     const locText = item.location || (item.city ? `${item.city}, ${item.country}` : "Server Cloud");
 
+    let liveViews = (item.views !== undefined) ? Number(item.views) : 0;
+    if (window.fullData && Array.isArray(window.fullData.pages)) {
+      for (const p of window.fullData.pages) {
+        if (Array.isArray(p.videos)) {
+          const matched = p.videos.find(v => String(v.id) === String(item.id));
+          if (matched && matched.views !== undefined) {
+            liveViews = Number(matched.views);
+            break;
+          }
+        }
+      }
+    }
+    const viewsFormatted = liveViews.toLocaleString();
+
     return `
       <tr>
         <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
-        <td>
-          <div style="display:flex; flex-direction:column; gap:4px; max-width:280px;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="video-id-badge" title="Click to copy Video ID" style="cursor:pointer;" onclick="navigator.clipboard.writeText('${item.id}'); showToast('Copied Reel ID: ${item.id}');">
-                📋 ${item.id}
-              </span>
-            </div>
-            <div class="video-title-text" title="${item.title}">${item.title}</div>
-          </div>
+        <td style="text-align:center;">
+          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" title="${item.title ? item.title.replace(/"/g, '&quot;') : 'Watch Reel on Facebook'}" style="display:inline-block;">
+            <img src="https://graph.facebook.com/${item.id}/thumbnails" alt="Thumbnail" class="upload-history-thumb" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:80px; height:80px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+            <div class="upload-thumb-fallback" style="display:none; width:80px; height:80px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:28px;">🎬</div>
+          </a>
         </td>
         <td>
           <div class="page-cell-info">
@@ -4362,7 +4372,9 @@ function renderUploadHistoryTable() {
           </div>
         </td>
         <td style="text-align:center;">
-          <span class="country-pill ${countryClass}">${flagTag}</span>
+          <span class="views-realtime-badge" style="display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:13.5px; color:#38bdf8; background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.28); padding:5px 12px; border-radius:8px; letter-spacing:0.3px;">
+            👁️ ${viewsFormatted}
+          </span>
         </td>
         <td>
           <div class="ip-telemetry-cell">
@@ -4399,6 +4411,20 @@ function renderUploadHistoryTable() {
         } catch (e) {}
       }
 
+      let mLiveViews = (item.views !== undefined) ? Number(item.views) : 0;
+      if (window.fullData && Array.isArray(window.fullData.pages)) {
+        for (const p of window.fullData.pages) {
+          if (Array.isArray(p.videos)) {
+            const matched = p.videos.find(v => String(v.id) === String(item.id));
+            if (matched && matched.views !== undefined) {
+              mLiveViews = Number(matched.views);
+              break;
+            }
+          }
+        }
+      }
+      const mViewsFormatted = mLiveViews.toLocaleString();
+
       return `
         <div class="mobile-yt-card" style="padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
@@ -4409,26 +4435,17 @@ function renderUploadHistoryTable() {
                 <div style="font-size:11px; color:#94a3b8;">${item.account}</div>
               </div>
             </div>
-            <span class="country-pill ${countryClass}">${flagTag}</span>
-          </div>
-          
-          <div style="margin-bottom:10px;">
-            <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:#38bdf8; margin-bottom:3px;">ID: ${item.id}</div>
-            <div style="font-weight:600; color:#f8fafc; font-size:12.5px;">${item.title}</div>
+            <span style="font-size:12px; font-weight:800; color:#38bdf8; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); padding:3px 8px; border-radius:6px;">👁️ ${mViewsFormatted} views</span>
           </div>
 
-          <div style="display:flex; flex-direction:column; gap:6px; padding:10px; background:rgba(0,0,0,0.25); border-radius:8px; margin-bottom:10px; font-size:11.5px;">
-            <div style="display:flex; justify-content:space-between; color:#94a3b8;">
-              <span>📅 Uploaded:</span>
-              <strong style="color:#f1f5f9;">${dateMain}</strong>
-            </div>
-            <div style="display:flex; justify-content:space-between; color:#94a3b8;">
-              <span>🌐 Runner IP:</span>
-              <strong style="color:#34d399; font-family:'JetBrains Mono',monospace;">${item.ip}</strong>
-            </div>
-            <div style="display:flex; justify-content:space-between; color:#94a3b8;">
-              <span>📍 Location:</span>
-              <strong style="color:#cbd5e1;">${locText}</strong>
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:10px;">
+            <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" style="flex-shrink:0;">
+              <img src="https://graph.facebook.com/${item.id}/thumbnails" alt="Thumbnail" style="width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.1);" onerror="this.style.display='none';">
+            </a>
+            <div style="display:flex; flex-direction:column; gap:4px; font-size:11.5px; color:#94a3b8;">
+              <div>📅 <span style="color:#f1f5f9;">${dateMain}</span></div>
+              <div>🌐 <span style="color:#34d399; font-family:'JetBrains Mono',monospace;">${item.ip}</span></div>
+              <div>📍 <span style="color:#cbd5e1;">${locText}</span></div>
             </div>
           </div>
 
