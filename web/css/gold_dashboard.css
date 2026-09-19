@@ -4788,6 +4788,7 @@ body {
     border-radius: 10px !important;
     overflow: hidden !important;
     transition: all 0.2s ease !important;
+    flex-shrink: 0 !important;
   }
 
   .drawer-account-section .drawer-box-header {
@@ -4817,6 +4818,17 @@ body {
   .drawer-account-section .drawer-page-item {
     padding: 8px 10px !important;
     margin-bottom: 2px !important;
+  }
+
+  .mobile-yt-cards-list .mobile-yt-card,
+  .mobile-yt-cards-container .mobile-yt-card,
+  #uploadHistoryMobileCards .mobile-yt-card,
+  #driveInventoryMobileCards .mobile-yt-card {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    align-items: stretch !important;
   }
 
   .dash-page-status-strip {

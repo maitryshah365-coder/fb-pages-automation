@@ -1180,16 +1180,15 @@ function onSelectDrawerPage(pageId, e) {
 }
 window.onSelectDrawerPage = onSelectDrawerPage;
 
-window.toggleDrawerFleetBox = function(fleetKey, e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  const box = document.getElementById(`drawerFleetBox_${fleetKey}`);
+window.toggleDrawerFleetBox = function(accType, event) {
+  if (event) event.stopPropagation();
+  const box = document.getElementById(`drawerFleetBox_${accType}`);
   if (!box) return;
-  const isOpen = box.classList.contains("open");
-  box.classList.toggle("open", !isOpen);
+  const isNowOpen = box.classList.toggle("open");
   const chevron = box.querySelector(".drawer-box-chevron");
-  if (chevron) chevron.innerText = isOpen ? "▼" : "▲";
+  if (chevron) chevron.innerText = isNowOpen ? "▲" : "▼";
   const body = box.querySelector(".drawer-box-body");
-  if (body) body.style.display = isOpen ? "none" : "block";
+  if (body) body.style.display = isNowOpen ? "block" : "none";
 };
 
 function renderDrawerPages(pages) {
@@ -1283,11 +1282,11 @@ function renderDrawerPages(pages) {
             <span class="drawer-box-chevron">${isOpen ? '▲' : '▼'}</span>
           </div>
         </div>
-        <div class="sidebar-box-sub-strip">
-          <span>${items.length} Pages</span>
-          <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
-        </div>
         <div class="drawer-box-body" style="display: ${isOpen ? 'block' : 'none'};">
+          <div class="sidebar-box-sub-strip">
+            <span>${items.length} Pages</span>
+            <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
+          </div>
           ${items.map(p => renderDrawerItem(p, accType)).join("")}
         </div>
       </div>`;
@@ -4344,7 +4343,7 @@ function renderDriveInventoryList() {
       }
 
       return `
-        <div class="mobile-yt-card" style="padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+        <div class="mobile-yt-card drive-inventory-card" style="display:flex !important; flex-direction:column !important; width:100% !important; box-sizing:border-box !important; padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <div style="display:flex; align-items:center; gap:10px;">
               <img src="${p.pic_url || 'icons/icon-192.png'}" alt="${p.name}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
@@ -4916,30 +4915,30 @@ function renderUploadHistoryTable() {
       const mHasThumb = Boolean(mThumbSrc);
 
       return `
-        <div class="mobile-yt-card" style="padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
-            <div style="display:flex; align-items:center; gap:10px;">
-              <img src="${avatar}" alt="${item.page_name}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
-              <div>
-                <div style="font-weight:700; color:#fff; font-size:13px;">${item.page_name}</div>
-                <div style="font-size:11px; color:#94a3b8;">${item.account}</div>
+        <div class="mobile-yt-card upload-history-card" style="display:flex !important; flex-direction:column !important; width:100% !important; box-sizing:border-box !important; padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); overflow:hidden;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; width:100%;">
+            <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+              <img src="${avatar}" alt="${item.page_name}" style="width:36px; height:36px; border-radius:50%; object-fit:cover; flex-shrink:0;" onerror="this.src='icons/icon-192.png'">
+              <div style="min-width:0;">
+                <div style="font-weight:700; color:#fff; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.page_name}</div>
+                <div style="font-size:11px; color:#94a3b8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.account}</div>
               </div>
             </div>
-            <span style="font-size:12px; font-weight:800; color:#38bdf8; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); padding:3px 8px; border-radius:6px;">👁️ ${mViewsFormatted} views</span>
+            <span style="font-size:11.5px; font-weight:800; color:#38bdf8; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.3); padding:3px 8px; border-radius:6px; flex-shrink:0; margin-left:8px;">👁️ ${mViewsFormatted} views</span>
           </div>
 
-          <div style="display:flex; gap:12px; align-items:center; margin-bottom:10px;">
-            <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" style="flex-shrink:0;">
-              ${mHasThumb ? `<img src="${mThumbSrc}" alt="Thumbnail" style="width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.15);" onerror="this.style.display='none';">` : `<div style="width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,#1e293b,#0f172a); display:flex; align-items:center; justify-content:center; font-size:24px;">🎬</div>`}
+          <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px; width:100%;">
+            <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" style="flex-shrink:0; display:block;">
+              ${mHasThumb ? `<img src="${mThumbSrc}" alt="Thumbnail" style="width:68px; height:68px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.15); display:block;" onerror="this.style.display='none';">` : `<div style="width:68px; height:68px; border-radius:8px; background:linear-gradient(135deg,#1e293b,#0f172a); display:flex; align-items:center; justify-content:center; font-size:24px;">🎬</div>`}
             </a>
-            <div style="display:flex; flex-direction:column; gap:4px; font-size:11.5px; color:#94a3b8;">
-              <div>📅 <span style="color:#f1f5f9;">${dateMain}</span></div>
-              <div>🌐 <span style="color:#34d399; font-family:'JetBrains Mono',monospace;">${item.ip}</span></div>
-              <div>📍 <span style="color:#cbd5e1;">${locText}</span></div>
+            <div style="display:flex; flex-direction:column; gap:4px; font-size:11.5px; color:#94a3b8; min-width:0; flex:1;">
+              <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">📅 <span style="color:#f1f5f9; font-weight:600;">${dateMain}</span></div>
+              <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">🌐 <span style="color:#34d399; font-family:'JetBrains Mono',monospace;">${item.ip}</span></div>
+              <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${locText}">📍 <span style="color:#cbd5e1;">${locText}</span></div>
             </div>
           </div>
 
-          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" style="width:100%; box-sizing:border-box;">
+          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" style="width:100%; box-sizing:border-box; text-align:center; justify-content:center;">
             🎬 Open Published Reel on Facebook ↗
           </a>
         </div>
