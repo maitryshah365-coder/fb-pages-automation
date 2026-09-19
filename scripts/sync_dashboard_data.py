@@ -1210,6 +1210,13 @@ def sync_data():
             conn.row_factory = sqlite3.Row
             cur = conn.cursor()
             page_map = {str(p.get("id")): p for p in page_records}
+            vid_views_map = {}
+            for p in page_records:
+                for v in p.get("videos", []):
+                    vid = str(v.get("id"))
+                    if vid:
+                        vid_views_map[vid] = v.get("views", 0)
+
             q = """
             SELECT 
                 v.id as video_row_id,
@@ -1246,6 +1253,7 @@ def sync_data():
                 country_flag = "🇬🇧 UK" if is_uk else "🇺🇸 USA"
                 
                 fvid = str(r["facebook_video_id"])
+                views_count = vid_views_map.get(fvid, 0)
                 post_type = r["post_type"] or "reel"
                 direct_link = f"https://www.facebook.com/reel/{fvid}/" if post_type == "reel" else f"https://www.facebook.com/watch/?v={fvid}"
                 
@@ -1265,6 +1273,7 @@ def sync_data():
                     "account": acc_name,
                     "country_code": country_code,
                     "country_flag": country_flag,
+                    "views": views_count,
                     "posted_at": r["posted_at"],
                     "post_type": post_type,
                     "direct_link": direct_link,
