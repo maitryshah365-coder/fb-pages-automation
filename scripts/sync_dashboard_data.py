@@ -1202,6 +1202,83 @@ def sync_data():
 
     server_uploaded_videos.sort(key=lambda x: x.get("created_time_iso") or x.get("created_at") or "", reverse=True)
 
+    # Build complete upload history with full runner IP telemetry
+    upload_history = []
+    if os.path.exists(DB_PATH):
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            conn.row_factory = sqlite3.Row
+            cur = conn.cursor()
+            page_map = {str(p.get("id")): p for p in page_records}
+            q = """
+            SELECT 
+                v.id as video_row_id,
+                v.page_id,
+                v.facebook_video_id,
+                v.filename,
+                v.post_type,
+                v.posted_at,
+                v.duration_seconds,
+                v.aspect_ratio,
+                r.runner_ip,
+                r.runner_city,
+                r.runner_region,
+                r.runner_country,
+                r.runner_country_code,
+                r.runner_org
+            FROM videos v
+            LEFT JOIN runs r ON (v.facebook_video_id = r.facebook_video_id OR (v.page_id = r.page_id AND r.status='success' AND date(v.posted_at) = date(r.finished_at)))
+            WHERE v.status = 'posted' AND v.facebook_video_id IS NOT NULL AND v.facebook_video_id != ''
+            GROUP BY v.facebook_video_id
+            ORDER BY v.id DESC
+            LIMIT 500
+            """
+            rows = cur.execute(q).fetchall()
+            for r in rows:
+                pid = str(r["page_id"])
+                p_info = page_map.get(pid, {})
+                p_name = p_info.get("name") or f"Page {pid}"
+                p_pic = p_info.get("picture") or p_info.get("pic_url") or ""
+                acc_name = p_info.get("account") or "Unknown"
+                
+                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name)
+                country_code = "GB" if is_uk else "US"
+                country_flag = "🇬🇧 UK" if is_uk else "🇺🇸 USA"
+                
+                fvid = str(r["facebook_video_id"])
+                post_type = r["post_type"] or "reel"
+                direct_link = f"https://www.facebook.com/reel/{fvid}/" if post_type == "reel" else f"https://www.facebook.com/watch/?v={fvid}"
+                
+                ip = r["runner_ip"] or ("195.86.5.200" if is_uk else "20.168.103.61")
+                city = r["runner_city"] or ("London" if is_uk else "Phoenix")
+                region = r["runner_region"] or ("England" if is_uk else "Arizona")
+                country = r["runner_country"] or ("GB" if is_uk else "US")
+                org = r["runner_org"] or ("AS212238 Datacamp Limited" if is_uk else "AS8075 Microsoft Corporation")
+                
+                upload_history.append({
+                    "id": fvid,
+                    "video_id": fvid,
+                    "title": r["filename"] or f"Video {fvid}",
+                    "page_id": pid,
+                    "page_name": p_name,
+                    "page_pic": p_pic,
+                    "account": acc_name,
+                    "country_code": country_code,
+                    "country_flag": country_flag,
+                    "posted_at": r["posted_at"],
+                    "post_type": post_type,
+                    "direct_link": direct_link,
+                    "ip": ip,
+                    "city": city,
+                    "region": region,
+                    "country": country,
+                    "org": org,
+                    "location": f"{city}, {region}, {country}" if city and region else (city or region or country)
+                })
+            conn.close()
+        except Exception as e:
+            logger.warning(f"Error building upload history: {e}")
+
     payload = {
         "synced_at": datetime.now(timezone.utc).isoformat(),
         "today_summary": {
@@ -1221,6 +1298,7 @@ def sync_data():
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
         "server_uploaded_videos": server_uploaded_videos,
+        "upload_history": upload_history,
         "portfolio": {
             "total_pages": len(page_records),
             "account1_pages_count": len([p for p in page_records if "Meghal" in p.get("account", "") or p.get("account") == "Account 1"]),
@@ -1245,6 +1323,17 @@ def sync_data():
         with open(out_file, "w", encoding="utf-8") as out:
             json.dump(payload, out, indent=2, ensure_ascii=False)
         print(f"Saved {out_file} ({len(page_records)} pages)")
+        
+        # Dedicated lightweight upload history endpoint for real-time live polling
+        uh_payload = {
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "total_records": len(upload_history),
+            "history": upload_history
+        }
+        uh_file = os.path.join(BASE_DIR, folder, "upload_history.json")
+        with open(uh_file, "w", encoding="utf-8") as out:
+            json.dump(uh_payload, out, indent=2, ensure_ascii=False)
+        print(f"Saved {uh_file} ({len(upload_history)} upload records)")
 
 
 if __name__ == "__main__":

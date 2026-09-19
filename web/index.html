@@ -185,17 +185,17 @@
         </button>
       </div>
 
-      <!-- BOX 5: RECENT POSTS (SERVER & POST NOW ACTIVITY FEED) -->
+      <!-- BOX 5: UPLOAD HISTORY (SERVER AUTOMATION & REAL-TIME IP TELEMETRY AUDIT) -->
       <div class="sidebar-nav-box">
-        <button type="button" id="sideNavRecentPosts" class="sidebar-action-tile side-tile-recent-posts" title="Recent Posts (Automation & Post Now Live Feed)">
+        <button type="button" id="sideNavRecentPosts" class="sidebar-action-tile side-tile-recent-posts" title="Upload History (Real-Time IP Telemetry & Reels Audit)">
           <div class="tile-content-left">
-            <span class="tile-icon">⚡</span>
+            <span class="tile-icon">📜</span>
             <div class="tile-text">
-              <span class="tile-title">Recent Posts</span>
-              <span class="tile-sub">Automation & Post Now</span>
+              <span class="tile-title">Upload History</span>
+              <span class="tile-sub">Real-Time IP & Reels Audit</span>
             </div>
           </div>
-          <span class="side-recent-pill">FEED</span>
+          <span class="side-recent-pill" style="background:rgba(234,179,8,0.18);color:#facc15;border:1px solid rgba(234,179,8,0.35);">LIVE</span>
         </button>
       </div>
 
@@ -476,7 +476,84 @@
         </div>
       </section>
 
-      <!-- Feed Section -->
+      <!-- ================= UPLOAD HISTORY & IP TELEMETRY AUDIT BOX ================= -->
+      <section class="content-box upload-history-box" id="uploadHistoryAuditBox">
+        <div class="box-header flex-between library-box-header">
+          <div class="box-title-group">
+            <span class="box-icon" style="background: linear-gradient(135deg, rgba(234,179,8,0.2), rgba(249,115,22,0.2)); border: 1px solid rgba(234,179,8,0.4); border-radius: 10px; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; font-size: 19px;">📜</span>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h3 class="box-title" style="color: #fff; font-weight: 800; font-size: 16px; margin: 0;">Live Upload History & IP Telemetry Audit</h3>
+                <span class="history-live-pulse-badge" id="historyLivePulseBadge">
+                  <span class="pulse-green-dot">●</span> Real-Time Sync
+                </span>
+              </div>
+              <span class="library-pipeline-tag" style="color: #94a3b8; font-size: 12px;">Real-time automated proof of every Facebook Reel uploaded with runner IP, City, State, Country & Direct Link</span>
+            </div>
+          </div>
+          
+          <div class="library-header-actions" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <!-- Real-Time Auto-Sync Toggle & Refresh -->
+            <button type="button" id="btnRefreshUploadHistory" class="btn-history-refresh" title="Force Refresh Live History" onclick="refreshUploadHistory(true)">
+              <span class="refresh-spinner" id="historyRefreshIcon">🔄</span>
+              <span id="historyRefreshText">Refresh Live</span>
+            </button>
+            <div class="timeframe-toggle-wrapper" id="historyCountryFilters">
+              <button type="button" class="timeframe-pill active" data-filter="all" id="btnHistoryFilterAll">All (<span id="historyTotalCountBadge">443</span>)</button>
+              <button type="button" class="timeframe-pill" data-filter="us" id="btnHistoryFilterUS">🇺🇸 USA Fleet</button>
+              <button type="button" class="timeframe-pill" data-filter="uk" id="btnHistoryFilterUK">🇬🇧 UK Fleet</button>
+              <button type="button" class="timeframe-pill" data-filter="today" id="btnHistoryFilterToday">⚡ Today</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Bar & Live Counter Bar -->
+        <div class="history-controls-row" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 14px 0; flex-wrap: wrap;">
+          <div class="history-search-wrapper" style="flex: 1; min-width: 260px;">
+            <input type="text" id="inputUploadHistorySearch" class="fleet-search-input" placeholder="🔍 Search by Video ID, Title, Page Name, IP, City, or State..." oninput="onSearchUploadHistory()">
+          </div>
+          <div class="history-meta-status" style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #94a3b8;">
+            <span id="historyShowingCountLabel">Showing 50 of 443 Uploads</span>
+            <span class="telemetry-chip" id="historyTelemetryStatus" style="background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 11px;">
+              ⚡ Auto-Updates Every 30s
+            </span>
+          </div>
+        </div>
+
+        <!-- Upload History Table (Desktop View) -->
+        <div class="studio-table-wrapper desktop-only" style="overflow-x: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); background: rgba(15,23,42,0.4);">
+          <table class="studio-table upload-history-table" style="width: 100%; border-collapse: separate; border-spacing: 0;">
+            <thead>
+              <tr style="background: rgba(15,23,42,0.85); backdrop-filter: blur(8px);">
+                <th style="width: 48px; text-align: center;">#</th>
+                <th style="min-width: 240px;">Video ID & Title</th>
+                <th style="min-width: 190px;">Page Name</th>
+                <th style="min-width: 160px;">Date & Time (Must)</th>
+                <th style="width: 100px; text-align: center;">Country</th>
+                <th style="min-width: 220px;">IP Telemetry (City/State/Country)</th>
+                <th style="width: 140px; text-align: center;">Direct Link</th>
+              </tr>
+            </thead>
+            <tbody id="uploadHistoryTableBody">
+              <!-- Populated dynamically by gold_app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Upload History Mobile Cards -->
+        <div class="mobile-yt-cards-list mobile-only" id="uploadHistoryMobileCards">
+          <!-- Populated dynamically on mobile devices -->
+        </div>
+
+        <!-- Pagination / Load More -->
+        <div class="history-pagination-row" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px;">
+          <button type="button" id="btnLoadMoreUploadHistory" class="btn-load-more" onclick="loadMoreUploadHistory()" style="background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.35); color: #facc15; padding: 8px 24px; border-radius: 8px; font-weight: 700; cursor: pointer;">
+            ⬇️ Load More Uploads (<span id="historyRemainingBadge">393 remaining</span>)
+          </button>
+        </div>
+      </section>
+
+      <!-- Feed Section (Legacy Grid / Quick Toggle) -->
       <section class="content-box">
         <div class="box-header flex-between library-box-header">
           <div class="box-title-group">

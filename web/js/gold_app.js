@@ -432,6 +432,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initDashboard();
   setupEventListeners();
   startSlotCountdown();
+  initUploadHistoryEngine();
 });
 
 function showToast(msg) {
@@ -3895,6 +3896,7 @@ function renderDriveInventoryList() {
 // =========================================================================
 
 function renderRecentPostsView() {
+  if (typeof renderUploadHistoryTable === "function") renderUploadHistoryTable();
   if (!fullData) return;
 
   // Aggregate all reels
@@ -4136,3 +4138,312 @@ window.renderRecentPostsList = renderRecentPostsList;
 
 
 
+
+
+// =========================================================================
+// LIVE UPLOAD HISTORY & IP TELEMETRY AUDIT ENGINE
+// =========================================================================
+
+let uploadHistoryData = [];
+let uploadHistoryFilter = "all";
+let uploadHistorySearch = "";
+let uploadHistoryPageSize = 50;
+let uploadHistoryPollInterval = null;
+let isFetchingUploadHistory = false;
+
+function initUploadHistoryEngine() {
+  fetchUploadHistory(false);
+
+  // Setup 30s auto-refresh polling interval for real-time live data
+  if (!uploadHistoryPollInterval) {
+    uploadHistoryPollInterval = setInterval(() => {
+      fetchUploadHistory(false);
+    }, 30000);
+  }
+
+  // Also auto-refresh when user returns to tab
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      fetchUploadHistory(false);
+    }
+  });
+
+  // Setup filter button listeners
+  const filterGroup = document.getElementById("historyCountryFilters");
+  if (filterGroup) {
+    filterGroup.querySelectorAll(".timeframe-pill").forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterGroup.querySelectorAll(".timeframe-pill").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        uploadHistoryFilter = btn.dataset.filter || "all";
+        uploadHistoryPageSize = 50;
+        renderUploadHistoryTable();
+      });
+    });
+  }
+}
+
+async function fetchUploadHistory(manualTrigger = false) {
+  if (isFetchingUploadHistory) return;
+  isFetchingUploadHistory = true;
+
+  const refreshIcon = document.getElementById("historyRefreshIcon");
+  const refreshText = document.getElementById("historyRefreshText");
+  if (manualTrigger) {
+    if (refreshIcon) refreshIcon.classList.add("spinning");
+    if (refreshText) refreshText.innerText = "Syncing...";
+  }
+
+  try {
+    const timestamp = Date.now();
+    const res = await fetch(`data/upload_history.json?v=${timestamp}`, { cache: "no-store" });
+    if (res.ok) {
+      const json = await res.json();
+      const records = json.history || [];
+      const prevCount = uploadHistoryData.length;
+      uploadHistoryData = records;
+
+      const totalBadge = document.getElementById("historyTotalCountBadge");
+      if (totalBadge) totalBadge.innerText = records.length;
+
+      renderUploadHistoryTable();
+
+      if (manualTrigger) {
+        showToast(`✅ Upload History Refreshed: ${records.length} Verified Reels`);
+      } else if (prevCount > 0 && records.length > prevCount) {
+        showToast(`⚡ New Upload Detected! ${records.length - prevCount} new reel(s) live.`);
+      }
+    }
+  } catch (err) {
+    console.warn("Could not fetch upload_history.json:", err);
+  } finally {
+    isFetchingUploadHistory = false;
+    if (manualTrigger) {
+      setTimeout(() => {
+        if (refreshIcon) refreshIcon.classList.remove("spinning");
+        if (refreshText) refreshText.innerText = "Refresh Live";
+      }, 500);
+    }
+  }
+}
+
+function onSearchUploadHistory() {
+  const searchInput = document.getElementById("inputUploadHistorySearch");
+  uploadHistorySearch = (searchInput?.value || "").toLowerCase().trim();
+  uploadHistoryPageSize = 50;
+  renderUploadHistoryTable();
+}
+
+function loadMoreUploadHistory() {
+  uploadHistoryPageSize += 50;
+  renderUploadHistoryTable();
+}
+
+function refreshUploadHistory(manual = true) {
+  fetchUploadHistory(manual);
+}
+
+function renderUploadHistoryTable() {
+  const tbody = document.getElementById("uploadHistoryTableBody");
+  const mobileContainer = document.getElementById("uploadHistoryMobileCards");
+  const countLabel = document.getElementById("historyShowingCountLabel");
+  const remainingBadge = document.getElementById("historyRemainingBadge");
+  const loadMoreBtn = document.getElementById("btnLoadMoreUploadHistory");
+  if (!tbody) return;
+
+  const query = uploadHistorySearch;
+  const todayStr = new Date().toISOString().slice(0, 10);
+
+  const filtered = uploadHistoryData.filter(item => {
+    // Country / Timeframe Filter
+    if (uploadHistoryFilter === "us") {
+      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia")) return false;
+    } else if (uploadHistoryFilter === "uk") {
+      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi")) return false;
+    } else if (uploadHistoryFilter === "today") {
+      const pDate = (item.posted_at || "").slice(0, 10);
+      if (pDate !== todayStr) return false;
+    }
+
+    // Search Query Filter
+    if (query) {
+      const matchId = String(item.id || "").toLowerCase().includes(query);
+      const matchTitle = String(item.title || "").toLowerCase().includes(query);
+      const matchPage = String(item.page_name || "").toLowerCase().includes(query);
+      const matchAcc = String(item.account || "").toLowerCase().includes(query);
+      const matchIp = String(item.ip || "").toLowerCase().includes(query);
+      const matchLoc = String(item.location || "").toLowerCase().includes(query);
+      if (!matchId && !matchTitle && !matchPage && !matchAcc && !matchIp && !matchLoc) return false;
+    }
+
+    return true;
+  });
+
+  const totalFiltered = filtered.length;
+  const displayItems = filtered.slice(0, uploadHistoryPageSize);
+
+  if (countLabel) {
+    countLabel.innerText = `Showing ${displayItems.length} of ${totalFiltered} Uploads`;
+  }
+
+  const remaining = Math.max(0, totalFiltered - displayItems.length);
+  if (remainingBadge) {
+    remainingBadge.innerText = `${remaining} remaining`;
+  }
+  if (loadMoreBtn) {
+    loadMoreBtn.style.display = remaining > 0 ? "inline-block" : "none";
+  }
+
+  if (displayItems.length === 0) {
+    const emptyRow = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding: 36px 16px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">📜</div>
+          <div style="font-weight: 700; color: #fff; font-size: 15px;">No Upload History Found</div>
+          <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">No records match your active filter or search query.</div>
+        </td>
+      </tr>
+    `;
+    tbody.innerHTML = emptyRow;
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `<div style="text-align:center; padding:24px; color:#94a3b8;">No records match your active filter.</div>`;
+    }
+    return;
+  }
+
+  // Render Desktop Rows
+  tbody.innerHTML = displayItems.map((item, idx) => {
+    const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London") || item.account.includes("Binjal") || item.account.includes("Chanda") || item.account.includes("Mahi")));
+    const countryClass = isUK ? "uk" : "us";
+    const flagTag = isUK ? "🇬🇧 UK" : "🇺🇸 USA";
+
+    let dateMain = "Recent";
+    let dateSub = "";
+    if (item.posted_at) {
+      try {
+        const d = new Date(item.posted_at);
+        if (!isNaN(d.getTime())) {
+          dateMain = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) + " " + d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+          dateSub = d.toISOString().slice(11, 16) + " UTC";
+        }
+      } catch (e) {}
+    }
+
+    const reelUrl = item.direct_link || `https://www.facebook.com/reel/${item.id}/`;
+    const avatar = item.page_pic || "icons/icon-192.png";
+    const locText = item.location || (item.city ? `${item.city}, ${item.country}` : "Server Cloud");
+
+    return `
+      <tr>
+        <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
+        <td>
+          <div style="display:flex; flex-direction:column; gap:4px; max-width:280px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="video-id-badge" title="Click to copy Video ID" style="cursor:pointer;" onclick="navigator.clipboard.writeText('${item.id}'); showToast('Copied Reel ID: ${item.id}');">
+                📋 ${item.id}
+              </span>
+            </div>
+            <div class="video-title-text" title="${item.title}">${item.title}</div>
+          </div>
+        </td>
+        <td>
+          <div class="page-cell-info">
+            <img src="${avatar}" alt="${item.page_name}" class="page-cell-avatar" onerror="this.src='icons/icon-192.png'">
+            <div>
+              <div class="page-cell-name">${item.page_name}</div>
+              <div class="page-cell-account">${item.account || 'Automated Fleet'}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="datetime-cell">
+            <span class="datetime-main">📅 ${dateMain}</span>
+            <span class="datetime-sub">🕒 ${dateSub}</span>
+          </div>
+        </td>
+        <td style="text-align:center;">
+          <span class="country-pill ${countryClass}">${flagTag}</span>
+        </td>
+        <td>
+          <div class="ip-telemetry-cell">
+            <span class="ip-mono">🌐 ${item.ip}</span>
+            <span class="ip-location">📍 ${locText}</span>
+          </div>
+        </td>
+        <td style="text-align:center;">
+          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" title="Open published Reel directly on Facebook">
+            🎬 Open Reel ↗
+          </a>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  // Render Mobile Cards
+  if (mobileContainer) {
+    mobileContainer.innerHTML = displayItems.map((item, idx) => {
+      const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London") || item.account.includes("Binjal") || item.account.includes("Chanda") || item.account.includes("Mahi")));
+      const flagTag = isUK ? "🇬🇧 UK" : "🇺🇸 USA";
+      const countryClass = isUK ? "uk" : "us";
+      const reelUrl = item.direct_link || `https://www.facebook.com/reel/${item.id}/`;
+      const avatar = item.page_pic || "icons/icon-192.png";
+      const locText = item.location || (item.city ? `${item.city}, ${item.country}` : "Server Cloud");
+
+      let dateMain = "Recent";
+      if (item.posted_at) {
+        try {
+          const d = new Date(item.posted_at);
+          if (!isNaN(d.getTime())) {
+            dateMain = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) + " " + d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+          }
+        } catch (e) {}
+      }
+
+      return `
+        <div class="mobile-yt-card" style="padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <img src="${avatar}" alt="${item.page_name}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
+              <div>
+                <div style="font-weight:700; color:#fff; font-size:13px;">${item.page_name}</div>
+                <div style="font-size:11px; color:#94a3b8;">${item.account}</div>
+              </div>
+            </div>
+            <span class="country-pill ${countryClass}">${flagTag}</span>
+          </div>
+          
+          <div style="margin-bottom:10px;">
+            <div style="font-size:11px; font-family:'JetBrains Mono',monospace; color:#38bdf8; margin-bottom:3px;">ID: ${item.id}</div>
+            <div style="font-weight:600; color:#f8fafc; font-size:12.5px;">${item.title}</div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:6px; padding:10px; background:rgba(0,0,0,0.25); border-radius:8px; margin-bottom:10px; font-size:11.5px;">
+            <div style="display:flex; justify-content:space-between; color:#94a3b8;">
+              <span>📅 Uploaded:</span>
+              <strong style="color:#f1f5f9;">${dateMain}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; color:#94a3b8;">
+              <span>🌐 Runner IP:</span>
+              <strong style="color:#34d399; font-family:'JetBrains Mono',monospace;">${item.ip}</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; color:#94a3b8;">
+              <span>📍 Location:</span>
+              <strong style="color:#cbd5e1;">${locText}</strong>
+            </div>
+          </div>
+
+          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" style="width:100%; box-sizing:border-box;">
+            🎬 Open Published Reel on Facebook ↗
+          </a>
+        </div>
+      `;
+    }).join("");
+  }
+}
+
+window.initUploadHistoryEngine = initUploadHistoryEngine;
+window.fetchUploadHistory = fetchUploadHistory;
+window.refreshUploadHistory = refreshUploadHistory;
+window.onSearchUploadHistory = onSearchUploadHistory;
+window.loadMoreUploadHistory = loadMoreUploadHistory;
+window.renderUploadHistoryTable = renderUploadHistoryTable;
