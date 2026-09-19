@@ -853,11 +853,11 @@ function renderSidebarPagesList(pages) {
     const isUploaded = pToday > 0;
     const dotClass = isConfigured ? 'green' : 'gray';
     const dotTitle = isUploaded ? `Active • ${pToday}/4 Uploaded Today` : (isConfigured ? 'Active' : 'Pending');
-    let pillText = 'USA A1', pillClass = 'badge-a1';
-    if (accType === 'uk3') { pillText = 'UK A3'; pillClass = 'badge-uk'; }
-    else if (accType === 'uk2') { pillText = 'UK A2'; pillClass = 'badge-uk'; }
-    else if (accType === 'uk1') { pillText = 'UK A1'; pillClass = 'badge-uk'; }
-    else if (accType === 'usa2') { pillText = 'USA A2'; pillClass = 'badge-a2'; }
+    let pillText = 'Meghal Chauhan USA', pillClass = 'badge-a1';
+    if (accType === 'uk3') { pillText = 'Mahi Patel UK'; pillClass = 'badge-uk'; }
+    else if (accType === 'uk2') { pillText = 'Chanda Nai UK'; pillClass = 'badge-uk'; }
+    else if (accType === 'uk1') { pillText = 'Binjal Mehra UK'; pillClass = 'badge-uk'; }
+    else if (accType === 'usa2') { pillText = 'Mia Shah USA'; pillClass = 'badge-a2'; }
     return `
       <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${p.name} • ${followersStr} followers">
         <div class="side-page-item-left">
@@ -875,12 +875,15 @@ function renderSidebarPagesList(pages) {
   }
 
   function buildBox(cssClass, flag, emoji, title, badge, items, accType) {
+    const isUk = accType.startsWith("uk");
+    const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
+    const flagAlt = isUk ? "UK" : "USA";
     return `
       <div class="sidebar-section-box ${cssClass}" data-fleet="${accType}" id="fleetBox_${accType}">
         <div class="sidebar-box-header" onclick="toggleFleetBox('${accType}', event)">
-          <div class="sidebar-box-title">
-            <span>${emoji}</span>
-            <span>${title}</span>
+          <div class="sidebar-box-title" style="display:flex; align-items:center; gap:8px;">
+            <img src="${flagSrc}" alt="${flagAlt}" style="width:20px; height:14px; object-fit:cover; border-radius:2.5px; vertical-align:middle; display:inline-block; box-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0;">
+            <span style="font-weight:700; font-size:12px; color:#f8fafc; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${title}</span>
           </div>
           <div class="sidebar-box-right">
             <span class="sidebar-box-badge">${badge}</span>
@@ -895,19 +898,19 @@ function renderSidebarPagesList(pages) {
 
   let html = "";
   if (usa1List.length > 0) {
-    html += buildBox("sidebar-box-usa1", "usa1", "🇺🇸", "USA A1", `${usa1List.length} Pages`, usa1List, "usa1");
+    html += buildBox("sidebar-box-usa1", "usa1", "🇺🇸", "Meghal Chauhan USA", `${usa1List.length} Pages`, usa1List, "usa1");
   }
   if (usa2List.length > 0) {
-    html += buildBox("sidebar-box-usa2", "usa2", "🇺🇸", "USA A2", `${usa2List.length} Pages`, usa2List, "usa2");
+    html += buildBox("sidebar-box-usa2", "usa2", "🇺🇸", "Mia Shah USA", `${usa2List.length} Pages`, usa2List, "usa2");
   }
   if (uk1List.length > 0) {
-    html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "UK A1", `${uk1List.length} Pages`, uk1List, "uk1");
+    html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "Binjal Mehra UK", `${uk1List.length} Pages`, uk1List, "uk1");
   }
   if (uk2List.length > 0) {
-    html += buildBox("sidebar-box-uk2", "uk2", "🇬🇧", "UK A2", `${uk2List.length} Pages`, uk2List, "uk2");
+    html += buildBox("sidebar-box-uk2", "uk2", "🇬🇧", "Chanda Nai UK", `${uk2List.length} Pages`, uk2List, "uk2");
   }
   if (uk3List.length > 0) {
-    html += buildBox("sidebar-box-uk3", "uk3", "🇬🇧", "UK A3", `${uk3List.length} Pages`, uk3List, "uk3");
+    html += buildBox("sidebar-box-uk3", "uk3", "🇬🇧", "Mahi Patel UK", `${uk3List.length} Pages`, uk3List, "uk3");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
@@ -1069,19 +1072,19 @@ function renderDrawerPages(pages) {
     const isActive = String(p.id) === activePageId;
     const viewsFormatted = (p.total_views || 0).toLocaleString();
     const followersFormatted = (p.followers || 0).toLocaleString();
-    let accPillText = 'USA A1';
+    let accPillText = 'Meghal Chauhan USA';
     let badgeClass = 'badge-a1';
     if (accountType === 'uk3') {
-      accPillText = 'UK A3';
+      accPillText = 'Mahi Patel UK';
       badgeClass = 'badge-uk';
     } else if (accountType === 'uk2') {
-      accPillText = 'UK A2';
+      accPillText = 'Chanda Nai UK';
       badgeClass = 'badge-uk';
     } else if (accountType === 'uk1') {
-      accPillText = 'UK A1';
+      accPillText = 'Binjal Mehra UK';
       badgeClass = 'badge-uk';
     } else if (accountType === 'usa2') {
-      accPillText = 'USA A2';
+      accPillText = 'Mia Shah USA';
       badgeClass = 'badge-a2';
     }
 
@@ -1107,12 +1110,15 @@ function renderDrawerPages(pages) {
   }
 
   function renderDrawerSection(title, flag, count, items, accKey, flagClass) {
+    const isUk = accKey.startsWith("uk");
+    const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
+    const flagAlt = isUk ? "UK" : "USA";
     return `
       <div class="drawer-account-section ${flagClass}">
         <div class="drawer-box-header sidebar-box-header">
-          <div class="sidebar-box-title">
-            <span style="font-size:14px;">${flag}</span>
-            <span>${title}</span>
+          <div class="sidebar-box-title" style="display:flex; align-items:center; gap:8px;">
+            <img src="${flagSrc}" alt="${flagAlt}" style="width:20px; height:14px; object-fit:cover; border-radius:2.5px; vertical-align:middle; display:inline-block; box-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0;">
+            <span style="font-weight:700;">${title}</span>
           </div>
           <span class="sidebar-box-badge">${count} Pages</span>
         </div>
@@ -1123,19 +1129,19 @@ function renderDrawerPages(pages) {
 
   let html = "";
   if (usa1List.length > 0) {
-    html += renderDrawerSection("Meghal Chauhan (USA)", "🇺🇸", usa1List.length, usa1List, "usa1", "sec-us");
+    html += renderDrawerSection("Meghal Chauhan USA", "🇺🇸", usa1List.length, usa1List, "usa1", "sec-us");
   }
   if (usa2List.length > 0) {
-    html += renderDrawerSection("Mia Shah (USA)", "🇺🇸", usa2List.length, usa2List, "usa2", "sec-us");
+    html += renderDrawerSection("Mia Shah USA", "🇺🇸", usa2List.length, usa2List, "usa2", "sec-us");
   }
   if (uk1List.length > 0) {
-    html += renderDrawerSection("Binjal Mehra (UK)", "🇬🇧", uk1List.length, uk1List, "uk1", "sec-uk");
+    html += renderDrawerSection("Binjal Mehra UK", "🇬🇧", uk1List.length, uk1List, "uk1", "sec-uk");
   }
   if (uk2List.length > 0) {
-    html += renderDrawerSection("Chanda Nai (UK)", "🇬🇧", uk2List.length, uk2List, "uk2", "sec-uk");
+    html += renderDrawerSection("Chanda Nai UK", "🇬🇧", uk2List.length, uk2List, "uk2", "sec-uk");
   }
   if (uk3List.length > 0) {
-    html += renderDrawerSection("Mahi Patel (UK)", "🇬🇧", uk3List.length, uk3List, "uk3", "sec-uk");
+    html += renderDrawerSection("Mahi Patel UK", "🇬🇧", uk3List.length, uk3List, "uk3", "sec-uk");
   }
 
   container.innerHTML = html;
@@ -2930,12 +2936,15 @@ function renderStudioFleetList() {
   function buildStudioBox(cssClass, fleetId, flag, title, count, items, accType) {
     const isExpanded = expandedStudioBoxes.has(fleetId);
     const allSelectedInBox = items.length > 0 && items.every(p => studioSelectedPageIds.has(String(p.id)));
+    const isUk = accType.startsWith("uk") || fleetId.startsWith("uk");
+    const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
+    const flagAlt = isUk ? "UK" : "USA";
     return `
       <div class="sidebar-section-box studio-fleet-box ${cssClass} ${isExpanded ? 'expanded' : ''}" data-fleet="${fleetId}" id="studioFleetBox_${fleetId}">
         <div class="sidebar-box-header" onclick="toggleStudioFleetBox('${fleetId}', event)">
-          <div class="sidebar-box-title">
-            <span style="font-size:15px;">${flag}</span>
-            <span>${title}</span>
+          <div class="sidebar-box-title" style="display:flex; align-items:center; gap:8px;">
+            <img src="${flagSrc}" alt="${flagAlt}" style="width:20px; height:14px; object-fit:cover; border-radius:2.5px; vertical-align:middle; display:inline-block; box-shadow:0 1px 3px rgba(0,0,0,0.5); flex-shrink:0;">
+            <span style="font-weight:700;">${title}</span>
           </div>
           <div class="sidebar-box-right">
             <button type="button" class="btn-box-select-toggle" onclick="toggleBoxSelectAll('${fleetId}', event)" title="Toggle select all in ${title}">
@@ -2954,19 +2963,19 @@ function renderStudioFleetList() {
 
   let html = "";
   if (usa1List.length > 0) {
-    html += buildStudioBox("account-box-us", "a1", "🇺🇸", "Meghal Chauhan (USA)", usa1List.length, usa1List, "usa1");
+    html += buildStudioBox("account-box-us", "a1", "🇺🇸", "Meghal Chauhan USA", usa1List.length, usa1List, "usa1");
   }
   if (usa2List.length > 0) {
-    html += buildStudioBox("account-box-us", "a2", "🇺🇸", "Mia Shah (USA)", usa2List.length, usa2List, "usa2");
+    html += buildStudioBox("account-box-us", "a2", "🇺🇸", "Mia Shah USA", usa2List.length, usa2List, "usa2");
   }
   if (uk1List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk1", "🇬🇧", "Binjal Mehra (UK)", uk1List.length, uk1List, "uk1");
+    html += buildStudioBox("account-box-uk", "uk1", "🇬🇧", "Binjal Mehra UK", uk1List.length, uk1List, "uk1");
   }
   if (uk2List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk2", "🇬🇧", "Chanda Nai (UK)", uk2List.length, uk2List, "uk2");
+    html += buildStudioBox("account-box-uk", "uk2", "🇬🇧", "Chanda Nai UK", uk2List.length, uk2List, "uk2");
   }
   if (uk3List.length > 0) {
-    html += buildStudioBox("account-box-uk", "uk3", "🇬🇧", "Mahi Patel (UK)", uk3List.length, uk3List, "uk3");
+    html += buildStudioBox("account-box-uk", "uk3", "🇬🇧", "Mahi Patel UK", uk3List.length, uk3List, "uk3");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
