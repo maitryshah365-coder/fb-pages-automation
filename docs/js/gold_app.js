@@ -497,6 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initDashboard();
   setupEventListeners();
   startSlotCountdown();
+  initAutomationRadarLiveEngine();
   initUploadHistoryEngine();
 });
 
@@ -1682,6 +1683,45 @@ function renderAllPortfolioView() {
   if (kpiProfileVisits) kpiProfileVisits.innerText = totalProfileVisits.toLocaleString();
   if (kpiDailyFollows) kpiDailyFollows.innerText = `+${totalDailyFollows}`;
 
+  // Update Fleet Comparison Overview Cards (USA vs UK)
+  let usaStockSum = 0;
+  let usaViewsSum = 0;
+  let ukStockSum = 0;
+  let ukViewsSum = 0;
+
+  fullData.pages.forEach(p => {
+    const pid = String(p.id);
+    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+    const stock = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const pVids = getReelsForDays(p.videos || [], currentTimeframe);
+    const pViews = pVids.reduce((s, v) => s + (v.views || 0), 0);
+    const isUK = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid) || (p.index > 30) || (p.account && p.account.startsWith('UK'));
+
+    if (isUK) {
+      ukStockSum += stock;
+      ukViewsSum += pViews;
+    } else {
+      usaStockSum += stock;
+      usaViewsSum += pViews;
+    }
+  });
+
+  const elCompUSAStock = document.getElementById("compUSAStock");
+  const elCompUSAViews = document.getElementById("compUSAViews");
+  const elCompUKStock = document.getElementById("compUKStock");
+
+  if (elCompUSAStock) elCompUSAStock.innerText = usaStockSum.toLocaleString();
+  if (elCompUSAViews) {
+    if (usaViewsSum >= 1000000) {
+      elCompUSAViews.innerText = (usaViewsSum / 1000000).toFixed(1) + "M";
+    } else if (usaViewsSum >= 1000) {
+      elCompUSAViews.innerText = (usaViewsSum / 1000).toFixed(1) + "K";
+    } else {
+      elCompUSAViews.innerText = usaViewsSum.toLocaleString();
+    }
+  }
+  if (elCompUKStock) elCompUKStock.innerText = ukStockSum.toLocaleString();
+
   // Combined Demographics from Verified Pages
   renderDemographics(getPortfolioAudience());
 
@@ -2484,6 +2524,9 @@ function setupEventListeners() {
   // Post Now Studio Controls (Matching Raj Tube Pro Studio)
   document.getElementById("btnStudioSelectAll")?.addEventListener("click", selectAllReadyPages);
   document.getElementById("btnStudioClearAll")?.addEventListener("click", clearAllSelectedPages);
+  document.getElementById("btnStudioSelectAllUK")?.addEventListener("click", selectBatchUKPages);
+  document.getElementById("btnStudioSelectAllUSA")?.addEventListener("click", selectBatchUSAPages);
+  document.getElementById("btnStudioSelectUnposted")?.addEventListener("click", selectBatchUnpostedPages);
   document.getElementById("btnStudioClearLogs")?.addEventListener("click", clearStudioTerminalLogs);
   document.getElementById("inputStudioFleetSearch")?.addEventListener("input", renderStudioFleetList);
   document.getElementById("btnStudioExecutePublish")?.addEventListener("click", executeStudioPost);
@@ -2669,6 +2712,125 @@ function startSlotCountdown() {
   
   updateTimer();
   setInterval(updateTimer, 1000);
+}
+
+// =========================================================================
+// 24/7 AUTOMATION RADAR & LIVE ENGINE (STAGGERED MULTI-FLEET CRON MATRIX)
+// =========================================================================
+const FLEET_SCHEDULE_SLOTS = [
+  // USA 1 (Meghal Chauhan - 15 Pages)
+  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 2, m: 0, label: "Slot 1" },
+  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 14, m: 0, label: "Slot 2" },
+  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 19, m: 0, label: "Slot 3" },
+  { fleetId: "a1", name: "USA 1 (Meghal)", flag: "🇺🇸", h: 23, m: 0, label: "Slot 4" },
+
+  // USA 2 (Mia Shah - 15 Pages, +20m)
+  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 2, m: 20, label: "Slot 1" },
+  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 14, m: 20, label: "Slot 2" },
+  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 19, m: 20, label: "Slot 3" },
+  { fleetId: "a2", name: "USA 2 (Mia)", flag: "🇺🇸", h: 23, m: 20, label: "Slot 4" },
+
+  // UK 1 (Binjal Mehra - 12 Pages, London)
+  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 8, m: 0, label: "Slot 1" },
+  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 12, m: 0, label: "Slot 2" },
+  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 16, m: 0, label: "Slot 3" },
+  { fleetId: "uk1", name: "UK 1 (Binjal)", flag: "🇬🇧", h: 20, m: 30, label: "Slot 4" },
+
+  // UK 2 (Chanda Nai - 12 Pages, London)
+  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 8, m: 20, label: "Slot 1" },
+  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 12, m: 20, label: "Slot 2" },
+  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 16, m: 20, label: "Slot 3" },
+  { fleetId: "uk2", name: "UK 2 (Chanda)", flag: "🇬🇧", h: 20, m: 50, label: "Slot 4" },
+
+  // UK 3 (Mahi Patel - 12 Pages, London)
+  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 8, m: 30, label: "Slot 1" },
+  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 12, m: 30, label: "Slot 2" },
+  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 16, m: 30, label: "Slot 3" },
+  { fleetId: "uk3", name: "UK 3 (Mahi)", flag: "🇬🇧", h: 21, m: 0, label: "Slot 4" },
+
+  // UK 4 (Nidhi Desai - 12 Pages, London)
+  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 8, m: 40, label: "Slot 1" },
+  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 12, m: 40, label: "Slot 2" },
+  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 16, m: 40, label: "Slot 3" },
+  { fleetId: "uk4", name: "UK 4 (Nidhi)", flag: "🇬🇧", h: 21, m: 10, label: "Slot 4" },
+
+  // UK 5 (Richi Patel - 11 Pages, London)
+  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 8, m: 50, label: "Slot 1" },
+  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 12, m: 50, label: "Slot 2" },
+  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 16, m: 50, label: "Slot 3" },
+  { fleetId: "uk5", name: "UK 5 (Richi)", flag: "🇬🇧", h: 21, m: 20, label: "Slot 4" }
+];
+
+function initAutomationRadarLiveEngine() {
+  function tickRadar() {
+    const now = new Date();
+
+    // 1. Update Global Clocks (BST, EDT, UTC)
+    const optTime = { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" };
+    const elLondon = document.getElementById("clockLondon");
+    const elNY = document.getElementById("clockNewYork");
+    const elUTC = document.getElementById("clockUTC");
+
+    if (elLondon) elLondon.innerText = `${now.toLocaleTimeString("en-GB", { ...optTime, timeZone: "Europe/London" })} BST`;
+    if (elNY) elNY.innerText = `${now.toLocaleTimeString("en-US", { ...optTime, timeZone: "America/New_York" })} EDT`;
+    if (elUTC) elUTC.innerText = `${now.toLocaleTimeString("en-GB", { ...optTime, timeZone: "UTC" })} UTC`;
+
+    // 2. Determine Next Scheduled Run across all 7 fleets
+    const nowUtcMs = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours(),
+      now.getUTCMinutes(),
+      now.getUTCSeconds()
+    );
+
+    let nextSlot = null;
+    let minDiffMs = Infinity;
+
+    FLEET_SCHEDULE_SLOTS.forEach(slot => {
+      let targetMs = Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        slot.h,
+        slot.m,
+        0
+      );
+      if (targetMs <= nowUtcMs) {
+        // Already passed today, target tomorrow
+        targetMs += 24 * 60 * 60 * 1000;
+      }
+      const diff = targetMs - nowUtcMs;
+      if (diff < minDiffMs) {
+        minDiffMs = diff;
+        nextSlot = slot;
+      }
+    });
+
+    if (nextSlot) {
+      const totalSec = Math.floor(minDiffMs / 1000);
+      const hrs = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      const hStr = String(hrs).padStart(2, "0");
+      const mStr = String(mins).padStart(2, "0");
+      const sStr = String(secs).padStart(2, "0");
+
+      const timerEl = document.getElementById("radarNextCountdownText");
+      if (timerEl) {
+        timerEl.innerText = `${nextSlot.flag} ${nextSlot.name} (${nextSlot.label}) in ${hStr}:${mStr}:${sStr}`;
+      }
+
+      // Highlight active next card in timeline grid
+      document.querySelectorAll(".radar-timeline-card").forEach(c => c.classList.remove("active-next"));
+      const targetCard = document.getElementById("radarCard_" + nextSlot.fleetId);
+      if (targetCard) targetCard.classList.add("active-next");
+    }
+  }
+
+  tickRadar();
+  setInterval(tickRadar, 1000);
 }
 
 // =========================================================================
@@ -3238,6 +3400,55 @@ function clearAllSelectedPages() {
   });
   updateStudioSelectionUI();
 }
+
+function selectBatchUKPages() {
+  if (!fullData || !fullData.pages) return;
+  fullData.pages.forEach(page => {
+    const pId = String(page.id);
+    if (FLEET_UK_01_SET.has(pId) || FLEET_UK_02_SET.has(pId) || FLEET_UK_03_SET.has(pId) || FLEET_UK_04_SET.has(pId) || FLEET_UK_05_SET.has(pId) || (page.index > 30) || (page.account && page.account.startsWith("UK"))) {
+      studioSelectedPageIds.add(pId);
+    }
+  });
+  renderStudioFleetList();
+  document.querySelectorAll(".studio-fleet-box").forEach(b => b.classList.add("expanded"));
+  updateStudioSelectionUI();
+  showToast(`🇬🇧 Selected all 59 UK London Pages for Instant Dispatch`);
+}
+
+function selectBatchUSAPages() {
+  if (!fullData || !fullData.pages) return;
+  fullData.pages.forEach(page => {
+    const pId = String(page.id);
+    if (FLEET_USA_01_SET.has(pId) || FLEET_USA_02_SET.has(pId) || (page.index <= 30 && (!page.account || !page.account.startsWith("UK")))) {
+      studioSelectedPageIds.add(pId);
+    }
+  });
+  renderStudioFleetList();
+  document.querySelectorAll(".studio-fleet-box").forEach(b => b.classList.add("expanded"));
+  updateStudioSelectionUI();
+  showToast(`🇺🇸 Selected all 30 USA Pages for Instant Dispatch`);
+}
+
+function selectBatchUnpostedPages() {
+  if (!fullData || !fullData.pages) return;
+  let addedCount = 0;
+  fullData.pages.forEach(page => {
+    const pId = String(page.id);
+    const todayPosts = getPageTodayPosts(page);
+    if (todayPosts === 0) {
+      studioSelectedPageIds.add(pId);
+      addedCount++;
+    }
+  });
+  renderStudioFleetList();
+  document.querySelectorAll(".studio-fleet-box").forEach(b => b.classList.add("expanded"));
+  updateStudioSelectionUI();
+  showToast(`🎯 Selected ${addedCount} Pages with 0 Reels posted today`);
+}
+
+window.selectBatchUKPages = selectBatchUKPages;
+window.selectBatchUSAPages = selectBatchUSAPages;
+window.selectBatchUnpostedPages = selectBatchUnpostedPages;
 
 // ----------------- Update Selection State & UI -----------------
 
@@ -3883,6 +4094,9 @@ function renderDriveInventoryList() {
 
   const filtered = fullData.pages.filter(p => {
     const pid = String(p.id);
+    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+    const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+
     const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || (p.index >= 1 && p.index <= 15);
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
     const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || (p.index > 30 && p.index <= 42);
@@ -3898,6 +4112,8 @@ function renderDriveInventoryList() {
     if (currentDriveAccountFilter === "uk3" && !isUK3) return false;
     if (currentDriveAccountFilter === "uk4" && !isUK4) return false;
     if (currentDriveAccountFilter === "uk5" && !isUK5) return false;
+    if (currentDriveAccountFilter === "high_stock" && videoCount < 200) return false;
+    if (currentDriveAccountFilter === "low_stock" && videoCount >= 100) return false;
 
     if (query) {
       const nameMatch = (p.name || "").toLowerCase().includes(query);
@@ -3953,6 +4169,15 @@ function renderDriveInventoryList() {
     const folderName = `${p.name} - Videos`;
     const fillWidth = Math.min(100, Math.round((videoCount / 850) * 100));
 
+    let stockHealthBadge = '';
+    if (videoCount >= 200) {
+      stockHealthBadge = `<span class="stock-health-badge stock-health-high" title="High Stock (${videoCount} videos)">🟢 High</span>`;
+    } else if (videoCount >= 100) {
+      stockHealthBadge = `<span class="stock-health-badge stock-health-med" title="Healthy Stock (${videoCount} videos)">🟡 Healthy</span>`;
+    } else {
+      stockHealthBadge = `<span class="stock-health-badge stock-health-low" title="Low Stock Alert (${videoCount} videos)">🟠 Low Alert</span>`;
+    }
+
     return `
       <tr>
         <td style="color:#64748b; font-weight:700;">#${p.index || idx + 1}</td>
@@ -3975,11 +4200,14 @@ function renderDriveInventoryList() {
           📁 ${folderName}
         </td>
         <td>
-          <div class="drive-stock-pill">
-            <span>${videoCount.toLocaleString()}</span>
-            <div class="drive-stock-bar-bg" title="${videoCount} videos ready">
-              <div class="drive-stock-bar-fill" style="width: ${fillWidth}%;"></div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="drive-stock-pill" style="margin-bottom:0;">
+              <span>${videoCount.toLocaleString()}</span>
+              <div class="drive-stock-bar-bg" title="${videoCount} videos ready">
+                <div class="drive-stock-bar-fill" style="width: ${fillWidth}%;"></div>
+              </div>
             </div>
+            ${stockHealthBadge}
           </div>
         </td>
         <td>
@@ -4038,6 +4266,15 @@ function renderDriveInventoryList() {
       const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
       const handle = dInfo?.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
+      let stockHealthBadge = '';
+      if (videoCount >= 200) {
+        stockHealthBadge = `<span class="stock-health-badge stock-health-high" title="High Stock (${videoCount} videos)">🟢 High</span>`;
+      } else if (videoCount >= 100) {
+        stockHealthBadge = `<span class="stock-health-badge stock-health-med" title="Healthy Stock (${videoCount} videos)">🟡 Healthy</span>`;
+      } else {
+        stockHealthBadge = `<span class="stock-health-badge stock-health-low" title="Low Stock Alert (${videoCount} videos)">🟠 Low Alert</span>`;
+      }
+
       return `
         <div class="mobile-yt-card" style="padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -4055,7 +4292,10 @@ function renderDriveInventoryList() {
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:rgba(0,0,0,0.25); border-radius:8px; margin-bottom:10px;">
             <span style="font-size:12px; color:#94a3b8;">Drive Stock:</span>
-            <strong style="color:#34d399; font-size:13px;">📁 ${videoCount.toLocaleString()} Videos</strong>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <strong style="color:#34d399; font-size:13px;">📁 ${videoCount.toLocaleString()} Videos</strong>
+              ${stockHealthBadge}
+            </div>
           </div>
           <a href="${driveUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-folder-link" style="width:100%; justify-content:center; padding:8px 12px; font-size:12px;">
             📂 Open Google Drive Folder ↗

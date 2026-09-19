@@ -224,6 +224,13 @@
           <span class="fleet-selected-indicator" id="studioSelectedCounterBadge">0 Selected</span>
         </div>
 
+        <!-- Fast 1-Click Batch Actions Bar -->
+        <div class="studio-batch-actions-bar">
+          <button type="button" id="btnStudioSelectAllUK" class="btn-batch-action btn-batch-uk" title="Select All 59 UK Pages in 1-Click">🇬🇧 Select UK (59)</button>
+          <button type="button" id="btnStudioSelectAllUSA" class="btn-batch-action btn-batch-us" title="Select All 30 USA Pages in 1-Click">🇺🇸 Select USA (30)</button>
+          <button type="button" id="btnStudioSelectUnposted" class="btn-batch-action" title="Select pages that have 0 posts today">🎯 0 Posts Today</button>
+        </div>
+
 
         <div class="fleet-search-box">
           <input type="text" id="inputStudioFleetSearch" class="fleet-search-input" placeholder="Search across your pages...">
@@ -393,6 +400,8 @@
               <button type="button" class="timeframe-pill" data-filter="uk3" id="btnDriveFilterUK3">🇬🇧 Mahi Patel (12)</button>
               <button type="button" class="timeframe-pill" data-filter="uk4" id="btnDriveFilterUK4">🇬🇧 Nidhi Desai (12)</button>
               <button type="button" class="timeframe-pill" data-filter="uk5" id="btnDriveFilterUK5">🇬🇧 Richi Patel (11)</button>
+              <button type="button" class="timeframe-pill" data-filter="high_stock" id="btnDriveFilterHighStock">🟢 High Stock (200+)</button>
+              <button type="button" class="timeframe-pill" data-filter="low_stock" id="btnDriveFilterLowStock">🟠 Low Stock (&lt;100)</button>
             </div>
           </div>
         </div>
@@ -626,6 +635,123 @@
           <span class="badge-meta-verified">META GRAPH API v20.0 VERIFIED</span>
         </div>
       </div>
+
+      <!-- Elevated Rebuild: Live Automation Radar & Dual-Timezone Master Schedule -->
+      <section class="automation-radar-card" id="automationRadarCard">
+        <div class="radar-header-row">
+          <div class="radar-title-group">
+            <span class="radar-pulse-dot"></span>
+            <div class="radar-title">
+              <span>AUTOMATION RADAR & LIVE ENGINE</span>
+              <span class="badge-status-uploaded" style="font-size:10px; padding:2px 7px;">24/7 ACTIVE</span>
+            </div>
+          </div>
+          
+          <div class="radar-clocks-wrapper">
+            <div class="radar-clock-pill">
+              <span>🇬🇧 London:</span>
+              <strong id="clockLondon">--:--:-- BST</strong>
+            </div>
+            <div class="radar-clock-pill">
+              <span>🇺🇸 New York:</span>
+              <strong id="clockNewYork">--:--:-- EDT</strong>
+            </div>
+            <div class="radar-clock-pill">
+              <span>🌐 UTC:</span>
+              <strong id="clockUTC">--:--:-- UTC</strong>
+            </div>
+          </div>
+          
+          <div class="radar-next-run-badge" id="radarNextRunBadge">
+            <span>⏰ Next Run:</span>
+            <span class="radar-next-timer" id="radarNextCountdownText">Calculating...</span>
+          </div>
+        </div>
+
+        <!-- 7-Fleet Staggered Execution Matrix -->
+        <div class="radar-timeline-grid" id="radarTimelineGrid">
+          <div class="radar-timeline-card" id="radarCard_a1">
+            <div class="radar-card-top"><span>🇺🇸 USA 1</span><span>15 Pages</span></div>
+            <div class="radar-card-name">Meghal Chauhan</div>
+            <div class="radar-card-time">10:00 AM EDT (Slot 1)</div>
+          </div>
+          <div class="radar-timeline-card" id="radarCard_a2">
+            <div class="radar-card-top"><span>🇺🇸 USA 2</span><span>15 Pages</span></div>
+            <div class="radar-card-name">Mia Shah</div>
+            <div class="radar-card-time">10:20 AM EDT (+20m)</div>
+          </div>
+          <div class="radar-timeline-card" id="radarCard_uk1">
+            <div class="radar-card-top"><span>🇬🇧 UK 1</span><span>12 Pages</span></div>
+            <div class="radar-card-name">Binjal Mehra</div>
+            <div class="radar-card-time">09:00 AM BST (Slot 1)</div>
+          </div>
+          <div class="radar-timeline-card" id="radarCard_uk2">
+            <div class="radar-card-top"><span>🇬🇧 UK 2</span><span>12 Pages</span></div>
+            <div class="radar-card-name">Chanda Nai</div>
+            <div class="radar-card-time">09:20 AM BST (+20m)</div>
+          </div>
+          <div class="radar-timeline-card" id="radarCard_uk3">
+            <div class="radar-card-top"><span>🇬🇧 UK 3</span><span>12 Pages</span></div>
+            <div class="radar-card-name">Mahi Patel</div>
+            <div class="radar-card-time">09:30 AM BST (+30m)</div>
+          </div>
+          <div class="radar-timeline-card" id="radarCard_uk4">
+            <div class="radar-card-top"><span>🇬🇧 UK 4</span><span>12 Pages</span></div>
+            <div class="radar-card-name">Nidhi Desai</div>
+            <div class="radar-card-time">09:40 AM BST (+40m)</div>
+          </div>
+          <div class="radar-timeline-card" id="radarCard_uk5">
+            <div class="radar-card-top"><span>🇬🇧 UK 5</span><span>11 Pages</span></div>
+            <div class="radar-card-name">Richi Patel</div>
+            <div class="radar-card-time">09:50 AM BST (+50m)</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fleet Overview & Country Breakdown (USA vs UK) -->
+      <section class="fleet-comparison-grid">
+        <div class="fleet-comp-card us-card">
+          <div class="fleet-comp-header">
+            <span class="fleet-comp-title">🇺🇸 USA Fleet Overview</span>
+            <span class="fleet-comp-badge badge-a1">30 Pages • 2 Accounts</span>
+          </div>
+          <div class="fleet-comp-stats-row">
+            <div class="fleet-comp-stat-item">
+              <span class="comp-stat-lbl">Daily Slots</span>
+              <span class="comp-stat-val" style="color: #60a5fa;">120 Slots</span>
+            </div>
+            <div class="fleet-comp-stat-item">
+              <span class="comp-stat-lbl">Drive Stock</span>
+              <span class="comp-stat-val" id="compUSAStock">8,490</span>
+            </div>
+            <div class="fleet-comp-stat-item">
+              <span class="comp-stat-lbl">Total Views</span>
+              <span class="comp-stat-val" id="compUSAViews">11.4M</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="fleet-comp-card uk-card">
+          <div class="fleet-comp-header">
+            <span class="fleet-comp-title">🇬🇧 UK London Fleet Overview</span>
+            <span class="fleet-comp-badge badge-uk">59 Pages • 5 Accounts</span>
+          </div>
+          <div class="fleet-comp-stats-row">
+            <div class="fleet-comp-stat-item">
+              <span class="comp-stat-lbl">Daily Slots</span>
+              <span class="comp-stat-val" style="color: #fbbf24;">236 Slots</span>
+            </div>
+            <div class="fleet-comp-stat-item">
+              <span class="comp-stat-lbl">Drive Stock</span>
+              <span class="comp-stat-val" id="compUKStock">13,252</span>
+            </div>
+            <div class="fleet-comp-stat-item">
+              <span class="comp-stat-lbl">VPN Egress</span>
+              <span class="comp-stat-val" style="color: #34d399; font-size: 11px;">🟢 WireGuard UK</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Active Page Profile Banner -->
       <section class="profile-hero-card" id="heroCard">
@@ -1021,6 +1147,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=7.7.0"></script>
+  <script src="js/gold_app.js?v=7.8.0"></script>
 </body>
 </html>
