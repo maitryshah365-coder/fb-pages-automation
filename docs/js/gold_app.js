@@ -4362,7 +4362,10 @@ function renderUploadHistoryTable() {
           </div>
         </td>
         <td style="text-align:center;">
-          <span class="country-pill ${countryClass}">${flagTag}</span>
+          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" title="Watch Reel on Facebook" style="display:inline-block;">
+            <img src="https://graph.facebook.com/${item.id}/thumbnails" alt="Thumbnail" class="upload-history-thumb" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:80px; height:80px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+            <div class="upload-thumb-fallback" style="display:none; width:80px; height:80px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:28px;">🎬</div>
+          </a>
         </td>
         <td>
           <div class="ip-telemetry-cell">
