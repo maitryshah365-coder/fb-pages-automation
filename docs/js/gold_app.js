@@ -5362,8 +5362,14 @@ async function runLiveAuditUI(e) {
     if (summaryResults.length > 0) {
       summaryResults.forEach(r => {
         if (r.status === "failed" || r.status === "error") {
+          let pName = r.display_name;
+          if (!pName || pName.startsWith("page_") || pName.startsWith("uk")) {
+            const matched = Object.values(DRIVE_CONFIGURED_PAGES).find(x => x.pageName === r.page || x.handle === r.page);
+            if (matched) pName = `${matched.displayName} (${matched.account || 'USA 2: Mia Shah'})`;
+            else pName = r.page;
+          }
           uploadGaps.push({
-            name: r.display_name || r.page,
+            name: pName,
             reason: r.error || "Upload failed in runner"
           });
         }
