@@ -5074,9 +5074,12 @@ function renderHealthAuditMainView() {
   ];
 
   const auditPages = fullData?.pages || [];
+  const summaryResults = fullData?.latest_run_summary?.results || [];
+
   let totalValidTokens = 0;
   let totalGaps = 0;
   const gapItems = [];
+  const tokenIssueItems = [];
 
   let html = "";
 
@@ -5089,32 +5092,73 @@ function renderHealthAuditMainView() {
     let fleetValid = 0;
     let fleetTodayPosts = 0;
     const fleetGaps = [];
+    const fleetTokenIssues = [];
 
     fleetPages.forEach(p => {
       const pid = String(p.id);
       const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-      const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready);
+      const displayName = dInfo?.displayName || p.name;
+
+      // Check if latest run reported an error for this page
+      const runResult = summaryResults.find(r => 
+        r.page === p.name || 
+        r.page === `page_${p.index}` || 
+        r.page === `uk5_page_${p.index - 78}` || 
+        r.page_id === pid || 
+        (dInfo && (dInfo.pageName === r.page || dInfo.handle === r.page))
+      );
+
+      const isTokenError = runResult && (runResult.status === "failed" || runResult.status === "error") && (
+        String(runResult.error || "").includes("190") || 
+        String(runResult.error || "").includes("OAuthException") || 
+        String(runResult.error || "").includes("permission") || 
+        String(runResult.error || "").includes("Authentication")
+      );
+
+      const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready) && !isTokenError;
       if (hasToken) {
         fleetValid++;
         totalValidTokens++;
+      } else {
+        fleetTokenIssues.push({ name: displayName, error: runResult?.error || "Token Invalid" });
+        tokenIssueItems.push({ name: displayName, fleet: cfg.tag, owner: cfg.owner });
       }
 
       const pToday = getPageTodayPosts(p);
       fleetTodayPosts += pToday;
 
-      // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
-      const isUKCompleted = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid);
-      if (isUKCompleted && pToday === 0) {
-        const displayName = DRIVE_CONFIGURED_PAGES[pid]?.displayName || p.name;
-        fleetGaps.push({ name: displayName, reason: "0 uploads today (Slot 1/2 missed)" });
-        gapItems.push({ name: displayName, fleet: cfg.tag, reason: "0 uploads today" });
+      if (runResult && (runResult.status === "failed" || runResult.status === "error")) {
+        const failReason = isTokenError ? "Token Error 190 (Permissions Expired)" : (runResult.error || "Upload failed");
+        fleetGaps.push({ name: displayName, reason: failReason });
+        gapItems.push({ name: displayName, fleet: cfg.tag, reason: failReason });
         totalGaps++;
+      } else {
+        // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
+        const isUKCompleted = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid);
+        if (isUKCompleted && pToday === 0) {
+          fleetGaps.push({ name: displayName, reason: "0 uploads today (Slot 1/2 missed)" });
+          gapItems.push({ name: displayName, fleet: cfg.tag, reason: "0 uploads today" });
+          totalGaps++;
+        }
       }
     });
 
+    const hasTokenIssue = fleetTokenIssues.length > 0;
     const hasGap = fleetGaps.length > 0;
-    const cardBorder = hasGap ? "rgba(245, 158, 11, 0.4)" : "rgba(255, 255, 255, 0.08)";
-    const cardBg = hasGap ? "rgba(245, 158, 11, 0.06)" : "rgba(15, 23, 42, 0.6)";
+
+    let cardBorder = "rgba(255, 255, 255, 0.08)";
+    let cardBg = "rgba(15, 23, 42, 0.6)";
+    let statusBadge = `<span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(34,197,94,0.15); color: #4ade80;">● ALL ACTIVE</span>`;
+
+    if (hasTokenIssue) {
+      cardBorder = "rgba(239, 68, 68, 0.4)";
+      cardBg = "rgba(239, 68, 68, 0.08)";
+      statusBadge = `<span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(239,68,68,0.25); color: #f87171;">🚨 ${fleetTokenIssues.length} TOKEN ERRORS</span>`;
+    } else if (hasGap) {
+      cardBorder = "rgba(245, 158, 11, 0.4)";
+      cardBg = "rgba(245, 158, 11, 0.06)";
+      statusBadge = `<span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(245,158,11,0.2); color: #facc15;">⚠️ GAP DETECTED</span>`;
+    }
 
     html += `
       <div class="health-fleet-card" style="background: ${cardBg}; border: 1px solid ${cardBorder}; border-radius: 10px; padding: 14px; position: relative; transition: all 0.2s ease;">
@@ -5123,9 +5167,7 @@ function renderHealthAuditMainView() {
             <img src="${cfg.flagImg}" alt="${cfg.flag}" class="app-flag-icon" style="width: 16px; height: 12px;">
             <span style="font-size: 11px; font-weight: 800; color: #38bdf8;">Fleet #${idx + 1} • ${cfg.tag}</span>
           </div>
-          <span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; ${hasGap ? 'background: rgba(245,158,11,0.2); color: #facc15;' : 'background: rgba(34,197,94,0.15); color: #4ade80;'}">
-            ${hasGap ? '⚠️ GAP DETECTED' : '● ALL ACTIVE'}
-          </span>
+          ${statusBadge}
         </div>
 
         <div style="font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px;">${cfg.owner}</div>
@@ -5134,7 +5176,9 @@ function renderHealthAuditMainView() {
         <div style="display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #94a3b8;">🔑 FB Tokens:</span>
-            <span style="color: #4ade80; font-weight: 700;">${fleetValid}/${fleetPages.length} Active</span>
+            <span style="color: ${hasTokenIssue ? '#f87171' : '#4ade80'}; font-weight: 700;">
+              ${fleetValid}/${fleetPages.length} Active ${hasTokenIssue ? `(${fleetTokenIssues.length} Expired)` : ''}
+            </span>
           </div>
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #94a3b8;">Reels Today:</span>
@@ -5142,8 +5186,8 @@ function renderHealthAuditMainView() {
           </div>
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #94a3b8;">Upload Status:</span>
-            <span style="color: ${hasGap ? '#facc15' : '#4ade80'}; font-weight: 700;">
-              ${hasGap ? `${fleetGaps.length} Missed Slot (${fleetGaps[0].name})` : 'On Schedule'}
+            <span style="color: ${hasTokenIssue ? '#f87171' : (hasGap ? '#facc15' : '#4ade80')}; font-weight: 700;">
+              ${hasTokenIssue ? `🚨 ${fleetGaps.length} Failed (Token Error 190)` : (hasGap ? `${fleetGaps.length} Missed Slot (${fleetGaps[0].name})` : 'On Schedule')}
             </span>
           </div>
         </div>
@@ -5155,12 +5199,23 @@ function renderHealthAuditMainView() {
 
   // Update Hero values
   const tokensVal = document.getElementById("mainAuditTokensVal");
-  if (tokensVal) tokensVal.textContent = `${totalValidTokens}/101 Active`;
+  if (tokensVal) {
+    tokensVal.textContent = `${totalValidTokens}/101 Active`;
+    tokensVal.className = tokenIssueItems.length > 0 ? "stat-num" : "stat-num green-text";
+    tokensVal.style.color = tokenIssueItems.length > 0 ? "#f87171" : "#4ade80";
+  }
 
   const gapsVal = document.getElementById("mainAuditGapsVal");
   if (gapsVal) {
-    gapsVal.textContent = totalGaps === 0 ? "0 Gaps Detected" : `${totalGaps} Gap Detected`;
+    gapsVal.textContent = totalGaps === 0 ? "0 Gaps Detected" : `${totalGaps} Gaps Detected`;
     gapsVal.style.color = totalGaps === 0 ? "#4ade80" : "#facc15";
+  }
+
+  const healthStatusVal = document.getElementById("mainAuditHealthStatus");
+  if (healthStatusVal) {
+    const pct = ((totalValidTokens / 101) * 100).toFixed(1);
+    healthStatusVal.textContent = `${pct}% Operational`;
+    healthStatusVal.style.color = pct >= 95 ? "#4ade80" : (pct >= 80 ? "#facc15" : "#f87171");
   }
 
   const alertBox = document.getElementById("mainAuditAlertBox");
@@ -5168,7 +5223,20 @@ function renderHealthAuditMainView() {
   const alertTitle = document.getElementById("mainAuditAlertTitle");
   const alertText = document.getElementById("mainAuditAlertText");
 
-  if (totalGaps > 0) {
+  if (tokenIssueItems.length > 0) {
+    if (alertBox) {
+      alertBox.style.background = "rgba(239,68,68,0.15)";
+      alertBox.style.border = "1px solid rgba(239,68,68,0.35)";
+      alertBox.style.display = "flex";
+    }
+    if (alertIcon) alertIcon.textContent = "🚨";
+    if (alertTitle) { alertTitle.textContent = `Token Alert (${tokenIssueItems.length} Pages Need Re-Auth)`; alertTitle.style.color = "#f87171"; }
+    if (alertText) {
+      const owners = Array.from(new Set(tokenIssueItems.map(t => `${t.owner} (${t.fleet})`))).join(", ");
+      alertText.textContent = `OAuth Error 190: ${tokenIssueItems.length} pages in ${owners} have expired page permissions. Please generate and update new Facebook user tokens.`;
+      alertText.style.color = "#fca5a5";
+    }
+  } else if (totalGaps > 0) {
     if (alertBox) {
       alertBox.style.background = "rgba(245,158,11,0.12)";
       alertBox.style.border = "1px solid rgba(245,158,11,0.3)";
@@ -5176,7 +5244,10 @@ function renderHealthAuditMainView() {
     }
     if (alertIcon) alertIcon.textContent = "⚠️";
     if (alertTitle) { alertTitle.textContent = "Upload Gap Detected"; alertTitle.style.color = "#fbbf24"; }
-    if (alertText) alertText.textContent = `Upload Gap: ${gapItems.map(g => `${g.name} (${g.fleet})`).join(", ")} - 0 uploads today (Slot 1/2 missed - Identity confirmation required on FB mobile app)`;
+    if (alertText) {
+      alertText.textContent = `Upload Gap: ${gapItems.map(g => `${g.name} (${g.fleet})`).slice(0, 3).join(", ")} - 0 uploads today (Slot 1/2 missed - Identity confirmation required on FB mobile app)`;
+      alertText.style.color = "#cbd5e1";
+    }
   } else {
     if (alertBox) {
       alertBox.style.background = "rgba(34,197,94,0.12)";
@@ -5185,7 +5256,10 @@ function renderHealthAuditMainView() {
     }
     if (alertIcon) alertIcon.textContent = "✅";
     if (alertTitle) { alertTitle.textContent = "All Systems Operational"; alertTitle.style.color = "#4ade80"; }
-    if (alertText) alertText.textContent = "All 101 Page tokens active • 0 upload gaps detected • Scheduled slots on track";
+    if (alertText) {
+      alertText.textContent = "All 101 Page tokens active • 0 upload gaps detected • Scheduled slots on track";
+      alertText.style.color = "#cbd5e1";
+    }
   }
 }
 
@@ -5336,20 +5410,46 @@ async function runLiveAuditUI(e) {
       fleetPages.forEach(p => {
         const pid = String(p.id);
         const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-        const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready);
+        const dName = dInfo?.displayName || p.name;
+
+        // Check if runner reported token error for this page
+        const runResult = summaryResults.find(r => 
+          r.page === p.name || 
+          r.page === `page_${p.index}` || 
+          r.page === `uk5_page_${p.index - 78}` || 
+          r.page_id === pid || 
+          (dInfo && (dInfo.pageName === r.page || dInfo.handle === r.page))
+        );
+
+        const isTokenError = runResult && (runResult.status === "failed" || runResult.status === "error") && (
+          String(runResult.error || "").includes("190") || 
+          String(runResult.error || "").includes("OAuthException") || 
+          String(runResult.error || "").includes("permission") || 
+          String(runResult.error || "").includes("Authentication")
+        );
+
+        const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready) && !isTokenError;
         if (hasToken) {
           fleetValid++;
           totalValidTokens++;
         } else {
-          tokenIssues.push({ name: p.name, fleet: cfg.tag });
+          tokenIssues.push({ name: dName, fleet: cfg.tag, owner: cfg.owner });
         }
       });
 
-      logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: ${fleetValid}/${fleetPages.length} Tokens Active (Meta Graph Verified)`, "normal");
+      if (fleetValid === fleetPages.length) {
+        logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: ${fleetValid}/${fleetPages.length} Tokens Active (Meta Graph Verified)`, "normal");
+      } else {
+        logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: 🚨 ${fleetValid}/${fleetPages.length} Tokens Active (${fleetPages.length - fleetValid} Token Errors: Graph API Error 190)`, "error");
+      }
       await sleep(180);
     }
 
-    logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/101 Pages (100% Active)`, "success");
+    if (tokenIssues.length === 0) {
+      logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/101 Pages (100% Active)`, "success");
+    } else {
+      logAuditTerminal(`⚠️ Total Tokens Valid: ${totalValidTokens}/101 Pages (${tokenIssues.length} Token Errors Detected: Need Re-Auth)`, "warn");
+    }
     await sleep(200);
 
     // 3. Upload Gap & Schedule Delay Detection
