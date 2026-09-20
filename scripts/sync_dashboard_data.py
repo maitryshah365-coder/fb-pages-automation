@@ -1003,7 +1003,62 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "779283818590888":  audit_data.get("Titan Republic", {}).get("video_count", 124),
         "1058909860631103": audit_data.get("Urban Drift", {}).get("video_count", 187),
         "1054813994376761": audit_data.get("Velvet Authority", {}).get("video_count", 317),
-        "1165355063335637": audit_data.get("YO TO Gone", {}).get("video_count", 265) or audit_data.get("Yo to Gone", {}).get("video_count", 265)
+        "1165355063335637": audit_data.get("YO TO Gone", {}).get("video_count", 265) or audit_data.get("Yo to Gone", {}).get("video_count", 265),
+
+        # UK Account 3 Pages (Mahi Patel - 12 Pages, London WireGuard Egress)
+        "1190983047436826": audit_data.get("Shifting Stone", {}).get("video_count", 141),
+        "1224317344092240": audit_data.get("Heavy Whistle", {}).get("video_count", 160),
+        "1185315564665369": audit_data.get("Lost Glossary", {}).get("video_count", 289),
+        "960349707172371":  audit_data.get("Noble Frequency", {}).get("video_count", 137),
+        "1063063230214331": audit_data.get("Prime Syndicate", {}).get("video_count", 196),
+        "1063289593524919": audit_data.get("Empire Catalyst", {}).get("video_count", 153),
+        "938570059349598":  audit_data.get("Obsidian Theory", {}).get("video_count", 147),
+        "982581511610694":  audit_data.get("Nova District", {}).get("video_count", 154),
+        "994921357036127":  audit_data.get("New Moon Diaries", {}).get("video_count", 146),
+        "1039102779276966": audit_data.get("Dream Harbor", {}).get("video_count", 142),
+        "1023389020850189": audit_data.get("Maple Vision", {}).get("video_count", 165),
+        "855237054348766":  audit_data.get("Perez Steven", {}).get("video_count", 149) or audit_data.get("Perez  Steven", {}).get("video_count", 149),
+
+        # UK Account 4 Pages (Nidhi Desai - 12 Pages, London WireGuard Egress)
+        "1076375522219372": audit_data.get("Titan Archive", {}).get("video_count", 269),
+        "997596213442388":  audit_data.get("Sovereign Signal", {}).get("video_count", 191),
+        "1025542247301378": audit_data.get("Sunny Dusk Stories", {}).get("video_count", 327),
+        "981214481738903":  audit_data.get("Silver Oak Social", {}).get("video_count", 330),
+        "929190903615356":  audit_data.get("Mitchell Gabriel", {}).get("video_count", 242) or audit_data.get("Mitchell  Gabriel", {}).get("video_count", 242),
+        "803824339488556":  audit_data.get("Smith Arthur", {}).get("video_count", 67) or audit_data.get("Smith  Arthur", {}).get("video_count", 67),
+        "857530914106167":  audit_data.get("Robinson Jerry", {}).get("video_count", 333) or audit_data.get("Robinson  Jerry", {}).get("video_count", 333),
+        "762765990263739":  audit_data.get("Robinson Stephen", {}).get("video_count", 460) or audit_data.get("Robinson  Stephen", {}).get("video_count", 460),
+        "871774779344742":  audit_data.get("Powell Gabriel", {}).get("video_count", 220) or audit_data.get("Powell  Gabriel", {}).get("video_count", 220),
+        "746108741929454":  audit_data.get("Rodriguez Scott", {}).get("video_count", 547) or audit_data.get("Rodriguez  Scott", {}).get("video_count", 547),
+        "818808074651170":  audit_data.get("Roberts Richard", {}).get("video_count", 359) or audit_data.get("Roberts  Richard", {}).get("video_count", 359),
+        "417387901468629":  audit_data.get("Serendipity Spark", {}).get("video_count", 332),
+
+        # UK Account 5 Pages (Richi Patel - 11 Pages, London WireGuard Egress)
+        "1282432698285787": audit_data.get("Exile The Sun", {}).get("video_count", 98),
+        "1292135137311847": audit_data.get("Empty Pockets", {}).get("video_count", 141),
+        "1372949892557936": audit_data.get("Dirty Halos", {}).get("video_count", 155),
+        "1246041178598806": audit_data.get("Deafening Quiet", {}).get("video_count", 82),
+        "1314852728368183": audit_data.get("Crooked Hymns", {}).get("video_count", 89),
+        "1307388065781375": audit_data.get("Cracked Bell", {}).get("video_count", 55),
+        "1261317297068003": audit_data.get("Collapse The Sky", {}).get("video_count", 84),
+        "1314791448384472": audit_data.get("Buried Choirs", {}).get("video_count", 76),
+        "1275452998982725": audit_data.get("Brittle Crown", {}).get("video_count", 63),
+        "1345748795277343": audit_data.get("Broken Halo", {}).get("video_count", 71),
+        "1129800936893243": audit_data.get("Blame The Weather", {}).get("video_count", 58),
+
+        # UK Account 6 Pages (Sweta Shah - 12 Pages, London WireGuard Egress)
+        "1183175548215394": audit_data.get("Broken Orchard", {}).get("video_count", 359),
+        "1218007361389446": audit_data.get("Hollow Echo", {}).get("video_count", 135),
+        "1168998922967230": audit_data.get("Grabeal", {}).get("video_count", 440),
+        "1260883380432217": audit_data.get("Gentle Ruin", {}).get("video_count", 151),
+        "1230784326779924": audit_data.get("Heavy Whistle", {}).get("video_count", 348),
+        "956709574200068":  audit_data.get("Echo Ridge", {}).get("video_count", 148),
+        "682815954920518":  audit_data.get("Prestige Syndicate", {}).get("video_count", 161),
+        "758260714032115":  audit_data.get("Power Doctrine", {}).get("video_count", 149),
+        "714841275048147":  audit_data.get("Apex Chronicle", {}).get("video_count", 179),
+        "314172255114813":  audit_data.get("anymotion", {}).get("video_count", 146),
+        "234852513054858":  audit_data.get("Mai Cartoon Hoon", {}).get("video_count", 341),
+        "172005056007015":  audit_data.get("Cold Ash", {}).get("video_count", 132)
     }
     base_stock = 0
     if drive_folder_id:
@@ -1012,6 +1067,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 base_stock = audit_entry.get("video_count", 0)
                 break
     if base_stock == 0:
+        base_stock = p.get("drive_videos_count", 0) or 0
+    if base_stock == 0:
         base_stock = known_base.get(pid, 0)
     current_drive_stock = max(0, base_stock - today_posts) if base_stock > 0 else 0
 
@@ -1019,8 +1076,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "index": idx,
         "id": pid,
         "name": p_name,
-        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else "Richi Patel (UK)")))))),
-        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else "Richi Patel")))))),
+        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else ("Richi Patel (UK)" if idx <= 89 else "Sweta Shah (UK)"))))))),
+        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else ("Richi Patel" if idx <= 89 else "Sweta Shah"))))))),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,
@@ -1290,7 +1347,7 @@ def sync_data():
             LEFT JOIN runs r ON (v.facebook_video_id = r.facebook_video_id OR (v.page_id = r.page_id AND r.status='success' AND date(v.posted_at) = date(r.finished_at)))
             WHERE v.status = 'posted' AND v.facebook_video_id IS NOT NULL AND v.facebook_video_id != ''
             GROUP BY v.facebook_video_id
-            ORDER BY v.id DESC
+            ORDER BY v.posted_at DESC, v.id DESC
             LIMIT 500
             """
             rows = cur.execute(q).fetchall()
@@ -1301,7 +1358,7 @@ def sync_data():
                 p_pic = p_info.get("picture") or p_info.get("pic_url") or ""
                 acc_name = p_info.get("account") or "Unknown"
                 
-                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name)
+                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name) or ("Nidhi" in acc_name) or ("Richi" in acc_name) or ("Sweta" in acc_name)
                 country_code = "GB" if is_uk else "US"
                 country_flag = "🇬🇧 UK" if is_uk else "🇺🇸 USA"
                 

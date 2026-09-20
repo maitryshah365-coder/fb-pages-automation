@@ -1039,7 +1039,7 @@ function renderSidebarPagesList(pages) {
   function buildBox(cssClass, flag, emoji, title, badge, items, accType) {
     const totalFleetDone = items.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
     const totalFleetTarget = items.length * 4;
-    const totalFleetStock = items.reduce((sum, p) => sum + (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
+    const totalFleetStock = items.reduce((sum, p) => sum + ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     const isUk = accType.startsWith("uk");
     const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
     const flagAlt = isUk ? "UK" : "USA";
@@ -1304,7 +1304,7 @@ function renderDrawerPages(pages) {
   function buildDrawerFleetBox(cssClass, accType, flagSrc, flagAlt, title, items) {
     const totalFleetDone = items.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
     const totalFleetTarget = items.length * 4;
-    const totalFleetStock = items.reduce((sum, p) => sum + (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
+    const totalFleetStock = items.reduce((sum, p) => sum + ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     const hasActivePage = items.some(p => String(p.id) === activePageId);
     // Open active fleet, or usa1 by default, or open all if searching
     const isOpen = Boolean(searchTerm) || hasActivePage || accType === "usa1";
@@ -1435,7 +1435,7 @@ function selectPage(pageId) {
     if (sideBadgeDrive) {
       let totalStock = 0;
       (fullData?.pages || []).forEach(p => {
-        totalStock += (p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0));
+        totalStock += ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0));
       });
       sideBadgeDrive.innerText = totalStock.toLocaleString();
     }
@@ -1449,7 +1449,7 @@ function selectPage(pageId) {
         sideBadgeVideos.innerText = (pageObj.videos?.length || 0).toLocaleString();
       }
       if (sideBadgeDrive) {
-        const dCount = pageObj.drive_videos_count !== undefined ? pageObj.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(pageObj.id)]?.videoCount || 0);
+        const dCount = (pageObj.drive_videos_count !== undefined && pageObj.drive_videos_count > 0) ? pageObj.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(pageObj.id)]?.videoCount || 0);
         sideBadgeDrive.innerText = dCount.toLocaleString();
       }
     }
@@ -1630,7 +1630,7 @@ function updateStudioDashboardCards(isPortfolio, pageObj, videos) {
     }
     if (sideBadgeDrive) {
       const dInfo = DRIVE_CONFIGURED_PAGES[String(pageObj.id)];
-      const dCount = pageObj.drive_videos_count !== undefined ? pageObj.drive_videos_count : (dInfo?.videoCount || 0);
+      const dCount = (pageObj.drive_videos_count !== undefined && pageObj.drive_videos_count > 0) ? pageObj.drive_videos_count : (dInfo?.videoCount || 0);
       sideBadgeDrive.innerText = dCount.toLocaleString();
     }
   }
@@ -2335,7 +2335,7 @@ function renderTelemetry(target) {
 
     if (fullData && fullData.pages) {
       fullData.pages.forEach(p => {
-        const v = p.drive_videos_count !== undefined ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
+        const v = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
         totalDriveStock += v;
         if (v > 0) readyPagesCount++;
         const pToday = getPageTodayPosts(p);
@@ -3260,7 +3260,7 @@ function updateNavQueueCounter() {
       const pid = String(p.id);
       const dInfo = DRIVE_CONFIGURED_PAGES[pid];
       if (dInfo?.ready) {
-        totalVideos += p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo.videoCount || 0);
+        totalVideos += (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo.videoCount || 0);
       }
     });
   } else {
@@ -3324,7 +3324,7 @@ function renderStudioFleetList() {
     const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
     const isDriveReady = Boolean(driveInfo?.ready || page.is_configured !== false);
     const isSelected = studioSelectedPageIds.has(pId);
-    const videoCount = page.drive_videos_count !== undefined ? page.drive_videos_count : (driveInfo?.videoCount || 0);
+    const videoCount = (page.drive_videos_count !== undefined && page.drive_videos_count > 0) ? page.drive_videos_count : (driveInfo?.videoCount || 0);
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
     const isUk = accType.startsWith("uk");
@@ -3600,7 +3600,7 @@ function updateStudioSelectionUI() {
       const pid = String(p.id);
       const dInfo = DRIVE_CONFIGURED_PAGES[pid];
       if (dInfo?.ready) {
-        const v = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo.videoCount || 0);
+        const v = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo.videoCount || 0);
         totalStock += v;
         if (studioSelectedPageIds.has(pid)) {
           selectedStock += v;
@@ -4194,7 +4194,7 @@ function renderDriveDataView() {
   fullData.pages.forEach(p => {
     const pid = String(p.id);
     const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-    const count = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const count = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
     const isA2 = (p.account === "Account 2") || (p.index > 15 && p.index <= 30);
     const isUK = (p.account === "UK Account 1") || (p.index > 30) || (p.region === "GB");
     totalStock += count;
@@ -4232,7 +4232,7 @@ function renderDriveInventoryList() {
   const filtered = fullData.pages.filter(p => {
     const pid = String(p.id);
     const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-    const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
 
     const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || (p.index >= 1 && p.index <= 15);
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
@@ -4240,7 +4240,8 @@ function renderDriveInventoryList() {
     const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
     const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
     const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
-    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.index > 78;
+    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
+    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.index > 89;
 
     if (currentDriveAccountFilter === "a1" && !isUSA1) return false;
     if (currentDriveAccountFilter === "a2" && !isUSA2) return false;
@@ -4249,6 +4250,7 @@ function renderDriveInventoryList() {
     if (currentDriveAccountFilter === "uk3" && !isUK3) return false;
     if (currentDriveAccountFilter === "uk4" && !isUK4) return false;
     if (currentDriveAccountFilter === "uk5" && !isUK5) return false;
+    if (currentDriveAccountFilter === "uk6" && !isUK6) return false;
     if (currentDriveAccountFilter === "high_stock" && videoCount < 200) return false;
     if (currentDriveAccountFilter === "low_stock" && videoCount >= 100) return false;
 
@@ -4270,12 +4272,16 @@ function renderDriveInventoryList() {
     const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
     const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
     const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
-    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.index > 78;
+    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
+    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.index > 89;
 
-    const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5;
+    const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6;
     const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
     let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : 'badge-us', accountLabel = 'Meghal Chauhan';
-    if (isUK5) {
+    if (isUK6) {
+      badgeClass = 'badge-uk';
+      accountLabel = 'Sweta Shah';
+    } else if (isUK5) {
       badgeClass = 'badge-uk';
       accountLabel = 'Richi Patel';
     } else if (isUK4) {
@@ -4295,7 +4301,7 @@ function renderDriveInventoryList() {
       accountLabel = 'Mia Shah';
     }
 
-    const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
     const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
     const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
     const handle = dInfo?.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -4365,12 +4371,16 @@ function renderDriveInventoryList() {
       const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
       const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
       const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
-      const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.index > 78;
+      const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
+      const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.index > 89;
 
-      const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5;
+      const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6;
       const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
       let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : (isUSA2 ? 'badge-a2' : 'badge-a1'), accountLabel = 'Meghal Chauhan';
-      if (isUK5) {
+      if (isUK6) {
+        badgeClass = 'badge-uk';
+        accountLabel = 'Sweta Shah';
+      } else if (isUK5) {
         badgeClass = 'badge-uk';
         accountLabel = 'Richi Patel';
       } else if (isUK4) {
@@ -4390,7 +4400,7 @@ function renderDriveInventoryList() {
         accountLabel = 'Mia Shah';
       }
 
-      const videoCount = p.drive_videos_count !== undefined ? p.drive_videos_count : (dInfo?.videoCount || 0);
+      const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
       const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
       const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
       const handle = dInfo?.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -4803,7 +4813,7 @@ function renderUploadHistoryTable() {
     if (uploadHistoryFilter === "us") {
       if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia")) return false;
     } else if (uploadHistoryFilter === "uk") {
-      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi")) return false;
+      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta")) return false;
     } else if (uploadHistoryFilter === "today") {
       const pDate = (item.posted_at || "").slice(0, 10);
       if (pDate !== todayStr) return false;
@@ -4857,7 +4867,7 @@ function renderUploadHistoryTable() {
 
   // Render Desktop Rows
   tbody.innerHTML = displayItems.map((item, idx) => {
-    const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London") || item.account.includes("Binjal") || item.account.includes("Chanda") || item.account.includes("Mahi") || item.account.includes("Nidhi") || item.account.includes("Richi")));
+    const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London") || item.account.includes("Binjal") || item.account.includes("Chanda") || item.account.includes("Mahi") || item.account.includes("Nidhi") || item.account.includes("Richi") || item.account.includes("Sweta")));
     const countryClass = isUK ? "uk" : "us";
     const flagTag = isUK ? "🇬🇧 UK" : "🇺🇸 USA";
 
