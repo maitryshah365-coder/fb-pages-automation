@@ -1,15 +1,14 @@
 {
-  "run_id": "35524120898",
-  "run_number": "37",
-  "completed_at": "2026-09-20T16:54:55.116586+00:00",
+  "run_id": "35525192741",
+  "run_number": "38",
+  "completed_at": "2026-09-20T17:19:09.472015+00:00",
   "runner_telemetry": {
-    "ip": "217.146.83.98",
-    "hostname": "98.83.146.217.baremetal.zare.com",
+    "ip": "45.133.183.244",
     "city": "London",
     "region": "England",
     "country": "GB",
     "loc": "51.5085,-0.1257",
-    "org": "AS25369 Hydra Communications Ltd",
+    "org": "AS9009 M247 Europe SRL",
     "postal": "WC2N",
     "timezone": "Europe/London",
     "readme": "https://ipinfo.io/missingauth"
@@ -17,98 +16,142 @@
   "dry_run": false,
   "results": [
     {
-      "status": "failed",
-      "page": "uk5_page_1",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_1_ixbojvq3/video_1xz44osfTYgYHhAoJxHY4l1KaUnveIpeI.mp4",
-      "page_id": "1282432698285787",
-      "page_config_name": "uk5_page_1",
-      "display_name": "Exile The Sun"
+      "status": "success",
+      "page": "uk6_page_1",
+      "drive_file_id": "14pXLzPdVhoqbfSDvvq3nFPrO9MQfi3JA",
+      "facebook_video_id": "2034185130594024",
+      "filename": "A Dragon Changed The Whole Day And Nobody Looked Away #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1183175548215394",
+      "page_config_name": "uk6_page_1",
+      "display_name": "Broken Orchard"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_2",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_2_288i9bbn/video_1to-et2KM6kJJ9m9nhzZmwBuv8tRT0EmF.mp4",
-      "page_id": "1292135137311847",
-      "page_config_name": "uk5_page_2",
-      "display_name": "Empty Pockets"
+      "status": "success",
+      "page": "uk6_page_2",
+      "drive_file_id": "1hewAVWvnwCWJkfTipI2HwRSoY8PACGCy",
+      "facebook_video_id": "1414628194207662",
+      "filename": "Every Gamer Saluted Grandma Against All Odds #GrandmaGamer #Esports #Gaming #GamingLegend #ProGaming #Underdog #GamingCommunity #ViralGaming #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1218007361389446",
+      "page_config_name": "uk6_page_2",
+      "display_name": "Hollow Echo"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_3",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_3_379rt1ao/video_1-tBFf2MAXYtC7tT4wZodyA1MBp3kAcSQ.mp4",
-      "page_id": "1372949892557936",
-      "page_config_name": "uk5_page_3",
-      "display_name": "Dirty Halos"
+      "status": "success",
+      "page": "uk6_page_3",
+      "drive_file_id": "1ZoozfCQtmHXl0C643yuqLTpwRxCUqI2A",
+      "facebook_video_id": "4703966829889664",
+      "filename": "Balance Is Everything Against All Odds #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1168998922967230",
+      "page_config_name": "uk6_page_3",
+      "display_name": "Grabeal"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_4",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_4_uu47kl7w/video_1tohrRf-TfmDD8unMDNb0SxdIheDcKm65.mp4",
-      "page_id": "1246041178598806",
-      "page_config_name": "uk5_page_4",
-      "display_name": "Deafening Quiet"
+      "status": "success",
+      "page": "uk6_page_4",
+      "drive_file_id": "1CEOVAQ6vDPHS12hyq1ZmHYlsxEpZEWps",
+      "facebook_video_id": "2550654178715611",
+      "filename": "A Story Every Football Fan Should See For The Team #Football #Soccer #FootballStory #FootballLife #Goal #Dream #Champions #Sports #Cinematic #Motivation #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1260883380432217",
+      "page_config_name": "uk6_page_4",
+      "display_name": "Gentle Ruin"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_5",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_5_wy70ly5p/video_1qfz8RIL9njzIjjsC_A8dmqgSDvpEjqCh.mp4",
-      "page_id": "1314852728368183",
-      "page_config_name": "uk5_page_5",
-      "display_name": "Crooked Hymns"
+      "status": "success",
+      "page": "uk6_page_5",
+      "drive_file_id": "1cUqBtV4j8fjELT3IX1cw6JTK-ilF-VLr",
+      "facebook_video_id": "2613787115718521",
+      "filename": "A Complete Makeover In Seconds And Nobody Saw It Coming #Transformation #BeforeAndAfter #GlowUp #Satisfying #TransformationVideo #Amazing #Viral #Trending #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1230784326779924",
+      "page_config_name": "uk6_page_5",
+      "display_name": "Heavy Whistle"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_6",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
-      "page_id": "1307388065781375",
-      "page_config_name": "uk5_page_6",
-      "display_name": "Cracked Bell"
+      "status": "success",
+      "page": "uk6_page_6",
+      "drive_file_id": "1JFp9fSt1kltaqFoo8rQfnCVaGsK0w9tW",
+      "facebook_video_id": "1603100901277913",
+      "filename": "A Story Every Football Fan Should See Until The End #Football #Soccer #FootballStory #FootballLife #Goal #Dream #Champions #Sports #Cinematic #Motivation #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "956709574200068",
+      "page_config_name": "uk6_page_6",
+      "display_name": "Echo Ridge"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_7",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_7_4ps_7vs9/video_1cZXsl_bFSBZLNBtf8xALNVJBWyZJ9LIT.mp4",
-      "page_id": "1261317297068003",
-      "page_config_name": "uk5_page_7",
-      "display_name": "Collapse The Sky"
+      "status": "success",
+      "page": "uk6_page_7",
+      "drive_file_id": "1BKFslRKx3Sp6AJFNKGyqaKYA0IH6zOiY",
+      "facebook_video_id": "2415191829290546",
+      "filename": "A Bond Like No Other With Pure Happiness #Baby #Husky #Cute #BestFriends #DogLover #Heartwarming #Wholesome #CuteMoments #ViralVideo #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "682815954920518",
+      "page_config_name": "uk6_page_7",
+      "display_name": "Prestige Syndicate"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_8",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_8_oizmm284/video_1ZUzVbwLbmJt2atwQ7ZuvN8GP6HF6PeEF.mp4",
-      "page_id": "1314791448384472",
-      "page_config_name": "uk5_page_8",
-      "display_name": "Buried Choirs"
+      "status": "success",
+      "page": "uk6_page_8",
+      "drive_file_id": "1HsHKYj3Uy9bDrSHiACa_dWV4J3Y65jwR",
+      "facebook_video_id": "1784577505915221",
+      "filename": "Before The Director Said Action Before Release #BehindTheScenes #Hollywood #MovieMagic #FilmMaking #VFX #FilmSet #Cinematic #MovieProduction #BTS #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "758260714032115",
+      "page_config_name": "uk6_page_8",
+      "display_name": "Power Doctrine"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_9",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_9_18f73d9u/video_1P42NsC5tO1493-yRYu-r4_CqiCvJqv5H.mp4",
-      "page_id": "1275452998982725",
-      "page_config_name": "uk5_page_9",
-      "display_name": "Brittle Crown"
+      "status": "success",
+      "page": "uk6_page_9",
+      "drive_file_id": "1-uKYwlXtbfFdz-lfEfJ7Bqnv6gjm1dBK",
+      "facebook_video_id": "5086210738186943",
+      "filename": "Don't Blink During The Reveal Like Never Before #Reveal #Unveiling #Surprise #Hidden #WaitForIt #CrowdReaction #ViralVideo #Trending #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "714841275048147",
+      "page_config_name": "uk6_page_9",
+      "display_name": "Apex Chronicle"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_10",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_10_9zyr9n83/video_1LkC08IYp1hz0FG5r_rmYcuzELvtftWp9.mp4",
-      "page_id": "1345748795277343",
-      "page_config_name": "uk5_page_10",
-      "display_name": "Broken Halo"
+      "status": "success",
+      "page": "uk6_page_10",
+      "drive_file_id": "1f7izuyKFF6uIAo_hFYHyrA7j5hTdDVad",
+      "facebook_video_id": "2144388533166798",
+      "filename": "Everything Changed In A Heartbeat Before Anyone Realized #Wildlife #Nature #WildAnimals #AnimalWorld #Survival #NatureLovers #AnimalKingdom #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "314172255114813",
+      "page_config_name": "uk6_page_10",
+      "display_name": "anymotion"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_11",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_11_8bpyfz4k/video_1cpWGYQqtQ1A1Ke1xgjfC_1fuvsoHZSJk.mp4",
-      "page_id": "1129800936893243",
-      "page_config_name": "uk5_page_11",
-      "display_name": "Blame The Weather"
+      "status": "success",
+      "page": "uk6_page_11",
+      "drive_file_id": "1j2SFBVubyC_xANk-ohNKGQ6laSaEJsoS",
+      "facebook_video_id": "1821541308894373",
+      "filename": "A Discovery That Changed Everything Before It Disappeared #History #AncientHistory #WorldHistory #HistoricalFacts #HistoryFacts #Civilization #Educational #LearnHistory #DidYouKnow #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "234852513054858",
+      "page_config_name": "uk6_page_11",
+      "display_name": "Mai Cartoon Hoon"
+    },
+    {
+      "status": "success",
+      "page": "uk6_page_12",
+      "drive_file_id": "1RKpYOBXSYyPW7culE0BC9BP099FRSiDv",
+      "facebook_video_id": "2538468436638339",
+      "filename": "All Or Nothing Today Right Now #Esports #Gaming #LockerRoom #TeamHype #GameDay #ProGaming #Tournament #Victory #GamingCommunity #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "172005056007015",
+      "page_config_name": "uk6_page_12",
+      "display_name": "Cold Ash"
     }
   ],
   "stats": {
-    "total": 11,
-    "success": 0,
+    "total": 12,
+    "success": 12,
     "skipped": 0,
-    "failed": 11
+    "failed": 0
   }
 }
