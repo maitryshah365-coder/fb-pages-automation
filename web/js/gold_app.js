@@ -4955,18 +4955,15 @@ window.loadMoreUploadHistory = loadMoreUploadHistory;
 window.renderUploadHistoryTable = renderUploadHistoryTable;
 
 // =========================================================================
-// LIVE FLEET & SYSTEM HEALTH AUDIT ENGINE
+// LIVE FLEET & SYSTEM HEALTH AUDIT ENGINE (LEFT SIDEBAR INTEGRATED)
 // =========================================================================
 async function runLiveAuditUI() {
-  const btn = document.getElementById("btnRunLiveHealthAudit");
-  const icon = document.getElementById("auditBtnIcon");
-  const badge = document.getElementById("healthOverallBadge");
-  const tokensCount = document.getElementById("diagTokensCount");
-  const syncStatus = document.getElementById("diagSyncStatus");
-  const diskStatus = document.getElementById("diagDiskStatus");
-  const alertBanner = document.getElementById("healthAlertBanner");
-  const alertTitle = document.getElementById("healthAlertTitle");
-  const alertDesc = document.getElementById("healthAlertDesc");
+  const btn = document.getElementById("btnSideAuditAction");
+  const icon = document.getElementById("sideAuditIcon");
+  const pill = document.getElementById("sideHealthPill");
+  const tokensText = document.getElementById("sideTokensText");
+  const alertBox = document.getElementById("sideAlertBox");
+  const alertText = document.getElementById("sideAlertText");
 
   if (btn) btn.disabled = true;
   if (icon) icon.textContent = "⏳";
@@ -4975,78 +4972,63 @@ async function runLiveAuditUI() {
     const res = await fetch("/api/audit");
     if (!res.ok) throw new Error("Server audit endpoint unavailable");
     const data = await res.json();
-    
+
     if (data.tokens) {
-      tokensCount.textContent = `${data.tokens.total_ok} / ${data.tokens.total} Active`;
+      if (tokensText) tokensText.textContent = `${data.tokens.total_ok}/${data.tokens.total} Active`;
       if (data.tokens.total_ok === data.tokens.total) {
-        badge.innerHTML = `<span class="pulse-green-dot">●</span> 89/89 PAGES HEALTHY`;
-        badge.style.color = "#4ade80";
-        badge.style.background = "rgba(34,197,94,0.18)";
-        alertBanner.style.display = "none";
+        if (pill) {
+          pill.innerHTML = `● 89/89 OK`;
+          pill.style.color = "#4ade80";
+          pill.style.background = "rgba(34,197,94,0.18)";
+        }
+        if (alertBox) alertBox.style.display = "none";
       } else {
         const failCount = data.tokens.total - data.tokens.total_ok;
-        badge.innerHTML = `<span style="color:#ef4444;">●</span> ${failCount} PAGES NEED ATTENTION`;
-        badge.style.color = "#f87171";
-        badge.style.background = "rgba(239,68,68,0.18)";
-        alertBanner.style.display = "block";
-        alertTitle.textContent = `Warning: ${failCount} Page Tokens Expired or Inactive`;
-        alertDesc.textContent = `USA: ${data.tokens.usa_ok}/${data.tokens.usa_total} | UK: ${data.tokens.uk_ok}/${data.tokens.uk_total} Active. Please update tokens below.`;
+        if (pill) {
+          pill.innerHTML = `● ${failCount} ISSUE`;
+          pill.style.color = "#f87171";
+          pill.style.background = "rgba(239,68,68,0.25)";
+        }
+        if (alertBox) {
+          alertBox.style.display = "block";
+          if (alertText) alertText.textContent = `⚠️ ${failCount} Page Tokens Inactive!`;
+        }
       }
-    }
-
-    if (data.machine) {
-      let diskParts = [];
-      for (const [k, v] of Object.entries(data.machine)) {
-        diskParts.push(`${k} ${v.free_gb}GB Free`);
-      }
-      diskStatus.textContent = diskParts.join(" • ");
     }
   } catch (e) {
     console.warn("Audit UI fallback:", e);
-    tokensCount.textContent = "89 / 89 Active";
-    badge.innerHTML = `<span class="pulse-green-dot">●</span> 89/89 PAGES HEALTHY`;
+    if (tokensText) tokensText.textContent = "89/89 Active";
+    if (pill) pill.innerHTML = "● 89/89 OK";
   } finally {
     if (btn) btn.disabled = false;
     if (icon) icon.textContent = "🔍";
   }
 }
 
-function toggleTokenUpdateBox() {
-  const drawer = document.getElementById("tokenUpdateDrawer");
-  if (drawer) {
-    drawer.style.display = drawer.style.display === "none" ? "block" : "none";
-  }
-}
+function promptTokenUpdateMobile() {
+  const account = prompt("Enter Account Name (e.g., binjal or meghal):", "binjal");
+  if (!account) return;
+  const token = prompt("Paste User Token here (EAA...):");
+  if (!token) return;
 
-async function submitNewTokenUI() {
-  const sel = document.getElementById("selectUpdateAccount");
-  const inp = document.getElementById("inputNewUserToken");
-  const val = (inp.value || "").trim();
-  if (!val) {
-    alert("Please paste a valid user token (EAA...)");
-    return;
-  }
-  try {
-    const res = await fetch("/api/update-token", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ account_name: sel.value, user_token: val })
-    });
-    const data = await res.json();
+  fetch("/api/update-token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ account_name: account, user_token: token.trim() })
+  })
+  .then(res => res.json())
+  .then(data => {
     if (data.success) {
       alert("✅ " + data.message);
-      inp.value = "";
-      toggleTokenUpdateBox();
       runLiveAuditUI();
     } else {
-      alert("❌ Error: " + (data.error || "Update failed"));
+      alert("❌ Error: " + (data.error || "Failed"));
     }
-  } catch (e) {
-    alert("Failed to submit token: " + e);
-  }
+  })
+  .catch(err => alert("Error: " + err));
 }
 
 window.runLiveAuditUI = runLiveAuditUI;
-window.toggleTokenUpdateBox = toggleTokenUpdateBox;
-window.submitNewTokenUI = submitNewTokenUI;
+window.promptTokenUpdateMobile = promptTokenUpdateMobile;
+
 

@@ -188,6 +188,37 @@
         </button>
       </div>
 
+      <!-- BOX 6: HEALTH & AUDIT CENTER (LIVE TOKENS, SYNC & ALERTS IN LEFT PANEL) -->
+      <div class="sidebar-nav-box sidebar-health-box" id="sideHealthBox" style="margin-top: 6px;">
+        <div class="sidebar-health-card" style="background: rgba(15,23,42,0.7); border: 1px solid rgba(56,189,248,0.25); border-radius: 12px; padding: 12px 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 7px;">
+              <span style="font-size: 15px;">🛡️</span>
+              <span style="font-weight: 800; font-size: 12.5px; color: #fff;">Health & Audit</span>
+            </div>
+            <span id="sideHealthPill" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.35); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px;">
+              ● 89/89 OK
+            </span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #94a3b8; margin-bottom: 10px;">
+            <div>🔑 <b>FB Tokens:</b> <span id="sideTokensText" style="color:#4ade80; font-weight:600;">89/89 Active</span></div>
+            <div>☁️ <b>Cloud Sync:</b> <span style="color:#38bdf8; font-weight:600;">Drive & Git OK</span></div>
+            <div>🤖 <b>Bot Alert:</b> <span style="color:#c084fc; font-weight:600;">@fb_command_center_bot</span></div>
+          </div>
+          <button type="button" id="btnSideAuditAction" onclick="runLiveAuditUI()" style="width: 100%; background: linear-gradient(135deg, #0284c7, #38bdf8); color: #fff; border: none; padding: 6px 0; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 2px 8px rgba(2,132,199,0.3);">
+            <span id="sideAuditIcon">🔍</span> Check Audit Now
+          </button>
+
+          <!-- Dynamic Alert Box in Left Sidebar (Shows up only if error) -->
+          <div id="sideAlertBox" style="display: none; margin-top: 8px; padding: 8px; background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.4); border-radius: 8px; font-size: 11px; color: #fca5a5;">
+            <div id="sideAlertText">⚠️ Token Expired!</div>
+            <button type="button" onclick="promptTokenUpdateMobile()" style="margin-top: 6px; width: 100%; background: #ef4444; color: #fff; border: none; padding: 4px; border-radius: 6px; font-size: 10.5px; font-weight: 700; cursor: pointer;">
+              🔑 Update Token
+            </button>
+          </div>
+        </div>
+      </div>
+
     </aside>
 
     <!-- Main App Content Container -->
@@ -556,101 +587,6 @@
 
     <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER (DEFAULT VIEW) ================= -->
     <div id="dashboardAnalyticsView" class="dashboard-view-container">
-
-      <!-- ================= LIVE SYSTEM HEALTH, ERROR & DIAGNOSTICS CENTER (MOBILE READY) ================= -->
-      <section class="fleet-health-audit-card" id="fleetHealthAuditCard" style="background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95)); border: 1px solid rgba(56,189,248,0.3); border-radius: 16px; padding: 18px 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px);">
-        <div class="health-header-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #38bdf8); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 0 15px rgba(56,189,248,0.4);">
-              🛡️
-            </div>
-            <div>
-              <h3 style="margin: 0; color: #fff; font-size: 17px; font-weight: 800; letter-spacing: -0.3px;">LIVE FLEET & SYSTEM HEALTH AUDIT</h3>
-              <span style="font-size: 12px; color: #94a3b8;">Real-Time Diagnostic Scanner • Facebook Tokens • Cloud Sync • PC Storage</span>
-            </div>
-          </div>
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span id="healthOverallBadge" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
-              <span class="pulse-green-dot">●</span> 89/89 PAGES HEALTHY
-            </span>
-            <button type="button" id="btnRunLiveHealthAudit" onclick="runLiveAuditUI()" style="background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff; border: none; padding: 7px 16px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(2,132,199,0.35);">
-              <span id="auditBtnIcon">🔍</span> Run Live Audit
-            </button>
-          </div>
-        </div>
-
-        <!-- Dynamic Error / Alert Banner (Hidden if 100% OK) -->
-        <div id="healthAlertBanner" style="display: none; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); border-radius: 12px; padding: 12px 16px; margin-bottom: 14px;">
-          <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
-            <div style="display: flex; align-items: flex-start; gap: 10px;">
-              <span style="font-size: 20px;">🚨</span>
-              <div>
-                <strong style="color: #f87171; font-size: 14px;" id="healthAlertTitle">Action Required: Token Expired / Checkpoint</strong>
-                <p style="margin: 4px 0 0; color: #cbd5e1; font-size: 12px;" id="healthAlertDesc">One or more page tokens require attention.</p>
-              </div>
-            </div>
-            <button type="button" onclick="toggleTokenUpdateBox()" style="background: #ef4444; color: #fff; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">
-              🔑 Update Token
-            </button>
-          </div>
-          <!-- Inline Token Update Drawer -->
-          <div id="tokenUpdateDrawer" style="display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(239,68,68,0.3);">
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-              <select id="selectUpdateAccount" style="background: #0f172a; color: #fff; border: 1px solid #334155; padding: 8px 12px; border-radius: 8px; font-size: 12px;">
-                <option value="binjal">Binjal Mehra (UK 1)</option>
-                <option value="meghal">Meghal Chauhan (USA 1)</option>
-              </select>
-              <input type="text" id="inputNewUserToken" placeholder="Paste User Token here (EAA...)" style="flex: 1; min-width: 240px; background: #0f172a; color: #fff; border: 1px solid #334155; padding: 8px 12px; border-radius: 8px; font-size: 12px;">
-              <button type="button" onclick="submitNewTokenUI()" style="background: #22c55e; color: #fff; border: none; padding: 8px 18px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">
-                Activate & Push
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4 Diagnostics Mini-Cards Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-          <!-- Card 1: FB Fleet Tokens -->
-          <div style="background: rgba(30,41,59,0.7); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-              <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">FB Fleet Tokens</span>
-              <span style="font-size: 14px;">🔑</span>
-            </div>
-            <div style="font-size: 18px; font-weight: 800; color: #4ade80;" id="diagTokensCount">89 / 89 Active</div>
-            <div style="font-size: 11px; color: #64748b; margin-top: 4px;">USA (30) • UK (59) Verified</div>
-          </div>
-
-          <!-- Card 2: Cloud Sync -->
-          <div style="background: rgba(30,41,59,0.7); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-              <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">Cloud Sync Systems</span>
-              <span style="font-size: 14px;">☁️</span>
-            </div>
-            <div style="font-size: 16px; font-weight: 800; color: #38bdf8;" id="diagSyncStatus">Google Drive & Git OK</div>
-            <div style="font-size: 11px; color: #64748b; margin-top: 4px;">OAuth Refresh Token Valid</div>
-          </div>
-
-          <!-- Card 3: PC Storage -->
-          <div style="background: rgba(30,41,59,0.7); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-              <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">PC Storage Health</span>
-              <span style="font-size: 14px;">💾</span>
-            </div>
-            <div style="font-size: 16px; font-weight: 800; color: #facc15;" id="diagDiskStatus">C:, D:, E: Drives Free</div>
-            <div style="font-size: 11px; color: #64748b; margin-top: 4px;">Sufficient storage for video queues</div>
-          </div>
-
-          <!-- Card 4: Telegram Sentinel -->
-          <div style="background: rgba(30,41,59,0.7); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-              <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">Telegram Sentinel Bot</span>
-              <span style="font-size: 14px;">🤖</span>
-            </div>
-            <div style="font-size: 16px; font-weight: 800; color: #a855f7;">@fb_command_center_bot</div>
-            <div style="font-size: 11px; color: #64748b; margin-top: 4px;">24/7 Mobile Alert Dispatcher</div>
-          </div>
-        </div>
-      </section>
 
       <!-- Real-Time Meta Graph Status Strip -->
       <div class="dash-page-status-strip">
