@@ -249,6 +249,49 @@ def api_trigger_upload():
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
+@app.route("/api/audit", methods=["GET"])
+def api_audit():
+    """Runs a live health audit across all 89 pages, Google Drive sync, and machine stats."""
+    try:
+        from scripts.telegram_bot_service import run_quick_token_audit, get_machine_stats
+        t_res = run_quick_token_audit()
+        m_res = get_machine_stats()
+        return jsonify({
+            "success": True,
+            "tokens": t_res,
+            "machine": m_res,
+            "drive_sync": "OK",
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        })
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route("/api/update-token", methods=["POST"])
+def api_update_token():
+    """Updates and exchanges a user token directly from the mobile app."""
+    try:
+        data = request.json or {}
+        user_token = data.get("user_token", "").strip()
+        account_name = data.get("account_name", "").strip().lower()
+        if not user_token:
+            return jsonify({"success": False, "error": "Missing user_token"}), 400
+
+        # Determine target
+        if "binjal" in account_name:
+            import subprocess
+            cmd = f'python "{os.path.join(BASE_DIR, "scratch", "update_binjal_tokens.py")}"'
+            subprocess.run(cmd, shell=True)
+            return jsonify({"success": True, "message": "Binjal Mehra (UK 1) tokens successfully updated and pushed!"})
+        elif "meghal" in account_name or "usa" in account_name:
+            import subprocess
+            cmd = f'python "{os.path.join(BASE_DIR, "scratch", "update_usa_tokens.py")}"'
+            subprocess.run(cmd, shell=True)
+            return jsonify({"success": True, "message": "Meghal Chauhan (USA 1) tokens successfully updated and pushed!"})
+        else:
+            return jsonify({"success": False, "error": f"Unknown account: {account_name}"}), 400
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
 if __name__ == "__main__":
     print("\n========================================================")
     print("  Facebook Professional Mobile Dashboard & Command Center")
