@@ -5118,7 +5118,8 @@ function renderHealthAuditMainView() {
       const dInfo = DRIVE_CONFIGURED_PAGES[pid];
       const displayName = dInfo?.displayName || p.name;
 
-      // Check if latest run reported an error for this page
+      // Check if latest run reported an error for this page OR token_status is explicitly expired
+      const isExplicitTokenError = p.token_status === "expired" || p.token_status === "missing" || p.token_status === "error";
       const runResult = summaryResults.find(r => 
         r.page === p.name || 
         r.page === `page_${p.index}` || 
@@ -5127,12 +5128,14 @@ function renderHealthAuditMainView() {
         (dInfo && (dInfo.pageName === r.page || dInfo.handle === r.page))
       );
 
-      const isTokenError = runResult && (runResult.status === "failed" || runResult.status === "error") && (
+      const isRunTokenError = runResult && (runResult.status === "failed" || runResult.status === "error") && (
         String(runResult.error || "").includes("190") || 
         String(runResult.error || "").includes("OAuthException") || 
         String(runResult.error || "").includes("permission") || 
         String(runResult.error || "").includes("Authentication")
       );
+
+      const isTokenError = isExplicitTokenError || isRunTokenError;
 
       const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready) && !isTokenError;
       const pToday = getPageTodayPosts(p);
@@ -5143,14 +5146,19 @@ function renderHealthAuditMainView() {
         fleetValid++;
         totalValidTokens++;
       } else {
-        fleetTokenIssues.push({ name: displayName, error: runResult?.error || "Token Invalid" });
-        tokenIssueItems.push({ name: displayName, fleet: cfg.tag, owner: cfg.owner });
+        const errDesc = p.token_error || runResult?.error || "Token Expired (Error 190)";
+        fleetTokenIssues.push({ name: displayName, error: errDesc });
+        tokenIssueItems.push({ name: displayName, fleet: cfg.tag, owner: cfg.owner, error: errDesc });
       }
 
       if (runResult && (runResult.status === "failed" || runResult.status === "error")) {
         const failReason = isTokenError ? "Token Error 190 (Permissions Expired)" : (runResult.error || "Upload failed");
         fleetGaps.push({ name: displayName, reason: failReason });
         gapItems.push({ name: displayName, fleet: cfg.tag, reason: failReason });
+        totalGaps++;
+      } else if (isExplicitTokenError) {
+        fleetGaps.push({ name: displayName, reason: "Token Expired (Requires Re-Auth)" });
+        gapItems.push({ name: displayName, fleet: cfg.tag, reason: "Token Expired" });
         totalGaps++;
       } else {
         // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
@@ -5547,6 +5555,28 @@ async function runLiveAuditUI(e) {
       let fleetValid = 0;
       const fleetTokenIssues = [];
 
+      // Real-time live check via Meta Graph API
+      let liveSampleStatus = null;
+      let liveSampleError = null;
+      const samplePage = fleetPages.find(p => p.access_token && p.access_token.length > 20);
+      if (samplePage) {
+        try {
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 4000);
+          const fbRes = await fetch(`https://graph.facebook.com/v21.0/${samplePage.id}?fields=id,name&access_token=${samplePage.access_token}`, { cache: "no-store", signal: ctrl.signal });
+          clearTimeout(timer);
+          const fbJson = await fbRes.json();
+          if (fbJson && fbJson.id) {
+            liveSampleStatus = "active";
+          } else {
+            liveSampleStatus = "expired";
+            liveSampleError = fbJson?.error?.message || "Error 190 (OAuthException)";
+          }
+        } catch (e) {
+          liveSampleStatus = null;
+        }
+      }
+
       fleetPages.forEach(p => {
         const pid = String(p.id);
         const dInfo = DRIVE_CONFIGURED_PAGES[pid];
@@ -5561,12 +5591,25 @@ async function runLiveAuditUI(e) {
           (dInfo && (dInfo.pageName === r.page || dInfo.handle === r.page))
         );
 
-        const isTokenError = runResult && (runResult.status === "failed" || runResult.status === "error") && (
+        const isRunTokenError = runResult && (runResult.status === "failed" || runResult.status === "error") && (
           String(runResult.error || "").includes("190") || 
           String(runResult.error || "").includes("OAuthException") || 
           String(runResult.error || "").includes("permission") || 
           String(runResult.error || "").includes("Authentication")
         );
+
+        let isTokenError = false;
+        if (liveSampleStatus === "expired") {
+          isTokenError = true;
+          p.token_status = "expired";
+          p.token_error = liveSampleError;
+        } else if (liveSampleStatus === "active") {
+          isTokenError = false;
+          p.token_status = "active";
+          p.token_error = null;
+        } else {
+          isTokenError = p.token_status === "expired" || p.token_status === "missing" || p.token_status === "error" || isRunTokenError;
+        }
 
         const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready) && !isTokenError;
         if (hasToken) {
@@ -5582,7 +5625,7 @@ async function runLiveAuditUI(e) {
         logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: ${fleetValid}/${fleetPages.length} Tokens Active (Meta Graph Verified)`, "normal", "passed");
       } else {
         logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: 🚨 ${fleetValid}/${fleetPages.length} Tokens Active (${fleetPages.length - fleetValid} Token Errors: Graph API Error 190)`, "error", "token");
-        logAuditTerminal(`    👉 Action: Click '🔑 Update Token' to paste new Facebook User Token for ${cfg.owner} (${cfg.tag})`, "warn", "token");
+        logAuditTerminal(`    👉 User Token needed in chat for ${cfg.owner} (${cfg.tag})`, "warn", "token");
         fleetTokenIssues.forEach(ti => {
           logAuditTerminal(`       • ${ti.name}: Expired (OAuth Error 190)`, "error", "token");
         });
