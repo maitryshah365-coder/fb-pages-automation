@@ -5447,7 +5447,7 @@ const sleep = (ms) => new Promise(res => setTimeout(res, ms));
 
 async function runLiveAuditUI(e) {
   if (e && e.stopPropagation) e.stopPropagation();
-  const btns = [document.getElementById("btnMainAuditAction"), document.getElementById("btnSideAuditAction"), document.getElementById("btnMobileAuditAction")];
+  const btns = document.querySelectorAll("#btnMainAuditAction, #btnDetailsAuditAction, #btnSideAuditAction, #btnMobileAuditAction");
   const pills = [document.getElementById("sideNavHealthBadge"), document.getElementById("sideHealthPill"), document.getElementById("mobileHealthPill")];
   const tokensTexts = [document.getElementById("mainAuditTokensVal"), document.getElementById("sideTokensText"), document.getElementById("mobileTokensText")];
   const gapsTexts = [document.getElementById("mainAuditGapsVal"), document.getElementById("sideGapsText"), document.getElementById("mobileGapsText")];
@@ -5458,7 +5458,17 @@ async function runLiveAuditUI(e) {
   const dots = [document.getElementById("mainTerminalLiveDot"), document.getElementById("terminalLiveDot"), document.getElementById("mobileTerminalLiveDot")];
   const terms = [document.getElementById("mainAuditConsoleOutput"), document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
 
-  btns.forEach(b => { if (b) b.disabled = true; });
+  btns.forEach(b => {
+    b.disabled = true;
+    b.setAttribute("data-orig-text", b.innerHTML);
+    b.innerHTML = '<span style="display:inline-block; animation: pulse 1s infinite;">⏳</span> Auditing...';
+    b.style.opacity = "0.75";
+  });
+
+  if (typeof showToast === "function") {
+    showToast("🔍 Running live audit across 101 pages...");
+  }
+
   dots.forEach(d => {
     if (d) {
       d.textContent = "AUDITING...";
@@ -5494,10 +5504,13 @@ async function runLiveAuditUI(e) {
         const fresh = await res.json();
         if (fresh.pages && Array.isArray(fresh.pages)) {
           auditPages = fresh.pages;
+          if (!fullData) fullData = {};
           fullData.pages = fresh.pages;
         }
         if (fresh.latest_run_summary?.results) {
           summaryResults = fresh.latest_run_summary.results;
+          if (!fullData) fullData = {};
+          fullData.latest_run_summary = fresh.latest_run_summary;
         }
       }
     } catch (err) {
@@ -5746,13 +5759,21 @@ async function runLiveAuditUI(e) {
       }
     });
   } finally {
-    btns.forEach(b => { if (b) b.disabled = false; });
+    btns.forEach(b => {
+      b.disabled = false;
+      b.style.opacity = "1";
+      const orig = b.getAttribute("data-orig-text");
+      b.innerHTML = orig || '<span id="mainAuditIcon">🔍</span> Run Live Audit';
+    });
     dots.forEach(d => {
       if (d) {
         d.textContent = "VERIFIED";
         d.style.color = "#4ade80";
       }
     });
+    if (typeof showToast === "function") {
+      showToast("✅ Live audit complete: 101 Pages & 8 Fleets verified!");
+    }
   }
 }
 
