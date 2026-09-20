@@ -119,6 +119,21 @@ FLEET_UK_05_IDS = [
     "1129800936893243"  # Blame The Weather
 ]
 
+FLEET_UK_06_IDS = [
+    "1183175548215394", # Broken Orchard
+    "1218007361389446", # Hollow Echo
+    "1168998922967230", # Grabeal
+    "1260883380432217", # Gentle Ruin
+    "1230784326779924", # Heavy Whistle
+    "956709574200068",  # Echo Ridge
+    "682815954920518",  # Prestige Syndicate
+    "758260714032115",  # Power Doctrine
+    "714841275048147",  # Apex Chronicle
+    "314172255114813",  # anymotion
+    "234852513054858",  # Mai Cartoon Hoon
+    "172005056007015"   # Cold Ash
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -141,7 +156,8 @@ def get_pages_list():
         {"account": "UK Account 2", "owner": "Chanda Nai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account2_chanda_permanent_pages.json")},
         {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")},
         {"account": "UK Account 4", "owner": "Nidhi Desai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account4_nidhi_pages.json")},
-        {"account": "UK Account 5", "owner": "Richi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account5_richi_permanent_pages.json")}
+        {"account": "UK Account 5", "owner": "Richi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account5_richi_permanent_pages.json")},
+        {"account": "UK Account 6", "owner": "Sweta Shah", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account6_sweta_permanent_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -163,7 +179,7 @@ def get_pages_list():
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
 
-    # Build the 89 pages strictly ordered by the 7 fleets
+    # Build the 101 pages strictly ordered by the 8 fleets
     fleet_order = [
         (FLEET_USA_01_IDS, "Meghal Chauhan (USA)", "Meghal Chauhan", "US", 1),
         (FLEET_USA_02_IDS, "Mia Shah (USA)", "Mia Shah", "US", 16),
@@ -171,7 +187,8 @@ def get_pages_list():
         (FLEET_UK_02_IDS, "Chanda Nai (UK)", "Chanda Nai", "GB", 43),
         (FLEET_UK_03_IDS, "Mahi Patel (UK)", "Mahi Patel", "GB", 55),
         (FLEET_UK_04_IDS, "Nidhi Desai (UK)", "Nidhi Desai", "GB", 67),
-        (FLEET_UK_05_IDS, "Richi Patel (UK)", "Richi Patel", "GB", 79)
+        (FLEET_UK_05_IDS, "Richi Patel (UK)", "Richi Patel", "GB", 79),
+        (FLEET_UK_06_IDS, "Sweta Shah (UK)", "Sweta Shah", "GB", 90)
     ]
 
     final_pages = []
@@ -1342,7 +1359,11 @@ def sync_data():
             "uk_account3_offset_minutes": 30,
             "uk_account3_slots_bst": ["09:30 AM", "01:30 PM", "05:30 PM", "10:00 PM"],
             "uk_account4_offset_minutes": 40,
-            "uk_account4_slots_bst": ["09:40 AM", "01:40 PM", "05:40 PM", "10:10 PM"]
+            "uk_account4_slots_bst": ["09:40 AM", "01:40 PM", "05:40 PM", "10:10 PM"],
+            "uk_account5_offset_minutes": 50,
+            "uk_account5_slots_bst": ["09:50 AM", "01:50 PM", "05:50 PM", "10:20 PM"],
+            "uk_account6_offset_minutes": 60,
+            "uk_account6_slots_bst": ["10:00 AM", "02:00 PM", "06:00 PM", "10:30 PM"]
         },
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
@@ -1357,6 +1378,7 @@ def sync_data():
             "uk_account3_pages_count": len([p for p in page_records if "Mahi" in p.get("account", "") or p.get("account") == "UK Account 3"]),
             "uk_account4_pages_count": len([p for p in page_records if "Nidhi" in p.get("account", "") or p.get("account") == "UK Account 4"]),
             "uk_account5_pages_count": len([p for p in page_records if "Richi" in p.get("account", "") or p.get("account") == "UK Account 5"]),
+            "uk_account6_pages_count": len([p for p in page_records if "Sweta" in p.get("account", "") or p.get("account") == "UK Account 6"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,

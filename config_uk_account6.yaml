@@ -1,0 +1,137 @@
+page_group: uk_london_id_6_sweta
+account_name: Sweta Shah
+country_code: GB
+target_location: London, United Kingdom
+require_uk_ip: true
+ai_disclosure_status: pending_determination
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1183175548215394'
+  name: uk6_page_1
+  display_name: Broken Orchard
+  enabled: true
+  drive_folder_id: 155aMRaWuUAInSgQrl0gatk_EvIEmqM87
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSmOMVDHXD0KyKZBG8kl81Old6xc7IevSmYWjHkfOhpnS4ozBbKDOskHhQBF3kpOCBuqtVS3a362Hngk2FFYgBw28J7EkSkA5zMH6HBf6xJrhb2wD2j8h9lBBKbtRZBu2bVl85ygjPiVZARVo9ZBA0LNBmolu1KuzquxiUuHOr7Vk2HNKetg7JTYQ
+- page_id: '1218007361389446'
+  name: uk6_page_2
+  display_name: Hollow Echo
+  enabled: true
+  drive_folder_id: 1Z_LJ5MrLW_77keBWsri6GmHV4hCPnhZX
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSiQgCfcH306IEuvXCt9PcmFjsX4auwzZBjLUL0eo4KnPu03jbZCv65V7evNRlRjPfUuTpZBmTnRKPm5M7GzWlhr26rcFG3gbZBnOv248pPzHW8Wp4xbWvHW83ktVEK5vvZCPEO9s8FXYwZCZC6KlRlXjudupZAuAv6wLUYQZBFlnCSCknoHIcrvGdRq9W
+- page_id: '1168998922967230'
+  name: uk6_page_3
+  display_name: Grabeal
+  enabled: true
+  drive_folder_id: 12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSgBFHUUqfOvZBpSlfiGNXYk4o7Qmq9xa924tVSaTnOWNf7c6aFA8URmRU3WM18U1GlF88ncJMgc2hlA4qkz3zp2mu3ts3V07A7RuYokYFYa9g1oThZCHxNmLrU2hgF7eUFEuDBAlfkWrMe6htoERNhyHfrjTLWc29mEf1fWZCKxm3jPT8naTXqH
+- page_id: '1260883380432217'
+  name: uk6_page_4
+  display_name: Gentle Ruin
+  enabled: true
+  drive_folder_id: 1plS4eTfwt1-KCH-pcqe664IxtnejOWXk
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSlziZBlcLMgzWSI8WZBRffCTxQ0Gj4jjckTGZA9UCj3A5G5rYhnTD1z9EijZCrztgjGmcSDt0julFdYK2GXqgXUQFYcFRym40L7J6P6RoV3j3JVzu1DPiUQy7WNBazqje8aIxJCEcp8IlIrZAanr8wBC3tplJQ49TGUs1ln3ZCMAor2YXZC5psc7Uvf
+- page_id: '1230784326779924'
+  name: uk6_page_5
+  display_name: Heavy Whistle
+  enabled: true
+  drive_folder_id: 1J2v6SLGahed5tXgGApcjaqJWhmW0rf1h
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSrz9yPj3szrnPMAZBXluynQq2Y0xmo5qt0AgwgANNB0W7szTY3Fvdbki0MQqHsAyedFBAvR5lGy4EDIAPfRbskRzOTfw0azToqquC4UlGBIc8CBlonb3dNU4SCArDskold2ADdvdBjfOa2eCCgwGyWiJ8Jdp6K6zK5z8mqSP6HKhat0tcu5DY
+- page_id: '956709574200068'
+  name: uk6_page_6
+  display_name: Echo Ridge
+  enabled: true
+  drive_folder_id: 19vXbTj79kcd1saSgA72l8utIG3H7p720
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSsczJ2F2Q5hOE2LT5SSCvLihxQolnfkeOZBfwDN62SIDF5A94ZBFDAfGMpXbrAsmp8k4v16AZCTBXBX9EYGTiGPUIQWuXfIZCzyZBVjTZAOqJmf3D0qOZB1rXVu1UbEaOUS9sr8sIZCnavnY5Ns0qa8FBuY4RIvtu1e8B7U2CygkqQVw1DrZBOt1QHYGG
+- page_id: '682815954920518'
+  name: uk6_page_7
+  display_name: Prestige Syndicate
+  enabled: true
+  drive_folder_id: 1bfZHFaP_shW75sOo15S1iTY0FmqMjVBO
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSrGiw1WPlrZCNTySJ5GLMZAlPUZCxhqk2ZA5AgZCT03mRQVRLLwXFjOOCtZAQ9uHeUzybDZCEJomox1epHlYpwZBI4TZAhvpwFL8W7uZBTQD8gKc1bbfSyTTpW0LN82CpKVxOCyMFtDZAqUDzxMu3a16NqsqRLUZBln043SBM5YglhtyhzBdqzMhFE7365Ga
+- page_id: '758260714032115'
+  name: uk6_page_8
+  display_name: Power Doctrine
+  enabled: true
+  drive_folder_id: 1AEA6Zbh2_47bJJtBBpLCu66DHJ-F-AVc
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSnSZC33FdfFZB2WSZAMlhPRGkSGPnf9N2Wa0IOleX6E4y9kW8c5qRbprlGdDII6XjcUJc1sBCHZC8AluYvI3EjxBZAZAEsEFLQK8iIZAtMFT1Afd8tKUrr35WB0sPnHy1d4DPXce0e42JbaMZCWnLv1B2YVvOHzWWSQPsMYAYWMd2u6UT8vlGjUpDh7X
+- page_id: '714841275048147'
+  name: uk6_page_9
+  display_name: Apex Chronicle
+  enabled: true
+  drive_folder_id: 1mLhtU-CriRi1sRDy46qdlrdREbMbcg46
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSt8ofr2xe8GwlKItOqZCUnkdywa2s2SGoAuCMLVjvn1HUXSl6G2h74JKwdED4xlNNbh8vY54Ani3VUycgZBpRACdKLBlws3LwLTaPZBSPEQX6CcBpi6dzlTNlqP2MsddH6rDELHfhH3GpbJYRdW7VCUX1VyPVEASpWxBFjsJc3R7iBn0MTvLsvF
+- page_id: '314172255114813'
+  name: uk6_page_10
+  display_name: anymotion
+  enabled: true
+  drive_folder_id: 1djwykfiTZ70yjubKkMlv7h84j_ucmosb
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSloiu8E0BZCaDZBnZCLxZCXpAVVMmrAtxEgcnWrewzZClSzXuiVulARGd93DpAfhFNvAoSZA7OcSH4d07kiTTfNCBBNyqpP1dlINOCvdXDgD8ict3bJrK9W6wxMFZC3aU0RfLZBbSgWT58HoMJuGd0pLH9cukkIUpAVNZBYVySClb3Qy6sREbWdePZBHsb
+- page_id: '234852513054858'
+  name: uk6_page_11
+  display_name: Mai Cartoon Hoon
+  enabled: true
+  drive_folder_id: 1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSsFfVnEPaChc6pyUwOs7Hn6ARyNBk8CSBZBXZCk2COwOlV71cNojX0dn5iGAN2t2iTRH4STy0NfH7INCcZBQTLoiF3vKbXVwwzWsoDW5SjJDYex4ZCKGdNZC3C1YFnGNfZCKuGs4gyG7rLGw6DMDQPmeDxIzHwkJRZATXOWD1lTxrMfV0JrttWu0CAZD
+- page_id: '172005056007015'
+  name: uk6_page_12
+  display_name: Cold Ash
+  enabled: true
+  drive_folder_id: 1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO
+  daily_limit: 4
+  title_mode: filename
+  description_footer: ''
+  default_hashtags: []
+  page_access_token: EAAk7kW6ymkIBSputY9L4ZBWIBcXZBTE4EJbC1lFnqcsW3vPNo2I7eip1N8iiiuZAtf7OnFoUYvkZCNjdezg7bzof2hYOZAZC5GHRqjlgChGKMJSAuxuQri8KNg14lzRIrriN2N9PBO76GMWHEUZB9IzrzllCwQHaoqZAgh9eZCF8OmmjZA7TEVD9KYGgHWPZBoYfBWa60YZD

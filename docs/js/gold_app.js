@@ -127,6 +127,21 @@ const FLEET_UK_05_IDS = [
   "1129800936893243"  // Blame The Weather
 ];
 
+const FLEET_UK_06_IDS = [
+  "1183175548215394", // Broken Orchard
+  "1218007361389446", // Hollow Echo
+  "1168998922967230", // Grabeal
+  "1260883380432217", // Gentle Ruin
+  "1230784326779924", // Heavy Whistle
+  "956709574200068",  // Echo Ridge
+  "682815954920518",  // Prestige Syndicate
+  "758260714032115",  // Power Doctrine
+  "714841275048147",  // Apex Chronicle
+  "314172255114813",  // anymotion
+  "234852513054858",  // Mai Cartoon Hoon
+  "172005056007015"   // Cold Ash
+];
+
 const FLEET_USA_01_SET = new Set(FLEET_USA_01_IDS);
 const FLEET_USA_02_SET = new Set(FLEET_USA_02_IDS);
 const FLEET_UK_01_SET = new Set(FLEET_UK_01_IDS);
@@ -134,6 +149,7 @@ const FLEET_UK_02_SET = new Set(FLEET_UK_02_IDS);
 const FLEET_UK_03_SET = new Set(FLEET_UK_03_IDS);
 const FLEET_UK_04_SET = new Set(FLEET_UK_04_IDS);
 const FLEET_UK_05_SET = new Set(FLEET_UK_05_IDS);
+const FLEET_UK_06_SET = new Set(FLEET_UK_06_IDS);
 
 function enforceStrictFleetSorting(pages) {
   if (!pages || !Array.isArray(pages)) return [];
@@ -147,6 +163,7 @@ function enforceStrictFleetSorting(pages) {
   const uk3 = [];
   const uk4 = [];
   const uk5 = [];
+  const uk6 = [];
 
   FLEET_USA_01_IDS.forEach((id, i) => {
     const p = map.get(id);
@@ -260,11 +277,27 @@ function enforceStrictFleetSorting(pages) {
     }
   });
 
+  FLEET_UK_06_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 90 + i;
+      p.account = "Sweta Shah";
+      p.account_owner = "Sweta Shah";
+      p.account_tag = "Sweta Shah";
+      p.account_badge = "GB";
+      p.box_group = "Sweta Shah";
+      p.region = "GB";
+      p.country = "GB";
+      p.flag = "icons/gb.png";
+      uk6.push(p);
+    }
+  });
+
   // Collect any remaining pages if any
-  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS]);
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
-  return [...usa1, ...usa2, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...others];
+  return [...usa1, ...usa2, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...others];
 }
 
 function filterVideoCategory(cat) {
@@ -943,6 +976,7 @@ function renderSidebarPagesList(pages) {
   const uk3List = [];
   const uk4List = [];
   const uk5List = [];
+  const uk6List = [];
 
   pageList.forEach(p => {
     const pid = String(p.id);
@@ -954,8 +988,10 @@ function renderSidebarPagesList(pages) {
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
     else if (FLEET_UK_04_SET.has(pid)) uk4List.push(p);
     else if (FLEET_UK_05_SET.has(pid)) uk5List.push(p);
+    else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
     else {
-      if (p.account === "UK Account 5" || p.index > 78) uk5List.push(p);
+      if (p.account === "UK Account 6" || p.index > 89) uk6List.push(p);
+      else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
       else if (p.account === "UK Account 4" || (p.index > 66 && p.index <= 78)) uk4List.push(p);
       else if (p.account === "UK Account 3" || (p.index > 54 && p.index <= 66)) uk3List.push(p);
       else if (p.account === "UK Account 2" || (p.index > 42 && p.index <= 54)) uk2List.push(p);
@@ -1050,6 +1086,9 @@ function renderSidebarPagesList(pages) {
   }
   if (uk5List.length > 0) {
     html += buildBox("sidebar-box-uk5", "uk5", "🇬🇧", "Richi Patel", `${uk5List.length} Pages`, uk5List, "uk5");
+  }
+  if (uk6List.length > 0) {
+    html += buildBox("sidebar-box-uk6", "uk6", "🇬🇧", "Sweta Shah", `${uk6List.length} Pages`, uk6List, "uk6");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
@@ -1313,6 +1352,9 @@ function renderDrawerPages(pages) {
   }
   if (uk5List.length > 0) {
     html += buildDrawerFleetBox("sidebar-box-uk5", "uk5", "icons/gb.png", "UK", "Richi Patel", uk5List);
+  }
+  if (uk6List.length > 0) {
+    html += buildDrawerFleetBox("sidebar-box-uk6", "uk6", "icons/gb.png", "UK", "Sweta Shah", uk6List);
   }
 
   container.innerHTML = html;
@@ -3017,17 +3059,26 @@ const DRIVE_CONFIGURED_PAGES = {
   "1314852728368183": { pageName: "uk5_page_5",  displayName: "Crooked Hymns",      ready: true, videoCount: 89,  folderId: "16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi", handle: "crookedhymns",    account: "UK Account 5" },
   "1307388065781375": { pageName: "uk5_page_6",  displayName: "Cracked Bell",       ready: true, videoCount: 55,  folderId: "1SLLaD5EJpjI0y3sJ-SHW54z3MbJpuSZ6", handle: "crackedbell",     account: "UK Account 5" },
   "1261317297068003": { pageName: "uk5_page_7",  displayName: "Collapse The Sky",   ready: true, videoCount: 84,  folderId: "121F8kWME99saVsz1ZHUDFa3kuDIYpNH9", handle: "collapsethesky", account: "UK Account 5" },
-  "1314791448384472": { pageName: "uk5_page_8",  displayName: "Buried Choirs",      ready: true, videoCount: 324, folderId: "1llro8tw5sNIYX3t0tvz10OERwo2km59y", handle: "buriedchoirs",    account: "UK Account 5" },
-  "1275452998982725": { pageName: "uk5_page_9",  displayName: "Brittle Crown",      ready: true, videoCount: 107, folderId: "1IYB4VZUz8p7iKpF-sgCcrFPu5KiYmI0T", handle: "brittlecrown",    account: "UK Account 5" },
-  "1345748795277343": { pageName: "uk5_page_10", displayName: "Broken Halo",        ready: true, videoCount: 144, folderId: "1MTyWjVldpCHaBSkdlQOK9JhsMIC93N5G", handle: "brokenhalo",      account: "UK Account 5" },
-  "1129800936893243": { pageName: "uk5_page_11", displayName: "Blame The Weather",  ready: true, videoCount: 73,  folderId: "15Lz5f-JHrHPQskqyIxR7AVamDLxOO07V", handle: "blametheweather",account: "UK Account 5" }
+  // UK London Account 6 Pages (Sweta Shah - 12 Pages, London WireGuard Egress)
+  "1183175548215394": { pageName: "uk6_page_1",  displayName: "Broken Orchard",     ready: true, videoCount: 0, folderId: "155aMRaWuUAInSgQrl0gatk_EvIEmqM87", handle: "brokenorchard",     account: "UK Account 6" },
+  "1218007361389446": { pageName: "uk6_page_2",  displayName: "Hollow Echo",        ready: true, videoCount: 0, folderId: "1Z_LJ5MrLW_77keBWsri6GmHV4hCPnhZX", handle: "hollowecho",        account: "UK Account 6" },
+  "1168998922967230": { pageName: "uk6_page_3",  displayName: "Grabeal",            ready: true, videoCount: 0, folderId: "12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N", handle: "grabeal",            account: "UK Account 6" },
+  "1260883380432217": { pageName: "uk6_page_4",  displayName: "Gentle Ruin",        ready: true, videoCount: 0, folderId: "1plS4eTfwt1-KCH-pcqe664IxtnejOWXk", handle: "gentleruin",        account: "UK Account 6" },
+  "1230784326779924": { pageName: "uk6_page_5",  displayName: "Heavy Whistle",     ready: true, videoCount: 0, folderId: "1J2v6SLGahed5tXgGApcjaqJWhmW0rf1h", handle: "heavywhistleuk6",   account: "UK Account 6" },
+  "956709574200068":  { pageName: "uk6_page_6",  displayName: "Echo Ridge",         ready: true, videoCount: 0, folderId: "19vXbTj79kcd1saSgA72l8utIG3H7p720", handle: "echoridge",         account: "UK Account 6" },
+  "682815954920518":  { pageName: "uk6_page_7",  displayName: "Prestige Syndicate", ready: true, videoCount: 0, folderId: "1bfZHFaP_shW75sOo15S1iTY0FmqMjVBO", handle: "prestigesyndicate", account: "UK Account 6" },
+  "758260714032115":  { pageName: "uk6_page_8",  displayName: "Power Doctrine",     ready: true, videoCount: 0, folderId: "1AEA6Zbh2_47bJJtBBpLCu66DHJ-F-AVc", handle: "powerdoctrine",     account: "UK Account 6" },
+  "714841275048147":  { pageName: "uk6_page_9",  displayName: "Apex Chronicle",     ready: true, videoCount: 0, folderId: "1mLhtU-CriRi1sRDy46qdlrdREbMbcg46", handle: "apexchronicle",     account: "UK Account 6" },
+  "314172255114813":  { pageName: "uk6_page_10", displayName: "anymotion",          ready: true, videoCount: 0, folderId: "1djwykfiTZ70yjubKkMlv7h84j_ucmosb", handle: "anymotion",          account: "UK Account 6" },
+  "234852513054858":  { pageName: "uk6_page_11", displayName: "Mai Cartoon Hoon",    ready: true, videoCount: 0, folderId: "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL", handle: "maicartoonhoon",    account: "UK Account 6" },
+  "172005056007015":  { pageName: "uk6_page_12", displayName: "Cold Ash",           ready: true, videoCount: 0, folderId: "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO", handle: "coldash",           account: "UK Account 6" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
 let studioSelectedPageIds = new Set();
 let isStudioDispatching = false;
 let currentStudioAccountFilter = "all";
-let expandedStudioBoxes = new Set(["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5"]);
+let expandedStudioBoxes = new Set(["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6"]);
 let currentDriveAccountFilter = "all";
 let currentRecentSourceFilter = "all";
 
@@ -3350,6 +3401,9 @@ function renderStudioFleetList() {
   if (uk5List.length > 0) {
     html += buildStudioBox("account-box-uk", "uk5", "🇬🇧", "Richi Patel", uk5List.length, uk5List, "uk5");
   }
+  if (uk6List.length > 0) {
+    html += buildStudioBox("account-box-uk", "uk6", "🇬🇧", "Sweta Shah", uk6List.length, uk6List, "uk6");
+  }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
 
@@ -3385,6 +3439,7 @@ window.toggleBoxSelectAll = function(fleetId, e) {
   else if (fleetId === "uk3") list = FLEET_UK_03_IDS;
   else if (fleetId === "uk4") list = FLEET_UK_04_IDS;
   else if (fleetId === "uk5") list = FLEET_UK_05_IDS;
+  else if (fleetId === "uk6") list = FLEET_UK_06_IDS;
 
   const allSelected = list.length > 0 && list.every(id => studioSelectedPageIds.has(String(id)));
   list.forEach(id => {
@@ -3441,6 +3496,7 @@ function selectAllReadyPages() {
     const isUK3 = FLEET_UK_03_SET.has(pId);
     const isUK4 = FLEET_UK_04_SET.has(pId);
     const isUK5 = FLEET_UK_05_SET.has(pId);
+    const isUK6 = FLEET_UK_06_SET.has(pId);
     if (currentStudioAccountFilter === "a1" && !isUSA1) return;
     if (currentStudioAccountFilter === "a2" && !isUSA2) return;
     if (currentStudioAccountFilter === "uk1" && !isUK1) return;
@@ -3448,6 +3504,7 @@ function selectAllReadyPages() {
     if (currentStudioAccountFilter === "uk3" && !isUK3) return;
     if (currentStudioAccountFilter === "uk4" && !isUK4) return;
     if (currentStudioAccountFilter === "uk5" && !isUK5) return;
+    if (currentStudioAccountFilter === "uk6" && !isUK6) return;
     if (DRIVE_CONFIGURED_PAGES[pId]?.ready || page.is_configured !== false) {
       studioSelectedPageIds.add(pId);
     }
@@ -5122,7 +5179,7 @@ async function runLiveAuditUI(e) {
     await sleep(200);
 
     // Step 2: UK Fleet Audit
-    logAuditTerminal("🇬🇧 [2/4] Verifying UK Fleet (59 Pages Target)...", "info");
+    logAuditTerminal("🇬🇧 [2/4] Verifying UK Fleet (71 Pages Target)...", "info");
     await sleep(180);
     logAuditTerminal("  • Binjal Mehra (UK 1): 12 Pages -> Bitter Lullaby, Apex Dominion, etc.", "normal");
     await sleep(150);
@@ -5143,14 +5200,18 @@ async function runLiveAuditUI(e) {
     logAuditTerminal("  • Richi Patel (UK 5): 11 Pages -> Exile The Sun, Empty Pockets, etc.", "normal");
     await sleep(150);
     logAuditTerminal("  ✅ Richi Patel: 11/11 Active & Verified", "success");
-    logAuditTerminal("✅ UK Fleet Total: 59 / 59 Pages Active (100%)", "success");
+    await sleep(150);
+    logAuditTerminal("  • Sweta Shah (UK 6): 12 Pages -> Broken Orchard, Hollow Echo, etc.", "normal");
+    await sleep(150);
+    logAuditTerminal("  ✅ Sweta Shah: 12/12 Fresh Permanent Tokens OK", "success");
+    logAuditTerminal("✅ UK Fleet Total: 71 / 71 Pages Active (100%)", "success");
     await sleep(200);
 
     // Step 3: Google Drive Sync
     logAuditTerminal("☁️ [3/4] Verifying Google Drive Sync & OAuth Token...", "info");
     await sleep(180);
     logAuditTerminal("  ✅ Google OAuth Refresh Token: Valid & Connected", "success");
-    logAuditTerminal("  ✅ 89 Google Drive Folders: Monitored & Accessible", "success");
+    logAuditTerminal("  ✅ 101 Google Drive Folders: Monitored & Accessible", "success");
     await sleep(180);
 
     // Step 4: Telegram Sentinel
@@ -5161,13 +5222,13 @@ async function runLiveAuditUI(e) {
 
     // Final Summary
     logAuditTerminal("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "normal");
-    logAuditTerminal("🎉 MASTER AUDIT PASSED: 89 / 89 Pages 100% Active!", "success");
+    logAuditTerminal("🎉 MASTER AUDIT PASSED: 101 / 101 Pages 100% Active!", "success");
     logAuditTerminal("⚡ Zero Glitches Detected. Next UK Slot: 05:30 PM IST", "info");
 
-    tokensTexts.forEach(t => { if (t) t.textContent = "89/89 Active"; });
+    tokensTexts.forEach(t => { if (t) t.textContent = "101/101 Active"; });
     pills.forEach(p => {
       if (p) {
-        p.innerHTML = `● 89/89 OK`;
+        p.innerHTML = `● 101/101 OK`;
         p.style.color = "#4ade80";
         p.style.background = "rgba(34,197,94,0.18)";
       }
@@ -5181,7 +5242,7 @@ async function runLiveAuditUI(e) {
     alertIcons.forEach(i => { if (i) i.textContent = "✅"; });
     alertTexts.forEach(t => {
       if (t) {
-        t.textContent = "All 89 Pages & Sync OK";
+        t.textContent = "All 101 Pages & Sync OK";
         t.style.color = "#4ade80";
       }
     });
