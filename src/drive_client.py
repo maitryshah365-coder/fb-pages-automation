@@ -100,6 +100,11 @@ class DriveClient:
             if v_id in permanent_failed_ids:
                 logger.warning(f"Skipping permanently failed video: {video.get('name')} ({v_id})")
                 continue
+            # Skip empty or wiped files (0 bytes)
+            v_size = int(video.get("size") or 0)
+            if v_size == 0:
+                logger.warning(f"Skipping 0-byte / wiped video: {video.get('name')} ({v_id})")
+                continue
             return video
         return None
 
