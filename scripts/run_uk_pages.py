@@ -93,7 +93,9 @@ def main():
 
     if not ran_any:
         print(f"⚠️ No direct page matches found, executing fallback with direct page arg: {req}")
-        if "uk5" in req.lower():
+        if "uk6" in req.lower():
+            subprocess.run([sys.executable, "main.py", "--config", "config_uk_account6.yaml", "--page", req, "--require-uk"] + dry_flag, check=False)
+        elif "uk5" in req.lower():
             subprocess.run([sys.executable, "main.py", "--config", "config_uk_account5.yaml", "--page", req, "--require-uk"] + dry_flag, check=False)
         elif "uk4" in req.lower():
             subprocess.run([sys.executable, "main.py", "--config", "config_uk_account4.yaml", "--page", req, "--require-uk"] + dry_flag, check=False)
