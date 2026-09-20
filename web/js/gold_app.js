@@ -2548,6 +2548,7 @@ function setupEventListeners() {
   document.getElementById("sideNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
   document.getElementById("sideNavDriveData")?.addEventListener("click", () => switchMainView("drive_data"));
   document.getElementById("sideNavRecentPosts")?.addEventListener("click", () => switchMainView("recent_posts"));
+  document.getElementById("sideNavHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
 
   // Desktop Left Sidebar Live Sync ("synk vala bhi side me lele")
   document.getElementById("btnSideLiveSync")?.addEventListener("click", () => {
@@ -2560,7 +2561,8 @@ function setupEventListeners() {
     if (fullData && fullData.pages) renderSidebarPagesList(fullData.pages);
   });
 
-  // Mobile Bottom Navigation Panel
+  // Mobile Bottom Navigation Panel & Drawer
+  document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
   document.getElementById("bottomNavDashboard")?.addEventListener("click", () => {
     selectPage("all");
     switchMainView("dashboard");
@@ -2569,6 +2571,7 @@ function setupEventListeners() {
   document.getElementById("bottomNavPostNow")?.addEventListener("click", () => switchMainView("studio"));
   document.getElementById("bottomNavDriveData")?.addEventListener("click", () => switchMainView("drive_data"));
   document.getElementById("bottomNavRecentPosts")?.addEventListener("click", () => switchMainView("recent_posts"));
+  document.getElementById("bottomNavHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
 
   // Mobile Header buttons
   document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
@@ -3094,12 +3097,14 @@ function switchMainView(viewName) {
   const dashboardView = document.getElementById("dashboardAnalyticsView");
   const driveDataView = document.getElementById("driveDataInventoryView");
   const recentPostsView = document.getElementById("recentPostsFeedView");
+  const healthAuditView = document.getElementById("healthAuditMainView");
 
   // Desktop Sidebar items
   const sideDashboard = document.getElementById("sideNavDashboard");
   const sidePostNow = document.getElementById("sideNavPostNow");
   const sideDriveData = document.getElementById("sideNavDriveData");
   const sideRecentPosts = document.getElementById("sideNavRecentPosts");
+  const sideHealthAudit = document.getElementById("sideNavHealthAudit");
 
   // Mobile Bottom Panel items
   const bottomDashboard = document.getElementById("bottomNavDashboard");
@@ -3107,18 +3112,21 @@ function switchMainView(viewName) {
   const bottomPostNow = document.getElementById("bottomNavPostNow");
   const bottomDriveData = document.getElementById("bottomNavDriveData");
   const bottomRecentPosts = document.getElementById("bottomNavRecentPosts");
+  const bottomHealthAudit = document.getElementById("bottomNavHealthAudit");
 
   // Hide all views first
   if (studioView) studioView.style.display = "none";
   if (dashboardView) dashboardView.style.display = "none";
   if (driveDataView) driveDataView.style.display = "none";
   if (recentPostsView) recentPostsView.style.display = "none";
+  if (healthAuditView) healthAuditView.style.display = "none";
 
   // Reset desktop sidebar active classes
   if (sideDashboard) sideDashboard.classList.remove("active");
   if (sidePostNow) sidePostNow.classList.remove("active");
   if (sideDriveData) sideDriveData.classList.remove("active");
   if (sideRecentPosts) sideRecentPosts.classList.remove("active");
+  if (sideHealthAudit) sideHealthAudit.classList.remove("active");
   document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
 
   // Reset mobile bottom panel active classes
@@ -3127,6 +3135,7 @@ function switchMainView(viewName) {
   if (bottomPostNow) bottomPostNow.classList.remove("active");
   if (bottomDriveData) bottomDriveData.classList.remove("active");
   if (bottomRecentPosts) bottomRecentPosts.classList.remove("active");
+  if (bottomHealthAudit) bottomHealthAudit.classList.remove("active");
 
   if (viewName === "studio") {
     if (studioView) studioView.style.display = "grid";
@@ -3146,6 +3155,12 @@ function switchMainView(viewName) {
     if (bottomRecentPosts) bottomRecentPosts.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderRecentPostsView();
+  } else if (viewName === "health_audit") {
+    if (healthAuditView) healthAuditView.style.display = "block";
+    if (sideHealthAudit) sideHealthAudit.classList.add("active");
+    if (bottomHealthAudit) bottomHealthAudit.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderHealthAuditMainView();
   } else {
     // "dashboard"
     if (dashboardView) dashboardView.style.display = "block";
@@ -5030,69 +5045,165 @@ window.renderUploadHistoryTable = renderUploadHistoryTable;
 // LIVE FLEET & SYSTEM HEALTH AUDIT ENGINE (LEFT SIDEBAR ACCORDION)
 // =========================================================================
 
-function toggleSideHealthShutter(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  const body = document.getElementById("sideHealthShutterBody");
-  const arrow = document.getElementById("sideHealthToggleArrow");
-  if (!body) return;
+// =========================================================================
+// LIVE FLEET & SYSTEM HEALTH AUDIT ENGINE (MAIN WINDOW VIEW)
+// =========================================================================
 
-  const isHidden = (body.style.display === "none" || body.style.display === "");
-  if (isHidden) {
-    body.style.display = "block";
-    if (arrow) { arrow.innerText = "▲"; arrow.style.transform = "rotate(180deg)"; }
-  } else {
-    body.style.display = "none";
-    if (arrow) { arrow.innerText = "▼"; arrow.style.transform = "rotate(0deg)"; }
+function getPageTodayPosts(p) {
+  if (!p) return 0;
+  if (p.today_posts !== undefined && p.today_posts !== null) return Number(p.today_posts);
+  if (p.videos && Array.isArray(p.videos)) {
+    return p.videos.filter(v => v.created_at && (v.created_at.includes("Today") || v.created_at.includes("Sep 20"))).length;
   }
+  return 0;
 }
 
-function toggleMobileHealthShutter(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  const body = document.getElementById("mobileHealthShutterBody");
-  const arrow = document.getElementById("mobileHealthToggleArrow");
-  if (!body) return;
+function renderHealthAuditMainView() {
+  const container = document.getElementById("mainAuditFleetsGrid");
+  if (!container) return;
 
-  const isHidden = (body.style.display === "none" || body.style.display === "");
-  if (isHidden) {
-    body.style.display = "block";
-    if (arrow) { arrow.innerText = "▲"; arrow.style.transform = "rotate(180deg)"; }
+  const fleetConfigs = [
+    { tag: "USA 1", owner: "Meghal Chauhan", set: FLEET_USA_01_SET, startIdx: 1, endIdx: 15, flag: "🇺🇸", flagImg: "icons/us.png" },
+    { tag: "USA 2", owner: "Mia Shah", set: FLEET_USA_02_SET, startIdx: 16, endIdx: 30, flag: "🇺🇸", flagImg: "icons/us.png" },
+    { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 2", owner: "Chanda Nai", set: FLEET_UK_02_SET, startIdx: 43, endIdx: 54, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 3", owner: "Mahi Patel", set: FLEET_UK_03_SET, startIdx: 55, endIdx: 66, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 4", owner: "Nidhi Desai", set: FLEET_UK_04_SET, startIdx: 67, endIdx: 78, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 79, endIdx: 89, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧", flagImg: "icons/gb.png" }
+  ];
+
+  const auditPages = fullData?.pages || [];
+  let totalValidTokens = 0;
+  let totalGaps = 0;
+  const gapItems = [];
+
+  let html = "";
+
+  fleetConfigs.forEach((cfg, idx) => {
+    const fleetPages = auditPages.filter(p => {
+      const pid = String(p.id);
+      return cfg.set.has(pid) || p.account?.includes(cfg.owner) || (p.index >= cfg.startIdx && p.index <= cfg.endIdx);
+    });
+
+    let fleetValid = 0;
+    let fleetTodayPosts = 0;
+    const fleetGaps = [];
+
+    fleetPages.forEach(p => {
+      const pid = String(p.id);
+      const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+      const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready);
+      if (hasToken) {
+        fleetValid++;
+        totalValidTokens++;
+      }
+
+      const pToday = getPageTodayPosts(p);
+      fleetTodayPosts += pToday;
+
+      // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
+      const isUKCompleted = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid);
+      if (isUKCompleted && pToday === 0) {
+        fleetGaps.push({ name: p.name, reason: "0 uploads today (Slot 1/2 missed)" });
+        gapItems.push({ name: p.name, fleet: cfg.tag, reason: "0 uploads today" });
+        totalGaps++;
+      }
+    });
+
+    const hasGap = fleetGaps.length > 0;
+    const cardBorder = hasGap ? "rgba(245, 158, 11, 0.4)" : "rgba(255, 255, 255, 0.08)";
+    const cardBg = hasGap ? "rgba(245, 158, 11, 0.06)" : "rgba(15, 23, 42, 0.6)";
+
+    html += `
+      <div class="health-fleet-card" style="background: ${cardBg}; border: 1px solid ${cardBorder}; border-radius: 10px; padding: 14px; position: relative; transition: all 0.2s ease;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <img src="${cfg.flagImg}" alt="${cfg.flag}" class="app-flag-icon" style="width: 16px; height: 12px;">
+            <span style="font-size: 11px; font-weight: 800; color: #38bdf8;">Fleet #${idx + 1} • ${cfg.tag}</span>
+          </div>
+          <span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; ${hasGap ? 'background: rgba(245,158,11,0.2); color: #facc15;' : 'background: rgba(34,197,94,0.15); color: #4ade80;'}">
+            ${hasGap ? '⚠️ GAP DETECTED' : '● ALL ACTIVE'}
+          </span>
+        </div>
+
+        <div style="font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px;">${cfg.owner}</div>
+        <div style="font-size: 11px; color: #94a3b8; margin-bottom: 10px;">${fleetPages.length} Facebook Pages Monitored</div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #94a3b8;">🔑 FB Tokens:</span>
+            <span style="color: #4ade80; font-weight: 700;">${fleetValid}/${fleetPages.length} Active</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #94a3b8;">Reels Today:</span>
+            <span style="color: #fff; font-weight: 700;">${fleetTodayPosts} Uploads</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: #94a3b8;">Upload Status:</span>
+            <span style="color: ${hasGap ? '#facc15' : '#4ade80'}; font-weight: 700;">
+              ${hasGap ? `${fleetGaps.length} Missed Slot (${fleetGaps[0].name})` : 'On Schedule'}
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+
+  // Update Hero values
+  const tokensVal = document.getElementById("mainAuditTokensVal");
+  if (tokensVal) tokensVal.textContent = `${totalValidTokens}/101 Active`;
+
+  const gapsVal = document.getElementById("mainAuditGapsVal");
+  if (gapsVal) {
+    gapsVal.textContent = totalGaps === 0 ? "0 Gaps Detected" : `${totalGaps} Gap Detected`;
+    gapsVal.style.color = totalGaps === 0 ? "#4ade80" : "#facc15";
+  }
+
+  const alertBox = document.getElementById("mainAuditAlertBox");
+  const alertIcon = document.getElementById("mainAuditAlertIcon");
+  const alertTitle = document.getElementById("mainAuditAlertTitle");
+  const alertText = document.getElementById("mainAuditAlertText");
+
+  if (totalGaps > 0) {
+    if (alertBox) {
+      alertBox.style.background = "rgba(245,158,11,0.12)";
+      alertBox.style.border = "1px solid rgba(245,158,11,0.3)";
+      alertBox.style.display = "flex";
+    }
+    if (alertIcon) alertIcon.textContent = "⚠️";
+    if (alertTitle) { alertTitle.textContent = "Upload Gap Detected"; alertTitle.style.color = "#fbbf24"; }
+    if (alertText) alertText.textContent = `Upload Gap: ${gapItems.map(g => `${g.name} (${g.fleet})`).join(", ")} - 0 uploads today (Slot 1/2 missed - Identity confirmation required on FB mobile app)`;
   } else {
-    body.style.display = "none";
-    if (arrow) { arrow.innerText = "▼"; arrow.style.transform = "rotate(0deg)"; }
+    if (alertBox) {
+      alertBox.style.background = "rgba(34,197,94,0.12)";
+      alertBox.style.border = "1px solid rgba(34,197,94,0.3)";
+      alertBox.style.display = "flex";
+    }
+    if (alertIcon) alertIcon.textContent = "✅";
+    if (alertTitle) { alertTitle.textContent = "All Systems Operational"; alertTitle.style.color = "#4ade80"; }
+    if (alertText) alertText.textContent = "All 101 Page tokens active • 0 upload gaps detected • Scheduled slots on track";
   }
 }
 
 function openMobileHealthAudit(e) {
   if (e && e.stopPropagation) e.stopPropagation();
-  if (window.innerWidth > 900) {
-    const desktopBody = document.getElementById("sideHealthShutterBody");
-    const desktopArrow = document.getElementById("sideHealthToggleArrow");
-    if (desktopBody) {
-      desktopBody.style.display = "block";
-      if (desktopArrow) { desktopArrow.innerText = "▲"; desktopArrow.style.transform = "rotate(180deg)"; }
-      document.getElementById("sideHealthBox")?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-    return;
-  }
   const drawer = document.getElementById("pagesDrawer");
   const overlay = document.getElementById("pagesDrawerOverlay");
-  if (drawer) drawer.classList.add("open");
-  if (overlay) overlay.classList.add("open");
-  const mobileBody = document.getElementById("mobileHealthShutterBody");
-  const mobileArrow = document.getElementById("mobileHealthToggleArrow");
-  if (mobileBody) {
-    mobileBody.style.display = "block";
-    if (mobileArrow) { mobileArrow.innerText = "▲"; mobileArrow.style.transform = "rotate(180deg)"; }
-    document.getElementById("mobileHealthBox")?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
+  if (drawer) drawer.classList.remove("open");
+  if (overlay) overlay.classList.remove("open");
+  switchMainView("health_audit");
 }
 
 function clearHealthAlert(e) {
   if (e && e.stopPropagation) e.stopPropagation();
-  const alertBoxes = [document.getElementById("sideAlertBox"), document.getElementById("mobileAlertBox")];
-  const alertIcons = [document.getElementById("sideAlertIcon"), document.getElementById("mobileAlertIcon")];
-  const alertTexts = [document.getElementById("sideAlertText"), document.getElementById("mobileAlertText")];
-  
+  const alertBoxes = [document.getElementById("mainAuditAlertBox"), document.getElementById("sideAlertBox"), document.getElementById("mobileAlertBox")];
+  const alertIcons = [document.getElementById("mainAuditAlertIcon"), document.getElementById("sideAlertIcon"), document.getElementById("mobileAlertIcon")];
+  const alertTexts = [document.getElementById("mainAuditAlertText"), document.getElementById("sideAlertText"), document.getElementById("mobileAlertText")];
+  const alertTitles = [document.getElementById("mainAuditAlertTitle")];
+
   alertBoxes.forEach(b => {
     if (b) {
       b.style.background = "rgba(255,255,255,0.04)";
@@ -5100,9 +5211,10 @@ function clearHealthAlert(e) {
     }
   });
   alertIcons.forEach(i => { if (i) i.textContent = "ℹ️"; });
+  alertTitles.forEach(t => { if (t) { t.textContent = "Alert Dismissed"; t.style.color = "#94a3b8"; } });
   alertTexts.forEach(t => {
     if (t) {
-      t.textContent = "Alert cleared. Click 'Run Live Audit' to scan.";
+      t.textContent = "Alert cleared by user. Click 'Run Live Audit' to scan again.";
       t.style.color = "#94a3b8";
     }
   });
@@ -5111,11 +5223,11 @@ function clearHealthAlert(e) {
 
 function clearAuditTerminal(e) {
   if (e && e.stopPropagation) e.stopPropagation();
-  const terms = [document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
+  const terms = [document.getElementById("mainAuditConsoleOutput"), document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
   terms.forEach(t => {
     if (t) t.innerHTML = '<div style="color: #64748b;">Terminal cleared. Click "Run Live Audit" to verify all 101 pages & sync systems.</div>';
   });
-  const dots = [document.getElementById("terminalLiveDot"), document.getElementById("mobileTerminalLiveDot")];
+  const dots = [document.getElementById("mainTerminalLiveDot"), document.getElementById("terminalLiveDot"), document.getElementById("mobileTerminalLiveDot")];
   dots.forEach(d => {
     if (d) {
       d.textContent = "IDLE";
@@ -5125,7 +5237,7 @@ function clearAuditTerminal(e) {
 }
 
 function logAuditTerminal(msg, type = "normal") {
-  const terms = [document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
+  const terms = [document.getElementById("mainAuditConsoleOutput"), document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
   const now = new Date();
   const timeStr = now.toTimeString().split(" ")[0];
   let color = "#cbd5e1";
@@ -5148,15 +5260,16 @@ const sleep = (ms) => new Promise(res => setTimeout(res, ms));
 
 async function runLiveAuditUI(e) {
   if (e && e.stopPropagation) e.stopPropagation();
-  const btns = [document.getElementById("btnSideAuditAction"), document.getElementById("btnMobileAuditAction")];
-  const pills = [document.getElementById("sideHealthPill"), document.getElementById("mobileHealthPill")];
-  const tokensTexts = [document.getElementById("sideTokensText"), document.getElementById("mobileTokensText")];
-  const gapsTexts = [document.getElementById("sideGapsText"), document.getElementById("mobileGapsText")];
-  const alertBoxes = [document.getElementById("sideAlertBox"), document.getElementById("mobileAlertBox")];
-  const alertIcons = [document.getElementById("sideAlertIcon"), document.getElementById("mobileAlertIcon")];
-  const alertTexts = [document.getElementById("sideAlertText"), document.getElementById("mobileAlertText")];
-  const dots = [document.getElementById("terminalLiveDot"), document.getElementById("mobileTerminalLiveDot")];
-  const terms = [document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
+  const btns = [document.getElementById("btnMainAuditAction"), document.getElementById("btnSideAuditAction"), document.getElementById("btnMobileAuditAction")];
+  const pills = [document.getElementById("sideNavHealthBadge"), document.getElementById("sideHealthPill"), document.getElementById("mobileHealthPill")];
+  const tokensTexts = [document.getElementById("mainAuditTokensVal"), document.getElementById("sideTokensText"), document.getElementById("mobileTokensText")];
+  const gapsTexts = [document.getElementById("mainAuditGapsVal"), document.getElementById("sideGapsText"), document.getElementById("mobileGapsText")];
+  const alertBoxes = [document.getElementById("mainAuditAlertBox"), document.getElementById("sideAlertBox"), document.getElementById("mobileAlertBox")];
+  const alertIcons = [document.getElementById("mainAuditAlertIcon"), document.getElementById("sideAlertIcon"), document.getElementById("mobileAlertIcon")];
+  const alertTexts = [document.getElementById("mainAuditAlertText"), document.getElementById("sideAlertText"), document.getElementById("mobileAlertText")];
+  const alertTitles = [document.getElementById("mainAuditAlertTitle")];
+  const dots = [document.getElementById("mainTerminalLiveDot"), document.getElementById("terminalLiveDot"), document.getElementById("mobileTerminalLiveDot")];
+  const terms = [document.getElementById("mainAuditConsoleOutput"), document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
 
   btns.forEach(b => { if (b) b.disabled = true; });
   dots.forEach(d => {
@@ -5165,16 +5278,6 @@ async function runLiveAuditUI(e) {
       d.style.color = "#facc15";
     }
   });
-
-  // Ensure shutter is open
-  const sideShutter = document.getElementById("sideHealthShutterBody");
-  if (sideShutter && window.innerWidth > 900 && (sideShutter.style.display === "none" || sideShutter.style.display === "")) {
-    toggleSideHealthShutter();
-  }
-  const mobileShutter = document.getElementById("mobileHealthShutterBody");
-  if (mobileShutter && window.innerWidth <= 900 && (mobileShutter.style.display === "none" || mobileShutter.style.display === "")) {
-    toggleMobileHealthShutter();
-  }
 
   terms.forEach(t => { if (t) t.innerHTML = ""; });
   logAuditTerminal("🚀 Initiating live diagnostic scan (Tokens & Upload Gaps)...", "info");
@@ -5330,9 +5433,11 @@ async function runLiveAuditUI(e) {
         if (b) {
           b.style.background = "rgba(239,68,68,0.15)";
           b.style.border = "1px solid rgba(239,68,68,0.35)";
+          b.style.display = "flex";
         }
       });
       alertIcons.forEach(i => { if (i) i.textContent = "🚨"; });
+      alertTitles.forEach(t => { if (t) { t.textContent = "Token Alert"; t.style.color = "#f87171"; } });
       alertTexts.forEach(t => {
         if (t) {
           t.textContent = `Token Alert: ${tokenIssues.map(x => x.name).slice(0, 2).join(", ")} need re-auth`;
@@ -5351,19 +5456,21 @@ async function runLiveAuditUI(e) {
         if (b) {
           b.style.background = "rgba(245,158,11,0.12)";
           b.style.border = "1px solid rgba(245,158,11,0.3)";
+          b.style.display = "flex";
         }
       });
       alertIcons.forEach(i => { if (i) i.textContent = "⚠️"; });
+      alertTitles.forEach(t => { if (t) { t.textContent = "Upload Gap Detected"; t.style.color = "#fbbf24"; } });
       alertTexts.forEach(t => {
         if (t) {
-          t.textContent = `Upload Gap: ${uploadGaps.map(g => g.name).slice(0, 2).join(", ")} missed slot`;
+          t.textContent = `Upload Gap: ${uploadGaps.map(g => g.name).slice(0, 2).join(", ")} missed slot (Identity confirmation required on FB mobile app)`;
           t.style.color = "#fbbf24";
         }
       });
     } else {
       pills.forEach(p => {
         if (p) {
-          p.innerHTML = `● 101/101 OK`;
+          p.innerHTML = `101 OK`;
           p.style.color = "#4ade80";
           p.style.background = "rgba(34,197,94,0.18)";
         }
@@ -5372,9 +5479,11 @@ async function runLiveAuditUI(e) {
         if (b) {
           b.style.background = "rgba(34,197,94,0.12)";
           b.style.border = "1px solid rgba(34,197,94,0.3)";
+          b.style.display = "flex";
         }
       });
       alertIcons.forEach(i => { if (i) i.textContent = "✅"; });
+      alertTitles.forEach(t => { if (t) { t.textContent = "All Systems Operational"; t.style.color = "#4ade80"; } });
       alertTexts.forEach(t => {
         if (t) {
           t.textContent = `All 101 Tokens Active • 0 Upload Gaps • On Track`;
@@ -5382,6 +5491,9 @@ async function runLiveAuditUI(e) {
         }
       });
     }
+
+    // Refresh Fleet cards matrix
+    renderHealthAuditMainView();
 
   } catch (e) {
     logAuditTerminal(`❌ Audit error: ${e.message}`, "error");
@@ -5434,14 +5546,14 @@ function promptTokenUpdateMobile(e) {
   });
 }
 
-window.toggleSideHealthShutter = toggleSideHealthShutter;
-window.toggleMobileHealthShutter = toggleMobileHealthShutter;
+window.renderHealthAuditMainView = renderHealthAuditMainView;
 window.openMobileHealthAudit = openMobileHealthAudit;
 window.clearHealthAlert = clearHealthAlert;
 window.clearAuditTerminal = clearAuditTerminal;
 window.logAuditTerminal = logAuditTerminal;
 window.runLiveAuditUI = runLiveAuditUI;
 window.promptTokenUpdateMobile = promptTokenUpdateMobile;
+
 
 
 

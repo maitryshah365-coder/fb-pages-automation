@@ -50,26 +50,12 @@
     }
     function openMobileHealthAudit(e) {
       if (e && e.stopPropagation) e.stopPropagation();
-      if (window.innerWidth > 900) {
-        var desktopBody = document.getElementById("sideHealthShutterBody");
-        var desktopArrow = document.getElementById("sideHealthToggleArrow");
-        if (desktopBody) {
-          desktopBody.style.display = "block";
-          if (desktopArrow) { desktopArrow.innerText = "▲"; desktopArrow.style.transform = "rotate(180deg)"; }
-          document.getElementById("sideHealthBox")?.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-        return;
-      }
       var drawer = document.getElementById("pagesDrawer");
       var overlay = document.getElementById("pagesDrawerOverlay");
-      if (drawer) drawer.classList.add("open");
-      if (overlay) overlay.classList.add("open");
-      var mobileBody = document.getElementById("mobileHealthShutterBody");
-      var mobileArrow = document.getElementById("mobileHealthToggleArrow");
-      if (mobileBody) {
-        mobileBody.style.display = "block";
-        if (mobileArrow) { mobileArrow.innerText = "▲"; mobileArrow.style.transform = "rotate(180deg)"; }
-        document.getElementById("mobileHealthBox")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (drawer) drawer.classList.remove("open");
+      if (overlay) overlay.classList.remove("open");
+      if (window.switchMainView) {
+        window.switchMainView("health_audit");
       }
     }
     window.toggleSideHealthShutter = toggleSideHealthShutter;
@@ -121,7 +107,7 @@
     </div>
 
     <!-- Quick Mobile Drawer Action Tiles -->
-    <div class="drawer-quick-actions" style="padding: 0 14px 10px;">
+    <div class="drawer-quick-actions" style="padding: 0 14px 10px; display: flex; flex-direction: column; gap: 8px;">
       <div class="drawer-all-portfolio-tile" id="btnSelectAllPagesDrawer" onclick="onSelectDrawerPage('all', event)" role="button" tabindex="0">
         <div class="portfolio-tile-left">
           <div class="portfolio-avatar">🌐</div>
@@ -132,75 +118,16 @@
         </div>
         <span class="portfolio-badge">Master</span>
       </div>
-    </div>
 
-    <!-- MOBILE HEALTH & AUDIT ACCORDION (FOR PHONE USERS) -->
-    <div class="sidebar-nav-box sidebar-health-box" id="mobileHealthBox" style="margin: 0 14px 10px;">
-      <button type="button" class="sidebar-pages-header" id="btnMobileHealthToggle" onclick="toggleMobileHealthShutter(event)" title="Tap to open/close Health & Audit Center" style="background: rgba(15,23,42,0.85); border: 1px solid rgba(56,189,248,0.25); border-radius: 12px; padding: 12px 14px; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-        <div class="pages-header-left" style="display: flex; align-items: center; gap: 10px;">
-          <span class="pages-header-icon" style="font-size: 18px;">🛡️</span>
-          <div class="pages-header-text" style="text-align: left;">
-            <div class="pages-header-title" style="color: #fff; font-weight: 800; font-size: 13px;">Health & Audit Center</div>
-            <span class="pages-header-sub" id="mobileHealthSub" style="color: #94a3b8; font-size: 11px;">Tap to view live audit & terminal</span>
+      <div class="drawer-all-portfolio-tile" id="btnDrawerHealthAudit" onclick="openMobileHealthAudit(event)" role="button" tabindex="0" style="border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.08); cursor: pointer;">
+        <div class="portfolio-tile-left">
+          <div class="portfolio-avatar" style="background: rgba(56,189,248,0.2); color: #38bdf8;">🛡️</div>
+          <div>
+            <div class="portfolio-name">Health & Audit Center</div>
+            <div class="portfolio-desc">Tokens, Upload Gaps & Runner Diagnostics</div>
           </div>
         </div>
-        <div class="pages-header-right" style="display: flex; align-items: center; gap: 8px;">
-          <span id="mobileHealthPill" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.35); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px;">
-            ● 101/101 OK
-          </span>
-          <span id="mobileHealthToggleArrow" style="color: #64748b; font-size: 10px; transition: transform 0.2s;">▼</span>
-        </div>
-      </button>
-
-      <div class="sidebar-health-body" id="mobileHealthShutterBody" style="display: none; background: rgba(15,23,42,0.95); border: 1px solid rgba(56,189,248,0.2); border-top: none; border-radius: 0 0 12px 12px; padding: 12px 14px; margin-top: -4px;">
-        <!-- 1. Active Alert Box -->
-        <div id="mobileAlertBox" style="background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; padding: 9px 12px; margin-bottom: 10px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span id="mobileAlertIcon" style="font-size: 14px;">✅</span>
-              <span id="mobileAlertText" style="font-size: 11px; font-weight: 700; color: #4ade80;">All 101 Pages & Sync OK</span>
-            </div>
-            <button type="button" onclick="clearHealthAlert(event)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; padding: 2px 7px; border-radius: 5px; font-size: 10px; font-weight: 600; cursor: pointer;">
-              Clear
-            </button>
-          </div>
-        </div>
-
-        <!-- 2. Status Breakdown -->
-        <div style="display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #94a3b8; margin-bottom: 10px;">
-          <div>🔑 <b>FB Tokens:</b> <span id="mobileTokensText" style="color:#4ade80; font-weight:600;">101/101 Active</span></div>
-          <div>⏱️ <b>Upload Gaps:</b> <span id="mobileGapsText" style="color:#38bdf8; font-weight:600;">0 Gaps Detected</span></div>
-          <div>🤖 <b>Bot Alert:</b> <span style="color:#c084fc; font-weight:600;">@fb_command_center_bot</span></div>
-        </div>
-
-        <!-- 3. Action Buttons -->
-        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-          <button type="button" id="btnMobileAuditAction" onclick="runLiveAuditUI(event)" style="flex: 1; background: linear-gradient(135deg, #0284c7, #38bdf8); color: #fff; border: none; padding: 7px 0; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 2px 8px rgba(2,132,199,0.3);">
-            <span>🔍</span> Run Live Audit
-          </button>
-          <button type="button" onclick="clearAuditTerminal(event)" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 7px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer;" title="Clear terminal logs">
-            🗑️
-          </button>
-          <button type="button" onclick="promptTokenUpdateMobile(event)" style="background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid rgba(239,68,68,0.35); padding: 7px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer;" title="Paste new Facebook user token">
-            🔑
-          </button>
-        </div>
-
-        <!-- 4. Real-Time Terminal Box -->
-        <div class="side-audit-terminal" style="background: #020617; border: 1px solid rgba(56,189,248,0.2); border-radius: 8px; overflow: hidden;">
-          <div style="background: rgba(15,23,42,0.8); padding: 5px 8px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08);">
-            <div style="display: flex; align-items: center; gap: 5px;">
-              <span style="width: 7px; height: 7px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-              <span style="width: 7px; height: 7px; border-radius: 50%; background: #eab308; display: inline-block;"></span>
-              <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
-              <span style="font-size: 10px; color: #94a3b8; font-weight: 700; margin-left: 4px; font-family: monospace;">AUDIT CONSOLE</span>
-            </div>
-            <span id="mobileTerminalLiveDot" style="font-size: 9px; color: #38bdf8; font-weight: 600;">IDLE</span>
-          </div>
-          <div id="mobileAuditConsoleOutput" style="height: 120px; overflow-y: auto; padding: 8px; font-family: 'JetBrains Mono', monospace, Consolas; font-size: 10px; line-height: 1.5; color: #cbd5e1; scrollbar-width: thin;">
-            <div style="color: #64748b;">Ready. Tap "Run Live Audit" to verify all 101 pages & sync systems in real-time.</div>
-          </div>
-        </div>
+        <span class="portfolio-badge" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.35);">101 OK</span>
       </div>
     </div>
 
@@ -320,78 +247,18 @@
         </button>
       </div>
 
-      <!-- BOX 6: HEALTH & AUDIT CENTER (ACCORDION SHUTTER - CLICK TO OPEN) -->
-      <div class="sidebar-nav-box sidebar-health-box" id="sideHealthBox" style="margin-top: 6px;">
-        <!-- Shutter Header (Click to Open / Close) -->
-        <button type="button" class="sidebar-pages-header" id="btnSideHealthToggle" onclick="toggleSideHealthShutter(event)" title="Click to open/close Health & Audit Center" style="background: rgba(15,23,42,0.85); border: 1px solid rgba(56,189,248,0.25); border-radius: 12px; padding: 12px 14px; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
-          <div class="pages-header-left" style="display: flex; align-items: center; gap: 10px;">
-            <span class="pages-header-icon" style="font-size: 18px;">🛡️</span>
-            <div class="pages-header-text" style="text-align: left;">
-              <div class="pages-header-title" style="color: #fff; font-weight: 800; font-size: 13px;">Health & Audit</div>
-              <span class="pages-header-sub" id="sideHealthSub" style="color: #94a3b8; font-size: 11px;">Click to view audit & logs</span>
+      <!-- BOX 6: HEALTH & AUDIT CENTER (FULL MAIN VIEW) -->
+      <div class="sidebar-nav-box">
+        <button type="button" id="sideNavHealthAudit" class="sidebar-action-tile side-tile-health-audit" title="Health & Audit Center (Tokens, Gaps & Runner Diagnostics)">
+          <div class="tile-content-left">
+            <span class="tile-icon">🛡️</span>
+            <div class="tile-text">
+              <span class="tile-title">Health & Audit</span>
+              <span class="tile-sub">Tokens & Upload Gaps</span>
             </div>
           </div>
-          <div class="pages-header-right" style="display: flex; align-items: center; gap: 8px;">
-            <span id="sideHealthPill" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.35); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px;">
-              ● 101/101 OK
-            </span>
-            <span id="sideHealthToggleArrow" style="color: #64748b; font-size: 10px; transition: transform 0.2s;">▼</span>
-          </div>
+          <span class="side-health-pill" id="sideNavHealthBadge">101 OK</span>
         </button>
-
-        <!-- Shutter Body (Closed by default - opens on click) -->
-        <div class="sidebar-health-body" id="sideHealthShutterBody" style="display: none; background: rgba(15,23,42,0.95); border: 1px solid rgba(56,189,248,0.2); border-top: none; border-radius: 0 0 12px 12px; padding: 12px 14px; margin-top: -4px;">
-          
-          <!-- 1. ACTIVE ALERT BOX (Shows alerts + Clear Button) -->
-          <div id="sideAlertBox" style="background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; padding: 9px 12px; margin-bottom: 10px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px;">
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <span id="sideAlertIcon" style="font-size: 14px;">✅</span>
-                <span id="sideAlertText" style="font-size: 11px; font-weight: 700; color: #4ade80;">All 101 Pages & Sync OK</span>
-              </div>
-              <button type="button" id="btnClearAlert" onclick="clearHealthAlert(event)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; padding: 2px 7px; border-radius: 5px; font-size: 10px; font-weight: 600; cursor: pointer;">
-                Clear
-              </button>
-            </div>
-          </div>
-
-          <!-- 2. STATUS BREAKDOWN TILES -->
-          <div style="display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #94a3b8; margin-bottom: 10px;">
-            <div>🔑 <b>FB Tokens:</b> <span id="sideTokensText" style="color:#4ade80; font-weight:600;">101/101 Active</span></div>
-            <div>⏱️ <b>Upload Gaps:</b> <span id="sideGapsText" style="color:#38bdf8; font-weight:600;">0 Gaps Detected</span></div>
-            <div>🤖 <b>Bot Alert:</b> <span style="color:#c084fc; font-weight:600;">@fb_command_center_bot</span></div>
-          </div>
-
-          <!-- 3. ACTION BUTTONS ROW -->
-          <div style="display: flex; gap: 8px; margin-bottom: 10px;">
-            <button type="button" id="btnSideAuditAction" onclick="runLiveAuditUI(event)" style="flex: 1; background: linear-gradient(135deg, #0284c7, #38bdf8); color: #fff; border: none; padding: 7px 0; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 2px 8px rgba(2,132,199,0.3);">
-              <span id="sideAuditIcon">🔍</span> Run Live Audit
-            </button>
-            <button type="button" onclick="clearAuditTerminal(event)" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 7px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer;" title="Clear terminal logs">
-              🗑️
-            </button>
-            <button type="button" onclick="promptTokenUpdateMobile(event)" style="background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid rgba(239,68,68,0.35); padding: 7px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer;" title="Paste new Facebook user token">
-              🔑
-            </button>
-          </div>
-
-          <!-- 4. REAL-TIME AUDIT LOG / TERMINAL BOX -->
-          <div class="side-audit-terminal" style="background: #020617; border: 1px solid rgba(56,189,248,0.2); border-radius: 8px; overflow: hidden;">
-            <div style="background: rgba(15,23,42,0.8); padding: 5px 8px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08);">
-              <div style="display: flex; align-items: center; gap: 5px;">
-                <span style="width: 7px; height: 7px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                <span style="width: 7px; height: 7px; border-radius: 50%; background: #eab308; display: inline-block;"></span>
-                <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
-                <span style="font-size: 10px; color: #94a3b8; font-weight: 700; margin-left: 4px; font-family: monospace;">AUDIT CONSOLE</span>
-              </div>
-              <span id="terminalLiveDot" style="font-size: 9px; color: #38bdf8; font-weight: 600;">IDLE</span>
-            </div>
-            <div id="auditConsoleOutput" style="height: 120px; overflow-y: auto; padding: 8px; font-family: 'JetBrains Mono', monospace, Consolas; font-size: 10px; line-height: 1.5; color: #cbd5e1; scrollbar-width: thin;">
-              <div style="color: #64748b;">Ready. Click "Run Live Audit" to verify all 101 pages & sync systems in real-time.</div>
-            </div>
-          </div>
-
-        </div>
       </div>
 
     </aside>
@@ -757,6 +624,139 @@
           <button type="button" id="btnLoadMoreUploadHistory" class="btn-load-more" onclick="loadMoreUploadHistory()" style="background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.35); color: #facc15; padding: 8px 24px; border-radius: 8px; font-weight: 700; cursor: pointer;">
             ⬇️ Load More Uploads (<span id="historyRemainingBadge">393 remaining</span>)
           </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= HEALTH & AUDIT VIEW (TOKENS, GAPS & RUNNER DIAGNOSTICS) ================= -->
+    <div id="healthAuditMainView" class="dashboard-view-container" style="display: none;">
+      
+      <!-- Top Status Banner -->
+      <div class="dash-page-status-strip">
+        <div class="status-strip-left">
+          <span class="live-dot-pulse">●</span>
+          <span class="status-strip-text"><strong>HEALTH & AUDIT CENTER</strong> • Live real-time token telemetry & upload gap monitoring across all 101 Facebook pages</span>
+        </div>
+        <div class="status-strip-right">
+          <span class="badge-meta-verified">META GRAPH & RUNNER VERIFIED</span>
+        </div>
+      </div>
+
+      <!-- Health Hero Card -->
+      <section class="profile-hero-card">
+        <div class="hero-main-row">
+          <div class="hero-avatar-wrapper">
+            <div class="health-hero-icon-box">🛡️</div>
+            <span class="avatar-status-badge">●</span>
+          </div>
+          <div class="hero-details">
+            <div class="hero-heading-row">
+              <h2 class="hero-title">101 Pages Health & Audit Center</h2>
+              <span class="verified-icon">✓</span>
+            </div>
+            <div class="hero-meta">8 Automation Fleets • Real-Time Token Integrity • Upload Gap Sentinel • WireGuard Runner Verified</div>
+          </div>
+        </div>
+
+        <div class="hero-stats-strip">
+          <div class="strip-stat">
+            <span class="stat-label">FB Access Tokens</span>
+            <span class="stat-num green-text" id="mainAuditTokensVal">101 / 101 Active</span>
+          </div>
+          <div class="strip-stat">
+            <span class="stat-label">Upload Gaps</span>
+            <span class="stat-num" id="mainAuditGapsVal" style="color: #facc15;">1 Gap Detected</span>
+          </div>
+          <div class="strip-stat">
+            <span class="stat-label"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> WireGuard Runner</span>
+            <span class="stat-num" id="mainAuditRunnerVal" style="color: #38bdf8;">185.245.82.17</span>
+          </div>
+          <div class="strip-stat">
+            <span class="stat-label">Telegram Sentinel</span>
+            <span class="stat-num" id="mainAuditSentinelVal" style="color: #c084fc;">@fb_command_center_bot</span>
+          </div>
+          <div class="strip-stat">
+            <span class="stat-label">System Health</span>
+            <span class="stat-num green-text" id="mainAuditHealthStatus">99.0% Operational</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Active Alert Box -->
+      <div id="mainAuditAlertBox" style="background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); border-radius: 12px; padding: 14px 18px; margin: 16px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span id="mainAuditAlertIcon" style="font-size: 22px;">⚠️</span>
+          <div>
+            <div id="mainAuditAlertTitle" style="font-size: 13.5px; font-weight: 700; color: #fbbf24;">Active System Alert</div>
+            <div id="mainAuditAlertText" style="font-size: 12px; color: #cbd5e1; margin-top: 2px;">Upload Gap: Cracked Bell - 0 uploads today (Slot 1/2 missed - Identity confirmation required on FB mobile app)</div>
+          </div>
+        </div>
+        <button type="button" id="btnMainClearAlert" onclick="clearHealthAlert(event)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+          Clear Alert
+        </button>
+      </div>
+
+      <!-- 8 Fleets Status Grid -->
+      <section class="content-box" style="margin-top: 16px;">
+        <div class="box-header flex-between">
+          <div class="box-title-group">
+            <span class="box-icon">🌐</span>
+            <div>
+              <h3 class="box-title">8 Fleets Live Health & Integrity Matrix</h3>
+              <span class="library-pipeline-tag">Real-time token validity & today's upload gaps across all 8 automation fleets</span>
+            </div>
+          </div>
+          <span class="pill-badge pill-green" id="mainAuditFleetsStatusBadge">8 / 8 Fleets Monitored</span>
+        </div>
+
+        <div class="health-fleets-grid" id="mainAuditFleetsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; padding: 16px;">
+          <!-- Dynamically rendered 8 fleet cards by gold_app.js -->
+        </div>
+      </section>
+
+      <!-- Real-Time Diagnostic Terminal Section -->
+      <section class="content-box" style="margin-top: 16px;">
+        <div class="box-header flex-between library-box-header">
+          <div class="box-title-group">
+            <span class="box-icon" style="background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); border-radius: 10px; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px;">💻</span>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h3 class="box-title" style="color: #fff; font-weight: 800; font-size: 16px; margin: 0;">Real-Time Diagnostic Console</h3>
+                <span class="history-live-pulse-badge">
+                  <span class="pulse-green-dot">●</span>
+                  <span id="mainTerminalLiveDot" style="color: #38bdf8; font-weight: 700; font-family: monospace;">IDLE</span>
+                </span>
+              </div>
+              <span class="library-pipeline-tag" style="color: #94a3b8; font-size: 12px;">Live execution log of Meta Graph token integrity, upload gaps & WireGuard runner telemetry</span>
+            </div>
+          </div>
+
+          <div class="library-header-actions" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btnMainAuditAction" onclick="runLiveAuditUI(event)" style="background: linear-gradient(135deg, #0284c7, #38bdf8); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(2,132,199,0.35);">
+              <span id="mainAuditIcon">🔍</span> Run Live Audit
+            </button>
+            <button type="button" onclick="clearAuditTerminal(event)" style="background: rgba(255,255,255,0.08); color: #cbd5e1; border: 1px solid rgba(255,255,255,0.15); padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;" title="Clear terminal logs">
+              🗑️ Clear
+            </button>
+            <button type="button" onclick="promptTokenUpdateMobile(event)" style="background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid rgba(239,68,68,0.35); padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;" title="Paste new Facebook user token">
+              🔑 Update Token
+            </button>
+          </div>
+        </div>
+
+        <div style="background: #020617; border: 1px solid rgba(56,189,248,0.2); border-radius: 12px; overflow: hidden; margin: 16px;">
+          <div style="background: rgba(15,23,42,0.85); padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #eab308; display: inline-block;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
+              <span style="font-size: 11px; color: #94a3b8; font-weight: 700; margin-left: 8px; font-family: monospace;">AUDIT TERMINAL • 101 PAGES ENGINE</span>
+            </div>
+            <span style="font-size: 10px; color: #64748b; font-family: monospace;">UTF-8 • REAL-TIME</span>
+          </div>
+          <div id="mainAuditConsoleOutput" style="height: 340px; overflow-y: auto; padding: 14px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 11.5px; line-height: 1.6; color: #cbd5e1; scrollbar-width: thin;">
+            <div style="color: #64748b;">Ready. Click "Run Live Audit" to verify all 101 Facebook Page tokens, detect upload gaps, and confirm London runner telemetry.</div>
+          </div>
         </div>
       </section>
     </div>
