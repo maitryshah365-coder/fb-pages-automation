@@ -1,9 +1,10 @@
 {
-  "run_id": "35498619174",
-  "run_number": "22",
-  "completed_at": "2026-09-20T08:07:54.773611+00:00",
+  "run_id": "35499818756",
+  "run_number": "23",
+  "completed_at": "2026-09-20T08:37:48.828121+00:00",
   "runner_telemetry": {
-    "ip": "195.86.5.237",
+    "ip": "138.199.29.198",
+    "hostname": "unn-138-199-29-198.datapacket.com",
     "city": "London",
     "region": "England",
     "country": "GB",
@@ -16,106 +17,142 @@
   "dry_run": false,
   "results": [
     {
-      "status": "failed",
-      "page": "uk1_page_1",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1275440552308410",
-      "page_config_name": "uk1_page_1",
-      "display_name": "Bitter Lullaby"
+      "status": "success",
+      "page": "uk2_page_1",
+      "drive_file_id": "1zavn1IgEG84Kj_gkwB5meTiIwbcBwr8H",
+      "facebook_video_id": "1475494181302696",
+      "filename": "A Beautiful Ending Nobody Expected That Changed Everything #EmotionalStory #HeartTouching #LifeLesson #Humanity #Hope #Inspiration #Cinematic #StoryTime #ViralVideo #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1257864287403392",
+      "page_config_name": "uk2_page_1",
+      "display_name": "Silent Atlas"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_2",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1094091620443741",
-      "page_config_name": "uk1_page_2",
-      "display_name": "Apex Dominion"
+      "status": "success",
+      "page": "uk2_page_2",
+      "drive_file_id": "1mIYxwo3VmojFKHzC9GwK8YtEXYj9iqV_",
+      "facebook_video_id": "1593076529217708",
+      "filename": "A Discovery Nobody Could Explain Today #Mystery #Adventure #Discovery #Magic #HiddenTreasure #AncientSecrets #Cinematic #Story #ViralVideo #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1278509768670990",
+      "page_config_name": "uk2_page_2",
+      "display_name": "Rusted Compass"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_3",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "883030611569420",
-      "page_config_name": "uk1_page_3",
-      "display_name": "Apex Narrative"
+      "status": "success",
+      "page": "uk2_page_3",
+      "drive_file_id": "1ZA9GtwYKcQLjRo8qlFXfDBVO4H1Ea7hs",
+      "facebook_video_id": "848879304914592",
+      "filename": "Can You Believe This Is AI That Felt Completely Real #Cinematic #AIVideo #Storytelling #MovieScene #VisualEffects #AIFilm #Trending #ViralVideo #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1165355063335637",
+      "page_config_name": "uk2_page_3",
+      "display_name": "Yo to Gone"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_4",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "876743625532242",
-      "page_config_name": "uk1_page_4",
-      "display_name": "Young  Bradley"
+      "status": "success",
+      "page": "uk2_page_4",
+      "drive_file_id": "1DUzeHuBQIC6wTFRvK1VTCn4W_x-qIYTv",
+      "facebook_video_id": "1402335231455132",
+      "filename": "A Star Was Born Today With A Winning Smile #BabySports #FutureChampion #Football #Soccer #Sports #CuteBaby #Athlete #SportsLife #ViralVideo #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1054813994376761",
+      "page_config_name": "uk2_page_4",
+      "display_name": "Velvet Authority"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_5",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "954228904442447",
-      "page_config_name": "uk1_page_5",
-      "display_name": "Scott  Dennis"
+      "status": "success",
+      "page": "uk2_page_5",
+      "drive_file_id": "13J5lhUanCTboa3Uw76l-hmSK9pVIM3CA",
+      "facebook_video_id": "1411292127598046",
+      "filename": "A Masterpiece Hidden In Nature That Went Viral #WoodArt #NatureArt #RusticDecor #WallArt #DIYArt #Handmade #CreativeArt #Woodworking #Satisfying #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1058909860631103",
+      "page_config_name": "uk2_page_5",
+      "display_name": "Urban Drift"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_6",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "884416694753956",
-      "page_config_name": "uk1_page_6",
-      "display_name": "Wood  Stephen"
+      "status": "success",
+      "page": "uk2_page_6",
+      "drive_file_id": "1ZGIEafUaT6oBQLwG6_M7tw9IOXMtBrRn",
+      "facebook_video_id": "3132094806984290",
+      "filename": "아는 사람은 다 안다는 이 감성..☁️🩵 리틀미미 키링 한사바리 #미미월드 #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "1020848977772131",
+      "page_config_name": "uk2_page_6",
+      "display_name": "Johnson  Jerry"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_7",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "766333629906067",
-      "page_config_name": "uk1_page_7",
-      "display_name": "Morgan  Donald"
+      "status": "success",
+      "page": "uk2_page_7",
+      "drive_file_id": "1Nwcf6Sn6CAFQnpzcVfz8Asbku43VkPj7",
+      "facebook_video_id": "2139228117026743",
+      "filename": "Single Mom Dirty Water PurificationFilter. #survival #camping #outdoors .mp4",
+      "post_type": "reel",
+      "page_id": "820574291145280",
+      "page_config_name": "uk2_page_7",
+      "display_name": "Hill  Alan"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_8",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "838517782676673",
-      "page_config_name": "uk1_page_8",
-      "display_name": "Rogers  Albert"
+      "status": "success",
+      "page": "uk2_page_8",
+      "drive_file_id": "14fV1lFOX9WXnDkgH6SLMNJb8X5FMkc_7",
+      "facebook_video_id": "952687224547333",
+      "filename": "#Shorts #Story #Life #Trend (237).mp4",
+      "post_type": "classic_video",
+      "page_id": "870381232821932",
+      "page_config_name": "uk2_page_8",
+      "display_name": "James  Jose"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_9",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "860013240524658",
-      "page_config_name": "uk1_page_9",
-      "display_name": "Roberts  Austin"
+      "status": "success",
+      "page": "uk2_page_9",
+      "drive_file_id": "1aC2JGYHw_wNKJP7uTj6l9ljE0Q9iOcnY",
+      "facebook_video_id": "1575611637644616",
+      "filename": "A Secret Hidden For Centuries That Nobody Expected #Mystery #Adventure #Discovery #Magic #HiddenTreasure #AncientSecrets #Cinematic #Story #ViralVideo #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "779283818590888",
+      "page_config_name": "uk2_page_9",
+      "display_name": "Titan Republic"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_10",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "802792259592614",
-      "page_config_name": "uk1_page_10",
-      "display_name": "Mitchell  Jack"
+      "status": "success",
+      "page": "uk2_page_10",
+      "drive_file_id": "1cCBc9XaEh_jjbFhjiUMyYiaMtLsmpnrw",
+      "facebook_video_id": "2171701433753486",
+      "filename": "#内容启发分享计划 阿钟放风筝糖果手工diy #美食 #零食 #糖果 .mp4",
+      "post_type": "classic_video",
+      "page_id": "514777565046552",
+      "page_config_name": "uk2_page_10",
+      "display_name": "Dandelion Diaries"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_11",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "439151942618231",
-      "page_config_name": "uk1_page_11",
-      "display_name": "Words Though"
+      "status": "success",
+      "page": "uk2_page_11",
+      "drive_file_id": "10wmlr4DT-iW3j9P40lxWrGQ5Md5cxW2n",
+      "facebook_video_id": "1571685984636764",
+      "filename": "就这？居然要七八还不包车马？？！！#手帐 #自制手帐本 .mp4",
+      "post_type": "reel",
+      "page_id": "500491343147382",
+      "page_config_name": "uk2_page_11",
+      "display_name": "Infinite Stories"
     },
     {
-      "status": "failed",
-      "page": "uk1_page_12",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "297665506763102",
-      "page_config_name": "uk1_page_12",
-      "display_name": "Quantum Collective"
+      "status": "success",
+      "page": "uk2_page_12",
+      "drive_file_id": "1LUEdk9gGwCs8OLc6Uo7SPmYc0A_lGYPf",
+      "facebook_video_id": "39769795429285503",
+      "filename": "Curved Marble Track Fractal Ball Track Miniature Toy #toy #toys #kibtoys #funny #toyfancy #funnytoy .mp4",
+      "post_type": "reel",
+      "page_id": "490559100806079",
+      "page_config_name": "uk2_page_12",
+      "display_name": "Idea Acy"
     }
   ],
   "stats": {
     "total": 12,
-    "success": 0,
+    "success": 12,
     "skipped": 0,
-    "failed": 12
+    "failed": 0
   }
 }
