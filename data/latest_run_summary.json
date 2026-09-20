@@ -1,145 +1,157 @@
 {
-  "run_id": "35516472784",
-  "run_number": "55",
-  "completed_at": "2026-09-20T14:28:33.228572+00:00",
+  "run_id": "35523003487",
+  "run_number": "34",
+  "completed_at": "2026-09-20T16:37:27.742586+00:00",
   "runner_telemetry": {
-    "ip": "128.203.190.116",
-    "city": "Des Moines",
-    "region": "Iowa",
-    "country": "US",
-    "loc": "41.6005,-93.6091",
-    "org": "AS8075 Microsoft Corporation",
-    "postal": "50309",
-    "timezone": "America/Chicago",
+    "ip": "178.238.10.193",
+    "city": "London",
+    "region": "England",
+    "country": "GB",
+    "loc": "51.5085,-0.1257",
+    "org": "AS62240 Clouvider",
+    "postal": "WC2N",
+    "timezone": "Europe/London",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
-      "status": "failed",
-      "page": "page_16",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1069951959531260",
-      "page_config_name": "page_16",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_1",
+      "drive_file_id": "1D8nbcYY1UwDJCdM8UAtYC0EGTE7r83QF",
+      "facebook_video_id": "1680838186761217",
+      "filename": "A Beautiful Ending Nobody Expected When Nobody Expected It #EmotionalStory #HeartTouching #LifeLesson #Humanity #Hope #Inspiration #Cinematic #StoryTime #ViralVideo #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1257864287403392",
+      "page_config_name": "uk2_page_1",
+      "display_name": "Silent Atlas"
     },
     {
-      "status": "failed",
-      "page": "page_17",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "979493165253123",
-      "page_config_name": "page_17",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_2",
+      "drive_file_id": "1U2O4vbE4eW1tz6dCMGZpknQNyNJpvhow",
+      "facebook_video_id": "1399145241685660",
+      "filename": "A Secret Hidden For Centuries Before Sunset #Mystery #Adventure #Discovery #Magic #HiddenTreasure #AncientSecrets #Cinematic #Story #ViralVideo #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1278509768670990",
+      "page_config_name": "uk2_page_2",
+      "display_name": "Rusted Compass"
     },
     {
-      "status": "failed",
-      "page": "page_18",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "920161364524597",
-      "page_config_name": "page_18",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_3",
+      "drive_file_id": "14jIGNjz8FI_xgvFjln-3vFGCkv37BlZt",
+      "facebook_video_id": "1086040157245544",
+      "filename": "Can You Believe This Is AI That Shocked Everyone #Cinematic #AIVideo #Storytelling #MovieScene #VisualEffects #AIFilm #Trending #ViralVideo #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1165355063335637",
+      "page_config_name": "uk2_page_3",
+      "display_name": "Yo to Gone"
     },
     {
-      "status": "failed",
-      "page": "page_19",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1005402935985498",
-      "page_config_name": "page_19",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_4",
+      "drive_file_id": "1qECZmrNJ97YuwJzPGrs1PRS-kcGffP3S",
+      "facebook_video_id": "2639542336482127",
+      "filename": "A Star Was Born Today With Incredible Spirit #BabySports #FutureChampion #Football #Soccer #Sports #CuteBaby #Athlete #SportsLife #ViralVideo #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1054813994376761",
+      "page_config_name": "uk2_page_4",
+      "display_name": "Velvet Authority"
     },
     {
-      "status": "failed",
-      "page": "page_20",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "802674512937262",
-      "page_config_name": "page_20",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_5",
+      "drive_file_id": "1IhNMKPm5NIp75O-7lfUXFIWuDhrkQBcV",
+      "facebook_video_id": "2060893054533406",
+      "filename": "A Masterpiece Hidden In Nature With A Perfect Finish #WoodArt #NatureArt #RusticDecor #WallArt #DIYArt #Handmade #CreativeArt #Woodworking #Satisfying #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1058909860631103",
+      "page_config_name": "uk2_page_5",
+      "display_name": "Urban Drift"
     },
     {
-      "status": "failed",
-      "page": "page_21",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "765106526695498",
-      "page_config_name": "page_21",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_6",
+      "drive_file_id": "1fFf4JEAVvPhO2hv78aVOLS-cbwfKhRha",
+      "facebook_video_id": "1430422219024913",
+      "filename": "아미보 카드에 50만원 쓴 사람의 카드깡🙌🏻‼ #닌텐도 #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "1020848977772131",
+      "page_config_name": "uk2_page_6",
+      "display_name": "Johnson  Jerry"
     },
     {
-      "status": "failed",
-      "page": "page_22",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "568171476378321",
-      "page_config_name": "page_22",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_7",
+      "drive_file_id": "1GyIlkVr7oADHpxPfGlm_y5OWBi9adp3t",
+      "facebook_video_id": "2218338792895728",
+      "filename": "Single mom Make DIY Water Filter with 5L Bottle for Survival Situations! #camping #survival #skills .mp4",
+      "post_type": "reel",
+      "page_id": "820574291145280",
+      "page_config_name": "uk2_page_7",
+      "display_name": "Hill  Alan"
     },
     {
-      "status": "failed",
-      "page": "page_23",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "454880037713018",
-      "page_config_name": "page_23",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_8",
+      "drive_file_id": "14ChPWbbNWeipTuK-rBv9ZZAgnAeEfatV",
+      "facebook_video_id": "2523237644863269",
+      "filename": "#Shorts #Story #Life #Trend (239).mp4",
+      "post_type": "classic_video",
+      "page_id": "870381232821932",
+      "page_config_name": "uk2_page_8",
+      "display_name": "James  Jose"
     },
     {
-      "status": "failed",
-      "page": "page_24",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "368653459672717",
-      "page_config_name": "page_24",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_9",
+      "drive_file_id": "1KYU0jSEQ8b4NOlZ7RiKfI3FRmgYx-CWC",
+      "facebook_video_id": "1110539841318326",
+      "filename": "He Found Something Impossible After Years Of Searching #Mystery #Adventure #Discovery #Magic #HiddenTreasure #AncientSecrets #Cinematic #Story #ViralVideo #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "779283818590888",
+      "page_config_name": "uk2_page_9",
+      "display_name": "Titan Republic"
     },
     {
-      "status": "failed",
-      "page": "page_25",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "359780240556577",
-      "page_config_name": "page_25",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_10",
+      "drive_file_id": "1HetWz8_VCnoXETP1vbZaKIp6zaHMLXCe",
+      "facebook_video_id": "1426304689431496",
+      "filename": "#内容启发分享计划 飞行机器人巧克力手工diy #美食 #零食 #巧克力 .mp4",
+      "post_type": "classic_video",
+      "page_id": "514777565046552",
+      "page_config_name": "uk2_page_10",
+      "display_name": "Dandelion Diaries"
     },
     {
-      "status": "failed",
-      "page": "page_26",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "211294825398492",
-      "page_config_name": "page_26",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_11",
+      "drive_file_id": "1AovRdSML26x7Yl-tWb-kWwF4rH6zptb0",
+      "facebook_video_id": "2314170066019228",
+      "filename": "居然不是手帐本！每一页都不一样！ #小麻薯 #玩坏这本书 #手帐er手帐日常 .mp4",
+      "post_type": "reel",
+      "page_id": "500491343147382",
+      "page_config_name": "uk2_page_11",
+      "display_name": "Infinite Stories"
     },
     {
-      "status": "failed",
-      "page": "page_27",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "166448239894078",
-      "page_config_name": "page_27",
-      "display_name": ""
-    },
-    {
-      "status": "failed",
-      "page": "page_28",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "176892285514777",
-      "page_config_name": "page_28",
-      "display_name": ""
-    },
-    {
-      "status": "failed",
-      "page": "page_29",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "199046363282913",
-      "page_config_name": "page_29",
-      "display_name": ""
-    },
-    {
-      "status": "failed",
-      "page": "page_30",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "169686166222750",
-      "page_config_name": "page_30",
-      "display_name": ""
+      "status": "success",
+      "page": "uk2_page_12",
+      "drive_file_id": "1mJfitZZ6w5ReZ1UVMa69AsyIovW7XB5R",
+      "facebook_video_id": "2321673778580865",
+      "filename": "Decompression toy#kibtoys #toys #toy #funnytoys  #funnyshorts  #toyfancy #funny #toyswala _6.mp4",
+      "post_type": "reel",
+      "page_id": "490559100806079",
+      "page_config_name": "uk2_page_12",
+      "display_name": "Idea Acy"
     }
   ],
   "stats": {
-    "total": 15,
-    "success": 0,
+    "total": 12,
+    "success": 12,
     "skipped": 0,
-    "failed": 15
+    "failed": 0
   }
 }
