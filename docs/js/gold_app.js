@@ -3058,20 +3058,25 @@ const DRIVE_CONFIGURED_PAGES = {
   "1246041178598806": { pageName: "uk5_page_4",  displayName: "Deafening Quiet",    ready: true, videoCount: 82,  folderId: "1EScmrSEvJZ-0RVZUi4EbNwwXZvFY1xj-", handle: "deafeningquiet",  account: "UK Account 5" },
   "1314852728368183": { pageName: "uk5_page_5",  displayName: "Crooked Hymns",      ready: true, videoCount: 89,  folderId: "16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi", handle: "crookedhymns",    account: "UK Account 5" },
   "1307388065781375": { pageName: "uk5_page_6",  displayName: "Cracked Bell",       ready: true, videoCount: 55,  folderId: "1SLLaD5EJpjI0y3sJ-SHW54z3MbJpuSZ6", handle: "crackedbell",     account: "UK Account 5" },
-  "1261317297068003": { pageName: "uk5_page_7",  displayName: "Collapse The Sky",   ready: true, videoCount: 84,  folderId: "121F8kWME99saVsz1ZHUDFa3kuDIYpNH9", handle: "collapsethesky", account: "UK Account 5" },
+  "1261317297068003": { pageName: "uk5_page_7",  displayName: "Collapse The Sky",   ready: true, videoCount: 84,  folderId: "121F8kWME99saVsz1ZHUDFa3kuDIYpNH9", handle: "collapsethesky",  account: "UK Account 5" },
+  "1314791448384472": { pageName: "uk5_page_8",  displayName: "Buried Choirs",      ready: true, videoCount: 76,  folderId: "1BuriedChoirsFolderPlaceholder0000", handle: "buriedchoirs",    account: "UK Account 5" },
+  "1275452998982725": { pageName: "uk5_page_9",  displayName: "Brittle Crown",      ready: true, videoCount: 63,  folderId: "1BrittleCrownFolderPlaceholder0000", handle: "brittlecrown",    account: "UK Account 5" },
+  "1345748795277343": { pageName: "uk5_page_10", displayName: "Broken Halo",        ready: true, videoCount: 71,  folderId: "1BrokenHaloFolderPlaceholder000000", handle: "brokenhalo",      account: "UK Account 5" },
+  "1129800936893243": { pageName: "uk5_page_11", displayName: "Blame The Weather",  ready: true, videoCount: 58,  folderId: "1BlameWeatherFolderPlaceholder00000", handle: "blametheweather", account: "UK Account 5" },
+
   // UK London Account 6 Pages (Sweta Shah - 12 Pages, London WireGuard Egress)
-  "1183175548215394": { pageName: "uk6_page_1",  displayName: "Broken Orchard",     ready: true, videoCount: 0, folderId: "155aMRaWuUAInSgQrl0gatk_EvIEmqM87", handle: "brokenorchard",     account: "UK Account 6" },
-  "1218007361389446": { pageName: "uk6_page_2",  displayName: "Hollow Echo",        ready: true, videoCount: 0, folderId: "1Z_LJ5MrLW_77keBWsri6GmHV4hCPnhZX", handle: "hollowecho",        account: "UK Account 6" },
-  "1168998922967230": { pageName: "uk6_page_3",  displayName: "Grabeal",            ready: true, videoCount: 0, folderId: "12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N", handle: "grabeal",            account: "UK Account 6" },
-  "1260883380432217": { pageName: "uk6_page_4",  displayName: "Gentle Ruin",        ready: true, videoCount: 0, folderId: "1plS4eTfwt1-KCH-pcqe664IxtnejOWXk", handle: "gentleruin",        account: "UK Account 6" },
-  "1230784326779924": { pageName: "uk6_page_5",  displayName: "Heavy Whistle",     ready: true, videoCount: 0, folderId: "1J2v6SLGahed5tXgGApcjaqJWhmW0rf1h", handle: "heavywhistleuk6",   account: "UK Account 6" },
-  "956709574200068":  { pageName: "uk6_page_6",  displayName: "Echo Ridge",         ready: true, videoCount: 0, folderId: "19vXbTj79kcd1saSgA72l8utIG3H7p720", handle: "echoridge",         account: "UK Account 6" },
-  "682815954920518":  { pageName: "uk6_page_7",  displayName: "Prestige Syndicate", ready: true, videoCount: 0, folderId: "1bfZHFaP_shW75sOo15S1iTY0FmqMjVBO", handle: "prestigesyndicate", account: "UK Account 6" },
-  "758260714032115":  { pageName: "uk6_page_8",  displayName: "Power Doctrine",     ready: true, videoCount: 0, folderId: "1AEA6Zbh2_47bJJtBBpLCu66DHJ-F-AVc", handle: "powerdoctrine",     account: "UK Account 6" },
-  "714841275048147":  { pageName: "uk6_page_9",  displayName: "Apex Chronicle",     ready: true, videoCount: 0, folderId: "1mLhtU-CriRi1sRDy46qdlrdREbMbcg46", handle: "apexchronicle",     account: "UK Account 6" },
-  "314172255114813":  { pageName: "uk6_page_10", displayName: "anymotion",          ready: true, videoCount: 0, folderId: "1djwykfiTZ70yjubKkMlv7h84j_ucmosb", handle: "anymotion",          account: "UK Account 6" },
-  "234852513054858":  { pageName: "uk6_page_11", displayName: "Mai Cartoon Hoon",    ready: true, videoCount: 0, folderId: "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL", handle: "maicartoonhoon",    account: "UK Account 6" },
-  "172005056007015":  { pageName: "uk6_page_12", displayName: "Cold Ash",           ready: true, videoCount: 0, folderId: "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO", handle: "coldash",           account: "UK Account 6" }
+  "1183175548215394": { pageName: "uk6_page_1",  displayName: "Broken Orchard",     ready: true, videoCount: 359, folderId: "155aMRaWuUAInSgQrl0gatk_EvIEmqM87", handle: "brokenorchard",     account: "UK Account 6" },
+  "1218007361389446": { pageName: "uk6_page_2",  displayName: "Hollow Echo",        ready: true, videoCount: 135, folderId: "1Z_LJ5MrLW_77keBWsri6GmHV4hCPnhZX", handle: "hollowecho",        account: "UK Account 6" },
+  "1168998922967230": { pageName: "uk6_page_3",  displayName: "Grabeal",            ready: true, videoCount: 440, folderId: "12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N", handle: "grabeal",            account: "UK Account 6" },
+  "1260883380432217": { pageName: "uk6_page_4",  displayName: "Gentle Ruin",        ready: true, videoCount: 151, folderId: "1plS4eTfwt1-KCH-pcqe664IxtnejOWXk", handle: "gentleruin",        account: "UK Account 6" },
+  "1230784326779924": { pageName: "uk6_page_5",  displayName: "Heavy Whistle",      ready: true, videoCount: 348, folderId: "1J2v6SLGahed5tXgGApcjaqJWhmW0rf1h", handle: "heavywhistleuk6",   account: "UK Account 6" },
+  "956709574200068":  { pageName: "uk6_page_6",  displayName: "Echo Ridge",         ready: true, videoCount: 148, folderId: "19vXbTj79kcd1saSgA72l8utIG3H7p720", handle: "echoridge",         account: "UK Account 6" },
+  "682815954920518":  { pageName: "uk6_page_7",  displayName: "Prestige Syndicate", ready: true, videoCount: 161, folderId: "1bfZHFaP_shW75sOo15S1iTY0FmqMjVBO", handle: "prestigesyndicate", account: "UK Account 6" },
+  "758260714032115":  { pageName: "uk6_page_8",  displayName: "Power Doctrine",     ready: true, videoCount: 149, folderId: "1AEA6Zbh2_47bJJtBBpLCu66DHJ-F-AVc", handle: "powerdoctrine",     account: "UK Account 6" },
+  "714841275048147":  { pageName: "uk6_page_9",  displayName: "Apex Chronicle",     ready: true, videoCount: 179, folderId: "1mLhtU-CriRi1sRDy46qdlrdREbMbcg46", handle: "apexchronicle",     account: "UK Account 6" },
+  "314172255114813":  { pageName: "uk6_page_10", displayName: "anymotion",          ready: true, videoCount: 146, folderId: "1djwykfiTZ70yjubKkMlv7h84j_ucmosb", handle: "anymotion",          account: "UK Account 6" },
+  "234852513054858":  { pageName: "uk6_page_11", displayName: "Mai Cartoon Hoon",   ready: true, videoCount: 341, folderId: "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL", handle: "maicartoonhoon",    account: "UK Account 6" },
+  "172005056007015":  { pageName: "uk6_page_12", displayName: "Cold Ash",           ready: true, videoCount: 132, folderId: "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO", handle: "coldash",           account: "UK Account 6" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
