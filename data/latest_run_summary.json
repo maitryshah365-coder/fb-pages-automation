@@ -1,15 +1,16 @@
 {
-  "run_id": "35523632643",
-  "run_number": "36",
-  "completed_at": "2026-09-20T16:46:48.732101+00:00",
+  "run_id": "35524120898",
+  "run_number": "37",
+  "completed_at": "2026-09-20T16:54:55.116586+00:00",
   "runner_telemetry": {
-    "ip": "103.138.124.24",
-    "city": "Salford",
+    "ip": "217.146.83.98",
+    "hostname": "98.83.146.217.baremetal.zare.com",
+    "city": "London",
     "region": "England",
     "country": "GB",
-    "loc": "53.4877,-2.2904",
-    "org": "AS203020 HostRoyale Technologies Pvt Ltd",
-    "postal": "M5",
+    "loc": "51.5085,-0.1257",
+    "org": "AS25369 Hydra Communications Ltd",
+    "postal": "WC2N",
     "timezone": "Europe/London",
     "readme": "https://ipinfo.io/missingauth"
   },
@@ -17,105 +18,97 @@
   "results": [
     {
       "status": "failed",
-      "page": "uk4_page_1",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1076375522219372",
-      "page_config_name": "uk4_page_1",
-      "display_name": "Titan Archive"
+      "page": "uk5_page_1",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_1_ixbojvq3/video_1xz44osfTYgYHhAoJxHY4l1KaUnveIpeI.mp4",
+      "page_id": "1282432698285787",
+      "page_config_name": "uk5_page_1",
+      "display_name": "Exile The Sun"
     },
     {
       "status": "failed",
-      "page": "uk4_page_2",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "997596213442388",
-      "page_config_name": "uk4_page_2",
-      "display_name": "Sovereign Signal"
+      "page": "uk5_page_2",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_2_288i9bbn/video_1to-et2KM6kJJ9m9nhzZmwBuv8tRT0EmF.mp4",
+      "page_id": "1292135137311847",
+      "page_config_name": "uk5_page_2",
+      "display_name": "Empty Pockets"
     },
     {
       "status": "failed",
-      "page": "uk4_page_3",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1025542247301378",
-      "page_config_name": "uk4_page_3",
-      "display_name": "Sunny Dusk Stories"
+      "page": "uk5_page_3",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_3_379rt1ao/video_1-tBFf2MAXYtC7tT4wZodyA1MBp3kAcSQ.mp4",
+      "page_id": "1372949892557936",
+      "page_config_name": "uk5_page_3",
+      "display_name": "Dirty Halos"
     },
     {
       "status": "failed",
-      "page": "uk4_page_4",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "981214481738903",
-      "page_config_name": "uk4_page_4",
-      "display_name": "Silver Oak Social"
+      "page": "uk5_page_4",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_4_uu47kl7w/video_1tohrRf-TfmDD8unMDNb0SxdIheDcKm65.mp4",
+      "page_id": "1246041178598806",
+      "page_config_name": "uk5_page_4",
+      "display_name": "Deafening Quiet"
     },
     {
       "status": "failed",
-      "page": "uk4_page_5",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "929190903615356",
-      "page_config_name": "uk4_page_5",
-      "display_name": "Mitchell  Gabriel"
+      "page": "uk5_page_5",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_5_wy70ly5p/video_1qfz8RIL9njzIjjsC_A8dmqgSDvpEjqCh.mp4",
+      "page_id": "1314852728368183",
+      "page_config_name": "uk5_page_5",
+      "display_name": "Crooked Hymns"
     },
     {
       "status": "failed",
-      "page": "uk4_page_6",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "803824339488556",
-      "page_config_name": "uk4_page_6",
-      "display_name": "Smith  Arthur"
+      "page": "uk5_page_6",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "1307388065781375",
+      "page_config_name": "uk5_page_6",
+      "display_name": "Cracked Bell"
     },
     {
       "status": "failed",
-      "page": "uk4_page_7",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "857530914106167",
-      "page_config_name": "uk4_page_7",
-      "display_name": "Robinson  Jerry"
+      "page": "uk5_page_7",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_7_4ps_7vs9/video_1cZXsl_bFSBZLNBtf8xALNVJBWyZJ9LIT.mp4",
+      "page_id": "1261317297068003",
+      "page_config_name": "uk5_page_7",
+      "display_name": "Collapse The Sky"
     },
     {
       "status": "failed",
-      "page": "uk4_page_8",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "762765990263739",
-      "page_config_name": "uk4_page_8",
-      "display_name": "Robinson  Stephen"
+      "page": "uk5_page_8",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_8_oizmm284/video_1ZUzVbwLbmJt2atwQ7ZuvN8GP6HF6PeEF.mp4",
+      "page_id": "1314791448384472",
+      "page_config_name": "uk5_page_8",
+      "display_name": "Buried Choirs"
     },
     {
       "status": "failed",
-      "page": "uk4_page_9",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "871774779344742",
-      "page_config_name": "uk4_page_9",
-      "display_name": "Powell  Gabriel"
+      "page": "uk5_page_9",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_9_18f73d9u/video_1P42NsC5tO1493-yRYu-r4_CqiCvJqv5H.mp4",
+      "page_id": "1275452998982725",
+      "page_config_name": "uk5_page_9",
+      "display_name": "Brittle Crown"
     },
     {
       "status": "failed",
-      "page": "uk4_page_10",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "746108741929454",
-      "page_config_name": "uk4_page_10",
-      "display_name": "Rodriguez  Scott"
+      "page": "uk5_page_10",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_10_9zyr9n83/video_1LkC08IYp1hz0FG5r_rmYcuzELvtftWp9.mp4",
+      "page_id": "1345748795277343",
+      "page_config_name": "uk5_page_10",
+      "display_name": "Broken Halo"
     },
     {
       "status": "failed",
-      "page": "uk4_page_11",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "818808074651170",
-      "page_config_name": "uk4_page_11",
-      "display_name": "Roberts  Richard"
-    },
-    {
-      "status": "failed",
-      "page": "uk4_page_12",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "417387901468629",
-      "page_config_name": "uk4_page_12",
-      "display_name": "Serendipity Spark"
+      "page": "uk5_page_11",
+      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_11_8bpyfz4k/video_1cpWGYQqtQ1A1Ke1xgjfC_1fuvsoHZSJk.mp4",
+      "page_id": "1129800936893243",
+      "page_config_name": "uk5_page_11",
+      "display_name": "Blame The Weather"
     }
   ],
   "stats": {
-    "total": 12,
+    "total": 11,
     "success": 0,
     "skipped": 0,
-    "failed": 12
+    "failed": 11
   }
 }
