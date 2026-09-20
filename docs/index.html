@@ -660,6 +660,10 @@
 
         <div class="hero-stats-strip">
           <div class="strip-stat">
+            <span class="stat-label">🎬 Reels Today</span>
+            <span class="stat-num" id="mainAuditTodayUploadsVal" style="color: #38bdf8;">116 Uploads</span>
+          </div>
+          <div class="strip-stat">
             <span class="stat-label">FB Access Tokens</span>
             <span class="stat-num green-text" id="mainAuditTokensVal">101 / 101 Active</span>
           </div>
@@ -682,41 +686,60 @@
         </div>
       </section>
 
-      <!-- Active Alert Box -->
-      <div id="mainAuditAlertBox" style="background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); border-radius: 12px; padding: 14px 18px; margin: 16px 0; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
-        <div style="display: flex; align-items: center; gap: 12px;">
-          <span id="mainAuditAlertIcon" style="font-size: 22px;">⚠️</span>
-          <div>
-            <div id="mainAuditAlertTitle" style="font-size: 13.5px; font-weight: 700; color: #fbbf24;">Active System Alert</div>
-            <div id="mainAuditAlertText" style="font-size: 12px; color: #cbd5e1; margin-top: 2px;">Upload Gap: Cracked Bell - 0 uploads today (Slot 1/2 missed - Identity confirmation required on FB mobile app)</div>
+      <!-- Action Center Section (Idea 1: Direct Problem & Solution Cards) -->
+      <section class="content-box" id="mainAuditActionCenterSection" style="margin-top: 16px;">
+        <div class="box-header flex-between">
+          <div class="box-title-group">
+            <span class="box-icon" id="mainAuditActionCenterIcon" style="background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px;">🚨</span>
+            <div>
+              <h3 class="box-title" id="mainAuditActionCenterTitle" style="color: #fff; font-weight: 800; font-size: 16px; margin: 0;">Action Center • Issues Requiring Attention</h3>
+              <span class="library-pipeline-tag" id="mainAuditActionCenterSubtitle" style="color: #94a3b8; font-size: 12px;">Instant plain-language breakdown: where it happened, what happened, today's uploads & 1-click fixes</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" onclick="runLiveAuditUI(event)" style="background: linear-gradient(135deg, #0284c7, #38bdf8); color: #fff; border: none; padding: 7px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <span>🔍</span> Scan Now
+            </button>
+            <button type="button" id="btnMainClearAlert" onclick="clearHealthAlert(event)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; padding: 7px 12px; border-radius: 8px; font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap;">
+              Dismiss
+            </button>
           </div>
         </div>
-        <button type="button" id="btnMainClearAlert" onclick="clearHealthAlert(event)" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; white-space: nowrap;">
-          Clear Alert
-        </button>
-      </div>
 
-      <!-- 8 Fleets Status Grid -->
+        <div class="action-center-container" id="mainAuditActionCardsContainer">
+          <!-- Dynamically populated action cards (Mia Shah, Cracked Bell, or 100% Operational) -->
+        </div>
+      </section>
+
+      <!-- 8 Fleets Status Grid (Idea 3: Click-to-Inspect Fleet Pages) -->
       <section class="content-box" style="margin-top: 16px;">
         <div class="box-header flex-between">
           <div class="box-title-group">
             <span class="box-icon">🌐</span>
             <div>
               <h3 class="box-title">8 Fleets Live Health & Integrity Matrix</h3>
-              <span class="library-pipeline-tag">Real-time token validity & today's upload gaps across all 8 automation fleets</span>
+              <span class="library-pipeline-tag">Real-time token validity, today's reels uploaded & click to inspect individual pages</span>
             </div>
           </div>
           <span class="pill-badge pill-green" id="mainAuditFleetsStatusBadge">8 / 8 Fleets Monitored</span>
         </div>
 
-        <div class="health-fleets-grid" id="mainAuditFleetsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; padding: 16px;">
+        <div class="health-fleets-grid" id="mainAuditFleetsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; padding: 16px;">
           <!-- Dynamically rendered 8 fleet cards by gold_app.js -->
         </div>
       </section>
 
-      <!-- Real-Time Diagnostic Terminal Section -->
-      <section class="content-box" style="margin-top: 16px;">
-        <div class="box-header flex-between library-box-header">
+      <!-- Developer Raw Terminal (Collapsible at bottom) -->
+      <details class="content-box" style="margin-top: 16px; border: 1px solid rgba(255,255,255,0.08); background: rgba(15,23,42,0.4); border-radius: 12px; overflow: hidden;">
+        <summary style="padding: 14px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 700; color: #94a3b8; user-select: none;">
+          <span style="display: flex; align-items: center; gap: 8px;">
+            <span>💻</span>
+            <span style="color: #cbd5e1;">Developer Mode • Raw Diagnostic Terminal & Filter Logs</span>
+          </span>
+          <span style="font-size: 11px; color: #38bdf8; background: rgba(56,189,248,0.1); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(56,189,248,0.25);">Click to View Raw Terminal ▼</span>
+        </summary>
+
+        <div class="box-header flex-between library-box-header" style="border-top: 1px solid rgba(255,255,255,0.06);">
           <div class="box-title-group">
             <span class="box-icon" style="background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); border-radius: 10px; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px;">💻</span>
             <div>
@@ -775,7 +798,7 @@
             <div style="color: #64748b;">Ready. Click "Run Live Audit" to verify all 101 Facebook Page tokens, detect upload gaps, and confirm London runner telemetry.</div>
           </div>
         </div>
-      </section>
+      </details>
     </div>
 
     <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER (DEFAULT VIEW) ================= -->

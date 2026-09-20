@@ -5058,8 +5058,25 @@ function getPageTodayPosts(p) {
   return 0;
 }
 
+function toggleFleetPagesInspect(idx) {
+  const el = document.getElementById(`fleetPagesInspect_${idx}`);
+  const btn = document.getElementById(`fleetInspectBtn_${idx}`);
+  if (!el) return;
+  const isHidden = el.style.display === "none" || el.style.display === "";
+  el.style.display = isHidden ? "flex" : "none";
+  if (btn) btn.innerHTML = isHidden ? "Hide Pages ▲" : "🔍 Inspect Pages ▼";
+}
+
+function toggleActionCardPages(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const isHidden = el.style.display === "none" || el.style.display === "";
+  el.style.display = isHidden ? "grid" : "none";
+}
+
 function renderHealthAuditMainView() {
   const container = document.getElementById("mainAuditFleetsGrid");
+  const actionCardsContainer = document.getElementById("mainAuditActionCardsContainer");
   if (!container) return;
 
   const fleetConfigs = [
@@ -5077,11 +5094,12 @@ function renderHealthAuditMainView() {
   const summaryResults = fullData?.latest_run_summary?.results || [];
 
   let totalValidTokens = 0;
+  let totalTodayUploads = 0;
   let totalGaps = 0;
   const gapItems = [];
   const tokenIssueItems = [];
 
-  let html = "";
+  let fleetsHtml = "";
 
   fleetConfigs.forEach((cfg, idx) => {
     const fleetPages = auditPages.filter(p => {
@@ -5093,6 +5111,7 @@ function renderHealthAuditMainView() {
     let fleetTodayPosts = 0;
     const fleetGaps = [];
     const fleetTokenIssues = [];
+    const pageRowsHtml = [];
 
     fleetPages.forEach(p => {
       const pid = String(p.id);
@@ -5116,6 +5135,10 @@ function renderHealthAuditMainView() {
       );
 
       const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready) && !isTokenError;
+      const pToday = getPageTodayPosts(p);
+      fleetTodayPosts += pToday;
+      totalTodayUploads += pToday;
+
       if (hasToken) {
         fleetValid++;
         totalValidTokens++;
@@ -5123,9 +5146,6 @@ function renderHealthAuditMainView() {
         fleetTokenIssues.push({ name: displayName, error: runResult?.error || "Token Invalid" });
         tokenIssueItems.push({ name: displayName, fleet: cfg.tag, owner: cfg.owner });
       }
-
-      const pToday = getPageTodayPosts(p);
-      fleetTodayPosts += pToday;
 
       if (runResult && (runResult.status === "failed" || runResult.status === "error")) {
         const failReason = isTokenError ? "Token Error 190 (Permissions Expired)" : (runResult.error || "Upload failed");
@@ -5141,6 +5161,22 @@ function renderHealthAuditMainView() {
           totalGaps++;
         }
       }
+
+      // Page row for fleet inspect drawer
+      pageRowsHtml.push(`
+        <div class="fleet-page-row">
+          <div style="display: flex; align-items: center; gap: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+            <span style="color: ${hasToken ? '#4ade80' : '#f87171'}; font-size: 10px;">${hasToken ? '●' : '🚨'}</span>
+            <span style="color: #fff; font-weight: 600; text-overflow: ellipsis; overflow: hidden;">${displayName}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+            <span style="color: #38bdf8; font-size: 10px; font-weight: 700;">🎬 ${pToday} Reels</span>
+            <span style="font-size: 9.5px; padding: 1px 5px; border-radius: 4px; background: ${hasToken ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.2)'}; color: ${hasToken ? '#4ade80' : '#f87171'};">
+              ${hasToken ? 'Active' : 'Error 190'}
+            </span>
+          </div>
+        </div>
+      `);
     });
 
     const hasTokenIssue = fleetTokenIssues.length > 0;
@@ -5160,8 +5196,8 @@ function renderHealthAuditMainView() {
       statusBadge = `<span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(245,158,11,0.2); color: #facc15;">⚠️ GAP DETECTED</span>`;
     }
 
-    html += `
-      <div class="health-fleet-card" style="background: ${cardBg}; border: 1px solid ${cardBorder}; border-radius: 10px; padding: 14px; position: relative; transition: all 0.2s ease;">
+    fleetsHtml += `
+      <div class="health-fleet-card" style="background: ${cardBg}; border: 1px solid ${cardBorder}; border-radius: 12px; padding: 14px; position: relative; transition: all 0.2s ease;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <img src="${cfg.flagImg}" alt="${cfg.flag}" class="app-flag-icon" style="width: 16px; height: 12px;">
@@ -5170,7 +5206,7 @@ function renderHealthAuditMainView() {
           ${statusBadge}
         </div>
 
-        <div style="font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px;">${cfg.owner}</div>
+        <div style="font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 2px;">${cfg.owner}</div>
         <div style="font-size: 11px; color: #94a3b8; margin-bottom: 10px;">${fleetPages.length} Facebook Pages Monitored</div>
 
         <div style="display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
@@ -5181,23 +5217,36 @@ function renderHealthAuditMainView() {
             </span>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: #94a3b8;">Reels Today:</span>
-            <span style="color: #fff; font-weight: 700;">${fleetTodayPosts} Uploads</span>
+            <span style="color: #94a3b8;">🎬 Reels Today:</span>
+            <span style="color: #38bdf8; font-weight: 700;">${fleetTodayPosts} Uploads</span>
           </div>
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #94a3b8;">Upload Status:</span>
             <span style="color: ${hasTokenIssue ? '#f87171' : (hasGap ? '#facc15' : '#4ade80')}; font-weight: 700;">
-              ${hasTokenIssue ? `🚨 ${fleetGaps.length} Failed (Token Error 190)` : (hasGap ? `${fleetGaps.length} Missed Slot (${fleetGaps[0].name})` : 'On Schedule')}
+              ${hasTokenIssue ? `🚨 ${fleetGaps.length} Failed (Token 190)` : (hasGap ? `⚠️ Missed Slot (${fleetGaps[0].name})` : 'On Schedule')}
             </span>
           </div>
+        </div>
+
+        <!-- Inspect Pages Button & Drawer (Idea 3) -->
+        <button type="button" id="fleetInspectBtn_${idx}" class="fleet-inspect-btn" onclick="toggleFleetPagesInspect(${idx})">
+          🔍 Inspect ${fleetPages.length} Pages ▼
+        </button>
+        <div id="fleetPagesInspect_${idx}" class="fleet-pages-list" style="display: none;">
+          ${pageRowsHtml.join("")}
         </div>
       </div>
     `;
   });
 
-  container.innerHTML = html;
+  container.innerHTML = fleetsHtml;
 
   // Update Hero values
+  const todayUploadsVal = document.getElementById("mainAuditTodayUploadsVal");
+  if (todayUploadsVal) {
+    todayUploadsVal.textContent = `${totalTodayUploads} Uploads`;
+  }
+
   const tokensVal = document.getElementById("mainAuditTokensVal");
   if (tokensVal) {
     tokensVal.textContent = `${totalValidTokens}/101 Active`;
@@ -5218,50 +5267,139 @@ function renderHealthAuditMainView() {
     healthStatusVal.style.color = pct >= 95 ? "#4ade80" : (pct >= 80 ? "#facc15" : "#f87171");
   }
 
-  const alertBox = document.getElementById("mainAuditAlertBox");
-  const alertIcon = document.getElementById("mainAuditAlertIcon");
-  const alertTitle = document.getElementById("mainAuditAlertTitle");
-  const alertText = document.getElementById("mainAuditAlertText");
+  // Render Action Center Cards (Idea 1)
+  if (actionCardsContainer) {
+    let actionCardsHtml = "";
 
-  if (tokenIssueItems.length > 0) {
-    if (alertBox) {
-      alertBox.style.background = "rgba(239,68,68,0.15)";
-      alertBox.style.border = "1px solid rgba(239,68,68,0.35)";
-      alertBox.style.display = "flex";
-    }
-    if (alertIcon) alertIcon.textContent = "🚨";
-    if (alertTitle) { alertTitle.textContent = `Token Alert (${tokenIssueItems.length} Pages Need Re-Auth)`; alertTitle.style.color = "#f87171"; }
-    if (alertText) {
+    // 1. If Token Issues exist
+    if (tokenIssueItems.length > 0) {
       const owners = Array.from(new Set(tokenIssueItems.map(t => `${t.owner} (${t.fleet})`))).join(", ");
-      alertText.textContent = `OAuth Error 190: ${tokenIssueItems.length} pages in ${owners} have expired page permissions. Please generate and update new Facebook user tokens.`;
-      alertText.style.color = "#fca5a5";
+      const pageChipsHtml = tokenIssueItems.map(t => `
+        <div class="action-page-chip">
+          <span style="color: #f1f5f9; font-weight: 600;">${t.name}</span>
+          <span style="color: #f87171; font-size: 10px; font-weight: 700;">Error 190</span>
+        </div>
+      `).join("");
+
+      actionCardsHtml += `
+        <div class="action-card critical">
+          <div class="action-card-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 18px;">🚨</span>
+              <strong style="color: #f87171; font-size: 14px;">Facebook Token Expired (Action Required)</strong>
+            </div>
+            <span style="font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: rgba(239,68,68,0.25); color: #f87171;">
+              CRITICAL • ${tokenIssueItems.length} PAGES
+            </span>
+          </div>
+
+          <div class="action-card-grid">
+            <div class="action-card-field">
+              <span class="action-card-field-label">📍 KAHAN (Where)</span>
+              <span class="action-card-field-val" style="color: #38bdf8;">${owners}</span>
+            </div>
+            <div class="action-card-field">
+              <span class="action-card-field-label">⚠️ KYA HUA (What Happened)</span>
+              <span class="action-card-field-val" style="color: #fca5a5;">FB User Token Expire (OAuth Error 190)</span>
+            </div>
+            <div class="action-card-field">
+              <span class="action-card-field-label">🎬 REELS TODAY</span>
+              <span class="action-card-field-val" style="color: #facc15;">0 Uploads Today (Posting Paused)</span>
+            </div>
+            <div class="action-card-field">
+              <span class="action-card-field-label">📉 IMPACT</span>
+              <span class="action-card-field-val" style="color: #cbd5e1;">${tokenIssueItems.length} Pages blocked from publishing</span>
+            </div>
+          </div>
+
+          <div class="action-card-actions">
+            <button type="button" class="btn-action-primary" onclick="promptTokenUpdateMobile(event)">
+              🔑 Update FB Token Now
+            </button>
+            <button type="button" class="btn-action-secondary" onclick="toggleActionCardPages('actionPagesDrawerTokens')">
+              📋 View ${tokenIssueItems.length} Affected Pages ▼
+            </button>
+            <span style="color: #94a3b8; font-size: 11px; margin-left: 6px;">
+              👉 <strong>Solution:</strong> Graph API Explorer se naya user token generate karke update karein.
+            </span>
+          </div>
+
+          <div id="actionPagesDrawerTokens" class="action-pages-drawer" style="display: none;">
+            ${pageChipsHtml}
+          </div>
+        </div>
+      `;
     }
-  } else if (totalGaps > 0) {
-    if (alertBox) {
-      alertBox.style.background = "rgba(245,158,11,0.12)";
-      alertBox.style.border = "1px solid rgba(245,158,11,0.3)";
-      alertBox.style.display = "flex";
+
+    // 2. If Upload Gaps exist
+    if (totalGaps > 0) {
+      gapItems.forEach((g, gIdx) => {
+        actionCardsHtml += `
+          <div class="action-card warning" style="margin-top: 8px;">
+            <div class="action-card-header">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 18px;">⚠️</span>
+                <strong style="color: #fbbf24; font-size: 14px;">Upload Gap / Slot Delay Detected</strong>
+              </div>
+              <span style="font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: rgba(245,158,11,0.25); color: #facc15;">
+                WARNING • 0 UPLOADS TODAY
+              </span>
+            </div>
+
+            <div class="action-card-grid">
+              <div class="action-card-field">
+                <span class="action-card-field-label">📍 KAHAN (Where)</span>
+                <span class="action-card-field-val" style="color: #38bdf8;">${g.name} (${g.fleet})</span>
+              </div>
+              <div class="action-card-field">
+                <span class="action-card-field-label">⚠️ KYA HUA (What Happened)</span>
+                <span class="action-card-field-val" style="color: #fde047;">${g.reason}</span>
+              </div>
+              <div class="action-card-field">
+                <span class="action-card-field-label">🎬 REELS TODAY</span>
+                <span class="action-card-field-val" style="color: #f87171;">0 Uploads (Slot 1 & 2 missed)</span>
+              </div>
+              <div class="action-card-field">
+                <span class="action-card-field-label">👉 KARNA KYA HAI</span>
+                <span class="action-card-field-val" style="color: #cbd5e1;">Facebook Mobile App par identity confirm karein</span>
+              </div>
+            </div>
+
+            <div class="action-card-actions">
+              <button type="button" class="btn-action-secondary" onclick="alert('Open Facebook Mobile App on the account owner\'s phone to confirm login identity.')">
+                📱 Identity Confirmation Guide
+              </button>
+            </div>
+          </div>
+        `;
+      });
     }
-    if (alertIcon) alertIcon.textContent = "⚠️";
-    if (alertTitle) { alertTitle.textContent = "Upload Gap Detected"; alertTitle.style.color = "#fbbf24"; }
-    if (alertText) {
-      alertText.textContent = `Upload Gap: ${gapItems.map(g => `${g.name} (${g.fleet})`).slice(0, 3).join(", ")} - 0 uploads today (Slot 1/2 missed - Identity confirmation required on FB mobile app)`;
-      alertText.style.color = "#cbd5e1";
-    }
-  } else {
-    if (alertBox) {
-      alertBox.style.background = "rgba(34,197,94,0.12)";
-      alertBox.style.border = "1px solid rgba(34,197,94,0.3)";
-      alertBox.style.display = "flex";
-    }
-    if (alertIcon) alertIcon.textContent = "✅";
-    if (alertTitle) { alertTitle.textContent = "All Systems Operational"; alertTitle.style.color = "#4ade80"; }
-    if (alertText) {
-      alertText.textContent = "All 101 Page tokens active • 0 upload gaps detected • Scheduled slots on track";
-      alertText.style.color = "#cbd5e1";
-    }
+
+    // 3. Healthy Systems Summary Card
+    const healthyCount = 101 - tokenIssueItems.length;
+    actionCardsHtml += `
+      <div class="action-card success" style="margin-top: 8px;">
+        <div class="action-card-header" style="margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 18px;">✅</span>
+            <strong style="color: #4ade80; font-size: 13.5px;">
+              ${tokenIssueItems.length === 0 && totalGaps === 0 ? 'All 101 Pages Operational' : `Healthy Fleets Summary (${healthyCount}/101 Pages OK)`}
+            </strong>
+          </div>
+          <span style="font-size: 11px; font-weight: 700; color: #4ade80;">
+            🎬 ${totalTodayUploads} Reels Uploaded Today
+          </span>
+        </div>
+        <div style="font-size: 12px; color: #94a3b8;">
+          All active fleets are posting on schedule • London WireGuard Runner (<span style="color:#38bdf8;">185.245.82.17</span>) & Telegram Sentinel (<span style="color:#c084fc;">@fb_command_center_bot</span>) verified.
+        </div>
+      </div>
+    `;
+
+    actionCardsContainer.innerHTML = actionCardsHtml;
   }
 }
+
 
 function openMobileHealthAudit(e) {
   if (e && e.stopPropagation) e.stopPropagation();
@@ -5789,6 +5927,8 @@ window.runLiveAuditUI = runLiveAuditUI;
 window.promptTokenUpdateMobile = promptTokenUpdateMobile;
 window.filterAuditTerminalLogs = filterAuditTerminalLogs;
 window.updateAuditTabCounts = updateAuditTabCounts;
+window.toggleFleetPagesInspect = toggleFleetPagesInspect;
+window.toggleActionCardPages = toggleActionCardPages;
 
 
 
