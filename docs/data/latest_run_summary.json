@@ -1,10 +1,10 @@
 {
-  "run_id": "35500818030",
-  "run_number": "26",
-  "completed_at": "2026-09-20T08:55:06.862085+00:00",
+  "run_id": "35509693192",
+  "run_number": "27",
+  "completed_at": "2026-09-20T12:11:25.214855+00:00",
   "runner_telemetry": {
-    "ip": "86.106.157.247",
-    "hostname": "247.157.106.86.baremetal.zare.com",
+    "ip": "178.239.163.100",
+    "hostname": "ip178-239-161-100.bandwidth.co.uk",
     "city": "London",
     "region": "England",
     "country": "GB",
@@ -17,98 +17,142 @@
   "dry_run": false,
   "results": [
     {
-      "status": "failed",
-      "page": "uk5_page_1",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_1_jpxe6bry/video_1xz44osfTYgYHhAoJxHY4l1KaUnveIpeI.mp4",
-      "page_id": "1282432698285787",
-      "page_config_name": "uk5_page_1",
-      "display_name": "Exile The Sun"
+      "status": "success",
+      "page": "uk1_page_1",
+      "drive_file_id": "1uArQOefQEk1lSbM-7XSj9lwdafm4cyGv",
+      "facebook_video_id": "1109178688320523",
+      "filename": "A Dragon Changed The Whole Day For The First Time #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1275440552308410",
+      "page_config_name": "uk1_page_1",
+      "display_name": "Bitter Lullaby"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_2",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_2__cox5vos/video_1to-et2KM6kJJ9m9nhzZmwBuv8tRT0EmF.mp4",
-      "page_id": "1292135137311847",
-      "page_config_name": "uk5_page_2",
-      "display_name": "Empty Pockets"
+      "status": "success",
+      "page": "uk1_page_2",
+      "drive_file_id": "1z9ue7dvVg6y0fTZ8E6Pv5TVu-LpwQVex",
+      "facebook_video_id": "1072674748880351",
+      "filename": "A Silent Battle Began When Nobody Was Watching #Wildlife #Nature #WildAnimals #AnimalWorld #Survival #NatureLovers #AnimalKingdom #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "1094091620443741",
+      "page_config_name": "uk1_page_2",
+      "display_name": "Apex Dominion"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_3",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_3_id8uv0oz/video_1-tBFf2MAXYtC7tT4wZodyA1MBp3kAcSQ.mp4",
-      "page_id": "1372949892557936",
-      "page_config_name": "uk5_page_3",
-      "display_name": "Dirty Halos"
+      "status": "success",
+      "page": "uk1_page_3",
+      "drive_file_id": "1f6feSZYjNuNbaL5FpYhmy-0wxJDyXe78",
+      "facebook_video_id": "1061927446726333",
+      "filename": "Don't Blink During The Reveal Right Before The End #Reveal #Unveiling #Surprise #Hidden #WaitForIt #CrowdReaction #ViralVideo #Trending #Reels #Shorts..mp4",
+      "post_type": "reel",
+      "page_id": "883030611569420",
+      "page_config_name": "uk1_page_3",
+      "display_name": "Apex Narrative"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_4",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_4_drpspxi1/video_1tohrRf-TfmDD8unMDNb0SxdIheDcKm65.mp4",
-      "page_id": "1246041178598806",
-      "page_config_name": "uk5_page_4",
-      "display_name": "Deafening Quiet"
+      "status": "success",
+      "page": "uk1_page_4",
+      "drive_file_id": "1JtoZyKRUcC5LSgeSAdXOLL3LWv404Ih2",
+      "facebook_video_id": "1088880580557635",
+      "filename": "夹了女儿一块肉，本想试试她，没想到她把肉都给了我，还说我干活辛苦，得多吃一点。 #好孩子你是最棒的  #父女俩的欢乐时光 #快成长计划 #影画演绎未来之星 .mp4",
+      "post_type": "reel",
+      "page_id": "876743625532242",
+      "page_config_name": "uk1_page_4",
+      "display_name": "Young  Bradley"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_5",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_5_qf1htqbb/video_1qfz8RIL9njzIjjsC_A8dmqgSDvpEjqCh.mp4",
-      "page_id": "1314852728368183",
-      "page_config_name": "uk5_page_5",
-      "display_name": "Crooked Hymns"
+      "status": "success",
+      "page": "uk1_page_5",
+      "drive_file_id": "1xHecmsygJY6Fp6pQjuGVmepwCJukVe9p",
+      "facebook_video_id": "3571895389655236",
+      "filename": "Satisfying with Unboxing & Review Miniature Kitchen Set Toys Cooking Video ｜ ASMR Videos no music _106.mp4",
+      "post_type": "reel",
+      "page_id": "954228904442447",
+      "page_config_name": "uk1_page_5",
+      "display_name": "Scott  Dennis"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_6",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
-      "page_id": "1307388065781375",
-      "page_config_name": "uk5_page_6",
-      "display_name": "Cracked Bell"
+      "status": "success",
+      "page": "uk1_page_6",
+      "drive_file_id": "11zDZ73icXD4DzUSnzuix1HsneynVTugI",
+      "facebook_video_id": "1969664967051137",
+      "filename": "狗：就给我吃一口？太欺负狗了#当你有只嘴馋小狗 #我不是人但你是真狗 #狗狗的心思都写在脸上了 #萌宠出道计划 #狗子成精了 .mp4",
+      "post_type": "reel",
+      "page_id": "884416694753956",
+      "page_config_name": "uk1_page_6",
+      "display_name": "Wood  Stephen"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_7",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_7_nihd9kvj/video_1cZXsl_bFSBZLNBtf8xALNVJBWyZJ9LIT.mp4",
-      "page_id": "1261317297068003",
-      "page_config_name": "uk5_page_7",
-      "display_name": "Collapse The Sky"
+      "status": "success",
+      "page": "uk1_page_7",
+      "drive_file_id": "1BatCv2GwG7ch21BmkmuNOLHIx3q7jihC",
+      "facebook_video_id": "1111368931449926",
+      "filename": "#快成长计划 _107.mp4",
+      "post_type": "reel",
+      "page_id": "766333629906067",
+      "page_config_name": "uk1_page_7",
+      "display_name": "Morgan  Donald"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_8",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_8_wmoh3iq5/video_1ZUzVbwLbmJt2atwQ7ZuvN8GP6HF6PeEF.mp4",
-      "page_id": "1314791448384472",
-      "page_config_name": "uk5_page_8",
-      "display_name": "Buried Choirs"
+      "status": "success",
+      "page": "uk1_page_8",
+      "drive_file_id": "1kEBf4i1sksT-bmo0_lOHC6iHNTIa6xmi",
+      "facebook_video_id": "1397318459248905",
+      "filename": "功夫好不好不能只看表面 这一腿700公斤力量你们信吗 #高手在民间 #铁腿 #专业动作请勿模仿 .mp4",
+      "post_type": "reel",
+      "page_id": "838517782676673",
+      "page_config_name": "uk1_page_8",
+      "display_name": "Rogers  Albert"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_9",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_9_35i91fpr/video_1P42NsC5tO1493-yRYu-r4_CqiCvJqv5H.mp4",
-      "page_id": "1275452998982725",
-      "page_config_name": "uk5_page_9",
-      "display_name": "Brittle Crown"
+      "status": "success",
+      "page": "uk1_page_9",
+      "drive_file_id": "11Fic2NFnjX-_wJvkjHXIsO4f4r9tXWA1",
+      "facebook_video_id": "2135509654011140",
+      "filename": "月下树影摇曳，风中留下的是那种恬静的感觉，如同七月里的好风景，让人心顿时清新脱俗，一根树枝，一个瓶盖，把它们留在画布上，快点来试试#抖音艺术#跟着抖音学画画 #想画就画 #树枝画#丙烯画 #治愈的夜光 #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "860013240524658",
+      "page_config_name": "uk1_page_9",
+      "display_name": "Roberts  Austin"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_10",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_10_zp8fvmeh/video_1LkC08IYp1hz0FG5r_rmYcuzELvtftWp9.mp4",
-      "page_id": "1345748795277343",
-      "page_config_name": "uk5_page_10",
-      "display_name": "Broken Halo"
+      "status": "success",
+      "page": "uk1_page_10",
+      "drive_file_id": "1b_StwZY45sLN_dNEsQn1lGULx5dbMo9_",
+      "facebook_video_id": "1776410900332883",
+      "filename": "#Shorts #Dod #Pet #Fun #Trend (121).mp4",
+      "post_type": "reel",
+      "page_id": "802792259592614",
+      "page_config_name": "uk1_page_10",
+      "display_name": "Mitchell  Jack"
     },
     {
-      "status": "failed",
-      "page": "uk5_page_11",
-      "error": "Downloaded file is empty (0 bytes): /tmp/fb_post_uk5_page_11_h74_whg5/video_1cpWGYQqtQ1A1Ke1xgjfC_1fuvsoHZSJk.mp4",
-      "page_id": "1129800936893243",
-      "page_config_name": "uk5_page_11",
-      "display_name": "Blame The Weather"
+      "status": "success",
+      "page": "uk1_page_11",
+      "drive_file_id": "1_DJYz2Y4kXniAWO95BkI_H84faDK5LjN",
+      "facebook_video_id": "2115396842518655",
+      "filename": "Popular knot .mp4",
+      "post_type": "reel",
+      "page_id": "439151942618231",
+      "page_config_name": "uk1_page_11",
+      "display_name": "Words Though"
+    },
+    {
+      "status": "success",
+      "page": "uk1_page_12",
+      "drive_file_id": "13H_QuPvFkCj72mm4T5CmRC4FvZGND1Ah",
+      "facebook_video_id": "1713113063663712",
+      "filename": "Pranking Rumi! Long Nails Are FORBIDDEN 💅🚫 .mp4",
+      "post_type": "reel",
+      "page_id": "297665506763102",
+      "page_config_name": "uk1_page_12",
+      "display_name": "Quantum Collective"
     }
   ],
   "stats": {
-    "total": 11,
-    "success": 0,
+    "total": 12,
+    "success": 12,
     "skipped": 0,
-    "failed": 11
+    "failed": 0
   }
 }
