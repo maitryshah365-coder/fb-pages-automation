@@ -745,13 +745,30 @@
         </div>
 
         <div style="background: #020617; border: 1px solid rgba(56,189,248,0.2); border-radius: 12px; overflow: hidden; margin: 16px;">
-          <div style="background: rgba(15,23,42,0.85); padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08);">
+          <div style="background: rgba(15,23,42,0.92); padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 10px;">
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
               <span style="width: 10px; height: 10px; border-radius: 50%; background: #eab308; display: inline-block;"></span>
               <span style="width: 10px; height: 10px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
-              <span style="font-size: 11px; color: #94a3b8; font-weight: 700; margin-left: 8px; font-family: monospace;">AUDIT TERMINAL • 101 PAGES ENGINE</span>
+              <span style="font-size: 11px; color: #94a3b8; font-weight: 700; margin-left: 8px; font-family: monospace;">AUDIT TERMINAL</span>
             </div>
+
+            <!-- Category Filter Tabs (Option 2) -->
+            <div class="audit-filter-tabs" id="auditFilterTabsContainer">
+              <button type="button" class="audit-tab-btn active" data-tab="all" onclick="filterAuditTerminalLogs('all')" title="Show complete timeline">
+                <span>All Logs</span> <span class="audit-tab-badge" id="auditBadgeAll">0</span>
+              </button>
+              <button type="button" class="audit-tab-btn" data-tab="token" onclick="filterAuditTerminalLogs('token')" title="Show only Facebook token issues">
+                <span>🚨 Token Issues</span> <span class="audit-tab-badge" id="auditBadgeTokens" style="background: rgba(239,68,68,0.25); color: #f87171;">0</span>
+              </button>
+              <button type="button" class="audit-tab-btn" data-tab="gap" onclick="filterAuditTerminalLogs('gap')" title="Show only upload gaps and missed slots">
+                <span>⚠️ Upload Gaps</span> <span class="audit-tab-badge" id="auditBadgeGaps" style="background: rgba(245,158,11,0.25); color: #facc15;">0</span>
+              </button>
+              <button type="button" class="audit-tab-btn" data-tab="passed" onclick="filterAuditTerminalLogs('passed')" title="Show verified and passed items">
+                <span>✅ Passed / OK</span> <span class="audit-tab-badge" id="auditBadgePassed" style="background: rgba(34,197,94,0.25); color: #4ade80;">0</span>
+              </button>
+            </div>
+
             <span style="font-size: 10px; color: #64748b; font-family: monospace;">UTF-8 • REAL-TIME</span>
           </div>
           <div id="mainAuditConsoleOutput" style="height: 340px; overflow-y: auto; padding: 14px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 11.5px; line-height: 1.6; color: #cbd5e1; scrollbar-width: thin;">

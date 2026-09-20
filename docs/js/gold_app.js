@@ -5296,6 +5296,88 @@ function clearHealthAlert(e) {
   logAuditTerminal("Active alert dismissed by user.", "info");
 }
 
+window.currentAuditTab = "all";
+
+function filterAuditTerminalLogs(tab) {
+  window.currentAuditTab = tab;
+
+  // Update tab buttons state
+  document.querySelectorAll(".audit-tab-btn").forEach(btn => {
+    if (btn.getAttribute("data-tab") === tab) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  const term = document.getElementById("mainAuditConsoleOutput");
+  if (!term) return;
+
+  const lines = term.querySelectorAll(".audit-log-line");
+  let visibleCount = 0;
+
+  lines.forEach(line => {
+    const cat = line.getAttribute("data-category");
+    if (tab === "all") {
+      line.style.display = "";
+      visibleCount++;
+    } else if (cat === tab) {
+      line.style.display = "";
+      visibleCount++;
+    } else {
+      line.style.display = "none";
+    }
+  });
+
+  // Handle empty state display
+  const oldNotice = document.getElementById("auditEmptyNotice");
+  if (oldNotice) oldNotice.remove();
+
+  if (visibleCount === 0 && lines.length > 0) {
+    const notice = document.createElement("div");
+    notice.id = "auditEmptyNotice";
+    notice.style.padding = "30px 14px";
+    notice.style.textAlign = "center";
+
+    if (tab === "token") {
+      notice.innerHTML = '<div style="font-size: 24px; margin-bottom: 6px;">🎉</div><div style="color: #4ade80; font-weight: 700; font-size: 13px;">All Facebook Page Tokens Active!</div><div style="color: #94a3b8; font-size: 11.5px; margin-top: 4px;">No token expirations or OAuth 190 errors found.</div>';
+    } else if (tab === "gap") {
+      notice.innerHTML = '<div style="font-size: 24px; margin-bottom: 6px;">🎯</div><div style="color: #4ade80; font-weight: 700; font-size: 13px;">Zero Upload Gaps Detected!</div><div style="color: #94a3b8; font-size: 11.5px; margin-top: 4px;">All scheduled reels were uploaded on-time.</div>';
+    } else if (tab === "passed") {
+      notice.innerHTML = '<div style="font-size: 24px; margin-bottom: 6px;">📋</div><div style="color: #94a3b8; font-weight: 700; font-size: 13px;">No passed items to display. Click "Run Live Audit" to scan.</div>';
+    }
+    term.appendChild(notice);
+  }
+}
+
+function updateAuditTabCounts() {
+  const term = document.getElementById("mainAuditConsoleOutput");
+  if (!term) return;
+
+  const lines = term.querySelectorAll(".audit-log-line");
+  let totalCount = lines.length;
+  let tokenCount = 0;
+  let gapCount = 0;
+  let passedCount = 0;
+
+  lines.forEach(l => {
+    const cat = l.getAttribute("data-category");
+    if (cat === "token") tokenCount++;
+    else if (cat === "gap") gapCount++;
+    else if (cat === "passed") passedCount++;
+  });
+
+  const bAll = document.getElementById("auditBadgeAll");
+  const bTokens = document.getElementById("auditBadgeTokens");
+  const bGaps = document.getElementById("auditBadgeGaps");
+  const bPassed = document.getElementById("auditBadgePassed");
+
+  if (bAll) bAll.textContent = totalCount;
+  if (bTokens) bTokens.textContent = tokenCount;
+  if (bGaps) bGaps.textContent = gapCount;
+  if (bPassed) bPassed.textContent = passedCount;
+}
+
 function clearAuditTerminal(e) {
   if (e && e.stopPropagation) e.stopPropagation();
   const terms = [document.getElementById("mainAuditConsoleOutput"), document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
@@ -5309,9 +5391,21 @@ function clearAuditTerminal(e) {
       d.style.color = "#38bdf8";
     }
   });
+
+  // Reset tab counts & default tab
+  const bAll = document.getElementById("auditBadgeAll");
+  const bTokens = document.getElementById("auditBadgeTokens");
+  const bGaps = document.getElementById("auditBadgeGaps");
+  const bPassed = document.getElementById("auditBadgePassed");
+  if (bAll) bAll.textContent = "0";
+  if (bTokens) bTokens.textContent = "0";
+  if (bGaps) bGaps.textContent = "0";
+  if (bPassed) bPassed.textContent = "0";
+
+  filterAuditTerminalLogs("all");
 }
 
-function logAuditTerminal(msg, type = "normal") {
+function logAuditTerminal(msg, type = "normal", category = "general") {
   const terms = [document.getElementById("mainAuditConsoleOutput"), document.getElementById("auditConsoleOutput"), document.getElementById("mobileAuditConsoleOutput")];
   const now = new Date();
   const timeStr = now.toTimeString().split(" ")[0];
@@ -5324,11 +5418,22 @@ function logAuditTerminal(msg, type = "normal") {
   terms.forEach(term => {
     if (!term) return;
     const line = document.createElement("div");
+    line.className = `audit-log-line audit-cat-${category}`;
+    line.setAttribute("data-category", category);
     line.style.color = color;
     line.innerHTML = `<span style="color:#64748b;">[${timeStr}]</span> ${msg}`;
+
+    if (window.currentAuditTab && window.currentAuditTab !== "all") {
+      if (category !== window.currentAuditTab) {
+        line.style.display = "none";
+      }
+    }
+
     term.appendChild(line);
     term.scrollTop = term.scrollHeight;
   });
+
+  updateAuditTabCounts();
 }
 
 const sleep = (ms) => new Promise(res => setTimeout(res, ms));
@@ -5355,12 +5460,25 @@ async function runLiveAuditUI(e) {
   });
 
   terms.forEach(t => { if (t) t.innerHTML = ""; });
-  logAuditTerminal("🚀 Initiating live diagnostic scan (Tokens & Upload Gaps)...", "info");
+
+  // Reset tab counts & notices
+  const oldNotice = document.getElementById("auditEmptyNotice");
+  if (oldNotice) oldNotice.remove();
+  const bAll = document.getElementById("auditBadgeAll");
+  const bTokens = document.getElementById("auditBadgeTokens");
+  const bGaps = document.getElementById("auditBadgeGaps");
+  const bPassed = document.getElementById("auditBadgePassed");
+  if (bAll) bAll.textContent = "0";
+  if (bTokens) bTokens.textContent = "0";
+  if (bGaps) bGaps.textContent = "0";
+  if (bPassed) bPassed.textContent = "0";
+
+  logAuditTerminal("🚀 Initiating live diagnostic scan (Tokens & Upload Gaps)...", "info", "general");
   await sleep(250);
 
   try {
     // 1. Fetch fresh telemetry & runner state
-    logAuditTerminal("📡 [1/4] Fetching live database & runner status...", "info");
+    logAuditTerminal("📡 [1/4] Fetching live database & runner status...", "info", "general");
     let auditPages = fullData?.pages || [];
     let summaryResults = fullData?.latest_run_summary?.results || [];
     try {
@@ -5376,10 +5494,10 @@ async function runLiveAuditUI(e) {
         }
       }
     } catch (err) {
-      logAuditTerminal("  ⚠️ Using active memory cache for evaluation", "warn");
+      logAuditTerminal("  ⚠️ Using active memory cache for evaluation", "warn", "general");
     }
     await sleep(200);
-    logAuditTerminal(`  ✅ Live state loaded: ${auditPages.length} Pages monitored`, "success");
+    logAuditTerminal(`  ✅ Live state loaded: ${auditPages.length} Pages monitored`, "success", "passed");
     await sleep(200);
 
     // 2. Token Health Verification across 8 Fleets
@@ -5394,7 +5512,7 @@ async function runLiveAuditUI(e) {
       { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧" }
     ];
 
-    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 8 Fleets...", "info");
+    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 8 Fleets...", "info", "general");
 
     let totalValidTokens = 0;
     const tokenIssues = [];
@@ -5407,6 +5525,8 @@ async function runLiveAuditUI(e) {
       });
 
       let fleetValid = 0;
+      const fleetTokenIssues = [];
+
       fleetPages.forEach(p => {
         const pid = String(p.id);
         const dInfo = DRIVE_CONFIGURED_PAGES[pid];
@@ -5433,27 +5553,32 @@ async function runLiveAuditUI(e) {
           fleetValid++;
           totalValidTokens++;
         } else {
+          fleetTokenIssues.push({ name: dName, fleet: cfg.tag, owner: cfg.owner });
           tokenIssues.push({ name: dName, fleet: cfg.tag, owner: cfg.owner });
         }
       });
 
       if (fleetValid === fleetPages.length) {
-        logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: ${fleetValid}/${fleetPages.length} Tokens Active (Meta Graph Verified)`, "normal");
+        logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: ${fleetValid}/${fleetPages.length} Tokens Active (Meta Graph Verified)`, "normal", "passed");
       } else {
-        logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: 🚨 ${fleetValid}/${fleetPages.length} Tokens Active (${fleetPages.length - fleetValid} Token Errors: Graph API Error 190)`, "error");
+        logAuditTerminal(`  ${cfg.flag} Fleet #${i + 1} [${cfg.tag}: ${cfg.owner}]: 🚨 ${fleetValid}/${fleetPages.length} Tokens Active (${fleetPages.length - fleetValid} Token Errors: Graph API Error 190)`, "error", "token");
+        logAuditTerminal(`    👉 Action: Click '🔑 Update Token' to paste new Facebook User Token for ${cfg.owner} (${cfg.tag})`, "warn", "token");
+        fleetTokenIssues.forEach(ti => {
+          logAuditTerminal(`       • ${ti.name}: Expired (OAuth Error 190)`, "error", "token");
+        });
       }
       await sleep(180);
     }
 
     if (tokenIssues.length === 0) {
-      logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/101 Pages (100% Active)`, "success");
+      logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/101 Pages (100% Active)`, "success", "passed");
     } else {
-      logAuditTerminal(`⚠️ Total Tokens Valid: ${totalValidTokens}/101 Pages (${tokenIssues.length} Token Errors Detected: Need Re-Auth)`, "warn");
+      logAuditTerminal(`⚠️ Total Tokens Valid: ${totalValidTokens}/101 Pages (${tokenIssues.length} Token Errors Detected: Need Re-Auth)`, "warn", "token");
     }
     await sleep(200);
 
     // 3. Upload Gap & Schedule Delay Detection
-    logAuditTerminal("⏱️ [3/4] Scanning for Upload Gaps & Schedule Delays...", "info");
+    logAuditTerminal("⏱️ [3/4] Scanning for Upload Gaps & Schedule Delays...", "info", "general");
     await sleep(200);
 
     const uploadGaps = [];
@@ -5492,17 +5617,18 @@ async function runLiveAuditUI(e) {
     });
 
     if (uploadGaps.length === 0) {
-      logAuditTerminal("  ✅ 0 Upload Gaps Detected across all fleets", "success");
-      logAuditTerminal("  ✅ All completed slots posted on-time to Facebook Reels", "success");
+      logAuditTerminal("  ✅ 0 Upload Gaps Detected across all fleets", "success", "passed");
+      logAuditTerminal("  ✅ All completed slots posted on-time to Facebook Reels", "success", "passed");
     } else {
       uploadGaps.forEach(g => {
-        logAuditTerminal(`  ⚠️ Upload Gap: ${g.name} - ${g.reason}`, "warn");
+        logAuditTerminal(`  ⚠️ Upload Gap: ${g.name} - ${g.reason}`, "warn", "gap");
+        logAuditTerminal(`    👉 Action: Confirm identity on Facebook Mobile App for ${g.name}`, "info", "gap");
       });
     }
     await sleep(200);
 
     // 4. Runner & Sentinel Verification
-    logAuditTerminal("🤖 [4/4] Verifying Pipeline Runner & Bot Sentinel...", "info");
+    logAuditTerminal("🤖 [4/4] Verifying Pipeline Runner & Bot Sentinel...", "info", "general");
     await sleep(180);
     let runnerIp = "185.245.82.17";
     let runnerLoc = "London, GB";
@@ -5511,13 +5637,13 @@ async function runLiveAuditUI(e) {
       if (rt.ip) runnerIp = rt.ip;
       if (rt.city && rt.country) runnerLoc = `${rt.city}, ${rt.country}`;
     }
-    logAuditTerminal(`  ✅ WireGuard London Egress: ${runnerIp} (${runnerLoc}) Verified`, "success");
-    logAuditTerminal("  ✅ Telegram Sentinel: @fb_command_center_bot Active", "success");
+    logAuditTerminal(`  ✅ WireGuard London Egress: ${runnerIp} (${runnerLoc}) Verified`, "success", "passed");
+    logAuditTerminal("  ✅ Telegram Sentinel: @fb_command_center_bot Active", "success", "passed");
     await sleep(180);
 
     // Final Summary
-    logAuditTerminal("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "normal");
-    logAuditTerminal(`🎉 AUDIT COMPLETE: ${totalValidTokens}/101 Tokens Active | ${uploadGaps.length} Upload Gaps`, uploadGaps.length === 0 ? "success" : "warn");
+    logAuditTerminal("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "normal", "general");
+    logAuditTerminal(`🎉 AUDIT COMPLETE: ${totalValidTokens}/101 Tokens Active | ${uploadGaps.length} Upload Gaps`, uploadGaps.length === 0 ? "success" : "warn", "general");
 
     // Update UI Elements
     tokensTexts.forEach(t => { if (t) t.textContent = `${totalValidTokens}/101 Active`; });
@@ -5661,6 +5787,8 @@ window.clearAuditTerminal = clearAuditTerminal;
 window.logAuditTerminal = logAuditTerminal;
 window.runLiveAuditUI = runLiveAuditUI;
 window.promptTokenUpdateMobile = promptTokenUpdateMobile;
+window.filterAuditTerminalLogs = filterAuditTerminalLogs;
+window.updateAuditTabCounts = updateAuditTabCounts;
 
 
 
