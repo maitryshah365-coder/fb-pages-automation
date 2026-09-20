@@ -5105,8 +5105,9 @@ function renderHealthAuditMainView() {
       // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
       const isUKCompleted = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid);
       if (isUKCompleted && pToday === 0) {
-        fleetGaps.push({ name: p.name, reason: "0 uploads today (Slot 1/2 missed)" });
-        gapItems.push({ name: p.name, fleet: cfg.tag, reason: "0 uploads today" });
+        const displayName = DRIVE_CONFIGURED_PAGES[pid]?.displayName || p.name;
+        fleetGaps.push({ name: displayName, reason: "0 uploads today (Slot 1/2 missed)" });
+        gapItems.push({ name: displayName, fleet: cfg.tag, reason: "0 uploads today" });
         totalGaps++;
       }
     });
@@ -5376,9 +5377,10 @@ async function runLiveAuditUI(e) {
       const isUK = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid);
       // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
       if (isUK && pToday === 0) {
+        const displayName = DRIVE_CONFIGURED_PAGES[pid]?.displayName || p.name;
         uploadGaps.push({
-          name: p.name,
-          reason: "0 uploads today (Slot 1/2 missed)"
+          name: `${displayName} (${p.account || 'Richi Patel (UK)'})`,
+          reason: "0 uploads today (Slot 1/2 missed - Identity confirmation required)"
         });
       }
     });
