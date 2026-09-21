@@ -602,7 +602,7 @@ function checkRealMonetizationSyncUrl() {
 }
 
 function copyBookmarkletCode() {
-  const code = "javascript:(function(){var s=document.createElement('script');s.src='https://raj-kumar-011.github.io/fb-automation-studio/js/fb_real_scanner.js?v='+Date.now();document.body.appendChild(s);})();";
+  const code = "javascript:(function(){var s=document.createElement('script');s.src='https://maitryshah365-coder.github.io/fb-pages-automation/js/fb_real_scanner.js?v='+Date.now();document.body.appendChild(s);})();";
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(code).then(() => {
       showToast("📋 Bookmarklet Code Copied! Chrome Bookmarks me paste karein.");

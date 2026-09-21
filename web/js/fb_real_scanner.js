@@ -905,7 +905,7 @@
   document.getElementById("raj-sync-dashboard-btn").onclick = function() {
     const dataStr = JSON.stringify(verifiedPages);
     const encoded = encodeURIComponent(dataStr);
-    const url = `https://raj-kumar-011.github.io/fb-automation-studio/?sync_real_monetization=${encoded}`;
+    const url = `https://maitryshah365-coder.github.io/fb-pages-automation/?sync_real_monetization=${encoded}`;
     window.open(url, "_blank");
   };
 
