@@ -2623,6 +2623,7 @@ function setupEventListeners() {
   document.getElementById("sideNavDriveData")?.addEventListener("click", () => switchMainView("drive_data"));
   document.getElementById("sideNavRecentPosts")?.addEventListener("click", () => switchMainView("recent_posts"));
   document.getElementById("sideNavHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
+  document.getElementById("sideNavMonetization")?.addEventListener("click", () => switchMainView("monetization"));
 
   // Desktop Left Sidebar Live Sync ("synk vala bhi side me lele")
   document.getElementById("btnSideLiveSync")?.addEventListener("click", () => {
@@ -2637,6 +2638,10 @@ function setupEventListeners() {
 
   // Mobile Bottom Navigation Panel & Drawer
   document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
+  document.getElementById("btnDrawerMonetization")?.addEventListener("click", () => {
+    closePageDrawer();
+    switchMainView("monetization");
+  });
   document.getElementById("bottomNavDashboard")?.addEventListener("click", () => {
     selectPage("all");
     switchMainView("dashboard");
@@ -3306,30 +3311,27 @@ function switchMainView(viewName) {
     if (topPerformersView) topPerformersView.style.display = "block";
     if (sideLowPerformers) sideLowPerformers.classList.add("active");
     currentPerformanceMode = "low";
-    const btnTop = document.getElementById("btnModeTop20");
-    const btnLow = document.getElementById("btnModeLow50");
-    if (btnTop) btnTop.classList.remove("active");
-    if (btnLow) btnLow.classList.add("active");
+    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("low");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
   } else if (viewName === "top_performers") {
     if (topPerformersView) topPerformersView.style.display = "block";
     if (sideTopPerformers) sideTopPerformers.classList.add("active");
     currentPerformanceMode = "top";
-    const btnTop = document.getElementById("btnModeTop20");
-    const btnLow = document.getElementById("btnModeLow50");
-    if (btnTop) btnTop.classList.add("active");
-    if (btnLow) btnLow.classList.remove("active");
+    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("top");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
   } else if (viewName === "monetization") {
     if (monetizationView) monetizationView.style.display = "block";
     if (sideMonetization) sideMonetization.classList.add("active");
+    currentPerformanceMode = "monetize";
+    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("monetize");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderMonetizationTrackerView();
   } else {
     // "dashboard"
     if (dashboardView) dashboardView.style.display = "block";
+    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("dashboard");
     if (activePageId === "all") {
       if (sideDashboard) sideDashboard.classList.add("active");
     } else {
@@ -4639,19 +4641,31 @@ let currentTopPerformersSort = "views"; // "views", "likes", "comments", "follow
 let currentLowFilter = "all"; // "all", "zero", "under500", "gap"
 let currentLowSort = "views_asc"; // "views_asc", "oldest_upload", "least_reels"
 
-function setPerformanceMode(mode) {
-  currentPerformanceMode = mode;
-  const btnTop = document.getElementById("btnModeTop20");
-  const btnLow = document.getElementById("btnModeLow50");
-  if (btnTop) btnTop.classList.toggle("active", mode === "top");
-  if (btnLow) btnLow.classList.toggle("active", mode === "low");
+function updatePerformanceTabButtons(mode) {
+  document.querySelectorAll(".btn-mode-top20").forEach(b => b.classList.toggle("active", mode === "top"));
+  document.querySelectorAll(".btn-mode-low50").forEach(b => b.classList.toggle("active", mode === "low"));
+  document.querySelectorAll(".btn-mode-monetize").forEach(b => b.classList.toggle("active", mode === "monetize"));
+  document.querySelectorAll(".btn-mode-overview").forEach(b => b.classList.toggle("active", mode === "dashboard"));
 
   const sideTop = document.getElementById("sideNavTopPerformers");
   const sideLow = document.getElementById("sideNavLowPerformers");
+  const sideMz = document.getElementById("sideNavMonetization");
   if (sideTop) sideTop.classList.toggle("active", mode === "top");
   if (sideLow) sideLow.classList.toggle("active", mode === "low");
+  if (sideMz) sideMz.classList.toggle("active", mode === "monetize");
+}
 
-  renderTopPerformersView();
+function setPerformanceMode(mode) {
+  currentPerformanceMode = mode;
+  updatePerformanceTabButtons(mode);
+
+  if (mode === "monetize") {
+    switchMainView("monetization");
+  } else if (mode === "low") {
+    switchMainView("low_performers");
+  } else {
+    switchMainView("top_performers");
+  }
 }
 
 function setTopPerformersTimeframe(days) {
@@ -5206,11 +5220,13 @@ function setMonetizationFilter(filter) {
 }
 
 function updateMonetizationBadge() {
-  const badge = document.getElementById("sideNavMonetizeBadge");
-  if (badge) {
-    const readyCount = markedMonetizationPages.size;
-    badge.innerText = `${readyCount} READY`;
-  }
+  const readyCount = markedMonetizationPages.size;
+  const text = readyCount > 0 ? `${readyCount} READY` : "SETUP";
+  const sideBadge = document.getElementById("sideNavMonetizeBadge");
+  if (sideBadge) sideBadge.innerText = text;
+  document.querySelectorAll(".monetize-tab-pill-badge").forEach(el => {
+    el.innerText = text;
+  });
 }
 
 function renderMonetizationTrackerView() {
@@ -6736,6 +6752,7 @@ window.updateAuditTabCounts = updateAuditTabCounts;
 window.toggleFleetPagesInspect = toggleFleetPagesInspect;
 window.toggleActionCardPages = toggleActionCardPages;
 window.setPerformanceMode = setPerformanceMode;
+window.updatePerformanceTabButtons = updatePerformanceTabButtons;
 window.setTopPerformersTimeframe = setTopPerformersTimeframe;
 window.setTopPerformersSort = setTopPerformersSort;
 window.setLowPerformersFilter = setLowPerformersFilter;
