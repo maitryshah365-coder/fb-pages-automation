@@ -719,15 +719,49 @@ async function initDashboard() {
     // Update persistent downside IP runner strip
     updateDownsideIpStrip();
 
-    // Background live Meta Graph API verification
-    syncLiveMetaGraph();
+    // Auto-sync only if 30 minutes have elapsed since last sync (respects window refresh / hard refresh)
+    if (shouldAutoSync()) {
+      syncLiveMetaGraph(false);
+    } else {
+      const elapsedSec = Math.floor((Date.now() - getLastSyncTime()) / 1000);
+      const remainingMin = Math.ceil((META_SYNC_INTERVAL_MS - (Date.now() - getLastSyncTime())) / 60000);
+      console.log(`[Dashboard Init] Skipped auto-sync. Last synced ${elapsedSec}s ago. Next auto-sync in ~${remainingMin} mins.`);
+    }
   } catch (err) {
     console.error("Failed to load dashboard data:", err);
     showToast("Connecting to live Meta data...");
   }
 }
 
-// ----------------- Real-Time Meta Graph API Sync -----------------
+// ----------------- Real-Time Meta Graph API Sync (30-Minute Interval) -----------------
+
+const META_SYNC_INTERVAL_MS = 30 * 60 * 1000; // 30 minutes (1,800,000 ms)
+const STORAGE_KEY_LAST_SYNC = "raj_fb_last_meta_sync_time";
+
+function getLastSyncTime() {
+  try {
+    const val = localStorage.getItem(STORAGE_KEY_LAST_SYNC);
+    return val ? parseInt(val, 10) : 0;
+  } catch (e) {
+    return 0;
+  }
+}
+
+function setLastSyncTime(timeMs) {
+  try {
+    localStorage.setItem(STORAGE_KEY_LAST_SYNC, String(timeMs || Date.now()));
+  } catch (e) {}
+}
+
+function shouldAutoSync() {
+  const last = getLastSyncTime();
+  if (!last) {
+    // First load on browser: establish baseline, don't force auto-sync immediately on refresh
+    setLastSyncTime(Date.now());
+    return false;
+  }
+  return (Date.now() - last) >= META_SYNC_INTERVAL_MS;
+}
 
 function updateSyncProgressUI(percent, statusMsg) {
   const wrapper = document.getElementById("sideSyncProgressWrapper");
@@ -772,8 +806,17 @@ function finishSyncProgressUI(updatedPages, totalPages) {
   }, 3500);
 }
 
-async function syncLiveMetaGraph() {
+async function syncLiveMetaGraph(isManual = false) {
   if (!fullData || isLiveSyncing) return;
+
+  // If not manual, strictly enforce 30 minutes interval (even on hard page refresh)
+  if (!isManual && !shouldAutoSync()) {
+    const elapsedSec = Math.floor((Date.now() - getLastSyncTime()) / 1000);
+    const remainingMin = Math.ceil((META_SYNC_INTERVAL_MS - (Date.now() - getLastSyncTime())) / 60000);
+    console.log(`[Auto-Sync] Skipped: Last synced ${elapsedSec}s ago. Next auto-sync in ~${remainingMin} mins.`);
+    return;
+  }
+
   isLiveSyncing = true;
 
   const btnSideSync = document.getElementById("btnSideLiveSync");
@@ -1022,6 +1065,8 @@ async function syncLiveMetaGraph() {
 
     // 6. Finish progress bar
     finishSyncProgressUI(updatedPages, totalPages);
+    setLastSyncTime(Date.now());
+    finishSyncProgressUI(updatedPages, fullData.pages.length);
     showToast(`✅ 100% Real-Time Live Sync Complete! (${updatedPages} Pages Live)`);
 
   } catch (err) {
@@ -1036,39 +1081,40 @@ async function syncLiveMetaGraph() {
   }
 }
 
-// ----------------- Hook Up Sync Controls & Background Auto-Sync -----------------
+// ----------------- Hook Up Sync Controls & Background Auto-Sync (30-Min) -----------------
 
 function initLiveSyncControls() {
   const btnSideSync = document.getElementById("btnSideLiveSync");
   if (btnSideSync) {
     btnSideSync.onclick = function(e) {
       if (e) e.preventDefault();
-      syncLiveMetaGraph();
+      syncLiveMetaGraph(true);
     };
   }
   const btnMobSync = document.getElementById("btnMobileSync");
   if (btnMobSync) {
     btnMobSync.onclick = function(e) {
       if (e) e.preventDefault();
-      syncLiveMetaGraph();
+      syncLiveMetaGraph(true);
     };
   }
   const btnBottomSync = document.getElementById("bottomNavSync");
   if (btnBottomSync) {
     btnBottomSync.onclick = function(e) {
       if (e) e.preventDefault();
-      syncLiveMetaGraph();
+      syncLiveMetaGraph(true);
     };
   }
 
-  // Auto-sync every 90 seconds in background when tab is active
+  // Auto-sync check every 60 seconds, will only trigger when 30 minutes have passed
   if (!window._liveSyncIntervalSet) {
     window._liveSyncIntervalSet = true;
     setInterval(function() {
-      if (!document.hidden) {
-        syncLiveMetaGraph();
+      if (!document.hidden && shouldAutoSync()) {
+        console.log("[Auto-Sync] 30 minutes elapsed. Running scheduled background sync...");
+        syncLiveMetaGraph(false);
       }
-    }, 90000);
+    }, 60000); // Checks every 1 minute
   }
 }
 
@@ -2705,7 +2751,7 @@ function setupEventListeners() {
   // Desktop Left Sidebar Live Sync ("synk vala bhi side me lele")
   document.getElementById("btnSideLiveSync")?.addEventListener("click", () => {
     showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
-    syncLiveMetaGraph();
+    syncLiveMetaGraph(true);
   });
 
   // Desktop Left Sidebar All Pages Filter
@@ -2729,8 +2775,8 @@ function setupEventListeners() {
   document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
   document.getElementById("btnMobileSync")?.addEventListener("click", async () => {
     showToast(`⚡ Syncing Live Meta Graph API...`);
-    await syncLiveMetaGraph();
-    showToast(`✅ Phone Sync Complete: 42 Pages Verified`);
+    await syncLiveMetaGraph(true);
+    showToast(`✅ Phone Sync Complete: Verified`);
   });
   const allDrawerTile = document.getElementById("btnSelectAllPagesDrawer");
   if (allDrawerTile) {
@@ -2836,7 +2882,7 @@ function setupEventListeners() {
   // Sync Live Button
   document.getElementById("btnLuxeRefresh")?.addEventListener("click", () => {
     showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
-    syncLiveMetaGraph();
+    syncLiveMetaGraph(true);
   });
 
   // Load More Videos
