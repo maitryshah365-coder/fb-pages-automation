@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.8.1">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.8.3">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -159,8 +159,20 @@
         <!-- Sync Button in Left Sidebar ("synk vala bhi side me lele") -->
         <button type="button" id="btnSideLiveSync" class="btn-sidebar-sync" title="Sync Real-Time Meta Graph API">
           <span class="sync-icon">⚡</span>
-          <span class="sync-text">Sync Meta API Live</span>
+          <span class="sync-text" id="sideSyncBtnText">Sync Meta API Live</span>
         </button>
+
+        <!-- Sleek Sync Progress Indicator (% and glowing bar directly near Sync button) -->
+        <div id="sideSyncProgressWrapper" class="sidebar-sync-progress-box" style="display: none;">
+          <div class="sync-progress-header">
+            <span class="sync-progress-title">⚡ REAL-TIME SYNC</span>
+            <span id="sideSyncPercentText" class="sync-progress-percent">0%</span>
+          </div>
+          <div class="sync-progress-track">
+            <div id="sideSyncProgressBar" class="sync-progress-fill" style="width: 0%;"></div>
+          </div>
+          <div id="sideSyncStatusLabel" class="sync-progress-sub">Connecting to Meta API...</div>
+        </div>
       </div>
 
       <!-- BOX 1: DASHBOARD (SARE PAGES KA DATA) -->
@@ -1193,6 +1205,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=8.8.1"></script>
+  <script src="js/gold_app.js?v=8.8.3"></script>
 </body>
 </html>
