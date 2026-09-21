@@ -342,17 +342,14 @@ function getReelsForDays(videos, days) {
     return sorted;
   }
 
-  // Calculate cutoff based on the newest video in the dataset
-  const newestTime = new Date(sorted[0].posted_at || sorted[0].created_time_iso || sorted[0].created_at || Date.now()).getTime();
-  const cutoffTime = newestTime - (days * 24 * 60 * 60 * 1000);
+  // Real-time cutoff based on nowMs
+  const nowMs = Date.now();
+  const cutoffTime = nowMs - (Number(days) * 24 * 60 * 60 * 1000);
 
-  const matched = sorted.filter(v => {
+  return sorted.filter(v => {
     const vt = new Date(v.posted_at || v.created_time_iso || v.created_at || 0).getTime();
     return vt >= cutoffTime;
   });
-
-  if (matched.length > 0) return matched;
-  return sorted;
 }
 
 // ----------------- Dynamic Real-Time Today Uploads Calculator -----------------
@@ -786,7 +783,7 @@ async function syncLiveMetaGraph() {
           return;
         }
         try {
-          const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,picture.type(large),videos.limit(20){id,title,description,created_time,picture,permalink_url,views,likes.summary(true),comments.summary(true)}&access_token=${p.access_token}`;
+          const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,picture.type(large),videos.limit(100){id,title,description,created_time,picture,permalink_url,views,likes.summary(true),comments.summary(true)}&access_token=${p.access_token}`;
           const resp = await fetch(url);
           if (resp.ok) {
             const live = await resp.json();
@@ -879,6 +876,14 @@ async function syncLiveMetaGraph() {
             p.total_likes = (p.videos || []).reduce((sum, v) => sum + (v.likes || 0), 0);
             p.total_comments = (p.videos || []).reduce((sum, v) => sum + (v.comments || 0), 0);
 
+            // Recalculate portfolio global aggregates
+            if (fullData.portfolio) {
+              fullData.portfolio.total_views = (fullData.pages || []).reduce((sum, pg) => sum + (pg.total_views || 0), 0);
+              fullData.portfolio.total_likes = (fullData.pages || []).reduce((sum, pg) => sum + (pg.total_likes || 0), 0);
+              fullData.portfolio.total_comments = (fullData.pages || []).reduce((sum, pg) => sum + (pg.total_comments || 0), 0);
+              fullData.portfolio.total_followers = (fullData.pages || []).reduce((sum, pg) => sum + (pg.followers || 0), 0);
+            }
+
             updatedPages++;
           }
         } catch (e) {
@@ -936,6 +941,9 @@ async function syncLiveMetaGraph() {
     if (typeof renderHealthAuditMainView === "function") renderHealthAuditMainView();
     if (typeof renderTopPerformersView === "function") renderTopPerformersView();
     selectPage(activePageId);
+    if (activePageId === "all" && typeof renderAllPortfolioView === "function") {
+      renderAllPortfolioView();
+    }
 
     // 6. Finish progress bar
     finishSyncProgressUI(updatedPages, totalPages);
@@ -1447,7 +1455,7 @@ function selectPage(pageId) {
   const mobActiveName = document.getElementById("mobileActivePageName");
   if (mobActiveName) {
     if (activePageId === "all") {
-      mobActiveName.innerText = "All 89 Pages Portfolio";
+      mobActiveName.innerText = "All 101 Pages Portfolio";
     } else {
       const pObj = fullData?.pages?.find(p => String(p.id) === activePageId);
       mobActiveName.innerText = pObj ? pObj.name : "Active Page";
