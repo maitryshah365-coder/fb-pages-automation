@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.9.4">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.3.0">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -150,17 +150,6 @@
           </div>
         </div>
         <span class="portfolio-badge" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4);">LOW 50</span>
-      </div>
-
-      <div class="drawer-all-portfolio-tile" id="btnDrawerMonetization" onclick="closePageDrawer(); switchMainView('monetization')" role="button" tabindex="0" style="border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.08); cursor: pointer;">
-        <div class="portfolio-tile-left">
-          <div class="portfolio-avatar" style="background: rgba(34,197,94,0.2); color: #4ade80;">💰</div>
-          <div>
-            <div class="portfolio-name">Monetization & Tool Setup</div>
-            <div class="portfolio-desc">Content Monetization & Stars Tracker</div>
-          </div>
-        </div>
-        <span class="portfolio-badge monetize-tab-pill-badge" style="background: rgba(34,197,94,0.2); color: #4ade80; border: 1px solid rgba(34,197,94,0.4);">SETUP</span>
       </div>
     </div>
 
@@ -331,20 +320,6 @@
             </div>
           </div>
           <span class="side-low-pill" id="sideNavLowBadge" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">LOW 50</span>
-        </button>
-      </div>
-
-      <!-- BOX 9: MONETIZATION & TOOLS (LIVE TOOL SETUP TRACKER) -->
-      <div class="sidebar-nav-box">
-        <button type="button" id="sideNavMonetization" class="sidebar-action-tile side-tile-monetization" onclick="switchMainView('monetization')" title="Monetization & Tool Setup Center (Content Monetization Beta & Stars)">
-          <div class="tile-content-left">
-            <span class="tile-icon">💰</span>
-            <div class="tile-text">
-              <span class="tile-title">Monetization</span>
-              <span class="tile-sub">Tool Setup Tracker</span>
-            </div>
-          </div>
-          <span class="side-monetize-pill" id="sideNavMonetizeBadge" style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid rgba(34,197,94,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">SETUP</span>
         </button>
       </div>
 
@@ -824,22 +799,17 @@
     <!-- ================= TOP PERFORMERS & LOW-VIEW AUDIT VIEW ================= -->
     <div id="topPerformersLeaderboardView" class="dashboard-view-container top-performers-view-container" style="display: none;">
       
-      <!-- Master Mode Switcher Bar (🔥 Top 20 Viral Stars vs ❄️ Low & 0 Views Pages vs 💰 Monetization & Tool Setup) -->
+      <!-- Master Mode Switcher Bar (🔥 Top 20 Viral Stars vs ❄️ Low & 0 Views Pages) -->
       <div class="perf-mode-switcher-bar">
-        <button type="button" class="perf-mode-tab-btn active btn-mode-top20" id="btnModeTop20" onclick="setPerformanceMode('top')">
+        <button type="button" class="perf-mode-tab-btn active" id="btnModeTop20" onclick="setPerformanceMode('top')">
           <span class="perf-tab-icon">🔥</span>
           <span class="perf-tab-title">Top 20 Performers</span>
           <span class="perf-tab-pill gold">Top 20</span>
         </button>
-        <button type="button" class="perf-mode-tab-btn btn-mode-low50" id="btnModeLow50" onclick="setPerformanceMode('low')">
+        <button type="button" class="perf-mode-tab-btn" id="btnModeLow50" onclick="setPerformanceMode('low')">
           <span class="perf-tab-icon">❄️</span>
           <span class="perf-tab-title">Low & 0 Views Pages</span>
           <span class="perf-tab-pill red" id="lowPagesPillBadge">Bottom 50</span>
-        </button>
-        <button type="button" class="perf-mode-tab-btn btn-mode-monetize" id="btnModeMonetize" onclick="setPerformanceMode('monetize')">
-          <span class="perf-tab-icon">💰</span>
-          <span class="perf-tab-title">Monetization & Tool Setup</span>
-          <span class="perf-tab-pill green monetize-tab-pill-badge" id="monetizeTabBadge">SETUP</span>
         </button>
       </div>
 
@@ -945,127 +915,8 @@
 
     </div>
 
-    <!-- ================= MONETIZATION & TOOL SETUP CENTER VIEW ================= -->
-    <div id="monetizationTrackerView" class="dashboard-view-container monetization-view-container" style="display: none;">
-      
-      <!-- Master Mode Switcher Bar (🔥 Top 20 Viral Stars vs ❄️ Low & 0 Views Pages vs 💰 Monetization & Tool Setup) -->
-      <div class="perf-mode-switcher-bar">
-        <button type="button" class="perf-mode-tab-btn btn-mode-top20" id="btnModeTop20_mz" onclick="setPerformanceMode('top')">
-          <span class="perf-tab-icon">🔥</span>
-          <span class="perf-tab-title">Top 20 Performers</span>
-          <span class="perf-tab-pill gold">Top 20</span>
-        </button>
-        <button type="button" class="perf-mode-tab-btn btn-mode-low50" id="btnModeLow50_mz" onclick="setPerformanceMode('low')">
-          <span class="perf-tab-icon">❄️</span>
-          <span class="perf-tab-title">Low & 0 Views Pages</span>
-          <span class="perf-tab-pill red" id="lowPagesPillBadge_mz">Bottom 50</span>
-        </button>
-        <button type="button" class="perf-mode-tab-btn active btn-mode-monetize" id="btnModeMonetize_mz" onclick="setPerformanceMode('monetize')">
-          <span class="perf-tab-icon">💰</span>
-          <span class="perf-tab-title">Monetization & Tool Setup</span>
-          <span class="perf-tab-pill green monetize-tab-pill-badge" id="monetizeTabBadge_mz">SETUP</span>
-        </button>
-      </div>
-      
-      <!-- Hero Header -->
-      <div class="tp-hero-header">
-        <div class="tp-title-row">
-          <div class="tp-heading-group">
-            <span class="tp-heading-icon" id="mzMainHeaderIcon">💰</span>
-            <div>
-              <h2 class="tp-heading-title" id="mzMainHeaderTitle">Monetization & Tool Setup Center</h2>
-              <p class="tp-subtitle" id="mzMainHeaderSubtitle">Direct Facebook Content Monetization (Beta) & Stars Setup Tracker across 101 Pages</p>
-            </div>
-          </div>
-          <span class="tp-heading-badge" id="mzLiveBadge" style="background:linear-gradient(135deg, rgba(34,197,94,0.25), rgba(16,185,129,0.25)); border-color:rgba(34,197,94,0.5); color:#4ade80;">⚡ 100% Real-Time Meta Synced</span>
-        </div>
-
-        <!-- Executive KPI Grid (4 Cards) -->
-        <div class="tp-kpi-grid" id="mzKpiGrid">
-          <div class="tp-kpi-card" id="mzKpiCard1">
-            <div class="tp-kpi-label" id="mzKpiLabel1">🟢 100% Qualified & Set Up</div>
-            <div class="tp-kpi-value green" id="mzKpiVal1">Loading...</div>
-            <div class="tp-kpi-sub" id="mzKpiSub1">100% Verified Set Up Active</div>
-          </div>
-          <div class="tp-kpi-card" id="mzKpiCard2">
-            <div class="tp-kpi-label" id="mzKpiLabel2">🟡 70% - 99% Near Qualified</div>
-            <div class="tp-kpi-value gold" id="mzKpiVal2">0</div>
-            <div class="tp-kpi-sub" id="mzKpiSub2">High Potential Channels</div>
-          </div>
-          <div class="tp-kpi-card" id="mzKpiCard3">
-            <div class="tp-kpi-label" id="mzKpiLabel3">⭐ Stars Ready (500+ Followers)</div>
-            <div class="tp-kpi-value" id="mzKpiVal3">0</div>
-            <div class="tp-kpi-sub" id="mzKpiSub3">100% Direct Tipping Tools Ready</div>
-          </div>
-          <div class="tp-kpi-card" id="mzKpiCard4">
-            <div class="tp-kpi-label" id="mzKpiLabel4">📈 Avg Portfolio Readiness</div>
-            <div class="tp-kpi-value" id="mzKpiVal4">0%</div>
-            <div class="tp-kpi-sub" id="mzKpiSub4">Across all 101 Monitored Channels</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Toolbar: Quick Filters & Search -->
-      <div class="tp-sort-toolbar" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-bottom:16px;">
-        <div class="tp-sort-group" style="display:flex; flex-wrap:wrap; gap:6px;">
-          <button type="button" class="tp-pill-btn active" data-mz-filter="all" onclick="setMonetizationFilter('all')">All Channels (101)</button>
-          <button type="button" class="tp-pill-btn" data-mz-filter="ready" onclick="setMonetizationFilter('ready')">🟢 100% Qualified (<span id="mzFilterReadyCount">0</span>)</button>
-          <button type="button" class="tp-pill-btn" data-mz-filter="near" onclick="setMonetizationFilter('near')">🟡 70% - 99% Near (<span id="mzFilterNearCount">0</span>)</button>
-          <button type="button" class="tp-pill-btn" data-mz-filter="stars" onclick="setMonetizationFilter('stars')">⭐ Stars Ready (<span id="mzFilterStarsCount">0</span>)</button>
-          <button type="button" class="tp-pill-btn" data-mz-filter="low" onclick="setMonetizationFilter('low')">⏳ Under 70% (<span id="mzFilterLowCount">0</span>)</button>
-        </div>
-        <div style="display:flex; gap:10px; align-items:center; flex:1; max-width:360px; min-width:220px;">
-          <input type="text" id="mzSearchInput" placeholder="🔍 Search page name or ID..." oninput="renderMonetizationTrackerView()" style="width:100%; border-radius:8px; padding:7px 12px; font-size:12.5px; background:rgba(15,23,42,0.8); border:1px solid rgba(148,163,184,0.2); color:#f8fafc;">
-        </div>
-      </div>
-
-      <!-- Rankings Table -->
-      <div class="tp-table-section">
-        <div class="tp-section-heading" id="mzTableHeading">📊 Channel Monetization & Direct Setup Hub (101 Pages)</div>
-        <div class="tp-table-container">
-          <div class="tp-table-header mz-mode" id="mzTableHeader">
-            <div>Rank</div>
-            <div>Channel</div>
-            <div>Fleet Manager</div>
-            <div>Monetization Readiness (%)</div>
-            <div>FB Setup & Performance Metrics</div>
-            <div>Stars Tool</div>
-            <div>Direct Action</div>
-          </div>
-          <div class="tp-table-body" id="mzTableBody">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-      </div>
-
-    </div>
-
     <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER (DEFAULT VIEW) ================= -->
     <div id="dashboardAnalyticsView" class="dashboard-view-container">
-
-      <!-- Universal Quick Mode Switcher Tabs: Overview | Top 20 | Low 50 | Monetization & Tool Setup -->
-      <div class="perf-mode-switcher-bar" style="margin-bottom: 16px;">
-        <button type="button" class="perf-mode-tab-btn active btn-mode-overview" id="btnModeOverview_dash" onclick="switchMainView('dashboard')">
-          <span class="perf-tab-icon">📊</span>
-          <span class="perf-tab-title">Dashboard Overview</span>
-          <span class="perf-tab-pill blue">101 Pages</span>
-        </button>
-        <button type="button" class="perf-mode-tab-btn btn-mode-top20" id="btnModeTop20_dash" onclick="setPerformanceMode('top')">
-          <span class="perf-tab-icon">🔥</span>
-          <span class="perf-tab-title">Top 20 Performers</span>
-          <span class="perf-tab-pill gold">Top 20</span>
-        </button>
-        <button type="button" class="perf-mode-tab-btn btn-mode-low50" id="btnModeLow50_dash" onclick="setPerformanceMode('low')">
-          <span class="perf-tab-icon">❄️</span>
-          <span class="perf-tab-title">Low & 0 Views Pages</span>
-          <span class="perf-tab-pill red">Bottom 50</span>
-        </button>
-        <button type="button" class="perf-mode-tab-btn btn-mode-monetize" id="btnModeMonetize_dash" onclick="setPerformanceMode('monetize')">
-          <span class="perf-tab-icon">💰</span>
-          <span class="perf-tab-title">Monetization & Tool Setup</span>
-          <span class="perf-tab-pill green monetize-tab-pill-badge" id="dashMonetizeTabBadge">SETUP</span>
-        </button>
-      </div>
 
       <!-- Real-Time Meta Graph Status Strip -->
       <div class="dash-page-status-strip">
@@ -1168,7 +1019,6 @@
           <div class="hero-heading-row">
             <h2 id="heroPageName" class="hero-title">All Pages Portfolio</h2>
             <span class="verified-icon">✓</span>
-            <a id="heroMonetizationLink" href="#" target="_blank" rel="noopener noreferrer" class="mz-btn-open-setup" style="display:none; margin-left:auto; text-decoration:none;" title="Open Facebook Professional Dashboard Monetization Screen">💰 Monetization Setup ↗</a>
           </div>
           <div id="heroPageSub" class="hero-meta">101 Active Facebook Pages (404 Daily Slots) • 24/7 Automated Upload Engine</div>
         </div>
@@ -1491,6 +1341,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.2.0"></script>
+  <script src="js/gold_app.js?v=9.3.0"></script>
 </body>
 </html>

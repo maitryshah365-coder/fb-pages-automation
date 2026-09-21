@@ -567,6 +567,7 @@ async function initDashboard() {
   try {
     try {
       localStorage.removeItem("raj_real_fb_audit");
+      localStorage.removeItem("fb_marked_monetization_pages");
     } catch(e) {}
     // 1. Sanitize localStorage: purge any automatically dumped server runs that were tagged as post_now
     try {
@@ -943,7 +944,6 @@ async function syncLiveMetaGraph() {
     if (typeof renderUploadHistoryTable === "function") renderUploadHistoryTable();
     if (typeof renderHealthAuditMainView === "function") renderHealthAuditMainView();
     if (typeof renderTopPerformersView === "function") renderTopPerformersView();
-    if (typeof renderMonetizationTrackerView === "function") renderMonetizationTrackerView();
     selectPage(activePageId);
     if (activePageId === "all" && typeof renderAllPortfolioView === "function") {
       renderAllPortfolioView();
@@ -1541,12 +1541,6 @@ function renderSinglePageView(p) {
   if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id} • ${accTag} (${ownerTag})`;
   if (heroAvatar) heroAvatar.src = p.pic_url;
 
-  const mzHeroLink = document.getElementById("heroMonetizationLink");
-  if (mzHeroLink) {
-    mzHeroLink.href = `https://www.facebook.com/${p.id}/professional_dashboard/monetization/`;
-    mzHeroLink.style.display = "inline-flex";
-  }
-
   // Filter 100% real reels for the selected timeframe
   const allReels = p.videos || [];
   const reelsForTf = getReelsForDays(allReels, currentTimeframe);
@@ -1765,11 +1759,6 @@ function getPortfolioAudience() {
 function renderAllPortfolioView() {
   const headerShort = document.getElementById("headerActivePageShortName");
   if (headerShort) headerShort.innerText = "All Portfolio";
-
-  const mzHeroLink = document.getElementById("heroMonetizationLink");
-  if (mzHeroLink) {
-    mzHeroLink.style.display = "none";
-  }
 
   let totalFollowers = 0;
   let totalRealViews = 0;
@@ -2626,7 +2615,6 @@ function setupEventListeners() {
   document.getElementById("sideNavDriveData")?.addEventListener("click", () => switchMainView("drive_data"));
   document.getElementById("sideNavRecentPosts")?.addEventListener("click", () => switchMainView("recent_posts"));
   document.getElementById("sideNavHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
-  document.getElementById("sideNavMonetization")?.addEventListener("click", () => switchMainView("monetization"));
 
   // Desktop Left Sidebar Live Sync ("synk vala bhi side me lele")
   document.getElementById("btnSideLiveSync")?.addEventListener("click", () => {
@@ -2641,10 +2629,6 @@ function setupEventListeners() {
 
   // Mobile Bottom Navigation Panel & Drawer
   document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
-  document.getElementById("btnDrawerMonetization")?.addEventListener("click", () => {
-    closePageDrawer();
-    switchMainView("monetization");
-  });
   document.getElementById("bottomNavDashboard")?.addEventListener("click", () => {
     selectPage("all");
     switchMainView("dashboard");
@@ -3238,7 +3222,6 @@ function switchMainView(viewName) {
   const recentPostsView = document.getElementById("recentPostsFeedView");
   const healthAuditView = document.getElementById("healthAuditMainView");
   const topPerformersView = document.getElementById("topPerformersLeaderboardView");
-  const monetizationView = document.getElementById("monetizationTrackerView");
 
   // Desktop Sidebar items
   const sideDashboard = document.getElementById("sideNavDashboard");
@@ -3248,7 +3231,6 @@ function switchMainView(viewName) {
   const sideHealthAudit = document.getElementById("sideNavHealthAudit");
   const sideTopPerformers = document.getElementById("sideNavTopPerformers");
   const sideLowPerformers = document.getElementById("sideNavLowPerformers");
-  const sideMonetization = document.getElementById("sideNavMonetization");
 
   // Mobile Bottom Panel items
   const bottomDashboard = document.getElementById("bottomNavDashboard");
@@ -3265,7 +3247,6 @@ function switchMainView(viewName) {
   if (recentPostsView) recentPostsView.style.display = "none";
   if (healthAuditView) healthAuditView.style.display = "none";
   if (topPerformersView) topPerformersView.style.display = "none";
-  if (monetizationView) monetizationView.style.display = "none";
 
   // Reset desktop sidebar active classes
   if (sideDashboard) sideDashboard.classList.remove("active");
@@ -3275,7 +3256,6 @@ function switchMainView(viewName) {
   if (sideHealthAudit) sideHealthAudit.classList.remove("active");
   if (sideTopPerformers) sideTopPerformers.classList.remove("active");
   if (sideLowPerformers) sideLowPerformers.classList.remove("active");
-  if (sideMonetization) sideMonetization.classList.remove("active");
   document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
 
   // Reset mobile bottom panel active classes
@@ -3314,27 +3294,25 @@ function switchMainView(viewName) {
     if (topPerformersView) topPerformersView.style.display = "block";
     if (sideLowPerformers) sideLowPerformers.classList.add("active");
     currentPerformanceMode = "low";
-    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("low");
+    const btnTop = document.getElementById("btnModeTop20");
+    const btnLow = document.getElementById("btnModeLow50");
+    if (btnTop) btnTop.classList.remove("active");
+    if (btnLow) btnLow.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
   } else if (viewName === "top_performers") {
     if (topPerformersView) topPerformersView.style.display = "block";
     if (sideTopPerformers) sideTopPerformers.classList.add("active");
     currentPerformanceMode = "top";
-    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("top");
+    const btnTop = document.getElementById("btnModeTop20");
+    const btnLow = document.getElementById("btnModeLow50");
+    if (btnTop) btnTop.classList.add("active");
+    if (btnLow) btnLow.classList.remove("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
-  } else if (viewName === "monetization") {
-    if (monetizationView) monetizationView.style.display = "block";
-    if (sideMonetization) sideMonetization.classList.add("active");
-    currentPerformanceMode = "monetize";
-    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("monetize");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    renderMonetizationTrackerView();
   } else {
     // "dashboard"
     if (dashboardView) dashboardView.style.display = "block";
-    if (typeof updatePerformanceTabButtons === "function") updatePerformanceTabButtons("dashboard");
     if (activePageId === "all") {
       if (sideDashboard) sideDashboard.classList.add("active");
     } else {
@@ -4644,31 +4622,19 @@ let currentTopPerformersSort = "views"; // "views", "likes", "comments", "follow
 let currentLowFilter = "all"; // "all", "zero", "under500", "gap"
 let currentLowSort = "views_asc"; // "views_asc", "oldest_upload", "least_reels"
 
-function updatePerformanceTabButtons(mode) {
-  document.querySelectorAll(".btn-mode-top20").forEach(b => b.classList.toggle("active", mode === "top"));
-  document.querySelectorAll(".btn-mode-low50").forEach(b => b.classList.toggle("active", mode === "low"));
-  document.querySelectorAll(".btn-mode-monetize").forEach(b => b.classList.toggle("active", mode === "monetize"));
-  document.querySelectorAll(".btn-mode-overview").forEach(b => b.classList.toggle("active", mode === "dashboard"));
+function setPerformanceMode(mode) {
+  currentPerformanceMode = mode;
+  const btnTop = document.getElementById("btnModeTop20");
+  const btnLow = document.getElementById("btnModeLow50");
+  if (btnTop) btnTop.classList.toggle("active", mode === "top");
+  if (btnLow) btnLow.classList.toggle("active", mode === "low");
 
   const sideTop = document.getElementById("sideNavTopPerformers");
   const sideLow = document.getElementById("sideNavLowPerformers");
-  const sideMz = document.getElementById("sideNavMonetization");
   if (sideTop) sideTop.classList.toggle("active", mode === "top");
   if (sideLow) sideLow.classList.toggle("active", mode === "low");
-  if (sideMz) sideMz.classList.toggle("active", mode === "monetize");
-}
 
-function setPerformanceMode(mode) {
-  currentPerformanceMode = mode;
-  updatePerformanceTabButtons(mode);
-
-  if (mode === "monetize") {
-    switchMainView("monetization");
-  } else if (mode === "low") {
-    switchMainView("low_performers");
-  } else {
-    switchMainView("top_performers");
-  }
+  renderTopPerformersView();
 }
 
 function setTopPerformersTimeframe(days) {
@@ -5174,296 +5140,6 @@ function renderTopPerformersView() {
       tableContainer.innerHTML = rowsHtml || `<div style="color:#64748b;padding:24px;text-align:center;">No underperforming pages match the selected filter.</div>`;
     }
   }
-}
-
-// =========================================================================
-// MONETIZATION & TOOL SETUP CENTER (CONTENT MONETIZATION BETA & STARS)
-// =========================================================================
-
-let currentMonetizationFilter = "all"; // "all", "ready", "near", "stars", "low"
-let markedMonetizationPages = new Set();
-
-try {
-  const savedMz = JSON.parse(localStorage.getItem("fb_marked_monetization_pages") || "[]");
-  if (Array.isArray(savedMz) && savedMz.length > 0) {
-    savedMz.forEach(id => markedMonetizationPages.add(String(id)));
-  }
-} catch (e) {}
-
-function saveMarkedMonetizationPages() {
-  try {
-    localStorage.setItem("fb_marked_monetization_pages", JSON.stringify(Array.from(markedMonetizationPages)));
-  } catch (e) {}
-}
-
-function togglePageMonetizationSetup(pageId, e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  const pid = String(pageId);
-  const pObj = (fullData?.pages || []).find(p => String(p.id) === pid);
-  const pageName = pObj?.name || `Page ${pid}`;
-
-  if (markedMonetizationPages.has(pid)) {
-    markedMonetizationPages.delete(pid);
-    showToast(`Removed Setup status for ${pageName}`);
-  } else {
-    markedMonetizationPages.add(pid);
-    showToast(`✅ ${pageName} marked as Content Monetization Setup Ready!`);
-  }
-  saveMarkedMonetizationPages();
-  renderMonetizationTrackerView();
-  updateMonetizationBadge();
-}
-
-function setMonetizationFilter(filter) {
-  currentMonetizationFilter = filter;
-  document.querySelectorAll("[data-mz-filter]").forEach(btn => {
-    btn.classList.toggle("active", btn.getAttribute("data-mz-filter") === currentMonetizationFilter);
-  });
-  renderMonetizationTrackerView();
-}
-
-function updateMonetizationBadge() {
-  const readyCount = markedMonetizationPages.size;
-  const text = readyCount > 0 ? `${readyCount} READY` : "SETUP";
-  const sideBadge = document.getElementById("sideNavMonetizeBadge");
-  if (sideBadge) sideBadge.innerText = text;
-  document.querySelectorAll(".monetize-tab-pill-badge").forEach(el => {
-    el.innerText = text;
-  });
-}
-
-function renderMonetizationTrackerView() {
-  if (!fullData || !fullData.pages || !Array.isArray(fullData.pages)) return;
-
-  const pages = fullData.pages;
-  const searchInput = document.getElementById("mzSearchInput");
-  const searchTerm = (searchInput?.value || "").toLowerCase().trim();
-
-  // Process all 101 pages with 100% Real-Time Mathematical Facebook Criteria Breakdown
-  const allPagesStats = pages.map(p => {
-    const pid = String(p.id);
-    const isMarkedReady = markedMonetizationPages.has(pid);
-    const totalViews = Number(p.total_views) || 0;
-    const followers = Number(p.followers) || 0;
-    const reelsCount = Array.isArray(p.videos) ? p.videos.length : 0;
-
-    let fleetTag = "USA 1 • Meghal Chauhan";
-    if (FLEET_USA_02_SET.has(pid)) fleetTag = "USA 2 • Mia Shah";
-    else if (FLEET_UK_01_SET.has(pid)) fleetTag = "UK 1 • Binjal Mehra";
-    else if (FLEET_UK_02_SET.has(pid)) fleetTag = "UK 2 • Chanda Nai";
-    else if (FLEET_UK_03_SET.has(pid)) fleetTag = "UK 3 • Mahi Patel";
-    else if (FLEET_UK_04_SET.has(pid)) fleetTag = "UK 4 • Nidhi Desai";
-    else if (FLEET_UK_05_SET.has(pid)) fleetTag = "UK 5 • Richi Patel";
-    else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
-    else if (p.account) fleetTag = p.account;
-
-    // 1. Follower Criteria: Target = 5,000 (standard Meta In-Stream/Content Monetization)
-    const fTarget = 5000;
-    const fPct = Math.min(100, Math.round((followers / fTarget) * 100));
-    const fMet = followers >= fTarget;
-
-    // 2. Watch Views Criteria: Target = 60,000 Views / Minutes in last 60 days
-    const vTarget = 60000;
-    const vPct = Math.min(100, Math.round((totalViews / vTarget) * 100));
-    const vMet = totalViews >= vTarget;
-
-    // 3. Active Reels Criteria: Target = 5 published videos
-    const rTarget = 5;
-    const rPct = Math.min(100, Math.round((reelsCount / rTarget) * 100));
-    const rMet = reelsCount >= rTarget;
-
-    // Total Criteria Met (out of 3, identical to Facebook's '1 of 3 criteria met')
-    const criteriaMetCount = (fMet ? 1 : 0) + (vMet ? 1 : 0) + (rMet ? 1 : 0);
-
-    // Stars Criteria: Target = 500 followers
-    const starsTarget = 500;
-    const starsPct = Math.min(100, Math.round((followers / starsTarget) * 100));
-    const starsMet = followers >= starsTarget;
-
-    // Overall Readiness % Score
-    let overallPct = Math.round((fPct * 0.4) + (vPct * 0.4) + (rPct * 0.2));
-    if (isMarkedReady || criteriaMetCount === 3) {
-      overallPct = 100;
-    }
-
-    return {
-      page: p,
-      pid,
-      name: p.name,
-      pic_url: p.pic_url || `https://graph.facebook.com/v20.0/${pid}/picture?type=large`,
-      fleetTag,
-      totalViews,
-      followers,
-      reelsCount,
-      isMarkedReady,
-      fPct,
-      fMet,
-      vPct,
-      vMet,
-      rPct,
-      rMet,
-      criteriaMetCount,
-      starsPct,
-      starsMet,
-      overallPct
-    };
-  });
-
-  // Calculate Global Counts for KPI cards
-  const count100 = allPagesStats.filter(p => p.overallPct >= 100 || p.isMarkedReady).length;
-  const countNear = allPagesStats.filter(p => p.overallPct >= 70 && p.overallPct < 100 && !p.isMarkedReady).length;
-  const countStars = allPagesStats.filter(p => p.starsMet).length;
-  const countLow = allPagesStats.filter(p => p.overallPct < 70 && !p.isMarkedReady).length;
-  const avgReadiness = Math.round(allPagesStats.reduce((sum, p) => sum + p.overallPct, 0) / (allPagesStats.length || 1));
-
-  // Update KPIs
-  const elVal1 = document.getElementById("mzKpiVal1");
-  const elSub1 = document.getElementById("mzKpiSub1");
-  const elVal2 = document.getElementById("mzKpiVal2");
-  const elVal3 = document.getElementById("mzKpiVal3");
-  const elVal4 = document.getElementById("mzKpiVal4");
-  const filterReadyCount = document.getElementById("mzFilterReadyCount");
-  const filterNearCount = document.getElementById("mzFilterNearCount");
-  const filterStarsCount = document.getElementById("mzFilterStarsCount");
-  const filterLowCount = document.getElementById("mzFilterLowCount");
-
-  if (elVal1) elVal1.innerText = `${count100} Pages`;
-  if (elSub1) elSub1.innerText = `${count100} confirmed 100% Qualified`;
-  if (elVal2) elVal2.innerText = `${countNear} Pages`;
-  if (elVal3) elVal3.innerText = `${countStars} Pages`;
-  if (elVal4) elVal4.innerText = `${avgReadiness}%`;
-
-  if (filterReadyCount) filterReadyCount.innerText = count100;
-  if (filterNearCount) filterNearCount.innerText = countNear;
-  if (filterStarsCount) filterStarsCount.innerText = countStars;
-  if (filterLowCount) filterLowCount.innerText = countLow;
-
-  updateMonetizationBadge();
-
-  // Sort: 100% / Setup Ready first, then highest Overall % Score descending
-  let list = [...allPagesStats].sort((a, b) => {
-    if (a.isMarkedReady !== b.isMarkedReady) return b.isMarkedReady ? 1 : -1;
-    if (b.overallPct !== a.overallPct) return b.overallPct - a.overallPct;
-    return b.totalViews - a.totalViews;
-  });
-
-  // Apply Quick Filter
-  if (currentMonetizationFilter === "ready") {
-    list = list.filter(p => p.overallPct >= 100 || p.isMarkedReady);
-  } else if (currentMonetizationFilter === "near") {
-    list = list.filter(p => p.overallPct >= 70 && p.overallPct < 100 && !p.isMarkedReady);
-  } else if (currentMonetizationFilter === "stars") {
-    list = list.filter(p => p.starsMet);
-  } else if (currentMonetizationFilter === "low") {
-    list = list.filter(p => p.overallPct < 70 && !p.isMarkedReady);
-  }
-
-  // Apply Search
-  if (searchTerm) {
-    list = list.filter(p => 
-      p.name.toLowerCase().includes(searchTerm) || 
-      p.pid.includes(searchTerm) || 
-      p.fleetTag.toLowerCase().includes(searchTerm)
-    );
-  }
-
-  const tableHeading = document.getElementById("mzTableHeading");
-  if (tableHeading) {
-    tableHeading.innerText = `📊 Channel Monetization & Direct Setup Hub (${list.length} Channels)`;
-  }
-
-  const tableContainer = document.getElementById("mzTableBody");
-  if (!tableContainer) return;
-
-  const rowsHtml = list.map((item, idx) => {
-    const rank = idx + 1;
-    const fbMonetizationUrl = `https://www.facebook.com/${item.pid}/professional_dashboard/monetization/`;
-
-    // Progress bar color & style
-    let scoreClass = "gray";
-    let fillClass = "gray";
-    if (item.overallPct >= 100 || item.isMarkedReady) {
-      scoreClass = "green";
-      fillClass = "green";
-    } else if (item.overallPct >= 70) {
-      scoreClass = "amber";
-      fillClass = "amber";
-    } else if (item.overallPct >= 50) {
-      scoreClass = "blue";
-      fillClass = "blue";
-    }
-
-    const criteriaClass = `met-${item.criteriaMetCount}`;
-    let criteriaLabel = item.criteriaMetCount === 3 ? "Eligible for Setup" : (item.criteriaMetCount > 0 ? "Benchmarks in Progress" : "Not Yet Eligible");
-    if (item.isMarkedReady) {
-      criteriaLabel = `🟢 SET UP ACTIVE`;
-    }
-
-    const starsPill = item.starsMet
-      ? `<span class="badge-stars-ready">⭐ 100% Ready</span>`
-      : `<span class="badge-stars-progress">⭐ ${item.followers.toLocaleString()} / 500 (${item.starsPct}%)</span>`;
-
-    const breakdownHtml = `<div class="mz-breakdown-chips">
-        <div class="mz-chip">
-          <div class="mz-chip-left"><span>👥</span> <span>Followers:</span> <span class="mz-chip-val">${item.followers.toLocaleString()} / 5k</span></div>
-          <span class="mz-chip-pct ${item.fMet ? 'pass' : 'progress'}">${item.fPct}%</span>
-        </div>
-        <div class="mz-chip">
-          <div class="mz-chip-left"><span>⏱️</span> <span>Views:</span> <span class="mz-chip-val">${item.totalViews.toLocaleString()} / 60k</span></div>
-          <span class="mz-chip-pct ${item.vMet ? 'pass' : 'progress'}">${item.vPct}%</span>
-        </div>
-        <div class="mz-chip">
-          <div class="mz-chip-left"><span>🎬</span> <span>Active Reels:</span> <span class="mz-chip-val">${item.reelsCount} / 5</span></div>
-          <span class="mz-chip-pct ${item.rMet ? 'pass' : 'progress'}">${item.rPct}%</span>
-        </div>
-      </div>`;
-
-    return `
-      <div class="tp-table-row mz-mode" onclick="selectPage('${item.pid}')" title="Click to view analytics for ${item.name}">
-        <div class="tp-row-rank">#${rank}</div>
-        <div class="tp-row-page">
-          <img src="${item.pic_url}" class="tp-row-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
-          <div style="min-width:0;flex:1;">
-            <div class="tp-row-page-name" title="${item.name}">${item.name}</div>
-            <div style="font-size:10.5px;color:#64748b;font-family:monospace;">ID: ${item.pid}</div>
-          </div>
-        </div>
-        <div style="font-size:11.5px;color:#cbd5e1;font-weight:600;">
-          🏷️ ${item.fleetTag}
-        </div>
-        
-        <!-- Column 4: Monetization Readiness (%) Progress Bar -->
-        <div class="mz-progress-cell">
-          <div class="mz-pct-header-row">
-            <span class="mz-score-number ${scoreClass}">${item.overallPct}%</span>
-            <span class="mz-criteria-tag ${criteriaClass}">${criteriaLabel}</span>
-          </div>
-          <div class="mz-progress-bar-wrap">
-            <div class="mz-progress-bar-fill ${fillClass}" style="width: ${item.overallPct}%;"></div>
-          </div>
-        </div>
-
-        <!-- Column 5: 3-Point Criteria Breakdown -->
-        ${breakdownHtml}
-
-        <!-- Column 6: Stars Tool -->
-        <div>
-          ${starsPill}
-        </div>
-
-        <!-- Column 7: Direct Action -->
-        <div style="display:flex;gap:6px;align-items:center;" onclick="event.stopPropagation();">
-          <a href="${fbMonetizationUrl}" target="_blank" rel="noopener noreferrer" class="mz-btn-open-setup" title="Open Professional Dashboard Monetization Screen on Facebook">
-            🎬 Open FB ↗
-          </a>
-          <button type="button" class="mz-btn-toggle-mark ${item.isMarkedReady ? 'marked' : ''}" onclick="togglePageMonetizationSetup('${item.pid}', event)" title="Toggle Setup Ready status">
-            ${item.isMarkedReady ? '✅ Active' : '+ Mark'}
-          </button>
-        </div>
-      </div>`;
-  }).join("");
-
-  tableContainer.innerHTML = rowsHtml || `<div style="color:#64748b;padding:24px;text-align:center;">No channels match the filter.</div>`;
 }
 
 // =========================================================================
@@ -6842,14 +6518,13 @@ window.updateAuditTabCounts = updateAuditTabCounts;
 window.toggleFleetPagesInspect = toggleFleetPagesInspect;
 window.toggleActionCardPages = toggleActionCardPages;
 window.setPerformanceMode = setPerformanceMode;
-window.updatePerformanceTabButtons = updatePerformanceTabButtons;
 window.setTopPerformersTimeframe = setTopPerformersTimeframe;
 window.setTopPerformersSort = setTopPerformersSort;
 window.setLowPerformersFilter = setLowPerformersFilter;
 window.setLowPerformersSort = setLowPerformersSort;
 window.launchStudioForPage = launchStudioForPage;
 window.renderTopPerformersView = renderTopPerformersView;
-window.renderMonetizationTrackerView = renderMonetizationTrackerView;
-window.setMonetizationFilter = setMonetizationFilter;
-window.togglePageMonetizationSetup = togglePageMonetizationSetup;
+
+
+
 
