@@ -5498,11 +5498,11 @@ function renderMonetizationTrackerView() {
     }
 
     const criteriaClass = item.isRealVerified ? "met-3" : `met-${item.criteriaMetCount}`;
-    let criteriaLabel = `${item.criteriaMetCount} of 3 Criteria Met`;
+    let criteriaLabel = item.criteriaMetCount === 3 ? "Eligible for Setup" : (item.criteriaMetCount > 0 ? "Benchmarks in Progress" : "Not Yet Eligible");
     if (item.isRealVerified) {
-      criteriaLabel = `🟢 100% REAL FB VERIFIED: SET UP ACTIVE`;
+      criteriaLabel = `🟢 REAL FB VERIFIED: SET UP ACTIVE`;
     } else if (item.isMarkedReady) {
-      criteriaLabel = `🟢 SET UP ACTIVE (MARKED)`;
+      criteriaLabel = `🟢 SET UP ACTIVE`;
     }
 
     const starsPill = item.starsMet
