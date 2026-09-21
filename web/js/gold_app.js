@@ -1289,6 +1289,7 @@ function renderDrawerPages(pages) {
   const uk3List = [];
   const uk4List = [];
   const uk5List = [];
+  const uk6List = [];
 
   filtered.forEach(p => {
     const pid = String(p.id);
@@ -1299,8 +1300,10 @@ function renderDrawerPages(pages) {
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
     else if (FLEET_UK_04_SET.has(pid)) uk4List.push(p);
     else if (FLEET_UK_05_SET.has(pid)) uk5List.push(p);
+    else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
     else {
-      if (p.account === "UK Account 5" || p.index > 78) uk5List.push(p);
+      if (p.account === "UK Account 6" || p.index > 89) uk6List.push(p);
+      else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
       else if (p.account === "UK Account 4" || (p.index > 66 && p.index <= 78)) uk4List.push(p);
       else if (p.account === "UK Account 3" || (p.index > 54 && p.index <= 66)) uk3List.push(p);
       else if (p.account === "UK Account 2" || (p.index > 42 && p.index <= 54)) uk2List.push(p);
@@ -3347,6 +3350,7 @@ function renderStudioFleetList() {
   const uk3List = [];
   const uk4List = [];
   const uk5List = [];
+  const uk6List = [];
 
   fullData.pages.forEach(page => {
     const pId = String(page.id);
@@ -3367,8 +3371,10 @@ function renderStudioFleetList() {
     else if (FLEET_UK_03_SET.has(pId)) uk3List.push(page);
     else if (FLEET_UK_04_SET.has(pId)) uk4List.push(page);
     else if (FLEET_UK_05_SET.has(pId)) uk5List.push(page);
+    else if (FLEET_UK_06_SET.has(pId)) uk6List.push(page);
     else {
-      if (page.account === "UK Account 5" || page.index > 78) uk5List.push(page);
+      if (page.account === "UK Account 6" || page.index > 89) uk6List.push(page);
+      else if (page.account === "UK Account 5" || (page.index > 78 && page.index <= 89)) uk5List.push(page);
       else if (page.account === "UK Account 4" || (page.index > 66 && page.index <= 78)) uk4List.push(page);
       else if (page.account === "UK Account 3" || (page.index > 54 && page.index <= 66)) uk3List.push(page);
       else if (page.account === "UK Account 2" || (page.index > 42 && page.index <= 54)) uk2List.push(page);
@@ -3472,7 +3478,7 @@ function renderStudioFleetList() {
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
 
   const countBadge = document.getElementById("studioFleetCountBadge");
-  const totalCount = usa1List.length + usa2List.length + uk1List.length + uk2List.length + uk3List.length + uk4List.length + uk5List.length;
+  const totalCount = usa1List.length + usa2List.length + uk1List.length + uk2List.length + uk3List.length + uk4List.length + uk5List.length + uk6List.length;
   if (countBadge) {
     countBadge.innerText = `${totalCount} Ready`;
   }
