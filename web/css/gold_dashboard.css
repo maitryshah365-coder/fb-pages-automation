@@ -3441,12 +3441,13 @@ body {
 
 /* Scrollable Pages List */
 .sidebar-pages-scroll-list {
-  max-height: calc(100vh - 270px) !important;
-  min-height: 380px;
+  max-height: calc(100vh - 220px);
+  min-height: 200px;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   overscroll-behavior: contain !important;
   overscroll-behavior-y: contain !important;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -3498,19 +3499,22 @@ body {
 }
 
 .sidebar-section-box {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.65);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 7px;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   width: 100%;
   box-sizing: border-box;
+  flex-shrink: 0 !important;
+  min-height: 38px !important;
 }
 
 .sidebar-section-box:last-child {
   margin-bottom: 2px;
 }
 
-.sidebar-section-box,
 .studio-fleet-box,
 .drawer-account-section {
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -3524,16 +3528,24 @@ body {
 .sidebar-section-box.expanded {
   border-color: rgba(56, 189, 248, 0.35) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+  flex-shrink: 0 !important;
+  min-height: 38px !important;
 }
 
 .sidebar-section-box .sidebar-box-body {
   display: none;
   padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: visible !important;
 }
 
 .sidebar-section-box.expanded .sidebar-box-body {
   display: block;
   padding: 4px 4px 6px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: visible !important;
 }
 
 .sidebar-section-box:hover,
@@ -3567,9 +3579,10 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   transition: all 0.2s ease;
   height: 38px;
-  min-height: 38px;
+  min-height: 38px !important;
   box-sizing: border-box;
   width: 100%;
+  flex-shrink: 0 !important;
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(56, 189, 248, 0.25);
 }

@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.5.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.5.1">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -233,10 +233,6 @@
             <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search across all 113 pages..." onclick="event.stopPropagation()">
           </div>
 
-          <div class="sidebar-pages-actions-row" style="display:flex; justify-content:space-between; align-items:center; padding: 4px 6px; margin-bottom: 6px; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
-            <span style="font-size: 11px; color: #94a3b8; font-weight: 700;">9 Fleets • 113 Pages</span>
-            <button type="button" id="btnToggleAllFleetBoxes" onclick="toggleAllFleetBoxes(event)" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 5px; cursor: pointer; transition: all 0.15s ease;">Expand All ▾</button>
-          </div>
           <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
             <!-- Dynamically populated with 5 vertical boxes (USA 01, USA 02, UK 01, UK 02, UK 03) -->
           </div>
@@ -1352,6 +1348,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.5.0"></script>
+  <script src="js/gold_app.js?v=9.5.1"></script>
 </body>
 </html>

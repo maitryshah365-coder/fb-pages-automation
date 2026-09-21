@@ -1198,38 +1198,39 @@ function renderSidebarPagesList(pages) {
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
 }
 
-// Toggle expand/collapse for fleet sub-boxes inside All Pages List
+// Toggle expand/collapse for fleet sub-boxes inside All Pages List (Touch to open, 1 open at a time)
 window.toggleFleetBox = function(fleetId, e) {
   if (e && e.stopPropagation) e.stopPropagation();
   const box = document.getElementById("fleetBox_" + fleetId);
   if (!box) return;
-  const isNowOpen = box.classList.toggle("expanded");
-  const chevron = box.querySelector(".sidebar-box-chevron");
-  if (chevron) chevron.innerText = isNowOpen ? "▲" : "▼";
-  const body = box.querySelector(".sidebar-box-body");
-  if (body) body.style.display = isNowOpen ? "block" : "none";
-};
 
-// Expand All or Collapse All fleet boxes inside All Pages List
-window.toggleAllFleetBoxes = function(e) {
-  if (e && e.stopPropagation) e.stopPropagation();
-  const allBoxes = document.querySelectorAll("#sidebarPagesScrollList .sidebar-section-box");
-  const anyClosed = Array.from(allBoxes).some(b => !b.classList.contains("expanded"));
-  allBoxes.forEach(b => {
-    const chevron = b.querySelector(".sidebar-box-chevron");
-    const body = b.querySelector(".sidebar-box-body");
-    if (anyClosed) {
-      b.classList.add("expanded");
-      if (chevron) chevron.innerText = "▲";
-      if (body) body.style.display = "block";
-    } else {
+  const isAlreadyOpen = box.classList.contains("expanded");
+
+  // Close any other open box so the list remains clean and never squashed
+  document.querySelectorAll("#sidebarPagesScrollList .sidebar-section-box.expanded").forEach(b => {
+    if (b !== box) {
       b.classList.remove("expanded");
+      const chevron = b.querySelector(".sidebar-box-chevron");
       if (chevron) chevron.innerText = "▼";
+      const body = b.querySelector(".sidebar-box-body");
       if (body) body.style.display = "none";
     }
   });
-  const btn = document.getElementById("btnToggleAllFleetBoxes");
-  if (btn) btn.innerText = anyClosed ? "Collapse All ▴" : "Expand All ▾";
+
+  // Toggle the clicked box
+  if (isAlreadyOpen) {
+    box.classList.remove("expanded");
+    const chevron = box.querySelector(".sidebar-box-chevron");
+    if (chevron) chevron.innerText = "▼";
+    const body = box.querySelector(".sidebar-box-body");
+    if (body) body.style.display = "none";
+  } else {
+    box.classList.add("expanded");
+    const chevron = box.querySelector(".sidebar-box-chevron");
+    if (chevron) chevron.innerText = "▲";
+    const body = box.querySelector(".sidebar-box-body");
+    if (body) body.style.display = "block";
+  }
 };
 
 let isTogglingShutter = false;
