@@ -3521,33 +3521,19 @@ body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.sidebar-section-box:not(.expanded) {
-  height: 38px !important;
-  min-height: 38px !important;
-  max-height: 38px !important;
-  overflow: hidden !important;
-}
-
-.sidebar-section-box:not(.expanded) .sidebar-box-sub-strip,
-.sidebar-section-box:not(.expanded) .sidebar-box-body {
-  display: none !important;
-  max-height: 0 !important;
-  height: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
 .sidebar-section-box.expanded {
-  height: auto !important;
-  max-height: none !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
 }
 
-.sidebar-section-box.expanded .sidebar-box-sub-strip {
-  display: flex !important;
+.sidebar-section-box .sidebar-box-body {
+  display: none;
+  padding: 0;
+}
+
+.sidebar-section-box.expanded .sidebar-box-body {
+  display: block;
+  padding: 4px 4px 6px;
 }
 
 .sidebar-section-box:hover,
@@ -3584,6 +3570,12 @@ body {
   min-height: 38px;
   box-sizing: border-box;
   width: 100%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(56, 189, 248, 0.25);
+}
+
+.sidebar-box-header * {
+  pointer-events: none;
 }
 
 .sidebar-box-header:hover {
@@ -3700,36 +3692,10 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* Pages body: collapsed by default, expand with smooth transition */
-.sidebar-box-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.25s ease;
-  padding: 0 2px;
-}
-
-.sidebar-section-box.expanded .sidebar-box-body {
-  max-height: none !important;
-  overflow: visible !important;
-  padding: 4px 2px;
-}
-
-.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar {
-  width: 5px;
-}
-
-.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 4px;
-}
-
-.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar-thumb {
-  background: rgba(56, 189, 248, 0.35);
-  border-radius: 4px;
-}
-
-.sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar-thumb:hover {
-  background: rgba(56, 189, 248, 0.6);
+/* Pages body */
+.sidebar-section-box .sidebar-box-body {
+  box-sizing: border-box;
+  width: 100%;
 }
 
 

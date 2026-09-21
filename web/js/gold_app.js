@@ -1001,37 +1001,6 @@ async function syncLiveMetaGraph() {
 
 // ----------------- Hook Up Sync Controls & Background Auto-Sync -----------------
 
-// Strict Sidebar Wheel Isolation: guarantees mouse wheel over left sidebar NEVER scrolls the main dashboard
-function initSidebarScrollIsolation() {
-  const leftSidebar = document.getElementById("studioLeftSidebar");
-  const scrollList = document.getElementById("sidebarPagesScrollList");
-  if (!leftSidebar) return;
-
-  leftSidebar.addEventListener("wheel", function(e) {
-    if (scrollList && scrollList.contains(e.target) && scrollList.scrollHeight > scrollList.clientHeight) {
-      const atTop = scrollList.scrollTop <= 0 && e.deltaY < 0;
-      const atBottom = (scrollList.scrollTop + scrollList.clientHeight >= scrollList.scrollHeight - 1) && e.deltaY > 0;
-      if (atTop || atBottom) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      return;
-    }
-
-    if (leftSidebar.scrollHeight > leftSidebar.clientHeight) {
-      const atTop = leftSidebar.scrollTop <= 0 && e.deltaY < 0;
-      const atBottom = (leftSidebar.scrollTop + leftSidebar.clientHeight >= leftSidebar.scrollHeight - 1) && e.deltaY > 0;
-      if (atTop || atBottom) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    } else {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }, { passive: false });
-}
-
 function initLiveSyncControls() {
   const btnSideSync = document.getElementById("btnSideLiveSync");
   if (btnSideSync) {
@@ -1064,7 +1033,6 @@ function initLiveSyncControls() {
       }
     }, 90000);
   }
-    initSidebarScrollIsolation();
 }
 
 if (document.readyState === "loading") {
@@ -1185,7 +1153,7 @@ function renderSidebarPagesList(pages) {
             <span class="sidebar-box-chevron">▼</span>
           </div>
         </div>
-        <div class="sidebar-box-body">
+        <div class="sidebar-box-body" style="display: none;">
           <div class="sidebar-box-sub-strip">
             <span>${items.length} Pages</span>
             <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
@@ -1228,8 +1196,6 @@ function renderSidebarPagesList(pages) {
 
   const countBadge = document.getElementById("sidePagesCountBadge");
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
-
-  // Box bodies expand to full natural height, no nested scroll trap needed
 }
 
 // Toggle expand/collapse for fleet sub-boxes inside All Pages List
@@ -1237,7 +1203,11 @@ window.toggleFleetBox = function(fleetId, e) {
   if (e && e.stopPropagation) e.stopPropagation();
   const box = document.getElementById("fleetBox_" + fleetId);
   if (!box) return;
-  box.classList.toggle("expanded");
+  const isNowOpen = box.classList.toggle("expanded");
+  const chevron = box.querySelector(".sidebar-box-chevron");
+  if (chevron) chevron.innerText = isNowOpen ? "▲" : "▼";
+  const body = box.querySelector(".sidebar-box-body");
+  if (body) body.style.display = isNowOpen ? "block" : "none";
 };
 
 // Expand All or Collapse All fleet boxes inside All Pages List
@@ -1246,8 +1216,17 @@ window.toggleAllFleetBoxes = function(e) {
   const allBoxes = document.querySelectorAll("#sidebarPagesScrollList .sidebar-section-box");
   const anyClosed = Array.from(allBoxes).some(b => !b.classList.contains("expanded"));
   allBoxes.forEach(b => {
-    if (anyClosed) b.classList.add("expanded");
-    else b.classList.remove("expanded");
+    const chevron = b.querySelector(".sidebar-box-chevron");
+    const body = b.querySelector(".sidebar-box-body");
+    if (anyClosed) {
+      b.classList.add("expanded");
+      if (chevron) chevron.innerText = "▲";
+      if (body) body.style.display = "block";
+    } else {
+      b.classList.remove("expanded");
+      if (chevron) chevron.innerText = "▼";
+      if (body) body.style.display = "none";
+    }
   });
   const btn = document.getElementById("btnToggleAllFleetBoxes");
   if (btn) btn.innerText = anyClosed ? "Collapse All ▴" : "Expand All ▾";
