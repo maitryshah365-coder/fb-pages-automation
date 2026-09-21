@@ -1,15 +1,15 @@
 {
-  "run_id": "35627695152",
-  "run_number": "60",
-  "completed_at": "2026-09-21T16:52:49.391859+00:00",
+  "run_id": "35630602235",
+  "run_number": "62",
+  "completed_at": "2026-09-21T17:15:27.802874+00:00",
   "runner_telemetry": {
-    "ip": "188.240.71.252",
-    "hostname": "252.71.240.188.baremetal.zare.com",
+    "ip": "138.199.29.178",
+    "hostname": "unn-138-199-29-178.datapacket.com",
     "city": "London",
     "region": "England",
     "country": "GB",
     "loc": "51.5085,-0.1257",
-    "org": "AS25369 Hydra Communications Ltd",
+    "org": "AS212238 Datacamp Limited",
     "postal": "WC2N",
     "timezone": "Europe/London",
     "readme": "https://ipinfo.io/missingauth"
@@ -17,142 +17,106 @@
   "dry_run": false,
   "results": [
     {
-      "status": "success",
-      "page": "uk4_page_1",
-      "drive_file_id": "14I5pvmuNoxFNi4R7wMnS-ziJ8mzKa3B0",
-      "facebook_video_id": "2006895400028041",
-      "filename": "Can You Believe This Is AI With Incredible Detail #Cinematic #AIVideo #Storytelling #MovieScene #VisualEffects #AIFilm #Trending #ViralVideo #Reels #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "1076375522219372",
-      "page_config_name": "uk4_page_1",
-      "display_name": "Titan Archive"
+      "status": "failed",
+      "page": "uk6_page_1",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "1183175548215394",
+      "page_config_name": "uk6_page_1",
+      "display_name": "Broken Orchard"
     },
     {
-      "status": "success",
-      "page": "uk4_page_2",
-      "drive_file_id": "12psPhaq_PiAAk-YzxYXFCzszECw-xdl2",
-      "facebook_video_id": "1719627946165767",
-      "filename": "An Incredible Wooden Creation In Minutes #WoodArt #NatureArt #RusticDecor #WallArt #DIYArt #Handmade #CreativeArt #Woodworking #Satisfying #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "997596213442388",
-      "page_config_name": "uk4_page_2",
-      "display_name": "Sovereign Signal"
+      "status": "failed",
+      "page": "uk6_page_2",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "1218007361389446",
+      "page_config_name": "uk6_page_2",
+      "display_name": "Hollow Echo"
     },
     {
-      "status": "success",
-      "page": "uk4_page_3",
-      "drive_file_id": "11_7w09xbjRCpIZHxfk8dt4xAJmAgQxOS",
-      "facebook_video_id": "4513756512102668",
-      "filename": "A Star Was Born Today Today #BabySports #FutureChampion #Football #Soccer #Sports #CuteBaby #Athlete #SportsLife #ViralVideo #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "1025542247301378",
-      "page_config_name": "uk4_page_3",
-      "display_name": "Sunny Dusk Stories"
+      "status": "failed",
+      "page": "uk6_page_3",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "1168998922967230",
+      "page_config_name": "uk6_page_3",
+      "display_name": "Grabeal"
     },
     {
-      "status": "success",
-      "page": "uk4_page_4",
-      "drive_file_id": "1gXCsmVPM9agOH__6yRzrEDruWvVZNOh-",
-      "facebook_video_id": "1613063010514100",
-      "filename": "I wanted to cut the papaya. #asmr #food .mp4",
-      "post_type": "reel",
-      "page_id": "981214481738903",
-      "page_config_name": "uk4_page_4",
-      "display_name": "Silver Oak Social"
+      "status": "failed",
+      "page": "uk6_page_4",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "1260883380432217",
+      "page_config_name": "uk6_page_4",
+      "display_name": "Gentle Ruin"
     },
     {
-      "status": "success",
-      "page": "uk4_page_5",
-      "drive_file_id": "17jDQ0MVcRpKd3P21OJtWQxTmt8xrP_OT",
-      "facebook_video_id": "1639232320932956",
-      "filename": "#快成长计划 #影画演绎未来之星 _109.mp4",
-      "post_type": "reel",
-      "page_id": "929190903615356",
-      "page_config_name": "uk4_page_5",
-      "display_name": "Mitchell  Gabriel"
+      "status": "failed",
+      "page": "uk6_page_5",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "1230784326779924",
+      "page_config_name": "uk6_page_5",
+      "display_name": "Heavy Whistle"
     },
     {
-      "status": "success",
-      "page": "uk4_page_6",
-      "drive_file_id": "1IKU1Bd6_dDY82YQDlzMLeIJ7NAsAgZjB",
-      "facebook_video_id": "4467865226860518",
-      "filename": "“每天忙忙碌碌，承载了太多角色，只是不喊疼而已，生活很累，工作很忙，纵使万般无奈，仍要坚持。” #清真菜·周厨 #厨师之路.mp4",
-      "post_type": "reel",
-      "page_id": "803824339488556",
-      "page_config_name": "uk4_page_6",
-      "display_name": "Smith  Arthur"
+      "status": "failed",
+      "page": "uk6_page_6",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "956709574200068",
+      "page_config_name": "uk6_page_6",
+      "display_name": "Echo Ridge"
     },
     {
-      "status": "success",
-      "page": "uk4_page_7",
-      "drive_file_id": "1XaeD0yyR_aeMlOBTcME77YI0__BmC9GL",
-      "facebook_video_id": "1458313869444166",
-      "filename": "把库洛米戴在手上真的太酷了吧 #儿童礼物  #潮玩  #孩子的世界很简单 .mp4",
-      "post_type": "classic_video",
-      "page_id": "857530914106167",
-      "page_config_name": "uk4_page_7",
-      "display_name": "Robinson  Jerry"
+      "status": "failed",
+      "page": "uk6_page_7",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "682815954920518",
+      "page_config_name": "uk6_page_7",
+      "display_name": "Prestige Syndicate"
     },
     {
-      "status": "success",
-      "page": "uk4_page_8",
-      "drive_file_id": "1JIjvnQJ1fotwkBr8fuPxux8jDlmQHOMT",
-      "facebook_video_id": "4688036541517857",
-      "filename": "迷你厨房最小快递零食（） #迷你厨房 #迷你食玩 #微缩食玩 #shorts _37.mp4",
-      "post_type": "reel",
-      "page_id": "762765990263739",
-      "page_config_name": "uk4_page_8",
-      "display_name": "Robinson  Stephen"
+      "status": "failed",
+      "page": "uk6_page_8",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "758260714032115",
+      "page_config_name": "uk6_page_8",
+      "display_name": "Power Doctrine"
     },
     {
-      "status": "success",
-      "page": "uk4_page_9",
-      "drive_file_id": "1Cp5-HF76IPLMt6bPHzZ7hwcF0tYalVUq",
-      "facebook_video_id": "1573808020608468",
-      "filename": "Satisfying Miniemouse and Pororo Eat Crab and Fish Set Toys ｜ ASMR Unboxing with Bonnie .mp4",
-      "post_type": "reel",
-      "page_id": "871774779344742",
-      "page_config_name": "uk4_page_9",
-      "display_name": "Powell  Gabriel"
+      "status": "failed",
+      "page": "uk6_page_9",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "714841275048147",
+      "page_config_name": "uk6_page_9",
+      "display_name": "Apex Chronicle"
     },
     {
-      "status": "success",
-      "page": "uk4_page_10",
-      "drive_file_id": "1Qf-ZIuP9k6jpXcapkpzrnAd9z4fP1AEH",
-      "facebook_video_id": "1616758156567072",
-      "filename": "#FastGrowthPlan #FilmPortraitFutureStars #NostalgicSnacks #LikeIncentivePlan #Shorts (262).mp4",
-      "post_type": "reel",
-      "page_id": "746108741929454",
-      "page_config_name": "uk4_page_10",
-      "display_name": "Rodriguez  Scott"
+      "status": "failed",
+      "page": "uk6_page_10",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "314172255114813",
+      "page_config_name": "uk6_page_10",
+      "display_name": "anymotion"
     },
     {
-      "status": "success",
-      "page": "uk4_page_11",
-      "drive_file_id": "1r7LXYqsBJrOGOdWSTpv_OkC3-s3JsuNx",
-      "facebook_video_id": "1629041195532221",
-      "filename": "汉中米皮 _27.mp4",
-      "post_type": "reel",
-      "page_id": "818808074651170",
-      "page_config_name": "uk4_page_11",
-      "display_name": "Roberts  Richard"
+      "status": "failed",
+      "page": "uk6_page_11",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "234852513054858",
+      "page_config_name": "uk6_page_11",
+      "display_name": "Mai Cartoon Hoon"
     },
     {
-      "status": "success",
-      "page": "uk4_page_12",
-      "drive_file_id": "13OZc2Ov7osygNt9qiIFpiYHIrkk6BSsi",
-      "facebook_video_id": "1588713973052032",
-      "filename": "I destroyed Shelly Halloween ｜ Dandy’s World#plasticinerelax #clay #destroyed #crushing .mp4",
-      "post_type": "reel",
-      "page_id": "417387901468629",
-      "page_config_name": "uk4_page_12",
-      "display_name": "Serendipity Spark"
+      "status": "failed",
+      "page": "uk6_page_12",
+      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
+      "page_id": "172005056007015",
+      "page_config_name": "uk6_page_12",
+      "display_name": "Cold Ash"
     }
   ],
   "stats": {
     "total": 12,
-    "success": 12,
+    "success": 0,
     "skipped": 0,
-    "failed": 0
+    "failed": 12
   }
 }
