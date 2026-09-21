@@ -934,6 +934,7 @@ async function syncLiveMetaGraph() {
     if (typeof renderRecentPostsView === "function") renderRecentPostsView();
     if (typeof renderUploadHistoryTable === "function") renderUploadHistoryTable();
     if (typeof renderHealthAuditMainView === "function") renderHealthAuditMainView();
+    if (typeof renderTopPerformersView === "function") renderTopPerformersView();
     selectPage(activePageId);
 
     // 6. Finish progress bar
@@ -3148,6 +3149,7 @@ function switchMainView(viewName) {
   const driveDataView = document.getElementById("driveDataInventoryView");
   const recentPostsView = document.getElementById("recentPostsFeedView");
   const healthAuditView = document.getElementById("healthAuditMainView");
+  const topPerformersView = document.getElementById("topPerformersLeaderboardView");
 
   // Desktop Sidebar items
   const sideDashboard = document.getElementById("sideNavDashboard");
@@ -3155,6 +3157,7 @@ function switchMainView(viewName) {
   const sideDriveData = document.getElementById("sideNavDriveData");
   const sideRecentPosts = document.getElementById("sideNavRecentPosts");
   const sideHealthAudit = document.getElementById("sideNavHealthAudit");
+  const sideTopPerformers = document.getElementById("sideNavTopPerformers");
 
   // Mobile Bottom Panel items
   const bottomDashboard = document.getElementById("bottomNavDashboard");
@@ -3170,6 +3173,7 @@ function switchMainView(viewName) {
   if (driveDataView) driveDataView.style.display = "none";
   if (recentPostsView) recentPostsView.style.display = "none";
   if (healthAuditView) healthAuditView.style.display = "none";
+  if (topPerformersView) topPerformersView.style.display = "none";
 
   // Reset desktop sidebar active classes
   if (sideDashboard) sideDashboard.classList.remove("active");
@@ -3177,6 +3181,7 @@ function switchMainView(viewName) {
   if (sideDriveData) sideDriveData.classList.remove("active");
   if (sideRecentPosts) sideRecentPosts.classList.remove("active");
   if (sideHealthAudit) sideHealthAudit.classList.remove("active");
+  if (sideTopPerformers) sideTopPerformers.classList.remove("active");
   document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
 
   // Reset mobile bottom panel active classes
@@ -3211,6 +3216,11 @@ function switchMainView(viewName) {
     if (bottomHealthAudit) bottomHealthAudit.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderHealthAuditMainView();
+  } else if (viewName === "top_performers") {
+    if (topPerformersView) topPerformersView.style.display = "block";
+    if (sideTopPerformers) sideTopPerformers.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderTopPerformersView();
   } else {
     // "dashboard"
     if (dashboardView) dashboardView.style.display = "block";
@@ -4510,6 +4520,217 @@ function renderDriveInventoryList() {
         </div>
       `;
     }).join("");
+  }
+}
+
+// =========================================================================
+// TOP 20 PERFORMERS LEADERBOARD ENGINE
+// =========================================================================
+
+let currentTopPerformersTimeframe = 30;
+let currentTopPerformersSort = "views";
+
+function setTopPerformersTimeframe(days) {
+  currentTopPerformersTimeframe = Number(days);
+  document.querySelectorAll("[data-tp-days]").forEach(btn => {
+    btn.classList.toggle("active", Number(btn.getAttribute("data-tp-days")) === currentTopPerformersTimeframe);
+  });
+  renderTopPerformersView();
+}
+
+function setTopPerformersSort(metric) {
+  currentTopPerformersSort = metric;
+  document.querySelectorAll("[data-tp-sort]").forEach(btn => {
+    btn.classList.toggle("active", btn.getAttribute("data-tp-sort") === currentTopPerformersSort);
+  });
+  renderTopPerformersView();
+}
+
+function renderTopPerformersView() {
+  if (!fullData || !fullData.pages || !Array.isArray(fullData.pages)) return;
+
+  const pages = fullData.pages;
+  const days = currentTopPerformersTimeframe;
+
+  // Process all 101 pages for the selected timeframe
+  const rankedPages = pages.map(p => {
+    const pid = String(p.id);
+    const pVids = p.videos || [];
+    const reelsForTf = getReelsForDays(pVids, days);
+
+    const tfViews = reelsForTf.reduce((sum, v) => sum + (Number(v.views) || 0), 0);
+    const tfLikes = reelsForTf.reduce((sum, v) => sum + (Number(v.likes) || 0), 0);
+    const tfComments = reelsForTf.reduce((sum, v) => sum + (Number(v.comments) || 0), 0);
+    const tfEngagement = tfLikes + tfComments;
+
+    // Find top viral reel of this page in this timeframe
+    const topReel = [...reelsForTf].sort((a, b) => (Number(b.views) || 0) - (Number(a.views) || 0))[0] || (pVids.length > 0 ? pVids[0] : null);
+
+    // Determine Fleet / Account Manager tag
+    let fleetTag = "USA 1 • Meghal Chauhan";
+    if (FLEET_USA_02_SET.has(pid)) fleetTag = "USA 2 • Mia Shah";
+    else if (FLEET_UK_01_SET.has(pid)) fleetTag = "UK 1 • Binjal Mehra";
+    else if (FLEET_UK_02_SET.has(pid)) fleetTag = "UK 2 • Chanda Nai";
+    else if (FLEET_UK_03_SET.has(pid)) fleetTag = "UK 3 • Mahi Patel";
+    else if (FLEET_UK_04_SET.has(pid)) fleetTag = "UK 4 • Nidhi Desai";
+    else if (FLEET_UK_05_SET.has(pid)) fleetTag = "UK 5 • Richi Patel";
+    else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
+    else if (p.account) fleetTag = p.account;
+
+    return {
+      page: p,
+      pid: pid,
+      name: p.name,
+      pic_url: p.pic_url || `https://graph.facebook.com/v20.0/${pid}/picture?type=large`,
+      followers: Number(p.followers) || 0,
+      tfViews,
+      tfLikes,
+      tfComments,
+      tfEngagement,
+      topReel,
+      fleetTag,
+      reelsCount: reelsForTf.length
+    };
+  });
+
+  // Sort based on current metric
+  rankedPages.sort((a, b) => {
+    if (currentTopPerformersSort === "likes") return b.tfLikes - a.tfLikes;
+    if (currentTopPerformersSort === "comments") return b.tfComments - a.tfComments;
+    if (currentTopPerformersSort === "followers") return b.followers - a.followers;
+    return b.tfViews - a.tfViews; // default: views
+  });
+
+  // Top 20 slice
+  const top20 = rankedPages.slice(0, 20);
+  const champion = top20[0] || null;
+
+  // Aggregate executive metrics
+  const totalTop20Views = top20.reduce((s, x) => s + x.tfViews, 0);
+  const totalAllViews = rankedPages.reduce((s, x) => s + x.tfViews, 0);
+  const shareOfPortfolio = totalAllViews > 0 ? ((totalTop20Views / totalAllViews) * 100).toFixed(1) : "0";
+  const totalTop20Engagement = top20.reduce((s, x) => s + x.tfEngagement, 0);
+  const avgViewsPerTopPage = Math.round(totalTop20Views / (top20.length || 1));
+
+  // Update Executive KPI DOM
+  const elChampName = document.getElementById("tpKpiChampionName");
+  const elChampViews = document.getElementById("tpKpiChampionViews");
+  const elTop20Views = document.getElementById("tpKpiTop20Views");
+  const elTop20Share = document.getElementById("tpKpiTop20Share");
+  const elTop20Eng = document.getElementById("tpKpiTop20Engagement");
+  const elAvgViews = document.getElementById("tpKpiAvgViews");
+  const elTfLabel = document.getElementById("tpKpiTimeframeLabel");
+  const elBadge = document.getElementById("tpLeaderboardBadge");
+
+  if (elChampName && champion) elChampName.innerText = champion.name;
+  if (elChampViews && champion) elChampViews.innerText = `${champion.tfViews.toLocaleString()} Views (${champion.fleetTag})`;
+  if (elTop20Views) elTop20Views.innerText = totalTop20Views.toLocaleString();
+  if (elTop20Share) elTop20Share.innerText = `${shareOfPortfolio}% of Portfolio (${totalAllViews.toLocaleString()} Total)`;
+  if (elTop20Eng) elTop20Eng.innerText = totalTop20Engagement.toLocaleString();
+  if (elAvgViews) elAvgViews.innerText = avgViewsPerTopPage.toLocaleString();
+  if (elTfLabel) elTfLabel.innerText = `${days}-Day Velocity (${pages.length} Pages)`;
+  if (elBadge) elBadge.innerText = `${pages.length} Pages Monitored • ${days}D`;
+
+  // Render Podium (Ranks 1 to 3)
+  const podiumContainer = document.getElementById("tpPodiumGrid");
+  if (podiumContainer) {
+    const top3 = top20.slice(0, 3);
+    const podiumHtml = top3.map((item, idx) => {
+      const rank = idx + 1;
+      const medal = rank === 1 ? "🥇" : (rank === 2 ? "🥈" : "🥉");
+      const rankClass = `rank-${rank}`;
+      const rankLabel = rank === 1 ? "👑 Rank #1 Champion" : (rank === 2 ? "🥈 Rank #2 Runner Up" : "🥉 Rank #3 Third");
+      
+      const thumb = item.topReel?.thumbnail || item.pic_url;
+      const reelTitle = item.topReel?.title || item.topReel?.description || `${item.name} Reel`;
+      const reelViews = item.topReel?.views !== undefined ? Number(item.topReel.views).toLocaleString() : "0";
+
+      return `
+        <div class="tp-podium-card ${rankClass}" onclick="selectPage('${item.pid}')" title="Click to open ${item.name} analytics">
+          <div class="tp-podium-badge-strip">
+            <span class="tp-rank-medal">${medal}</span>
+            <span class="tp-rank-pill">${rankLabel}</span>
+          </div>
+          <div class="tp-podium-profile">
+            <img src="${item.pic_url}" class="tp-podium-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
+            <div style="min-width:0;flex:1;">
+              <div class="tp-podium-name" title="${item.name}">${item.name}</div>
+              <div class="tp-podium-fleet">🏷️ ${item.fleetTag}</div>
+            </div>
+          </div>
+          <div class="tp-podium-metrics">
+            <div>
+              <div class="tp-podium-views">${item.tfViews.toLocaleString()}</div>
+              <div class="tp-podium-views-label">${days}D Views</div>
+            </div>
+            <div class="tp-podium-sub-metrics">
+              <span title="${item.tfLikes.toLocaleString()} Likes">❤️ ${item.tfLikes.toLocaleString()}</span>
+              <span title="${item.tfComments.toLocaleString()} Comments">💬 ${item.tfComments.toLocaleString()}</span>
+              <span title="${item.followers.toLocaleString()} Followers">👥 ${(item.followers).toLocaleString()}</span>
+            </div>
+          </div>
+          ${item.topReel ? `
+            <div class="tp-top-reel-snippet">
+              <img src="${thumb}" class="tp-reel-thumb" alt="Reel Thumbnail" onerror="this.src='${item.pic_url}'">
+              <div class="tp-reel-info">
+                <div class="tp-reel-badge">🔥 #1 Viral Reel</div>
+                <div class="tp-reel-title" title="${reelTitle}">${reelTitle}</div>
+                <div class="tp-reel-views">${reelViews} Views</div>
+              </div>
+            </div>
+          ` : ''}
+        </div>`;
+    }).join("");
+    podiumContainer.innerHTML = podiumHtml || `<div style="color:#64748b;padding:16px;">No pages available</div>`;
+  }
+
+  // Render Table / Cards for Ranks 4 to 20
+  const tableContainer = document.getElementById("tpTableBody");
+  if (tableContainer) {
+    const ranks4to20 = top20.slice(3);
+    const maxViews = champion ? (champion.tfViews || 1) : 1;
+
+    const rowsHtml = ranks4to20.map((item, idx) => {
+      const rank = idx + 4;
+      const pctOfLeader = Math.max(6, Math.min(100, Math.round((item.tfViews / maxViews) * 100)));
+      const thumb = item.topReel?.thumbnail || item.pic_url;
+      const reelTitle = item.topReel?.title || item.topReel?.description || `${item.name} Reel`;
+      const reelViews = item.topReel?.views !== undefined ? Number(item.topReel.views).toLocaleString() : "0";
+
+      return `
+        <div class="tp-table-row" onclick="selectPage('${item.pid}')" title="Click to open ${item.name} analytics">
+          <div class="tp-row-rank">#${rank}</div>
+          <div class="tp-row-page">
+            <img src="${item.pic_url}" class="tp-row-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
+            <div style="min-width:0;flex:1;">
+              <div class="tp-row-page-name" title="${item.name}">${item.name}</div>
+              <div class="tp-row-fleet-tag">${item.fleetTag} • ${(item.followers).toLocaleString()} Followers</div>
+            </div>
+          </div>
+          <div class="tp-row-viral-reel">
+            <img src="${thumb}" class="tp-row-reel-thumb" alt="Reel" onerror="this.src='${item.pic_url}'">
+            <div style="min-width:0;flex:1;">
+              <div class="tp-row-reel-title" title="${reelTitle}">${reelTitle}</div>
+              <div class="tp-row-reel-views">${reelViews} Views</div>
+            </div>
+          </div>
+          <div class="tp-row-views-col">
+            <span class="tp-row-views-num">${item.tfViews.toLocaleString()}</span>
+            <div class="tp-row-views-bar" title="${pctOfLeader}% of #1 Leader Views">
+              <div class="tp-row-views-fill" style="width: ${pctOfLeader}%;"></div>
+            </div>
+          </div>
+          <div class="tp-row-engagement">
+            <div>❤️ ${item.tfLikes.toLocaleString()}</div>
+            <div style="color:#64748b;font-size:11px;">💬 ${item.tfComments.toLocaleString()}</div>
+          </div>
+          <div>
+            <button type="button" class="tp-btn-inspect" onclick="event.stopPropagation(); selectPage('${item.pid}')">Inspect ➜</button>
+          </div>
+        </div>`;
+    }).join("");
+
+    tableContainer.innerHTML = rowsHtml || `<div style="color:#64748b;padding:20px;text-align:center;">No additional pages</div>`;
   }
 }
 
@@ -5888,6 +6109,9 @@ window.filterAuditTerminalLogs = filterAuditTerminalLogs;
 window.updateAuditTabCounts = updateAuditTabCounts;
 window.toggleFleetPagesInspect = toggleFleetPagesInspect;
 window.toggleActionCardPages = toggleActionCardPages;
+window.setTopPerformersTimeframe = setTopPerformersTimeframe;
+window.setTopPerformersSort = setTopPerformersSort;
+window.renderTopPerformersView = renderTopPerformersView;
 
 
 

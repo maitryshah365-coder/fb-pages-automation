@@ -6238,6 +6238,609 @@ body {
   font-weight: 500;
 }
 
+/* =========================================================================
+   TOP 20 PERFORMERS - VIRAL LEADERBOARD STYLES
+   ========================================================================= */
+
+.side-tile-top-performers:hover,
+.side-tile-top-performers.active {
+  background: rgba(245, 186, 35, 0.12) !important;
+  border-color: rgba(245, 186, 35, 0.4) !important;
+}
+
+.side-tile-top-performers.active .tile-title {
+  color: #f5ba23 !important;
+}
+
+.top-performers-view-container {
+  padding: 24px 28px 60px;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Header & Executive KPI Summary */
+.tp-hero-header {
+  margin-bottom: 24px;
+}
+
+.tp-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.tp-heading-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tp-heading-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.tp-heading-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f8fafc;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.tp-heading-badge {
+  background: linear-gradient(135deg, rgba(245, 186, 35, 0.25), rgba(217, 119, 6, 0.25));
+  border: 1px solid rgba(245, 186, 35, 0.5);
+  color: #facc15;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tp-subtitle {
+  color: #94a3b8;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Executive KPI Grid */
+.tp-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tp-kpi-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tp-kpi-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(245, 186, 35, 0.4), transparent);
+}
+
+.tp-kpi-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tp-kpi-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #f8fafc;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.02em;
+}
+
+.tp-kpi-value.gold {
+  color: #fbbf24;
+  text-shadow: 0 0 16px rgba(251, 191, 36, 0.35);
+}
+
+.tp-kpi-sub {
+  font-size: 11.5px;
+  color: #64748b;
+}
+
+/* Filter & Sorting Controls Toolbar */
+.tp-toolbar {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.tp-toolbar-left,
+.tp-toolbar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tp-toolbar-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-right: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tp-pill-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tp-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.tp-pill-btn.active {
+  background: linear-gradient(135deg, rgba(245, 186, 35, 0.25), rgba(217, 119, 6, 0.35));
+  border-color: rgba(245, 186, 35, 0.6);
+  color: #facc15;
+  box-shadow: 0 0 12px rgba(245, 186, 35, 0.2);
+}
+
+/* Podium Cards (Top 3 Highlights) */
+.tp-podium-section {
+  margin-bottom: 30px;
+}
+
+.tp-section-heading {
+  font-size: 15px;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tp-podium-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.tp-podium-card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.tp-podium-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Rank 1: Gold Champion */
+.tp-podium-card.rank-1 {
+  border: 1.5px solid rgba(245, 186, 35, 0.6);
+  background: linear-gradient(180deg, rgba(245, 186, 35, 0.08) 0%, rgba(15, 23, 42, 0.95) 100%);
+  box-shadow: 0 8px 32px rgba(245, 186, 35, 0.15), 0 0 20px rgba(245, 186, 35, 0.1);
+}
+
+.tp-podium-card.rank-1:hover {
+  box-shadow: 0 12px 40px rgba(245, 186, 35, 0.25), 0 0 28px rgba(245, 186, 35, 0.2);
+}
+
+/* Rank 2: Silver */
+.tp-podium-card.rank-2 {
+  border: 1.5px solid rgba(203, 213, 225, 0.4);
+  background: linear-gradient(180deg, rgba(203, 213, 225, 0.06) 0%, rgba(15, 23, 42, 0.95) 100%);
+  box-shadow: 0 8px 28px rgba(203, 213, 225, 0.1);
+}
+
+/* Rank 3: Bronze */
+.tp-podium-card.rank-3 {
+  border: 1.5px solid rgba(217, 119, 6, 0.45);
+  background: linear-gradient(180deg, rgba(217, 119, 6, 0.06) 0%, rgba(15, 23, 42, 0.95) 100%);
+  box-shadow: 0 8px 28px rgba(217, 119, 6, 0.1);
+}
+
+.tp-podium-badge-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.tp-rank-medal {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.tp-rank-pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tp-podium-card.rank-1 .tp-rank-pill {
+  background: rgba(245, 186, 35, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 186, 35, 0.4);
+}
+
+.tp-podium-card.rank-2 .tp-rank-pill {
+  background: rgba(203, 213, 225, 0.2);
+  color: #e2e8f0;
+  border: 1px solid rgba(203, 213, 225, 0.4);
+}
+
+.tp-podium-card.rank-3 .tp-rank-pill {
+  background: rgba(217, 119, 6, 0.2);
+  color: #f97316;
+  border: 1px solid rgba(217, 119, 6, 0.4);
+}
+
+.tp-podium-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.tp-podium-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.tp-podium-card.rank-1 .tp-podium-avatar {
+  border-color: #f5ba23;
+  box-shadow: 0 0 12px rgba(245, 186, 35, 0.4);
+}
+
+.tp-podium-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #f8fafc;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tp-podium-fleet {
+  font-size: 11.5px;
+  color: #94a3b8;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tp-podium-metrics {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.tp-podium-views {
+  font-size: 22px;
+  font-weight: 900;
+  font-family: 'JetBrains Mono', monospace;
+  color: #f8fafc;
+}
+
+.tp-podium-card.rank-1 .tp-podium-views {
+  color: #fbbf24;
+}
+
+.tp-podium-views-label {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.tp-podium-sub-metrics {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11.5px;
+  color: #cbd5e1;
+}
+
+/* Top Viral Reel Snippet */
+.tp-top-reel-snippet {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.tp-reel-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: #1e293b;
+  flex-shrink: 0;
+}
+
+.tp-reel-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.tp-reel-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #38bdf8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.tp-reel-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tp-reel-views {
+  font-size: 11px;
+  color: #fbbf24;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Rankings Table / Cards for Ranks 4 to 20 */
+.tp-table-container {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tp-table-header {
+  display: grid;
+  grid-template-columns: 70px 2.2fr 2fr 1.2fr 1.2fr 100px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-items: center;
+}
+
+.tp-table-row {
+  display: grid;
+  grid-template-columns: 70px 2.2fr 2fr 1.2fr 1.2fr 100px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  align-items: center;
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+.tp-table-row:last-child {
+  border-bottom: none;
+}
+
+.tp-table-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tp-row-rank {
+  font-size: 13px;
+  font-weight: 800;
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.tp-row-page {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tp-row-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.tp-row-page-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tp-row-fleet-tag {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 1px;
+}
+
+.tp-row-viral-reel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.tp-row-reel-thumb {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  object-fit: cover;
+  background: #1e293b;
+  flex-shrink: 0;
+}
+
+.tp-row-reel-title {
+  font-size: 11.5px;
+  color: #cbd5e1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tp-row-reel-views {
+  font-size: 10.5px;
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.tp-row-views-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tp-row-views-num {
+  font-size: 14px;
+  font-weight: 800;
+  color: #f8fafc;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.tp-row-views-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 100px;
+}
+
+.tp-row-views-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  border-radius: 2px;
+}
+
+.tp-row-engagement {
+  font-size: 12px;
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.tp-btn-inspect {
+  background: rgba(245, 186, 35, 0.1);
+  border: 1px solid rgba(245, 186, 35, 0.3);
+  color: #facc15;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tp-btn-inspect:hover {
+  background: rgba(245, 186, 35, 0.25);
+  border-color: rgba(245, 186, 35, 0.6);
+  color: #fff;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+  .tp-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .tp-podium-grid {
+    grid-template-columns: 1fr;
+  }
+  .tp-table-header {
+    display: none;
+  }
+  .tp-table-row {
+    grid-template-columns: 50px 1fr 100px;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+  .tp-row-viral-reel,
+  .tp-row-engagement {
+    display: none;
+  }
+}
+
+
 
 
 

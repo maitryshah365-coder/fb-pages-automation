@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.8.3">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.8.4">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -128,6 +128,17 @@
           </div>
         </div>
         <span class="portfolio-badge" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.35);">101 OK</span>
+      </div>
+
+      <div class="drawer-all-portfolio-tile" id="btnDrawerTopPerformers" onclick="closePageDrawer(); switchMainView('top_performers')" role="button" tabindex="0" style="border-color: rgba(245,186,35,0.3); background: rgba(245,186,35,0.08); cursor: pointer;">
+        <div class="portfolio-tile-left">
+          <div class="portfolio-avatar" style="background: rgba(245,186,35,0.2); color: #fbbf24;">🏆</div>
+          <div>
+            <div class="portfolio-name">Top 20 Performers</div>
+            <div class="portfolio-desc">Viral Leaderboard & Channel Rankings</div>
+          </div>
+        </div>
+        <span class="portfolio-badge" style="background: rgba(245,186,35,0.2); color: #facc15; border: 1px solid rgba(245,186,35,0.4);">TOP 20</span>
       </div>
     </div>
 
@@ -270,6 +281,20 @@
             </div>
           </div>
           <span class="side-health-pill" id="sideNavHealthBadge">101 OK</span>
+        </button>
+      </div>
+
+      <!-- BOX 7: TOP 20 PERFORMERS (VIRAL LEADERBOARD) -->
+      <div class="sidebar-nav-box">
+        <button type="button" id="sideNavTopPerformers" class="sidebar-action-tile side-tile-top-performers" onclick="switchMainView('top_performers')" title="Top 20 Performers (Viral Leaderboard & Rankings)">
+          <div class="tile-content-left">
+            <span class="tile-icon">🏆</span>
+            <div class="tile-text">
+              <span class="tile-title">Top 20 Performers</span>
+              <span class="tile-sub">Viral Leaderboard</span>
+            </div>
+          </div>
+          <span class="side-top-pill" style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">TOP 20</span>
         </button>
       </div>
 
@@ -746,6 +771,94 @@
       </details>
     </div>
 
+    <!-- ================= TOP 20 PERFORMERS VIEW (VIRAL LEADERBOARD & RANKINGS) ================= -->
+    <div id="topPerformersLeaderboardView" class="dashboard-view-container top-performers-view-container" style="display: none;">
+      
+      <!-- Hero Header -->
+      <div class="tp-hero-header">
+        <div class="tp-title-row">
+          <div class="tp-heading-group">
+            <span class="tp-heading-icon">🏆</span>
+            <div>
+              <h2 class="tp-heading-title">Top 20 Performers</h2>
+              <p class="tp-subtitle">Live Viral Leaderboard & Channel Rankings across all 101 Facebook Pages</p>
+            </div>
+          </div>
+          <span class="tp-heading-badge" id="tpLeaderboardBadge">101 Pages Monitored</span>
+        </div>
+
+        <!-- Executive KPI Grid -->
+        <div class="tp-kpi-grid">
+          <div class="tp-kpi-card">
+            <div class="tp-kpi-label">🥇 #1 Champion Page</div>
+            <div class="tp-kpi-value gold" id="tpKpiChampionName">Loading...</div>
+            <div class="tp-kpi-sub" id="tpKpiChampionViews">0 Views</div>
+          </div>
+          <div class="tp-kpi-card">
+            <div class="tp-kpi-label">🚀 Top 20 Combined Views</div>
+            <div class="tp-kpi-value gold" id="tpKpiTop20Views">0</div>
+            <div class="tp-kpi-sub" id="tpKpiTop20Share">0% of Portfolio</div>
+          </div>
+          <div class="tp-kpi-card">
+            <div class="tp-kpi-label">💬 Top 20 Interactions</div>
+            <div class="tp-kpi-value" id="tpKpiTop20Engagement">0</div>
+            <div class="tp-kpi-sub">Total Likes & Comments</div>
+          </div>
+          <div class="tp-kpi-card">
+            <div class="tp-kpi-label">📈 Avg Views / Top Page</div>
+            <div class="tp-kpi-value" id="tpKpiAvgViews">0</div>
+            <div class="tp-kpi-sub" id="tpKpiTimeframeLabel">30-Day Velocity</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter & Sorting Controls Toolbar -->
+      <div class="tp-toolbar">
+        <div class="tp-toolbar-left">
+          <span class="tp-toolbar-label">📅 Timeframe:</span>
+          <button type="button" class="tp-pill-btn" data-tp-days="7" onclick="setTopPerformersTimeframe(7)">7 Days</button>
+          <button type="button" class="tp-pill-btn" data-tp-days="15" onclick="setTopPerformersTimeframe(15)">15 Days</button>
+          <button type="button" class="tp-pill-btn active" data-tp-days="30" onclick="setTopPerformersTimeframe(30)">30 Days</button>
+          <button type="button" class="tp-pill-btn" data-tp-days="60" onclick="setTopPerformersTimeframe(60)">60 Days</button>
+          <button type="button" class="tp-pill-btn" data-tp-days="90" onclick="setTopPerformersTimeframe(90)">90 Days</button>
+        </div>
+        <div class="tp-toolbar-right">
+          <span class="tp-toolbar-label">⚡ Sort By:</span>
+          <button type="button" class="tp-pill-btn active" data-tp-sort="views" onclick="setTopPerformersSort('views')">🔥 Most Views</button>
+          <button type="button" class="tp-pill-btn" data-tp-sort="likes" onclick="setTopPerformersSort('likes')">❤️ Most Likes</button>
+          <button type="button" class="tp-pill-btn" data-tp-sort="comments" onclick="setTopPerformersSort('comments')">💬 Most Comments</button>
+          <button type="button" class="tp-pill-btn" data-tp-sort="followers" onclick="setTopPerformersSort('followers')">👥 Followers</button>
+        </div>
+      </div>
+
+      <!-- Top 3 Podium Highlights -->
+      <div class="tp-podium-section">
+        <div class="tp-section-heading">🌟 Viral Podium (Ranks #1 - #3)</div>
+        <div class="tp-podium-grid" id="tpPodiumGrid">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Rankings Table (Ranks 4 to 20) -->
+      <div class="tp-table-section">
+        <div class="tp-section-heading">📊 Leaderboard Rankings (Ranks #4 to #20)</div>
+        <div class="tp-table-container">
+          <div class="tp-table-header">
+            <div>Rank</div>
+            <div>Page & Fleet</div>
+            <div>Top Viral Reel</div>
+            <div>Timeframe Views</div>
+            <div>Engagement</div>
+            <div>Action</div>
+          </div>
+          <div class="tp-table-body" id="tpTableBody">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- ================= DASHBOARD & ANALYTICS VIEW CONTAINER (DEFAULT VIEW) ================= -->
     <div id="dashboardAnalyticsView" class="dashboard-view-container">
 
@@ -1205,6 +1318,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=8.8.3"></script>
+  <script src="js/gold_app.js?v=8.8.4"></script>
 </body>
 </html>
