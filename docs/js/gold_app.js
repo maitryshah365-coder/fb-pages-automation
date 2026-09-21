@@ -5197,6 +5197,7 @@ function renderHealthAuditMainView() {
         fleetGaps.push({ name: displayName, reason: "Token Expired (Requires Re-Auth)" });
         gapItems.push({ name: displayName, fleet: cfg.tag, reason: "Token Expired" });
         totalGaps++;
+      }
 
 
       // Page row for fleet inspect drawer
