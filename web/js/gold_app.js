@@ -3218,6 +3218,7 @@ function switchMainView(viewName) {
   const sideRecentPosts = document.getElementById("sideNavRecentPosts");
   const sideHealthAudit = document.getElementById("sideNavHealthAudit");
   const sideTopPerformers = document.getElementById("sideNavTopPerformers");
+  const sideLowPerformers = document.getElementById("sideNavLowPerformers");
 
   // Mobile Bottom Panel items
   const bottomDashboard = document.getElementById("bottomNavDashboard");
@@ -3242,6 +3243,7 @@ function switchMainView(viewName) {
   if (sideRecentPosts) sideRecentPosts.classList.remove("active");
   if (sideHealthAudit) sideHealthAudit.classList.remove("active");
   if (sideTopPerformers) sideTopPerformers.classList.remove("active");
+  if (sideLowPerformers) sideLowPerformers.classList.remove("active");
   document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
 
   // Reset mobile bottom panel active classes
@@ -3276,9 +3278,24 @@ function switchMainView(viewName) {
     if (bottomHealthAudit) bottomHealthAudit.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderHealthAuditMainView();
+  } else if (viewName === "low_performers") {
+    if (topPerformersView) topPerformersView.style.display = "block";
+    if (sideLowPerformers) sideLowPerformers.classList.add("active");
+    currentPerformanceMode = "low";
+    const btnTop = document.getElementById("btnModeTop20");
+    const btnLow = document.getElementById("btnModeLow50");
+    if (btnTop) btnTop.classList.remove("active");
+    if (btnLow) btnLow.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderTopPerformersView();
   } else if (viewName === "top_performers") {
     if (topPerformersView) topPerformersView.style.display = "block";
     if (sideTopPerformers) sideTopPerformers.classList.add("active");
+    currentPerformanceMode = "top";
+    const btnTop = document.getElementById("btnModeTop20");
+    const btnLow = document.getElementById("btnModeLow50");
+    if (btnTop) btnTop.classList.add("active");
+    if (btnLow) btnLow.classList.remove("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
   } else {
@@ -4584,11 +4601,29 @@ function renderDriveInventoryList() {
 }
 
 // =========================================================================
-// TOP 20 PERFORMERS LEADERBOARD ENGINE
+// TOP 20 PERFORMERS & LOW-VIEW AUDIT (DUAL-MODE ENGINE)
 // =========================================================================
 
+let currentPerformanceMode = "top"; // "top" or "low"
 let currentTopPerformersTimeframe = 30;
-let currentTopPerformersSort = "views";
+let currentTopPerformersSort = "views"; // "views", "likes", "comments", "followers"
+let currentLowFilter = "all"; // "all", "zero", "under500", "gap"
+let currentLowSort = "views_asc"; // "views_asc", "oldest_upload", "least_reels"
+
+function setPerformanceMode(mode) {
+  currentPerformanceMode = mode;
+  const btnTop = document.getElementById("btnModeTop20");
+  const btnLow = document.getElementById("btnModeLow50");
+  if (btnTop) btnTop.classList.toggle("active", mode === "top");
+  if (btnLow) btnLow.classList.toggle("active", mode === "low");
+
+  const sideTop = document.getElementById("sideNavTopPerformers");
+  const sideLow = document.getElementById("sideNavLowPerformers");
+  if (sideTop) sideTop.classList.toggle("active", mode === "top");
+  if (sideLow) sideLow.classList.toggle("active", mode === "low");
+
+  renderTopPerformersView();
+}
 
 function setTopPerformersTimeframe(days) {
   currentTopPerformersTimeframe = Number(days);
@@ -4606,14 +4641,40 @@ function setTopPerformersSort(metric) {
   renderTopPerformersView();
 }
 
+function setLowPerformersFilter(filter) {
+  currentLowFilter = filter;
+  document.querySelectorAll("[data-low-filter]").forEach(btn => {
+    btn.classList.toggle("active", btn.getAttribute("data-low-filter") === currentLowFilter);
+  });
+  renderTopPerformersView();
+}
+
+function setLowPerformersSort(sort) {
+  currentLowSort = sort;
+  document.querySelectorAll("[data-low-sort]").forEach(btn => {
+    btn.classList.toggle("active", btn.getAttribute("data-low-sort") === currentLowSort);
+  });
+  renderTopPerformersView();
+}
+
+function launchStudioForPage(pageId) {
+  if (!studioSelectedPageIds) studioSelectedPageIds = new Set();
+  studioSelectedPageIds.clear();
+  studioSelectedPageIds.add(String(pageId));
+  switchMainView("studio");
+  if (typeof updateStudioSelectionUI === "function") updateStudioSelectionUI();
+  if (typeof renderStudioFleetList === "function") renderStudioFleetList();
+}
+
 function renderTopPerformersView() {
   if (!fullData || !fullData.pages || !Array.isArray(fullData.pages)) return;
 
   const pages = fullData.pages;
   const days = currentTopPerformersTimeframe;
+  const nowMs = Date.now();
 
   // Process all 101 pages for the selected timeframe
-  const rankedPages = pages.map(p => {
+  const allPagesStats = pages.map(p => {
     const pid = String(p.id);
     const pVids = p.videos || [];
     const reelsForTf = getReelsForDays(pVids, days);
@@ -4626,6 +4687,35 @@ function renderTopPerformersView() {
     // Find top viral reel of this page in this timeframe
     const topReel = [...reelsForTf].sort((a, b) => (Number(b.views) || 0) - (Number(a.views) || 0))[0] || (pVids.length > 0 ? pVids[0] : null);
 
+    // Find most recent reel upload date/time
+    let lastUploadMs = 0;
+    let lastUploadFormatted = "Never / No Reels";
+    let daysSinceLastUpload = 999;
+    if (pVids.length > 0) {
+      const sortedAll = [...pVids].sort((a, b) => {
+        const ta = new Date(a.posted_at || a.created_time_iso || a.created_at || 0).getTime();
+        const tb = new Date(b.posted_at || b.created_time_iso || b.created_at || 0).getTime();
+        return tb - ta;
+      });
+      const latestVid = sortedAll[0];
+      const lTime = latestVid.posted_at || latestVid.created_time_iso || latestVid.created_at;
+      if (lTime) {
+        lastUploadMs = new Date(lTime).getTime();
+        if (!isNaN(lastUploadMs) && lastUploadMs > 0) {
+          daysSinceLastUpload = Math.max(0, (nowMs - lastUploadMs) / (1000 * 60 * 60 * 24));
+          if (daysSinceLastUpload < 1) {
+            const hours = Math.floor((nowMs - lastUploadMs) / (1000 * 60 * 60));
+            lastUploadFormatted = hours <= 1 ? "Just now" : `${hours}h ago`;
+          } else if (daysSinceLastUpload < 30) {
+            lastUploadFormatted = `${Math.floor(daysSinceLastUpload)}d ago`;
+          } else {
+            const d = new Date(lastUploadMs);
+            lastUploadFormatted = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+          }
+        }
+      }
+    }
+
     // Determine Fleet / Account Manager tag
     let fleetTag = "USA 1 • Meghal Chauhan";
     if (FLEET_USA_02_SET.has(pid)) fleetTag = "USA 2 • Mia Shah";
@@ -4636,6 +4726,23 @@ function renderTopPerformersView() {
     else if (FLEET_UK_05_SET.has(pid)) fleetTag = "UK 5 • Richi Patel";
     else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
     else if (p.account) fleetTag = p.account;
+
+    // Diagnosis tag
+    let diagnosis = "ok";
+    let diagLabel = "Active";
+    if (tfViews === 0 && (pVids.length === 0 || daysSinceLastUpload > 7)) {
+      diagnosis = "dormant";
+      diagLabel = "🔴 Dormant (0 Views)";
+    } else if (tfViews === 0) {
+      diagnosis = "dormant";
+      diagLabel = "🔴 0 Views";
+    } else if (daysSinceLastUpload > 3) {
+      diagnosis = "gap";
+      diagLabel = `⏳ Upload Gap (${Math.round(daysSinceLastUpload)}d)`;
+    } else if (tfViews < 500) {
+      diagnosis = "low-reach";
+      diagLabel = "🟡 Low Reach (<500)";
+    }
 
     return {
       page: p,
@@ -4649,148 +4756,377 @@ function renderTopPerformersView() {
       tfEngagement,
       topReel,
       fleetTag,
-      reelsCount: reelsForTf.length
+      reelsCount: pVids.length,
+      tfReelsCount: reelsForTf.length,
+      lastUploadMs,
+      lastUploadFormatted,
+      daysSinceLastUpload,
+      diagnosis,
+      diagLabel
     };
   });
 
-  // Sort based on current metric
-  rankedPages.sort((a, b) => {
-    if (currentTopPerformersSort === "likes") return b.tfLikes - a.tfLikes;
-    if (currentTopPerformersSort === "comments") return b.tfComments - a.tfComments;
-    if (currentTopPerformersSort === "followers") return b.followers - a.followers;
-    return b.tfViews - a.tfViews; // default: views
-  });
-
-  // Top 20 slice
-  const top20 = rankedPages.slice(0, 20);
-  const champion = top20[0] || null;
-
-  // Aggregate executive metrics
-  const totalTop20Views = top20.reduce((s, x) => s + x.tfViews, 0);
-  const totalAllViews = rankedPages.reduce((s, x) => s + x.tfViews, 0);
-  const shareOfPortfolio = totalAllViews > 0 ? ((totalTop20Views / totalAllViews) * 100).toFixed(1) : "0";
-  const totalTop20Engagement = top20.reduce((s, x) => s + x.tfEngagement, 0);
-  const avgViewsPerTopPage = Math.round(totalTop20Views / (top20.length || 1));
-
-  // Update Executive KPI DOM
-  const elChampName = document.getElementById("tpKpiChampionName");
-  const elChampViews = document.getElementById("tpKpiChampionViews");
-  const elTop20Views = document.getElementById("tpKpiTop20Views");
-  const elTop20Share = document.getElementById("tpKpiTop20Share");
-  const elTop20Eng = document.getElementById("tpKpiTop20Engagement");
-  const elAvgViews = document.getElementById("tpKpiAvgViews");
-  const elTfLabel = document.getElementById("tpKpiTimeframeLabel");
+  // Mode elements
+  const elHeaderIcon = document.getElementById("tpMainHeaderIcon");
+  const elHeaderTitle = document.getElementById("tpMainHeaderTitle");
+  const elHeaderSub = document.getElementById("tpMainHeaderSubtitle");
   const elBadge = document.getElementById("tpLeaderboardBadge");
+  const elSortTop = document.getElementById("tpSortToolbarTop");
+  const elSortLow = document.getElementById("tpSortToolbarLow");
+  const elQuickFilters = document.getElementById("tpLowQuickFiltersRow");
+  const podiumSection = document.getElementById("tpPodiumSection");
+  const tableHeading = document.getElementById("tpTableHeading");
+  const tableHeader = document.getElementById("tpTableHeader");
+  const tableContainer = document.getElementById("tpTableBody");
 
-  if (elChampName && champion) elChampName.innerText = champion.name;
-  if (elChampViews && champion) elChampViews.innerText = `${champion.tfViews.toLocaleString()} Views (${champion.fleetTag})`;
-  if (elTop20Views) elTop20Views.innerText = totalTop20Views.toLocaleString();
-  if (elTop20Share) elTop20Share.innerText = `${shareOfPortfolio}% of Portfolio (${totalAllViews.toLocaleString()} Total)`;
-  if (elTop20Eng) elTop20Eng.innerText = totalTop20Engagement.toLocaleString();
-  if (elAvgViews) elAvgViews.innerText = avgViewsPerTopPage.toLocaleString();
-  if (elTfLabel) elTfLabel.innerText = `${days}-Day Velocity (${pages.length} Pages)`;
-  if (elBadge) elBadge.innerText = `${pages.length} Pages Monitored • ${days}D`;
+  // KPI elements
+  const elKpiLabel1 = document.getElementById("tpKpiLabel1");
+  const elKpiLabel2 = document.getElementById("tpKpiLabel2");
+  const elKpiLabel3 = document.getElementById("tpKpiLabel3");
+  const elKpiLabel4 = document.getElementById("tpKpiLabel4");
 
-  // Render Podium (Ranks 1 to 3)
-  const podiumContainer = document.getElementById("tpPodiumGrid");
-  if (podiumContainer) {
-    const top3 = top20.slice(0, 3);
-    const podiumHtml = top3.map((item, idx) => {
-      const rank = idx + 1;
-      const medal = rank === 1 ? "🥇" : (rank === 2 ? "🥈" : "🥉");
-      const rankClass = `rank-${rank}`;
-      const rankLabel = rank === 1 ? "👑 Rank #1 Champion" : (rank === 2 ? "🥈 Rank #2 Runner Up" : "🥉 Rank #3 Third");
-      
-      const thumb = item.topReel?.thumbnail || item.pic_url;
-      const reelTitle = item.topReel?.title || item.topReel?.description || `${item.name} Reel`;
-      const reelViews = item.topReel?.views !== undefined ? Number(item.topReel.views).toLocaleString() : "0";
+  const elKpiVal1 = document.getElementById("tpKpiVal1");
+  const elKpiVal2 = document.getElementById("tpKpiVal2");
+  const elKpiVal3 = document.getElementById("tpKpiVal3");
+  const elKpiVal4 = document.getElementById("tpKpiVal4");
 
-      return `
-        <div class="tp-podium-card ${rankClass}" onclick="selectPage('${item.pid}')" title="Click to open ${item.name} analytics">
-          <div class="tp-podium-badge-strip">
-            <span class="tp-rank-medal">${medal}</span>
-            <span class="tp-rank-pill">${rankLabel}</span>
-          </div>
-          <div class="tp-podium-profile">
-            <img src="${item.pic_url}" class="tp-podium-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
-            <div style="min-width:0;flex:1;">
-              <div class="tp-podium-name" title="${item.name}">${item.name}</div>
-              <div class="tp-podium-fleet">🏷️ ${item.fleetTag}</div>
+  const elKpiSub1 = document.getElementById("tpKpiSub1");
+  const elKpiSub2 = document.getElementById("tpKpiSub2");
+  const elKpiSub3 = document.getElementById("tpKpiSub3");
+  const elKpiSub4 = document.getElementById("tpKpiSub4");
+
+  // Global counts across all 101 pages for quick filters & stats
+  const countZeroViews = allPagesStats.filter(p => p.tfViews === 0).length;
+  const countUnder500 = allPagesStats.filter(p => p.tfViews > 0 && p.tfViews < 500).length;
+  const countUploadGap = allPagesStats.filter(p => p.daysSinceLastUpload > 3).length;
+
+  const elCountZero = document.getElementById("countZeroViews");
+  const elCountUnder500 = document.getElementById("countUnder500");
+  const elCountGap = document.getElementById("countUploadGap");
+  if (elCountZero) elCountZero.innerText = countZeroViews;
+  if (elCountUnder500) elCountUnder500.innerText = countUnder500;
+  if (elCountGap) elCountGap.innerText = countUploadGap;
+
+  // ==========================================
+  // MODE 1: TOP 20 PERFORMERS
+  // ==========================================
+  if (currentPerformanceMode === "top") {
+    if (elHeaderIcon) elHeaderIcon.innerText = "🏆";
+    if (elHeaderTitle) elHeaderTitle.innerText = "Top 20 Performers";
+    if (elHeaderSub) elHeaderSub.innerText = "Live Viral Leaderboard & Channel Rankings across all 101 Facebook Pages";
+    if (elBadge) {
+      elBadge.innerText = `${pages.length} Pages Monitored • ${days}D`;
+      elBadge.style.background = "linear-gradient(135deg, rgba(245, 186, 35, 0.25), rgba(217, 119, 6, 0.25))";
+      elBadge.style.borderColor = "rgba(245, 186, 35, 0.5)";
+      elBadge.style.color = "#facc15";
+    }
+
+    if (elSortTop) elSortTop.style.display = "flex";
+    if (elSortLow) elSortLow.style.display = "none";
+    if (elQuickFilters) elQuickFilters.style.display = "none";
+    if (podiumSection) podiumSection.style.display = "block";
+
+    // Sort Top Pages
+    const topSorted = [...allPagesStats].sort((a, b) => {
+      if (currentTopPerformersSort === "likes") return b.tfLikes - a.tfLikes;
+      if (currentTopPerformersSort === "comments") return b.tfComments - a.tfComments;
+      if (currentTopPerformersSort === "followers") return b.followers - a.followers;
+      return b.tfViews - a.tfViews; // default: views
+    });
+
+    const top20 = topSorted.slice(0, 20);
+    const champion = top20[0] || null;
+
+    const totalTop20Views = top20.reduce((s, x) => s + x.tfViews, 0);
+    const totalAllViews = topSorted.reduce((s, x) => s + x.tfViews, 0);
+    const shareOfPortfolio = totalAllViews > 0 ? ((totalTop20Views / totalAllViews) * 100).toFixed(1) : "0";
+    const totalTop20Engagement = top20.reduce((s, x) => s + x.tfEngagement, 0);
+    const avgViewsPerTopPage = Math.round(totalTop20Views / (top20.length || 1));
+
+    // Update KPIs for Top Mode
+    if (elKpiLabel1) elKpiLabel1.innerHTML = `🥇 #1 Champion Page`;
+    if (elKpiVal1 && champion) {
+      elKpiVal1.className = "tp-kpi-value gold";
+      elKpiVal1.innerText = champion.name;
+    }
+    if (elKpiSub1 && champion) elKpiSub1.innerText = `${champion.tfViews.toLocaleString()} Views (${champion.fleetTag})`;
+
+    if (elKpiLabel2) elKpiLabel2.innerHTML = `🚀 Top 20 Combined Views`;
+    if (elKpiVal2) {
+      elKpiVal2.className = "tp-kpi-value gold";
+      elKpiVal2.innerText = totalTop20Views.toLocaleString();
+    }
+    if (elKpiSub2) elKpiSub2.innerText = `${shareOfPortfolio}% of Portfolio (${totalAllViews.toLocaleString()} Total)`;
+
+    if (elKpiLabel3) elKpiLabel3.innerHTML = `💬 Top 20 Interactions`;
+    if (elKpiVal3) {
+      elKpiVal3.className = "tp-kpi-value";
+      elKpiVal3.innerText = totalTop20Engagement.toLocaleString();
+    }
+    if (elKpiSub3) elKpiSub3.innerText = `Total Likes & Comments`;
+
+    if (elKpiLabel4) elKpiLabel4.innerHTML = `📈 Avg Views / Top Page`;
+    if (elKpiVal4) {
+      elKpiVal4.className = "tp-kpi-value";
+      elKpiVal4.innerText = avgViewsPerTopPage.toLocaleString();
+    }
+    if (elKpiSub4) elKpiSub4.innerText = `${days}-Day Velocity (${pages.length} Pages)`;
+
+    // Render Podium
+    const podiumContainer = document.getElementById("tpPodiumGrid");
+    if (podiumContainer) {
+      const top3 = top20.slice(0, 3);
+      const podiumHtml = top3.map((item, idx) => {
+        const rank = idx + 1;
+        const medal = rank === 1 ? "🥇" : (rank === 2 ? "🥈" : "🥉");
+        const rankClass = `rank-${rank}`;
+        const rankLabel = rank === 1 ? "👑 Rank #1 Champion" : (rank === 2 ? "🥈 Rank #2 Runner Up" : "🥉 Rank #3 Third");
+        
+        const thumb = item.topReel?.thumbnail || item.pic_url;
+        const reelTitle = item.topReel?.title || item.topReel?.description || `${item.name} Reel`;
+        const reelViews = item.topReel?.views !== undefined ? Number(item.topReel.views).toLocaleString() : "0";
+
+        return `
+          <div class="tp-podium-card ${rankClass}" onclick="selectPage('${item.pid}')" title="Click to open ${item.name} analytics">
+            <div class="tp-podium-badge-strip">
+              <span class="tp-rank-medal">${medal}</span>
+              <span class="tp-rank-pill">${rankLabel}</span>
             </div>
-          </div>
-          <div class="tp-podium-metrics">
-            <div>
-              <div class="tp-podium-views">${item.tfViews.toLocaleString()}</div>
-              <div class="tp-podium-views-label">${days}D Views</div>
-            </div>
-            <div class="tp-podium-sub-metrics">
-              <span title="${item.tfLikes.toLocaleString()} Likes">❤️ ${item.tfLikes.toLocaleString()}</span>
-              <span title="${item.tfComments.toLocaleString()} Comments">💬 ${item.tfComments.toLocaleString()}</span>
-              <span title="${item.followers.toLocaleString()} Followers">👥 ${(item.followers).toLocaleString()}</span>
-            </div>
-          </div>
-          ${item.topReel ? `
-            <div class="tp-top-reel-snippet">
-              <img src="${thumb}" class="tp-reel-thumb" alt="Reel Thumbnail" onerror="this.src='${item.pic_url}'">
-              <div class="tp-reel-info">
-                <div class="tp-reel-badge">🔥 #1 Viral Reel</div>
-                <div class="tp-reel-title" title="${reelTitle}">${reelTitle}</div>
-                <div class="tp-reel-views">${reelViews} Views</div>
+            <div class="tp-podium-profile">
+              <img src="${item.pic_url}" class="tp-podium-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
+              <div style="min-width:0;flex:1;">
+                <div class="tp-podium-name" title="${item.name}">${item.name}</div>
+                <div class="tp-podium-fleet">🏷️ ${item.fleetTag}</div>
               </div>
             </div>
-          ` : ''}
-        </div>`;
-    }).join("");
-    podiumContainer.innerHTML = podiumHtml || `<div style="color:#64748b;padding:16px;">No pages available</div>`;
-  }
-
-  // Render Table / Cards for Ranks 4 to 20
-  const tableContainer = document.getElementById("tpTableBody");
-  if (tableContainer) {
-    const ranks4to20 = top20.slice(3);
-    const maxViews = champion ? (champion.tfViews || 1) : 1;
-
-    const rowsHtml = ranks4to20.map((item, idx) => {
-      const rank = idx + 4;
-      const pctOfLeader = Math.max(6, Math.min(100, Math.round((item.tfViews / maxViews) * 100)));
-      const thumb = item.topReel?.thumbnail || item.pic_url;
-      const reelTitle = item.topReel?.title || item.topReel?.description || `${item.name} Reel`;
-      const reelViews = item.topReel?.views !== undefined ? Number(item.topReel.views).toLocaleString() : "0";
-
-      return `
-        <div class="tp-table-row" onclick="selectPage('${item.pid}')" title="Click to open ${item.name} analytics">
-          <div class="tp-row-rank">#${rank}</div>
-          <div class="tp-row-page">
-            <img src="${item.pic_url}" class="tp-row-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
-            <div style="min-width:0;flex:1;">
-              <div class="tp-row-page-name" title="${item.name}">${item.name}</div>
-              <div class="tp-row-fleet-tag">${item.fleetTag} • ${(item.followers).toLocaleString()} Followers</div>
+            <div class="tp-podium-metrics">
+              <div>
+                <div class="tp-podium-views">${item.tfViews.toLocaleString()}</div>
+                <div class="tp-podium-views-label">${days}D Views</div>
+              </div>
+              <div class="tp-podium-sub-metrics">
+                <span title="${item.tfLikes.toLocaleString()} Likes">❤️ ${item.tfLikes.toLocaleString()}</span>
+                <span title="${item.tfComments.toLocaleString()} Comments">💬 ${item.tfComments.toLocaleString()}</span>
+                <span title="${item.followers.toLocaleString()} Followers">👥 ${(item.followers).toLocaleString()}</span>
+              </div>
             </div>
-          </div>
-          <div class="tp-row-viral-reel">
-            <img src="${thumb}" class="tp-row-reel-thumb" alt="Reel" onerror="this.src='${item.pic_url}'">
-            <div style="min-width:0;flex:1;">
-              <div class="tp-row-reel-title" title="${reelTitle}">${reelTitle}</div>
-              <div class="tp-row-reel-views">${reelViews} Views</div>
-            </div>
-          </div>
-          <div class="tp-row-views-col">
-            <span class="tp-row-views-num">${item.tfViews.toLocaleString()}</span>
-            <div class="tp-row-views-bar" title="${pctOfLeader}% of #1 Leader Views">
-              <div class="tp-row-views-fill" style="width: ${pctOfLeader}%;"></div>
-            </div>
-          </div>
-          <div class="tp-row-engagement">
-            <div>❤️ ${item.tfLikes.toLocaleString()}</div>
-            <div style="color:#64748b;font-size:11px;">💬 ${item.tfComments.toLocaleString()}</div>
-          </div>
-          <div>
-            <button type="button" class="tp-btn-inspect" onclick="event.stopPropagation(); selectPage('${item.pid}')">Inspect ➜</button>
-          </div>
-        </div>`;
-    }).join("");
+            ${item.topReel ? `
+              <div class="tp-top-reel-snippet">
+                <img src="${thumb}" class="tp-reel-thumb" alt="Reel Thumbnail" onerror="this.src='${item.pic_url}'">
+                <div class="tp-reel-info">
+                  <div class="tp-reel-badge">🔥 #1 Viral Reel</div>
+                  <div class="tp-reel-title" title="${reelTitle}">${reelTitle}</div>
+                  <div class="tp-reel-views">${reelViews} Views</div>
+                </div>
+              </div>
+            ` : ''}
+          </div>`;
+      }).join("");
+      podiumContainer.innerHTML = podiumHtml || `<div style="color:#64748b;padding:16px;">No pages available</div>`;
+    }
 
-    tableContainer.innerHTML = rowsHtml || `<div style="color:#64748b;padding:20px;text-align:center;">No additional pages</div>`;
+    // Render Table for Ranks 4 to 20
+    if (tableHeading) tableHeading.innerText = "📊 Leaderboard Rankings (Ranks #4 to #20)";
+    if (tableHeader) {
+      tableHeader.className = "tp-table-header";
+      tableHeader.innerHTML = `
+        <div>Rank</div>
+        <div>Page & Fleet</div>
+        <div>Top Viral Reel</div>
+        <div>Timeframe Views</div>
+        <div>Engagement</div>
+        <div>Action</div>
+      `;
+    }
+
+    if (tableContainer) {
+      const ranks4to20 = top20.slice(3);
+      const maxViews = champion ? (champion.tfViews || 1) : 1;
+
+      const rowsHtml = ranks4to20.map((item, idx) => {
+        const rank = idx + 4;
+        const pctOfLeader = Math.max(6, Math.min(100, Math.round((item.tfViews / maxViews) * 100)));
+        const thumb = item.topReel?.thumbnail || item.pic_url;
+        const reelTitle = item.topReel?.title || item.topReel?.description || `${item.name} Reel`;
+        const reelViews = item.topReel?.views !== undefined ? Number(item.topReel.views).toLocaleString() : "0";
+
+        return `
+          <div class="tp-table-row" onclick="selectPage('${item.pid}')" title="Click to open ${item.name} analytics">
+            <div class="tp-row-rank">#${rank}</div>
+            <div class="tp-row-page">
+              <img src="${item.pic_url}" class="tp-row-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
+              <div style="min-width:0;flex:1;">
+                <div class="tp-row-page-name" title="${item.name}">${item.name}</div>
+                <div class="tp-row-fleet-tag">${item.fleetTag} • ${(item.followers).toLocaleString()} Followers</div>
+              </div>
+            </div>
+            <div class="tp-row-viral-reel">
+              <img src="${thumb}" class="tp-row-reel-thumb" alt="Reel" onerror="this.src='${item.pic_url}'">
+              <div style="min-width:0;flex:1;">
+                <div class="tp-row-reel-title" title="${reelTitle}">${reelTitle}</div>
+                <div class="tp-row-reel-views">${reelViews} Views</div>
+              </div>
+            </div>
+            <div class="tp-row-views-col">
+              <span class="tp-row-views-num">${item.tfViews.toLocaleString()}</span>
+              <div class="tp-row-views-bar" title="${pctOfLeader}% of #1 Leader Views">
+                <div class="tp-row-views-fill" style="width: ${pctOfLeader}%;"></div>
+              </div>
+            </div>
+            <div class="tp-row-engagement">
+              <div>❤️ ${item.tfLikes.toLocaleString()}</div>
+              <div style="color:#64748b;font-size:11px;">💬 ${item.tfComments.toLocaleString()}</div>
+            </div>
+            <div>
+              <button type="button" class="tp-btn-inspect" onclick="event.stopPropagation(); selectPage('${item.pid}')">Inspect ➜</button>
+            </div>
+          </div>`;
+      }).join("");
+
+      tableContainer.innerHTML = rowsHtml || `<div style="color:#64748b;padding:20px;text-align:center;">No additional pages</div>`;
+    }
+
+  } else {
+    // ==========================================
+    // MODE 2: LOW & 0 VIEWS PAGES (BOTTOM 50 AUDIT)
+    // ==========================================
+    if (elHeaderIcon) elHeaderIcon.innerText = "❄️";
+    if (elHeaderTitle) elHeaderTitle.innerText = "Low & 0 Views Pages Audit";
+    if (elHeaderSub) elHeaderSub.innerText = "Executive Underperformer Directory (Bottom 50 Channels) needing fresh reels, reach boost, or meta review";
+    if (elBadge) {
+      elBadge.innerText = `50 Channels Audited • ${days}D`;
+      elBadge.style.background = "linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(185, 28, 28, 0.25))";
+      elBadge.style.borderColor = "rgba(239, 68, 68, 0.5)";
+      elBadge.style.color = "#f87171";
+    }
+
+    if (elSortTop) elSortTop.style.display = "none";
+    if (elSortLow) elSortLow.style.display = "flex";
+    if (elQuickFilters) elQuickFilters.style.display = "flex";
+    if (podiumSection) podiumSection.style.display = "none";
+
+    // Update KPIs for Low Mode
+    if (elKpiLabel1) elKpiLabel1.innerHTML = `🔴 Strictly 0 Views Pages`;
+    if (elKpiVal1) {
+      elKpiVal1.className = "tp-kpi-value red";
+      elKpiVal1.innerText = `${countZeroViews} Pages`;
+    }
+    if (elKpiSub1) elKpiSub1.innerText = `Zero views in last ${days} days`;
+
+    if (elKpiLabel2) elKpiLabel2.innerHTML = `🟡 Low Velocity (< 500 Views)`;
+    if (elKpiVal2) {
+      elKpiVal2.className = "tp-kpi-value amber";
+      elKpiVal2.innerText = `${countUnder500} Pages`;
+    }
+    if (elKpiSub2) elKpiSub2.innerText = `Needs viral hook / content test`;
+
+    if (elKpiLabel3) elKpiLabel3.innerHTML = `⏳ Upload Gap (> 3 Days)`;
+    if (elKpiVal3) {
+      elKpiVal3.className = countUploadGap > 0 ? "tp-kpi-value red" : "tp-kpi-value";
+      elKpiVal3.innerText = `${countUploadGap} Pages`;
+    }
+    if (elKpiSub3) elKpiSub3.innerText = countUploadGap > 0 ? `Missed scheduled reel uploads` : `All pages uploaded recently`;
+
+    if (elKpiLabel4) elKpiLabel4.innerHTML = `❄️ Monitored Underperformers`;
+    if (elKpiVal4) {
+      elKpiVal4.className = "tp-kpi-value";
+      elKpiVal4.innerText = `50 Pages`;
+    }
+    if (elKpiSub4) elKpiSub4.innerText = `Bottom 50 of 101 channels`;
+
+    // Extract Bottom 50 pool:
+    // Sort all 101 pages ascending by views, then lastUploadMs ascending
+    const ascendingPool = [...allPagesStats].sort((a, b) => {
+      if (a.tfViews !== b.tfViews) return a.tfViews - b.tfViews;
+      if (a.lastUploadMs !== b.lastUploadMs) return a.lastUploadMs - b.lastUploadMs;
+      return a.followers - b.followers;
+    });
+
+    const bottom50Pool = ascendingPool.slice(0, 50);
+
+    // Apply Quick Filter
+    let filteredList = bottom50Pool;
+    if (currentLowFilter === "zero") {
+      filteredList = bottom50Pool.filter(p => p.tfViews === 0);
+    } else if (currentLowFilter === "under500") {
+      filteredList = bottom50Pool.filter(p => p.tfViews > 0 && p.tfViews < 500);
+    } else if (currentLowFilter === "gap") {
+      filteredList = bottom50Pool.filter(p => p.daysSinceLastUpload > 3);
+    }
+
+    // Apply Sort
+    filteredList.sort((a, b) => {
+      if (currentLowSort === "oldest_upload") {
+        return a.lastUploadMs - b.lastUploadMs;
+      }
+      if (currentLowSort === "least_reels") {
+        if (a.reelsCount !== b.reelsCount) return a.reelsCount - b.reelsCount;
+        return a.tfViews - b.tfViews;
+      }
+      // default: views_asc
+      if (a.tfViews !== b.tfViews) return a.tfViews - b.tfViews;
+      return a.lastUploadMs - b.lastUploadMs;
+    });
+
+    // Render Low Mode Table
+    if (tableHeading) {
+      tableHeading.innerText = `❄️ Underperforming Channels Directory (${filteredList.length} Pages)`;
+    }
+
+    if (tableHeader) {
+      tableHeader.className = "tp-table-header low-mode";
+      tableHeader.innerHTML = `
+        <div>Rank</div>
+        <div>Page & Fleet</div>
+        <div>Timeframe Views</div>
+        <div>Total Reels</div>
+        <div>Last Upload</div>
+        <div>Diagnosis</div>
+        <div>Actions</div>
+      `;
+    }
+
+    if (tableContainer) {
+      const rowsHtml = filteredList.map((item, idx) => {
+        const rank = idx + 1;
+        const isZero = item.tfViews === 0;
+        const viewsBadge = isZero
+          ? `<span class="tp-badge-zero-views">🔴 0 VIEWS</span>`
+          : (item.tfViews < 500
+              ? `<span class="tp-badge-low-views">🟡 ${item.tfViews.toLocaleString()}</span>`
+              : `<span class="tp-row-views-num">${item.tfViews.toLocaleString()}</span>`);
+
+        return `
+          <div class="tp-table-row low-mode" onclick="selectPage('${item.pid}')" title="Click to open ${item.name} analytics">
+            <div class="tp-row-rank" style="${isZero ? 'color:#f87171;font-weight:900;' : ''}">#${rank}</div>
+            <div class="tp-row-page">
+              <img src="${item.pic_url}" class="tp-row-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
+              <div style="min-width:0;flex:1;">
+                <div class="tp-row-page-name" title="${item.name}">${item.name}</div>
+                <div class="tp-row-fleet-tag">${item.fleetTag} • ${(item.followers).toLocaleString()} Followers</div>
+              </div>
+            </div>
+            <div>
+              ${viewsBadge}
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#cbd5e1;font-weight:700;">
+              ${item.reelsCount} <span style="font-size:11px;color:#64748b;font-weight:500;">reels</span>
+            </div>
+            <div style="font-size:12px;color:#cbd5e1;font-weight:600;">
+              ${item.lastUploadFormatted}
+            </div>
+            <div>
+              <span class="tp-diag-tag ${item.diagnosis}">${item.diagLabel}</span>
+            </div>
+            <div class="tp-action-btn-group">
+              <a href="https://facebook.com/${item.pid}" target="_blank" rel="noopener noreferrer" class="tp-btn-action-open" onclick="event.stopPropagation();" title="Open Page on Facebook">🎬 FB ↗</a>
+              <button type="button" class="tp-btn-action-post" onclick="event.stopPropagation(); launchStudioForPage('${item.pid}');" title="Post a Reel to this page now">🚀 Post Reel</button>
+            </div>
+          </div>`;
+      }).join("");
+
+      tableContainer.innerHTML = rowsHtml || `<div style="color:#64748b;padding:24px;text-align:center;">No underperforming pages match the selected filter.</div>`;
+    }
   }
 }
 
@@ -6169,8 +6505,12 @@ window.filterAuditTerminalLogs = filterAuditTerminalLogs;
 window.updateAuditTabCounts = updateAuditTabCounts;
 window.toggleFleetPagesInspect = toggleFleetPagesInspect;
 window.toggleActionCardPages = toggleActionCardPages;
+window.setPerformanceMode = setPerformanceMode;
 window.setTopPerformersTimeframe = setTopPerformersTimeframe;
 window.setTopPerformersSort = setTopPerformersSort;
+window.setLowPerformersFilter = setLowPerformersFilter;
+window.setLowPerformersSort = setLowPerformersSort;
+window.launchStudioForPage = launchStudioForPage;
 window.renderTopPerformersView = renderTopPerformersView;
 
 

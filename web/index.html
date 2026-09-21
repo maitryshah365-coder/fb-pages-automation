@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.8.6">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.9.0">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -139,6 +139,17 @@
           </div>
         </div>
         <span class="portfolio-badge" style="background: rgba(245,186,35,0.2); color: #facc15; border: 1px solid rgba(245,186,35,0.4);">TOP 20</span>
+      </div>
+
+      <div class="drawer-all-portfolio-tile" id="btnDrawerLowPerformers" onclick="closePageDrawer(); switchMainView('low_performers')" role="button" tabindex="0" style="border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.08); cursor: pointer;">
+        <div class="portfolio-tile-left">
+          <div class="portfolio-avatar" style="background: rgba(239,68,68,0.2); color: #f87171;">❄️</div>
+          <div>
+            <div class="portfolio-name">Low & 0 Views Pages</div>
+            <div class="portfolio-desc">Bottom 50 Channels Needing Push</div>
+          </div>
+        </div>
+        <span class="portfolio-badge" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4);">LOW 50</span>
       </div>
     </div>
 
@@ -295,6 +306,20 @@
             </div>
           </div>
           <span class="side-top-pill" style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">TOP 20</span>
+        </button>
+      </div>
+
+      <!-- BOX 8: LOW & 0 VIEWS (BOTTOM 50 AUDIT) -->
+      <div class="sidebar-nav-box">
+        <button type="button" id="sideNavLowPerformers" class="sidebar-action-tile side-tile-low-performers" onclick="switchMainView('low_performers')" title="Low & 0 Views Pages (Bottom 50 Audit)">
+          <div class="tile-content-left">
+            <span class="tile-icon">❄️</span>
+            <div class="tile-text">
+              <span class="tile-title">Low & 0 Views</span>
+              <span class="tile-sub">Bottom 50 Channels</span>
+            </div>
+          </div>
+          <span class="side-low-pill" id="sideNavLowBadge" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">LOW 50</span>
         </button>
       </div>
 
@@ -771,79 +796,110 @@
       </details>
     </div>
 
-    <!-- ================= TOP 20 PERFORMERS VIEW (VIRAL LEADERBOARD & RANKINGS) ================= -->
+    <!-- ================= TOP PERFORMERS & LOW-VIEW AUDIT VIEW ================= -->
     <div id="topPerformersLeaderboardView" class="dashboard-view-container top-performers-view-container" style="display: none;">
       
+      <!-- Master Mode Switcher Bar (🔥 Top 20 Viral Stars vs ❄️ Low & 0 Views Pages) -->
+      <div class="perf-mode-switcher-bar">
+        <button type="button" class="perf-mode-tab-btn active" id="btnModeTop20" onclick="setPerformanceMode('top')">
+          <span class="perf-tab-icon">🔥</span>
+          <span class="perf-tab-title">Top 20 Performers</span>
+          <span class="perf-tab-pill gold">Top 20</span>
+        </button>
+        <button type="button" class="perf-mode-tab-btn" id="btnModeLow50" onclick="setPerformanceMode('low')">
+          <span class="perf-tab-icon">❄️</span>
+          <span class="perf-tab-title">Low & 0 Views Pages</span>
+          <span class="perf-tab-pill red" id="lowPagesPillBadge">Bottom 50</span>
+        </button>
+      </div>
+
       <!-- Hero Header -->
       <div class="tp-hero-header">
         <div class="tp-title-row">
           <div class="tp-heading-group">
-            <span class="tp-heading-icon">🏆</span>
+            <span class="tp-heading-icon" id="tpMainHeaderIcon">🏆</span>
             <div>
-              <h2 class="tp-heading-title">Top 20 Performers</h2>
-              <p class="tp-subtitle">Live Viral Leaderboard & Channel Rankings across all 101 Facebook Pages</p>
+              <h2 class="tp-heading-title" id="tpMainHeaderTitle">Top 20 Performers</h2>
+              <p class="tp-subtitle" id="tpMainHeaderSubtitle">Live Viral Leaderboard & Channel Rankings across all 101 Facebook Pages</p>
             </div>
           </div>
           <span class="tp-heading-badge" id="tpLeaderboardBadge">101 Pages Monitored</span>
         </div>
 
-        <!-- Executive KPI Grid -->
-        <div class="tp-kpi-grid">
-          <div class="tp-kpi-card">
-            <div class="tp-kpi-label">🥇 #1 Champion Page</div>
-            <div class="tp-kpi-value gold" id="tpKpiChampionName">Loading...</div>
-            <div class="tp-kpi-sub" id="tpKpiChampionViews">0 Views</div>
+        <!-- Executive KPI Grid (Swapped dynamically based on Mode) -->
+        <div class="tp-kpi-grid" id="tpKpiGrid">
+          <div class="tp-kpi-card" id="tpKpiCard1">
+            <div class="tp-kpi-label" id="tpKpiLabel1">🥇 #1 Champion Page</div>
+            <div class="tp-kpi-value gold" id="tpKpiVal1">Loading...</div>
+            <div class="tp-kpi-sub" id="tpKpiSub1">0 Views</div>
           </div>
-          <div class="tp-kpi-card">
-            <div class="tp-kpi-label">🚀 Top 20 Combined Views</div>
-            <div class="tp-kpi-value gold" id="tpKpiTop20Views">0</div>
-            <div class="tp-kpi-sub" id="tpKpiTop20Share">0% of Portfolio</div>
+          <div class="tp-kpi-card" id="tpKpiCard2">
+            <div class="tp-kpi-label" id="tpKpiLabel2">🚀 Top 20 Combined Views</div>
+            <div class="tp-kpi-value gold" id="tpKpiVal2">0</div>
+            <div class="tp-kpi-sub" id="tpKpiSub2">0% of Portfolio</div>
           </div>
-          <div class="tp-kpi-card">
-            <div class="tp-kpi-label">💬 Top 20 Interactions</div>
-            <div class="tp-kpi-value" id="tpKpiTop20Engagement">0</div>
-            <div class="tp-kpi-sub">Total Likes & Comments</div>
+          <div class="tp-kpi-card" id="tpKpiCard3">
+            <div class="tp-kpi-label" id="tpKpiLabel3">💬 Top 20 Interactions</div>
+            <div class="tp-kpi-value" id="tpKpiVal3">0</div>
+            <div class="tp-kpi-sub" id="tpKpiSub3">Total Likes & Comments</div>
           </div>
-          <div class="tp-kpi-card">
-            <div class="tp-kpi-label">📈 Avg Views / Top Page</div>
-            <div class="tp-kpi-value" id="tpKpiAvgViews">0</div>
-            <div class="tp-kpi-sub" id="tpKpiTimeframeLabel">30-Day Velocity</div>
+          <div class="tp-kpi-card" id="tpKpiCard4">
+            <div class="tp-kpi-label" id="tpKpiLabel4">📈 Avg Views / Top Page</div>
+            <div class="tp-kpi-value" id="tpKpiVal4">0</div>
+            <div class="tp-kpi-sub" id="tpKpiSub4">30-Day Velocity</div>
           </div>
         </div>
       </div>
 
       <!-- Filter & Sorting Controls Toolbar -->
-      <div class="tp-toolbar">
-        <div class="tp-toolbar-left">
-          <span class="tp-toolbar-label">📅 Timeframe:</span>
-          <button type="button" class="tp-pill-btn" data-tp-days="7" onclick="setTopPerformersTimeframe(7)">7 Days</button>
-          <button type="button" class="tp-pill-btn" data-tp-days="15" onclick="setTopPerformersTimeframe(15)">15 Days</button>
-          <button type="button" class="tp-pill-btn active" data-tp-days="30" onclick="setTopPerformersTimeframe(30)">30 Days</button>
-          <button type="button" class="tp-pill-btn" data-tp-days="60" onclick="setTopPerformersTimeframe(60)">60 Days</button>
-          <button type="button" class="tp-pill-btn" data-tp-days="90" onclick="setTopPerformersTimeframe(90)">90 Days</button>
+      <div class="tp-toolbar" id="tpMainToolbar">
+        <div class="tp-toolbar-row" style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 14px;">
+          <div class="tp-toolbar-left">
+            <span class="tp-toolbar-label">📅 Timeframe:</span>
+            <button type="button" class="tp-pill-btn" data-tp-days="7" onclick="setTopPerformersTimeframe(7)">7 Days</button>
+            <button type="button" class="tp-pill-btn" data-tp-days="15" onclick="setTopPerformersTimeframe(15)">15 Days</button>
+            <button type="button" class="tp-pill-btn active" data-tp-days="30" onclick="setTopPerformersTimeframe(30)">30 Days</button>
+            <button type="button" class="tp-pill-btn" data-tp-days="60" onclick="setTopPerformersTimeframe(60)">60 Days</button>
+            <button type="button" class="tp-pill-btn" data-tp-days="90" onclick="setTopPerformersTimeframe(90)">90 Days</button>
+          </div>
+          <div class="tp-toolbar-right" id="tpSortToolbarTop">
+            <span class="tp-toolbar-label">⚡ Sort By:</span>
+            <button type="button" class="tp-pill-btn active" data-tp-sort="views" onclick="setTopPerformersSort('views')">🔥 Most Views</button>
+            <button type="button" class="tp-pill-btn" data-tp-sort="likes" onclick="setTopPerformersSort('likes')">❤️ Most Likes</button>
+            <button type="button" class="tp-pill-btn" data-tp-sort="comments" onclick="setTopPerformersSort('comments')">💬 Most Comments</button>
+            <button type="button" class="tp-pill-btn" data-tp-sort="followers" onclick="setTopPerformersSort('followers')">👥 Followers</button>
+          </div>
+          <div class="tp-toolbar-right" id="tpSortToolbarLow" style="display:none;">
+            <span class="tp-toolbar-label">⚡ Sort By:</span>
+            <button type="button" class="tp-pill-btn active" data-low-sort="views_asc" onclick="setLowPerformersSort('views_asc')">📉 Lowest Views</button>
+            <button type="button" class="tp-pill-btn" data-low-sort="oldest_upload" onclick="setLowPerformersSort('oldest_upload')">⏳ Oldest Upload</button>
+            <button type="button" class="tp-pill-btn" data-low-sort="least_reels" onclick="setLowPerformersSort('least_reels')">🎬 Least Reels</button>
+          </div>
         </div>
-        <div class="tp-toolbar-right">
-          <span class="tp-toolbar-label">⚡ Sort By:</span>
-          <button type="button" class="tp-pill-btn active" data-tp-sort="views" onclick="setTopPerformersSort('views')">🔥 Most Views</button>
-          <button type="button" class="tp-pill-btn" data-tp-sort="likes" onclick="setTopPerformersSort('likes')">❤️ Most Likes</button>
-          <button type="button" class="tp-pill-btn" data-tp-sort="comments" onclick="setTopPerformersSort('comments')">💬 Most Comments</button>
-          <button type="button" class="tp-pill-btn" data-tp-sort="followers" onclick="setTopPerformersSort('followers')">👥 Followers</button>
+
+        <!-- Quick Filters for Low 50 Mode -->
+        <div class="tp-toolbar-subrow" id="tpLowQuickFiltersRow" style="display: none; align-items: center; gap: 8px; flex-wrap: wrap; width: 100%; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 6px;">
+          <span class="tp-toolbar-label">🎯 Audit Filter:</span>
+          <button type="button" class="tp-pill-btn active" data-low-filter="all" onclick="setLowPerformersFilter('all')">All 50 Underperformers</button>
+          <button type="button" class="tp-pill-btn" data-low-filter="zero" onclick="setLowPerformersFilter('zero')">🔴 Strictly 0 Views (<span id="countZeroViews">0</span>)</button>
+          <button type="button" class="tp-pill-btn" data-low-filter="under500" onclick="setLowPerformersFilter('under500')">🟡 Under 500 Views (<span id="countUnder500">0</span>)</button>
+          <button type="button" class="tp-pill-btn" data-low-filter="gap" onclick="setLowPerformersFilter('gap')">⏳ Upload Gap &gt; 3 Days (<span id="countUploadGap">0</span>)</button>
         </div>
       </div>
 
-      <!-- Top 3 Podium Highlights -->
-      <div class="tp-podium-section">
+      <!-- Top 3 Podium Highlights (Shown only in Top mode) -->
+      <div class="tp-podium-section" id="tpPodiumSection">
         <div class="tp-section-heading">🌟 Viral Podium (Ranks #1 - #3)</div>
         <div class="tp-podium-grid" id="tpPodiumGrid">
           <!-- Dynamically populated -->
         </div>
       </div>
 
-      <!-- Rankings Table (Ranks 4 to 20) -->
+      <!-- Rankings Table (Ranks 4 to 20 for Top, or 1 to 50 for Low) -->
       <div class="tp-table-section">
-        <div class="tp-section-heading">📊 Leaderboard Rankings (Ranks #4 to #20)</div>
+        <div class="tp-section-heading" id="tpTableHeading">📊 Leaderboard Rankings (Ranks #4 to #20)</div>
         <div class="tp-table-container">
-          <div class="tp-table-header">
+          <div class="tp-table-header" id="tpTableHeader">
             <div>Rank</div>
             <div>Page & Fleet</div>
             <div>Top Viral Reel</div>
@@ -1285,6 +1341,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=8.8.6"></script>
+  <script src="js/gold_app.js?v=8.9.0"></script>
 </body>
 </html>
