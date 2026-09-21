@@ -486,6 +486,12 @@ body {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
+.drawer-nav-tile.active {
+  background: rgba(245, 186, 35, 0.14) !important;
+  border-color: rgba(245, 186, 35, 0.45) !important;
+  box-shadow: 0 0 16px rgba(245, 186, 35, 0.15) !important;
+}
+
 .drawer-pages-accordion {
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -3086,17 +3092,26 @@ body {
 }
 
 .btn-mobile-drawer {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f8fafc;
-  padding: 6px 12px;
+  background: rgba(245, 186, 35, 0.12);
+  border: 1px solid rgba(245, 186, 35, 0.38);
+  color: #fbbf24;
+  padding: 7px 14px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   cursor: pointer;
+  box-shadow: 0 2px 10px rgba(245, 186, 35, 0.12);
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-mobile-drawer:active {
+  transform: scale(0.95);
+  background: rgba(245, 186, 35, 0.25);
 }
 
 .mobile-brand-group {
@@ -4046,23 +4061,13 @@ body {
    ========================================================================= */
 
 .mobile-bottom-panel {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: calc(62px + env(safe-area-inset-bottom, 0px));
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  background: rgba(9, 12, 19, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  z-index: 9999;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
-  padding-left: 2px;
-  padding-right: 2px;
-  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.65);
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
 
 .bottom-nav-item {
@@ -4780,14 +4785,17 @@ body {
     display: none !important;
   }
 
-  /* Show Fixed Bottom Navigation Panel on Mobile/Phone */
+  /* Mobile Bottom Panel completely disabled - replaced by native Side Panel! */
   .mobile-bottom-panel {
-    display: grid !important;
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    pointer-events: none !important;
   }
 
-  /* Mobile Content Padding so bottom bar never obscures content */
+  /* Mobile Content Padding: no bottom bar space needed anymore! */
   .studio-main-content {
-    padding: 12px 10px 90px !important;
+    padding: 12px 10px 24px !important;
   }
 
   /* Mobile Radar Card Clean Layout */

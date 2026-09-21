@@ -1656,7 +1656,7 @@ function selectPage(pageId) {
   if (activePageId === "all") {
     if (sideDashBtn) sideDashBtn.classList.add("active");
     if (sideActiveSub) sideActiveSub.innerText = "Click to open pages";
-    if (mobHeaderName) mobHeaderName.innerText = "All Portfolio";
+    if (mobHeaderName) mobHeaderName.innerText = "Menu";
     if (sideBadgeVideos && fullData?.videos) {
       sideBadgeVideos.innerText = fullData.videos.length.toLocaleString();
     }
@@ -2761,12 +2761,14 @@ function openPageDrawer() {
   document.getElementById("pagesDrawerOverlay")?.classList.add("active");
   document.body.style.overflow = "hidden";
 }
+window.openPageDrawer = openPageDrawer;
 
 function closePageDrawer() {
   document.getElementById("pagesDrawer")?.classList.remove("active");
   document.getElementById("pagesDrawerOverlay")?.classList.remove("active");
   document.body.style.overflow = "";
 }
+window.closePageDrawer = closePageDrawer;
 
 // ----------------- Event Listeners -----------------
 
@@ -3459,33 +3461,55 @@ function switchMainView(viewName) {
   if (bottomRecentPosts) bottomRecentPosts.classList.remove("active");
   if (bottomHealthAudit) bottomHealthAudit.classList.remove("active");
 
+  // Reset mobile drawer nav tiles active classes
+  const drawerDashboard = document.getElementById("btnDrawerDashboard");
+  const drawerPostNow = document.getElementById("btnDrawerPostNow");
+  const drawerDriveData = document.getElementById("btnDrawerDriveData");
+  const drawerRecentPosts = document.getElementById("btnDrawerRecentPosts");
+  const drawerHealthAudit = document.getElementById("btnDrawerHealthAudit");
+  const drawerTopPerformers = document.getElementById("btnDrawerTopPerformers");
+  const drawerLowPerformers = document.getElementById("btnDrawerLowPerformers");
+
+  if (drawerDashboard) drawerDashboard.classList.remove("active");
+  if (drawerPostNow) drawerPostNow.classList.remove("active");
+  if (drawerDriveData) drawerDriveData.classList.remove("active");
+  if (drawerRecentPosts) drawerRecentPosts.classList.remove("active");
+  if (drawerHealthAudit) drawerHealthAudit.classList.remove("active");
+  if (drawerTopPerformers) drawerTopPerformers.classList.remove("active");
+  if (drawerLowPerformers) drawerLowPerformers.classList.remove("active");
+
   if (viewName === "studio") {
     if (studioView) studioView.style.display = "grid";
     if (sidePostNow) sidePostNow.classList.add("active");
+    if (drawerPostNow) drawerPostNow.classList.add("active");
     if (bottomPostNow) bottomPostNow.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     updateStudioSelectionUI();
   } else if (viewName === "drive_data") {
     if (driveDataView) driveDataView.style.display = "block";
     if (sideDriveData) sideDriveData.classList.add("active");
+    if (drawerDriveData) drawerDriveData.classList.add("active");
     if (bottomDriveData) bottomDriveData.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderDriveDataView();
   } else if (viewName === "recent_posts") {
     if (recentPostsView) recentPostsView.style.display = "block";
     if (sideRecentPosts) sideRecentPosts.classList.add("active");
+    if (drawerRecentPosts) drawerRecentPosts.classList.add("active");
     if (bottomRecentPosts) bottomRecentPosts.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderRecentPostsView();
   } else if (viewName === "health_audit") {
     if (healthAuditView) healthAuditView.style.display = "block";
     if (sideHealthAudit) sideHealthAudit.classList.add("active");
+    if (drawerHealthAudit) drawerHealthAudit.classList.add("active");
     if (bottomHealthAudit) bottomHealthAudit.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderHealthAuditMainView();
   } else if (viewName === "low_performers") {
     if (topPerformersView) topPerformersView.style.display = "block";
     if (sideLowPerformers) sideLowPerformers.classList.add("active");
+    if (drawerLowPerformers) drawerLowPerformers.classList.add("active");
     currentPerformanceMode = "low";
     const btnTop = document.getElementById("btnModeTop20");
     const btnLow = document.getElementById("btnModeLow50");
@@ -3496,6 +3520,7 @@ function switchMainView(viewName) {
   } else if (viewName === "top_performers") {
     if (topPerformersView) topPerformersView.style.display = "block";
     if (sideTopPerformers) sideTopPerformers.classList.add("active");
+    if (drawerTopPerformers) drawerTopPerformers.classList.add("active");
     currentPerformanceMode = "top";
     const btnTop = document.getElementById("btnModeTop20");
     const btnLow = document.getElementById("btnModeLow50");
@@ -3508,6 +3533,7 @@ function switchMainView(viewName) {
     if (dashboardView) dashboardView.style.display = "block";
     if (activePageId === "all") {
       if (sideDashboard) sideDashboard.classList.add("active");
+      if (drawerDashboard) drawerDashboard.classList.add("active");
     } else {
       document.querySelectorAll(".side-page-item").forEach(el => {
         el.classList.toggle("active", el.dataset.pageId === activePageId);

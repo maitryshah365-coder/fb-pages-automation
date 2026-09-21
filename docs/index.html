@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.7.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.8.0">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -71,19 +71,16 @@
   <!-- Slim Mobile-Only Header (Hidden on Desktop Web - Top Clean) -->
   <header class="mobile-app-header">
     <div class="mobile-header-container">
-      <button id="btnMobileToggleDrawer" class="btn-mobile-drawer" title="Select Facebook Page">
-        <span class="mob-icon">📑</span>
-        <span class="mob-label" id="mobileHeaderActivePageName">All Portfolio</span>
+      <button id="btnMobileToggleDrawer" class="btn-mobile-drawer" onclick="openPageDrawer()" title="Open Navigation Menu">
+        <span class="mob-icon" style="font-size: 16px; line-height: 1;">☰</span>
+        <span class="mob-label" id="mobileHeaderActivePageName">Menu</span>
         <span class="mob-arrow">▼</span>
       </button>
       <div class="mobile-brand-group">
-        <div class="app-logo-mini">R</div>
+        <span class="mobile-brand-logo">R</span>
         <span class="mobile-brand-name">Raj FB Pro</span>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
-        <button id="btnMobileAudit" class="btn-mobile-sync" onclick="openMobileHealthAudit(event)" title="Health & Audit Center" style="background: rgba(56,189,248,0.18); border: 1px solid rgba(56,189,248,0.35); color: #38bdf8; padding: 6px 10px;">
-          <span>🛡️ Audit</span>
-        </button>
         <button id="btnMobileSync" class="btn-mobile-sync" title="Sync Real-Time Meta Graph API">
           <span>⚡ Sync</span>
         </button>
@@ -92,27 +89,41 @@
   </header>
 
   <!-- Slide-Over Pages Drawer (Mobile App Side Panel) -->
-  <div id="pagesDrawerOverlay" class="drawer-overlay"></div>
+  <div id="pagesDrawerOverlay" class="drawer-overlay" onclick="closePageDrawer()"></div>
   <aside id="pagesDrawer" class="pages-drawer">
     <div class="drawer-header">
       <div class="drawer-title-group">
-        <span class="drawer-header-icon">📑</span>
+        <span class="drawer-header-icon">🧭</span>
         <h3 class="drawer-header-title">Navigation Menu</h3>
       </div>
-      <button id="btnClosePageDrawer" class="btn-close-drawer" aria-label="Close menu">✕</button>
+      <button id="btnClosePageDrawer" class="btn-close-drawer" onclick="closePageDrawer()" aria-label="Close menu">✕</button>
     </div>
 
     <!-- Scrollable Drawer Body with Clean Modular Navigation Boxes -->
     <div class="drawer-scroll-body">
 
-      <!-- BOX 1: ALL PAGES LIST (SHUTTER / ACCORDION - CLOSED BY DEFAULT) -->
+      <!-- BOX 1: MASTER DASHBOARD -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerDashboard" onclick="mobileSwitchView('dashboard')" title="Master Dashboard (All 128 Pages Portfolio)">
+          <div class="tile-content-left">
+            <span class="tile-icon">📊</span>
+            <div class="tile-text">
+              <span class="tile-title">Dashboard</span>
+              <span class="tile-sub">All 128 Pages Portfolio</span>
+            </div>
+          </div>
+          <span class="tile-badge-gold">Master</span>
+        </button>
+      </div>
+
+      <!-- BOX 2: ALL PAGES LIST (SHUTTER / ACCORDION - CLOSED BY DEFAULT) -->
       <div class="drawer-nav-card drawer-pages-accordion" id="drawerPagesAccordionBox">
         <button type="button" class="drawer-nav-tile drawer-pages-shutter-btn" id="btnDrawerPagesShutterToggle" onclick="toggleDrawerPagesShutter(event)" title="Open All Pages List">
           <div class="tile-content-left">
             <span class="tile-icon">📑</span>
             <div class="tile-text">
               <span class="tile-title">All Pages List</span>
-              <span class="tile-sub" id="drawerActivePageSub">Master or 128 Pages</span>
+              <span class="tile-sub" id="drawerActivePageSub">Click to open pages</span>
             </div>
           </div>
           <div class="tile-content-right">
@@ -147,9 +158,9 @@
         </div>
       </div>
 
-      <!-- BOX 2: POST NOW STUDIO -->
+      <!-- BOX 3: POST NOW STUDIO -->
       <div class="drawer-nav-card">
-        <button type="button" class="drawer-nav-tile" onclick="mobileSwitchView('studio')" title="Post Now Studio">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerPostNow" onclick="mobileSwitchView('studio')" title="Post Now Studio">
           <div class="tile-content-left">
             <span class="tile-icon">🚀</span>
             <div class="tile-text">
@@ -161,9 +172,9 @@
         </button>
       </div>
 
-      <!-- BOX 3: DRIVE DATA -->
+      <!-- BOX 4: DRIVE DATA -->
       <div class="drawer-nav-card">
-        <button type="button" class="drawer-nav-tile" onclick="mobileSwitchView('drive_data')" title="Drive Data Cloud Inventory">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerDriveData" onclick="mobileSwitchView('drive_data')" title="Drive Data Cloud Inventory">
           <div class="tile-content-left">
             <span class="tile-icon">📁</span>
             <div class="tile-text">
@@ -175,9 +186,9 @@
         </button>
       </div>
 
-      <!-- BOX 4: UPLOAD HISTORY -->
+      <!-- BOX 5: UPLOAD HISTORY -->
       <div class="drawer-nav-card">
-        <button type="button" class="drawer-nav-tile" onclick="mobileSwitchView('recent_posts')" title="Upload History & IP Telemetry">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerRecentPosts" onclick="mobileSwitchView('recent_posts')" title="Upload History & IP Telemetry">
           <div class="tile-content-left">
             <span class="tile-icon">📜</span>
             <div class="tile-text">
@@ -189,7 +200,7 @@
         </button>
       </div>
 
-      <!-- BOX 5: HEALTH & AUDIT CENTER -->
+      <!-- BOX 6: HEALTH & AUDIT CENTER -->
       <div class="drawer-nav-card">
         <button type="button" class="drawer-nav-tile" id="btnDrawerHealthAudit" onclick="mobileSwitchView('health_audit')" title="Health & Audit Center">
           <div class="tile-content-left">
@@ -203,7 +214,7 @@
         </button>
       </div>
 
-      <!-- BOX 6: TOP 20 PERFORMERS -->
+      <!-- BOX 7: TOP 20 PERFORMERS -->
       <div class="drawer-nav-card">
         <button type="button" class="drawer-nav-tile" id="btnDrawerTopPerformers" onclick="mobileSwitchView('top_performers')" title="Top 20 Performers Leaderboard">
           <div class="tile-content-left">
@@ -217,7 +228,7 @@
         </button>
       </div>
 
-      <!-- BOX 7: LOW & 0 VIEWS PAGES -->
+      <!-- BOX 8: LOW & 0 VIEWS PAGES -->
       <div class="drawer-nav-card">
         <button type="button" class="drawer-nav-tile" id="btnDrawerLowPerformers" onclick="mobileSwitchView('low_performers')" title="Low & 0 Views Pages">
           <div class="tile-content-left">
@@ -227,7 +238,7 @@
               <span class="tile-sub">Bottom 50 Channels</span>
             </div>
           </div>
-          <span class="portfolio-badge" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4);">LOW 50</span>
+          <span class="side-low-pill" id="drawerNavLowBadge" style="background:rgba(239,68,68,0.2);color:#f87171;border:1px solid rgba(239,68,68,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">LOW 50</span>
         </button>
       </div>
 
@@ -1371,49 +1382,7 @@
   </main>
   </div> <!-- /.studio-app-layout -->
 
-  <!-- Fixed Bottom Navigation Panel (Mobile / Phone Only - YouTube Studio Style 5 Action Items) -->
-  <nav class="mobile-bottom-panel" id="mobileBottomPanel">
-    <button type="button" id="bottomNavDashboard" class="bottom-nav-item active" onclick="selectPage('all'); switchMainView('dashboard')" title="Master Dashboard">
-      <div class="bottom-nav-icon-box">
-        <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-          <path d="M4 19h4V9H4v10zm6 0h4V5h-4v14zm6 0h4v-7h-4v7z"/>
-        </svg>
-      </div>
-      <span class="bottom-nav-label">Dashboard</span>
-    </button>
-    <button type="button" id="bottomNavPages" class="bottom-nav-item" onclick="openPageDrawer()" title="All 128 Pages List">
-      <div class="bottom-nav-icon-box">
-        <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="7" y="3" width="14" height="14" rx="2"></rect>
-          <path d="M3 7v13a1 1 0 001 1h13"/>
-          <line x1="11" y1="8" x2="17" y2="8"/>
-          <line x1="11" y1="12" x2="17" y2="12"/>
-        </svg>
-      </div>
-      <span class="bottom-nav-label">Pages</span>
-    </button>
-    <button type="button" id="bottomNavPostNow" class="bottom-nav-item" onclick="switchMainView('studio')" title="Instant Post Studio">
-      <div class="bottom-nav-icon-box">
-        <svg class="yt-bottom-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 16V4M12 4l-4 4M12 4l4 4"/>
-          <path d="M4 17v2a2 2 0 002 2h16a2 2 0 002-2v-2"/>
-        </svg>
-      </div>
-      <span class="bottom-nav-label">Post Now</span>
-    </button>
-    <button type="button" id="bottomNavDriveData" class="bottom-nav-item" onclick="switchMainView('drive_data')" title="Google Drive Cloud Inventory">
-      <div class="bottom-nav-icon-box">
-        <span style="font-size: 19px; line-height: 1;">📁</span>
-      </div>
-      <span class="bottom-nav-label">Drive</span>
-    </button>
-    <button type="button" id="bottomNavRecentPosts" class="bottom-nav-item" onclick="switchMainView('recent_posts')" title="Recent Posts Activity Stream">
-      <div class="bottom-nav-icon-box">
-        <span style="font-size: 19px; line-height: 1;">⚡</span>
-      </div>
-      <span class="bottom-nav-label">Recent</span>
-    </button>
-  </nav>
+  <!-- Mobile Navigation: Native Side Panel (☰ Menu) -->
 
   <!-- Video Preview Modal -->
   <div id="videoModal" class="app-modal">
@@ -1430,6 +1399,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.7.0"></script>
+  <script src="js/gold_app.js?v=9.8.0"></script>
 </body>
 </html>
