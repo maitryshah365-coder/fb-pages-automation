@@ -702,7 +702,10 @@ async function syncLiveMetaGraph() {
         if (histJson && Array.isArray(histJson.history)) {
           uploadHistoryData = histJson.history;
           const totalBadge = document.getElementById("historyTotalCountBadge");
-          if (totalBadge) totalBadge.innerText = uploadHistoryData.length;
+          if (totalBadge) {
+            const tot = histJson.total_db_posted || uploadHistoryData.length;
+            totalBadge.innerText = tot > uploadHistoryData.length ? `${uploadHistoryData.length} (Latest of ${tot})` : uploadHistoryData.length;
+          }
           renderUploadHistoryTable();
         }
       }
@@ -944,6 +947,47 @@ async function syncLiveMetaGraph() {
     if (btnMobSync) btnMobSync.classList.remove("spinning");
     if (btnBottomSync) btnBottomSync.classList.remove("spinning");
   }
+}
+
+// ----------------- Hook Up Sync Controls & Background Auto-Sync -----------------
+function initLiveSyncControls() {
+  const btnSideSync = document.getElementById("btnSideLiveSync");
+  if (btnSideSync) {
+    btnSideSync.onclick = function(e) {
+      if (e) e.preventDefault();
+      syncLiveMetaGraph();
+    };
+  }
+  const btnMobSync = document.getElementById("btnMobileSync");
+  if (btnMobSync) {
+    btnMobSync.onclick = function(e) {
+      if (e) e.preventDefault();
+      syncLiveMetaGraph();
+    };
+  }
+  const btnBottomSync = document.getElementById("bottomNavSync");
+  if (btnBottomSync) {
+    btnBottomSync.onclick = function(e) {
+      if (e) e.preventDefault();
+      syncLiveMetaGraph();
+    };
+  }
+
+  // Auto-sync every 90 seconds in background when tab is active
+  if (!window._liveSyncIntervalSet) {
+    window._liveSyncIntervalSet = true;
+    setInterval(function() {
+      if (!document.hidden) {
+        syncLiveMetaGraph();
+      }
+    }, 90000);
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initLiveSyncControls);
+} else {
+  initLiveSyncControls();
 }
 
 // ----------------- Desktop Left Sidebar Page List & Filtering -----------------

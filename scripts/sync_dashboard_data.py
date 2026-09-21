@@ -1348,6 +1348,10 @@ def sync_data():
                         if v.get("thumbnail"):
                             vid_thumb_map[vid] = v.get("thumbnail")
 
+            cur_tot = conn.cursor()
+            cur_tot.execute("SELECT COUNT(DISTINCT facebook_video_id) FROM videos WHERE status = 'posted' AND facebook_video_id IS NOT NULL AND facebook_video_id != ''")
+            total_db_posted = cur_tot.fetchone()[0]
+
             q = """
             SELECT 
                 v.id as video_row_id,
@@ -1369,7 +1373,7 @@ def sync_data():
             WHERE v.status = 'posted' AND v.facebook_video_id IS NOT NULL AND v.facebook_video_id != ''
             GROUP BY v.facebook_video_id
             ORDER BY v.posted_at DESC, v.id DESC
-            LIMIT 2000
+            LIMIT 500
             """
             rows = cur.execute(q).fetchall()
             for r in rows:
@@ -1428,6 +1432,7 @@ def sync_data():
             "uploaded": total_today_posted,
             "remaining": max(0, (len(page_records) * 4) - total_today_posted),
             "active_pages_count": len(page_records),
+            "total_db_posted": total_db_posted if 'total_db_posted' in locals() else len(upload_history),
             "daily_slots_edt": ["10:00 AM", "03:00 PM", "07:00 PM", "10:00 PM"],
             "account2_offset_minutes": 20,
             "account2_slots_edt": ["10:20 AM", "03:20 PM", "07:20 PM", "10:20 PM"],
@@ -1462,7 +1467,8 @@ def sync_data():
             "total_followers": total_portfolio_followers,
             "total_likes": total_portfolio_likes,
             "total_views": total_views,
-            "total_posts": total_posts
+            "total_posts": total_posts,
+            "total_db_posted": total_db_posted if 'total_db_posted' in locals() else len(upload_history)
         },
         "pages": page_records
     }
@@ -1475,16 +1481,18 @@ def sync_data():
             json.dump(payload, out, indent=2, ensure_ascii=False)
         print(f"Saved {out_file} ({len(page_records)} pages)")
         
-        # Dedicated lightweight upload history endpoint for real-time live polling
+        # Dedicated lightweight upload history endpoint for real-time live polling (Latest 500)
         uh_payload = {
             "updated_at": datetime.now(timezone.utc).isoformat(),
             "total_records": len(upload_history),
+            "total_db_posted": total_db_posted if 'total_db_posted' in locals() else len(upload_history),
+            "limit": 500,
             "history": upload_history
         }
         uh_file = os.path.join(BASE_DIR, folder, "upload_history.json")
         with open(uh_file, "w", encoding="utf-8") as out:
             json.dump(uh_payload, out, indent=2, ensure_ascii=False)
-        print(f"Saved {uh_file} ({len(upload_history)} upload records)")
+        print(f"Saved {uh_file} (Latest {len(upload_history)} upload records)")
 
 
 if __name__ == "__main__":

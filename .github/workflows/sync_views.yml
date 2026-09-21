@@ -1,0 +1,55 @@
+name: Real-Time Views & Dashboard Auto-Sync
+
+on:
+  schedule:
+    # Run every 2 hours automatically in GitHub Actions cloud (24/7 Unattended)
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: dashboard-sync-group
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: Sync Live Meta Graph API Views & Dashboard
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Real-Time Meta Views & Dashboard Sync
+        run: |
+          python scripts/sync_dashboard_data.py
+
+      - name: Persist Updated Dashboard State
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/ web/data/ data/
+          if [ -n "$(git status --porcelain docs/data/ web/data/ data/)" ]; then
+            git commit -m "chore(sync): auto-refresh real-time views & metrics [skip ci]" || true
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push origin main && break || sleep 5
+            done
+          else
+            echo "No state changes to commit."
+          fi
