@@ -940,6 +940,7 @@ async function syncLiveMetaGraph() {
     if (typeof renderUploadHistoryTable === "function") renderUploadHistoryTable();
     if (typeof renderHealthAuditMainView === "function") renderHealthAuditMainView();
     if (typeof renderTopPerformersView === "function") renderTopPerformersView();
+    if (typeof renderMonetizationTrackerView === "function") renderMonetizationTrackerView();
     selectPage(activePageId);
     if (activePageId === "all" && typeof renderAllPortfolioView === "function") {
       renderAllPortfolioView();
@@ -1537,6 +1538,12 @@ function renderSinglePageView(p) {
   if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id} • ${accTag} (${ownerTag})`;
   if (heroAvatar) heroAvatar.src = p.pic_url;
 
+  const mzHeroLink = document.getElementById("heroMonetizationLink");
+  if (mzHeroLink) {
+    mzHeroLink.href = `https://www.facebook.com/${p.id}/professional_dashboard/monetization/`;
+    mzHeroLink.style.display = "inline-flex";
+  }
+
   // Filter 100% real reels for the selected timeframe
   const allReels = p.videos || [];
   const reelsForTf = getReelsForDays(allReels, currentTimeframe);
@@ -1755,6 +1762,11 @@ function getPortfolioAudience() {
 function renderAllPortfolioView() {
   const headerShort = document.getElementById("headerActivePageShortName");
   if (headerShort) headerShort.innerText = "All Portfolio";
+
+  const mzHeroLink = document.getElementById("heroMonetizationLink");
+  if (mzHeroLink) {
+    mzHeroLink.style.display = "none";
+  }
 
   let totalFollowers = 0;
   let totalRealViews = 0;
@@ -3218,6 +3230,7 @@ function switchMainView(viewName) {
   const recentPostsView = document.getElementById("recentPostsFeedView");
   const healthAuditView = document.getElementById("healthAuditMainView");
   const topPerformersView = document.getElementById("topPerformersLeaderboardView");
+  const monetizationView = document.getElementById("monetizationTrackerView");
 
   // Desktop Sidebar items
   const sideDashboard = document.getElementById("sideNavDashboard");
@@ -3227,6 +3240,7 @@ function switchMainView(viewName) {
   const sideHealthAudit = document.getElementById("sideNavHealthAudit");
   const sideTopPerformers = document.getElementById("sideNavTopPerformers");
   const sideLowPerformers = document.getElementById("sideNavLowPerformers");
+  const sideMonetization = document.getElementById("sideNavMonetization");
 
   // Mobile Bottom Panel items
   const bottomDashboard = document.getElementById("bottomNavDashboard");
@@ -3243,6 +3257,7 @@ function switchMainView(viewName) {
   if (recentPostsView) recentPostsView.style.display = "none";
   if (healthAuditView) healthAuditView.style.display = "none";
   if (topPerformersView) topPerformersView.style.display = "none";
+  if (monetizationView) monetizationView.style.display = "none";
 
   // Reset desktop sidebar active classes
   if (sideDashboard) sideDashboard.classList.remove("active");
@@ -3252,6 +3267,7 @@ function switchMainView(viewName) {
   if (sideHealthAudit) sideHealthAudit.classList.remove("active");
   if (sideTopPerformers) sideTopPerformers.classList.remove("active");
   if (sideLowPerformers) sideLowPerformers.classList.remove("active");
+  if (sideMonetization) sideMonetization.classList.remove("active");
   document.querySelectorAll(".side-page-item").forEach(el => el.classList.remove("active"));
 
   // Reset mobile bottom panel active classes
@@ -3306,6 +3322,11 @@ function switchMainView(viewName) {
     if (btnLow) btnLow.classList.remove("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
+  } else if (viewName === "monetization") {
+    if (monetizationView) monetizationView.style.display = "block";
+    if (sideMonetization) sideMonetization.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    renderMonetizationTrackerView();
   } else {
     // "dashboard"
     if (dashboardView) dashboardView.style.display = "block";
@@ -5139,6 +5160,207 @@ function renderTopPerformersView() {
 }
 
 // =========================================================================
+// MONETIZATION & TOOL SETUP CENTER (CONTENT MONETIZATION BETA & STARS)
+// =========================================================================
+
+let currentMonetizationFilter = "all"; // "all", "ready", "viral", "stars", "pending"
+let markedMonetizationPages = new Set(["818808074651170"]); // Roberts Richard pre-verified Setup Ready
+
+try {
+  const savedMz = JSON.parse(localStorage.getItem("fb_marked_monetization_pages") || "[]");
+  if (Array.isArray(savedMz) && savedMz.length > 0) {
+    savedMz.forEach(id => markedMonetizationPages.add(String(id)));
+  }
+} catch (e) {}
+
+function saveMarkedMonetizationPages() {
+  try {
+    localStorage.setItem("fb_marked_monetization_pages", JSON.stringify(Array.from(markedMonetizationPages)));
+  } catch (e) {}
+}
+
+function togglePageMonetizationSetup(pageId, e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const pid = String(pageId);
+  const pObj = (fullData?.pages || []).find(p => String(p.id) === pid);
+  const pageName = pObj?.name || `Page ${pid}`;
+
+  if (markedMonetizationPages.has(pid)) {
+    markedMonetizationPages.delete(pid);
+    showToast(`Removed Setup status for ${pageName}`);
+  } else {
+    markedMonetizationPages.add(pid);
+    showToast(`✅ ${pageName} marked as Content Monetization Setup Ready!`);
+  }
+  saveMarkedMonetizationPages();
+  renderMonetizationTrackerView();
+  updateMonetizationBadge();
+}
+
+function setMonetizationFilter(filter) {
+  currentMonetizationFilter = filter;
+  document.querySelectorAll("[data-mz-filter]").forEach(btn => {
+    btn.classList.toggle("active", btn.getAttribute("data-mz-filter") === currentMonetizationFilter);
+  });
+  renderMonetizationTrackerView();
+}
+
+function updateMonetizationBadge() {
+  const badge = document.getElementById("sideNavMonetizeBadge");
+  if (badge) {
+    const readyCount = markedMonetizationPages.size;
+    badge.innerText = `${readyCount} READY`;
+  }
+}
+
+function renderMonetizationTrackerView() {
+  if (!fullData || !fullData.pages || !Array.isArray(fullData.pages)) return;
+
+  const pages = fullData.pages;
+  const searchInput = document.getElementById("mzSearchInput");
+  const searchTerm = (searchInput?.value || "").toLowerCase().trim();
+
+  // Process all 101 pages with 100% Real-Time Meta Data
+  const allPagesStats = pages.map(p => {
+    const pid = String(p.id);
+    const isMarkedReady = markedMonetizationPages.has(pid);
+    const totalViews = Number(p.total_views) || 0;
+    const followers = Number(p.followers) || 0;
+    const reelsCount = Array.isArray(p.videos) ? p.videos.length : 0;
+
+    let fleetTag = "USA 1 • Meghal Chauhan";
+    if (FLEET_USA_02_SET.has(pid)) fleetTag = "USA 2 • Mia Shah";
+    else if (FLEET_UK_01_SET.has(pid)) fleetTag = "UK 1 • Binjal Mehra";
+    else if (FLEET_UK_02_SET.has(pid)) fleetTag = "UK 2 • Chanda Nai";
+    else if (FLEET_UK_03_SET.has(pid)) fleetTag = "UK 3 • Mahi Patel";
+    else if (FLEET_UK_04_SET.has(pid)) fleetTag = "UK 4 • Nidhi Desai";
+    else if (FLEET_UK_05_SET.has(pid)) fleetTag = "UK 5 • Richi Patel";
+    else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
+    else if (p.account) fleetTag = p.account;
+
+    const isViral = totalViews >= 500000;
+    const isStarsEligible = followers >= 500;
+
+    return {
+      page: p,
+      pid,
+      name: p.name,
+      pic_url: p.pic_url || `https://graph.facebook.com/v20.0/${pid}/picture?type=large`,
+      fleetTag,
+      totalViews,
+      followers,
+      reelsCount,
+      isMarkedReady,
+      isViral,
+      isStarsEligible
+    };
+  });
+
+  // Calculate Global Counts for KPI cards
+  const countSetupReady = allPagesStats.filter(p => p.isMarkedReady).length;
+  const countViral = allPagesStats.filter(p => p.isViral).length;
+  const countStars = allPagesStats.filter(p => p.isStarsEligible).length;
+
+  // Update KPIs
+  const elVal1 = document.getElementById("mzKpiVal1");
+  const elSub1 = document.getElementById("mzKpiSub1");
+  const elVal2 = document.getElementById("mzKpiVal2");
+  const elVal3 = document.getElementById("mzKpiVal3");
+  const filterReadyCount = document.getElementById("mzFilterReadyCount");
+
+  if (elVal1) elVal1.innerText = `${countSetupReady} Pages`;
+  if (elSub1) elSub1.innerText = `${countSetupReady} confirmed Setup Ready`;
+  if (elVal2) elVal2.innerText = `${countViral} Pages`;
+  if (elVal3) elVal3.innerText = `${countStars} Pages`;
+  if (filterReadyCount) filterReadyCount.innerText = countSetupReady;
+
+  updateMonetizationBadge();
+
+  // Sort: Setup Ready first, then highest Views descending
+  let list = [...allPagesStats].sort((a, b) => {
+    if (a.isMarkedReady !== b.isMarkedReady) return b.isMarkedReady ? 1 : -1;
+    return b.totalViews - a.totalViews;
+  });
+
+  // Apply Quick Filter
+  if (currentMonetizationFilter === "ready") {
+    list = list.filter(p => p.isMarkedReady);
+  } else if (currentMonetizationFilter === "viral") {
+    list = list.filter(p => p.isViral);
+  } else if (currentMonetizationFilter === "stars") {
+    list = list.filter(p => p.isStarsEligible);
+  } else if (currentMonetizationFilter === "pending") {
+    list = list.filter(p => !p.isMarkedReady && !p.isViral);
+  }
+
+  // Apply Search Term
+  if (searchTerm) {
+    list = list.filter(p => (p.name || "").toLowerCase().includes(searchTerm) || (p.fleetTag || "").toLowerCase().includes(searchTerm) || p.pid.includes(searchTerm));
+  }
+
+  const tableHeading = document.getElementById("mzTableHeading");
+  if (tableHeading) {
+    tableHeading.innerText = `📊 Channel Monetization & Direct Setup Hub (${list.length} Channels)`;
+  }
+
+  const tableContainer = document.getElementById("mzTableBody");
+  if (!tableContainer) return;
+
+  const rowsHtml = list.map((item, idx) => {
+    const rank = idx + 1;
+    const fbMonetizationUrl = `https://www.facebook.com/${item.pid}/professional_dashboard/monetization/`;
+
+    let statusBadge = "";
+    if (item.isMarkedReady) {
+      statusBadge = `<span style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid rgba(34,197,94,0.5);font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;">🟢 SET UP ACTIVE</span>`;
+    } else if (item.isViral) {
+      statusBadge = `<span style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.5);font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;">🔥 HIGH VIRAL TARGET</span>`;
+    } else if (item.isStarsEligible) {
+      statusBadge = `<span style="background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid rgba(56,189,248,0.4);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;">⭐ Stars Ready</span>`;
+    } else {
+      statusBadge = `<span style="color:#64748b;font-size:11.5px;font-weight:600;">⏳ In Progress</span>`;
+    }
+
+    return `
+      <div class="tp-table-row mz-mode" onclick="selectPage('${item.pid}')" title="Click to view analytics for ${item.name}">
+        <div class="tp-row-rank">#${rank}</div>
+        <div class="tp-row-page">
+          <img src="${item.pic_url}" class="tp-row-avatar" alt="${item.name}" onerror="this.src='https://graph.facebook.com/v20.0/${item.pid}/picture?type=large'">
+          <div style="min-width:0;flex:1;">
+            <div class="tp-row-page-name" title="${item.name}">${item.name}</div>
+            <div style="font-size:10.5px;color:#64748b;font-family:monospace;">ID: ${item.pid}</div>
+          </div>
+        </div>
+        <div style="font-size:11.5px;color:#cbd5e1;font-weight:600;">
+          🏷️ ${item.fleetTag}
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:800;color:${item.totalViews >= 1000000 ? '#facc15' : '#f8fafc'};font-family:'JetBrains Mono',monospace;">
+            ${item.totalViews.toLocaleString()}
+          </div>
+          <div style="font-size:10.5px;color:#64748b;">${item.reelsCount} Reels</div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#cbd5e1;font-family:'JetBrains Mono',monospace;">
+          ${item.followers.toLocaleString()}
+        </div>
+        <div>
+          ${statusBadge}
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;" onclick="event.stopPropagation();">
+          <a href="${fbMonetizationUrl}" target="_blank" rel="noopener noreferrer" class="mz-btn-open-setup" title="Open Professional Dashboard Monetization Screen on Facebook">
+            🎬 Open FB ↗
+          </a>
+          <button type="button" class="mz-btn-toggle-mark ${item.isMarkedReady ? 'marked' : ''}" onclick="togglePageMonetizationSetup('${item.pid}', event)" title="Toggle Setup Ready status">
+            ${item.isMarkedReady ? '✅ Active' : '+ Mark'}
+          </button>
+        </div>
+      </div>`;
+  }).join("");
+
+  tableContainer.innerHTML = rowsHtml || `<div style="color:#64748b;padding:24px;text-align:center;">No channels match the filter.</div>`;
+}
+
+// =========================================================================
 // RECENT POSTS VIEW ENGINE (SERVER AUTOMATION + POST NOW LIVE FEED)
 // =========================================================================
 
@@ -6520,6 +6742,10 @@ window.setLowPerformersFilter = setLowPerformersFilter;
 window.setLowPerformersSort = setLowPerformersSort;
 window.launchStudioForPage = launchStudioForPage;
 window.renderTopPerformersView = renderTopPerformersView;
+window.renderMonetizationTrackerView = renderMonetizationTrackerView;
+window.setMonetizationFilter = setMonetizationFilter;
+window.togglePageMonetizationSetup = togglePageMonetizationSetup;
+
 
 
 
