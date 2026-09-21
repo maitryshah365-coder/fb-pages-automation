@@ -3114,8 +3114,9 @@ body {
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  overscroll-behavior-y: contain !important;
   -webkit-overflow-scrolling: touch;
   padding: 16px 12px 30px;
   display: flex;
@@ -3440,14 +3441,16 @@ body {
 
 /* Scrollable Pages List */
 .sidebar-pages-scroll-list {
-  max-height: 520px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
+  max-height: calc(100vh - 270px) !important;
+  min-height: 380px;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  overscroll-behavior-y: contain !important;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding-right: 0px;
+  padding-right: 2px;
   scrollbar-width: thin;
   scrollbar-color: rgba(56, 189, 248, 0.4) rgba(255, 255, 255, 0.03);
 }
@@ -3516,6 +3519,35 @@ body {
   overflow: hidden;
   margin-bottom: 7px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sidebar-section-box:not(.expanded) {
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  overflow: hidden !important;
+}
+
+.sidebar-section-box:not(.expanded) .sidebar-box-sub-strip,
+.sidebar-section-box:not(.expanded) .sidebar-box-body {
+  display: none !important;
+  max-height: 0 !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.sidebar-section-box.expanded {
+  height: auto !important;
+  max-height: none !important;
+}
+
+.sidebar-section-box.expanded .sidebar-box-sub-strip {
+  display: flex !important;
 }
 
 .sidebar-section-box:hover,

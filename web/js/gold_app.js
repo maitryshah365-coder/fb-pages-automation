@@ -1000,6 +1000,38 @@ async function syncLiveMetaGraph() {
 }
 
 // ----------------- Hook Up Sync Controls & Background Auto-Sync -----------------
+
+// Strict Sidebar Wheel Isolation: guarantees mouse wheel over left sidebar NEVER scrolls the main dashboard
+function initSidebarScrollIsolation() {
+  const leftSidebar = document.getElementById("studioLeftSidebar");
+  const scrollList = document.getElementById("sidebarPagesScrollList");
+  if (!leftSidebar) return;
+
+  leftSidebar.addEventListener("wheel", function(e) {
+    if (scrollList && scrollList.contains(e.target) && scrollList.scrollHeight > scrollList.clientHeight) {
+      const atTop = scrollList.scrollTop <= 0 && e.deltaY < 0;
+      const atBottom = (scrollList.scrollTop + scrollList.clientHeight >= scrollList.scrollHeight - 1) && e.deltaY > 0;
+      if (atTop || atBottom) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      return;
+    }
+
+    if (leftSidebar.scrollHeight > leftSidebar.clientHeight) {
+      const atTop = leftSidebar.scrollTop <= 0 && e.deltaY < 0;
+      const atBottom = (leftSidebar.scrollTop + leftSidebar.clientHeight >= leftSidebar.scrollHeight - 1) && e.deltaY > 0;
+      if (atTop || atBottom) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    } else {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, { passive: false });
+}
+
 function initLiveSyncControls() {
   const btnSideSync = document.getElementById("btnSideLiveSync");
   if (btnSideSync) {
@@ -1032,6 +1064,7 @@ function initLiveSyncControls() {
       }
     }, 90000);
   }
+    initSidebarScrollIsolation();
 }
 
 if (document.readyState === "loading") {
@@ -1152,11 +1185,11 @@ function renderSidebarPagesList(pages) {
             <span class="sidebar-box-chevron">▼</span>
           </div>
         </div>
-        <div class="sidebar-box-sub-strip">
-          <span>${items.length} Pages</span>
-          <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
-        </div>
         <div class="sidebar-box-body">
+          <div class="sidebar-box-sub-strip">
+            <span>${items.length} Pages</span>
+            <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
+          </div>
           ${items.map(p => renderPageItem(p, accType)).join("")}
         </div>
       </div>`;
@@ -1250,7 +1283,6 @@ window.toggleSidePagesShutter = function(e, forceOpen) {
     }
     setTimeout(() => {
       document.getElementById("sidePagesSearchInput")?.focus();
-      box.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 80);
   }
 };
