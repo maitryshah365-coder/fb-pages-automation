@@ -5093,14 +5093,7 @@ window.renderUploadHistoryTable = renderUploadHistoryTable;
 // LIVE FLEET & SYSTEM HEALTH AUDIT ENGINE (MAIN WINDOW VIEW)
 // =========================================================================
 
-function getPageTodayPosts(p) {
-  if (!p) return 0;
-  if (p.today_posts !== undefined && p.today_posts !== null) return Number(p.today_posts);
-  if (p.videos && Array.isArray(p.videos)) {
-    return p.videos.filter(v => v.created_at && (v.created_at.includes("Today") || v.created_at.includes("Sep 20"))).length;
-  }
-  return 0;
-}
+// Using dynamic getPageTodayPosts from line 360
 
 function toggleFleetPagesInspect(idx) {
   const el = document.getElementById(`fleetPagesInspect_${idx}`);
@@ -5204,15 +5197,7 @@ function renderHealthAuditMainView() {
         fleetGaps.push({ name: displayName, reason: "Token Expired (Requires Re-Auth)" });
         gapItems.push({ name: displayName, fleet: cfg.tag, reason: "Token Expired" });
         totalGaps++;
-      } else {
-        // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
-        const isUKCompleted = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid);
-        if (isUKCompleted && pToday === 0) {
-          fleetGaps.push({ name: displayName, reason: "0 uploads today (Slot 1/2 missed)" });
-          gapItems.push({ name: displayName, fleet: cfg.tag, reason: "0 uploads today" });
-          totalGaps++;
-        }
-      }
+
 
       // Page row for fleet inspect drawer
       pageRowsHtml.push(`
@@ -5708,20 +5693,7 @@ async function runLiveAuditUI(e) {
       });
     }
 
-    // Check for missed slots across fleets that already completed slots today
-    auditPages.forEach(p => {
-      const pToday = getPageTodayPosts(p);
-      const pid = String(p.id);
-      const isUK = FLEET_UK_01_SET.has(pid) || FLEET_UK_02_SET.has(pid) || FLEET_UK_03_SET.has(pid) || FLEET_UK_04_SET.has(pid) || FLEET_UK_05_SET.has(pid);
-      // UK 1-5 already completed 2 slots today (12:00-12:50 UTC)
-      if (isUK && pToday === 0) {
-        const displayName = DRIVE_CONFIGURED_PAGES[pid]?.displayName || p.name;
-        uploadGaps.push({
-          name: `${displayName} (${p.account || 'Richi Patel (UK)'})`,
-          reason: "0 uploads today (Slot 1/2 missed - Identity confirmation required)"
-        });
-      }
-    });
+
 
     if (uploadGaps.length === 0) {
       logAuditTerminal("  ✅ 0 Upload Gaps Detected across all fleets", "success", "passed");
