@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.5.1">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.7.0">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -91,71 +91,146 @@
     </div>
   </header>
 
-  <!-- Slide-Over Pages Drawer (For Mobile Device Navigation) -->
+  <!-- Slide-Over Pages Drawer (Mobile App Side Panel) -->
   <div id="pagesDrawerOverlay" class="drawer-overlay"></div>
   <aside id="pagesDrawer" class="pages-drawer">
     <div class="drawer-header">
       <div class="drawer-title-group">
-        <h3>📑 Select Facebook Page</h3>
-        <span class="badge-pages-total" id="sidebarPagesCountBadge">128 Pages</span>
+        <span class="drawer-header-icon">📑</span>
+        <h3 class="drawer-header-title">Navigation Menu</h3>
       </div>
-      <button id="btnClosePageDrawer" class="btn-close-drawer">✕</button>
+      <button id="btnClosePageDrawer" class="btn-close-drawer" aria-label="Close menu">✕</button>
     </div>
 
-    <div class="drawer-search-box">
-      <input type="text" id="sidebarPagesSearch" class="drawer-search-input" placeholder="Search page name...">
-    </div>
+    <!-- Scrollable Drawer Body with Clean Modular Navigation Boxes -->
+    <div class="drawer-scroll-body">
 
-    <!-- Quick Mobile Drawer Action Tiles -->
-    <div class="drawer-quick-actions" style="padding: 0 14px 10px; display: flex; flex-direction: column; gap: 8px;">
-      <div class="drawer-all-portfolio-tile" id="btnSelectAllPagesDrawer" onclick="onSelectDrawerPage('all', event)" role="button" tabindex="0">
-        <div class="portfolio-tile-left">
-          <div class="portfolio-avatar">🌐</div>
-          <div>
-            <div class="portfolio-name">All 128 Pages Portfolio</div>
-            <div class="portfolio-desc">Combined Reach, Views & Analytics</div>
+      <!-- BOX 1: ALL PAGES LIST (SHUTTER / ACCORDION - CLOSED BY DEFAULT) -->
+      <div class="drawer-nav-card drawer-pages-accordion" id="drawerPagesAccordionBox">
+        <button type="button" class="drawer-nav-tile drawer-pages-shutter-btn" id="btnDrawerPagesShutterToggle" onclick="toggleDrawerPagesShutter(event)" title="Open All Pages List">
+          <div class="tile-content-left">
+            <span class="tile-icon">📑</span>
+            <div class="tile-text">
+              <span class="tile-title">All Pages List</span>
+              <span class="tile-sub" id="drawerActivePageSub">Master or 128 Pages</span>
+            </div>
+          </div>
+          <div class="tile-content-right">
+            <span class="pages-count-pill" id="sidebarPagesCountBadge">128 Pages</span>
+            <span class="drawer-shutter-arrow" id="drawerPagesShutterArrow">▼</span>
+          </div>
+        </button>
+
+        <!-- Shutter Body (Closed by default - opens on click) -->
+        <div class="drawer-pages-shutter-body" id="drawerPagesShutterBody" style="display: none;">
+          <!-- Master All Pages Quick Selection Tile -->
+          <div class="drawer-master-select-row" id="btnSelectAllPagesDrawer" onclick="onSelectDrawerPage('all', event)" role="button" tabindex="0">
+            <div class="tile-content-left">
+              <span class="tile-icon">🌐</span>
+              <div class="tile-text">
+                <span class="tile-title">All 128 Pages (Master)</span>
+                <span class="tile-sub">Combined Reach & Overview</span>
+              </div>
+            </div>
+            <span class="portfolio-badge">Master</span>
+          </div>
+
+          <!-- Page Search Bar -->
+          <div class="drawer-search-box">
+            <input type="text" id="sidebarPagesSearch" class="drawer-search-input" placeholder="🔍 Search page name or ID..." onclick="event.stopPropagation()">
+          </div>
+
+          <!-- The 10 Fleet Accordions List (Populated dynamically) -->
+          <div class="drawer-pages-list" id="sidebarPagesList">
+            <!-- Dynamically Populated -->
           </div>
         </div>
-        <span class="portfolio-badge">Master</span>
       </div>
 
-      <div class="drawer-all-portfolio-tile" id="btnDrawerHealthAudit" onclick="openMobileHealthAudit(event)" role="button" tabindex="0" style="border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.08); cursor: pointer;">
-        <div class="portfolio-tile-left">
-          <div class="portfolio-avatar" style="background: rgba(56,189,248,0.2); color: #38bdf8;">🛡️</div>
-          <div>
-            <div class="portfolio-name">Health & Audit Center</div>
-            <div class="portfolio-desc">Tokens, Upload Gaps & Runner Diagnostics</div>
+      <!-- BOX 2: POST NOW STUDIO -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" onclick="mobileSwitchView('studio')" title="Post Now Studio">
+          <div class="tile-content-left">
+            <span class="tile-icon">🚀</span>
+            <div class="tile-text">
+              <span class="tile-title">Post Now</span>
+              <span class="tile-sub">Multi-Page Upload Studio</span>
+            </div>
           </div>
-        </div>
-        <span class="portfolio-badge" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.35);">128 OK</span>
+          <span class="side-instant-pill">INSTANT</span>
+        </button>
       </div>
 
-      <div class="drawer-all-portfolio-tile" id="btnDrawerTopPerformers" onclick="closePageDrawer(); switchMainView('top_performers')" role="button" tabindex="0" style="border-color: rgba(245,186,35,0.3); background: rgba(245,186,35,0.08); cursor: pointer;">
-        <div class="portfolio-tile-left">
-          <div class="portfolio-avatar" style="background: rgba(245,186,35,0.2); color: #fbbf24;">🏆</div>
-          <div>
-            <div class="portfolio-name">Top 20 Performers</div>
-            <div class="portfolio-desc">Viral Leaderboard & Channel Rankings</div>
+      <!-- BOX 3: DRIVE DATA -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" onclick="mobileSwitchView('drive_data')" title="Drive Data Cloud Inventory">
+          <div class="tile-content-left">
+            <span class="tile-icon">📁</span>
+            <div class="tile-text">
+              <span class="tile-title">Drive Data</span>
+              <span class="tile-sub">Real-Time Video Stock</span>
+            </div>
           </div>
-        </div>
-        <span class="portfolio-badge" style="background: rgba(245,186,35,0.2); color: #facc15; border: 1px solid rgba(245,186,35,0.4);">TOP 20</span>
+          <span class="side-drive-pill" id="drawerNavDriveCountBadge">8,490</span>
+        </button>
       </div>
 
-      <div class="drawer-all-portfolio-tile" id="btnDrawerLowPerformers" onclick="closePageDrawer(); switchMainView('low_performers')" role="button" tabindex="0" style="border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.08); cursor: pointer;">
-        <div class="portfolio-tile-left">
-          <div class="portfolio-avatar" style="background: rgba(239,68,68,0.2); color: #f87171;">❄️</div>
-          <div>
-            <div class="portfolio-name">Low & 0 Views Pages</div>
-            <div class="portfolio-desc">Bottom 50 Channels Needing Push</div>
+      <!-- BOX 4: UPLOAD HISTORY -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" onclick="mobileSwitchView('recent_posts')" title="Upload History & IP Telemetry">
+          <div class="tile-content-left">
+            <span class="tile-icon">📜</span>
+            <div class="tile-text">
+              <span class="tile-title">Upload History</span>
+              <span class="tile-sub">Real-Time IP & Reels Audit</span>
+            </div>
           </div>
-        </div>
-        <span class="portfolio-badge" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4);">LOW 50</span>
+          <span class="side-recent-pill" style="background:rgba(234,179,8,0.18);color:#facc15;border:1px solid rgba(234,179,8,0.35);">LIVE</span>
+        </button>
       </div>
-    </div>
 
-    <!-- Scrollable Page Items List -->
-    <div class="drawer-pages-list" id="sidebarPagesList">
-      <!-- Dynamically Populated -->
+      <!-- BOX 5: HEALTH & AUDIT CENTER -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerHealthAudit" onclick="mobileSwitchView('health_audit')" title="Health & Audit Center">
+          <div class="tile-content-left">
+            <span class="tile-icon">🛡️</span>
+            <div class="tile-text">
+              <span class="tile-title">Health & Audit</span>
+              <span class="tile-sub">Tokens, Gaps & Runner</span>
+            </div>
+          </div>
+          <span class="side-health-pill" id="drawerNavHealthBadge">128 OK</span>
+        </button>
+      </div>
+
+      <!-- BOX 6: TOP 20 PERFORMERS -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerTopPerformers" onclick="mobileSwitchView('top_performers')" title="Top 20 Performers Leaderboard">
+          <div class="tile-content-left">
+            <span class="tile-icon">🏆</span>
+            <div class="tile-text">
+              <span class="tile-title">Top 20 Performers</span>
+              <span class="tile-sub">Viral Leaderboard</span>
+            </div>
+          </div>
+          <span class="side-top-pill" style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">TOP 20</span>
+        </button>
+      </div>
+
+      <!-- BOX 7: LOW & 0 VIEWS PAGES -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerLowPerformers" onclick="mobileSwitchView('low_performers')" title="Low & 0 Views Pages">
+          <div class="tile-content-left">
+            <span class="tile-icon">❄️</span>
+            <div class="tile-text">
+              <span class="tile-title">Low & 0 Views</span>
+              <span class="tile-sub">Bottom 50 Channels</span>
+            </div>
+          </div>
+          <span class="portfolio-badge" style="background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.4);">LOW 50</span>
+        </button>
+      </div>
+
     </div>
   </aside>
 
@@ -1355,6 +1430,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.6.1"></script>
+  <script src="js/gold_app.js?v=9.7.0"></script>
 </body>
 </html>

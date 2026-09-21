@@ -1395,9 +1395,43 @@ window.onSelectSidebarPage = onSelectSidebarPage;
 function onSelectDrawerPage(pageId, e) {
   if (e && e.stopPropagation) e.stopPropagation();
   selectPage(pageId);
+  switchMainView("dashboard");
   closePageDrawer();
 }
 window.onSelectDrawerPage = onSelectDrawerPage;
+
+function mobileSwitchView(viewName) {
+  closePageDrawer();
+  if (viewName === "dashboard") {
+    selectPage("all");
+  }
+  switchMainView(viewName);
+}
+window.mobileSwitchView = mobileSwitchView;
+
+function toggleDrawerPagesShutter(event) {
+  if (event && event.stopPropagation) event.stopPropagation();
+  const box = document.getElementById("drawerPagesAccordionBox");
+  const body = document.getElementById("drawerPagesShutterBody");
+  const arrow = document.getElementById("drawerPagesShutterArrow");
+  if (!body) return;
+  const isHidden = body.style.display === "none" || !body.classList.contains("open");
+  if (isHidden) {
+    body.style.display = "block";
+    body.classList.add("open");
+    box?.classList.add("open");
+    if (arrow) arrow.innerText = "▲";
+    if (fullData && fullData.pages) {
+      renderDrawerPages(fullData.pages);
+    }
+  } else {
+    body.style.display = "none";
+    body.classList.remove("open");
+    box?.classList.remove("open");
+    if (arrow) arrow.innerText = "▼";
+  }
+}
+window.toggleDrawerPagesShutter = toggleDrawerPagesShutter;
 
 window.toggleDrawerFleetBox = function(accType, event) {
   if (event) event.stopPropagation();
@@ -1449,43 +1483,42 @@ function renderDrawerPages(pages) {
       else if (p.account === "UK Account 4" || (p.index > 66 && p.index <= 78)) uk4List.push(p);
       else if (p.account === "UK Account 3" || (p.index > 54 && p.index <= 66)) uk3List.push(p);
       else if (p.account === "UK Account 2" || (p.index > 42 && p.index <= 54)) uk2List.push(p);
-      else if (p.region === "GB" || p.account === "UK Account 1") uk1List.push(p);
-      else if (p.account === "Account 2" || p.index > 15) usa2List.push(p);
+      else if (p.account === "UK Account 1" || (p.index > 30 && p.index <= 42)) uk1List.push(p);
+      else if (p.account === "Account 2" || (p.index > 15 && p.index <= 30)) usa2List.push(p);
       else usa1List.push(p);
     }
   });
 
   function renderDrawerItem(p, accType) {
-    const isPageActive = String(p.id) === activePageId;
-    const followersStr = (p.followers || 0).toLocaleString();
-    const pToday = getPageTodayPosts(p);
-    const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
-      ? p.drive_videos_count
-      : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0);
+    const isAct = String(p.id) === activePageId;
+    const name = p.name || `Page ${p.id}`;
+    const pId = String(p.id);
+    const followers = p.followers_count !== undefined ? p.followers_count : 0;
+    const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
+    const stock = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (driveInfo?.videoCount || 0);
 
+    const todayDone = getPageTodayPosts(p);
+    const targetSlots = 4;
     const batteryCells = [1, 2, 3, 4].map(sNum => {
-      const isFilled = pToday >= sNum;
-      const cellClass = isFilled ? (pToday >= 4 ? 'full' : 'filled') : 'empty';
+      const isFilled = todayDone >= sNum;
+      const cellClass = isFilled ? (todayDone >= 4 ? 'full' : 'filled') : 'empty';
       return `<span class="battery-slot-cell ${cellClass}"></span>`;
     }).join("");
 
     return `
-      <div class="side-page-item drawer-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectDrawerPage('${p.id}', event)" title="${p.name} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
-        <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
-        <div class="side-page-content">
-          <div class="side-page-row-top">
-            <span class="side-page-name" title="${p.name}">${p.name}</span>
-            <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
-              ${batteryCells}
-            </div>
+      <div class="drawer-page-item ${isAct ? 'active' : ''}" onclick="onSelectDrawerPage('${p.id}', event)" role="button" tabindex="0">
+        <div class="page-item-left">
+          <img src="${p.picture || p.pic_url || 'icons/icon-192.png'}" alt="${name}" class="page-item-img" onerror="this.src='icons/icon-192.png'">
+          <div class="page-item-info">
+            <span class="page-item-name">${name}</span>
+            <span class="page-item-meta">${followers.toLocaleString()} followers</span>
           </div>
-          <div class="side-page-row-bottom">
-            <span class="side-page-followers">${followersStr} followers</span>
-            <div class="side-page-stats-right">
-              <span class="side-page-slot-tag ${pToday >= 4 ? 'done' : ''}">${pToday}/4 Slots</span>
-              ${driveCount > 0 ? `<span class="battery-drive-tag" title="${driveCount} videos ready in Drive">📁 ${driveCount}</span>` : ''}
-            </div>
+        </div>
+        <div class="page-item-right">
+          <div class="battery-slot-bar" title="${todayDone}/4 Slots Completed Today">
+            ${batteryCells}
           </div>
+          <span class="page-stock-pill" title="Drive Video Stock">📁 ${stock}</span>
         </div>
       </div>`;
   }
@@ -1495,8 +1528,8 @@ function renderDrawerPages(pages) {
     const totalFleetTarget = items.length * 4;
     const totalFleetStock = items.reduce((sum, p) => sum + ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     const hasActivePage = items.some(p => String(p.id) === activePageId);
-    // Open active fleet, or usa1 by default, or open all if searching
-    const isOpen = Boolean(searchTerm) || hasActivePage || accType === "usa1";
+    // Closed by default to eliminate clutter, only open if searching or specific subpage active
+    const isOpen = Boolean(searchTerm) || (hasActivePage && activePageId !== "all");
 
     return `
       <div class="drawer-account-section ${cssClass} ${isOpen ? 'open' : ''}" id="drawerFleetBox_${accType}" data-fleet="${accType}">
