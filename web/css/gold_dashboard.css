@@ -694,8 +694,8 @@ body {
 
 .hero-stats-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid var(--border-subtle);
@@ -2088,7 +2088,7 @@ body {
 /* ================= RESPONSIVE MEDIA QUERIES ================= */
 @media (max-width: 900px) {
   .hero-stats-strip {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .kpi-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -2102,6 +2102,9 @@ body {
 }
 
 @media (max-width: 600px) {
+  .hero-stats-strip {
+    grid-template-columns: 1fr;
+  }
   .header-container {
     padding: 10px 12px;
   }
