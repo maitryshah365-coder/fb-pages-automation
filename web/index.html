@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.8.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.9.0">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -1108,6 +1108,84 @@
         </div>
       </section>
 
+      <!-- Next-Gen Holographic AI Assistant Command Console (Inspired by Reference Images) -->
+      <section class="ai-assistant-hud-card" id="aiAssistantCard">
+        <div class="ai-hud-glow-orb"></div>
+        <div class="ai-hud-content">
+          <!-- Holographic Avatar with Rotating Rings & Circuit Glow -->
+          <div class="ai-avatar-pod" id="aiAvatarPod">
+            <div class="ai-halo-ring ai-halo-outer"></div>
+            <div class="ai-halo-ring ai-halo-inner"></div>
+            <div class="ai-hologram-avatar" id="aiHologramAvatar">
+              <!-- Futuristic Hologram AI Character SVG -->
+              <svg viewBox="0 0 100 100" class="ai-holo-svg">
+                <defs>
+                  <linearGradient id="holoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#00f2fe" />
+                    <stop offset="50%" stop-color="#8b5cf6" />
+                    <stop offset="100%" stop-color="#f43f5e" />
+                  </linearGradient>
+                  <linearGradient id="cyberHeadphones" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#00f2fe" />
+                    <stop offset="100%" stop-color="#3b82f6" />
+                  </linearGradient>
+                  <filter id="holoGlow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+                <!-- Outer Cyber Ring -->
+                <circle cx="50" cy="50" r="46" fill="none" stroke="url(#holoGrad)" stroke-width="1.5" stroke-dasharray="8 4" class="ai-svg-rotator" />
+                <circle cx="50" cy="50" r="42" fill="rgba(6, 12, 26, 0.75)" stroke="rgba(0, 242, 254, 0.3)" stroke-width="1" />
+                <!-- Cybernetic Headphones -->
+                <path d="M 22 50 C 22 30, 78 30, 78 50" fill="none" stroke="url(#cyberHeadphones)" stroke-width="4" stroke-linecap="round" filter="url(#holoGlow)" />
+                <rect x="18" y="44" width="7" height="14" rx="3" fill="#00f2fe" filter="url(#holoGlow)" />
+                <rect x="75" y="44" width="7" height="14" rx="3" fill="#00f2fe" filter="url(#holoGlow)" />
+                <!-- Holographic Face & Hair -->
+                <path d="M 33 46 C 33 28, 67 28, 67 46 C 67 62, 57 70, 50 72 C 43 70, 33 62, 33 46 Z" fill="rgba(0, 242, 254, 0.12)" stroke="url(#holoGrad)" stroke-width="1.6" filter="url(#holoGlow)" />
+                <!-- Eyes / Holographic Visor -->
+                <ellipse cx="43" cy="48" rx="3.5" ry="2" fill="#00f2fe" filter="url(#holoGlow)" />
+                <ellipse cx="57" cy="48" rx="3.5" ry="2" fill="#00f2fe" filter="url(#holoGlow)" />
+                <!-- Neural Circuit lines -->
+                <line x1="43" y1="53" x2="39" y2="60" stroke="#8b5cf6" stroke-width="1" stroke-linecap="round" />
+                <line x1="57" y1="53" x2="61" y2="60" stroke="#8b5cf6" stroke-width="1" stroke-linecap="round" />
+                <path d="M 46 62 Q 50 65 54 62" fill="none" stroke="#00f2fe" stroke-width="1.2" stroke-linecap="round" />
+                <!-- Cyber Collar -->
+                <path d="M 35 74 L 50 82 L 65 74" fill="none" stroke="url(#holoGrad)" stroke-width="2" filter="url(#holoGlow)" />
+              </svg>
+              <!-- Live State Badge -->
+              <span class="ai-status-dot" id="aiStatusDot"></span>
+            </div>
+          </div>
+
+          <!-- AI Status & Dialogue Strip -->
+          <div class="ai-hud-info">
+            <div class="ai-hud-title-row">
+              <div class="ai-hud-name-badge">
+                <span class="ai-sparkle">✨</span>
+                <span class="ai-hud-name">RAJ AI SENTINEL</span>
+                <span class="ai-mode-pill" id="aiModePill">ONLINE</span>
+              </div>
+              <div class="ai-neural-activity" id="aiNeuralActivity">
+                <span class="wave-bar bar-1"></span>
+                <span class="wave-bar bar-2"></span>
+                <span class="wave-bar bar-3"></span>
+                <span class="wave-bar bar-4"></span>
+                <span class="wave-bar bar-5"></span>
+              </div>
+            </div>
+            <div class="ai-hud-dialogue" id="aiHudDialogue">
+              "128 Facebook Pages connected • 512 Daily Slots fully monitored. Meta Graph engine standing by."
+            </div>
+            <div class="ai-hud-action-row">
+              <span class="ai-telemetry-chip"><span class="chip-dot-cyan">●</span> Meta Graph Live</span>
+              <span class="ai-telemetry-chip"><span class="chip-dot-purple">●</span> Safe Slots Sync</span>
+              <button type="button" class="btn-ai-quick-sync" onclick="triggerAiLiveSync(event)">⚡ Pulse Sync</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Active Page Profile Banner -->
       <section class="profile-hero-card" id="heroCard">
       <div class="hero-main-row">
@@ -1399,6 +1477,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.8.0"></script>
+  <script src="js/gold_app.js?v=9.9.0"></script>
 </body>
 </html>
