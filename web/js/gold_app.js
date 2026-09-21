@@ -1801,6 +1801,9 @@ function renderAllPortfolioView() {
     metricToday.className = "stat-num green-text";
   }
 
+  // Update live automation radar slots badge & fleet timeline cards
+  updateRadarSlots();
+
   // Page Recommendation Card for Portfolio
   const recomVal = document.getElementById("metricRecommendation");
   const recomSub = document.getElementById("metricRecomSub");
@@ -2888,14 +2891,68 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 8, m: 50, label: "Slot 1" },
   { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 12, m: 50, label: "Slot 2" },
   { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 16, m: 50, label: "Slot 3" },
-  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 21, m: 20, label: "Slot 4" }
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 21, m: 20, label: "Slot 4" },
+
+  // Sweta Shah - 12 Pages
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 9, m: 0, label: "Slot 1" },
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 13, m: 0, label: "Slot 2" },
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 17, m: 0, label: "Slot 3" },
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 21, m: 30, label: "Slot 4" }
 ];
+
+function updateRadarSlots() {
+  if (!fullData?.pages) return;
+  const fleets = [
+    { id: "a1", set: FLEET_USA_01_SET, defaultSlots: 60 },
+    { id: "a2", set: FLEET_USA_02_SET, defaultSlots: 60 },
+    { id: "uk1", set: FLEET_UK_01_SET, defaultSlots: 48 },
+    { id: "uk2", set: FLEET_UK_02_SET, defaultSlots: 48 },
+    { id: "uk3", set: FLEET_UK_03_SET, defaultSlots: 48 },
+    { id: "uk4", set: FLEET_UK_04_SET, defaultSlots: 48 },
+    { id: "uk5", set: FLEET_UK_05_SET, defaultSlots: 44 },
+    { id: "uk6", set: FLEET_UK_06_SET, defaultSlots: 48 }
+  ];
+
+  let grandTotalUploaded = 0;
+  let grandTotalSlots = 0;
+
+  fleets.forEach(f => {
+    const fleetPages = fullData.pages.filter(p => f.set.has(String(p.id)));
+    const done = fleetPages.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
+    const slots = (fleetPages.length > 0) ? fleetPages.length * 4 : f.defaultSlots;
+    grandTotalUploaded += done;
+    grandTotalSlots += slots;
+
+    const el = document.getElementById("radarSlots_" + f.id);
+    if (el) {
+      el.innerText = `${done} / ${slots} Slots`;
+      if (done >= slots) {
+        el.style.color = "#4ade80";
+      } else if (done > 0) {
+        el.style.color = "#38bdf8";
+      } else {
+        el.style.color = "#94a3b8";
+      }
+    }
+  });
+
+  const totalEl = document.getElementById("radarTodayUploadsCount");
+  const pctEl = document.getElementById("radarTodayUploadsPct");
+  if (totalEl) {
+    totalEl.innerText = `${grandTotalUploaded} / ${grandTotalSlots} Slots`;
+  }
+  if (pctEl) {
+    const pct = grandTotalSlots > 0 ? Math.round((grandTotalUploaded / grandTotalSlots) * 100) : 0;
+    pctEl.innerText = `(${pct}% Done)`;
+  }
+}
+window.updateRadarSlots = updateRadarSlots;
 
 function initAutomationRadarLiveEngine() {
   function tickRadar() {
     const now = new Date();
 
-    // Determine Next Scheduled Run across all 7 fleets
+    // Determine Next Scheduled Run across all 8 fleets
     const nowUtcMs = Date.UTC(
       now.getUTCFullYear(),
       now.getUTCMonth(),
@@ -2955,7 +3012,7 @@ function initAutomationRadarLiveEngine() {
       if (targetCard) targetCard.classList.add("active-next");
 
       // Dynamically update each fleet card's time to its specific next upcoming run
-      const fleetIds = ["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5"];
+      const fleetIds = ["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6"];
       fleetIds.forEach(fId => {
         let fNextSlot = null;
         let fMinDiffMs = Infinity;
@@ -2997,6 +3054,9 @@ function initAutomationRadarLiveEngine() {
         }
       });
     }
+
+    // Keep radar slot counters continuously synced
+    updateRadarSlots();
   }
 
   tickRadar();

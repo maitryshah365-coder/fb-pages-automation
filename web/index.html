@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.8.4">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=8.8.5">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -884,10 +884,18 @@
             </div>
           </div>
           
+          <div class="radar-header-actions">
+            <div class="radar-today-uploads-badge" id="radarTodayUploadsBadge" title="Total Facebook Reels uploaded today across all 101 configured pages">
+              <span class="radar-upload-icon">🎬</span>
+              <span class="radar-upload-label">Today's Uploads:</span>
+              <span class="radar-upload-count" id="radarTodayUploadsCount">0 / 404 Slots</span>
+              <span class="radar-upload-pct" id="radarTodayUploadsPct">(0% Done)</span>
+            </div>
 
-          <div class="radar-next-run-badge" id="radarNextRunBadge">
-            <span>⏰ Next Run:</span>
-            <span class="radar-next-timer" id="radarNextCountdownText">Calculating...</span>
+            <div class="radar-next-run-badge" id="radarNextRunBadge">
+              <span>⏰ Next Run:</span>
+              <span class="radar-next-timer" id="radarNextCountdownText">Calculating...</span>
+            </div>
           </div>
         </div>
 
@@ -897,41 +905,49 @@
             <div class="radar-card-top"><span><img src="icons/us.png" alt="US" class="app-flag-icon"> #1</span><span>15 Pages</span></div>
             <div class="radar-card-name">Meghal Chauhan</div>
             <div class="radar-card-time">04:30 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_a1">0 / 60 Slots</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_a2">
             <div class="radar-card-top"><span><img src="icons/us.png" alt="US" class="app-flag-icon"> #2</span><span>15 Pages</span></div>
             <div class="radar-card-name">Mia Shah</div>
             <div class="radar-card-time">04:50 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_a2">0 / 60 Slots</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk1">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #1</span><span>12 Pages</span></div>
             <div class="radar-card-name">Binjal Mehra</div>
             <div class="radar-card-time">02:00 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_uk1">0 / 48 Slots</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk2">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #2</span><span>12 Pages</span></div>
             <div class="radar-card-name">Chanda Nai</div>
             <div class="radar-card-time">02:20 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_uk2">0 / 48 Slots</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk3">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #3</span><span>12 Pages</span></div>
             <div class="radar-card-name">Mahi Patel</div>
             <div class="radar-card-time">02:30 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_uk3">0 / 48 Slots</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk4">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #4</span><span>12 Pages</span></div>
             <div class="radar-card-name">Nidhi Desai</div>
             <div class="radar-card-time">02:40 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_uk4">0 / 48 Slots</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk5">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #5</span><span>11 Pages</span></div>
             <div class="radar-card-name">Richi Patel</div>
             <div class="radar-card-time">02:50 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_uk5">0 / 44 Slots</div>
           </div>
           <div class="radar-timeline-card" id="radarCard_uk6">
             <div class="radar-card-top"><span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #6</span><span>12 Pages</span></div>
             <div class="radar-card-name">Sweta Shah</div>
             <div class="radar-card-time">03:00 AM IST (Slot 4)</div>
+            <div class="radar-card-slots" id="radarSlots_uk6">0 / 48 Slots</div>
           </div>
         </div>
       </section>
@@ -1190,52 +1206,7 @@
       </div>
     </section>
 
-    <!-- Section 4: Cloud Runner & Upload Telemetry (Real State) -->
-    <section class="content-box">
-      <div class="box-header">
-        <div class="box-title-group">
-          <span class="box-icon">🛰️</span>
-          <h3 class="box-title">Automation Engine & Server Telemetry</h3>
-        </div>
-        <span class="pill-badge pill-blue" id="telemetryStatusPill">Cloud Standby</span>
-      </div>
 
-      <div class="telemetry-grid">
-        <!-- Tile 1: Last Upload IP & ISP -->
-        <div class="telemetry-tile">
-          <span class="tel-label" id="ipAddressLabel">LAST UPLOAD IP</span>
-          <div class="tel-val-row">
-            <span class="ip-code" id="ipAddressVal">68.154.116.73</span>
-            <span class="tel-flag" id="ipFlag">🇺🇸</span>
-          </div>
-          <span class="tel-sub" id="ipOrgVal">AS8075 Microsoft Corporation</span>
-          <span class="tel-extra" id="ipUploadTimeVal">Last Upload: Today at 07:47 UTC</span>
-        </div>
-
-        <!-- Tile 2: Geolocation -->
-        <div class="telemetry-tile">
-          <span class="tel-label">RUNNER GEOLOCATION</span>
-          <div class="tel-val" id="ipLocationVal">Boydton, Virginia, United States</div>
-          <span class="tel-sub" id="ipGeoSub">USA Target Egress for Optimal Distribution</span>
-        </div>
-
-        <!-- Tile 3: Google Drive Queue & Stock -->
-        <div class="telemetry-tile">
-          <span class="tel-label">GOOGLE DRIVE STOCK & QUEUE</span>
-          <div class="tel-val tel-gold" id="driveStockVal">📁 48 Videos Ready</div>
-          <span class="tel-sub" id="driveStockSub">Remaining in Drive • Auto-deletes upon post</span>
-        </div>
-
-        <!-- Tile 4: Next Scheduled Slot Countdown -->
-        <div class="telemetry-tile">
-          <span class="tel-label">NEXT SCHEDULED SLOT (REAL-TIME)</span>
-          <div class="tel-val tel-countdown" id="telemetryCountdownVal">--:--:--</div>
-          <span class="tel-sub" id="telemetryNextSlotSub">Next Slot: 10:00 AM EDT (Daily 4x)</span>
-        </div>
-
-
-      </div>
-    </section>
 
     </div> <!-- /#dashboardAnalyticsView -->
 
@@ -1318,6 +1289,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=8.8.4"></script>
+  <script src="js/gold_app.js?v=8.8.5"></script>
 </body>
 </html>

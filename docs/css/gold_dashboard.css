@@ -5551,6 +5551,71 @@ body {
   font-weight: 700;
 }
 
+.radar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.radar-today-uploads-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.22));
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.2px;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.15);
+  transition: all 0.2s ease;
+}
+
+.radar-today-uploads-badge:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(5, 150, 105, 0.3));
+  border-color: rgba(16, 185, 129, 0.6);
+  transform: translateY(-1px);
+}
+
+.radar-today-uploads-badge .radar-upload-icon {
+  font-size: 14px;
+}
+
+.radar-today-uploads-badge .radar-upload-label {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.radar-today-uploads-badge .radar-upload-count {
+  color: #4ade80;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+}
+
+.radar-today-uploads-badge .radar-upload-pct {
+  color: #a7f3d0;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.2);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.radar-card-slots {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #4ade80;
+  font-family: 'JetBrains Mono', monospace;
+  margin-top: 3px;
+  letter-spacing: 0.2px;
+}
+
 .radar-next-run-badge {
   display: inline-flex;
   align-items: center;
