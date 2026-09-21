@@ -808,27 +808,11 @@ function finishSyncProgressUI(updatedPages, totalPages) {
 
 // ----------------- Holographic AI Assistant Controller (Raj AI Sentinel) -----------------
 
-function setAiAssistantState(state, message) {
-  const card = document.getElementById("aiAssistantCard");
-  const dialogue = document.getElementById("aiHudDialogue");
-  const modePill = document.getElementById("aiModePill");
-  if (!card) return;
-  if (state === "working") {
-    card.classList.add("active-working");
-    if (modePill) modePill.innerText = "SYNCING";
-    if (dialogue && message) dialogue.innerText = `"${message}"`;
-  } else {
-    card.classList.remove("active-working");
-    if (modePill) modePill.innerText = "ONLINE";
-    if (dialogue && message) dialogue.innerText = `"${message}"`;
-  }
-}
+function setAiAssistantState() {}
 window.setAiAssistantState = setAiAssistantState;
 
 function triggerAiLiveSync(event) {
   if (event && event.stopPropagation) event.stopPropagation();
-  setAiAssistantState("working", "⚡ Real-Time Graph API Sync: Initiating live pulse across 128 Pages...");
-  showToast("⚡ AI Pulse Sync Initiated...");
   syncLiveMetaGraph(true);
 }
 window.triggerAiLiveSync = triggerAiLiveSync;
@@ -1427,6 +1411,9 @@ function onSelectDrawerPage(pageId, e) {
   selectPage(pageId);
   switchMainView("dashboard");
   closePageDrawer();
+  setTimeout(() => {
+    document.getElementById("heroCard")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 80);
 }
 window.onSelectDrawerPage = onSelectDrawerPage;
 
@@ -1558,8 +1545,8 @@ function renderDrawerPages(pages) {
     const totalFleetTarget = items.length * 4;
     const totalFleetStock = items.reduce((sum, p) => sum + ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     const hasActivePage = items.some(p => String(p.id) === activePageId);
-    // Closed by default to eliminate clutter, only open if searching or specific subpage active
-    const isOpen = Boolean(searchTerm) || (hasActivePage && activePageId !== "all");
+    // Open when searching, active page matches, or first USA fleet open by default
+    const isOpen = Boolean(searchTerm) || (hasActivePage && activePageId !== "all") || (activePageId === "all" && accType === "usa1");
 
     return `
       <div class="drawer-account-section ${cssClass} ${isOpen ? 'open' : ''}" id="drawerFleetBox_${accType}" data-fleet="${accType}">
@@ -1734,7 +1721,7 @@ function renderSinglePageView(p) {
   const accTag = p.account || (p.index <= 15 ? 'Account 1' : 'Account 2');
   const ownerTag = p.account_owner || (p.index > 15 ? 'Mia Shah' : 'Account 1 Admin');
   if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id} • ${accTag} (${ownerTag})`;
-  if (heroAvatar) heroAvatar.src = p.pic_url;
+  if (heroAvatar) heroAvatar.src = p.picture || p.pic_url || 'icons/icon-192.png';
 
   // Filter 100% real reels for the selected timeframe
   const allReels = p.videos || [];
