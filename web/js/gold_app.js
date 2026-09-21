@@ -601,32 +601,10 @@ function checkRealMonetizationSyncUrl() {
   }
 }
 
-function copyBookmarkletCode() {
-  const code = "javascript:(function(){var s=document.createElement('script');s.src='https://maitryshah365-coder.github.io/fb-pages-automation/js/fb_real_scanner.js?v='+Date.now();document.body.appendChild(s);})();";
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(code).then(() => {
-      showToast("📋 Bookmarklet Code Copied! Chrome Bookmarks me paste karein.");
-    }).catch(() => {
-      prompt("Copy this Bookmarklet Code:", code);
-    });
-  } else {
-    prompt("Copy this Bookmarklet Code:", code);
-  }
-}
-
-function showBookmarkletHelpToast() {
-  showToast("💡 Is button ko mouse se pakad kar apne Chrome Bookmarks Bar (Ctrl+Shift+B) par chhod dein!");
-}
-
-function openScannerGuideModal() {
-  const modal = document.getElementById("scannerHelpModal");
-  if (modal) modal.classList.add("active");
-}
-
-function closeScannerGuideModal() {
-  const modal = document.getElementById("scannerHelpModal");
-  if (modal) modal.classList.remove("active");
-}
+function copyBookmarkletCode() {}
+function showBookmarkletHelpToast() {}
+function openScannerGuideModal() {}
+function closeScannerGuideModal() {}
 
 // ----------------- Initial Load -----------------
 
