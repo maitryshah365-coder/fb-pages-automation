@@ -7206,7 +7206,7 @@ body {
 
 .tp-table-header.mz-mode {
   display: grid;
-  grid-template-columns: 55px 2.2fr 1.6fr 1.3fr 1.1fr 1.8fr 190px;
+  grid-template-columns: 55px 2fr 1.3fr 2.1fr 2.4fr 1.2fr 180px;
   padding: 12px 20px;
   background: rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -7220,7 +7220,7 @@ body {
 
 .tp-table-row.mz-mode {
   display: grid;
-  grid-template-columns: 55px 2.2fr 1.6fr 1.3fr 1.1fr 1.8fr 190px;
+  grid-template-columns: 55px 2fr 1.3fr 2.1fr 2.4fr 1.2fr 180px;
   padding: 14px 20px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   align-items: center;
@@ -7229,6 +7229,182 @@ body {
 
 .tp-table-row.mz-mode:hover {
   background: rgba(255, 255, 255, 0.04);
+}
+
+/* Monetization Perfect % Criteria Styling */
+.mz-progress-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 14px;
+}
+
+.mz-pct-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mz-score-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.mz-score-number.green {
+  color: #4ade80;
+  text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
+}
+
+.mz-score-number.amber {
+  color: #facc15;
+}
+
+.mz-score-number.blue {
+  color: #38bdf8;
+}
+
+.mz-score-number.gray {
+  color: #94a3b8;
+}
+
+.mz-progress-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.mz-progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.mz-progress-bar-fill.green {
+  background: linear-gradient(90deg, #10b981, #22c55e);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+}
+
+.mz-progress-bar-fill.amber {
+  background: linear-gradient(90deg, #f59e0b, #eab308);
+}
+
+.mz-progress-bar-fill.blue {
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+}
+
+.mz-progress-bar-fill.gray {
+  background: #64748b;
+}
+
+.mz-criteria-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  width: fit-content;
+}
+
+.mz-criteria-tag.met-3 {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.mz-criteria-tag.met-2 {
+  background: rgba(234, 179, 8, 0.2);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.mz-criteria-tag.met-1 {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.mz-criteria-tag.met-0 {
+  background: rgba(100, 116, 139, 0.2);
+  color: #94a3b8;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.mz-breakdown-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mz-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #94a3b8;
+  padding-right: 12px;
+}
+
+.mz-chip-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mz-chip-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.mz-chip-pct {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.mz-chip-pct.pass {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.mz-chip-pct.progress {
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+}
+
+.badge-stars-ready {
+  background: rgba(34, 197, 94, 0.18);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-stars-progress {
+  background: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .mz-btn-open-setup {

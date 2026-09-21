@@ -5236,7 +5236,7 @@ function renderMonetizationTrackerView() {
   const searchInput = document.getElementById("mzSearchInput");
   const searchTerm = (searchInput?.value || "").toLowerCase().trim();
 
-  // Process all 101 pages with 100% Real-Time Meta Data
+  // Process all 101 pages with 100% Real-Time Mathematical Facebook Criteria Breakdown
   const allPagesStats = pages.map(p => {
     const pid = String(p.id);
     const isMarkedReady = markedMonetizationPages.has(pid);
@@ -5254,8 +5254,34 @@ function renderMonetizationTrackerView() {
     else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
     else if (p.account) fleetTag = p.account;
 
-    const isViral = totalViews >= 500000;
-    const isStarsEligible = followers >= 500;
+    // 1. Follower Criteria: Target = 5,000 (standard Meta In-Stream/Content Monetization)
+    const fTarget = 5000;
+    const fPct = Math.min(100, Math.round((followers / fTarget) * 100));
+    const fMet = followers >= fTarget;
+
+    // 2. Watch Views Criteria: Target = 60,000 Views / Minutes in last 60 days
+    const vTarget = 60000;
+    const vPct = Math.min(100, Math.round((totalViews / vTarget) * 100));
+    const vMet = totalViews >= vTarget;
+
+    // 3. Active Reels Criteria: Target = 5 published videos
+    const rTarget = 5;
+    const rPct = Math.min(100, Math.round((reelsCount / rTarget) * 100));
+    const rMet = reelsCount >= rTarget;
+
+    // Total Criteria Met (out of 3, identical to Facebook's "1 of 3 criteria met")
+    const criteriaMetCount = (fMet ? 1 : 0) + (vMet ? 1 : 0) + (rMet ? 1 : 0);
+
+    // Stars Criteria: Target = 500 followers
+    const starsTarget = 500;
+    const starsPct = Math.min(100, Math.round((followers / starsTarget) * 100));
+    const starsMet = followers >= starsTarget;
+
+    // Overall Readiness % Score
+    let overallPct = Math.round((fPct * 0.4) + (vPct * 0.4) + (rPct * 0.2));
+    if (isMarkedReady || criteriaMetCount === 3) {
+      overallPct = 100;
+    }
 
     return {
       page: p,
@@ -5267,46 +5293,66 @@ function renderMonetizationTrackerView() {
       followers,
       reelsCount,
       isMarkedReady,
-      isViral,
-      isStarsEligible
+      fPct,
+      fMet,
+      vPct,
+      vMet,
+      rPct,
+      rMet,
+      criteriaMetCount,
+      starsPct,
+      starsMet,
+      overallPct
     };
   });
 
   // Calculate Global Counts for KPI cards
-  const countSetupReady = allPagesStats.filter(p => p.isMarkedReady).length;
-  const countViral = allPagesStats.filter(p => p.isViral).length;
-  const countStars = allPagesStats.filter(p => p.isStarsEligible).length;
+  const count100 = allPagesStats.filter(p => p.overallPct >= 100 || p.isMarkedReady).length;
+  const countNear = allPagesStats.filter(p => p.overallPct >= 70 && p.overallPct < 100 && !p.isMarkedReady).length;
+  const countStars = allPagesStats.filter(p => p.starsMet).length;
+  const countLow = allPagesStats.filter(p => p.overallPct < 70 && !p.isMarkedReady).length;
+  const avgReadiness = Math.round(allPagesStats.reduce((sum, p) => sum + p.overallPct, 0) / (allPagesStats.length || 1));
 
   // Update KPIs
   const elVal1 = document.getElementById("mzKpiVal1");
   const elSub1 = document.getElementById("mzKpiSub1");
   const elVal2 = document.getElementById("mzKpiVal2");
   const elVal3 = document.getElementById("mzKpiVal3");
+  const elVal4 = document.getElementById("mzKpiVal4");
   const filterReadyCount = document.getElementById("mzFilterReadyCount");
+  const filterNearCount = document.getElementById("mzFilterNearCount");
+  const filterStarsCount = document.getElementById("mzFilterStarsCount");
+  const filterLowCount = document.getElementById("mzFilterLowCount");
 
-  if (elVal1) elVal1.innerText = `${countSetupReady} Pages`;
-  if (elSub1) elSub1.innerText = `${countSetupReady} confirmed Setup Ready`;
-  if (elVal2) elVal2.innerText = `${countViral} Pages`;
+  if (elVal1) elVal1.innerText = `${count100} Pages`;
+  if (elSub1) elSub1.innerText = `${count100} confirmed 100% Qualified`;
+  if (elVal2) elVal2.innerText = `${countNear} Pages`;
   if (elVal3) elVal3.innerText = `${countStars} Pages`;
-  if (filterReadyCount) filterReadyCount.innerText = countSetupReady;
+  if (elVal4) elVal4.innerText = `${avgReadiness}%`;
+
+  if (filterReadyCount) filterReadyCount.innerText = count100;
+  if (filterNearCount) filterNearCount.innerText = countNear;
+  if (filterStarsCount) filterStarsCount.innerText = countStars;
+  if (filterLowCount) filterLowCount.innerText = countLow;
 
   updateMonetizationBadge();
 
-  // Sort: Setup Ready first, then highest Views descending
+  // Sort: 100% / Setup Ready first, then highest Overall % Score descending
   let list = [...allPagesStats].sort((a, b) => {
     if (a.isMarkedReady !== b.isMarkedReady) return b.isMarkedReady ? 1 : -1;
+    if (b.overallPct !== a.overallPct) return b.overallPct - a.overallPct;
     return b.totalViews - a.totalViews;
   });
 
   // Apply Quick Filter
   if (currentMonetizationFilter === "ready") {
-    list = list.filter(p => p.isMarkedReady);
-  } else if (currentMonetizationFilter === "viral") {
-    list = list.filter(p => p.isViral);
+    list = list.filter(p => p.overallPct >= 100 || p.isMarkedReady);
+  } else if (currentMonetizationFilter === "near") {
+    list = list.filter(p => p.overallPct >= 70 && p.overallPct < 100 && !p.isMarkedReady);
   } else if (currentMonetizationFilter === "stars") {
-    list = list.filter(p => p.isStarsEligible);
-  } else if (currentMonetizationFilter === "pending") {
-    list = list.filter(p => !p.isMarkedReady && !p.isViral);
+    list = list.filter(p => p.starsMet);
+  } else if (currentMonetizationFilter === "low") {
+    list = list.filter(p => p.overallPct < 70 && !p.isMarkedReady);
   }
 
   // Apply Search Term
@@ -5326,16 +5372,28 @@ function renderMonetizationTrackerView() {
     const rank = idx + 1;
     const fbMonetizationUrl = `https://www.facebook.com/${item.pid}/professional_dashboard/monetization/`;
 
-    let statusBadge = "";
-    if (item.isMarkedReady) {
-      statusBadge = `<span style="background:rgba(34,197,94,0.2);color:#4ade80;border:1px solid rgba(34,197,94,0.5);font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;">🟢 SET UP ACTIVE</span>`;
-    } else if (item.isViral) {
-      statusBadge = `<span style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.5);font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;">🔥 HIGH VIRAL TARGET</span>`;
-    } else if (item.isStarsEligible) {
-      statusBadge = `<span style="background:rgba(56,189,248,0.18);color:#38bdf8;border:1px solid rgba(56,189,248,0.4);font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:4px;">⭐ Stars Ready</span>`;
-    } else {
-      statusBadge = `<span style="color:#64748b;font-size:11.5px;font-weight:600;">⏳ In Progress</span>`;
+    // Progress bar color & style
+    let scoreClass = "gray";
+    let fillClass = "gray";
+    if (item.overallPct >= 100 || item.isMarkedReady) {
+      scoreClass = "green";
+      fillClass = "green";
+    } else if (item.overallPct >= 70) {
+      scoreClass = "amber";
+      fillClass = "amber";
+    } else if (item.overallPct >= 50) {
+      scoreClass = "blue";
+      fillClass = "blue";
     }
+
+    const criteriaClass = `met-${item.criteriaMetCount}`;
+    const criteriaLabel = item.isMarkedReady 
+      ? `🟢 SET UP ACTIVE` 
+      : `${item.criteriaMetCount} of 3 Criteria Met`;
+
+    const starsPill = item.starsMet
+      ? `<span class="badge-stars-ready">⭐ 100% Ready</span>`
+      : `<span class="badge-stars-progress">⭐ ${item.followers.toLocaleString()} / 500 (${item.starsPct}%)</span>`;
 
     return `
       <div class="tp-table-row mz-mode" onclick="selectPage('${item.pid}')" title="Click to view analytics for ${item.name}">
@@ -5350,18 +5408,40 @@ function renderMonetizationTrackerView() {
         <div style="font-size:11.5px;color:#cbd5e1;font-weight:600;">
           🏷️ ${item.fleetTag}
         </div>
-        <div>
-          <div style="font-size:14px;font-weight:800;color:${item.totalViews >= 1000000 ? '#facc15' : '#f8fafc'};font-family:'JetBrains Mono',monospace;">
-            ${item.totalViews.toLocaleString()}
+        
+        <!-- Column 4: Monetization Readiness (%) Progress Bar -->
+        <div class="mz-progress-cell">
+          <div class="mz-pct-header-row">
+            <span class="mz-score-number ${scoreClass}">${item.overallPct}%</span>
+            <span class="mz-criteria-tag ${criteriaClass}">${criteriaLabel}</span>
           </div>
-          <div style="font-size:10.5px;color:#64748b;">${item.reelsCount} Reels</div>
+          <div class="mz-progress-bar-wrap">
+            <div class="mz-progress-bar-fill ${fillClass}" style="width: ${item.overallPct}%;"></div>
+          </div>
         </div>
-        <div style="font-size:13px;font-weight:700;color:#cbd5e1;font-family:'JetBrains Mono',monospace;">
-          ${item.followers.toLocaleString()}
+
+        <!-- Column 5: 3-Point Criteria Breakdown -->
+        <div class="mz-breakdown-chips">
+          <div class="mz-chip">
+            <div class="mz-chip-left"><span>👥</span> <span>Followers:</span> <span class="mz-chip-val">${item.followers.toLocaleString()} / 5k</span></div>
+            <span class="mz-chip-pct ${item.fMet ? 'pass' : 'progress'}">${item.fPct}%</span>
+          </div>
+          <div class="mz-chip">
+            <div class="mz-chip-left"><span>⏱️</span> <span>Views:</span> <span class="mz-chip-val">${item.totalViews.toLocaleString()} / 60k</span></div>
+            <span class="mz-chip-pct ${item.vMet ? 'pass' : 'progress'}">${item.vPct}%</span>
+          </div>
+          <div class="mz-chip">
+            <div class="mz-chip-left"><span>🎬</span> <span>Active Reels:</span> <span class="mz-chip-val">${item.reelsCount} / 5</span></div>
+            <span class="mz-chip-pct ${item.rMet ? 'pass' : 'progress'}">${item.rPct}%</span>
+          </div>
         </div>
+
+        <!-- Column 6: Stars Tool -->
         <div>
-          ${statusBadge}
+          ${starsPill}
         </div>
+
+        <!-- Column 7: Direct Action -->
         <div style="display:flex;gap:6px;align-items:center;" onclick="event.stopPropagation();">
           <a href="${fbMonetizationUrl}" target="_blank" rel="noopener noreferrer" class="mz-btn-open-setup" title="Open Professional Dashboard Monetization Screen on Facebook">
             🎬 Open FB ↗
