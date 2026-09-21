@@ -546,7 +546,6 @@ function setTimeframe(days) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  checkRealMonetizationSyncUrl();
   initDashboard();
   setupEventListeners();
   startSlotCountdown();
@@ -562,54 +561,13 @@ function showToast(msg) {
   setTimeout(() => { toast.style.display = "none"; }, 3500);
 }
 
-// ----------------- Real Facebook Monetization Scanner Bridge -----------------
-
-function checkRealMonetizationSyncUrl() {
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const syncData = params.get("sync_real_monetization");
-    if (syncData) {
-      const parsed = JSON.parse(decodeURIComponent(syncData));
-      if (parsed && typeof parsed === "object") {
-        let existing = {};
-        try {
-          existing = JSON.parse(localStorage.getItem("raj_real_fb_audit") || "{}");
-        } catch(e) { existing = {}; }
-        const merged = Object.assign({}, existing, parsed);
-        localStorage.setItem("raj_real_fb_audit", JSON.stringify(merged));
-
-        Object.keys(parsed).forEach(pid => {
-          if (parsed[pid] && parsed[pid].status === "ready") {
-            markedMonetizationPages.add(String(pid));
-          }
-        });
-        saveMarkedMonetizationPages();
-
-        const cleanUrl = window.location.origin + window.location.pathname;
-        window.history.replaceState({}, document.title, cleanUrl);
-
-        setTimeout(() => {
-          showToast("⚡ Real Facebook Monetization Data Synced! (100% Live FB Verified)");
-          if (typeof renderMonetizationTrackerView === "function") {
-            renderMonetizationTrackerView();
-          }
-        }, 600);
-      }
-    }
-  } catch (err) {
-    console.error("Failed to parse sync_real_monetization URL param:", err);
-  }
-}
-
-function copyBookmarkletCode() {}
-function showBookmarkletHelpToast() {}
-function openScannerGuideModal() {}
-function closeScannerGuideModal() {}
-
 // ----------------- Initial Load -----------------
 
 async function initDashboard() {
   try {
+    try {
+      localStorage.removeItem("raj_real_fb_audit");
+    } catch(e) {}
     // 1. Sanitize localStorage: purge any automatically dumped server runs that were tagged as post_now
     try {
       const rawStored = localStorage.getItem("raj_fb_post_now_reels");
@@ -5222,26 +5180,8 @@ function renderTopPerformersView() {
 // MONETIZATION & TOOL SETUP CENTER (CONTENT MONETIZATION BETA & STARS)
 // =========================================================================
 
-let currentMonetizationFilter = "all"; // "all", "ready", "viral", "stars", "pending"
-let markedMonetizationPages = new Set(["818808074651170"]); // Roberts Richard pre-verified Setup Ready
-
-try {
-  let realAudit = JSON.parse(localStorage.getItem("raj_real_fb_audit") || "{}");
-  if (!realAudit["818808074651170"]) {
-    realAudit["818808074651170"] = {
-      name: "Roberts Richard",
-      status: "ready",
-      tool: "Content Monetization",
-      verifiedAt: "2026-09-21T14:19:00Z"
-    };
-    localStorage.setItem("raj_real_fb_audit", JSON.stringify(realAudit));
-  }
-  Object.keys(realAudit).forEach(id => {
-    if (realAudit[id] && realAudit[id].status === "ready") {
-      markedMonetizationPages.add(String(id));
-    }
-  });
-} catch (e) {}
+let currentMonetizationFilter = "all"; // "all", "ready", "near", "stars", "low"
+let markedMonetizationPages = new Set();
 
 try {
   const savedMz = JSON.parse(localStorage.getItem("fb_marked_monetization_pages") || "[]");
@@ -5262,28 +5202,13 @@ function togglePageMonetizationSetup(pageId, e) {
   const pObj = (fullData?.pages || []).find(p => String(p.id) === pid);
   const pageName = pObj?.name || `Page ${pid}`;
 
-  let realAudit = {};
-  try {
-    realAudit = JSON.parse(localStorage.getItem("raj_real_fb_audit") || "{}");
-  } catch(e) {}
-
   if (markedMonetizationPages.has(pid)) {
     markedMonetizationPages.delete(pid);
-    if (realAudit[pid]) delete realAudit[pid];
     showToast(`Removed Setup status for ${pageName}`);
   } else {
     markedMonetizationPages.add(pid);
-    realAudit[pid] = {
-      name: pageName,
-      status: "ready",
-      tool: "Content Monetization",
-      verifiedAt: new Date().toISOString()
-    };
     showToast(`✅ ${pageName} marked as Content Monetization Setup Ready!`);
   }
-  try {
-    localStorage.setItem("raj_real_fb_audit", JSON.stringify(realAudit));
-  } catch(e) {}
   saveMarkedMonetizationPages();
   renderMonetizationTrackerView();
   updateMonetizationBadge();
@@ -5310,23 +5235,14 @@ function updateMonetizationBadge() {
 function renderMonetizationTrackerView() {
   if (!fullData || !fullData.pages || !Array.isArray(fullData.pages)) return;
 
-  let realAudit = {};
-  try {
-    realAudit = JSON.parse(localStorage.getItem("raj_real_fb_audit") || "{}");
-  } catch(e) {
-    realAudit = {};
-  }
-
   const pages = fullData.pages;
   const searchInput = document.getElementById("mzSearchInput");
   const searchTerm = (searchInput?.value || "").toLowerCase().trim();
 
-  // Process all 101 pages with 100% Real-Time Mathematical Facebook Criteria Breakdown + Real Screen Audit
+  // Process all 101 pages with 100% Real-Time Mathematical Facebook Criteria Breakdown
   const allPagesStats = pages.map(p => {
     const pid = String(p.id);
-    const realAuditItem = realAudit[pid];
-    const isRealVerified = Boolean(realAuditItem && realAuditItem.status === "ready");
-    const isMarkedReady = markedMonetizationPages.has(pid) || isRealVerified;
+    const isMarkedReady = markedMonetizationPages.has(pid);
     const totalViews = Number(p.total_views) || 0;
     const followers = Number(p.followers) || 0;
     const reelsCount = Array.isArray(p.videos) ? p.videos.length : 0;
@@ -5356,7 +5272,7 @@ function renderMonetizationTrackerView() {
     const rPct = Math.min(100, Math.round((reelsCount / rTarget) * 100));
     const rMet = reelsCount >= rTarget;
 
-    // Total Criteria Met (out of 3, identical to Facebook's "1 of 3 criteria met")
+    // Total Criteria Met (out of 3, identical to Facebook's '1 of 3 criteria met')
     const criteriaMetCount = (fMet ? 1 : 0) + (vMet ? 1 : 0) + (rMet ? 1 : 0);
 
     // Stars Criteria: Target = 500 followers
@@ -5366,7 +5282,7 @@ function renderMonetizationTrackerView() {
 
     // Overall Readiness % Score
     let overallPct = Math.round((fPct * 0.4) + (vPct * 0.4) + (rPct * 0.2));
-    if (isRealVerified || isMarkedReady || criteriaMetCount === 3) {
+    if (isMarkedReady || criteriaMetCount === 3) {
       overallPct = 100;
     }
 
@@ -5380,8 +5296,6 @@ function renderMonetizationTrackerView() {
       followers,
       reelsCount,
       isMarkedReady,
-      isRealVerified,
-      realAuditItem,
       fPct,
       fMet,
       vPct,
@@ -5444,9 +5358,13 @@ function renderMonetizationTrackerView() {
     list = list.filter(p => p.overallPct < 70 && !p.isMarkedReady);
   }
 
-  // Apply Search Term
+  // Apply Search
   if (searchTerm) {
-    list = list.filter(p => (p.name || "").toLowerCase().includes(searchTerm) || (p.fleetTag || "").toLowerCase().includes(searchTerm) || p.pid.includes(searchTerm));
+    list = list.filter(p => 
+      p.name.toLowerCase().includes(searchTerm) || 
+      p.pid.includes(searchTerm) || 
+      p.fleetTag.toLowerCase().includes(searchTerm)
+    );
   }
 
   const tableHeading = document.getElementById("mzTableHeading");
@@ -5475,11 +5393,9 @@ function renderMonetizationTrackerView() {
       fillClass = "blue";
     }
 
-    const criteriaClass = item.isRealVerified ? "met-3" : `met-${item.criteriaMetCount}`;
+    const criteriaClass = `met-${item.criteriaMetCount}`;
     let criteriaLabel = item.criteriaMetCount === 3 ? "Eligible for Setup" : (item.criteriaMetCount > 0 ? "Benchmarks in Progress" : "Not Yet Eligible");
-    if (item.isRealVerified) {
-      criteriaLabel = `🟢 REAL FB VERIFIED: SET UP ACTIVE`;
-    } else if (item.isMarkedReady) {
+    if (item.isMarkedReady) {
       criteriaLabel = `🟢 SET UP ACTIVE`;
     }
 
@@ -5487,27 +5403,20 @@ function renderMonetizationTrackerView() {
       ? `<span class="badge-stars-ready">⭐ 100% Ready</span>`
       : `<span class="badge-stars-progress">⭐ ${item.followers.toLocaleString()} / 500 (${item.starsPct}%)</span>`;
 
-    const breakdownHtml = item.isRealVerified
-      ? `<div class="mz-breakdown-chips">
-          <div class="mz-chip" style="grid-column: 1 / -1; background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.45); padding: 5px 10px;">
-            <div class="mz-chip-left"><span>⚡</span> <span style="font-weight:700; color:#fff;">FB Live Screen:</span> <span class="mz-chip-val" style="color:#4ade80; font-weight:800;">"Available to set up: Content monetization" Detected</span></div>
-            <span class="mz-chip-pct pass">100% REAL</span>
-          </div>
-        </div>`
-      : `<div class="mz-breakdown-chips">
-          <div class="mz-chip">
-            <div class="mz-chip-left"><span>👥</span> <span>Followers:</span> <span class="mz-chip-val">${item.followers.toLocaleString()} / 5k</span></div>
-            <span class="mz-chip-pct ${item.fMet ? 'pass' : 'progress'}">${item.fPct}%</span>
-          </div>
-          <div class="mz-chip">
-            <div class="mz-chip-left"><span>⏱️</span> <span>Views:</span> <span class="mz-chip-val">${item.totalViews.toLocaleString()} / 60k</span></div>
-            <span class="mz-chip-pct ${item.vMet ? 'pass' : 'progress'}">${item.vPct}%</span>
-          </div>
-          <div class="mz-chip">
-            <div class="mz-chip-left"><span>🎬</span> <span>Active Reels:</span> <span class="mz-chip-val">${item.reelsCount} / 5</span></div>
-            <span class="mz-chip-pct ${item.rMet ? 'pass' : 'progress'}">${item.rPct}%</span>
-          </div>
-        </div>`;
+    const breakdownHtml = `<div class="mz-breakdown-chips">
+        <div class="mz-chip">
+          <div class="mz-chip-left"><span>👥</span> <span>Followers:</span> <span class="mz-chip-val">${item.followers.toLocaleString()} / 5k</span></div>
+          <span class="mz-chip-pct ${item.fMet ? 'pass' : 'progress'}">${item.fPct}%</span>
+        </div>
+        <div class="mz-chip">
+          <div class="mz-chip-left"><span>⏱️</span> <span>Views:</span> <span class="mz-chip-val">${item.totalViews.toLocaleString()} / 60k</span></div>
+          <span class="mz-chip-pct ${item.vMet ? 'pass' : 'progress'}">${item.vPct}%</span>
+        </div>
+        <div class="mz-chip">
+          <div class="mz-chip-left"><span>🎬</span> <span>Active Reels:</span> <span class="mz-chip-val">${item.reelsCount} / 5</span></div>
+          <span class="mz-chip-pct ${item.rMet ? 'pass' : 'progress'}">${item.rPct}%</span>
+        </div>
+      </div>`;
 
     return `
       <div class="tp-table-row mz-mode" onclick="selectPage('${item.pid}')" title="Click to view analytics for ${item.name}">
@@ -5527,14 +5436,14 @@ function renderMonetizationTrackerView() {
         <div class="mz-progress-cell">
           <div class="mz-pct-header-row">
             <span class="mz-score-number ${scoreClass}">${item.overallPct}%</span>
-            <span class="mz-criteria-tag ${criteriaClass}" ${item.isRealVerified ? 'style="background: rgba(34, 197, 94, 0.25); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.6); font-weight: 800; box-shadow: 0 0 10px rgba(34,197,94,0.3);"' : ''}>${criteriaLabel}</span>
+            <span class="mz-criteria-tag ${criteriaClass}">${criteriaLabel}</span>
           </div>
           <div class="mz-progress-bar-wrap">
             <div class="mz-progress-bar-fill ${fillClass}" style="width: ${item.overallPct}%;"></div>
           </div>
         </div>
 
-        <!-- Column 5: 3-Point Criteria Breakdown / Real Verified Info -->
+        <!-- Column 5: 3-Point Criteria Breakdown -->
         ${breakdownHtml}
 
         <!-- Column 6: Stars Tool -->
@@ -5548,7 +5457,7 @@ function renderMonetizationTrackerView() {
             🎬 Open FB ↗
           </a>
           <button type="button" class="mz-btn-toggle-mark ${item.isMarkedReady ? 'marked' : ''}" onclick="togglePageMonetizationSetup('${item.pid}', event)" title="Toggle Setup Ready status">
-            ${item.isRealVerified ? '🟢 Verified' : item.isMarkedReady ? '✅ Active' : '+ Mark'}
+            ${item.isMarkedReady ? '✅ Active' : '+ Mark'}
           </button>
         </div>
       </div>`;
@@ -6943,9 +6852,4 @@ window.renderTopPerformersView = renderTopPerformersView;
 window.renderMonetizationTrackerView = renderMonetizationTrackerView;
 window.setMonetizationFilter = setMonetizationFilter;
 window.togglePageMonetizationSetup = togglePageMonetizationSetup;
-window.copyBookmarkletCode = copyBookmarkletCode;
-window.showBookmarkletHelpToast = showBookmarkletHelpToast;
-window.openScannerGuideModal = openScannerGuideModal;
-window.closeScannerGuideModal = closeScannerGuideModal;
-window.checkRealMonetizationSyncUrl = checkRealMonetizationSyncUrl;
 
