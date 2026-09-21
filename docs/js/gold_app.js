@@ -1196,20 +1196,7 @@ function renderSidebarPagesList(pages) {
   const countBadge = document.getElementById("sidePagesCountBadge");
   if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
 
-  // Attach wheel containment to isolate sidebar scroll and prevent window underneath from scrolling
-  container.querySelectorAll(".sidebar-box-body").forEach(bodyEl => {
-    bodyEl.addEventListener("wheel", function(e) {
-      e.stopPropagation();
-      const delta = e.deltaY;
-      const up = delta < 0;
-      const scrollHeight = bodyEl.scrollHeight;
-      const clientHeight = bodyEl.clientHeight;
-      const scrollTop = bodyEl.scrollTop;
-      if ((up && scrollTop <= 0) || (!up && scrollTop + clientHeight >= scrollHeight - 1)) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-  });
+  // Box bodies expand to full natural height, no nested scroll trap needed
 }
 
 // Toggle expand/collapse for fleet sub-boxes inside All Pages List
@@ -1217,28 +1204,20 @@ window.toggleFleetBox = function(fleetId, e) {
   if (e && e.stopPropagation) e.stopPropagation();
   const box = document.getElementById("fleetBox_" + fleetId);
   if (!box) return;
+  box.classList.toggle("expanded");
+};
 
-  const isExpanded = box.classList.contains("expanded");
-
-  // Close all other boxes first (only 1 open at a time)
-  document.querySelectorAll(".sidebar-section-box.expanded").forEach(b => {
-    if (b !== box) b.classList.remove("expanded");
+// Expand All or Collapse All fleet boxes inside All Pages List
+window.toggleAllFleetBoxes = function(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const allBoxes = document.querySelectorAll("#sidebarPagesScrollList .sidebar-section-box");
+  const anyClosed = Array.from(allBoxes).some(b => !b.classList.contains("expanded"));
+  allBoxes.forEach(b => {
+    if (anyClosed) b.classList.add("expanded");
+    else b.classList.remove("expanded");
   });
-
-  // Toggle this box
-  if (isExpanded) {
-    box.classList.remove("expanded");
-  } else {
-    box.classList.add("expanded");
-    // Scroll ONLY the sidebar container - NEVER scroll the main document window
-    const scrollContainer = document.getElementById("sidebarPagesScrollList");
-    if (scrollContainer) {
-      setTimeout(() => {
-        const topOffset = box.offsetTop - scrollContainer.offsetTop;
-        scrollContainer.scrollTo({ top: topOffset, behavior: "smooth" });
-      }, 50);
-    }
-  }
+  const btn = document.getElementById("btnToggleAllFleetBoxes");
+  if (btn) btn.innerText = anyClosed ? "Collapse All ▴" : "Expand All ▾";
 };
 
 let isTogglingShutter = false;
@@ -1505,7 +1484,7 @@ function selectPage(pageId) {
   const mobActiveName = document.getElementById("mobileActivePageName");
   if (mobActiveName) {
     if (activePageId === "all") {
-      mobActiveName.innerText = "All 101 Pages Portfolio";
+      mobActiveName.innerText = "All 113 Pages Portfolio";
     } else {
       const pObj = fullData?.pages?.find(p => String(p.id) === activePageId);
       mobActiveName.innerText = pObj ? pObj.name : "Active Page";
@@ -4912,7 +4891,7 @@ function renderTopPerformersView() {
   if (currentPerformanceMode === "top") {
     if (elHeaderIcon) elHeaderIcon.innerText = "🏆";
     if (elHeaderTitle) elHeaderTitle.innerText = "Top 20 Performers";
-    if (elHeaderSub) elHeaderSub.innerText = "Live Viral Leaderboard & Channel Rankings across all 101 Facebook Pages";
+    if (elHeaderSub) elHeaderSub.innerText = "Live Viral Leaderboard & Channel Rankings across all 113 Facebook Pages";
     if (elBadge) {
       elBadge.innerText = `${pages.length} Pages Monitored • ${days}D`;
       elBadge.style.background = "linear-gradient(135deg, rgba(245, 186, 35, 0.25), rgba(217, 119, 6, 0.25))";
@@ -5131,7 +5110,7 @@ function renderTopPerformersView() {
       elKpiVal4.className = "tp-kpi-value";
       elKpiVal4.innerText = `50 Pages`;
     }
-    if (elKpiSub4) elKpiSub4.innerText = `Bottom 50 of 101 channels`;
+    if (elKpiSub4) elKpiSub4.innerText = `Bottom 50 of 113 channels`;
 
     // Extract Bottom 50 pool:
     // Sort all 101 pages ascending by views, then lastUploadMs ascending
@@ -6013,7 +5992,7 @@ function renderHealthAuditMainView() {
 
   const tokensVal = document.getElementById("mainAuditTokensVal");
   if (tokensVal) {
-    tokensVal.textContent = `${totalValidTokens}/101 Active`;
+    tokensVal.textContent = `${totalValidTokens}/113 Active`;
     tokensVal.className = tokenIssueItems.length > 0 ? "stat-num" : "stat-num green-text";
     tokensVal.style.color = tokenIssueItems.length > 0 ? "#f87171" : "#4ade80";
   }
@@ -6026,7 +6005,7 @@ function renderHealthAuditMainView() {
 
   const healthStatusVal = document.getElementById("mainAuditHealthStatus");
   if (healthStatusVal) {
-    const pct = ((totalValidTokens / 101) * 100).toFixed(1);
+    const pct = ((totalValidTokens / 113) * 100).toFixed(1);
     healthStatusVal.textContent = `${pct}% Operational`;
     healthStatusVal.style.color = pct >= 95 ? "#4ade80" : (pct >= 80 ? "#facc15" : "#f87171");
   }
@@ -6230,7 +6209,7 @@ async function runLiveAuditUI(e) {
   });
 
   if (typeof showToast === "function") {
-    showToast("🔍 Running live audit across 101 pages...");
+    showToast("🔍 Running live audit across 113 pages...");
   }
 
   dots.forEach(d => {
@@ -6391,9 +6370,9 @@ async function runLiveAuditUI(e) {
     }
 
     if (tokenIssues.length === 0) {
-      logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/101 Pages (100% Active)`, "success", "passed");
+      logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/113 Pages (100% Active)`, "success", "passed");
     } else {
-      logAuditTerminal(`⚠️ Total Tokens Valid: ${totalValidTokens}/101 Pages (${tokenIssues.length} Token Errors Detected: Need Re-Auth)`, "warn", "token");
+      logAuditTerminal(`⚠️ Total Tokens Valid: ${totalValidTokens}/113 Pages (${tokenIssues.length} Token Errors Detected: Need Re-Auth)`, "warn", "token");
     }
     await sleep(200);
 
@@ -6450,10 +6429,10 @@ async function runLiveAuditUI(e) {
 
     // Final Summary
     logAuditTerminal("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "normal", "general");
-    logAuditTerminal(`🎉 AUDIT COMPLETE: ${totalValidTokens}/101 Tokens Active | ${uploadGaps.length} Upload Gaps`, uploadGaps.length === 0 ? "success" : "warn", "general");
+    logAuditTerminal(`🎉 AUDIT COMPLETE: ${totalValidTokens}/113 Tokens Active | ${uploadGaps.length} Upload Gaps`, uploadGaps.length === 0 ? "success" : "warn", "general");
 
     // Update UI Elements
-    tokensTexts.forEach(t => { if (t) t.textContent = `${totalValidTokens}/101 Active`; });
+    tokensTexts.forEach(t => { if (t) t.textContent = `${totalValidTokens}/113 Active`; });
     gapsTexts.forEach(g => {
       if (g) {
         g.textContent = `${uploadGaps.length} Gaps Detected`;
@@ -6511,7 +6490,7 @@ async function runLiveAuditUI(e) {
     } else {
       pills.forEach(p => {
         if (p) {
-          p.innerHTML = `101 OK`;
+          p.innerHTML = `113 OK`;
           p.style.color = "#4ade80";
           p.style.background = "rgba(34,197,94,0.18)";
         }
@@ -6527,7 +6506,7 @@ async function runLiveAuditUI(e) {
       alertTitles.forEach(t => { if (t) { t.textContent = "All Systems Operational"; t.style.color = "#4ade80"; } });
       alertTexts.forEach(t => {
         if (t) {
-          t.textContent = `All 101 Tokens Active • 0 Upload Gaps • On Track`;
+          t.textContent = `All 113 Tokens Active • 0 Upload Gaps • On Track`;
           t.style.color = "#4ade80";
         }
       });
@@ -6559,7 +6538,7 @@ async function runLiveAuditUI(e) {
       }
     });
     if (typeof showToast === "function") {
-      showToast("✅ Live audit complete: 101 Pages & 8 Fleets verified!");
+      showToast("✅ Live audit complete: 113 Pages & 9 Fleets verified!");
     }
   }
 }

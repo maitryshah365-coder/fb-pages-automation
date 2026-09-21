@@ -3677,12 +3677,9 @@ body {
 }
 
 .sidebar-section-box.expanded .sidebar-box-body {
-  max-height: 360px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  max-height: none !important;
+  overflow: visible !important;
   padding: 4px 2px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(56, 189, 248, 0.4) rgba(255, 255, 255, 0.03);
 }
 
 .sidebar-section-box.expanded .sidebar-box-body::-webkit-scrollbar {
@@ -3722,9 +3719,8 @@ body {
 
 .studio-fleet-box.expanded .sidebar-box-body {
   padding: 8px 6px;
-  max-height: 480px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 /* Studio Section Dividers */
@@ -6203,9 +6199,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  max-height: 240px;
-  overflow-y: auto;
-  scrollbar-width: thin;
+  max-height: none !important;
+  overflow: visible !important;
 }
 
 .fleet-page-row {
