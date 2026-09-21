@@ -4,6 +4,8 @@ import argparse
 import logging
 import json
 import requests
+import time
+import random
 from datetime import datetime, timezone
 from src.config import load_config
 from src.db import DatabaseManager
@@ -78,6 +80,8 @@ def main():
     parser.add_argument("--page", help="Run automation for a single specific Page name")
     parser.add_argument("--dry-run", action="store_true", help="Simulate upload without publishing to Facebook")
     parser.add_argument("--require-uk", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United Kingdom (GB)")
+    parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "20")), help="Min human delay seconds between page uploads")
+    parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "30")), help="Max human delay seconds between page uploads")
     args = parser.parse_args()
 
     logger = setup_logging()
@@ -167,7 +171,8 @@ def main():
     logger.info(f"Loaded {len(pages_to_run)} Facebook Pages to evaluate in this run.")
 
     results = []
-    for page in pages_to_run:
+    total_pages = len(pages_to_run)
+    for idx, page in enumerate(pages_to_run):
         try:
             res = runner.run_page(page)
             # Enrich result with human-friendly metadata
@@ -183,6 +188,22 @@ def main():
                 "page_id": page.page_id,
                 "error": str(err)
             })
+
+        # Smart Anti-Detect Human Delay between pages to prevent Meta bot/burst-spam flagging
+        # Only sleep if there is a next page to process and this is not a dry-run
+        if idx < total_pages - 1 and not args.dry_run:
+            last_status = results[-1].get("status")
+            if last_status in ["success", "dry_run_success"]:
+                min_s = max(5, args.delay_min)
+                max_s = max(min_s, args.delay_max)
+                jitter_s = random.randint(min_s, max_s)
+                logger.info(f"🛡️ [Anti-Detect Protection] Post successful. Human jitter pause: Sleeping {jitter_s}s before next page ({idx + 2}/{total_pages})...")
+                time.sleep(jitter_s)
+            elif last_status in ["failed", "error"]:
+                logger.info(f"🛡️ [Anti-Detect Protection] Cooldown pause: Sleeping 5s before next page ({idx + 2}/{total_pages})...")
+                time.sleep(5)
+            else:
+                time.sleep(2)
 
     logger.info("======================= RUN SUMMARY =======================")
     for r in results:
@@ -207,14 +228,16 @@ def main():
             "failed": sum(1 for r in results if r.get("status") in ["failed", "error"])
         }
     }
-    for folder in ["data", "docs/data", "web/data"]:
-        try:
-            os.makedirs(folder, exist_ok=True)
-            summary_file = os.path.join(folder, "latest_run_summary.json")
-            with open(summary_file, "w", encoding="utf-8") as sf:
-                json.dump(summary_data, sf, indent=2, ensure_ascii=False)
-        except Exception as e:
-            logger.warning(f"Could not write run summary to {folder}: {e}")
+    # Export structured run summary for immediate dashboard display & auto-sync (skip if local dry-run)
+    if not args.dry_run or os.environ.get("GITHUB_RUN_ID"):
+        for folder in ["data", "docs/data", "web/data"]:
+            try:
+                os.makedirs(folder, exist_ok=True)
+                summary_file = os.path.join(folder, "latest_run_summary.json")
+                with open(summary_file, "w", encoding="utf-8") as sf:
+                    json.dump(summary_data, sf, indent=2, ensure_ascii=False)
+            except Exception as e:
+                logger.warning(f"Could not write run summary to {folder}: {e}")
 
 
 if __name__ == "__main__":

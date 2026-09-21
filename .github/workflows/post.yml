@@ -37,7 +37,7 @@ jobs:
   upload:
     name: Execute Facebook Post Pipeline
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 50
 
     steps:
       - name: Checkout Repository
