@@ -1071,6 +1071,7 @@ function renderSidebarPagesList(pages) {
   const uk4List = [];
   const uk5List = [];
   const uk6List = [];
+  const uk7List = [];
 
   pageList.forEach(p => {
     const pid = String(p.id);
@@ -1083,8 +1084,10 @@ function renderSidebarPagesList(pages) {
     else if (FLEET_UK_04_SET.has(pid)) uk4List.push(p);
     else if (FLEET_UK_05_SET.has(pid)) uk5List.push(p);
     else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
+    else if (FLEET_UK_07_SET.has(pid)) uk7List.push(p);
     else {
-      if (p.account === "UK Account 6" || p.index > 89) uk6List.push(p);
+      if (p.account === "UK Account 7" || p.index > 101) uk7List.push(p);
+      else if (p.account === "UK Account 6" || (p.index > 89 && p.index <= 101)) uk6List.push(p);
       else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
       else if (p.account === "UK Account 4" || (p.index > 66 && p.index <= 78)) uk4List.push(p);
       else if (p.account === "UK Account 3" || (p.index > 54 && p.index <= 66)) uk3List.push(p);
@@ -1183,6 +1186,9 @@ function renderSidebarPagesList(pages) {
   }
   if (uk6List.length > 0) {
     html += buildBox("sidebar-box-uk6", "uk6", "🇬🇧", "Sweta Shah", `${uk6List.length} Pages`, uk6List, "uk6");
+  }
+  if (uk7List.length > 0) {
+    html += buildBox("sidebar-box-uk7", "uk7", "🇬🇧", "Riya Gaur", `${uk7List.length} Pages`, uk7List, "uk7");
   }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
@@ -1340,6 +1346,7 @@ function renderDrawerPages(pages) {
   const uk4List = [];
   const uk5List = [];
   const uk6List = [];
+  const uk7List = [];
 
   filtered.forEach(p => {
     const pid = String(p.id);
@@ -1351,8 +1358,10 @@ function renderDrawerPages(pages) {
     else if (FLEET_UK_04_SET.has(pid)) uk4List.push(p);
     else if (FLEET_UK_05_SET.has(pid)) uk5List.push(p);
     else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
+    else if (FLEET_UK_07_SET.has(pid)) uk7List.push(p);
     else {
-      if (p.account === "UK Account 6" || p.index > 89) uk6List.push(p);
+      if (p.account === "UK Account 7" || p.index > 101) uk7List.push(p);
+      else if (p.account === "UK Account 6" || (p.index > 89 && p.index <= 101)) uk6List.push(p);
       else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
       else if (p.account === "UK Account 4" || (p.index > 66 && p.index <= 78)) uk4List.push(p);
       else if (p.account === "UK Account 3" || (p.index > 54 && p.index <= 66)) uk3List.push(p);
@@ -1452,6 +1461,9 @@ function renderDrawerPages(pages) {
   }
   if (uk6List.length > 0) {
     html += buildDrawerFleetBox("sidebar-box-uk6", "uk6", "icons/gb.png", "UK", "Sweta Shah", uk6List);
+  }
+  if (uk7List.length > 0) {
+    html += buildDrawerFleetBox("sidebar-box-uk7", "uk7", "icons/gb.png", "UK", "Riya Gaur", uk7List);
   }
 
   container.innerHTML = html;
@@ -3065,7 +3077,7 @@ function initAutomationRadarLiveEngine() {
       if (targetCard) targetCard.classList.add("active-next");
 
       // Dynamically update each fleet card's time to its specific next upcoming run
-      const fleetIds = ["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6"];
+      const fleetIds = ["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
       fleetIds.forEach(fId => {
         let fNextSlot = null;
         let fMinDiffMs = Infinity;
@@ -3243,14 +3255,28 @@ const DRIVE_CONFIGURED_PAGES = {
   "714841275048147":  { pageName: "uk6_page_9",  displayName: "Apex Chronicle",     ready: true, videoCount: 179, folderId: "1mLhtU-CriRi1sRDy46qdlrdREbMbcg46", handle: "apexchronicle",     account: "UK Account 6" },
   "314172255114813":  { pageName: "uk6_page_10", displayName: "anymotion",          ready: true, videoCount: 146, folderId: "1djwykfiTZ70yjubKkMlv7h84j_ucmosb", handle: "anymotion",          account: "UK Account 6" },
   "234852513054858":  { pageName: "uk6_page_11", displayName: "Mai Cartoon Hoon",   ready: true, videoCount: 341, folderId: "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL", handle: "maicartoonhoon",    account: "UK Account 6" },
-  "172005056007015":  { pageName: "uk6_page_12", displayName: "Cold Ash",           ready: true, videoCount: 132, folderId: "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO", handle: "coldash",           account: "UK Account 6" }
+  "172005056007015":  { pageName: "uk6_page_12", displayName: "Cold Ash",           ready: true, videoCount: 132, folderId: "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO", handle: "coldash",           account: "UK Account 6" },
+
+  // UK London Account 7 Pages (Riya Gaur - 12 Pages, London WireGuard Egress)
+  "755318371007926":  { pageName: "uk7_page_1",  displayName: "Alexander Christopher", ready: true, videoCount: 124, folderId: "1rBpMQwEoMHxSKs9z1gqEiO7mu2T2WcY_", handle: "alexanderchristopher", account: "UK Account 7" },
+  "1195883193618072": { pageName: "uk7_page_2",  displayName: "Choke The Static",       ready: true, videoCount: 112, folderId: "1B8nrWSuanOEpoDVwJ3iMD6_R1F0gf7kL", handle: "chokethestatic",       account: "UK Account 7" },
+  "896072510245887":  { pageName: "uk7_page_3",  displayName: "Cooper Billy",           ready: true, videoCount: 100, folderId: "1jHAChBRkp0q_zOjkEUAC_Rx7neakuwp8", handle: "cooperbilly",           account: "UK Account 7" },
+  "479102298617718":  { pageName: "uk7_page_4",  displayName: "Corner Spe",             ready: true, videoCount: 305, folderId: "1D9teONQH9R0z6BhmdsftN55Y67spxKkM", handle: "cornerspe",             account: "UK Account 7" },
+  "1338114526042607": { pageName: "uk7_page_5",  displayName: "Cure For Monday",        ready: true, videoCount: 92,  folderId: "1j8-OzrvjLdl0EVPtbzmagVqIqzIZ9ppJ", handle: "cureformonday",        account: "UK Account 7" },
+  "1315483674976229": { pageName: "uk7_page_6",  displayName: "Cruel Mercy",            ready: true, videoCount: 88,  folderId: "1IDM7f7Or6HnDkvk-3X0TnvTedDowUoFu", handle: "cruelmercy",            account: "UK Account 7" },
+  "1304768466050503": { pageName: "uk7_page_7",  displayName: "Curse The Dawn",         ready: true, videoCount: 154, folderId: "14gX_X6qAs4mprk6q8MVsZXGhNnntwcMh", handle: "cursethedawn",         account: "UK Account 7" },
+  "1191247700748920": { pageName: "uk7_page_8",  displayName: "Dead Languages",         ready: true, videoCount: 61,  folderId: "1BgBzzfGAI819mRUR2ObAp-EkxaQX7czH", handle: "deadlanguages",         account: "UK Account 7" },
+  "802518939617506":  { pageName: "uk7_page_9",  displayName: "Lee Charles",            ready: true, videoCount: 386, folderId: "1MxP6QD8L1VfvdmLTJMZi_znujU8p1DXB", handle: "leecharles",            account: "UK Account 7" },
+  "864838050041932":  { pageName: "uk7_page_10", displayName: "Lee Daniel",             ready: true, videoCount: 306, folderId: "11ObtDv6z6HzTxKbp7RXY8ug4TL9-Fgjj", handle: "leedaniel",             account: "UK Account 7" },
+  "208233979039379":  { pageName: "uk7_page_11", displayName: "Memes & Mischief",       ready: true, videoCount: 120, folderId: "1YGKlonl9p1iEtBFAOTF-hDANC9EiTNTi", handle: "memesmischief",         account: "UK Account 7" },
+  "870975689430311":  { pageName: "uk7_page_12", displayName: "Martin John",            ready: true, videoCount: 335, folderId: "1qrc_bt4CioXgYiTybDD_8XXUBLD0PDdT", handle: "martinjohn",            account: "UK Account 7" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
 let studioSelectedPageIds = new Set();
 let isStudioDispatching = false;
 let currentStudioAccountFilter = "all";
-let expandedStudioBoxes = new Set(["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6"]);
+let expandedStudioBoxes = new Set(["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"]);
 let currentDriveAccountFilter = "all";
 let currentRecentSourceFilter = "all";
 
@@ -3494,6 +3520,7 @@ function renderStudioFleetList() {
   const uk4List = [];
   const uk5List = [];
   const uk6List = [];
+  const uk7List = [];
 
   fullData.pages.forEach(page => {
     const pId = String(page.id);
@@ -3515,8 +3542,10 @@ function renderStudioFleetList() {
     else if (FLEET_UK_04_SET.has(pId)) uk4List.push(page);
     else if (FLEET_UK_05_SET.has(pId)) uk5List.push(page);
     else if (FLEET_UK_06_SET.has(pId)) uk6List.push(page);
+    else if (FLEET_UK_07_SET.has(pId)) uk7List.push(page);
     else {
-      if (page.account === "UK Account 6" || page.index > 89) uk6List.push(page);
+      if (page.account === "UK Account 7" || page.index > 101) uk7List.push(page);
+      else if (page.account === "UK Account 6" || (page.index > 89 && page.index <= 101)) uk6List.push(page);
       else if (page.account === "UK Account 5" || (page.index > 78 && page.index <= 89)) uk5List.push(page);
       else if (page.account === "UK Account 4" || (page.index > 66 && page.index <= 78)) uk4List.push(page);
       else if (page.account === "UK Account 3" || (page.index > 54 && page.index <= 66)) uk3List.push(page);
@@ -3617,11 +3646,14 @@ function renderStudioFleetList() {
   if (uk6List.length > 0) {
     html += buildStudioBox("account-box-uk", "uk6", "🇬🇧", "Sweta Shah", uk6List.length, uk6List, "uk6");
   }
+  if (uk7List.length > 0) {
+    html += buildStudioBox("account-box-uk", "uk7", "🇬🇧", "Riya Gaur", uk7List.length, uk7List, "uk7");
+  }
 
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
 
   const countBadge = document.getElementById("studioFleetCountBadge");
-  const totalCount = usa1List.length + usa2List.length + uk1List.length + uk2List.length + uk3List.length + uk4List.length + uk5List.length + uk6List.length;
+  const totalCount = usa1List.length + usa2List.length + uk1List.length + uk2List.length + uk3List.length + uk4List.length + uk5List.length + uk6List.length + uk7List.length;
   if (countBadge) {
     countBadge.innerText = `${totalCount} Ready`;
   }
@@ -3653,6 +3685,7 @@ window.toggleBoxSelectAll = function(fleetId, e) {
   else if (fleetId === "uk4") list = FLEET_UK_04_IDS;
   else if (fleetId === "uk5") list = FLEET_UK_05_IDS;
   else if (fleetId === "uk6") list = FLEET_UK_06_IDS;
+  else if (fleetId === "uk7") list = FLEET_UK_07_IDS;
 
   const allSelected = list.length > 0 && list.every(id => studioSelectedPageIds.has(String(id)));
   list.forEach(id => {
@@ -3710,6 +3743,7 @@ function selectAllReadyPages() {
     const isUK4 = FLEET_UK_04_SET.has(pId);
     const isUK5 = FLEET_UK_05_SET.has(pId);
     const isUK6 = FLEET_UK_06_SET.has(pId);
+    const isUK7 = FLEET_UK_07_SET.has(pId);
     if (currentStudioAccountFilter === "a1" && !isUSA1) return;
     if (currentStudioAccountFilter === "a2" && !isUSA2) return;
     if (currentStudioAccountFilter === "uk1" && !isUK1) return;
@@ -3718,6 +3752,7 @@ function selectAllReadyPages() {
     if (currentStudioAccountFilter === "uk4" && !isUK4) return;
     if (currentStudioAccountFilter === "uk5" && !isUK5) return;
     if (currentStudioAccountFilter === "uk6" && !isUK6) return;
+    if (currentStudioAccountFilter === "uk7" && !isUK7) return;
     if (DRIVE_CONFIGURED_PAGES[pId]?.ready || page.is_configured !== false) {
       studioSelectedPageIds.add(pId);
     }
@@ -4449,7 +4484,8 @@ function renderDriveInventoryList() {
     const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
     const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
     const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
-    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.index > 89;
+    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || (p.index > 89 && p.index <= 101);
+    const isUK7 = FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.index > 101;
 
     if (currentDriveAccountFilter === "a1" && !isUSA1) return false;
     if (currentDriveAccountFilter === "a2" && !isUSA2) return false;
@@ -4459,6 +4495,7 @@ function renderDriveInventoryList() {
     if (currentDriveAccountFilter === "uk4" && !isUK4) return false;
     if (currentDriveAccountFilter === "uk5" && !isUK5) return false;
     if (currentDriveAccountFilter === "uk6" && !isUK6) return false;
+    if (currentDriveAccountFilter === "uk7" && !isUK7) return false;
     if (currentDriveAccountFilter === "high_stock" && videoCount < 200) return false;
     if (currentDriveAccountFilter === "low_stock" && videoCount >= 100) return false;
 
@@ -4481,12 +4518,16 @@ function renderDriveInventoryList() {
     const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
     const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
     const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
-    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.index > 89;
+    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || (p.index > 89 && p.index <= 101);
+    const isUK7 = FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.index > 101;
 
-    const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6;
+    const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6 || isUK7;
     const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
     let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : 'badge-us', accountLabel = 'Meghal Chauhan';
-    if (isUK6) {
+    if (isUK7) {
+      badgeClass = 'badge-uk';
+      accountLabel = 'Riya Gaur';
+    } else if (isUK6) {
       badgeClass = 'badge-uk';
       accountLabel = 'Sweta Shah';
     } else if (isUK5) {
@@ -4580,12 +4621,16 @@ function renderDriveInventoryList() {
       const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
       const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
       const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
-      const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.index > 89;
+      const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || (p.index > 89 && p.index <= 101);
+      const isUK7 = FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.index > 101;
 
-      const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6;
+      const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6 || isUK7;
       const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
       let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : (isUSA2 ? 'badge-a2' : 'badge-a1'), accountLabel = 'Meghal Chauhan';
-      if (isUK6) {
+      if (isUK7) {
+        badgeClass = 'badge-uk';
+        accountLabel = 'Riya Gaur';
+      } else if (isUK6) {
         badgeClass = 'badge-uk';
         accountLabel = 'Sweta Shah';
       } else if (isUK5) {
@@ -4778,6 +4823,7 @@ function renderTopPerformersView() {
     else if (FLEET_UK_04_SET.has(pid)) fleetTag = "UK 4 • Nidhi Desai";
     else if (FLEET_UK_05_SET.has(pid)) fleetTag = "UK 5 • Richi Patel";
     else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
+    else if (FLEET_UK_07_SET.has(pid)) fleetTag = "UK 7 • Riya Gaur";
     else if (p.account) fleetTag = p.account;
 
     // Diagnosis tag
@@ -5803,7 +5849,8 @@ function renderHealthAuditMainView() {
     { tag: "UK 3", owner: "Mahi Patel", set: FLEET_UK_03_SET, startIdx: 55, endIdx: 66, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 4", owner: "Nidhi Desai", set: FLEET_UK_04_SET, startIdx: 67, endIdx: 78, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 79, endIdx: 89, flag: "🇬🇧", flagImg: "icons/gb.png" },
-    { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧", flagImg: "icons/gb.png" }
+    { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 102, endIdx: 113, flag: "🇬🇧", flagImg: "icons/gb.png" }
   ];
 
   const auditPages = fullData?.pages || [];
@@ -6246,7 +6293,8 @@ async function runLiveAuditUI(e) {
       { tag: "UK 3", owner: "Mahi Patel", set: FLEET_UK_03_SET, startIdx: 55, endIdx: 66, flag: "🇬🇧" },
       { tag: "UK 4", owner: "Nidhi Desai", set: FLEET_UK_04_SET, startIdx: 67, endIdx: 78, flag: "🇬🇧" },
       { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 79, endIdx: 89, flag: "🇬🇧" },
-      { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧" }
+      { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧" },
+      { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 102, endIdx: 113, flag: "🇬🇧" }
     ];
 
     logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 8 Fleets...", "info", "general");
