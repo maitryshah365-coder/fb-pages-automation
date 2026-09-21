@@ -134,6 +134,21 @@ FLEET_UK_06_IDS = [
     "172005056007015"   # Cold Ash
 ]
 
+FLEET_UK_07_IDS = [
+    "1191247700748920", # Dead Languages
+    "1304768466050503", # Curse The Dawn
+    "1338114526042607", # Cure For Monday
+    "1315483674976229", # Cruel Mercy
+    "1195883193618072", # Choke The Static
+    "802518939617506",  # Lee Charles
+    "896072510245887",  # Cooper Billy
+    "755318371007926",  # Alexander Christopher
+    "864838050041932",  # Lee Daniel
+    "870975689430311",  # Martin John
+    "479102298617718",  # Corner Spe
+    "208233979039379"   # Memes & Mischief
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -157,7 +172,8 @@ def get_pages_list():
         {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_permanent_pages.json") if os.path.exists(os.path.join(BASE_DIR, "data", "uk_account3_mahi_permanent_pages.json")) else os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")},
         {"account": "UK Account 4", "owner": "Nidhi Desai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account4_nidhi_permanent_pages.json") if os.path.exists(os.path.join(BASE_DIR, "data", "uk_account4_nidhi_permanent_pages.json")) else os.path.join(BASE_DIR, "data", "uk_account4_nidhi_pages.json")},
         {"account": "UK Account 5", "owner": "Richi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account5_richi_permanent_pages.json")},
-        {"account": "UK Account 6", "owner": "Sweta Shah", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account6_sweta_permanent_pages.json")}
+        {"account": "UK Account 6", "owner": "Sweta Shah", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account6_sweta_permanent_pages.json")},
+        {"account": "UK Account 7", "owner": "Riya Gaur", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account7_riya_permanent_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -209,7 +225,8 @@ def get_pages_list():
         (FLEET_UK_03_IDS, "Mahi Patel (UK)", "Mahi Patel", "GB", 55),
         (FLEET_UK_04_IDS, "Nidhi Desai (UK)", "Nidhi Desai", "GB", 67),
         (FLEET_UK_05_IDS, "Richi Patel (UK)", "Richi Patel", "GB", 79),
-        (FLEET_UK_06_IDS, "Sweta Shah (UK)", "Sweta Shah", "GB", 90)
+        (FLEET_UK_06_IDS, "Sweta Shah (UK)", "Sweta Shah", "GB", 90),
+        (FLEET_UK_07_IDS, "Riya Gaur (UK)", "Riya Gaur", "GB", 102)
     ]
 
     final_pages = []
@@ -1446,7 +1463,9 @@ def sync_data():
             "uk_account5_offset_minutes": 50,
             "uk_account5_slots_bst": ["09:50 AM", "01:50 PM", "05:50 PM", "10:20 PM"],
             "uk_account6_offset_minutes": 60,
-            "uk_account6_slots_bst": ["10:00 AM", "02:00 PM", "06:00 PM", "10:30 PM"]
+            "uk_account6_slots_bst": ["10:00 AM", "02:00 PM", "06:00 PM", "10:30 PM"],
+            "uk_account7_offset_minutes": 70,
+            "uk_account7_slots_bst": ["10:10 AM", "02:10 PM", "06:10 PM", "10:40 PM"]
         },
         "runner_telemetry": curr_telemetry,
         "latest_run_summary": latest_run_summary,
@@ -1462,6 +1481,7 @@ def sync_data():
             "uk_account4_pages_count": len([p for p in page_records if "Nidhi" in p.get("account", "") or p.get("account") == "UK Account 4"]),
             "uk_account5_pages_count": len([p for p in page_records if "Richi" in p.get("account", "") or p.get("account") == "UK Account 5"]),
             "uk_account6_pages_count": len([p for p in page_records if "Sweta" in p.get("account", "") or p.get("account") == "UK Account 6"]),
+            "uk_account7_pages_count": len([p for p in page_records if "Riya" in p.get("account", "") or p.get("account") == "UK Account 7"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,

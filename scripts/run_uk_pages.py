@@ -30,7 +30,8 @@ def main():
         ("config_uk_account3.yaml", "UK Account 3 (Mahi Patel)"),
         ("config_uk_account4.yaml", "UK Account 4 (Nidhi Desai)"),
         ("config_uk_account5.yaml", "UK Account 5 (Richi Patel)"),
-        ("config_uk_account6.yaml", "UK Account 6 (Sweta Shah)")
+        ("config_uk_account6.yaml", "UK Account 6 (Sweta Shah)"),
+        ("config_uk_account7.yaml", "UK Account 7 (Riya Gaur)")
     ]
 
     # Whole account shorthand
@@ -57,6 +58,10 @@ def main():
     elif req in ["uk_account_6", "uk6"]:
         print("🚀 [UK RUNNER] Running full UK Account 6 (12 Pages - Sweta Shah)...")
         subprocess.run([sys.executable, "main.py", "--config", "config_uk_account6.yaml", "--require-uk"] + dry_flag, check=False)
+        return
+    elif req in ["uk_account_7", "uk7"]:
+        print("🚀 [UK RUNNER] Running full UK Account 7 (12 Pages - Riya Gaur)...")
+        subprocess.run([sys.executable, "main.py", "--config", "config_uk_account7.yaml", "--require-uk"] + dry_flag, check=False)
         return
 
     # Comma-separated list of pages

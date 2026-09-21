@@ -1,122 +1,133 @@
 {
-  "run_id": "35630602235",
-  "run_number": "62",
-  "completed_at": "2026-09-21T17:15:27.802874+00:00",
+  "run_id": "local",
+  "run_number": "1",
+  "completed_at": "2026-09-21T17:54:13.168763+00:00",
   "runner_telemetry": {
-    "ip": "138.199.29.178",
-    "hostname": "unn-138-199-29-178.datapacket.com",
-    "city": "London",
-    "region": "England",
-    "country": "GB",
-    "loc": "51.5085,-0.1257",
-    "org": "AS212238 Datacamp Limited",
-    "postal": "WC2N",
-    "timezone": "Europe/London",
+    "ip": "43.250.165.227",
+    "city": "Ahmedabad",
+    "region": "Gujarat",
+    "country": "IN",
+    "loc": "23.0258,72.5873",
+    "org": "AS45916 Gujarat Telelink Pvt Ltd",
+    "postal": "380001",
+    "timezone": "Asia/Kolkata",
     "readme": "https://ipinfo.io/missingauth"
   },
-  "dry_run": false,
+  "dry_run": true,
   "results": [
     {
-      "status": "failed",
-      "page": "uk6_page_1",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1183175548215394",
-      "page_config_name": "uk6_page_1",
-      "display_name": "Broken Orchard"
+      "status": "dry_run_success",
+      "page": "uk7_page_1",
+      "file": "He Definitely Knows Something We Do Not #OwlTok #BirdTok #Wildlife #CuteAnimals #FYP..mp4",
+      "drive_file_id": "1mbJhZV2h5p7RslD801RzTQINalHmURZY",
+      "page_id": "1191247700748920",
+      "page_config_name": "uk7_page_1",
+      "display_name": "Dead Languages"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_2",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1218007361389446",
-      "page_config_name": "uk6_page_2",
-      "display_name": "Hollow Echo"
+      "status": "dry_run_success",
+      "page": "uk7_page_2",
+      "file": "Arrived at Checkout With Zero Human Help #Shorts #FunnyDogs #Dogs #PetVideo..mp4",
+      "drive_file_id": "1h3xOq4N7S4SLxQrQnECR8rajX3akvhxR",
+      "page_id": "1304768466050503",
+      "page_config_name": "uk7_page_2",
+      "display_name": "Curse The Dawn"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_3",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1168998922967230",
-      "page_config_name": "uk6_page_3",
-      "display_name": "Grabeal"
+      "status": "dry_run_success",
+      "page": "uk7_page_3",
+      "file": "A $27 Million Horse Standing Right in Front of the Camera 🐴 #Shorts #HorseAuction #Horses #Trending..mp4",
+      "drive_file_id": "1AAmLor69sFyr43uTLxB_xc8xsjNgsfzl",
+      "page_id": "1338114526042607",
+      "page_config_name": "uk7_page_3",
+      "display_name": "Cure For Monday"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_4",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1260883380432217",
-      "page_config_name": "uk6_page_4",
-      "display_name": "Gentle Ruin"
+      "status": "dry_run_success",
+      "page": "uk7_page_4",
+      "file": "Best Old Friends Making Every Day Count #OldFriends #GrandpaGang #WholesomeContent #GoldenYears #FriendshipGoals..mp4",
+      "drive_file_id": "1h7mgJsQoLLHgeIOt8TWXAQ_-uKoAWcJf",
+      "page_id": "1315483674976229",
+      "page_config_name": "uk7_page_4",
+      "display_name": "Cruel Mercy"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_5",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1230784326779924",
-      "page_config_name": "uk6_page_5",
-      "display_name": "Heavy Whistle"
+      "status": "dry_run_success",
+      "page": "uk7_page_5",
+      "file": "A Perfect Owl Moment Caught Right in Front of the Crowd 🦉❤️ #Shorts #Owl #BirdTok #AnimalLovers..mp4",
+      "drive_file_id": "17m49TVu9G80itONyZIR5VDpzmgfJtCs-",
+      "page_id": "1195883193618072",
+      "page_config_name": "uk7_page_5",
+      "display_name": "Choke The Static"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_6",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "956709574200068",
-      "page_config_name": "uk6_page_6",
-      "display_name": "Echo Ridge"
+      "status": "dry_run_success",
+      "page": "uk7_page_6",
+      "file": "#FastGrowthPlan #FilmPerformanceFutureStars #LikeIncentivePlan #Shorts  (219).mp4",
+      "drive_file_id": "1hx81wzi4ec-ujJfiwV6h_L_hzZrXVckN",
+      "page_id": "802518939617506",
+      "page_config_name": "uk7_page_6",
+      "display_name": "Lee  Charles"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_7",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "682815954920518",
-      "page_config_name": "uk6_page_7",
-      "display_name": "Prestige Syndicate"
+      "status": "dry_run_success",
+      "page": "uk7_page_7",
+      "file": "#ColorfulBallsReturnToPlace #LargeColorfulBallsReturnToPlaceToy #ToyforDeveloping #Thinking#LogicHands-on Skills #Educational #Toy for Children  (220).mp4",
+      "drive_file_id": "1MTFGY6Fw5T-M0Z_G6FyRBQHcLntr_9x6",
+      "page_id": "896072510245887",
+      "page_config_name": "uk7_page_7",
+      "display_name": "Cooper  Billy"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_8",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "758260714032115",
-      "page_config_name": "uk6_page_8",
-      "display_name": "Power Doctrine"
+      "status": "dry_run_success",
+      "page": "uk7_page_8",
+      "file": "满地的萝卜缨像爷爷这样做成冲菜，开胃又下饭，味道杠杠的。#农村美食 #美食 #农村生活 #新农人计划2024 #萝卜缨 7451925921407175994.mp4",
+      "drive_file_id": "1TEZq08mP9oaU4TwVCrRMoXy8TgFgwuWZ",
+      "page_id": "755318371007926",
+      "page_config_name": "uk7_page_8",
+      "display_name": "Alexander  Christopher"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_9",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "714841275048147",
-      "page_config_name": "uk6_page_9",
-      "display_name": "Apex Chronicle"
+      "status": "dry_run_success",
+      "page": "uk7_page_9",
+      "file": "🌈 Clean And Happy 🛁 Baby Doll Bath Fun 😄 .mp4",
+      "drive_file_id": "1oA97SaLH94xVVQ8Laawh-3r9a9Zt8VM2",
+      "page_id": "864838050041932",
+      "page_config_name": "uk7_page_9",
+      "display_name": "Lee  Daniel"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_10",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "314172255114813",
-      "page_config_name": "uk6_page_10",
-      "display_name": "anymotion"
+      "status": "dry_run_success",
+      "page": "uk7_page_10",
+      "file": "挑战奖券机 #快成长计划 #影画演绎未来之星 _5 #shorts .mp4",
+      "drive_file_id": "1BgsLf5aoyg3_m5hUJUVCacHP7gh90GDz",
+      "page_id": "870975689430311",
+      "page_config_name": "uk7_page_10",
+      "display_name": "Martin  John"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_11",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "234852513054858",
-      "page_config_name": "uk6_page_11",
-      "display_name": "Mai Cartoon Hoon"
+      "status": "dry_run_success",
+      "page": "uk7_page_11",
+      "file": "#shorts #Funny #Viral #Trend (261).mp4",
+      "drive_file_id": "1u5shpG19fYVACdSg2O_wGKwI-aWsHJwl",
+      "page_id": "479102298617718",
+      "page_config_name": "uk7_page_11",
+      "display_name": "Corner Spe"
     },
     {
-      "status": "failed",
-      "page": "uk6_page_12",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "172005056007015",
-      "page_config_name": "uk6_page_12",
-      "display_name": "Cold Ash"
+      "status": "dry_run_success",
+      "page": "uk7_page_12",
+      "file": "Rural Couple’s Stream Bath After Work .mp4",
+      "drive_file_id": "1laFXKw6DaDOa5-3gVw3kvzmNXznoitx9",
+      "page_id": "208233979039379",
+      "page_config_name": "uk7_page_12",
+      "display_name": "Memes & Mischief"
     }
   ],
   "stats": {
     "total": 12,
-    "success": 0,
+    "success": 12,
     "skipped": 0,
-    "failed": 12
+    "failed": 0
   }
 }

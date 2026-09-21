@@ -150,6 +150,23 @@ const FLEET_UK_03_SET = new Set(FLEET_UK_03_IDS);
 const FLEET_UK_04_SET = new Set(FLEET_UK_04_IDS);
 const FLEET_UK_05_SET = new Set(FLEET_UK_05_IDS);
 const FLEET_UK_06_SET = new Set(FLEET_UK_06_IDS);
+const FLEET_UK_07_IDS = [
+  "1191247700748920", // Dead Languages
+  "1304768466050503", // Curse The Dawn
+  "1338114526042607", // Cure For Monday
+  "1315483674976229", // Cruel Mercy
+  "1195883193618072", // Choke The Static
+  "802518939617506",  // Lee Charles
+  "896072510245887",  // Cooper Billy
+  "755318371007926",  // Alexander Christopher
+  "864838050041932",  // Lee Daniel
+  "870975689430311",  // Martin John
+  "479102298617718",  // Corner Spe
+  "208233979039379"   // Memes & Mischief
+];
+
+const FLEET_UK_07_SET = new Set(FLEET_UK_07_IDS);
+
 
 function enforceStrictFleetSorting(pages) {
   if (!pages || !Array.isArray(pages)) return [];
@@ -164,6 +181,7 @@ function enforceStrictFleetSorting(pages) {
   const uk4 = [];
   const uk5 = [];
   const uk6 = [];
+  const uk7 = [];
 
   FLEET_USA_01_IDS.forEach((id, i) => {
     const p = map.get(id);
@@ -293,11 +311,27 @@ function enforceStrictFleetSorting(pages) {
     }
   });
 
+  FLEET_UK_07_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 102 + i;
+      p.account = "Riya Gaur";
+      p.account_owner = "Riya Gaur";
+      p.account_tag = "Riya Gaur";
+      p.account_badge = "GB";
+      p.box_group = "Riya Gaur";
+      p.region = "GB";
+      p.country = "GB";
+      p.flag = "icons/gb.png";
+      uk7.push(p);
+    }
+  });
+
   // Collect any remaining pages if any
-  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS]);
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
-  return [...usa1, ...usa2, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...others];
+  return [...usa1, ...usa2, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
 }
 
 function filterVideoCategory(cat) {
@@ -2909,7 +2943,13 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 9, m: 0, label: "Slot 1" },
   { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 13, m: 0, label: "Slot 2" },
   { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 17, m: 0, label: "Slot 3" },
-  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 21, m: 30, label: "Slot 4" }
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 21, m: 30, label: "Slot 4" },
+
+  // Riya Gaur - 12 Pages (+70 Min Offset)
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 9, m: 10, label: "Slot 1" },
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 13, m: 10, label: "Slot 2" },
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 17, m: 10, label: "Slot 3" },
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 21, m: 40, label: "Slot 4" }
 ];
 
 function updateRadarSlots() {
@@ -2922,7 +2962,8 @@ function updateRadarSlots() {
     { id: "uk3", set: FLEET_UK_03_SET, defaultSlots: 48 },
     { id: "uk4", set: FLEET_UK_04_SET, defaultSlots: 48 },
     { id: "uk5", set: FLEET_UK_05_SET, defaultSlots: 44 },
-    { id: "uk6", set: FLEET_UK_06_SET, defaultSlots: 48 }
+    { id: "uk6", set: FLEET_UK_06_SET, defaultSlots: 48 },
+    { id: "uk7", set: FLEET_UK_07_SET, defaultSlots: 48 }
   ];
 
   let grandTotalUploaded = 0;

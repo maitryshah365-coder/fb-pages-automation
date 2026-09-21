@@ -40,6 +40,9 @@ on:
     # UK Account 6 (Sweta Shah - Staggered +60 Min Offset):
     - cron: "0 9,13,17 * * *"
     - cron: "30 21 * * *"
+    # UK Account 7 (Riya Gaur - Staggered +70 Min Offset):
+    - cron: "10 9,13,17 * * *"
+    - cron: "40 21 * * *"
 
 concurrency:
   group: uk-facebook-upload-group
@@ -95,7 +98,10 @@ jobs:
             DRY_ARG="--dry-run"
           fi
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "0 9,13,17 * * *" ] || [ "${{ github.event.schedule }}" = "30 21 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "10 9,13,17 * * *" ] || [ "${{ github.event.schedule }}" = "40 21 * * *" ]; then
+              echo "⏰ UK Account 7 Cron Triggered: Running UK Account 7 (Riya Gaur - 12 Pages) [+70 Min Offset]"
+              python main.py --config config_uk_account7.yaml $DRY_ARG --require-uk
+            elif [ "${{ github.event.schedule }}" = "0 9,13,17 * * *" ] || [ "${{ github.event.schedule }}" = "30 21 * * *" ]; then
               echo "⏰ UK Account 6 Cron Triggered: Running UK Account 6 (Sweta Shah - 12 Pages) [+60 Min Offset]"
               python main.py --config config_uk_account6.yaml $DRY_ARG --require-uk
             elif [ "${{ github.event.schedule }}" = "50 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "20 21 * * *" ]; then
@@ -125,6 +131,7 @@ jobs:
             python main.py --config config_uk_account4.yaml $DRY_ARG --require-uk
             python main.py --config config_uk_account5.yaml $DRY_ARG --require-uk
             python main.py --config config_uk_account6.yaml $DRY_ARG --require-uk
+            python main.py --config config_uk_account7.yaml $DRY_ARG --require-uk
           fi
 
       - name: Disconnect WireGuard Tunnel
