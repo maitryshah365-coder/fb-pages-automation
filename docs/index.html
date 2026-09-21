@@ -1005,6 +1005,41 @@
         </div>
       </div>
 
+      <!-- 1-Click Real Facebook Tool Scanner Card (Zero Guesswork) -->
+      <div class="mz-real-scanner-card" style="background: linear-gradient(135deg, rgba(30, 58, 138, 0.28), rgba(15, 23, 42, 0.85)); border: 1px solid rgba(59, 130, 246, 0.45); border-radius: 14px; padding: 16px 20px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 26px; line-height: 1;">⚡</span>
+            <div>
+              <div style="font-size: 15px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span>1-Click Chrome Real Tool Scanner</span>
+                <span style="background: rgba(34,197,94,0.2); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); font-size: 10.5px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">ZERO GUESSWORK • 100% REAL FB SCREEN</span>
+              </div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">
+                Drag the button below to your Chrome Bookmarks Bar. Jab bhi aap kisi bhi Facebook account me login hon, bas 1 click karein aur real "Available to set up: Content monetization" status live sync karein!
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <!-- Draggable Bookmarklet Link -->
+            <a href="javascript:(function(){var s=document.createElement('script');s.src='https://raj-kumar-011.github.io/fb-automation-studio/js/fb_real_scanner.js?v='+Date.now();document.body.appendChild(s);})()" 
+               class="mz-btn-bookmarklet" 
+               id="btnDragBookmarklet"
+               title="Drag this button directly to your Chrome Bookmarks bar (Ctrl+Shift+B)"
+               onclick="event.preventDefault(); showBookmarkletHelpToast();"
+               style="background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; font-weight: 800; font-size: 12px; padding: 8px 14px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(37,99,235,0.4); cursor: grab; border: 1px solid rgba(147,197,253,0.3);">
+              <span>⭐ Drag to Bookmarks: <strong>⚡ Scan FB Tools</strong></span>
+            </a>
+            <button type="button" onclick="copyBookmarkletCode()" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e2e8f0; font-weight: 700; font-size: 12px; padding: 8px 12px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
+              <span>📋 Copy Code</span>
+            </button>
+            <button type="button" onclick="openScannerGuideModal()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-weight: 600; font-size: 12px; padding: 8px 12px; border-radius: 8px; cursor: pointer;">
+              <span>❓ Kaise Use Karein</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Toolbar: Quick Filters & Search -->
       <div class="tp-sort-toolbar" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin-bottom:16px;">
         <div class="tp-sort-group" style="display:flex; flex-wrap:wrap; gap:6px;">
@@ -1490,7 +1525,51 @@
     </div>
   </div>
 
+  <!-- Real Facebook Scanner Help Modal -->
+  <div id="scannerHelpModal" class="app-modal">
+    <div class="modal-backdrop" onclick="closeScannerGuideModal()"></div>
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <h4 class="modal-title">⚡ 1-Click Real Facebook Scanner Guide</h4>
+        <button class="btn-modal-close" onclick="closeScannerGuideModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 20px; font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+        <div style="margin-bottom: 16px;">
+          <strong style="color: #60a5fa;">Kyun banaya gaya:</strong> Kyunki Facebook ka "Content Monetization [Set up]" button sirf Facebook me logged in hone par dikhta hai (API me nahi hota). Is scanner se aap bina haath se 101 pages check kiye, 10 second me real status dekh sakte ho!
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+          <div style="display: flex; gap: 12px; background: rgba(255,255,255,0.04); padding: 12px; border-radius: 10px;">
+            <span style="font-size: 20px; font-weight: 800; color: #38bdf8;">1</span>
+            <div>
+              <strong style="color: #fff;">Bookmarks Bar Me Add Karein:</strong>
+              <div>Upar diye gaye blue button ko mouse se pakad kar Chrome ke Bookmarks bar me chhod dein. (Bookmarks bar show karne ke liye <code style="color:#facc15;">Ctrl + Shift + B</code> dabayein), ya Copy Code karein.</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; background: rgba(255,255,255,0.04); padding: 12px; border-radius: 10px;">
+            <span style="font-size: 20px; font-weight: 800; color: #38bdf8;">2</span>
+            <div>
+              <strong style="color: #fff;">Facebook Par Login Karein:</strong>
+              <div>Apne Chrome me apni koi bhi Facebook ID login karein (jaise Nidhi Desai, Meghal, etc.).</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; background: rgba(255,255,255,0.04); padding: 12px; border-radius: 10px;">
+            <span style="font-size: 20px; font-weight: 800; color: #38bdf8;">3</span>
+            <div>
+              <strong style="color: #fff;">Bookmarks Me "⚡ Scan FB Tools" Par Click Karein:</strong>
+              <div>Ek chota sa scanner window Facebook ke upar chalega jo real check karega aur <strong>"Send to Dashboard"</strong> click karte hi aapka Dashboard 100% Real status se update ho jayega!</div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-primary-action" onclick="closeScannerGuideModal()" style="width: 100%; justify-content: center; padding: 10px; border-radius: 8px;">
+          Samajh Gaya (Close)
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=8.9.4"></script>
+  <script src="js/gold_app.js?v=8.9.5"></script>
 </body>
 </html>
