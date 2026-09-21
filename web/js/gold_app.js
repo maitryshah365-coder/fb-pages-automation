@@ -167,6 +167,26 @@ const FLEET_UK_07_IDS = [
 
 const FLEET_UK_07_SET = new Set(FLEET_UK_07_IDS);
 
+const FLEET_USA_03_IDS = [
+  "1033900793135926", // Cloud berry Lane
+  "984876688045322",  // Sunset Mint Post
+  "928116440385651",  // Timeless Glimpse
+  "495281633679562",  // The Entertainment Zone
+  "461899523680517",  // House Note
+  "512339515286069",  // Wand Wizardry Legend
+  "481027178422627",  // Potato Flamingo
+  "377394845467706",  // Wu Tong's Family
+  "301441593063746",  // Prestige Authority
+  "372905129232715",  // Sthefany oliveira
+  "271543462710279",  // Iron Republic
+  "209182608951563",  // Shadow Executive
+  "241688455685265",  // Hu1
+  "171465126060636",  // Alpha Dynasty
+  "160240527166280"   // Path Summer
+];
+
+const FLEET_USA_03_SET = new Set(FLEET_USA_03_IDS);
+
 
 function enforceStrictFleetSorting(pages) {
   if (!pages || !Array.isArray(pages)) return [];
@@ -175,6 +195,7 @@ function enforceStrictFleetSorting(pages) {
 
   const usa1 = [];
   const usa2 = [];
+  const usa3 = [];
   const uk1 = [];
   const uk2 = [];
   const uk3 = [];
@@ -327,11 +348,27 @@ function enforceStrictFleetSorting(pages) {
     }
   });
 
+  FLEET_USA_03_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 114 + i;
+      p.account = "Radika Patel";
+      p.account_owner = "Radika Patel";
+      p.account_tag = "Radika Patel";
+      p.account_badge = "US";
+      p.box_group = "Radika Patel";
+      p.region = "US";
+      p.country = "US";
+      p.flag = "icons/us.png";
+      usa3.push(p);
+    }
+  });
+
   // Collect any remaining pages if any
-  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
-  return [...usa1, ...usa2, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
+  return [...usa1, ...usa2, ...usa3, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
 }
 
 function filterVideoCategory(cat) {
@@ -1066,6 +1103,7 @@ function renderSidebarPagesList(pages) {
 
   const usa1List = [];
   const usa2List = [];
+  const usa3List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -1079,6 +1117,7 @@ function renderSidebarPagesList(pages) {
     if (searchTerm && !(p.name || "").toLowerCase().includes(searchTerm)) return;
     if (FLEET_USA_01_SET.has(pid)) usa1List.push(p);
     else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
+    else if (FLEET_USA_03_SET.has(pid)) usa3List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
@@ -1087,7 +1126,8 @@ function renderSidebarPagesList(pages) {
     else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
     else if (FLEET_UK_07_SET.has(pid)) uk7List.push(p);
     else {
-      if (p.account === "UK Account 7" || p.index > 101) uk7List.push(p);
+      if (p.account === "Account 3" || p.index > 113) usa3List.push(p);
+      else if (p.account === "UK Account 7" || (p.index > 101 && p.index <= 113)) uk7List.push(p);
       else if (p.account === "UK Account 6" || (p.index > 89 && p.index <= 101)) uk6List.push(p);
       else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
       else if (p.account === "UK Account 4" || (p.index > 66 && p.index <= 78)) uk4List.push(p);
@@ -1169,6 +1209,9 @@ function renderSidebarPagesList(pages) {
   }
   if (usa2List.length > 0) {
     html += buildBox("sidebar-box-usa2", "usa2", "🇺🇸", "Mia Shah", `${usa2List.length} Pages`, usa2List, "usa2");
+  }
+  if (usa3List.length > 0) {
+    html += buildBox("sidebar-box-usa3", "usa3", "🇺🇸", "Radika Patel", `${usa3List.length} Pages`, usa3List, "usa3");
   }
   if (uk1List.length > 0) {
     html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "Binjal Mehra", `${uk1List.length} Pages`, uk1List, "uk1");
@@ -1331,6 +1374,7 @@ function renderDrawerPages(pages) {
 
   const usa1List = [];
   const usa2List = [];
+  const usa3List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -1343,6 +1387,7 @@ function renderDrawerPages(pages) {
     const pid = String(p.id);
     if (FLEET_USA_01_SET.has(pid)) usa1List.push(p);
     else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
+    else if (FLEET_USA_03_SET.has(pid)) usa3List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
@@ -1351,7 +1396,8 @@ function renderDrawerPages(pages) {
     else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
     else if (FLEET_UK_07_SET.has(pid)) uk7List.push(p);
     else {
-      if (p.account === "UK Account 7" || p.index > 101) uk7List.push(p);
+      if (p.account === "Account 3" || p.index > 113) usa3List.push(p);
+      else if (p.account === "UK Account 7" || (p.index > 101 && p.index <= 113)) uk7List.push(p);
       else if (p.account === "UK Account 6" || (p.index > 89 && p.index <= 101)) uk6List.push(p);
       else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
       else if (p.account === "UK Account 4" || (p.index > 66 && p.index <= 78)) uk4List.push(p);
@@ -1434,6 +1480,9 @@ function renderDrawerPages(pages) {
   }
   if (usa2List.length > 0) {
     html += buildDrawerFleetBox("sidebar-box-usa2", "usa2", "icons/us.png", "USA", "Mia Shah", usa2List);
+  }
+  if (usa3List.length > 0) {
+    html += buildDrawerFleetBox("sidebar-box-usa3", "usa3", "icons/us.png", "USA", "Radika Patel", usa3List);
   }
   if (uk1List.length > 0) {
     html += buildDrawerFleetBox("sidebar-box-uk1", "uk1", "icons/gb.png", "UK", "Binjal Mehra", uk1List);
@@ -2912,6 +2961,12 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 19, m: 20, label: "Slot 3" },
   { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 23, m: 20, label: "Slot 4" },
 
+  // Radika Patel - 15 Pages, +40m
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 2, m: 40, label: "Slot 1" },
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 14, m: 40, label: "Slot 2" },
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 19, m: 40, label: "Slot 3" },
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 23, m: 40, label: "Slot 4" },
+
   // Binjal Mehra - 12 Pages
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 0, label: "Slot 2" },
@@ -2960,6 +3015,7 @@ function updateRadarSlots() {
   const fleets = [
     { id: "a1", set: FLEET_USA_01_SET, defaultSlots: 60 },
     { id: "a2", set: FLEET_USA_02_SET, defaultSlots: 60 },
+    { id: "a3", set: FLEET_USA_03_SET, defaultSlots: 60 },
     { id: "uk1", set: FLEET_UK_01_SET, defaultSlots: 48 },
     { id: "uk2", set: FLEET_UK_02_SET, defaultSlots: 48 },
     { id: "uk3", set: FLEET_UK_03_SET, defaultSlots: 48 },
