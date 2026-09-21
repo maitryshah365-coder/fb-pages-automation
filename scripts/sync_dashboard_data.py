@@ -154,8 +154,8 @@ def get_pages_list():
         {"account": "Account 2", "owner": "Mia Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "account2_verified_pages.json")},
         {"account": "UK Account 1", "owner": "Binjal Mehra", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account1_binjal_permanent_pages.json")},
         {"account": "UK Account 2", "owner": "Chanda Nai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account2_chanda_permanent_pages.json")},
-        {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")},
-        {"account": "UK Account 4", "owner": "Nidhi Desai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account4_nidhi_pages.json")},
+        {"account": "UK Account 3", "owner": "Mahi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account3_mahi_permanent_pages.json") if os.path.exists(os.path.join(BASE_DIR, "data", "uk_account3_mahi_permanent_pages.json")) else os.path.join(BASE_DIR, "data", "uk_account3_mahi_pages.json")},
+        {"account": "UK Account 4", "owner": "Nidhi Desai", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account4_nidhi_permanent_pages.json") if os.path.exists(os.path.join(BASE_DIR, "data", "uk_account4_nidhi_permanent_pages.json")) else os.path.join(BASE_DIR, "data", "uk_account4_nidhi_pages.json")},
         {"account": "UK Account 5", "owner": "Richi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account5_richi_permanent_pages.json")},
         {"account": "UK Account 6", "owner": "Sweta Shah", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account6_sweta_permanent_pages.json")}
     ]
@@ -178,6 +178,27 @@ def get_pages_list():
                             all_found_by_id[pid] = p
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
+
+    # Fallback to config*.yaml for live tokens and folder IDs
+    import glob, yaml
+    for cpath in glob.glob(os.path.join(BASE_DIR, "config*.yaml")):
+        try:
+            with open(cpath, "r", encoding="utf-8") as f:
+                cdata = yaml.safe_load(f)
+            for p in cdata.get("pages", []):
+                pid = str(p.get("page_id", ""))
+                tok = p.get("page_access_token", "")
+                fld = p.get("drive_folder_id", "")
+                if pid:
+                    if pid not in all_found_by_id:
+                        all_found_by_id[pid] = {}
+                    if tok:
+                        all_found_by_id[pid]["access_token"] = tok
+                        all_found_by_id[pid]["page_access_token"] = tok
+                    if fld:
+                        all_found_by_id[pid]["drive_folder_id"] = fld
+        except Exception:
+            pass
 
     # Build the 101 pages strictly ordered by the 8 fleets
     fleet_order = [
@@ -1348,7 +1369,7 @@ def sync_data():
             WHERE v.status = 'posted' AND v.facebook_video_id IS NOT NULL AND v.facebook_video_id != ''
             GROUP BY v.facebook_video_id
             ORDER BY v.posted_at DESC, v.id DESC
-            LIMIT 500
+            LIMIT 2000
             """
             rows = cur.execute(q).fetchall()
             for r in rows:
