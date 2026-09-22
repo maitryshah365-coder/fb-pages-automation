@@ -14,6 +14,11 @@ on:
         type: string
         default: ""
 
+  push:
+    paths:
+      - '.triggers/run_uk.trigger'
+      - '.triggers/run_all.trigger'
+
   # Scheduled 4 times daily (London Time BST / UTC):
   # UK Account 1 (Pages 31-42): 09:00 AM, 01:00 PM, 05:00 PM, 09:30 PM London (08:00, 12:00, 16:00, 20:30 UTC)
   # UK Account 2 (Pages 43-54): +20 Min Offset (09:20 AM, 01:20 PM, 05:20 PM, 09:50 PM London - 08:20, 12:20, 16:20, 20:50 UTC)
