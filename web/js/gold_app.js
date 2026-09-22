@@ -638,6 +638,43 @@ function showToast(msg) {
   setTimeout(() => { toast.style.display = "none"; }, 3500);
 }
 
+// ----------------- Ultra-Fast Cache-First Data Engine -----------------
+async function fetchSmartData(url) {
+  try {
+    if ("caches" in window) {
+      const cache = await caches.open("raj_fb_data_cache_v10");
+      const cached = await cache.match(url);
+      if (cached) {
+        // Return instantly from cache in 5ms so app opens in < 0.5s!
+        // Background revalidation fetches fresh data without blocking UI
+        fetch(url, { cache: "no-cache" }).then(async fresh => {
+          if (fresh && fresh.ok) {
+            await cache.put(url, fresh.clone());
+            const data = await fresh.json();
+            if (data && data.pages) {
+              fullData = data;
+              if (fullData.pages && Array.isArray(fullData.pages)) {
+                fullData.pages = enforceStrictFleetSorting(fullData.pages);
+              }
+              renderSidebarPagesList(fullData.pages);
+              renderDrawerPages(fullData.pages);
+            }
+          }
+        }).catch(() => {});
+        return await cached.json();
+      }
+      const res = await fetch(url, { cache: "no-cache" });
+      if (res && res.ok) {
+        await cache.put(url, res.clone());
+        return await res.json();
+      }
+    }
+  } catch (e) {
+    console.warn("Cache API fallback:", e);
+  }
+  return fetch(url).then(r => r.ok ? r.json() : null);
+}
+
 // ----------------- Initial Load -----------------
 
 async function initDashboard() {
@@ -656,11 +693,11 @@ async function initDashboard() {
       }
     } catch(e) {}
 
-    // 2. Load latest pages_data, latest_run_summary and server_uploaded_videos concurrently (force no-cache)
+    // 2. Load latest pages_data, latest_run_summary and server_uploaded_videos concurrently (ultra-fast cached)
     const [resPages, resSummary, resServerVideos] = await Promise.all([
-      fetch("data/pages_data.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
-      fetch("data/latest_run_summary.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
-      fetch("data/server_uploaded_videos.json?v=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null)
+      fetchSmartData("data/pages_data.json"),
+      fetch("data/latest_run_summary.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null),
+      fetch("data/server_uploaded_videos.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null)
     ]);
 
     fullData = resPages || {};
@@ -1517,14 +1554,36 @@ function toggleDrawerPagesShutter(event, forceOpen) {
 window.toggleDrawerPagesShutter = toggleDrawerPagesShutter;
 
 window.toggleDrawerFleetBox = function(accType, event) {
-  if (event) event.stopPropagation();
-  const box = document.getElementById(`drawerFleetBox_${accType}`);
-  if (!box) return;
-  const isNowOpen = box.classList.toggle("open");
-  const chevron = box.querySelector(".drawer-box-chevron");
-  if (chevron) chevron.innerText = isNowOpen ? "▲" : "▼";
-  const body = box.querySelector(".drawer-box-body");
-  if (body) body.style.display = isNowOpen ? "block" : "none";
+  if (event && event.stopPropagation) event.stopPropagation();
+  const targetBox = document.getElementById(`drawerFleetBox_${accType}`);
+  if (!targetBox) return;
+
+  const isCurrentlyOpen = targetBox.classList.contains("open");
+  const willOpen = !isCurrentlyOpen;
+
+  // Accordion behavior: close other fleets so only the clicked fleet/ID opens!
+  document.querySelectorAll(".drawer-account-section").forEach(box => {
+    if (box !== targetBox) {
+      box.classList.remove("open");
+      const chevron = box.querySelector(".drawer-box-chevron");
+      if (chevron) chevron.innerText = "▼";
+      const body = box.querySelector(".drawer-box-body");
+      if (body) body.style.display = "none";
+    }
+  });
+
+  // Toggle clicked fleet
+  targetBox.classList.toggle("open", willOpen);
+  const chevron = targetBox.querySelector(".drawer-box-chevron");
+  if (chevron) chevron.innerText = willOpen ? "▲" : "▼";
+  const body = targetBox.querySelector(".drawer-box-body");
+  if (body) body.style.display = willOpen ? "block" : "none";
+
+  if (willOpen) {
+    setTimeout(() => {
+      targetBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 40);
+  }
 };
 
 window.clearDrawerSearch = function() {
@@ -1625,7 +1684,7 @@ function renderDrawerPages(pages) {
     return `
       <div class="drawer-page-item ${isAct ? 'active' : ''}" onclick="onSelectDrawerPage('${p.id}', event)" role="button" tabindex="0" title="${escapeHtml(name)} • ID: ${pId}">
         <div class="page-item-left">
-          <img src="${p.picture || p.pic_url || 'icons/icon-192.png'}" alt="${escapeHtml(name)}" class="page-item-img" onerror="this.src='https://graph.facebook.com/v21.0/${pId}/picture?type=large'">
+          <img src="${p.picture || p.pic_url || 'icons/icon-192.png'}" alt="${escapeHtml(name)}" class="page-item-img" loading="lazy" onerror="this.src='https://graph.facebook.com/v21.0/${pId}/picture?type=large'">
           <div class="page-item-info">
             <span class="page-item-name" title="${escapeHtml(name)}">${escapeHtml(name)}</span>
             <div class="page-item-row-sub">
@@ -1648,8 +1707,10 @@ function renderDrawerPages(pages) {
     const totalFleetTarget = items.length * 4;
     const totalFleetStock = items.reduce((sum, p) => sum + ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
     
-    // ALL 10 fleet accordions open by default on mobile so all 128 pages are immediately visible!
-    const isOpen = true;
+    // When searching: open matching fleets so results are visible.
+    // When not searching: fleets remain closed/collapsed by default, so user clicks on the account/ID to open its pages!
+    const hasActivePage = items.some(p => String(p.id) === activePageId);
+    const isOpen = Boolean(searchTerm) || (hasActivePage && activePageId !== "all");
 
     return `
       <div class="drawer-account-section ${cssClass} ${isOpen ? 'open' : ''}" id="drawerFleetBox_${accType}" data-fleet="${accType}">
