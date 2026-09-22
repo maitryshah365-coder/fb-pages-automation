@@ -616,13 +616,19 @@ function setTimeframe(days) {
   selectPage(activePageId);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initDashboard();
-  setupEventListeners();
-  startSlotCountdown();
-  initAutomationRadarLiveEngine();
-  initUploadHistoryEngine();
-});
+function initApp() {
+  try { initDashboard(); } catch (e) { console.error("initDashboard error:", e); }
+  try { setupEventListeners(); } catch (e) { console.error("setupEventListeners error:", e); }
+  try { startSlotCountdown(); } catch (e) { console.error("startSlotCountdown error:", e); }
+  try { initAutomationRadarLiveEngine(); } catch (e) { console.error("initAutomationRadarLiveEngine error:", e); }
+  try { initUploadHistoryEngine(); } catch (e) { console.error("initUploadHistoryEngine error:", e); }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  setTimeout(initApp, 10);
+}
 
 function showToast(msg) {
   const toast = document.getElementById("goldToast");
@@ -2822,6 +2828,12 @@ function closePageDrawer() {
 }
 window.closePageDrawer = closePageDrawer;
 
+function triggerMobileSync() {
+  showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
+  syncLiveMetaGraph(true);
+}
+window.triggerMobileSync = triggerMobileSync;
+
 // ----------------- Event Listeners -----------------
 
 function setupEventListeners() {
@@ -2861,7 +2873,10 @@ function setupEventListeners() {
   // Mobile Header buttons
   document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
   document.getElementById("btnMobileAudit")?.addEventListener("click", openMobileHealthAudit);
-  document.getElementById("btnMobileSync")?.addEventListener("click", triggerMobileSync);
+  document.getElementById("btnMobileSync")?.addEventListener("click", () => {
+    showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
+    syncLiveMetaGraph(true);
+  });
   document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", openMobileHealthAudit);
   const allDrawerTile = document.getElementById("btnSelectAllPagesDrawer");
   if (allDrawerTile) {
@@ -3160,6 +3175,7 @@ function updateRadarSlots() {
   let grandTotalSlots = 0;
 
   fleets.forEach(f => {
+    if (!f.set || typeof f.set.has !== "function") return;
     const fleetPages = fullData.pages.filter(p => f.set.has(String(p.id)));
     const done = fleetPages.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
     const slots = (fleetPages.length > 0) ? fleetPages.length * 4 : f.defaultSlots;
@@ -3193,113 +3209,117 @@ window.updateRadarSlots = updateRadarSlots;
 
 function initAutomationRadarLiveEngine() {
   function tickRadar() {
-    const now = new Date();
+    try {
+      const now = new Date();
 
-    // Determine Next Scheduled Run across all 8 fleets
-    const nowUtcMs = Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate(),
-      now.getUTCHours(),
-      now.getUTCMinutes(),
-      now.getUTCSeconds()
-    );
-
-    let nextSlot = null;
-    let minDiffMs = Infinity;
-
-    FLEET_SCHEDULE_SLOTS.forEach(slot => {
-      let targetMs = Date.UTC(
+      // Determine Next Scheduled Run across all 8 fleets
+      const nowUtcMs = Date.UTC(
         now.getUTCFullYear(),
         now.getUTCMonth(),
         now.getUTCDate(),
-        slot.h,
-        slot.m,
-        0
+        now.getUTCHours(),
+        now.getUTCMinutes(),
+        now.getUTCSeconds()
       );
-      if (targetMs <= nowUtcMs) {
-        // Already passed today, target tomorrow
-        targetMs += 24 * 60 * 60 * 1000;
-      }
-      const diff = targetMs - nowUtcMs;
-      if (diff < minDiffMs) {
-        minDiffMs = diff;
-        nextSlot = slot;
-      }
-    });
 
-    if (nextSlot) {
-      const totalSec = Math.floor(minDiffMs / 1000);
-      const hrs = Math.floor(totalSec / 3600);
-      const mins = Math.floor((totalSec % 3600) / 60);
-      const secs = totalSec % 60;
-      const hStr = String(hrs).padStart(2, "0");
-      const mStr = String(mins).padStart(2, "0");
-      const sStr = String(secs).padStart(2, "0");
+      let nextSlot = null;
+      let minDiffMs = Infinity;
 
-      const timerEl = document.getElementById("radarNextCountdownText");
-      if (timerEl) {
-        const nextDate = new Date(nowUtcMs + minDiffMs);
-        const istNextTimeStr = nextDate.toLocaleTimeString("en-IN", {
-          timeZone: "Asia/Kolkata",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true
-        }).toUpperCase();
-        timerEl.innerHTML = `<img src="${nextSlot.flagSrc}" alt="" class="app-flag-icon"> ${nextSlot.name} (${nextSlot.label}) @ <span style="color:#ff9933; font-weight:700;">${istNextTimeStr} IST</span> (in ${hStr}:${mStr}:${sStr})`;
-      }
-
-      // Highlight active next card in timeline grid
-      document.querySelectorAll(".radar-timeline-card").forEach(c => c.classList.remove("active-next"));
-      const targetCard = document.getElementById("radarCard_" + nextSlot.fleetId);
-      if (targetCard) targetCard.classList.add("active-next");
-
-      // Dynamically update each fleet card's time to its specific next upcoming run
-      const fleetIds = ["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
-      fleetIds.forEach(fId => {
-        let fNextSlot = null;
-        let fMinDiffMs = Infinity;
-
-        FLEET_SCHEDULE_SLOTS.filter(s => s.fleetId === fId).forEach(slot => {
-          let targetMs = Date.UTC(
-            now.getUTCFullYear(),
-            now.getUTCMonth(),
-            now.getUTCDate(),
-            slot.h,
-            slot.m,
-            0
-          );
-          if (targetMs <= nowUtcMs) {
-            targetMs += 24 * 60 * 60 * 1000;
-          }
-          const diff = targetMs - nowUtcMs;
-          if (diff < fMinDiffMs) {
-            fMinDiffMs = diff;
-            fNextSlot = slot;
-          }
-        });
-
-        if (fNextSlot) {
-          const cardEl = document.getElementById("radarCard_" + fId);
-          if (cardEl) {
-            const timeEl = cardEl.querySelector(".radar-card-time");
-            if (timeEl) {
-              const targetDate = new Date(nowUtcMs + fMinDiffMs);
-              const istTime = targetDate.toLocaleTimeString("en-IN", {
-                timeZone: "Asia/Kolkata",
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true
-              }).toUpperCase();
-              timeEl.innerHTML = `<span style="color:#ff9933; font-weight:700;">${istTime} IST</span> <span style="opacity:0.8; font-size:11px;">(${fNextSlot.label})</span>`;
-            }
-          }
+      FLEET_SCHEDULE_SLOTS.forEach(slot => {
+        let targetMs = Date.UTC(
+          now.getUTCFullYear(),
+          now.getUTCMonth(),
+          now.getUTCDate(),
+          slot.h,
+          slot.m,
+          0
+        );
+        if (targetMs <= nowUtcMs) {
+          // Already passed today, target tomorrow
+          targetMs += 24 * 60 * 60 * 1000;
+        }
+        const diff = targetMs - nowUtcMs;
+        if (diff < minDiffMs) {
+          minDiffMs = diff;
+          nextSlot = slot;
         }
       });
-    }
 
-    // Keep radar slot counters continuously synced
-    updateRadarSlots();
+      if (nextSlot) {
+        const totalSec = Math.floor(minDiffMs / 1000);
+        const hrs = Math.floor(totalSec / 3600);
+        const mins = Math.floor((totalSec % 3600) / 60);
+        const secs = totalSec % 60;
+        const hStr = String(hrs).padStart(2, "0");
+        const mStr = String(mins).padStart(2, "0");
+        const sStr = String(secs).padStart(2, "0");
+
+        const timerEl = document.getElementById("radarNextCountdownText");
+        if (timerEl) {
+          const nextDate = new Date(nowUtcMs + minDiffMs);
+          const istNextTimeStr = nextDate.toLocaleTimeString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true
+          }).toUpperCase();
+          timerEl.innerHTML = `<img src="${nextSlot.flagSrc}" alt="" class="app-flag-icon"> ${nextSlot.name} (${nextSlot.label}) @ <span style="color:#ff9933; font-weight:700;">${istNextTimeStr} IST</span> (in ${hStr}:${mStr}:${sStr})`;
+        }
+
+        // Highlight active next card in timeline grid
+        document.querySelectorAll(".radar-timeline-card").forEach(c => c.classList.remove("active-next"));
+        const targetCard = document.getElementById("radarCard_" + nextSlot.fleetId);
+        if (targetCard) targetCard.classList.add("active-next");
+
+        // Dynamically update each fleet card's time to its specific next upcoming run
+        const fleetIds = ["a1", "a2", "a3", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
+        fleetIds.forEach(fId => {
+          let fNextSlot = null;
+          let fMinDiffMs = Infinity;
+
+          FLEET_SCHEDULE_SLOTS.filter(s => s.fleetId === fId).forEach(slot => {
+            let targetMs = Date.UTC(
+              now.getUTCFullYear(),
+              now.getUTCMonth(),
+              now.getUTCDate(),
+              slot.h,
+              slot.m,
+              0
+            );
+            if (targetMs <= nowUtcMs) {
+              targetMs += 24 * 60 * 60 * 1000;
+            }
+            const diff = targetMs - nowUtcMs;
+            if (diff < fMinDiffMs) {
+              fMinDiffMs = diff;
+              fNextSlot = slot;
+            }
+          });
+
+          if (fNextSlot) {
+            const cardEl = document.getElementById("radarCard_" + fId);
+            if (cardEl) {
+              const timeEl = cardEl.querySelector(".radar-card-time");
+              if (timeEl) {
+                const targetDate = new Date(nowUtcMs + fMinDiffMs);
+                const istTime = targetDate.toLocaleTimeString("en-IN", {
+                  timeZone: "Asia/Kolkata",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true
+                }).toUpperCase();
+                timeEl.innerHTML = `<span style="color:#ff9933; font-weight:700;">${istTime} IST</span> <span style="opacity:0.8; font-size:11px;">(${fNextSlot.label})</span>`;
+              }
+            }
+          }
+        });
+      }
+
+      // Keep radar slot counters continuously synced
+      updateRadarSlots();
+    } catch (err) {
+      console.error("tickRadar error:", err);
+    }
   }
 
   tickRadar();
