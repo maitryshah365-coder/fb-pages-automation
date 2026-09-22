@@ -50,16 +50,20 @@
     }
     function openMobileHealthAudit(e) {
       if (e && e.stopPropagation) e.stopPropagation();
-      if (typeof closePageDrawer === "function") closePageDrawer();
-      else {
-        var drawer = document.getElementById("pagesDrawer");
-        var overlay = document.getElementById("pagesDrawerOverlay");
-        if (drawer) drawer.classList.remove("active");
-        if (overlay) overlay.classList.remove("active");
-        document.body.style.overflow = "";
-      }
-      if (window.switchMainView) {
-        window.switchMainView("health_audit");
+      if (typeof mobileSwitchView === "function") {
+        mobileSwitchView("health_audit");
+      } else {
+        if (typeof closePageDrawer === "function") closePageDrawer();
+        else {
+          var drawer = document.getElementById("pagesDrawer");
+          var overlay = document.getElementById("pagesDrawerOverlay");
+          if (drawer) drawer.classList.remove("active");
+          if (overlay) overlay.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+        if (window.switchMainView) {
+          window.switchMainView("health_audit");
+        }
       }
       if (typeof showToast === "function") {
         showToast("🛡️ Opening Health & Audit Center...");
@@ -89,9 +93,6 @@
         <span class="mobile-brand-name">Raj FB Pro</span>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
-        <button type="button" id="btnMobileAudit" class="btn-mobile-audit" onclick="openMobileHealthAudit(event)" title="Health & Audit Center">
-          <span>🛡️ Audit</span>
-        </button>
         <button type="button" id="btnMobileSync" class="btn-mobile-sync" onclick="triggerMobileSync(event)" title="Sync Real-Time Meta Graph API">
           <span id="mobileSyncBtnText">⚡ Sync</span>
         </button>
@@ -205,7 +206,7 @@
 
       <!-- BOX 6: HEALTH & AUDIT CENTER -->
       <div class="drawer-nav-card">
-        <button type="button" class="drawer-nav-tile" id="btnDrawerHealthAudit" onclick="openMobileHealthAudit(event)" title="Health & Audit Center">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerHealthAudit" onclick="mobileSwitchView('health_audit')" title="Health & Audit Center">
           <div class="tile-content-left">
             <span class="tile-icon">🛡️</span>
             <div class="tile-text">
@@ -1404,6 +1405,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.9.8"></script>
+  <script src="js/gold_app.js?v=9.9.9"></script>
 </body>
 </html>

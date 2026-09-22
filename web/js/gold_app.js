@@ -784,7 +784,9 @@ function updateSyncProgressUI(percent, statusMsg) {
   if (percentText) percentText.innerText = percent + "%";
   if (statusLabel && statusMsg) statusLabel.innerText = statusMsg;
   if (sideBtnText) sideBtnText.innerText = `Syncing (${percent}%)`;
-  if (mobBtn) mobBtn.innerHTML = `<span>⚡ ${percent}%</span>`;
+  const mobBtnText = document.getElementById("mobileSyncBtnText");
+  if (mobBtnText) mobBtnText.innerText = `⚡ ${percent}%`;
+  else if (mobBtn) mobBtn.innerText = `⚡ ${percent}%`;
   if (mobBarWrap) mobBarWrap.style.display = "block";
   if (mobBarFill) mobBarFill.style.width = percent + "%";
 }
@@ -803,7 +805,9 @@ function finishSyncProgressUI(updatedPages, totalPages) {
   if (percentText) percentText.innerText = "100%";
   if (statusLabel) statusLabel.innerText = `✅ 100% Synced (${updatedPages}/${totalPages} Live)`;
   if (sideBtnText) sideBtnText.innerText = "Sync Meta API Live";
-  if (mobBtn) mobBtn.innerHTML = `<span>⚡ Sync</span>`;
+  const mobBtnText = document.getElementById("mobileSyncBtnText");
+  if (mobBtnText) mobBtnText.innerText = `⚡ Sync`;
+  else if (mobBtn) mobBtn.innerText = `⚡ Sync`;
   if (mobBarFill) mobBarFill.style.width = "100%";
 
   setTimeout(() => {
@@ -1148,10 +1152,7 @@ function initLiveSyncControls() {
   }
   const btnMobSync = document.getElementById("btnMobileSync");
   if (btnMobSync) {
-    btnMobSync.onclick = function(e) {
-      if (e) e.preventDefault();
-      syncLiveMetaGraph(true);
-    };
+    btnMobSync.onclick = triggerMobileSync;
   }
   const btnBottomSync = document.getElementById("bottomNavSync");
   if (btnBottomSync) {
@@ -2828,7 +2829,13 @@ function closePageDrawer() {
 }
 window.closePageDrawer = closePageDrawer;
 
-function triggerMobileSync() {
+function triggerMobileSync(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  if (e && e.preventDefault) e.preventDefault();
+  if (isLiveSyncing) {
+    showToast("⏳ Sync already in progress, refreshing data...");
+    return;
+  }
   showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
   syncLiveMetaGraph(true);
 }
@@ -2859,7 +2866,7 @@ function setupEventListeners() {
   });
 
   // Mobile Bottom Navigation Panel & Drawer
-  document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", () => switchMainView("health_audit"));
+  document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", () => mobileSwitchView("health_audit"));
   document.getElementById("bottomNavDashboard")?.addEventListener("click", () => {
     selectPage("all");
     switchMainView("dashboard");
@@ -2872,12 +2879,6 @@ function setupEventListeners() {
 
   // Mobile Header buttons
   document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
-  document.getElementById("btnMobileAudit")?.addEventListener("click", openMobileHealthAudit);
-  document.getElementById("btnMobileSync")?.addEventListener("click", () => {
-    showToast(`⚡ Syncing Live Meta Graph API (${currentTimeframe} Days Scope)...`);
-    syncLiveMetaGraph(true);
-  });
-  document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", openMobileHealthAudit);
   const allDrawerTile = document.getElementById("btnSelectAllPagesDrawer");
   if (allDrawerTile) {
     allDrawerTile.addEventListener("click", (e) => onSelectDrawerPage("all", e));
@@ -6259,12 +6260,10 @@ function renderHealthAuditMainView() {
 
 function openMobileHealthAudit(e) {
   if (e && e.stopPropagation) e.stopPropagation();
-  const drawer = document.getElementById("pagesDrawer");
-  const overlay = document.getElementById("pagesDrawerOverlay");
-  if (drawer) drawer.classList.remove("open");
-  if (overlay) overlay.classList.remove("open");
+  closePageDrawer();
   switchMainView("health_audit");
 }
+window.openMobileHealthAudit = openMobileHealthAudit;
 
 function clearHealthAlert(e) {
   if (e && e.stopPropagation) e.stopPropagation();
@@ -6507,10 +6506,11 @@ async function runLiveAuditUI(e) {
     logAuditTerminal(`  ✅ Live state loaded: ${auditPages.length} Pages monitored`, "success", "passed");
     await sleep(200);
 
-    // 2. Token Health Verification across 8 Fleets
+    // 2. Token Health Verification across 10 Fleets
     const fleetConfigs = [
       { tag: "USA 1", owner: "Meghal Chauhan", set: FLEET_USA_01_SET, startIdx: 1, endIdx: 15, flag: "🇺🇸" },
       { tag: "USA 2", owner: "Mia Shah", set: FLEET_USA_02_SET, startIdx: 16, endIdx: 30, flag: "🇺🇸" },
+      { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 114, endIdx: 128, flag: "🇺🇸" },
       { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧" },
       { tag: "UK 2", owner: "Chanda Nai", set: FLEET_UK_02_SET, startIdx: 43, endIdx: 54, flag: "🇬🇧" },
       { tag: "UK 3", owner: "Mahi Patel", set: FLEET_UK_03_SET, startIdx: 55, endIdx: 66, flag: "🇬🇧" },
@@ -6520,7 +6520,7 @@ async function runLiveAuditUI(e) {
       { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 102, endIdx: 113, flag: "🇬🇧" }
     ];
 
-    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 8 Fleets...", "info", "general");
+    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 10 Fleets...", "info", "general");
 
     let totalValidTokens = 0;
     const tokenIssues = [];
@@ -6614,9 +6614,9 @@ async function runLiveAuditUI(e) {
     }
 
     if (tokenIssues.length === 0) {
-      logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/113 Pages (100% Active)`, "success", "passed");
+      logAuditTerminal(`✅ Total Tokens Valid: ${totalValidTokens}/${auditPages.length} Pages (100% Active)`, "success", "passed");
     } else {
-      logAuditTerminal(`⚠️ Total Tokens Valid: ${totalValidTokens}/113 Pages (${tokenIssues.length} Token Errors Detected: Need Re-Auth)`, "warn", "token");
+      logAuditTerminal(`⚠️ Total Tokens Valid: ${totalValidTokens}/${auditPages.length} Pages (${tokenIssues.length} Token Errors Detected: Need Re-Auth)`, "warn", "token");
     }
     await sleep(200);
 
@@ -6673,10 +6673,10 @@ async function runLiveAuditUI(e) {
 
     // Final Summary
     logAuditTerminal("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "normal", "general");
-    logAuditTerminal(`🎉 AUDIT COMPLETE: ${totalValidTokens}/113 Tokens Active | ${uploadGaps.length} Upload Gaps`, uploadGaps.length === 0 ? "success" : "warn", "general");
+    logAuditTerminal(`🎉 AUDIT COMPLETE: ${totalValidTokens}/${auditPages.length} Tokens Active | ${uploadGaps.length} Upload Gaps`, uploadGaps.length === 0 ? "success" : "warn", "general");
 
     // Update UI Elements
-    tokensTexts.forEach(t => { if (t) t.textContent = `${totalValidTokens}/113 Active`; });
+    tokensTexts.forEach(t => { if (t) t.textContent = `${totalValidTokens}/${auditPages.length} Active`; });
     gapsTexts.forEach(g => {
       if (g) {
         g.textContent = `${uploadGaps.length} Gaps Detected`;
@@ -6734,7 +6734,7 @@ async function runLiveAuditUI(e) {
     } else {
       pills.forEach(p => {
         if (p) {
-          p.innerHTML = `113 OK`;
+          p.innerHTML = `${auditPages.length} OK`;
           p.style.color = "#4ade80";
           p.style.background = "rgba(34,197,94,0.18)";
         }
@@ -6750,7 +6750,7 @@ async function runLiveAuditUI(e) {
       alertTitles.forEach(t => { if (t) { t.textContent = "All Systems Operational"; t.style.color = "#4ade80"; } });
       alertTexts.forEach(t => {
         if (t) {
-          t.textContent = `All 113 Tokens Active • 0 Upload Gaps • On Track`;
+          t.textContent = `All ${auditPages.length} Tokens Active • 0 Upload Gaps • On Track`;
           t.style.color = "#4ade80";
         }
       });
@@ -6782,7 +6782,7 @@ async function runLiveAuditUI(e) {
       }
     });
     if (typeof showToast === "function") {
-      showToast("✅ Live audit complete: 113 Pages & 9 Fleets verified!");
+      showToast(`✅ Live audit complete: ${auditPages.length} Pages & 10 Fleets verified!`);
     }
   }
 }
