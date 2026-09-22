@@ -279,6 +279,8 @@ def get_pages_list():
                 os.environ.get("FB_PAGE_ACCESS_TOKEN", "")
             )
             merged_p["access_token"] = tok
+            merged_p["has_drive_folder"] = bool(merged_p.get("drive_folder_id"))
+            merged_p["token_status"] = "active" if bool(tok) else "expired"
             final_pages.append(merged_p)
 
     return final_pages
@@ -961,19 +963,11 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         }
     }
 
-    # Map from all configs (config.yaml, config_uk_account1.yaml, config_account2.yaml, config_uk_account2.yaml)
-    cfg_paths = [
-        os.path.join(BASE_DIR, "config.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account1.yaml"),
-        os.path.join(BASE_DIR, "config_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account3.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account4.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account5.yaml")
-    ]
-    drive_folder_id = None
-    for cp_path in cfg_paths:
-        if os.path.exists(cp_path):
+    # Map from page object or scan all configs
+    drive_folder_id = p.get("drive_folder_id")
+    if not drive_folder_id or str(drive_folder_id).startswith("REPLACE_WITH"):
+        import glob
+        for cp_path in glob.glob(os.path.join(BASE_DIR, "config*.yaml")):
             try:
                 import yaml
                 with open(cp_path, "r", encoding="utf-8") as cf:
@@ -984,7 +978,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                             if f_id and not f_id.startswith("REPLACE_WITH"):
                                 drive_folder_id = f_id
                             break
-                if drive_folder_id:
+                if drive_folder_id and not drive_folder_id.startswith("REPLACE_WITH"):
                     break
             except Exception:
                 pass
@@ -1116,7 +1110,21 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "714841275048147":  audit_data.get("Apex Chronicle", {}).get("video_count", 179),
         "314172255114813":  audit_data.get("anymotion", {}).get("video_count", 146),
         "234852513054858":  audit_data.get("Mai Cartoon Hoon", {}).get("video_count", 341),
-        "172005056007015":  audit_data.get("Cold Ash", {}).get("video_count", 132)
+        "172005056007015":  audit_data.get("Cold Ash", {}).get("video_count", 132),
+
+        # UK Account 7 Pages (Riya Gaur - 12 Pages, London WireGuard Egress)
+        "1191247700748920": 61,
+        "1304768466050503": 154,
+        "1338114526042607": 92,
+        "1315483674976229": 88,
+        "1195883193618072": 112,
+        "802518939617506":  386,
+        "896072510245887":  100,
+        "755318371007926":  124,
+        "864838050041932":  306,
+        "870975689430311":  335,
+        "479102298617718":  305,
+        "208233979039379":  120
     }
     base_stock = 0
     if drive_folder_id:
@@ -1134,14 +1142,16 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "index": idx,
         "id": pid,
         "name": p_name,
-        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else ("Richi Patel (UK)" if idx <= 89 else "Sweta Shah (UK)"))))))),
-        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else ("Richi Patel" if idx <= 89 else "Sweta Shah"))))))),
+        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else ("Richi Patel (UK)" if idx <= 89 else ("Sweta Shah (UK)" if idx <= 101 else "Riya Gaur (UK)")))))))),
+        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else ("Richi Patel" if idx <= 89 else ("Sweta Shah" if idx <= 101 else "Riya Gaur")))))))),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,
         "pic_url": pic_url,
         "link": link,
         "access_token": token,
+        "token_status": "active" if bool(token) else "expired",
+        "health": "Optimal" if bool(token) else "Action Required",
         "today_posts": today_posts,
         "live_meta_insights": live_meta_insights,
         "daily_limit": 4,
@@ -1298,7 +1308,7 @@ def sync_data():
             print("SQLite read error:", e)
 
     print(f"Syncing live Meta Graph API data for {len(pages)} pages concurrently...")
-    with ThreadPoolExecutor(max_workers=5) as executor:
+    with ThreadPoolExecutor(max_workers=16) as executor:
         futures = [executor.submit(fetch_single_page_record, p, idx, curr_telemetry, posted_by_page, runs_by_page) for idx, p in enumerate(pages, 1)]
         page_records = [f.result() for f in futures]
 
@@ -1310,15 +1320,8 @@ def sync_data():
 
     # Portfolio Summary - Dynamically detect active pages configured with Google Drive across ALL configs
     configured_pids = set()
-    for cp_path in [
-        os.path.join(BASE_DIR, "config.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account1.yaml"),
-        os.path.join(BASE_DIR, "config_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account2.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account3.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account4.yaml"),
-        os.path.join(BASE_DIR, "config_uk_account5.yaml")
-    ]:
+    import glob
+    for cp_path in glob.glob(os.path.join(BASE_DIR, "config*.yaml")):
         if os.path.exists(cp_path):
             try:
                 import yaml
