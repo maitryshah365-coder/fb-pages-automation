@@ -641,17 +641,47 @@ body {
 .page-item-info {
   display: flex;
   flex-direction: column;
+  gap: 3px;
+  min-width: 0;
 }
 
 .page-item-name {
   font-size: 13px;
   font-weight: 700;
   color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page-item-row-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.page-item-id-pill,
+.side-page-id-pill {
+  font-family: 'SF Mono', Consolas, 'Courier New', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #f5ba23;
+  background: rgba(245, 186, 35, 0.12);
+  border: 1px solid rgba(245, 186, 35, 0.28);
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.25px;
+  line-height: 1.25;
+  display: inline-flex;
+  align-items: center;
+  user-select: all;
+  -webkit-user-select: all;
 }
 
 .page-item-meta {
   font-size: 11px;
-  color: var(--text-sub);
+  color: var(--text-sub, #94a3b8);
 }
 
 .page-item-badge {
@@ -659,6 +689,56 @@ body {
   font-weight: 800;
   color: var(--gold-primary);
   font-family: var(--font-mono);
+}
+
+.drawer-empty-search {
+  padding: 24px 16px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(245, 186, 35, 0.3);
+  border-radius: 10px;
+  margin: 10px 4px;
+}
+
+.drawer-empty-search .empty-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.drawer-empty-search .empty-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5ba23;
+  margin-bottom: 4px;
+}
+
+.drawer-empty-search .empty-sub {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-bottom: 4px;
+}
+
+.drawer-empty-search .empty-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+.drawer-empty-search .empty-clear-btn {
+  margin-top: 12px;
+  background: rgba(245, 186, 35, 0.18);
+  border: 1px solid rgba(245, 186, 35, 0.4);
+  color: #f5ba23;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.drawer-empty-search .empty-clear-btn:hover {
+  background: rgba(245, 186, 35, 0.3);
 }
 
 /* ================= MAIN CONTAINER ================= */

@@ -1195,6 +1195,16 @@ window.filterSidebarPages = function(filter, e) {
   }
 };
 
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function renderSidebarPagesList(pages) {
   const container = document.getElementById("sidebarPagesScrollList");
   if (!container) return;
@@ -1216,7 +1226,13 @@ function renderSidebarPagesList(pages) {
 
   pageList.forEach(p => {
     const pid = String(p.id);
-    if (searchTerm && !(p.name || "").toLowerCase().includes(searchTerm)) return;
+    if (searchTerm) {
+      const nameMatch = (p.name || "").toLowerCase().includes(searchTerm);
+      const idMatch = pid.toLowerCase().includes(searchTerm);
+      const accMatch = (p.account || "").toLowerCase().includes(searchTerm);
+      const ownerMatch = (p.account_owner || "").toLowerCase().includes(searchTerm);
+      if (!nameMatch && !idMatch && !accMatch && !ownerMatch) return;
+    }
     if (FLEET_USA_01_SET.has(pid)) usa1List.push(p);
     else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
     else if (FLEET_USA_03_SET.has(pid)) usa3List.push(p);
@@ -1243,7 +1259,7 @@ function renderSidebarPagesList(pages) {
 
   function renderPageItem(p, accType) {
     const isPageActive = String(p.id) === activePageId;
-    const followersStr = (p.followers || 0).toLocaleString();
+    const followersStr = (p.followers || p.fan_count || p.followers_count || 0).toLocaleString();
     const pToday = getPageTodayPosts(p);
     const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
       ? p.drive_videos_count
@@ -1256,17 +1272,18 @@ function renderSidebarPagesList(pages) {
     }).join("");
 
     return `
-      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${p.name} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
-        <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${p.name}" onerror="this.src='https://graph.facebook.com/v20.0/${p.id}/picture?type=large'">
+      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${escapeHtml(p.name)} • ID: ${p.id} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
+        <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${escapeHtml(p.name)}" onerror="this.src='https://graph.facebook.com/v21.0/${p.id}/picture?type=large'">
         <div class="side-page-content">
           <div class="side-page-row-top">
-            <span class="side-page-name" title="${p.name}">${p.name}</span>
+            <span class="side-page-name" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</span>
             <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
               ${batteryCells}
             </div>
           </div>
           <div class="side-page-row-bottom">
-            <span class="side-page-followers">${followersStr} followers</span>
+            <span class="side-page-id-pill" title="Facebook Page ID: ${p.id}">ID: ${p.id}</span>
+            <span class="side-page-followers">${followersStr} flws</span>
             <div class="side-page-stats-right">
               <span class="side-page-slot-tag ${pToday >= 4 ? 'done' : ''}">${pToday}/4 Slots</span>
               ${driveCount > 0 ? `<span class="battery-drive-tag" title="${driveCount} videos ready in Drive">📁 ${driveCount}</span>` : ''}
@@ -1468,14 +1485,21 @@ function mobileSwitchView(viewName) {
 }
 window.mobileSwitchView = mobileSwitchView;
 
-function toggleDrawerPagesShutter(event) {
+function toggleDrawerPagesShutter(event, forceOpen) {
   if (event && event.stopPropagation) event.stopPropagation();
   const box = document.getElementById("drawerPagesAccordionBox");
   const body = document.getElementById("drawerPagesShutterBody");
   const arrow = document.getElementById("drawerPagesShutterArrow");
+  const list = document.getElementById("sidebarPagesList");
   if (!body) return;
+
   const isHidden = body.style.display === "none" || !body.classList.contains("open");
-  if (isHidden) {
+  const isListEmpty = !list || !list.children || list.children.length === 0;
+
+  // If list is empty (not rendered yet), ALWAYS open and render so all 128 pages are shown!
+  const shouldOpen = forceOpen !== undefined ? forceOpen : (isHidden || isListEmpty);
+
+  if (shouldOpen) {
     body.style.display = "block";
     body.classList.add("open");
     box?.classList.add("open");
@@ -1503,13 +1527,47 @@ window.toggleDrawerFleetBox = function(accType, event) {
   if (body) body.style.display = isNowOpen ? "block" : "none";
 };
 
+window.clearDrawerSearch = function() {
+  const input = document.getElementById("sidebarPagesSearch");
+  if (input) {
+    input.value = "";
+    input.focus();
+  }
+  if (fullData && fullData.pages) {
+    renderDrawerPages(fullData.pages);
+  }
+};
+
 function renderDrawerPages(pages) {
   const container = document.getElementById("sidebarPagesList");
   if (!container) return;
 
-  const searchTerm = (document.getElementById("sidebarPagesSearch")?.value || "").toLowerCase().trim();
+  const searchInput = document.getElementById("sidebarPagesSearch");
+  const searchTerm = (searchInput?.value || "").toLowerCase().trim();
   const pageList = pages || (fullData?.pages || []);
-  const filtered = pageList.filter(p => !searchTerm || (p.name || "").toLowerCase().includes(searchTerm));
+  
+  const filtered = pageList.filter(p => {
+    if (!searchTerm) return true;
+    const nameMatch = (p.name || "").toLowerCase().includes(searchTerm);
+    const idMatch = String(p.id || "").toLowerCase().includes(searchTerm);
+    const accMatch = (p.account || "").toLowerCase().includes(searchTerm);
+    const ownerMatch = (p.account_owner || "").toLowerCase().includes(searchTerm);
+    return nameMatch || idMatch || accMatch || ownerMatch;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="drawer-empty-search">
+        <div class="empty-icon">🔍</div>
+        <div class="empty-title">No Facebook Pages Found</div>
+        <div class="empty-sub">No page matched "<span style="color:#f5ba23; font-weight:600;">${escapeHtml(searchTerm)}</span>"</div>
+        <div class="empty-hint">Search by Page Name, Facebook Page ID, or Account Owner</div>
+        <button type="button" class="empty-clear-btn" onclick="clearDrawerSearch()">✕ Clear Search</button>
+      </div>`;
+    const countBadge = document.getElementById("sidebarPagesCountBadge");
+    if (countBadge) countBadge.innerText = `0 Pages`;
+    return;
+  }
 
   const usa1List = [];
   const usa2List = [];
@@ -1552,12 +1610,12 @@ function renderDrawerPages(pages) {
     const isAct = String(p.id) === activePageId;
     const name = p.name || `Page ${p.id}`;
     const pId = String(p.id);
-    const followers = p.followers_count !== undefined ? p.followers_count : 0;
+    const followers = (p.followers || p.fan_count || p.followers_count || 0);
+    const followersStr = followers.toLocaleString();
     const driveInfo = DRIVE_CONFIGURED_PAGES[pId];
     const stock = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (driveInfo?.videoCount || 0);
 
     const todayDone = getPageTodayPosts(p);
-    const targetSlots = 4;
     const batteryCells = [1, 2, 3, 4].map(sNum => {
       const isFilled = todayDone >= sNum;
       const cellClass = isFilled ? (todayDone >= 4 ? 'full' : 'filled') : 'empty';
@@ -1565,12 +1623,15 @@ function renderDrawerPages(pages) {
     }).join("");
 
     return `
-      <div class="drawer-page-item ${isAct ? 'active' : ''}" onclick="onSelectDrawerPage('${p.id}', event)" role="button" tabindex="0">
+      <div class="drawer-page-item ${isAct ? 'active' : ''}" onclick="onSelectDrawerPage('${p.id}', event)" role="button" tabindex="0" title="${escapeHtml(name)} • ID: ${pId}">
         <div class="page-item-left">
-          <img src="${p.picture || p.pic_url || 'icons/icon-192.png'}" alt="${name}" class="page-item-img" onerror="this.src='icons/icon-192.png'">
+          <img src="${p.picture || p.pic_url || 'icons/icon-192.png'}" alt="${escapeHtml(name)}" class="page-item-img" onerror="this.src='https://graph.facebook.com/v21.0/${pId}/picture?type=large'">
           <div class="page-item-info">
-            <span class="page-item-name">${name}</span>
-            <span class="page-item-meta">${followers.toLocaleString()} followers</span>
+            <span class="page-item-name" title="${escapeHtml(name)}">${escapeHtml(name)}</span>
+            <div class="page-item-row-sub">
+              <span class="page-item-id-pill" title="Facebook Page ID: ${pId}">ID: ${pId}</span>
+              <span class="page-item-meta">${followersStr} flws</span>
+            </div>
           </div>
         </div>
         <div class="page-item-right">
@@ -1586,9 +1647,9 @@ function renderDrawerPages(pages) {
     const totalFleetDone = items.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
     const totalFleetTarget = items.length * 4;
     const totalFleetStock = items.reduce((sum, p) => sum + ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0)), 0);
-    const hasActivePage = items.some(p => String(p.id) === activePageId);
-    // Open when searching, active page matches, or first USA fleet open by default
-    const isOpen = Boolean(searchTerm) || (hasActivePage && activePageId !== "all") || (activePageId === "all" && accType === "usa1");
+    
+    // ALL 10 fleet accordions open by default on mobile so all 128 pages are immediately visible!
+    const isOpen = true;
 
     return `
       <div class="drawer-account-section ${cssClass} ${isOpen ? 'open' : ''}" id="drawerFleetBox_${accType}" data-fleet="${accType}">
@@ -1647,7 +1708,7 @@ function renderDrawerPages(pages) {
   container.innerHTML = html;
 
   const countBadge = document.getElementById("sidebarPagesCountBadge");
-  if (countBadge) countBadge.innerText = `${pageList.length} Pages`;
+  if (countBadge) countBadge.innerText = `${filtered.length} Pages`;
 }
 
 // ----------------- Page Selection Engine -----------------
@@ -2813,8 +2874,27 @@ function closeVideoModal() {
 // ----------------- Drawer Toggle Controls -----------------
 
 function openPageDrawer() {
+  const box = document.getElementById("drawerPagesAccordionBox");
+  const body = document.getElementById("drawerPagesShutterBody");
+  const arrow = document.getElementById("drawerPagesShutterArrow");
+  if (body) {
+    body.style.display = "block";
+    body.classList.add("open");
+  }
+  if (box) box.classList.add("open");
+  if (arrow) arrow.innerText = "▲";
+
   if (fullData && fullData.pages) {
     renderDrawerPages(fullData.pages);
+  } else {
+    const list = document.getElementById("sidebarPagesList");
+    if (list && list.children.length === 0) {
+      list.innerHTML = `
+        <div style="padding: 24px 16px; text-align: center; color: #f5ba23; font-size: 13px;">
+          <div style="font-size: 24px; margin-bottom: 8px;">⏳</div>
+          <div style="font-weight: 600;">Loading 128 Facebook Pages...</div>
+        </div>`;
+    }
   }
   document.getElementById("pagesDrawer")?.classList.add("active");
   document.getElementById("pagesDrawerOverlay")?.classList.add("active");
@@ -2976,9 +3056,15 @@ function setupEventListeners() {
   });
 
   // Drawer Search
-  document.getElementById("sidebarPagesSearch")?.addEventListener("input", () => {
-    if (fullData) renderDrawerPages(fullData.pages);
-  });
+  const drawerSearchInput = document.getElementById("sidebarPagesSearch");
+  if (drawerSearchInput) {
+    drawerSearchInput.addEventListener("input", () => {
+      if (fullData) renderDrawerPages(fullData.pages);
+    });
+    drawerSearchInput.addEventListener("search", () => {
+      if (fullData) renderDrawerPages(fullData.pages);
+    });
+  }
 
   // Sync Live Button
   document.getElementById("btnLuxeRefresh")?.addEventListener("click", () => {
