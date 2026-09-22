@@ -1,15 +1,14 @@
 {
-  "run_id": "35756300100",
-  "run_number": "87",
-  "completed_at": "2026-09-22T16:50:41.010031+00:00",
+  "run_id": "35759421563",
+  "run_number": "89",
+  "completed_at": "2026-09-22T17:17:42.688535+00:00",
   "runner_telemetry": {
-    "ip": "89.34.96.97",
-    "hostname": "97.96.34.89.baremetal.zare.com",
+    "ip": "212.116.230.26",
     "city": "London",
     "region": "England",
     "country": "GB",
     "loc": "51.5085,-0.1257",
-    "org": "AS25369 Hydra Communications Ltd",
+    "org": "AS209854 Cyberzone S.A.",
     "postal": "WC2N",
     "timezone": "Europe/London",
     "readme": "https://ipinfo.io/missingauth"
@@ -18,99 +17,99 @@
   "results": [
     {
       "status": "failed",
-      "page": "uk4_page_1",
+      "page": "uk6_page_1",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1076375522219372",
-      "page_config_name": "uk4_page_1",
-      "display_name": "Titan Archive"
+      "page_id": "1183175548215394",
+      "page_config_name": "uk6_page_1",
+      "display_name": "Broken Orchard"
     },
     {
       "status": "failed",
-      "page": "uk4_page_2",
+      "page": "uk6_page_2",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "997596213442388",
-      "page_config_name": "uk4_page_2",
-      "display_name": "Sovereign Signal"
+      "page_id": "1218007361389446",
+      "page_config_name": "uk6_page_2",
+      "display_name": "Hollow Echo"
     },
     {
       "status": "failed",
-      "page": "uk4_page_3",
+      "page": "uk6_page_3",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1025542247301378",
-      "page_config_name": "uk4_page_3",
-      "display_name": "Sunny Dusk Stories"
+      "page_id": "1168998922967230",
+      "page_config_name": "uk6_page_3",
+      "display_name": "Grabeal"
     },
     {
       "status": "failed",
-      "page": "uk4_page_4",
+      "page": "uk6_page_4",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "981214481738903",
-      "page_config_name": "uk4_page_4",
-      "display_name": "Silver Oak Social"
+      "page_id": "1260883380432217",
+      "page_config_name": "uk6_page_4",
+      "display_name": "Gentle Ruin"
     },
     {
       "status": "failed",
-      "page": "uk4_page_5",
+      "page": "uk6_page_5",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "929190903615356",
-      "page_config_name": "uk4_page_5",
-      "display_name": "Mitchell  Gabriel"
+      "page_id": "1230784326779924",
+      "page_config_name": "uk6_page_5",
+      "display_name": "Heavy Whistle"
     },
     {
       "status": "failed",
-      "page": "uk4_page_6",
+      "page": "uk6_page_6",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "803824339488556",
-      "page_config_name": "uk4_page_6",
-      "display_name": "Smith  Arthur"
+      "page_id": "956709574200068",
+      "page_config_name": "uk6_page_6",
+      "display_name": "Echo Ridge"
     },
     {
       "status": "failed",
-      "page": "uk4_page_7",
+      "page": "uk6_page_7",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "857530914106167",
-      "page_config_name": "uk4_page_7",
-      "display_name": "Robinson  Jerry"
+      "page_id": "682815954920518",
+      "page_config_name": "uk6_page_7",
+      "display_name": "Prestige Syndicate"
     },
     {
       "status": "failed",
-      "page": "uk4_page_8",
+      "page": "uk6_page_8",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "762765990263739",
-      "page_config_name": "uk4_page_8",
-      "display_name": "Robinson  Stephen"
+      "page_id": "758260714032115",
+      "page_config_name": "uk6_page_8",
+      "display_name": "Power Doctrine"
     },
     {
       "status": "failed",
-      "page": "uk4_page_9",
+      "page": "uk6_page_9",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "871774779344742",
-      "page_config_name": "uk4_page_9",
-      "display_name": "Powell  Gabriel"
+      "page_id": "714841275048147",
+      "page_config_name": "uk6_page_9",
+      "display_name": "Apex Chronicle"
     },
     {
       "status": "failed",
-      "page": "uk4_page_10",
+      "page": "uk6_page_10",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "746108741929454",
-      "page_config_name": "uk4_page_10",
-      "display_name": "Rodriguez  Scott"
+      "page_id": "314172255114813",
+      "page_config_name": "uk6_page_10",
+      "display_name": "anymotion"
     },
     {
       "status": "failed",
-      "page": "uk4_page_11",
+      "page": "uk6_page_11",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "818808074651170",
-      "page_config_name": "uk4_page_11",
-      "display_name": "Roberts  Richard"
+      "page_id": "234852513054858",
+      "page_config_name": "uk6_page_11",
+      "display_name": "Mai Cartoon Hoon"
     },
     {
       "status": "failed",
-      "page": "uk4_page_12",
+      "page": "uk6_page_12",
       "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "417387901468629",
-      "page_config_name": "uk4_page_12",
-      "display_name": "Serendipity Spark"
+      "page_id": "172005056007015",
+      "page_config_name": "uk6_page_12",
+      "display_name": "Cold Ash"
     }
   ],
   "stats": {
