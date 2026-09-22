@@ -193,8 +193,12 @@ jobs:
           git add data/ docs/data/ web/data/
           if [ -n "$(git status --porcelain data/ docs/data/ web/data/)" ]; then
             git commit -m "chore: update Facebook automation state & dashboard [skip ci]"
-            for i in 1 2 3; do
-              git pull --rebase origin main && git push origin main && break || sleep 5
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase -X theirs origin/main && git push origin main && break || {
+                git rebase --abort 2>/dev/null || true
+                sleep 5
+              }
             done
           else
             echo "No state changes to commit."
