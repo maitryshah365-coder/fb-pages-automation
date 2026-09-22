@@ -6122,9 +6122,9 @@ function renderHealthAuditMainView() {
         String(runResult.error || "").includes("Authentication")
       );
 
-      const isTokenError = isExplicitTokenError || isRunTokenError;
+      const isTokenError = isExplicitTokenError || (isRunTokenError && p.token_status !== "active");
 
-      const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready) && !isTokenError;
+      const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready || p.token_status === "active") && !isTokenError;
       const pToday = getPageTodayPosts(p);
       fleetTodayPosts += pToday;
       totalTodayUploads += pToday;
@@ -6138,7 +6138,7 @@ function renderHealthAuditMainView() {
         tokenIssueItems.push({ name: displayName, fleet: cfg.tag, owner: cfg.owner, error: errDesc });
       }
 
-      if (runResult && (runResult.status === "failed" || runResult.status === "error")) {
+      if (runResult && (runResult.status === "failed" || runResult.status === "error") && p.token_status !== "active") {
         const failReason = isTokenError ? "Token Error 190 (Permissions Expired)" : (runResult.error || "Upload failed");
         fleetGaps.push({ name: displayName, reason: failReason });
         gapItems.push({ name: displayName, fleet: cfg.tag, reason: failReason });
