@@ -1527,14 +1527,10 @@ function toggleDrawerPagesShutter(event, forceOpen) {
   const box = document.getElementById("drawerPagesAccordionBox");
   const body = document.getElementById("drawerPagesShutterBody");
   const arrow = document.getElementById("drawerPagesShutterArrow");
-  const list = document.getElementById("sidebarPagesList");
   if (!body) return;
 
   const isHidden = body.style.display === "none" || !body.classList.contains("open");
-  const isListEmpty = !list || !list.children || list.children.length === 0;
-
-  // If list is empty (not rendered yet), ALWAYS open and render so all 128 pages are shown!
-  const shouldOpen = forceOpen !== undefined ? forceOpen : (isHidden || isListEmpty);
+  const shouldOpen = forceOpen !== undefined ? forceOpen : isHidden;
 
   if (shouldOpen) {
     body.style.display = "block";
@@ -2935,28 +2931,6 @@ function closeVideoModal() {
 // ----------------- Drawer Toggle Controls -----------------
 
 function openPageDrawer() {
-  const box = document.getElementById("drawerPagesAccordionBox");
-  const body = document.getElementById("drawerPagesShutterBody");
-  const arrow = document.getElementById("drawerPagesShutterArrow");
-  if (body) {
-    body.style.display = "block";
-    body.classList.add("open");
-  }
-  if (box) box.classList.add("open");
-  if (arrow) arrow.innerText = "▲";
-
-  if (fullData && fullData.pages) {
-    renderDrawerPages(fullData.pages);
-  } else {
-    const list = document.getElementById("sidebarPagesList");
-    if (list && list.children.length === 0) {
-      list.innerHTML = `
-        <div style="padding: 24px 16px; text-align: center; color: #f5ba23; font-size: 13px;">
-          <div style="font-size: 24px; margin-bottom: 8px;">⏳</div>
-          <div style="font-weight: 600;">Loading 128 Facebook Pages...</div>
-        </div>`;
-    }
-  }
   document.getElementById("pagesDrawer")?.classList.add("active");
   document.getElementById("pagesDrawerOverlay")?.classList.add("active");
   document.body.style.overflow = "hidden";

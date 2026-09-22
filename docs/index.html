@@ -132,8 +132,8 @@
         </button>
       </div>
 
-      <!-- BOX 2: ALL PAGES LIST (SHUTTER / ACCORDION - OPEN FOR QUICK ACCESS) -->
-      <div class="drawer-nav-card drawer-pages-accordion open" id="drawerPagesAccordionBox">
+      <!-- BOX 2: ALL PAGES LIST (SHUTTER BAND - CLOSED BY DEFAULT, OPENS ON TOUCH) -->
+      <div class="drawer-nav-card drawer-pages-accordion" id="drawerPagesAccordionBox">
         <button type="button" class="drawer-nav-tile drawer-pages-shutter-btn" id="btnDrawerPagesShutterToggle" onclick="toggleDrawerPagesShutter(event)" title="Open All Pages List">
           <div class="tile-content-left">
             <span class="tile-icon">📑</span>
@@ -144,15 +144,15 @@
           </div>
           <div class="tile-content-right">
             <span class="pages-count-pill" id="sidebarPagesCountBadge">128 Pages</span>
-            <span class="drawer-shutter-arrow" id="drawerPagesShutterArrow">▲</span>
+            <span class="drawer-shutter-arrow" id="drawerPagesShutterArrow">▼</span>
           </div>
         </button>
 
-        <!-- Shutter Body (Open for instant page selection) -->
-        <div class="drawer-pages-shutter-body open" id="drawerPagesShutterBody" style="display: block;">
+        <!-- Shutter Body (Closed by default - opens on touch/click) -->
+        <div class="drawer-pages-shutter-body" id="drawerPagesShutterBody" style="display: none;">
           <!-- Page Search Bar -->
           <div class="drawer-search-box">
-            <input type="text" id="sidebarPagesSearch" class="drawer-search-input" placeholder="🔍 Search page name or ID..." onclick="event.stopPropagation()">
+            <input type="search" id="sidebarPagesSearch" class="drawer-search-input" placeholder="🔍 Search page name or ID..." onclick="event.stopPropagation()">
           </div>
 
           <!-- The 10 Fleet Accordions List (Populated dynamically) -->
@@ -1405,6 +1405,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=10.0.2"></script>
+  <script src="js/gold_app.js?v=10.0.3"></script>
 </body>
 </html>
