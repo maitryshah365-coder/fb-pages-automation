@@ -452,6 +452,7 @@ body {
 .drawer-nav-card {
   width: 100%;
   box-sizing: border-box;
+  flex-shrink: 0 !important;
 }
 
 .drawer-nav-tile {
@@ -496,13 +497,20 @@ body {
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible !important;
   transition: border-color 0.2s ease, background 0.2s ease;
+  flex-shrink: 0 !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .drawer-pages-accordion.open {
-  border-color: rgba(56, 189, 248, 0.35);
-  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  background: rgba(15, 23, 42, 0.5) !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+  flex-shrink: 0 !important;
 }
 
 .drawer-pages-shutter-btn {
@@ -561,17 +569,32 @@ body {
   box-shadow: 0 0 0 2px rgba(245, 186, 35, 0.15);
 }
 
+.drawer-pages-shutter-body {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+  flex-shrink: 0 !important;
+}
+
 .drawer-pages-list {
-  max-height: none;
-  overflow: visible;
+  max-height: none !important;
+  height: auto !important;
+  overflow: visible !important;
   padding: 0 8px 10px;
   display: flex;
   flex-direction: column;
   gap: 7px;
   box-sizing: border-box;
+  flex-shrink: 0 !important;
+  width: 100% !important;
 }
 
 .drawer-page-item {
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
   display: flex;
   align-items: center;
   justify-content: space-between;

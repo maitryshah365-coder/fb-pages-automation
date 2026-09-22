@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.9.6">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.9.7">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -149,18 +149,6 @@
 
         <!-- Shutter Body (Open for instant page selection) -->
         <div class="drawer-pages-shutter-body open" id="drawerPagesShutterBody" style="display: block;">
-          <!-- Master All Pages Quick Selection Tile -->
-          <div class="drawer-master-select-row" id="btnSelectAllPagesDrawer" onclick="onSelectDrawerPage('all', event)" role="button" tabindex="0">
-            <div class="tile-content-left">
-              <span class="tile-icon">🌐</span>
-              <div class="tile-text">
-                <span class="tile-title">All 128 Pages (Master)</span>
-                <span class="tile-sub">Combined Reach & Overview</span>
-              </div>
-            </div>
-            <span class="portfolio-badge">Master</span>
-          </div>
-
           <!-- Page Search Bar -->
           <div class="drawer-search-box">
             <input type="text" id="sidebarPagesSearch" class="drawer-search-input" placeholder="🔍 Search page name or ID..." onclick="event.stopPropagation()">
@@ -1416,6 +1404,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.9.6"></script>
+  <script src="js/gold_app.js?v=9.9.7"></script>
 </body>
 </html>
