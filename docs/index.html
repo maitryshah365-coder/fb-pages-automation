@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.9.5">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=9.9.6">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -50,13 +50,21 @@
     }
     function openMobileHealthAudit(e) {
       if (e && e.stopPropagation) e.stopPropagation();
-      var drawer = document.getElementById("pagesDrawer");
-      var overlay = document.getElementById("pagesDrawerOverlay");
-      if (drawer) drawer.classList.remove("open");
-      if (overlay) overlay.classList.remove("open");
+      if (typeof closePageDrawer === "function") closePageDrawer();
+      else {
+        var drawer = document.getElementById("pagesDrawer");
+        var overlay = document.getElementById("pagesDrawerOverlay");
+        if (drawer) drawer.classList.remove("active");
+        if (overlay) overlay.classList.remove("active");
+        document.body.style.overflow = "";
+      }
       if (window.switchMainView) {
         window.switchMainView("health_audit");
       }
+      if (typeof showToast === "function") {
+        showToast("🛡️ Opening Health & Audit Center...");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
     window.toggleSideHealthShutter = toggleSideHealthShutter;
     window.toggleMobileHealthShutter = toggleMobileHealthShutter;
@@ -81,10 +89,17 @@
         <span class="mobile-brand-name">Raj FB Pro</span>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
-        <button id="btnMobileSync" class="btn-mobile-sync" title="Sync Real-Time Meta Graph API">
-          <span>⚡ Sync</span>
+        <button type="button" id="btnMobileAudit" class="btn-mobile-audit" onclick="openMobileHealthAudit(event)" title="Health & Audit Center">
+          <span>🛡️ Audit</span>
+        </button>
+        <button type="button" id="btnMobileSync" class="btn-mobile-sync" onclick="triggerMobileSync(event)" title="Sync Real-Time Meta Graph API">
+          <span id="mobileSyncBtnText">⚡ Sync</span>
         </button>
       </div>
+    </div>
+    <!-- Real-Time Mobile Sync Progress Bar (Instant Visual Feedback on Phone) -->
+    <div id="mobileSyncProgressBarWrapper" class="mobile-sync-progress-bar" style="display: none;">
+      <div id="mobileSyncProgressBarFill" class="mobile-sync-progress-fill" style="width: 0%;"></div>
     </div>
   </header>
 
@@ -202,7 +217,7 @@
 
       <!-- BOX 6: HEALTH & AUDIT CENTER -->
       <div class="drawer-nav-card">
-        <button type="button" class="drawer-nav-tile" id="btnDrawerHealthAudit" onclick="mobileSwitchView('health_audit')" title="Health & Audit Center">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerHealthAudit" onclick="openMobileHealthAudit(event)" title="Health & Audit Center">
           <div class="tile-content-left">
             <span class="tile-icon">🛡️</span>
             <div class="tile-text">
@@ -1401,6 +1416,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=9.9.5"></script>
+  <script src="js/gold_app.js?v=9.9.6"></script>
 </body>
 </html>

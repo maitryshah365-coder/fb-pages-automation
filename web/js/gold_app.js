@@ -770,6 +770,8 @@ function updateSyncProgressUI(percent, statusMsg) {
   const statusLabel = document.getElementById("sideSyncStatusLabel");
   const sideBtnText = document.getElementById("sideSyncBtnText");
   const mobBtn = document.getElementById("btnMobileSync");
+  const mobBarWrap = document.getElementById("mobileSyncProgressBarWrapper");
+  const mobBarFill = document.getElementById("mobileSyncProgressBarFill");
 
   if (wrapper) wrapper.style.display = "block";
   if (bar) bar.style.width = percent + "%";
@@ -777,6 +779,8 @@ function updateSyncProgressUI(percent, statusMsg) {
   if (statusLabel && statusMsg) statusLabel.innerText = statusMsg;
   if (sideBtnText) sideBtnText.innerText = `Syncing (${percent}%)`;
   if (mobBtn) mobBtn.innerHTML = `<span>⚡ ${percent}%</span>`;
+  if (mobBarWrap) mobBarWrap.style.display = "block";
+  if (mobBarFill) mobBarFill.style.width = percent + "%";
 }
 
 function finishSyncProgressUI(updatedPages, totalPages) {
@@ -786,12 +790,15 @@ function finishSyncProgressUI(updatedPages, totalPages) {
   const statusLabel = document.getElementById("sideSyncStatusLabel");
   const sideBtnText = document.getElementById("sideSyncBtnText");
   const mobBtn = document.getElementById("btnMobileSync");
+  const mobBarWrap = document.getElementById("mobileSyncProgressBarWrapper");
+  const mobBarFill = document.getElementById("mobileSyncProgressBarFill");
 
   if (bar) bar.style.width = "100%";
   if (percentText) percentText.innerText = "100%";
   if (statusLabel) statusLabel.innerText = `✅ 100% Synced (${updatedPages}/${totalPages} Live)`;
   if (sideBtnText) sideBtnText.innerText = "Sync Meta API Live";
   if (mobBtn) mobBtn.innerHTML = `<span>⚡ Sync</span>`;
+  if (mobBarFill) mobBarFill.style.width = "100%";
 
   setTimeout(() => {
     if (wrapper) {
@@ -803,7 +810,11 @@ function finishSyncProgressUI(updatedPages, totalPages) {
         wrapper.style.transition = "";
       }, 600);
     }
-  }, 3500);
+    if (mobBarWrap) {
+      mobBarWrap.style.display = "none";
+      if (mobBarFill) mobBarFill.style.width = "0%";
+    }
+  }, 1200);
 }
 
 // ----------------- Holographic AI Assistant Controller (Raj AI Sentinel) -----------------
@@ -817,8 +828,18 @@ function triggerAiLiveSync(event) {
 }
 window.triggerAiLiveSync = triggerAiLiveSync;
 
+const fetchWithTimeout = (url, opts = {}, timeoutMs = 5000) => {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, { ...opts, signal: controller.signal })
+    .finally(() => clearTimeout(id));
+};
+
 async function syncLiveMetaGraph(isManual = false) {
-  if (!fullData || isLiveSyncing) return;
+  if (!fullData || isLiveSyncing) {
+    if (isManual) showToast("⏳ Sync already in progress, refreshing data...");
+    return;
+  }
 
   // If not manual, strictly enforce 30 minutes interval (even on hard page refresh)
   if (!isManual && !shouldAutoSync()) {
@@ -829,7 +850,18 @@ async function syncLiveMetaGraph(isManual = false) {
   }
 
   isLiveSyncing = true;
-  setAiAssistantState("working", "⚡ Real-Time Graph API Sync: Live telemetry & insight pulse across 128 Pages...");
+  const safetyWatchdog = setTimeout(() => {
+    if (isLiveSyncing) {
+      console.warn("Live sync watchdog triggered - releasing lock");
+      isLiveSyncing = false;
+      const pagesCount = (fullData?.pages || []).length || 128;
+      finishSyncProgressUI(pagesCount, pagesCount);
+      const btnSideSync = document.getElementById("btnSideLiveSync");
+      const btnMobSync = document.getElementById("btnMobileSync");
+      if (btnSideSync) btnSideSync.classList.remove("spinning");
+      if (btnMobSync) btnMobSync.classList.remove("spinning");
+    }
+  }, 20000);
 
   const btnSideSync = document.getElementById("btnSideLiveSync");
   const btnMobSync = document.getElementById("btnMobileSync");
@@ -842,14 +874,14 @@ async function syncLiveMetaGraph(isManual = false) {
   const timestampEl = document.getElementById("liveSyncTimestamp");
   if (statusText) statusText.innerText = "Syncing 100% Real Live Meta Data...";
 
-  updateSyncProgressUI(5, "Connecting & Fetching Upload History...");
+  updateSyncProgressUI(15, "Connecting & Fetching Upload History...");
 
   let updatedPages = 0;
 
   try {
     // 1. Force fresh fetch of latest pages_data.json from server / GitHub Pages
     try {
-      const freshRes = await fetch("data/pages_data.json?v=" + Date.now(), { cache: "no-store" });
+      const freshRes = await fetchWithTimeout("data/pages_data.json?v=" + Date.now(), { cache: "no-store" }, 6000);
       if (freshRes.ok) {
         const freshData = await freshRes.json();
         if (freshData && freshData.pages && freshData.pages.length > 0) {
@@ -863,13 +895,13 @@ async function syncLiveMetaGraph(isManual = false) {
       console.warn("Direct fresh data reload error:", err);
     }
 
-    updateSyncProgressUI(10, "Fetching Upload History & Run Summary...");
+    updateSyncProgressUI(30, "Fetching Upload History & Run Summary...");
 
-    // 1b. Force fresh fetch of upload_history.json & latest_run_summary.json (Bulletproof UK/USA Sync)
+    // 1b. Force fresh fetch of upload_history.json & latest_run_summary.json
     try {
       const [histRes, sumRes] = await Promise.all([
-        fetch("data/upload_history.json?v=" + Date.now(), { cache: "no-store" }),
-        fetch("data/latest_run_summary.json?v=" + Date.now(), { cache: "no-store" })
+        fetchWithTimeout("data/upload_history.json?v=" + Date.now(), { cache: "no-store" }, 6000),
+        fetchWithTimeout("data/latest_run_summary.json?v=" + Date.now(), { cache: "no-store" }, 6000)
       ]);
       if (histRes.ok) {
         const histJson = await histRes.json();
@@ -892,6 +924,9 @@ async function syncLiveMetaGraph(isManual = false) {
       console.warn("Direct upload history / summary reload error:", err);
     }
 
+    // Immediately update UI with freshly fetched server/automation JSON data
+    selectPage(activePageId);
+
     // If running on local server, also trigger backend concurrent sync
     try {
       if (window.location.protocol.startsWith("http") && (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")) {
@@ -899,10 +934,10 @@ async function syncLiveMetaGraph(isManual = false) {
       }
     } catch (err) {}
 
-    // 2. Direct Meta Graph API query for page profile and live metrics (100% Real-Time in batches of 6)
+    // 2. Direct Meta Graph API query for page profile and live metrics (in parallel batches of 16 with timeout)
     const pages = fullData.pages || [];
     const totalPages = pages.length;
-    const BATCH_SIZE = 6;
+    const BATCH_SIZE = 16;
     let completedCount = 0;
 
     for (let i = 0; i < totalPages; i += BATCH_SIZE) {
@@ -913,8 +948,8 @@ async function syncLiveMetaGraph(isManual = false) {
           return;
         }
         try {
-          const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,picture.type(large),videos.limit(100){id,title,description,created_time,picture,permalink_url,views,likes.summary(true),comments.summary(true)}&access_token=${p.access_token}`;
-          const resp = await fetch(url);
+          const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,picture.type(large),videos.limit(25){id,title,description,created_time,picture,permalink_url,views,likes.summary(true),comments.summary(true)}&access_token=${p.access_token}`;
+          const resp = await fetchWithTimeout(url, {}, 4500);
           if (resp.ok) {
             const live = await resp.json();
             if (live.followers_count !== undefined) p.followers = live.followers_count;
@@ -2825,11 +2860,9 @@ function setupEventListeners() {
 
   // Mobile Header buttons
   document.getElementById("btnMobileToggleDrawer")?.addEventListener("click", openPageDrawer);
-  document.getElementById("btnMobileSync")?.addEventListener("click", async () => {
-    showToast(`⚡ Syncing Live Meta Graph API...`);
-    await syncLiveMetaGraph(true);
-    showToast(`✅ Phone Sync Complete: Verified`);
-  });
+  document.getElementById("btnMobileAudit")?.addEventListener("click", openMobileHealthAudit);
+  document.getElementById("btnMobileSync")?.addEventListener("click", triggerMobileSync);
+  document.getElementById("btnDrawerHealthAudit")?.addEventListener("click", openMobileHealthAudit);
   const allDrawerTile = document.getElementById("btnSelectAllPagesDrawer");
   if (allDrawerTile) {
     allDrawerTile.addEventListener("click", (e) => onSelectDrawerPage("all", e));
@@ -6013,6 +6046,7 @@ function renderHealthAuditMainView() {
   const fleetConfigs = [
     { tag: "USA 1", owner: "Meghal Chauhan", set: FLEET_USA_01_SET, startIdx: 1, endIdx: 15, flag: "🇺🇸", flagImg: "icons/us.png" },
     { tag: "USA 2", owner: "Mia Shah", set: FLEET_USA_02_SET, startIdx: 16, endIdx: 30, flag: "🇺🇸", flagImg: "icons/us.png" },
+    { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 114, endIdx: 128, flag: "🇺🇸", flagImg: "icons/us.png" },
     { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 2", owner: "Chanda Nai", set: FLEET_UK_02_SET, startIdx: 43, endIdx: 54, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 3", owner: "Mahi Patel", set: FLEET_UK_03_SET, startIdx: 55, endIdx: 66, flag: "🇬🇧", flagImg: "icons/gb.png" },

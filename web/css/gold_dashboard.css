@@ -3165,6 +3165,63 @@ body {
   padding: 5px 12px;
   border-radius: 16px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-mobile-sync:active {
+  transform: scale(0.94);
+  filter: brightness(1.1);
+}
+
+.btn-mobile-sync.spinning {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.btn-mobile-audit {
+  background: rgba(56, 189, 248, 0.16);
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  color: #38bdf8;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 5px 11px;
+  border-radius: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-mobile-audit:active {
+  transform: scale(0.94);
+  background: rgba(56, 189, 248, 0.28);
+}
+
+.mobile-sync-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.mobile-sync-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #38bdf8, #10b981);
+  transition: width 0.25s ease;
+  box-shadow: 0 0 8px #38bdf8;
 }
 
 /* =========================================================================
