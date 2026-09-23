@@ -7432,9 +7432,6 @@ body {
 
 /* 3. Colorful Glowing Glass Cards */
 .stat-card,
-.drawer-nav-card,
-.sidebar-nav-box,
-.sidebar-brand-card,
 .dash-card,
 .top-card,
 .tp-leaderboard-card,
@@ -7447,18 +7444,43 @@ body {
   -webkit-backdrop-filter: blur(16px) !important;
   border-radius: 16px !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  overflow: hidden;
 }
 
 /* Rainbow Gloss Top Highlight on Hover */
 .stat-card:hover,
-.drawer-nav-card:hover,
-.sidebar-nav-box:hover,
 .top-card:hover,
 .tp-leaderboard-card:hover {
   border-color: rgba(168, 85, 247, 0.45) !important;
   box-shadow: 0 15px 35px -5px rgba(139, 92, 246, 0.25), 0 0 25px rgba(236, 72, 153, 0.15) !important;
   transform: translateY(-2px);
+}
+
+/* Explicit Sizing & Anti-Squish Protection for Left Sidebar & Drawer */
+.studio-left-sidebar,
+.pages-drawer .drawer-scroll-body {
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+}
+
+.sidebar-nav-box,
+.drawer-nav-card {
+  width: 100% !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.sidebar-action-tile,
+.drawer-nav-tile,
+.sidebar-pages-header,
+.drawer-pages-shutter-btn {
+  width: 100% !important;
+  min-height: 48px !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .stat-card::before,
