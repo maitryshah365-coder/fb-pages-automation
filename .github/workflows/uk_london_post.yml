@@ -50,7 +50,7 @@ on:
     - cron: "40 21 * * *"
 
 concurrency:
-  group: uk-facebook-upload-group
+  group: uk-facebook-upload-${{ github.event.inputs.page || github.event.schedule || 'default' }}
   cancel-in-progress: false
 
 permissions:

@@ -32,7 +32,7 @@ on:
     - cron: "40 2,14,19,23 * * *"
 
 concurrency:
-  group: facebook-upload-group
+  group: facebook-upload-${{ github.event.inputs.page || github.event.schedule || 'default' }}
   cancel-in-progress: false
 
 permissions:
