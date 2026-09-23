@@ -56,10 +56,10 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-      - name: Install System Utilities & FFmpeg
+      - name: Install System Utilities, FFmpeg & WireGuard
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg wireguard wireguard-tools resolvconf jq
 
       - name: Install Dependencies
         run: |
@@ -70,9 +70,44 @@ jobs:
         run: |
           python scripts/validate_config.py config.yaml
 
-      - name: Resolve Runner Public IP & Geolocation
+      - name: Determine Target USA Account & Regional Profile
+        id: select_profile
         run: |
-          curl -s https://ipinfo.io/json || true
+          TARGET_LOC="los_angeles"
+          ACCOUNT_NAME="Meghal Chauhan"
+          
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "${{ github.event.schedule }}" = "40 2,14,19,23 * * *" ]; then
+              TARGET_LOC="new_york"
+              ACCOUNT_NAME="Radika Patel"
+            elif [ "${{ github.event.schedule }}" = "20 2,14,19,23 * * *" ]; then
+              TARGET_LOC="new_york"
+              ACCOUNT_NAME="Mia Shah"
+            else
+              TARGET_LOC="los_angeles"
+              ACCOUNT_NAME="Meghal Chauhan"
+            fi
+          elif [ -n "${{ github.event.inputs.page }}" ]; then
+            REQ_PAGE="${{ github.event.inputs.page }}"
+            if [ "$REQ_PAGE" = "account_2" ] || [ "$REQ_PAGE" = "usa2" ] || [[ "$REQ_PAGE" == *"page_16"* ]]; then
+              TARGET_LOC="new_york"
+              ACCOUNT_NAME="Mia Shah"
+            elif [ "$REQ_PAGE" = "account_3" ] || [ "$REQ_PAGE" = "usa3" ] || [[ "$REQ_PAGE" == *"page_31"* ]]; then
+              TARGET_LOC="new_york"
+              ACCOUNT_NAME="Radika Patel"
+            else
+              TARGET_LOC="los_angeles"
+              ACCOUNT_NAME="Meghal Chauhan"
+            fi
+          fi
+
+          echo "target_loc=$TARGET_LOC" >> "$GITHUB_OUTPUT"
+          echo "account_name=$ACCOUNT_NAME" >> "$GITHUB_OUTPUT"
+          echo "🎯 TARGET PROFILE IDENTIFIED: $ACCOUNT_NAME -> $TARGET_LOC"
+
+      - name: Connect Surfshark USA WireGuard & Enforce Kill-Switch
+        run: |
+          bash scripts/connect_wireguard_usa.sh "${{ steps.select_profile.outputs.target_loc }}"
 
       - name: Run Automation Engine
         env:
@@ -121,30 +156,36 @@ jobs:
           if [ "${{ github.event_name }}" = "schedule" ]; then
             if [ "${{ github.event.schedule }}" = "40 2,14,19,23 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 3 (Pages 31-45 - Radika Patel) [+40 Min Offset]"
-              python main.py --config config.yaml $DRY_ARG --page "page_31,page_32,page_33,page_34,page_35,page_36,page_37,page_38,page_39,page_40,page_41,page_42,page_43,page_44,page_45"
+              python main.py --config config.yaml $DRY_ARG --require-us --page "page_31,page_32,page_33,page_34,page_35,page_36,page_37,page_38,page_39,page_40,page_41,page_42,page_43,page_44,page_45"
             elif [ "${{ github.event.schedule }}" = "20 2,14,19,23 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 2 (Pages 16-30) [+20 Min Offset]"
-              python main.py --config config.yaml $DRY_ARG --page "page_16,page_17,page_18,page_19,page_20,page_21,page_22,page_23,page_24,page_25,page_26,page_27,page_28,page_29,page_30"
+              python main.py --config config.yaml $DRY_ARG --require-us --page "page_16,page_17,page_18,page_19,page_20,page_21,page_22,page_23,page_24,page_25,page_26,page_27,page_28,page_29,page_30"
             else
               echo "⏰ Standard Cron Triggered: Running Account 1 (Pages 1-15)"
-              python main.py --config config.yaml $DRY_ARG --page "page_1,page_2,page_3,page_4,page_5,page_6,page_7,page_8,page_9,page_10,page_11,page_12,page_13,page_14,page_15"
+              python main.py --config config.yaml $DRY_ARG --require-us --page "page_1,page_2,page_3,page_4,page_5,page_6,page_7,page_8,page_9,page_10,page_11,page_12,page_13,page_14,page_15"
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
             if [ "$REQ_PAGE" = "account_1" ] || [ "$REQ_PAGE" = "usa1" ]; then
-              python main.py --config config.yaml $DRY_ARG --page "page_1,page_2,page_3,page_4,page_5,page_6,page_7,page_8,page_9,page_10,page_11,page_12,page_13,page_14,page_15"
+              python main.py --config config.yaml $DRY_ARG --require-us --page "page_1,page_2,page_3,page_4,page_5,page_6,page_7,page_8,page_9,page_10,page_11,page_12,page_13,page_14,page_15"
             elif [ "$REQ_PAGE" = "account_2" ] || [ "$REQ_PAGE" = "usa2" ]; then
-              python main.py --config config.yaml $DRY_ARG --page "page_16,page_17,page_18,page_19,page_20,page_21,page_22,page_23,page_24,page_25,page_26,page_27,page_28,page_29,page_30"
+              python main.py --config config.yaml $DRY_ARG --require-us --page "page_16,page_17,page_18,page_19,page_20,page_21,page_22,page_23,page_24,page_25,page_26,page_27,page_28,page_29,page_30"
             elif [ "$REQ_PAGE" = "account_3" ] || [ "$REQ_PAGE" = "usa3" ]; then
-              python main.py --config config.yaml $DRY_ARG --page "page_31,page_32,page_33,page_34,page_35,page_36,page_37,page_38,page_39,page_40,page_41,page_42,page_43,page_44,page_45"
+              python main.py --config config.yaml $DRY_ARG --require-us --page "page_31,page_32,page_33,page_34,page_35,page_36,page_37,page_38,page_39,page_40,page_41,page_42,page_43,page_44,page_45"
             elif [ "$REQ_PAGE" = "all" ]; then
-              python main.py --config config.yaml $DRY_ARG
+              python main.py --config config.yaml $DRY_ARG --require-us
             else
-              python main.py --config config.yaml $DRY_ARG --page "$REQ_PAGE"
+              python main.py --config config.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
             fi
           else
-            python main.py --config config.yaml $DRY_ARG
+            python main.py --config config.yaml $DRY_ARG --require-us
           fi
+
+      - name: Disconnect WireGuard Tunnel
+        if: always()
+        run: |
+          sudo wg-quick down wg0 2>/dev/null || true
+          echo "WireGuard USA tunnel disconnected successfully."
 
       - name: Sync Dashboard Data
         if: always()

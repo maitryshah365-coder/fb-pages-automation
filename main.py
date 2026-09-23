@@ -80,6 +80,7 @@ def main():
     parser.add_argument("--page", help="Run automation for a single specific Page name")
     parser.add_argument("--dry-run", action="store_true", help="Simulate upload without publishing to Facebook")
     parser.add_argument("--require-uk", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United Kingdom (GB)")
+    parser.add_argument("--require-us", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United States (US)")
     parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "240")), help="Min human delay seconds between page uploads")
     parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "300")), help="Max human delay seconds between page uploads")
     args = parser.parse_args()
@@ -109,6 +110,20 @@ def main():
             sys.exit(1)
         else:
             logger.info(f"🛡️ UK VERIFICATION CONFIRMED: Egress IP {telemetry.get('ip')} is located in United Kingdom ({telemetry.get('city')}, {detected_country}). Safe to upload!")
+
+    # HARD FAIL-SAFE KILL-SWITCH: Enforce US Egress if requested
+    require_us = args.require_us or os.environ.get("REQUIRE_US_IP", "").lower() in ["true", "1", "yes"]
+    if require_us:
+        detected_country = (telemetry.get("country") or "").strip().upper()
+        if detected_country not in ["US", "USA"]:
+            logger.critical("==================================================================")
+            logger.critical("🚨 HARD KILL-SWITCH ACTIVATED: IP IS NOT IN THE UNITED STATES!")
+            logger.critical(f"   Detected Country: '{detected_country}' | IP: {telemetry.get('ip')}")
+            logger.critical("   ABORTING ENTIRE PIPELINE TO PREVENT NON-US UPLOADS.")
+            logger.critical("==================================================================")
+            sys.exit(1)
+        else:
+            logger.info(f"🛡️ US VERIFICATION CONFIRMED: Egress IP {telemetry.get('ip')} is located in United States ({telemetry.get('city')}, {detected_country}). Safe to upload!")
 
     try:
         config = load_config(args.config)

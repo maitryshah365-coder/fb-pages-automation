@@ -1,4 +1,7 @@
 page_group: personal_fb_id_1
+country_code: US
+target_location: USA Multi-Account Metro Hub (Los Angeles & New York)
+require_us_ip: true
 ai_disclosure_status: pending_determination
 delete_after_post: true
 database:

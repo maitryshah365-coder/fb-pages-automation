@@ -1,7 +1,9 @@
 page_group: usa_account_3_radika
 account_name: Radika Patel
 country_code: US
-target_location: United States
+target_location: New York, New York (11419), United States
+postal_code: 11419
+require_us_ip: true
 require_uk_ip: false
 ai_disclosure_status: pending_determination
 delete_after_post: true
