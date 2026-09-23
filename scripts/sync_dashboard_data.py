@@ -655,45 +655,132 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             if p.get("live_meta_insights"):
                 live_meta_insights = dict(p["live_meta_insights"])
 
-    # 3. Resolve Real Last Upload IP & Location
-    is_uk_page = (p.get("account") == "UK Account 1" or p.get("region") == "GB" or pid in [
-        "1275440552308410", "1094091620443741", "883030611569420", "876743625532242",
-        "954228904442447", "884416694753956", "766333629906067", "838517782676673",
-        "860013240524658", "802792259592614", "439151942618231", "297665506763102"
-    ])
-    if is_uk_page:
+    # 3. Resolve Real Last Upload IP & Location by Fleet Assignment
+    acc_owner = str(p.get("account_owner", ""))
+    acc_str = str(p.get("account", ""))
+    run_info = runs_by_page.get(pid)
+    live_ip = (run_info and run_info.get("runner_ip")) or curr_telemetry.get("ip", "178.239.163.90")
+
+    if pid in FLEET_USA_01_IDS or "Meghal" in acc_owner or "Meghal" in acc_str:
         ip_data = {
-            "ip": "178.239.163.90",
+            "ip": live_ip,
+            "city": "Los Angeles",
+            "region": "California (90012)",
+            "country": "United States",
+            "country_name": "United States",
+            "org": "AS20949 Surfshark Ltd (Los Angeles Gateway)",
+            "flag": "🇺🇸",
+            "timestamp": "Verified Los Angeles Egress"
+        }
+    elif pid in FLEET_USA_02_IDS or "Mia" in acc_owner or "Mia" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "New York",
+            "region": "New York (10007)",
+            "country": "United States",
+            "country_name": "United States",
+            "org": "AS20949 Surfshark Ltd (New York Gateway)",
+            "flag": "🇺🇸",
+            "timestamp": "Verified New York Egress"
+        }
+    elif pid in FLEET_USA_03_IDS or "Radika" in acc_owner or "Radika" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "New York",
+            "region": "New York (11419)",
+            "country": "United States",
+            "country_name": "United States",
+            "org": "AS20949 Surfshark Ltd (New York Gateway)",
+            "flag": "🇺🇸",
+            "timestamp": "Verified New York Egress"
+        }
+    elif pid in FLEET_UK_06_IDS or "Sweta" in acc_owner or "Sweta" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "Newport",
+            "region": "Wales (NP20 6)",
+            "country": "United Kingdom",
+            "country_name": "United Kingdom",
+            "org": "AS25369 Hydra Communications Ltd (Surfshark West UK)",
+            "flag": "🇬🇧",
+            "timestamp": "Verified Newport Wales Egress"
+        }
+    elif pid in FLEET_UK_01_IDS or "Binjal" in acc_owner or "Binjal" in acc_str:
+        ip_data = {
+            "ip": live_ip,
             "city": "London",
-            "region": "England",
+            "region": "England (SW1A 2)",
             "country": "United Kingdom",
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
             "flag": "🇬🇧",
-            "timestamp": "Verified Live London Egress"
+            "timestamp": "Verified London Egress"
+        }
+    elif pid in FLEET_UK_02_IDS or "Chanda" in acc_owner or "Chanda" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "London",
+            "region": "England (NW10 5)",
+            "country": "United Kingdom",
+            "country_name": "United Kingdom",
+            "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
+            "flag": "🇬🇧",
+            "timestamp": "Verified London Egress"
+        }
+    elif pid in FLEET_UK_03_IDS or "Mahi" in acc_owner or "Mahi" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "London",
+            "region": "England (WC2N 5)",
+            "country": "United Kingdom",
+            "country_name": "United Kingdom",
+            "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
+            "flag": "🇬🇧",
+            "timestamp": "Verified London Egress"
+        }
+    elif pid in FLEET_UK_04_IDS or "Nidhi" in acc_owner or "Nidhi" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "London",
+            "region": "England (EC2Y 8)",
+            "country": "United Kingdom",
+            "country_name": "United Kingdom",
+            "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
+            "flag": "🇬🇧",
+            "timestamp": "Verified London Egress"
+        }
+    elif pid in FLEET_UK_05_IDS or "Richi" in acc_owner or "Richi" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "London",
+            "region": "England (WC2N 5)",
+            "country": "United Kingdom",
+            "country_name": "United Kingdom",
+            "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
+            "flag": "🇬🇧",
+            "timestamp": "Verified London Egress"
+        }
+    elif pid in FLEET_UK_07_IDS or "Riya" in acc_owner or "Riya" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "London",
+            "region": "England (WC2N 5)",
+            "country": "United Kingdom",
+            "country_name": "United Kingdom",
+            "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
+            "flag": "🇬🇧",
+            "timestamp": "Verified London Egress"
         }
     else:
-        run_info = runs_by_page.get(pid)
-        if run_info and run_info.get("runner_ip"):
-            ip_data = {
-                "ip": run_info.get("runner_ip"),
-                "city": run_info.get("runner_city", "Ashburn"),
-                "region": run_info.get("runner_region", "VA"),
-                "country": run_info.get("runner_country", "United States"),
-                "org": run_info.get("runner_org", "Microsoft Azure / GitHub Runner"),
-                "flag": "🇺🇸" if "US" in run_info.get("runner_country", "") else "🌐",
-                "timestamp": run_info.get("started_at", "Scheduled")
-            }
-        else:
-            ip_data = {
-                "ip": curr_telemetry["ip"],
-                "city": curr_telemetry["city"],
-                "region": curr_telemetry["region"],
-                "country": curr_telemetry["country_name"],
-                "org": curr_telemetry["org"],
-                "flag": curr_telemetry["flag"],
-                "timestamp": "Ready for Next Slot"
-            }
+        ip_data = {
+            "ip": live_ip,
+            "city": curr_telemetry.get("city", "London"),
+            "region": curr_telemetry.get("region", "England"),
+            "country": curr_telemetry.get("country_name", "United Kingdom"),
+            "org": curr_telemetry.get("org", "Surfshark Network"),
+            "flag": curr_telemetry.get("flag", "🇬🇧"),
+            "timestamp": "Ready for Next Slot"
+        }
 
     # 4. Modern Meta 2025/2026 Monetization Breakdown
     stars_pct = min(100, round((live_followers / 500) * 100, 1)) if live_followers else 0

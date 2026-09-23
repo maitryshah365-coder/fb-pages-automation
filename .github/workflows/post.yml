@@ -73,30 +73,30 @@ jobs:
       - name: Determine Target USA Account & Regional Profile
         id: select_profile
         run: |
-          TARGET_LOC="los_angeles"
+          TARGET_LOC="meghal_los_angeles"
           ACCOUNT_NAME="Meghal Chauhan"
           
           if [ "${{ github.event_name }}" = "schedule" ]; then
             if [ "${{ github.event.schedule }}" = "40 2,14,19,23 * * *" ]; then
-              TARGET_LOC="new_york"
+              TARGET_LOC="radika_new_york"
               ACCOUNT_NAME="Radika Patel"
             elif [ "${{ github.event.schedule }}" = "20 2,14,19,23 * * *" ]; then
-              TARGET_LOC="new_york"
+              TARGET_LOC="mia_new_york"
               ACCOUNT_NAME="Mia Shah"
             else
-              TARGET_LOC="los_angeles"
+              TARGET_LOC="meghal_los_angeles"
               ACCOUNT_NAME="Meghal Chauhan"
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
             if [ "$REQ_PAGE" = "account_2" ] || [ "$REQ_PAGE" = "usa2" ] || [[ "$REQ_PAGE" == *"page_16"* ]]; then
-              TARGET_LOC="new_york"
+              TARGET_LOC="mia_new_york"
               ACCOUNT_NAME="Mia Shah"
             elif [ "$REQ_PAGE" = "account_3" ] || [ "$REQ_PAGE" = "usa3" ] || [[ "$REQ_PAGE" == *"page_31"* ]]; then
-              TARGET_LOC="new_york"
+              TARGET_LOC="radika_new_york"
               ACCOUNT_NAME="Radika Patel"
             else
-              TARGET_LOC="los_angeles"
+              TARGET_LOC="meghal_los_angeles"
               ACCOUNT_NAME="Meghal Chauhan"
             fi
           fi
