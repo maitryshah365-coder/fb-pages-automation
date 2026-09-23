@@ -4,37 +4,38 @@
    ========================================================================== */
 
 :root {
-  --bg-main: #07090e;
-  --bg-card: rgba(16, 21, 32, 0.88);
-  --bg-card-hover: rgba(22, 29, 44, 0.95);
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --bg-glass-active: rgba(245, 186, 35, 0.12);
+  --bg-main: #02060b;
+  --bg-card: rgba(4, 15, 24, 0.88);
+  --bg-card-hover: rgba(8, 26, 42, 0.95);
+  --bg-glass: rgba(0, 255, 102, 0.04);
+  --bg-glass-active: rgba(0, 255, 102, 0.15);
 
-  --gold-primary: #f5ba23;
-  --gold-glow: rgba(245, 186, 35, 0.35);
-  --gold-gradient: linear-gradient(135deg, #fce07a 0%, #f5ba23 50%, #d4930b 100%);
-  --blue-fb: #1877f2;
-  --green-fb: #2ecc71;
-  --red-alert: #ff4757;
+  --gold-primary: #00ff66;
+  --gold-glow: rgba(0, 255, 102, 0.45);
+  --gold-gradient: linear-gradient(135deg, #00ff88 0%, #00e5ff 100%);
+  --blue-fb: #00f0ff;
+  --green-fb: #00ff66;
+  --red-alert: #ff0055;
 
-  --text-main: #ffffff;
-  --text-sub: #94a3b8;
-  --text-muted: #64748b;
+  --text-main: #f0fff4;
+  --text-sub: #86efac;
+  --text-muted: #52796f;
 
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-gold: rgba(245, 186, 35, 0.28);
-  --border-active: rgba(245, 186, 35, 0.6);
+  --border-subtle: rgba(0, 255, 102, 0.16);
+  --border-gold: rgba(0, 255, 102, 0.38);
+  --border-active: rgba(0, 255, 102, 0.8);
 
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Share Tech Mono', 'JetBrains Mono', 'Plus Jakarta Sans', monospace, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
+  --font-cyber: 'Orbitron', 'Share Tech Mono', monospace;
 
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
-  --shadow-gold: 0 8px 25px -6px rgba(245, 186, 35, 0.4);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.85), 0 0 1px 1px rgba(0, 255, 102, 0.18);
+  --shadow-gold: 0 0 20px rgba(0, 255, 102, 0.45), inset 0 0 10px rgba(0, 255, 102, 0.15);
 }
 
 *, *::before, *::after {
@@ -47,14 +48,18 @@
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-main);
-  background-image: radial-gradient(circle at 50% 0%, rgba(24, 119, 242, 0.08) 0%, transparent 50%),
-                    radial-gradient(circle at 100% 100%, rgba(245, 186, 35, 0.05) 0%, transparent 40%);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
+    linear-gradient(rgba(0, 255, 102, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 102, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
   background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
   line-height: 1.5;
   overflow-x: hidden;
   padding-bottom: 40px;
+  position: relative;
 }
 
 /* ================= TOP HEADER ================= */
@@ -7393,6 +7398,221 @@ body {
     gap: 10px;
     padding: 12px 14px;
   }
+}
+
+/* ==========================================================================
+   CYBER HACKER THEME & MATRIX HUD ENGINE (WEB + MOBILE OPTIMIZED)
+   ========================================================================== */
+
+/* 1. Matrix Digital Rain Canvas */
+.cyber-matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+
+/* 2. Authentic Cyber CRT Scanlines & Screen Vignette */
+.cyber-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%),
+    radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.75) 100%);
+  background-size: 100% 4px, 100% 100%;
+  opacity: 0.45;
+}
+
+@media (max-width: 768px) {
+  .cyber-matrix-canvas {
+    opacity: 0.28;
+  }
+  .cyber-scanlines {
+    opacity: 0.22;
+    background-size: 100% 3px, 100% 100%;
+  }
+}
+
+/* 3. Ensure UI sits above matrix rain */
+.studio-app-layout,
+.mobile-app-header,
+.pages-drawer,
+.drawer-overlay,
+.luxe-toast,
+.studio-modal-overlay,
+.modal,
+.health-audit-overlay,
+.health-audit-drawer {
+  position: relative;
+  z-index: 2;
+}
+
+/* 4. Cyber HUD Card Accents & Glass Glow */
+.stat-card,
+.drawer-nav-card,
+.sidebar-nav-box,
+.sidebar-brand-card,
+.dash-card,
+.top-card,
+.tp-leaderboard-card,
+.studio-card {
+  position: relative;
+  background: rgba(4, 14, 22, 0.88) !important;
+  border: 1px solid rgba(0, 255, 102, 0.22) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(0, 255, 102, 0.03) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.stat-card:hover,
+.drawer-nav-card:hover,
+.sidebar-nav-box:hover,
+.top-card:hover,
+.tp-leaderboard-card:hover {
+  border-color: rgba(0, 255, 102, 0.55) !important;
+  box-shadow: 0 0 25px rgba(0, 255, 102, 0.22), inset 0 0 16px rgba(0, 255, 102, 0.06) !important;
+  transform: translateY(-2px);
+}
+
+/* 5. Terminal Headers & Nav Bars */
+.app-header,
+.mobile-app-header {
+  background: rgba(2, 6, 11, 0.94) !important;
+  border-bottom: 1px solid rgba(0, 255, 102, 0.3) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(0, 255, 102, 0.2) !important;
+}
+
+.pages-drawer,
+.studio-left-sidebar {
+  background: rgba(2, 7, 13, 0.96) !important;
+  border-right: 1px solid rgba(0, 255, 102, 0.25) !important;
+  box-shadow: 8px 0 30px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* 6. Cyber Neon Buttons & Glowing CTAs */
+.btn-sidebar-sync,
+.btn-mobile-sync,
+.btn-primary,
+.tp-btn-action-post,
+.studio-btn-primary {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.2), rgba(0, 240, 255, 0.25)) !important;
+  border: 1px solid rgba(0, 255, 102, 0.6) !important;
+  color: #00ff88 !important;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.7);
+  box-shadow: 0 0 16px rgba(0, 255, 102, 0.25), inset 0 0 8px rgba(0, 255, 102, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-sidebar-sync:hover,
+.btn-mobile-sync:hover,
+.btn-primary:hover,
+.tp-btn-action-post:hover,
+.studio-btn-primary:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 102, 0.35), rgba(0, 240, 255, 0.45)) !important;
+  border-color: #00ff66 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 25px rgba(0, 255, 102, 0.65), inset 0 0 12px rgba(0, 240, 255, 0.3) !important;
+}
+
+/* 7. Pulsing Cyber Radar Animation */
+.pulse-green-dot,
+.ping-circle {
+  background: #00ff66 !important;
+  box-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66 !important;
+  animation: cyberRadarPulse 1.6s infinite cubic-bezier(0.4, 0, 0.6, 1) !important;
+}
+
+@keyframes cyberRadarPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7), 0 0 8px #00ff66;
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(0, 255, 102, 0), 0 0 16px #00ff66;
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0), 0 0 8px #00ff66;
+  }
+}
+
+/* 8. Cyber Monospace Fonts for Key Badges & Metrics */
+.brand-app-title,
+.mobile-brand-name,
+.tile-title,
+.tp-metric-val,
+.stat-val,
+.metric-value,
+.badge-count,
+.tp-score-pill {
+  font-family: 'Orbitron', 'Share Tech Mono', monospace !important;
+  letter-spacing: 0.05em !important;
+}
+
+.stat-num,
+.tp-col-views,
+.recent-post-ip,
+.audit-terminal-body,
+.mono-tag {
+  font-family: 'JetBrains Mono', 'Share Tech Mono', monospace !important;
+}
+
+/* 9. Glowing Neon Pills & Badges */
+.tile-badge-gold,
+.side-instant-pill,
+.pages-count-pill,
+.side-drive-pill,
+.side-health-pill,
+.side-top-pill {
+  border: 1px solid rgba(0, 255, 102, 0.4) !important;
+  background: rgba(0, 255, 102, 0.12) !important;
+  color: #00ff88 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.2) !important;
+}
+
+/* 10. Cyber Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(2, 6, 11, 0.9);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 102, 0.35);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 102, 0.7);
+  box-shadow: 0 0 8px #00ff66;
+}
+
+/* 11. Mobile Cyber Phone Enhancements */
+@media (max-width: 768px) {
+  .mobile-brand-name {
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
+    color: #00ff88 !important;
+  }
+  .btn-mobile-sync {
+    box-shadow: 0 0 12px rgba(0, 255, 102, 0.35) !important;
+  }
+  .drawer-nav-card {
+    border-color: rgba(0, 255, 102, 0.22) !important;
+  }
+}
+
 
 
 
