@@ -74,6 +74,53 @@ def probe_runner_telemetry() -> dict:
     return {}
 
 
+def calculate_organic_human_delay(profile_type: str, page_index: int, total_pages: int, custom_min: int = 120, custom_max: int = 480) -> tuple[int, str]:
+    """
+    Dual-Pattern Rotating Human Behavioral Engine:
+    
+    Pattern 1 (Profile A - User's Creative Burst & Break):
+      - 35% Quick Post: 120s – 210s (2.0 to 3.5 min)
+      - 35% Moderate Flow: 211s – 360s (3.5 to 6.0 min)
+      - 30% Long Break: 361s – 510s (6.0 to 8.5 min)
+      
+    Pattern 2 (Profile B - Agent's Fluid Wave Drift):
+      - Dynamic undulating rhythm across the playlist with micro-jitter
+      - Early momentum: 110s – 230s (~1.8 - 3.8 min)
+      - Mid-run review: 240s – 440s (~4.0 - 7.3 min)
+      - Closing pace: 150s – 310s (~2.5 - 5.1 min)
+    """
+    if custom_min != 120 or custom_max != 480:
+        base = random.randint(max(30, custom_min), max(custom_min + 10, custom_max))
+        tag = "Custom Bound Pacing"
+    elif profile_type == "PATTERN_1_BURST_BREAK":
+        roll = random.random()
+        if roll < 0.35:
+            base = random.randint(120, 210)
+            tag = "Quick Follow-up (2.0m-3.5m)"
+        elif roll < 0.70:
+            base = random.randint(211, 360)
+            tag = "Standard Pacing (3.5m-6.0m)"
+        else:
+            base = random.randint(361, 510)
+            tag = "Coffee/Call Break (6.0m-8.5m)"
+    else:  # PATTERN_2_FLUID_WAVE
+        progress = (page_index + 1) / max(1, total_pages)
+        if progress < 0.35:
+            base = random.randint(110, 230)
+            tag = "Fresh Momentum (1.8m-3.8m)"
+        elif progress < 0.75:
+            base = random.randint(240, 440)
+            tag = "Mid-Batch Inspection (4.0m-7.3m)"
+        else:
+            base = random.randint(150, 310)
+            tag = "Closing Pace (2.5m-5.1m)"
+
+    # Add random odd seconds (e.g. -13, -7, 5, 11, 17, 23) to break any round number pattern
+    odd_jitter = random.choice([-13, -9, -5, 3, 7, 11, 17, 23])
+    final_delay = max(90, min(540, base + odd_jitter))
+    return final_delay, tag
+
+
 def main():
     parser = argparse.ArgumentParser(description="Google Drive to Facebook Pages Automation Pipeline")
     parser.add_argument("--config", default="config.yaml", help="Path to config.yaml")
@@ -81,8 +128,9 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Simulate upload without publishing to Facebook")
     parser.add_argument("--require-uk", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United Kingdom (GB)")
     parser.add_argument("--require-us", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United States (US)")
-    parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "240")), help="Min human delay seconds between page uploads")
-    parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "300")), help="Max human delay seconds between page uploads")
+    parser.add_argument("--delay-pattern", choices=["auto", "pattern_1", "pattern_2"], default=os.environ.get("DELAY_PATTERN", "auto"), help="Stealth human behavior profile: auto, pattern_1, or pattern_2")
+    parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "120")), help="Min human delay seconds between page uploads")
+    parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "480")), help="Max human delay seconds between page uploads")
     args = parser.parse_args()
 
     logger = setup_logging()
@@ -185,6 +233,33 @@ def main():
 
     logger.info(f"Loaded {len(pages_to_run)} Facebook Pages to evaluate in this run.")
 
+    # Rotating Dual-Pattern Stealth Behavioral Engine
+    now_utc = datetime.now(timezone.utc)
+    day_num = now_utc.timetuple().tm_yday
+    hour_slot = now_utc.hour
+
+    if args.delay_pattern == "pattern_1":
+        active_profile = "PATTERN_1_BURST_BREAK"
+        pattern_name = "Pattern 1: Creative Burst & Break (2.0m – 8.5m)"
+    elif args.delay_pattern == "pattern_2":
+        active_profile = "PATTERN_2_FLUID_WAVE"
+        pattern_name = "Pattern 2: Fluid Natural Wave (1.5m – 7.5m)"
+    else:
+        # Dynamic daily & slot-based auto-rotation: alternates naturally across days/slots
+        profile_seed = (day_num * 17 + hour_slot * 31 + random.randint(1, 100)) % 2
+        if profile_seed == 0:
+            active_profile = "PATTERN_1_BURST_BREAK"
+            pattern_name = "Pattern 1: Creative Burst & Break (2.0m – 8.5m)"
+        else:
+            active_profile = "PATTERN_2_FLUID_WAVE"
+            pattern_name = "Pattern 2: Fluid Natural Wave (1.5m – 7.5m)"
+
+    logger.info("🎭 ==================================================================")
+    logger.info("🎭 STEALTH DUAL-PATTERN HUMAN BEHAVIORAL ENGINE ACTIVE")
+    logger.info(f"🎭 Current Rotation Profile: {pattern_name}")
+    logger.info("🎭 Anti-Detection: Dynamic Interval Rotation & Micro-Jitter Enforced")
+    logger.info("🎭 ==================================================================")
+
     results = []
     total_pages = len(pages_to_run)
     for idx, page in enumerate(pages_to_run):
@@ -209,18 +284,18 @@ def main():
         if idx < total_pages - 1 and not args.dry_run:
             last_status = results[-1].get("status")
             if last_status in ["success", "dry_run_success"]:
-                min_s = max(5, args.delay_min)
-                max_s = max(min_s, args.delay_max)
-                jitter_s = random.randint(min_s, max_s)
+                jitter_s, pattern_tag = calculate_organic_human_delay(
+                    active_profile, idx, total_pages, args.delay_min, args.delay_max
+                )
                 delay_mins = jitter_s // 60
                 delay_secs = jitter_s % 60
-                logger.info(f"🛡️ [Anti-Detect Protection] Post successful. Human jitter pause: Sleeping {jitter_s}s (~{delay_mins}m {delay_secs}s) before next page ({idx + 2}/{total_pages})...")
+                logger.info(f"🛡️ [Anti-Detect Protection] Post successful. Organic human pause [{pattern_tag}]: Sleeping {jitter_s}s (~{delay_mins}m {delay_secs}s) before next page ({idx + 2}/{total_pages})...")
                 time.sleep(jitter_s)
             elif last_status in ["failed", "error"]:
-                logger.info(f"🛡️ [Anti-Detect Protection] Cooldown pause: Sleeping 5s before next page ({idx + 2}/{total_pages})...")
-                time.sleep(5)
+                logger.info(f"🛡️ [Anti-Detect Protection] Cooldown pause: Sleeping 15s before next page ({idx + 2}/{total_pages})...")
+                time.sleep(15)
             else:
-                time.sleep(2)
+                time.sleep(3)
 
     logger.info("======================= RUN SUMMARY =======================")
     for r in results:
