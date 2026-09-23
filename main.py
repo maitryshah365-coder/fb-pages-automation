@@ -80,8 +80,8 @@ def main():
     parser.add_argument("--page", help="Run automation for a single specific Page name")
     parser.add_argument("--dry-run", action="store_true", help="Simulate upload without publishing to Facebook")
     parser.add_argument("--require-uk", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United Kingdom (GB)")
-    parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "20")), help="Min human delay seconds between page uploads")
-    parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "30")), help="Max human delay seconds between page uploads")
+    parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "240")), help="Min human delay seconds between page uploads")
+    parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "300")), help="Max human delay seconds between page uploads")
     args = parser.parse_args()
 
     logger = setup_logging()
@@ -197,7 +197,9 @@ def main():
                 min_s = max(5, args.delay_min)
                 max_s = max(min_s, args.delay_max)
                 jitter_s = random.randint(min_s, max_s)
-                logger.info(f"🛡️ [Anti-Detect Protection] Post successful. Human jitter pause: Sleeping {jitter_s}s before next page ({idx + 2}/{total_pages})...")
+                delay_mins = jitter_s // 60
+                delay_secs = jitter_s % 60
+                logger.info(f"🛡️ [Anti-Detect Protection] Post successful. Human jitter pause: Sleeping {jitter_s}s (~{delay_mins}m {delay_secs}s) before next page ({idx + 2}/{total_pages})...")
                 time.sleep(jitter_s)
             elif last_status in ["failed", "error"]:
                 logger.info(f"🛡️ [Anti-Detect Protection] Cooldown pause: Sleeping 5s before next page ({idx + 2}/{total_pages})...")
