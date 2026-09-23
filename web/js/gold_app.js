@@ -642,7 +642,7 @@ function showToast(msg) {
 async function fetchSmartData(url) {
   try {
     if ("caches" in window) {
-      const cache = await caches.open("raj_fb_data_cache_v10");
+      const cache = await caches.open("raj_fb_data_cache_v11");
       const cached = await cache.match(url);
       if (cached) {
         // Return instantly from cache in 5ms so app opens in < 0.5s!
