@@ -658,6 +658,13 @@ async function fetchSmartData(url) {
               }
               renderSidebarPagesList(fullData.pages);
               renderDrawerPages(fullData.pages);
+              // Dynamic Live Update: Recalculate Top 20 & Low Performers leaderboard on fresh sync
+              if (document.getElementById("topPerformersLeaderboardView")?.style.display === "block") {
+                renderTopPerformersView();
+              }
+              if (document.getElementById("dashboardAnalyticsView")?.style.display === "block") {
+                selectPage(activePageId);
+              }
             }
           }
         }).catch(() => {});

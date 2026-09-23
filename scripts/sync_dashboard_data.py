@@ -409,12 +409,21 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 except Exception as e:
                     print(f"Batch metrics error for {pid}:", e)
 
+            existing_videos_map = {str(v.get("id")): v for v in p.get("videos", [])}
             for rv in all_raw_reels:
-                rid = rv["id"]
+                rid = str(rv["id"])
                 tel = reel_telemetry_map.get(rid, {})
                 views = tel.get("views", rv.get("views", 0))
                 likes = tel.get("likes", 0)
                 comments = tel.get("comments", 0)
+
+                # Dynamic Metric Preservation: Never downgrade views/likes/comments to 0 if we already had real numbers!
+                if rid in existing_videos_map:
+                    old_v = existing_videos_map[rid]
+                    views = max(views, old_v.get("views", 0))
+                    likes = max(likes, old_v.get("likes", 0))
+                    comments = max(comments, old_v.get("comments", 0))
+
                 c_iso = tel.get("created_time") or rv.get("created_time") or rv.get("updated_time") or "2026-08-19T22:00:00+0000"
 
                 total_page_views += views
@@ -568,10 +577,22 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
     # Recalculate totals from final videos if they were 0
     if total_page_views == 0 and meta_videos:
         total_page_views = sum(v.get("views", 0) for v in meta_videos)
+    # Ensure total_page_views never regresses below previously recorded views
+    existing_page_views = p.get("total_views", 0) or 0
+    if existing_page_views > total_page_views:
+        total_page_views = existing_page_views
+
     if total_page_likes == 0 and meta_videos:
         total_page_likes = sum(v.get("likes", 0) for v in meta_videos)
+    existing_likes = (p.get("total_engagement") or {}).get("likes", 0) or p.get("total_likes", 0) or 0
+    if existing_likes > total_page_likes:
+        total_page_likes = existing_likes
+
     if total_page_comments == 0 and meta_videos:
         total_page_comments = sum(v.get("comments", 0) for v in meta_videos)
+    existing_comments = (p.get("total_engagement") or {}).get("comments", 0) or p.get("total_comments", 0) or 0
+    if existing_comments > total_page_comments:
+        total_page_comments = existing_comments
 
     # Dynamically calculate today's uploads across both UTC and USA EDT calendar days
     from datetime import timedelta
