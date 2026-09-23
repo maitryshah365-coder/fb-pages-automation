@@ -102,6 +102,63 @@ def check_dnsbl_reputation(ip):
         return False, f"Flagged in DNSBL: {', '.join(flagged)}"
     return True, "Clean (Not listed in Spamhaus/Spamcop)"
 
+import os
+from datetime import datetime, timezone
+
+DIRTY_IPS_FILE = "data/dirty_ips.json"
+CLEAN_IPS_FILE = "data/clean_ips.json"
+
+def load_json_cache(filepath):
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+def save_json_cache(filepath, data):
+    try:
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        # Also sync to docs/data for live web dashboard visibility
+        docs_copy = os.path.join("docs", filepath)
+        os.makedirs(os.path.dirname(docs_copy), exist_ok=True)
+        with open(docs_copy, "w", encoding="utf-8") as df:
+            json.dump(data, df, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"⚠️ [WARN] Failed to write IP cache to {filepath}: {e}")
+
+def record_dirty_ip(ip, reasons, country, city, org):
+    cache = load_json_cache(DIRTY_IPS_FILE)
+    if "dirty_ips" not in cache:
+        cache["dirty_ips"] = {}
+    cache["updated_at"] = datetime.now(timezone.utc).isoformat()
+    cache["dirty_ips"][ip] = {
+        "flagged_at": datetime.now(timezone.utc).isoformat(),
+        "reasons": reasons,
+        "country": country,
+        "city": city,
+        "org": org,
+        "hit_count": cache["dirty_ips"].get(ip, {}).get("hit_count", 0) + 1
+    }
+    save_json_cache(DIRTY_IPS_FILE, cache)
+
+def record_clean_ip(ip, country, city, org):
+    cache = load_json_cache(CLEAN_IPS_FILE)
+    if "clean_ips" not in cache:
+        cache["clean_ips"] = {}
+    cache["updated_at"] = datetime.now(timezone.utc).isoformat()
+    cache["clean_ips"][ip] = {
+        "last_verified_at": datetime.now(timezone.utc).isoformat(),
+        "country": country,
+        "city": city,
+        "org": org,
+        "success_count": cache["clean_ips"].get(ip, {}).get("success_count", 0) + 1
+    }
+    save_json_cache(CLEAN_IPS_FILE, cache)
+
 def main():
     parser = argparse.ArgumentParser(description="Pre-Flight IP Health & Reputation Auditor")
     parser.add_argument("--require-country", help="Required 2-letter Country Code (e.g. GB, US)")
@@ -126,6 +183,22 @@ def main():
     print(f"📍 Network/ISP:      {org}")
     print("------------------------------------------------------------------")
 
+    # 2. FAST CACHE CHECK: Is this IP already in our Persistent Dirty Blacklist?
+    dirty_cache = load_json_cache(DIRTY_IPS_FILE).get("dirty_ips", {})
+    if ip in dirty_cache:
+        bad_info = dirty_cache[ip]
+        flagged_date = bad_info.get("flagged_at", "recently")
+        prior_reasons = bad_info.get("reasons", ["Unknown reason"])
+        hits = bad_info.get("hit_count", 1) + 1
+        record_dirty_ip(ip, prior_reasons, country, city, org)
+        print("🚨 [INSTANT CACHE HIT] IP IS ON OUR DIRTY BLACKLIST!")
+        print(f"   • Previously flagged at: {flagged_date}")
+        print(f"   • Prior failure reasons: {prior_reasons}")
+        print(f"   • Hit count: {hits}")
+        print("⚡ Skipping redundant network tests — immediate auto-rotation triggered!")
+        print("==================================================================")
+        sys.exit(1)
+
     report = {
         "ip": ip,
         "location": f"{city}, {region}, {country}",
@@ -135,7 +208,7 @@ def main():
         "reasons": []
     }
 
-    # 2. Country Verification
+    # 3. Country Verification
     if args.require_country:
         req_c = args.require_country.strip().upper()
         if country != req_c:
@@ -145,7 +218,7 @@ def main():
         else:
             print(f"✅ [PASS] Country Verified: Matches target '{req_c}'")
 
-    # 3. Meta Reputation Handshake
+    # 4. Meta Reputation Handshake
     print("⏳ Probing Meta Edge Endpoints for IP reputation...")
     meta_clean, meta_results = check_meta_reputation()
     for u, res in meta_results.items():
@@ -156,7 +229,7 @@ def main():
             print(f"❌ [DIRTY] {err}")
             report["reasons"].append(err)
 
-    # 4. DNSBL Spamhaus / Abuse Check
+    # 5. DNSBL Spamhaus / Abuse Check
     if ip != "Unknown":
         print(f"⏳ Checking DNSBL Reputation for {ip}...")
         dns_clean, dns_msg = check_dnsbl_reputation(ip)
@@ -168,16 +241,20 @@ def main():
     # Final Determination
     if not report["reasons"]:
         report["passed"] = True
+        record_clean_ip(ip, country, city, org)
         print("==================================================================")
         print("🎉 STATUS: 100% HEALTHY & CLEAN IP! SAFE TO PROCEED WITH UPLOADS.")
+        print("💾 Recorded into Clean IP Trust Cache.")
         print("==================================================================")
         sys.exit(0)
     else:
         report["passed"] = False
+        record_dirty_ip(ip, report["reasons"], country, city, org)
         print("==================================================================")
         print("🚨 STATUS: IP FAILED HEALTH AUDIT! AUTO-ROTATION REQUIRED.")
         for r in report["reasons"]:
             print(f"   • {r}")
+        print(f"💾 Added {ip} to persistent dirty blacklist ({DIRTY_IPS_FILE})")
         print("==================================================================")
         sys.exit(1)
 
