@@ -1,7 +1,8 @@
 page_group: uk_london_id_4_nidhi
 account_name: Nidhi Desai
 country_code: GB
-target_location: London, United Kingdom
+target_location: London, England (EC2Y 8), United Kingdom
+postal_code: EC2Y 8
 require_uk_ip: true
 ai_disclosure_status: pending_determination
 delete_after_post: true

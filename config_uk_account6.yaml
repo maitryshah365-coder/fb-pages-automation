@@ -1,7 +1,9 @@
 page_group: uk_london_id_6_sweta
 account_name: Sweta Shah
 country_code: GB
-target_location: London, United Kingdom
+target_location: Newport, Wales (NP20 6), United Kingdom
+postal_code: NP20 6
+region: Wales
 require_uk_ip: true
 ai_disclosure_status: pending_determination
 delete_after_post: true

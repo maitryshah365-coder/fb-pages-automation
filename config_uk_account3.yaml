@@ -1,7 +1,8 @@
 page_group: uk_london_id_3_mahi
 account_name: Mahi Patel
 country_code: GB
-target_location: London, United Kingdom
+target_location: London, England (WC2N 5), United Kingdom
+postal_code: WC2N 5
 require_uk_ip: true
 ai_disclosure_status: pending_determination
 delete_after_post: true

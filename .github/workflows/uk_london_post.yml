@@ -84,10 +84,23 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Connect Surfshark London WireGuard & Enforce UK Kill-Switch
+      - name: Determine Target Account & Regional Profile
+        id: target_meta
+        run: |
+          TARGET_LOC="london"
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "${{ github.event.schedule }}" = "0 9,13,17 * * *" ] || [ "${{ github.event.schedule }}" = "30 21 * * *" ]; then
+              TARGET_LOC="sweta_wales"
+            fi
+          elif [ "${{ github.event.inputs.page }}" = "uk_account_6" ] || [ "${{ github.event.inputs.page }}" = "uk6" ]; then
+            TARGET_LOC="sweta_wales"
+          fi
+          echo "target_loc=$TARGET_LOC" >> $GITHUB_OUTPUT
+
+      - name: Connect Surfshark UK WireGuard & Enforce Kill-Switch
         run: |
           chmod +x scripts/connect_wireguard_uk.sh
-          ./scripts/connect_wireguard_uk.sh
+          ./scripts/connect_wireguard_uk.sh "${{ steps.target_meta.outputs.target_loc }}"
 
       - name: Execute Multi-Page UK Automation Pipeline
         env:
