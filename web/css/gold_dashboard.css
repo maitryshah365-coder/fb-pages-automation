@@ -4,38 +4,58 @@
    ========================================================================== */
 
 :root {
-  --bg-main: #02060b;
-  --bg-card: rgba(4, 15, 24, 0.88);
-  --bg-card-hover: rgba(8, 26, 42, 0.95);
-  --bg-glass: rgba(0, 255, 102, 0.04);
-  --bg-glass-active: rgba(0, 255, 102, 0.15);
+  --bg-main: #0a0d18;
+  --bg-card: rgba(17, 24, 39, 0.78);
+  --bg-card-hover: rgba(26, 36, 56, 0.92);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-glass-active: rgba(168, 85, 247, 0.16);
 
-  --gold-primary: #00ff66;
-  --gold-glow: rgba(0, 255, 102, 0.45);
-  --gold-gradient: linear-gradient(135deg, #00ff88 0%, #00e5ff 100%);
-  --blue-fb: #00f0ff;
-  --green-fb: #00ff66;
-  --red-alert: #ff0055;
+  /* Vibrant Rainbow Color Accents */
+  --color-pink: #ec4899;
+  --color-purple: #8b5cf6;
+  --color-indigo: #6366f1;
+  --color-blue: #3b82f6;
+  --color-cyan: #06b6d4;
+  --color-teal: #14b8a6;
+  --color-emerald: #10b981;
+  --color-amber: #f59e0b;
+  --color-orange: #f97316;
+  --color-rose: #f43f5e;
 
-  --text-main: #f0fff4;
-  --text-sub: #86efac;
-  --text-muted: #52796f;
+  /* Rich Multi-Stop Gradients */
+  --gold-primary: #ec4899;
+  --gold-glow: rgba(236, 72, 153, 0.45);
+  --gold-gradient: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
+  --gradient-aurora: linear-gradient(135deg, #f43f5e 0%, #ec4899 25%, #8b5cf6 50%, #3b82f6 75%, #06b6d4 100%);
+  --gradient-sunset: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+  --gradient-ocean: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --gradient-forest: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --gradient-royal: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --gradient-amber: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
 
-  --border-subtle: rgba(0, 255, 102, 0.16);
-  --border-gold: rgba(0, 255, 102, 0.38);
-  --border-active: rgba(0, 255, 102, 0.8);
+  --blue-fb: #3b82f6;
+  --green-fb: #10b981;
+  --red-alert: #f43f5e;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
+  --text-main: #ffffff;
+  --text-sub: #cbd5e1;
+  --text-muted: #94a3b8;
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-gold: rgba(236, 72, 153, 0.35);
+  --border-active: rgba(139, 92, 246, 0.65);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
   --radius-full: 9999px;
 
-  --font-sans: 'Share Tech Mono', 'JetBrains Mono', 'Plus Jakarta Sans', monospace, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Share Tech Mono', monospace;
-  --font-cyber: 'Orbitron', 'Share Tech Mono', monospace;
+  --font-sans: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.85), 0 0 1px 1px rgba(0, 255, 102, 0.18);
-  --shadow-gold: 0 0 20px rgba(0, 255, 102, 0.45), inset 0 0 10px rgba(0, 255, 102, 0.15);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+  --shadow-gold: 0 8px 25px -6px rgba(236, 72, 153, 0.5);
+  --shadow-glow: 0 0 30px -5px rgba(139, 92, 246, 0.4);
 }
 
 *, *::before, *::after {
@@ -49,10 +69,11 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg-main);
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 60%),
-    linear-gradient(rgba(0, 255, 102, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 102, 0.025) 1px, transparent 1px);
-  background-size: 100% 100%, 32px 32px, 32px 32px;
+    radial-gradient(circle at 10% 10%, rgba(236, 72, 153, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(99, 102, 241, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 20% 90%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.12) 0%, transparent 40%);
   background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
@@ -7401,11 +7422,11 @@ body {
 }
 
 /* ==========================================================================
-   CYBER HACKER THEME & MATRIX HUD ENGINE (WEB + MOBILE OPTIMIZED)
+   VIBRANT AURORA BACKGROUND ENGINE & ULTRA-COLORFUL UI
    ========================================================================== */
 
-/* 1. Matrix Digital Rain Canvas */
-.cyber-matrix-canvas {
+/* 1. Vibrant Floating Aurora Ambient Mesh */
+.vibrant-aurora-bg {
   position: fixed;
   top: 0;
   left: 0;
@@ -7413,37 +7434,67 @@ body {
   height: 100vh;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.35;
-  transition: opacity 0.3s ease;
+  overflow: hidden;
 }
 
-/* 2. Authentic Cyber CRT Scanlines & Screen Vignette */
-.cyber-scanlines {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-  background: 
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%),
-    radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.75) 100%);
-  background-size: 100% 4px, 100% 100%;
-  opacity: 0.45;
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: 0.55;
+  animation: auroraFloat 20s ease-in-out infinite alternate;
+}
+
+.aurora-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #ec4899 0%, rgba(236, 72, 153, 0) 70%);
+  top: -120px;
+  left: -90px;
+  animation-duration: 20s;
+}
+
+.aurora-2 {
+  width: 580px;
+  height: 580px;
+  background: radial-gradient(circle, #8b5cf6 0%, rgba(139, 92, 246, 0) 70%);
+  top: 15%;
+  right: -120px;
+  animation-duration: 25s;
+}
+
+.aurora-3 {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, #06b6d4 0%, rgba(6, 182, 212, 0) 70%);
+  bottom: 12%;
+  left: 10%;
+  animation-duration: 22s;
+}
+
+.aurora-4 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #f59e0b 0%, rgba(245, 158, 11, 0) 70%);
+  bottom: -60px;
+  right: 12%;
+  animation-duration: 28s;
+}
+
+@keyframes auroraFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(35px, -45px) scale(1.12); }
+  100% { transform: translate(-30px, 35px) scale(0.92); }
 }
 
 @media (max-width: 768px) {
-  .cyber-matrix-canvas {
-    opacity: 0.28;
-  }
-  .cyber-scanlines {
-    opacity: 0.22;
-    background-size: 100% 3px, 100% 100%;
+  .aurora-orb {
+    filter: blur(65px);
+    opacity: 0.45;
   }
 }
 
-/* 3. Ensure UI sits above matrix rain */
+/* 2. Layering */
 .studio-app-layout,
 .mobile-app-header,
 .pages-drawer,
@@ -7457,7 +7508,7 @@ body {
   z-index: 2;
 }
 
-/* 4. Cyber HUD Card Accents & Glass Glow */
+/* 3. Colorful Glowing Glass Cards */
 .stat-card,
 .drawer-nav-card,
 .sidebar-nav-box,
@@ -7467,51 +7518,114 @@ body {
 .tp-leaderboard-card,
 .studio-card {
   position: relative;
-  background: rgba(4, 14, 22, 0.88) !important;
-  border: 1px solid rgba(0, 255, 102, 0.22) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(0, 255, 102, 0.03) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background: rgba(17, 24, 39, 0.76) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.06) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-radius: 16px !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow: hidden;
 }
 
+/* Rainbow Gloss Top Highlight on Hover */
 .stat-card:hover,
 .drawer-nav-card:hover,
 .sidebar-nav-box:hover,
 .top-card:hover,
 .tp-leaderboard-card:hover {
-  border-color: rgba(0, 255, 102, 0.55) !important;
-  box-shadow: 0 0 25px rgba(0, 255, 102, 0.22), inset 0 0 16px rgba(0, 255, 102, 0.06) !important;
+  border-color: rgba(168, 85, 247, 0.45) !important;
+  box-shadow: 0 15px 35px -5px rgba(139, 92, 246, 0.25), 0 0 25px rgba(236, 72, 153, 0.15) !important;
   transform: translateY(-2px);
 }
 
-/* 5. Terminal Headers & Nav Bars */
-.app-header,
-.mobile-app-header {
-  background: rgba(2, 6, 11, 0.94) !important;
-  border-bottom: 1px solid rgba(0, 255, 102, 0.3) !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.85), 0 1px 0 rgba(0, 255, 102, 0.2) !important;
+.stat-card::before,
+.top-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6, #06b6d4, #10b981, #f59e0b);
+  opacity: 0.85;
 }
 
-.pages-drawer,
-.studio-left-sidebar {
-  background: rgba(2, 7, 13, 0.96) !important;
-  border-right: 1px solid rgba(0, 255, 102, 0.25) !important;
-  box-shadow: 8px 0 30px rgba(0, 0, 0, 0.85) !important;
+/* 4. Colorful Navigation Tiles (Distinct jewel color badges) */
+#sideNavDashboard .tile-badge-gold,
+#btnDrawerDashboard .tile-badge-gold {
+  background: linear-gradient(135deg, #6366f1, #a855f7) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.4) !important;
 }
 
-/* 6. Cyber Neon Buttons & Glowing CTAs */
+#sidePagesCountBadge,
+#sidebarPagesCountBadge {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(6, 182, 212, 0.4) !important;
+}
+
+.side-instant-pill {
+  background: linear-gradient(135deg, #ec4899, #f43f5e) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(236, 72, 153, 0.4) !important;
+}
+
+.side-drive-pill,
+#drawerNavDriveCountBadge {
+  background: linear-gradient(135deg, #10b981, #14b8a6) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4) !important;
+}
+
+.side-recent-pill {
+  background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.4) !important;
+}
+
+.side-health-pill,
+#drawerNavHealthBadge {
+  background: linear-gradient(135deg, #8b5cf6, #c084fc) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(139, 92, 246, 0.4) !important;
+}
+
+.side-top-pill {
+  background: linear-gradient(135deg, #eab308, #f59e0b) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(234, 179, 8, 0.4) !important;
+}
+
+.side-low-pill,
+#drawerNavLowBadge {
+  background: linear-gradient(135deg, #38bdf8, #06b6d4) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 3px 10px rgba(56, 189, 248, 0.4) !important;
+}
+
+/* 5. Rainbow Gradient Action & Sync Buttons */
 .btn-sidebar-sync,
 .btn-mobile-sync,
 .btn-primary,
 .tp-btn-action-post,
 .studio-btn-primary {
-  background: linear-gradient(135deg, rgba(0, 255, 102, 0.2), rgba(0, 240, 255, 0.25)) !important;
-  border: 1px solid rgba(0, 255, 102, 0.6) !important;
-  color: #00ff88 !important;
-  text-shadow: 0 0 8px rgba(0, 255, 102, 0.7);
-  box-shadow: 0 0 16px rgba(0, 255, 102, 0.25), inset 0 0 8px rgba(0, 255, 102, 0.15) !important;
-  transition: all 0.2s ease !important;
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 20px -3px rgba(236, 72, 153, 0.4), 0 0 15px rgba(139, 92, 246, 0.3) !important;
+  border-radius: 12px !important;
+  transition: all 0.25s ease !important;
 }
 
 .btn-sidebar-sync:hover,
@@ -7519,99 +7633,100 @@ body {
 .btn-primary:hover,
 .tp-btn-action-post:hover,
 .studio-btn-primary:hover {
-  background: linear-gradient(135deg, rgba(0, 255, 102, 0.35), rgba(0, 240, 255, 0.45)) !important;
-  border-color: #00ff66 !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 25px rgba(0, 255, 102, 0.65), inset 0 0 12px rgba(0, 240, 255, 0.3) !important;
+  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 40%, #8b5cf6 100%) !important;
+  box-shadow: 0 8px 25px -2px rgba(236, 72, 153, 0.6), 0 0 20px rgba(139, 92, 246, 0.45) !important;
+  transform: translateY(-2px);
 }
 
-/* 7. Pulsing Cyber Radar Animation */
-.pulse-green-dot,
-.ping-circle {
-  background: #00ff66 !important;
-  box-shadow: 0 0 10px #00ff66, 0 0 20px #00ff66 !important;
-  animation: cyberRadarPulse 1.6s infinite cubic-bezier(0.4, 0, 0.6, 1) !important;
-}
-
-@keyframes cyberRadarPulse {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7), 0 0 8px #00ff66;
-  }
-  70% {
-    transform: scale(1.15);
-    box-shadow: 0 0 0 8px rgba(0, 255, 102, 0), 0 0 16px #00ff66;
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0), 0 0 8px #00ff66;
-  }
-}
-
-/* 8. Cyber Monospace Fonts for Key Badges & Metrics */
+/* 6. Colorful Glowing Brand Titles */
 .brand-app-title,
 .mobile-brand-name,
-.tile-title,
-.tp-metric-val,
+.hero-title,
+.section-title {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #ffffff 20%, #f472b6 60%, #a78bfa 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  letter-spacing: -0.02em !important;
+}
+
+.app-logo,
+.mobile-brand-logo {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #06b6d4 100%) !important;
+  box-shadow: 0 4px 16px rgba(236, 72, 153, 0.45) !important;
+  border-radius: 12px !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+}
+
+/* 7. Live Pulse Status Dot */
+.pulse-green-dot,
+.ping-circle {
+  background: #10b981 !important;
+  box-shadow: 0 0 10px #10b981, 0 0 20px rgba(16, 185, 129, 0.5) !important;
+  animation: colorfulPing 1.8s infinite cubic-bezier(0, 0, 0.2, 1) !important;
+}
+
+@keyframes colorfulPing {
+  0% { transform: scale(1); opacity: 1; }
+  75%, 100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* 8. Modern Numbers & Metrics */
 .stat-val,
-.metric-value,
-.badge-count,
-.tp-score-pill {
-  font-family: 'Orbitron', 'Share Tech Mono', monospace !important;
-  letter-spacing: 0.05em !important;
-}
-
 .stat-num,
-.tp-col-views,
-.recent-post-ip,
-.audit-terminal-body,
-.mono-tag {
-  font-family: 'JetBrains Mono', 'Share Tech Mono', monospace !important;
+.tp-metric-val,
+.tp-col-views {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 700 !important;
 }
 
-/* 9. Glowing Neon Pills & Badges */
-.tile-badge-gold,
-.side-instant-pill,
-.pages-count-pill,
-.side-drive-pill,
-.side-health-pill,
-.side-top-pill {
-  border: 1px solid rgba(0, 255, 102, 0.4) !important;
-  background: rgba(0, 255, 102, 0.12) !important;
-  color: #00ff88 !important;
-  box-shadow: 0 0 10px rgba(0, 255, 102, 0.2) !important;
+/* 9. Header & Sidebar Glass */
+.app-header,
+.mobile-app-header {
+  background: rgba(10, 13, 24, 0.82) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* 10. Cyber Scrollbar */
+.pages-drawer,
+.studio-left-sidebar {
+  background: rgba(12, 16, 28, 0.94) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 8px 0 35px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 10. Colorful Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(2, 6, 11, 0.9);
+  background: rgba(10, 13, 24, 0.8);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 255, 102, 0.35);
-  border-radius: 3px;
+  background: linear-gradient(180deg, #ec4899, #8b5cf6);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 255, 102, 0.7);
-  box-shadow: 0 0 8px #00ff66;
+  background: linear-gradient(180deg, #f43f5e, #a855f7);
 }
 
-/* 11. Mobile Cyber Phone Enhancements */
+/* 11. Mobile Phone Vibrant Enhancements */
 @media (max-width: 768px) {
   .mobile-brand-name {
-    text-shadow: 0 0 10px rgba(0, 255, 102, 0.6);
-    color: #00ff88 !important;
+    font-size: 16px;
   }
-  .btn-mobile-sync {
-    box-shadow: 0 0 12px rgba(0, 255, 102, 0.35) !important;
-  }
-  .drawer-nav-card {
-    border-color: rgba(0, 255, 102, 0.22) !important;
+  .drawer-nav-tile:active {
+    background: rgba(168, 85, 247, 0.14) !important;
   }
 }
+
 
 
 
