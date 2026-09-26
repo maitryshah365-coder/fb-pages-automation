@@ -677,7 +677,7 @@ function showToast(msg) {
 }
 
 // ----------------- Ultra-Fast Cache-First Data Engine (Instant <0.3s Load) -----------------
-const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v13";
+const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v14";
 
 // Purge obsolete heavy caches in background
 try {
@@ -716,6 +716,7 @@ async function fetchSmartData(url) {
                 }
                 renderSidebarPagesList(fullData.pages);
                 renderDrawerPages(fullData.pages);
+                updateRadarSlots();
                 if (document.getElementById("dashboardAnalyticsView")?.style.display === "block") {
                   selectPage(activePageId);
                 }
@@ -755,12 +756,19 @@ async function initDashboard() {
       }
     } catch(e) {}
 
-    // 2. Load latest pages_data, latest_run_summary and server_uploaded_videos concurrently (ultra-fast cached)
-    const [resPages, resSummary, resServerVideos] = await Promise.all([
+    // 2. Load latest pages_data, latest_run_summary, server_uploaded_videos, and upload_history concurrently (ultra-fast cached)
+    const [resPages, resSummary, resServerVideos, resHistory] = await Promise.all([
       fetchSmartData("data/pages_data.json"),
       fetch("data/latest_run_summary.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null),
-      fetch("data/server_uploaded_videos.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null)
+      fetch("data/server_uploaded_videos.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null),
+      fetch("data/upload_history.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null)
     ]);
+
+    if (resHistory && Array.isArray(resHistory.history)) {
+      uploadHistoryData = resHistory.history;
+      const totalBadge = document.getElementById("historyTotalCountBadge");
+      if (totalBadge) totalBadge.innerText = uploadHistoryData.length;
+    }
 
     fullData = resPages || {};
     if (fullData.pages && Array.isArray(fullData.pages)) {
@@ -832,6 +840,7 @@ async function initDashboard() {
     renderSidebarPagesList(fullData.pages);
     renderDrawerPages(fullData.pages);
     selectPage("all");
+    updateRadarSlots();
 
     // Initialize Post Now Studio (Fleet selection, Live Console, and Queue counters)
     initStudioView();
