@@ -430,11 +430,21 @@ function getReelsForDays(videos, days) {
 function isDateToday(isoOrDateStr) {
   if (!isoOrDateStr) return false;
   const now = new Date();
-  
-  // Collect today's date representations across all operational timezones:
-  // EDT (New York), BST/GMT (London), IST (India/User), UTC, and local browser time
+
+  // 1. Direct 28-Hour Operational Posting Cycle Check (Covers all 4 daily slots across all timezones)
+  try {
+    const d = new Date(isoOrDateStr);
+    if (!isNaN(d.getTime())) {
+      const diffMs = now.getTime() - d.getTime();
+      // Uploaded within the current 28-hour daily operational cycle (or up to 10 mins future clock drift)
+      if (diffMs >= -600000 && diffMs <= 28 * 60 * 60 * 1000) {
+        return true;
+      }
+    }
+  } catch (e) {}
+
+  // 2. Fallback to calendar date matching across operational timezones
   const todayStrings = new Set();
-  
   try { todayStrings.add(now.toISOString().slice(0, 10)); } catch(e) {}
   try { todayStrings.add(now.toLocaleDateString("en-CA")); } catch(e) {}
   try { todayStrings.add(now.toLocaleDateString("en-CA", { timeZone: "America/New_York" })); } catch(e) {}
@@ -448,27 +458,12 @@ function isDateToday(isoOrDateStr) {
   const str = String(isoOrDateStr).trim();
   if (!str) return false;
 
-  // Check prefix YYYY-MM-DD
   const datePrefix = str.slice(0, 10);
   if (todayStrings.has(datePrefix)) return true;
 
-  // Check substring match
   for (const t of todayStrings) {
     if (t && str.includes(t)) return true;
   }
-
-  // Parse date timestamp
-  try {
-    const d = new Date(str);
-    if (!isNaN(d.getTime())) {
-      const dIso = d.toISOString().slice(0, 10);
-      if (todayStrings.has(dIso)) return true;
-      const dIst = d.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
-      if (todayStrings.has(dIst)) return true;
-      const dEdt = d.toLocaleDateString("en-CA", { timeZone: "America/New_York" });
-      if (todayStrings.has(dEdt)) return true;
-    }
-  } catch(e) {}
 
   return false;
 }
@@ -2256,10 +2251,24 @@ function renderAllPortfolioView() {
   const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
   window._portfolioServerReels = serverReelsForTf;
 
-  // Video Library Section: HIDE on Main Portfolio Dashboard (Videos are viewed in Recent Posts & Individual Page views)
+  // Video Library Section: Prominently SHOW on Main Portfolio Dashboard with all 128 pages videos!
   const libSec = document.getElementById("sectionVideoLibrary");
   if (libSec) {
-    libSec.style.display = "none";
+    libSec.style.display = "block";
+    const libTitle = document.getElementById("librarySectionTitle");
+    const libSub = document.getElementById("librarySourceSub");
+    const libDesc = document.getElementById("libraryDescText");
+    if (libTitle) libTitle.innerText = "All 128 Pages Portfolio • Uploaded Videos & Reels Library";
+    if (libSub) libSub.innerText = `Showing all published reels across all 128 pages (${currentTimeframe} Days)`;
+    if (libDesc) libDesc.innerText = "Global portfolio content performance table • Real-time views, retention & engagement";
+
+    if (activeReelsCategory === "server") {
+      currentVideos = serverReelsForTf;
+    } else {
+      currentVideos = allVideosForTf;
+    }
+    displayedVideosCount = 0;
+    renderVideosLibrary();
   }
 
   // Hide Audience Demographics on Portfolio Dashboard
@@ -3486,6 +3495,38 @@ function initAutomationRadarLiveEngine() {
       console.error("tickRadar error:", err);
     }
   }
+
+  // Make Radar Fleet cards interactive clickable tiles
+  const fleetFilterMap = {
+    a1: { name: "USA 01 • Meghal Chauhan", set: FLEET_USA_01_SET },
+    a2: { name: "USA 02 • Mia Shah", set: FLEET_USA_02_SET },
+    a3: { name: "USA 03 • Radika Patel", set: FLEET_USA_03_SET },
+    uk1: { name: "UK 01 • Binjal Mehra", set: FLEET_UK_01_SET },
+    uk2: { name: "UK 02 • Chanda Nai", set: FLEET_UK_02_SET },
+    uk3: { name: "UK 03 • Mahi Patel", set: FLEET_UK_03_SET },
+    uk4: { name: "UK 04 • Nidhi Desai", set: FLEET_UK_04_SET },
+    uk5: { name: "UK 05 • Richi Patel", set: FLEET_UK_05_SET },
+    uk6: { name: "UK 06 • Sweta Shah", set: FLEET_UK_06_SET },
+    uk7: { name: "UK 07 • Riya Gaur", set: FLEET_UK_07_SET }
+  };
+
+  Object.keys(fleetFilterMap).forEach(fId => {
+    const cardEl = document.getElementById("radarCard_" + fId);
+    if (cardEl && !cardEl._clickBound) {
+      cardEl._clickBound = true;
+      cardEl.style.cursor = "pointer";
+      cardEl.addEventListener("click", () => {
+        const info = fleetFilterMap[fId];
+        if (info && fullData?.pages) {
+          const fleetPages = fullData.pages.filter(p => info.set.has(String(p.id)));
+          if (fleetPages.length > 0) {
+            showToast(`🧭 Selected ${info.name} (${fleetPages.length} Pages)`);
+            selectPage(fleetPages[0].id);
+          }
+        }
+      });
+    }
+  });
 
   tickRadar();
   setInterval(tickRadar, 1000);
