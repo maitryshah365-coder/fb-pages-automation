@@ -431,13 +431,12 @@ function isDateToday(isoOrDateStr) {
   if (!isoOrDateStr) return false;
   const now = new Date();
 
-  // 1. Direct 28-Hour Operational Posting Cycle Check (Covers all 4 daily slots across all timezones)
+  // 1. Direct 16-Hour Operational Posting Cycle Check (Current active day's completed slots without yesterday's spillover)
   try {
     const d = new Date(isoOrDateStr);
     if (!isNaN(d.getTime())) {
       const diffMs = now.getTime() - d.getTime();
-      // Uploaded within the current 28-hour daily operational cycle (or up to 10 mins future clock drift)
-      if (diffMs >= -600000 && diffMs <= 28 * 60 * 60 * 1000) {
+      if (diffMs >= -600000 && diffMs <= 16 * 60 * 60 * 1000) {
         return true;
       }
     }
@@ -471,94 +470,25 @@ window.isDateToday = isDateToday;
 
 function getPageTodayPosts(p) {
   if (!p) return 0;
-
-  let countFromVideos = 0;
-  const seenIds = new Set();
-
-  // 1. Cross-check page's own videos posted TODAY
-  (p.videos || []).forEach(v => {
-    const vid = String(v.id || "");
-    if (seenIds.has(vid)) return;
-    const dateSource = v.posted_at || v.created_time_iso || v.created_at || "";
-    if (isDateToday(dateSource)) {
-      seenIds.add(vid);
-      countFromVideos++;
-    }
-  });
-
-  // 2. Cross-check latest run summary results ONLY IF the run was completed TODAY
-  if (fullData?.latest_run_summary) {
-    const summaryCompletedAt = fullData.latest_run_summary.completed_at || "";
-    if (isDateToday(summaryCompletedAt)) {
-      (fullData.latest_run_summary.results || []).forEach(r => {
-        if (r.status === "success" && r.facebook_video_id) {
-          const vid = String(r.facebook_video_id);
-          const pid = String(r.page_id || "");
-          if ((pid === String(p.id) || r.page === `page_${p.index}`) && !seenIds.has(vid)) {
-            const uploadTime = r.uploaded_at || summaryCompletedAt;
-            if (isDateToday(uploadTime)) {
-              seenIds.add(vid);
-              countFromVideos++;
-            }
-          }
-        }
-      });
-    }
-  }
-
-  // 3. Cross-check server_uploaded_videos ONLY IF uploaded TODAY
-  (fullData?.server_uploaded_videos || []).forEach(sv => {
-    const svPid = String(sv.page_id || "");
-    const vid = String(sv.id || "");
-    if (svPid === String(p.id) && !seenIds.has(vid)) {
-      const dateSource = sv.posted_at || sv.created_time_iso || sv.created_at || "";
-      if (isDateToday(dateSource)) {
-        seenIds.add(vid);
-        countFromVideos++;
-      }
-    }
-  });
-
-  // 4. Cross-check verified upload history ONLY IF uploaded TODAY
-  if (Array.isArray(uploadHistoryData)) {
-    uploadHistoryData.forEach(h => {
-      const hPid = String(h.page_id || "");
-      const hVid = String(h.id || h.video_id || "");
-      if (hPid === String(p.id) && !seenIds.has(hVid)) {
-        const dateSource = h.posted_at || "";
-        if (isDateToday(dateSource)) {
-          seenIds.add(hVid);
-          countFromVideos++;
-        }
-      }
-    });
-  }
-
-  // 5. Cross-check Post Now Studio dispatches ONLY IF uploaded TODAY
-  try {
-    const postNowList = JSON.parse(localStorage.getItem("raj_fb_post_now_reels") || "[]");
-    postNowList.forEach(v => {
-      const vid = String(v.id || v.facebook_video_id || "");
-      const vPid = String(v.page_id || "");
-      if (vPid === String(p.id) && vid && !seenIds.has(vid)) {
-        const dateSource = v.posted_at || v.created_time_iso || v.created_at || "";
-        if (isDateToday(dateSource)) {
-          seenIds.add(vid);
-          countFromVideos++;
-        }
-      }
-    });
-  } catch(e) {}
-
-  // 6. Only accept p.today_posts from static JSON if the JSON itself was synced TODAY
-  let jsonTodayPosts = 0;
-  if (fullData?.synced_at && isDateToday(fullData.synced_at)) {
-    jsonTodayPosts = Number(p.today_posts) || 0;
-  }
-
   const maxDailySlots = Number(p.daily_limit) || 4;
-  const rawPosts = Math.max(countFromVideos, jsonTodayPosts);
-  const finalCount = Math.min(maxDailySlots, rawPosts);
+
+  let count = 0;
+  // 1. Primary ground truth: Precomputed today_posts from sync
+  if (typeof p.today_posts === "number" && !isNaN(p.today_posts) && p.today_posts >= 0) {
+    count = p.today_posts;
+  } else if (Array.isArray(p.videos)) {
+    p.videos.forEach(v => {
+      const dateSource = v.posted_at || v.created_time_iso || v.created_at || "";
+      if (isDateToday(dateSource)) count++;
+    });
+  }
+
+  // 2. Add dynamic session uploads (e.g. from Post Now Studio)
+  if (p._session_new_posts && typeof p._session_new_posts === "number") {
+    count += p._session_new_posts;
+  }
+
+  const finalCount = Math.min(maxDailySlots, Math.max(0, count));
   p.today_posts = finalCount;
   return finalCount;
 }
@@ -817,12 +747,9 @@ async function initDashboard() {
       });
     }
 
-    // Reset stale today_posts & today_summary if fullData was synced on an earlier day
-    const isSyncedToday = Boolean(fullData.synced_at && isDateToday(fullData.synced_at));
+    // Ensure accurate today's uploads and slots from synced ground truth
     if (fullData.pages && Array.isArray(fullData.pages)) {
       fullData.pages.forEach(p => {
-        if (!isSyncedToday) p.today_posts = 0;
-        // Dynamically compute today's real count from actual reels
         getPageTodayPosts(p);
       });
     }
@@ -2251,24 +2178,10 @@ function renderAllPortfolioView() {
   const serverReelsForTf = getReelsForDays(serverReels, currentTimeframe);
   window._portfolioServerReels = serverReelsForTf;
 
-  // Video Library Section: Prominently SHOW on Main Portfolio Dashboard with all 128 pages videos!
+  // Video Library Section: Explicitly HIDE on Master Portfolio Dashboard (only shown for individual pages)
   const libSec = document.getElementById("sectionVideoLibrary");
   if (libSec) {
-    libSec.style.display = "block";
-    const libTitle = document.getElementById("librarySectionTitle");
-    const libSub = document.getElementById("librarySourceSub");
-    const libDesc = document.getElementById("libraryDescText");
-    if (libTitle) libTitle.innerText = "All 128 Pages Portfolio • Uploaded Videos & Reels Library";
-    if (libSub) libSub.innerText = `Showing all published reels across all 128 pages (${currentTimeframe} Days)`;
-    if (libDesc) libDesc.innerText = "Global portfolio content performance table • Real-time views, retention & engagement";
-
-    if (activeReelsCategory === "server") {
-      currentVideos = serverReelsForTf;
-    } else {
-      currentVideos = allVideosForTf;
-    }
-    displayedVideosCount = 0;
-    renderVideosLibrary();
+    libSec.style.display = "none";
   }
 
   // Hide Audience Demographics on Portfolio Dashboard
@@ -3489,8 +3402,6 @@ function initAutomationRadarLiveEngine() {
         });
       }
 
-      // Keep radar slot counters continuously synced
-      updateRadarSlots();
     } catch (err) {
       console.error("tickRadar error:", err);
     }
@@ -3528,6 +3439,11 @@ function initAutomationRadarLiveEngine() {
     }
   });
 
+  // Run radar slot sync initially and then every 30 seconds (avoids 1s CPU loop)
+  updateRadarSlots();
+  setInterval(updateRadarSlots, 30000);
+
+  // 1-second countdown clock for next run display
   tickRadar();
   setInterval(tickRadar, 1000);
 }
