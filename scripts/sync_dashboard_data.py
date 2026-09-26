@@ -616,8 +616,6 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         v["server_uploaded"] = True
 
     today_posts = max(len(today_meta_reels), len(today_db_reels))
-    if p.get("today_posts") and p.get("today_posts") > today_posts:
-        today_posts = p.get("today_posts")
 
     # Fetch 100% Real Live Page Insights from Meta Graph API v20.0
     live_meta_insights = {

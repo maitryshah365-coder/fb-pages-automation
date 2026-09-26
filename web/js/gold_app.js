@@ -13,6 +13,8 @@ let activeAudienceTab = "countries";
 let currentTimeframe = 28;
 let currentTimeframeMultiplier = 1.0;
 let activeReelsCategory = "all";
+window.setFullData = (d) => { fullData = d; };
+window.getFullData = () => fullData;
 
 // =========================================================================
 // STRICT FLEET ID REGISTRY (PREVENTS KHICHDI / ZERO OVERLAP GUARANTEE)
@@ -423,87 +425,113 @@ function getReelsForDays(videos, days) {
   });
 }
 
-// ----------------- Dynamic Real-Time Today Uploads Calculator -----------------
+// ----------------- Dynamic Real-Time Today Uploads Calculator & Auto Day-Rollover -----------------
+
+function isDateToday(isoOrDateStr) {
+  if (!isoOrDateStr) return false;
+  const now = new Date();
+  
+  // Collect today's date representations across all operational timezones:
+  // EDT (New York), BST/GMT (London), IST (India/User), UTC, and local browser time
+  const todayStrings = new Set();
+  
+  try { todayStrings.add(now.toISOString().slice(0, 10)); } catch(e) {}
+  try { todayStrings.add(now.toLocaleDateString("en-CA")); } catch(e) {}
+  try { todayStrings.add(now.toLocaleDateString("en-CA", { timeZone: "America/New_York" })); } catch(e) {}
+  try { todayStrings.add(now.toLocaleDateString("en-CA", { timeZone: "Europe/London" })); } catch(e) {}
+  try { todayStrings.add(now.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" })); } catch(e) {}
+  
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const dispDateToday = `${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+  todayStrings.add(dispDateToday);
+
+  const str = String(isoOrDateStr).trim();
+  if (!str) return false;
+
+  // Check prefix YYYY-MM-DD
+  const datePrefix = str.slice(0, 10);
+  if (todayStrings.has(datePrefix)) return true;
+
+  // Check substring match
+  for (const t of todayStrings) {
+    if (t && str.includes(t)) return true;
+  }
+
+  // Parse date timestamp
+  try {
+    const d = new Date(str);
+    if (!isNaN(d.getTime())) {
+      const dIso = d.toISOString().slice(0, 10);
+      if (todayStrings.has(dIso)) return true;
+      const dIst = d.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+      if (todayStrings.has(dIst)) return true;
+      const dEdt = d.toLocaleDateString("en-CA", { timeZone: "America/New_York" });
+      if (todayStrings.has(dEdt)) return true;
+    }
+  } catch(e) {}
+
+  return false;
+}
+window.isDateToday = isDateToday;
 
 function getPageTodayPosts(p) {
   if (!p) return 0;
-  const now = new Date();
-  let edtDate = "";
-  try {
-    edtDate = now.toLocaleDateString("en-CA", { timeZone: "America/New_York" });
-  } catch(e) {
-    edtDate = now.toISOString().slice(0, 10);
-  }
-  const utcDate = now.toISOString().slice(0, 10);
-  const localDate = now.toLocaleDateString("en-CA");
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const m = monthNames[now.getMonth()];
-  const d = now.getDate();
-  const y = now.getFullYear();
-  const dispDateToday = `${m} ${d}, ${y}`;
 
   let countFromVideos = 0;
   const seenIds = new Set();
+
+  // 1. Cross-check page's own videos posted TODAY
   (p.videos || []).forEach(v => {
     const vid = String(v.id || "");
     if (seenIds.has(vid)) return;
-    const iso = String(v.posted_at || v.created_time_iso || "");
-    const dateStr = String(v.created_at || "");
-    if (
-      (edtDate && iso.includes(edtDate)) ||
-      (utcDate && iso.includes(utcDate)) ||
-      (localDate && iso.includes(localDate)) ||
-      (dateStr && dateStr.includes(dispDateToday))
-    ) {
+    const dateSource = v.posted_at || v.created_time_iso || v.created_at || "";
+    if (isDateToday(dateSource)) {
       seenIds.add(vid);
       countFromVideos++;
     }
   });
 
-  if (fullData?.latest_run_summary?.results) {
-    fullData.latest_run_summary.results.forEach(r => {
-      if (r.status === "success" && r.facebook_video_id) {
-        const vid = String(r.facebook_video_id);
-        const pid = String(r.page_id || "");
-        if ((pid === String(p.id) || r.page === `page_${p.index}`) && !seenIds.has(vid)) {
-          seenIds.add(vid);
-          countFromVideos++;
+  // 2. Cross-check latest run summary results ONLY IF the run was completed TODAY
+  if (fullData?.latest_run_summary) {
+    const summaryCompletedAt = fullData.latest_run_summary.completed_at || "";
+    if (isDateToday(summaryCompletedAt)) {
+      (fullData.latest_run_summary.results || []).forEach(r => {
+        if (r.status === "success" && r.facebook_video_id) {
+          const vid = String(r.facebook_video_id);
+          const pid = String(r.page_id || "");
+          if ((pid === String(p.id) || r.page === `page_${p.index}`) && !seenIds.has(vid)) {
+            const uploadTime = r.uploaded_at || summaryCompletedAt;
+            if (isDateToday(uploadTime)) {
+              seenIds.add(vid);
+              countFromVideos++;
+            }
+          }
         }
-      }
-    });
+      });
+    }
   }
 
+  // 3. Cross-check server_uploaded_videos ONLY IF uploaded TODAY
   (fullData?.server_uploaded_videos || []).forEach(sv => {
     const svPid = String(sv.page_id || "");
     const vid = String(sv.id || "");
     if (svPid === String(p.id) && !seenIds.has(vid)) {
-      const iso = String(sv.posted_at || sv.created_time_iso || "");
-      const dateStr = String(sv.created_at || "");
-      if (
-        (edtDate && iso.includes(edtDate)) ||
-        (utcDate && iso.includes(utcDate)) ||
-        (localDate && iso.includes(localDate)) ||
-        (dateStr && dateStr.includes(dispDateToday))
-      ) {
+      const dateSource = sv.posted_at || sv.created_time_iso || sv.created_at || "";
+      if (isDateToday(dateSource)) {
         seenIds.add(vid);
         countFromVideos++;
       }
     }
   });
 
-  // Cross-check verified upload history (UK & USA uploads)
+  // 4. Cross-check verified upload history ONLY IF uploaded TODAY
   if (Array.isArray(uploadHistoryData)) {
     uploadHistoryData.forEach(h => {
       const hPid = String(h.page_id || "");
       const hVid = String(h.id || h.video_id || "");
       if (hPid === String(p.id) && !seenIds.has(hVid)) {
-        const iso = String(h.posted_at || "");
-        if (
-          (edtDate && iso.includes(edtDate)) ||
-          (utcDate && iso.includes(utcDate)) ||
-          (localDate && iso.includes(localDate)) ||
-          (iso && iso.slice(0, 10) === utcDate)
-        ) {
+        const dateSource = h.posted_at || "";
+        if (isDateToday(dateSource)) {
           seenIds.add(hVid);
           countFromVideos++;
         }
@@ -511,8 +539,30 @@ function getPageTodayPosts(p) {
     });
   }
 
+  // 5. Cross-check Post Now Studio dispatches ONLY IF uploaded TODAY
+  try {
+    const postNowList = JSON.parse(localStorage.getItem("raj_fb_post_now_reels") || "[]");
+    postNowList.forEach(v => {
+      const vid = String(v.id || v.facebook_video_id || "");
+      const vPid = String(v.page_id || "");
+      if (vPid === String(p.id) && vid && !seenIds.has(vid)) {
+        const dateSource = v.posted_at || v.created_time_iso || v.created_at || "";
+        if (isDateToday(dateSource)) {
+          seenIds.add(vid);
+          countFromVideos++;
+        }
+      }
+    });
+  } catch(e) {}
+
+  // 6. Only accept p.today_posts from static JSON if the JSON itself was synced TODAY
+  let jsonTodayPosts = 0;
+  if (fullData?.synced_at && isDateToday(fullData.synced_at)) {
+    jsonTodayPosts = Number(p.today_posts) || 0;
+  }
+
   const maxDailySlots = Number(p.daily_limit) || 4;
-  const rawPosts = Math.max(countFromVideos, Number(p.today_posts) || 0);
+  const rawPosts = Math.max(countFromVideos, jsonTodayPosts);
   const finalCount = Math.min(maxDailySlots, rawPosts);
   p.today_posts = finalCount;
   return finalCount;
@@ -718,13 +768,16 @@ async function initDashboard() {
 
     if (resSummary && resSummary.results) {
       fullData.latest_run_summary = resSummary;
+      const isSummaryToday = isDateToday(resSummary.completed_at);
       // Sync new successful uploads into pages if missing
       (resSummary.results || []).forEach(r => {
         if (r.status === "success" && r.facebook_video_id) {
           const fbid = String(r.facebook_video_id);
           const p = (fullData.pages || []).find(x => String(x.id) === String(r.page_id) || fbid === String(x.last_video_id) || x.index === parseInt((r.page || '').replace('page_', '')));
           if (p) {
-            p.today_posts = Math.max(p.today_posts || 0, 1);
+            if (isSummaryToday || isDateToday(r.uploaded_at)) {
+              p.today_posts = Math.max(p.today_posts || 0, 1);
+            }
             if (!p.videos) p.videos = [];
             if (!p.videos.some(v => String(v.id) === fbid)) {
               const dUp = new Date(r.uploaded_at || resSummary.completed_at || Date.now());
@@ -756,6 +809,21 @@ async function initDashboard() {
       });
     }
 
+    // Reset stale today_posts & today_summary if fullData was synced on an earlier day
+    const isSyncedToday = Boolean(fullData.synced_at && isDateToday(fullData.synced_at));
+    if (fullData.pages && Array.isArray(fullData.pages)) {
+      fullData.pages.forEach(p => {
+        if (!isSyncedToday) p.today_posts = 0;
+        // Dynamically compute today's real count from actual reels
+        getPageTodayPosts(p);
+      });
+    }
+    if (fullData.today_summary) {
+      const totalToday = (fullData.pages || []).reduce((sum, p) => sum + (p.today_posts || 0), 0);
+      fullData.today_summary.uploaded = totalToday;
+      fullData.today_summary.remaining = Math.max(0, (fullData.today_summary.target_total || 512) - totalToday);
+    }
+
     renderSidebarPagesList(fullData.pages);
     renderDrawerPages(fullData.pages);
     selectPage("all");
@@ -769,14 +837,8 @@ async function initDashboard() {
     // Update persistent downside IP runner strip
     updateDownsideIpStrip();
 
-    // Auto-sync only if 30 minutes have elapsed since last sync (respects window refresh / hard refresh)
-    if (shouldAutoSync()) {
-      syncLiveMetaGraph(false);
-    } else {
-      const elapsedSec = Math.floor((Date.now() - getLastSyncTime()) / 1000);
-      const remainingMin = Math.ceil((META_SYNC_INTERVAL_MS - (Date.now() - getLastSyncTime())) / 60000);
-      console.log(`[Dashboard Init] Skipped auto-sync. Last synced ${elapsedSec}s ago. Next auto-sync in ~${remainingMin} mins.`);
-    }
+    // Live Meta Graph API auto-sync on startup is disabled to keep mobile app fast and prevent battery/data drain.
+    console.log("[Dashboard Init] Ready. Auto-sync on startup is disabled. Tap 'Sync Meta API Live' for live data.");
   } catch (err) {
     console.error("Failed to load dashboard data:", err);
     showToast("Connecting to live Meta data...");
@@ -804,13 +866,9 @@ function setLastSyncTime(timeMs) {
 }
 
 function shouldAutoSync() {
-  const last = getLastSyncTime();
-  if (!last) {
-    // First load on browser: establish baseline, don't force auto-sync immediately on refresh
-    setLastSyncTime(Date.now());
-    return false;
-  }
-  return (Date.now() - last) >= META_SYNC_INTERVAL_MS;
+  // Automatic sync on load / periodic background is disabled to prevent mobile freezes and high data usage.
+  // Syncing is now explicitly user-triggered via "Sync Meta API Live" or mobile "⚡ Sync" button.
+  return false;
 }
 
 function updateSyncProgressUI(percent, statusMsg) {
@@ -1206,16 +1264,7 @@ function initLiveSyncControls() {
     };
   }
 
-  // Auto-sync check every 60 seconds, will only trigger when 30 minutes have passed
-  if (!window._liveSyncIntervalSet) {
-    window._liveSyncIntervalSet = true;
-    setInterval(function() {
-      if (!document.hidden && shouldAutoSync()) {
-        console.log("[Auto-Sync] 30 minutes elapsed. Running scheduled background sync...");
-        syncLiveMetaGraph(false);
-      }
-    }, 60000); // Checks every 1 minute
-  }
+
 }
 
 if (document.readyState === "loading") {
