@@ -1871,7 +1871,7 @@ function selectPage(pageId) {
   const mobActiveName = document.getElementById("mobileActivePageName");
   if (mobActiveName) {
     if (activePageId === "all") {
-      mobActiveName.innerText = "All 113 Pages Portfolio";
+      mobActiveName.innerText = "All 128 Pages Portfolio";
     } else {
       const pObj = fullData?.pages?.find(p => String(p.id) === activePageId);
       mobActiveName.innerText = pObj ? pObj.name : "Active Page";
@@ -5091,9 +5091,10 @@ function setPerformanceMode(mode) {
 }
 
 function setTopPerformersTimeframe(days) {
-  currentTopPerformersTimeframe = Number(days);
+  currentTopPerformersTimeframe = (days === "all" || days === "lifetime") ? "all" : Number(days);
   document.querySelectorAll("[data-tp-days]").forEach(btn => {
-    btn.classList.toggle("active", Number(btn.getAttribute("data-tp-days")) === currentTopPerformersTimeframe);
+    const bVal = btn.getAttribute("data-tp-days");
+    btn.classList.toggle("active", String(bVal) === String(currentTopPerformersTimeframe));
   });
   renderTopPerformersView();
 }
@@ -5210,6 +5211,7 @@ function renderTopPerformersView() {
     else if (FLEET_UK_05_SET.has(pid)) fleetTag = "UK 5 • Richi Patel";
     else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
     else if (FLEET_UK_07_SET.has(pid)) fleetTag = "UK 7 • Riya Gaur";
+    else if (FLEET_USA_03_SET.has(pid)) fleetTag = "USA 3 • Radika Patel";
     else if (p.account) fleetTag = p.account;
 
     // Diagnosis tag
@@ -5296,11 +5298,12 @@ function renderTopPerformersView() {
   // MODE 1: TOP 20 PERFORMERS
   // ==========================================
   if (currentPerformanceMode === "top") {
+    const daysLabel = days === "all" ? "All-Time" : (days === 1 ? "Today" : `${days}D`);
     if (elHeaderIcon) elHeaderIcon.innerText = "🏆";
     if (elHeaderTitle) elHeaderTitle.innerText = "Top 20 Performers";
-    if (elHeaderSub) elHeaderSub.innerText = "Live Viral Leaderboard & Channel Rankings across all 113 Facebook Pages";
+    if (elHeaderSub) elHeaderSub.innerText = `Live Viral Leaderboard & Channel Rankings across all ${pages.length} Facebook Pages`;
     if (elBadge) {
-      elBadge.innerText = `${pages.length} Pages Monitored • ${days}D`;
+      elBadge.innerText = `${pages.length} Pages Monitored • ${daysLabel}`;
       elBadge.style.background = "linear-gradient(135deg, rgba(245, 186, 35, 0.25), rgba(217, 119, 6, 0.25))";
       elBadge.style.borderColor = "rgba(245, 186, 35, 0.5)";
       elBadge.style.color = "#facc15";
@@ -5355,7 +5358,10 @@ function renderTopPerformersView() {
       elKpiVal4.className = "tp-kpi-value";
       elKpiVal4.innerText = avgViewsPerTopPage.toLocaleString();
     }
-    if (elKpiSub4) elKpiSub4.innerText = `${days}-Day Velocity (${pages.length} Pages)`;
+    if (elKpiSub4) {
+      const daysVelLabel = days === "all" ? "Lifetime" : (days === 1 ? "Today's" : `${days}-Day`);
+      elKpiSub4.innerText = `${daysVelLabel} Velocity (${pages.length} Pages)`;
+    }
 
     // Render Podium
     const podiumContainer = document.getElementById("tpPodiumGrid");
@@ -5478,8 +5484,9 @@ function renderTopPerformersView() {
     if (elHeaderIcon) elHeaderIcon.innerText = "❄️";
     if (elHeaderTitle) elHeaderTitle.innerText = "Low & 0 Views Pages Audit";
     if (elHeaderSub) elHeaderSub.innerText = "Executive Underperformer Directory (Bottom 50 Channels) needing fresh reels, reach boost, or meta review";
+    const daysLabelLow = days === "all" ? "All-Time" : (days === 1 ? "Today" : `${days}D`);
     if (elBadge) {
-      elBadge.innerText = `50 Channels Audited • ${days}D`;
+      elBadge.innerText = `50 Channels Audited • ${daysLabelLow}`;
       elBadge.style.background = "linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(185, 28, 28, 0.25))";
       elBadge.style.borderColor = "rgba(239, 68, 68, 0.5)";
       elBadge.style.color = "#f87171";
@@ -5496,7 +5503,7 @@ function renderTopPerformersView() {
       elKpiVal1.className = "tp-kpi-value red";
       elKpiVal1.innerText = `${countZeroViews} Pages`;
     }
-    if (elKpiSub1) elKpiSub1.innerText = `Zero views in last ${days} days`;
+    if (elKpiSub1) elKpiSub1.innerText = `Zero views in ${days === "all" ? "lifetime" : (days === 1 ? "today" : "last " + days + " days")}`;
 
     if (elKpiLabel2) elKpiLabel2.innerHTML = `🟡 Low Velocity (< 500 Views)`;
     if (elKpiVal2) {
@@ -5517,7 +5524,7 @@ function renderTopPerformersView() {
       elKpiVal4.className = "tp-kpi-value";
       elKpiVal4.innerText = `50 Pages`;
     }
-    if (elKpiSub4) elKpiSub4.innerText = `Bottom 50 of 113 channels`;
+    if (elKpiSub4) elKpiSub4.innerText = `Bottom 50 of ${pages.length} channels`;
 
     // Extract Bottom 50 pool:
     // Sort all 101 pages ascending by views, then lastUploadMs ascending
@@ -6396,7 +6403,7 @@ function renderHealthAuditMainView() {
 
   const tokensVal = document.getElementById("mainAuditTokensVal");
   if (tokensVal) {
-    tokensVal.textContent = `${totalValidTokens}/113 Active`;
+    tokensVal.textContent = `${totalValidTokens}/${pages.length} Active`;
     tokensVal.className = tokenIssueItems.length > 0 ? "stat-num" : "stat-num green-text";
     tokensVal.style.color = tokenIssueItems.length > 0 ? "#f87171" : "#4ade80";
   }
@@ -6409,7 +6416,7 @@ function renderHealthAuditMainView() {
 
   const healthStatusVal = document.getElementById("mainAuditHealthStatus");
   if (healthStatusVal) {
-    const pct = ((totalValidTokens / 113) * 100).toFixed(1);
+    const pct = ((totalValidTokens / (pages.length || 1)) * 100).toFixed(1);
     healthStatusVal.textContent = `${pct}% Operational`;
     healthStatusVal.style.color = pct >= 95 ? "#4ade80" : (pct >= 80 ? "#facc15" : "#f87171");
   }
@@ -6611,7 +6618,8 @@ async function runLiveAuditUI(e) {
   });
 
   if (typeof showToast === "function") {
-    showToast("🔍 Running live audit across 113 pages...");
+    const totPages = fullData?.pages?.length || 128;
+    showToast(`🔍 Running live audit across ${totPages} pages...`);
   }
 
   dots.forEach(d => {

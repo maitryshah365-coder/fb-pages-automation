@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.1.1">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.1.2">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -321,7 +321,7 @@
         <!-- Shutter Body (Closed by default - Shutter Band) -->
         <div class="sidebar-pages-body" id="sidePagesShutterBody">
           <div class="sidebar-pages-search-row">
-            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search across all 113 pages..." onclick="event.stopPropagation()">
+            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search across all 128 pages..." onclick="event.stopPropagation()">
           </div>
 
           <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
@@ -882,7 +882,7 @@
             <span style="font-size: 10px; color: #64748b; font-family: monospace;">UTF-8 • REAL-TIME</span>
           </div>
           <div id="mainAuditConsoleOutput" style="height: 340px; overflow-y: auto; padding: 14px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 11.5px; line-height: 1.6; color: #cbd5e1; scrollbar-width: thin;">
-            <div style="color: #64748b;">Ready. Click "Run Live Audit" to verify all 113 Facebook Page tokens, detect upload gaps, and confirm London runner telemetry.</div>
+            <div style="color: #64748b;">Ready. Click "Run Live Audit" to verify all 128 Facebook Page tokens, detect upload gaps, and confirm London runner telemetry.</div>
           </div>
         </div>
       </details>
@@ -912,7 +912,7 @@
             <span class="tp-heading-icon" id="tpMainHeaderIcon">🏆</span>
             <div>
               <h2 class="tp-heading-title" id="tpMainHeaderTitle">Top 20 Performers</h2>
-              <p class="tp-subtitle" id="tpMainHeaderSubtitle">Live Viral Leaderboard & Channel Rankings across all 113 Facebook Pages</p>
+              <p class="tp-subtitle" id="tpMainHeaderSubtitle">Live Viral Leaderboard & Channel Rankings across all 128 Facebook Pages</p>
             </div>
           </div>
           <span class="tp-heading-badge" id="tpLeaderboardBadge">128 Pages Monitored</span>
@@ -948,11 +948,13 @@
         <div class="tp-toolbar-row" style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 14px;">
           <div class="tp-toolbar-left">
             <span class="tp-toolbar-label">📅 Timeframe:</span>
+            <button type="button" class="tp-pill-btn" data-tp-days="1" onclick="setTopPerformersTimeframe(1)">Today</button>
             <button type="button" class="tp-pill-btn" data-tp-days="7" onclick="setTopPerformersTimeframe(7)">7 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="15" onclick="setTopPerformersTimeframe(15)">15 Days</button>
             <button type="button" class="tp-pill-btn active" data-tp-days="30" onclick="setTopPerformersTimeframe(30)">30 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="60" onclick="setTopPerformersTimeframe(60)">60 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="90" onclick="setTopPerformersTimeframe(90)">90 Days</button>
+            <button type="button" class="tp-pill-btn" data-tp-days="all" onclick="setTopPerformersTimeframe('all')">All Time</button>
           </div>
           <div class="tp-toolbar-right" id="tpSortToolbarTop">
             <span class="tp-toolbar-label">⚡ Sort By:</span>
@@ -1406,6 +1408,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=10.1.1"></script>
+  <script src="js/gold_app.js?v=10.1.2"></script>
 </body>
 </html>
