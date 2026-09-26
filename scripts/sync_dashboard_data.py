@@ -1354,7 +1354,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 }
             ]
         },
-        "videos": meta_videos
+        "videos": meta_videos[:30]
     }
 
 
