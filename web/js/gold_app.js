@@ -2954,16 +2954,36 @@ function closeVideoModal() {
 // ----------------- Drawer Toggle Controls -----------------
 
 function openPageDrawer() {
-  document.getElementById("pagesDrawer")?.classList.add("active");
-  document.getElementById("pagesDrawerOverlay")?.classList.add("active");
+  const drawer = document.getElementById("pagesDrawer");
+  const overlay = document.getElementById("pagesDrawerOverlay");
+  if (overlay) {
+    overlay.style.display = "block";
+    void overlay.offsetWidth;
+    overlay.classList.add("active");
+  }
+  if (drawer) {
+    drawer.style.visibility = "visible";
+    drawer.classList.add("active");
+  }
   document.body.style.overflow = "hidden";
 }
 window.openPageDrawer = openPageDrawer;
 
 function closePageDrawer() {
-  document.getElementById("pagesDrawer")?.classList.remove("active");
-  document.getElementById("pagesDrawerOverlay")?.classList.remove("active");
+  const drawer = document.getElementById("pagesDrawer");
+  const overlay = document.getElementById("pagesDrawerOverlay");
+  if (drawer) {
+    drawer.classList.remove("active");
+    drawer.style.visibility = "hidden";
+  }
+  if (overlay) {
+    overlay.classList.remove("active");
+    overlay.style.display = "none";
+  }
   document.body.style.overflow = "";
+  document.body.style.overflowY = "";
+  document.documentElement.style.overflow = "";
+  document.documentElement.style.overflowY = "";
 }
 window.closePageDrawer = closePageDrawer;
 
@@ -7006,6 +7026,14 @@ window.renderTopPerformersView = renderTopPerformersView;
 
 // ----------------- App Lifecycle Initialization -----------------
 function initApp() {
+  // Always guarantee scroll and buttons are fully unlocked on initial boot
+  try {
+    closePageDrawer();
+    document.body.style.overflow = "";
+    document.body.style.overflowY = "";
+    document.documentElement.style.overflow = "";
+    document.documentElement.style.overflowY = "";
+  } catch (e) { console.error("unlock error:", e); }
   try { initDashboard(); } catch (e) { console.error("initDashboard error:", e); }
   try { setupEventListeners(); } catch (e) { console.error("setupEventListeners error:", e); }
   try { startSlotCountdown(); } catch (e) { console.error("startSlotCountdown error:", e); }

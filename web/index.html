@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.1.2">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.1.3">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -57,9 +57,10 @@
         else {
           var drawer = document.getElementById("pagesDrawer");
           var overlay = document.getElementById("pagesDrawerOverlay");
-          if (drawer) drawer.classList.remove("active");
-          if (overlay) overlay.classList.remove("active");
+          if (drawer) { drawer.classList.remove("active"); drawer.style.visibility = "hidden"; }
+          if (overlay) { overlay.classList.remove("active"); overlay.style.display = "none"; }
           document.body.style.overflow = "";
+          document.documentElement.style.overflow = "";
         }
         if (window.switchMainView) {
           window.switchMainView("health_audit");
@@ -106,8 +107,8 @@
   </header>
 
   <!-- Slide-Over Pages Drawer (Mobile App Side Panel) -->
-  <div id="pagesDrawerOverlay" class="drawer-overlay" onclick="closePageDrawer()"></div>
-  <aside id="pagesDrawer" class="pages-drawer">
+  <div id="pagesDrawerOverlay" class="drawer-overlay" onclick="closePageDrawer()" style="display: none;"></div>
+  <aside id="pagesDrawer" class="pages-drawer" style="visibility: hidden;">
     <div class="drawer-header">
       <div class="drawer-title-group">
         <span class="drawer-header-icon">🧭</span>
@@ -1408,6 +1409,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=10.1.2"></script>
+  <script src="js/gold_app.js?v=10.1.3"></script>
 </body>
 </html>
