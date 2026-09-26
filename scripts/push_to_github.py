@@ -54,6 +54,8 @@ def push_files(commit_msg="chore: update dashboard assets and ranking engine"):
         "web/data/server_uploaded_videos.json",
         "docs/index.html",
         "web/index.html",
+        "docs/css/gold_dashboard.css",
+        "web/css/gold_dashboard.css",
         "docs/js/gold_app.js",
         "web/js/gold_app.js",
         "data/posted_videos.db",

@@ -65,6 +65,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-main);
@@ -79,6 +86,8 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 40px;
   position: relative;
 }
@@ -369,19 +378,22 @@ body {
 
 /* ================= SLIDE-OVER PAGES DRAWER ================= */
 .drawer-overlay {
+  display: none !important;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 10005;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  pointer-events: none !important;
+  transition: opacity 0.25s ease;
 }
 
 .drawer-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 /* ================= MOBILE APP SIDEBAR DRAWER (VIVO V25 & SMARTPHONE OPTIMIZED) ================= */
@@ -397,19 +409,21 @@ body {
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 10010;
   transform: translateX(-100%);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s;
   display: flex;
   flex-direction: column;
   box-shadow: 16px 0 50px rgba(0, 0, 0, 0.85);
   overscroll-behavior: contain;
   touch-action: pan-y;
-  pointer-events: none;
+  pointer-events: none !important;
+  visibility: hidden !important;
   font-family: inherit;
 }
 
 .pages-drawer.active {
   transform: translateX(0);
-  pointer-events: auto;
+  pointer-events: auto !important;
+  visibility: visible !important;
 }
 
 .drawer-header {
@@ -3375,8 +3389,8 @@ body {
   top: 0;
   height: 100vh;
   overflow-y: auto !important;
-  overscroll-behavior: contain !important;
-  overscroll-behavior-y: contain !important;
+  overscroll-behavior: auto;
+  overscroll-behavior-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 16px 12px 30px;
   display: flex;
@@ -7456,7 +7470,11 @@ body {
 }
 
 /* Explicit Sizing & Anti-Squish Protection for Left Sidebar & Drawer */
-.studio-left-sidebar,
+.studio-left-sidebar {
+  overflow-y: auto !important;
+  overscroll-behavior: auto;
+}
+
 .pages-drawer .drawer-scroll-body {
   overflow-y: auto !important;
   overscroll-behavior: contain !important;
