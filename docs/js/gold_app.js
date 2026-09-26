@@ -602,7 +602,7 @@ function showToast(msg) {
 }
 
 // ----------------- Ultra-Fast Cache-First Data Engine (Instant <0.3s Load) -----------------
-const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v14";
+const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v15";
 
 // Purge obsolete heavy caches in background
 try {
@@ -927,16 +927,25 @@ async function syncLiveMetaGraph(isManual = false) {
   let updatedPages = 0;
 
   try {
-    // 1. Force fresh fetch of latest pages_data.json from server / GitHub Pages
+    // 1. Force fresh fetch of latest pages_data.json from live raw GitHub (zero latency) or local
+    const syncTimestamp = Date.now();
     try {
-      const freshRes = await fetchWithTimeout("data/pages_data.json?v=" + Date.now(), { cache: "no-store" }, 6000);
-      if (freshRes.ok) {
-        const freshData = await freshRes.json();
-        if (freshData && freshData.pages && freshData.pages.length > 0) {
-          fullData = freshData;
-          if (Array.isArray(fullData.pages)) {
-            fullData.pages = enforceStrictFleetSorting(fullData.pages);
-          }
+      let freshData = null;
+      const rawPagesUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/pages_data.json?v=${syncTimestamp}`;
+      try {
+        const rawRes = await fetchWithTimeout(rawPagesUrl, { cache: "no-store" }, 5000);
+        if (rawRes.ok) freshData = await rawRes.json();
+      } catch (e) {}
+
+      if (!freshData) {
+        const freshRes = await fetchWithTimeout(`data/pages_data.json?v=${syncTimestamp}`, { cache: "no-store" }, 5000);
+        if (freshRes.ok) freshData = await freshRes.json();
+      }
+
+      if (freshData && freshData.pages && freshData.pages.length > 0) {
+        fullData = freshData;
+        if (Array.isArray(fullData.pages)) {
+          fullData.pages = enforceStrictFleetSorting(fullData.pages);
         }
       }
     } catch (err) {
@@ -945,35 +954,52 @@ async function syncLiveMetaGraph(isManual = false) {
 
     updateSyncProgressUI(30, "Fetching Upload History & Run Summary...");
 
-    // 1b. Force fresh fetch of upload_history.json & latest_run_summary.json
+    // 1b. Force fresh fetch of upload_history.json & latest_run_summary.json (prioritizing live raw GitHub)
     try {
-      const [histRes, sumRes] = await Promise.all([
-        fetchWithTimeout("data/upload_history.json?v=" + Date.now(), { cache: "no-store" }, 6000),
-        fetchWithTimeout("data/latest_run_summary.json?v=" + Date.now(), { cache: "no-store" }, 6000)
-      ]);
-      if (histRes.ok) {
-        const histJson = await histRes.json();
-        if (histJson && Array.isArray(histJson.history)) {
-          uploadHistoryData = histJson.history;
-          const totalBadge = document.getElementById("historyTotalCountBadge");
-          if (totalBadge) {
-            const tot = histJson.total_db_posted || uploadHistoryData.length;
-            totalBadge.innerText = tot > uploadHistoryData.length ? `${uploadHistoryData.length} (Latest of ${tot})` : uploadHistoryData.length;
-          }
+      let histJson = null;
+      let sumJson = null;
+
+      const rawHistUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/upload_history.json?v=${syncTimestamp}`;
+      const rawSumUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/latest_run_summary.json?v=${syncTimestamp}`;
+
+      try {
+        const [rh, rs] = await Promise.all([
+          fetchWithTimeout(rawHistUrl, { cache: "no-store" }, 5000),
+          fetchWithTimeout(rawSumUrl, { cache: "no-store" }, 5000)
+        ]);
+        if (rh.ok) histJson = await rh.json();
+        if (rs.ok) sumJson = await rs.json();
+      } catch (e) {}
+
+      if (!histJson || !sumJson) {
+        const [histRes, sumRes] = await Promise.all([
+          fetchWithTimeout(`data/upload_history.json?v=${syncTimestamp}`, { cache: "no-store" }, 5000),
+          fetchWithTimeout(`data/latest_run_summary.json?v=${syncTimestamp}`, { cache: "no-store" }, 5000)
+        ]);
+        if (!histJson && histRes.ok) histJson = await histRes.json();
+        if (!sumJson && sumRes.ok) sumJson = await sumRes.json();
+      }
+
+      if (histJson && Array.isArray(histJson.history)) {
+        uploadHistoryData = histJson.history;
+        const totalBadge = document.getElementById("historyTotalCountBadge");
+        if (totalBadge) {
+          const tot = histJson.total_db_posted || uploadHistoryData.length;
+          totalBadge.innerText = tot > uploadHistoryData.length ? `${uploadHistoryData.length} (Latest of ${tot})` : uploadHistoryData.length;
         }
       }
-      if (sumRes.ok) {
-        const sumJson = await sumRes.json();
-        if (sumJson && sumJson.results) {
-          fullData.latest_run_summary = sumJson;
-        }
+      if (sumJson && sumJson.results) {
+        fullData.latest_run_summary = sumJson;
       }
     } catch (err) {
       console.warn("Direct upload history / summary reload error:", err);
     }
 
-    // Immediately update UI with freshly fetched server/automation JSON data
+    // Immediately update ALL UI views so the user instantly sees new uploads and slots!
     selectPage(activePageId);
+    updateRadarSlots();
+    if (typeof renderUploadHistoryTable === "function") renderUploadHistoryTable();
+    if (typeof renderRecentPostsList === "function") renderRecentPostsList();
 
     // If running on local server, also trigger backend concurrent sync
     try {
@@ -5865,6 +5891,11 @@ function initUploadHistoryEngine() {
     fetchUploadHistory(false);
   }, 1500);
 
+  // Auto-refresh upload history every 30 seconds from live automation runner
+  setInterval(() => {
+    fetchUploadHistory(false);
+  }, 30000);
+
   // Also auto-refresh when user returns to tab
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState === "visible") {
@@ -5900,9 +5931,26 @@ async function fetchUploadHistory(manualTrigger = false) {
 
   try {
     const timestamp = Date.now();
-    const res = await fetch(`data/upload_history.json?v=${timestamp}`, { cache: "no-store" });
-    if (res.ok) {
-      const json = await res.json();
+    let json = null;
+
+    // 1. Try real-time raw GitHub first (updated instantly on git push from runner)
+    const rawUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/upload_history.json?v=${timestamp}`;
+    try {
+      const rawRes = await fetch(rawUrl, { cache: "no-store" });
+      if (rawRes.ok) {
+        json = await rawRes.json();
+      }
+    } catch (e) {}
+
+    // 2. Fallback to local / GitHub Pages hosting
+    if (!json) {
+      const res = await fetch(`data/upload_history.json?v=${timestamp}`, { cache: "no-store" });
+      if (res.ok) {
+        json = await res.json();
+      }
+    }
+
+    if (json) {
       const records = json.history || [];
       const prevCount = uploadHistoryData.length;
       uploadHistoryData = records;
