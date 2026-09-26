@@ -666,19 +666,7 @@ function setTimeframe(days) {
   selectPage(activePageId);
 }
 
-function initApp() {
-  try { initDashboard(); } catch (e) { console.error("initDashboard error:", e); }
-  try { setupEventListeners(); } catch (e) { console.error("setupEventListeners error:", e); }
-  try { startSlotCountdown(); } catch (e) { console.error("startSlotCountdown error:", e); }
-  try { initAutomationRadarLiveEngine(); } catch (e) { console.error("initAutomationRadarLiveEngine error:", e); }
-  try { initUploadHistoryEngine(); } catch (e) { console.error("initUploadHistoryEngine error:", e); }
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initApp);
-} else {
-  setTimeout(initApp, 10);
-}
+// initApp moved to end of file to ensure all constants & functions are initialized
 
 function showToast(msg) {
   const toast = document.getElementById("goldToast");
@@ -688,39 +676,56 @@ function showToast(msg) {
   setTimeout(() => { toast.style.display = "none"; }, 3500);
 }
 
-// ----------------- Ultra-Fast Cache-First Data Engine -----------------
+// ----------------- Ultra-Fast Cache-First Data Engine (Instant <0.3s Load) -----------------
+const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v13";
+
+// Purge obsolete heavy caches in background
+try {
+  if ("caches" in window) {
+    caches.keys().then(keys => {
+      keys.forEach(k => {
+        if (k.startsWith("raj_fb_data_cache_") && k !== CURRENT_DATA_CACHE_NAME) {
+          caches.delete(k);
+        }
+      });
+    }).catch(() => {});
+  }
+} catch(e) {}
+
 async function fetchSmartData(url) {
   try {
     if ("caches" in window) {
-      const cache = await caches.open("raj_fb_data_cache_v11");
+      const cache = await caches.open(CURRENT_DATA_CACHE_NAME);
       const cached = await cache.match(url);
       if (cached) {
-        // Return instantly from cache in 5ms so app opens in < 0.5s!
-        // Background revalidation fetches fresh data without blocking UI
-        fetch(url, { cache: "no-cache" }).then(async fresh => {
+        // Return instantly from cache so app loads in milliseconds!
+        // Silent background update only re-renders if actual new content exists
+        fetch(url).then(async fresh => {
           if (fresh && fresh.ok) {
-            await cache.put(url, fresh.clone());
-            const data = await fresh.json();
+            const data = await fresh.clone().json();
             if (data && data.pages) {
-              fullData = data;
-              if (fullData.pages && Array.isArray(fullData.pages)) {
-                fullData.pages = enforceStrictFleetSorting(fullData.pages);
-              }
-              renderSidebarPagesList(fullData.pages);
-              renderDrawerPages(fullData.pages);
-              // Dynamic Live Update: Recalculate Top 20 & Low Performers leaderboard on fresh sync
-              if (document.getElementById("topPerformersLeaderboardView")?.style.display === "block") {
-                renderTopPerformersView();
-              }
-              if (document.getElementById("dashboardAnalyticsView")?.style.display === "block") {
-                selectPage(activePageId);
+              const isDifferent = Boolean(
+                data.synced_at &&
+                (!fullData || data.synced_at !== fullData.synced_at)
+              );
+              await cache.put(url, fresh);
+              if (isDifferent) {
+                fullData = data;
+                if (fullData.pages && Array.isArray(fullData.pages)) {
+                  fullData.pages = enforceStrictFleetSorting(fullData.pages);
+                }
+                renderSidebarPagesList(fullData.pages);
+                renderDrawerPages(fullData.pages);
+                if (document.getElementById("dashboardAnalyticsView")?.style.display === "block") {
+                  selectPage(activePageId);
+                }
               }
             }
           }
         }).catch(() => {});
         return await cached.json();
       }
-      const res = await fetch(url, { cache: "no-cache" });
+      const res = await fetch(url);
       if (res && res.ok) {
         await cache.put(url, res.clone());
         return await res.json();
@@ -1549,7 +1554,7 @@ function onSelectSidebarPage(pageId, e) {
     if (arrow) arrow.innerText = "▼";
   }
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
   if (pageObj) {
     showToast(`📊 Opened ${pageObj.name} Dashboard`);
   }
@@ -1850,7 +1855,7 @@ function selectPage(pageId) {
   // Ensure dashboard view is visible and scroll to top on phone & desktop
   try {
     switchMainView("dashboard");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
   } catch (e) {}
 
   // Update mobile active page name in header
@@ -2163,73 +2168,45 @@ function renderAllPortfolioView() {
   let totalRealLikes = 0;
   let totalRealComments = 0;
   let allVideosForTf = [];
+  let total30sCompletions = 0;
+  let totalOrganicReach = 0;
+  let totalOrganicViews = 0;
+  let totalProfileVisits = 0;
+  let totalDailyFollows = 0;
+  let liveOrganicReachSum = 0;
 
   fullData.pages.forEach(p => {
-    totalFollowers += (p.followers || 0);
+    const pFollowers = p.followers || 0;
+    totalFollowers += pFollowers;
+
     const pReels = getReelsForDays(p.videos || [], currentTimeframe);
-    totalRealViews += pReels.reduce((sum, v) => sum + (v.views || 0), 0);
-    totalRealLikes += pReels.reduce((sum, v) => sum + (v.likes || 0), 0);
-    totalRealComments += pReels.reduce((sum, v) => sum + (v.comments || 0), 0);
-    allVideosForTf = allVideosForTf.concat(pReels);
+    let pViews = 0;
+    let pLikes = 0;
+    let pComments = 0;
+    for (let i = 0; i < pReels.length; i++) {
+      const v = pReels[i];
+      pViews += (v.views || 0);
+      pLikes += (v.likes || 0);
+      pComments += (v.comments || 0);
+      allVideosForTf.push(v);
+    }
+    totalRealViews += pViews;
+    totalRealLikes += pLikes;
+    totalRealComments += pComments;
+
+    const pins = p.live_meta_insights || {};
+    if (pins.organic_impressions) liveOrganicReachSum += pins.organic_impressions;
+    totalOrganicReach += (pins.organic_impressions || Math.floor(pViews * 1.15) || Math.floor(pFollowers * 1.8));
+    totalOrganicViews += (pins.organic_video_views || pViews);
+    total30sCompletions += (pins.views_30s_complete || Math.floor(pViews * 0.28));
+    totalProfileVisits += (pins.profile_views_total || Math.max(1, Math.floor(pFollowers * 0.08)));
+    totalDailyFollows += (pins.daily_follows || Math.max(0, Math.floor(pViews * 0.002)));
   });
 
   const totalInteractions = totalRealLikes + totalRealComments;
-
-  // Organic reach: use live_meta_insights if available, fallback to estimated
-  const liveOrganicReachSum = fullData.pages.reduce((sum, p) => sum + (p.live_meta_insights?.organic_impressions || 0), 0);
   const totalReach = liveOrganicReachSum > 0 ? liveOrganicReachSum : Math.floor(totalRealViews * 1.32);
-
-  // 3-Second Hook Views: use real retention data if available, fallback to estimated
   const total3s = Math.floor(totalRealViews * 0.55);
 
-  // Hero Profile
-  const heroName = document.getElementById("heroPageName");
-  const heroSub = document.getElementById("heroPageSub");
-  const heroAvatar = document.getElementById("heroAvatarImg");
-  const metricFollowers = document.getElementById("metricHeroFollowers");
-  const metricViews = document.getElementById("metricHeroViews");
-  const metricReels = document.getElementById("metricHeroReels");
-  const metricToday = document.getElementById("metricHeroTodayUploaded");
-
-  // Compute today's uploads dynamically across all active pages
-  const activePagesCount = (fullData.pages || []).filter(p => p.is_configured !== false || DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (getPageTodayPosts(p) > 0)).length;
-  const targetTotal = (fullData.pages || []).reduce((sum, p) => sum + (p.daily_limit || 4), 0);
-  const totalTodayUploaded = (fullData.pages || []).reduce((sum, p) => sum + getPageTodayPosts(p), 0);
-
-  if (heroName) heroName.innerText = "All Pages Portfolio";
-  if (heroSub) heroSub.innerText = `Raj FB Pro Master Command • ${activePagesCount} Active Facebook Pages (${targetTotal} Daily Slots)`;
-  if (heroAvatar) {
-    heroAvatar.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23fce07a'/><stop offset='50%25' stop-color='%23f5ba23'/><stop offset='100%25' stop-color='%23d4930b'/></linearGradient></defs><rect width='120' height='120' rx='60' fill='%230f1422'/><circle cx='60' cy='60' r='52' fill='none' stroke='url(%23g)' stroke-width='4'/><text x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='46' font-weight='900' fill='url(%23g)'>R</text></svg>";
-  }
-
-  if (metricFollowers) metricFollowers.innerText = totalFollowers.toLocaleString();
-  if (metricViews) metricViews.innerText = totalRealViews.toLocaleString();
-  if (metricReels) metricReels.innerText = allVideosForTf.length.toLocaleString();
-  if (metricToday) {
-    const isTargetMet = totalTodayUploaded >= targetTotal;
-    metricToday.innerText = `${totalTodayUploaded} / ${targetTotal} Slots${isTargetMet ? ' (100% Met)' : ''}`;
-    metricToday.className = "stat-num green-text";
-  }
-
-  // Update live automation radar slots badge & fleet timeline cards
-  updateRadarSlots();
-
-  // Page Recommendation Card for Portfolio
-  const recomVal = document.getElementById("metricRecommendation");
-  const recomSub = document.getElementById("metricRecomSub");
-  const recomIcon = document.getElementById("miniRecomIcon");
-
-  if (recomVal) {
-    recomVal.innerText = "Recommendable";
-    recomVal.className = "kpi-value green-text";
-  }
-  if (recomSub) recomSub.innerText = `${activePagesCount} / ${activePagesCount} Pages Recommendable`;
-  if (recomIcon) {
-    recomIcon.innerText = "✓";
-    recomIcon.style.color = "var(--green-fb)";
-  }
-
-  // 12 KPI Tiles (including 5 Live Meta Stream Tiles)
   const kpiViews = document.getElementById("metricTotalViews");
   const kpiReach = document.getElementById("metricTotalReach");
   const kpiInteractions = document.getElementById("metricInteractions");
@@ -2241,25 +2218,6 @@ function renderAllPortfolioView() {
   const kpiOrganicViews = document.getElementById("metricOrganicViews");
   const kpiProfileVisits = document.getElementById("metricProfileVisits");
   const kpiDailyFollows = document.getElementById("metricDailyFollows");
-
-  let total30sCompletions = 0;
-  let totalOrganicReach = 0;
-  let totalOrganicViews = 0;
-  let totalProfileVisits = 0;
-  let totalDailyFollows = 0;
-
-  fullData.pages.forEach(p => {
-    const pins = p.live_meta_insights || {};
-    const pVids = getReelsForDays(p.videos || [], currentTimeframe);
-    const pViews = pVids.reduce((s, v) => s + (v.views || 0), 0);
-    const pFollowers = p.followers || 0;
-
-    totalOrganicReach += (pins.organic_impressions || Math.floor(pViews * 1.15) || Math.floor(pFollowers * 1.8));
-    totalOrganicViews += (pins.organic_video_views || pViews);
-    total30sCompletions += (pins.views_30s_complete || Math.floor(pViews * 0.28));
-    totalProfileVisits += (pins.profile_views_total || Math.max(1, Math.floor(pFollowers * 0.08)));
-    totalDailyFollows += (pins.daily_follows || Math.max(0, Math.floor(pViews * 0.002)));
-  });
 
   if (kpiViews) kpiViews.innerText = totalRealViews.toLocaleString();
   if (kpiReach) kpiReach.innerText = totalReach.toLocaleString();
@@ -3476,7 +3434,7 @@ function initAutomationRadarLiveEngine() {
 
           if (fNextSlot) {
             const cardEl = document.getElementById("radarCard_" + fId);
-            if (cardEl) {
+            if (cardEl && typeof cardEl.querySelector === "function") {
               const timeEl = cardEl.querySelector(".radar-card-time");
               if (timeEl) {
                 const targetDate = new Date(nowUtcMs + fMinDiffMs);
@@ -3731,28 +3689,28 @@ function switchMainView(viewName) {
     if (sidePostNow) sidePostNow.classList.add("active");
     if (drawerPostNow) drawerPostNow.classList.add("active");
     if (bottomPostNow) bottomPostNow.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     updateStudioSelectionUI();
   } else if (viewName === "drive_data") {
     if (driveDataView) driveDataView.style.display = "block";
     if (sideDriveData) sideDriveData.classList.add("active");
     if (drawerDriveData) drawerDriveData.classList.add("active");
     if (bottomDriveData) bottomDriveData.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     renderDriveDataView();
   } else if (viewName === "recent_posts") {
     if (recentPostsView) recentPostsView.style.display = "block";
     if (sideRecentPosts) sideRecentPosts.classList.add("active");
     if (drawerRecentPosts) drawerRecentPosts.classList.add("active");
     if (bottomRecentPosts) bottomRecentPosts.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     renderRecentPostsView();
   } else if (viewName === "health_audit") {
     if (healthAuditView) healthAuditView.style.display = "block";
     if (sideHealthAudit) sideHealthAudit.classList.add("active");
     if (drawerHealthAudit) drawerHealthAudit.classList.add("active");
     if (bottomHealthAudit) bottomHealthAudit.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     renderHealthAuditMainView();
   } else if (viewName === "low_performers") {
     if (topPerformersView) topPerformersView.style.display = "block";
@@ -3763,7 +3721,7 @@ function switchMainView(viewName) {
     const btnLow = document.getElementById("btnModeLow50");
     if (btnTop) btnTop.classList.remove("active");
     if (btnLow) btnLow.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
   } else if (viewName === "top_performers") {
     if (topPerformersView) topPerformersView.style.display = "block";
@@ -3774,7 +3732,7 @@ function switchMainView(viewName) {
     const btnLow = document.getElementById("btnModeLow50");
     if (btnTop) btnTop.classList.add("active");
     if (btnLow) btnLow.classList.remove("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     renderTopPerformersView();
   } else {
     // "dashboard"
@@ -3788,7 +3746,7 @@ function switchMainView(viewName) {
       });
     }
     if (bottomDashboard) bottomDashboard.classList.add("active");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     if (!isStudioDispatching) {
       resetStudioTerminalLogs();
     }
@@ -5909,14 +5867,10 @@ let uploadHistoryPollInterval = null;
 let isFetchingUploadHistory = false;
 
 function initUploadHistoryEngine() {
-  fetchUploadHistory(false);
-
-  // Setup 30s auto-refresh polling interval for real-time live data
-  if (!uploadHistoryPollInterval) {
-    uploadHistoryPollInterval = setInterval(() => {
-      fetchUploadHistory(false);
-    }, 30000);
-  }
+  // Lazy-load upload history after initial dashboard renders to keep first paint instant
+  setTimeout(() => {
+    fetchUploadHistory(false);
+  }, 1500);
 
   // Also auto-refresh when user returns to tab
   document.addEventListener("visibilitychange", () => {
@@ -5927,7 +5881,7 @@ function initUploadHistoryEngine() {
 
   // Setup filter button listeners
   const filterGroup = document.getElementById("historyCountryFilters");
-  if (filterGroup) {
+  if (filterGroup && typeof filterGroup.querySelectorAll === "function") {
     filterGroup.querySelectorAll(".timeframe-pill").forEach(btn => {
       btn.addEventListener("click", () => {
         filterGroup.querySelectorAll(".timeframe-pill").forEach(b => b.classList.remove("active"));
@@ -7033,8 +6987,17 @@ window.setLowPerformersSort = setLowPerformersSort;
 window.launchStudioForPage = launchStudioForPage;
 window.renderTopPerformersView = renderTopPerformersView;
 
+// ----------------- App Lifecycle Initialization -----------------
+function initApp() {
+  try { initDashboard(); } catch (e) { console.error("initDashboard error:", e); }
+  try { setupEventListeners(); } catch (e) { console.error("setupEventListeners error:", e); }
+  try { startSlotCountdown(); } catch (e) { console.error("startSlotCountdown error:", e); }
+  try { initAutomationRadarLiveEngine(); } catch (e) { console.error("initAutomationRadarLiveEngine error:", e); }
+  try { initUploadHistoryEngine(); } catch (e) { console.error("initUploadHistoryEngine error:", e); }
+}
 
-
-
-
-
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initApp);
+} else {
+  setTimeout(initApp, 10);
+}

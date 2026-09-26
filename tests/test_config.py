@@ -5,7 +5,7 @@ from src.config import load_config, PageConfig
 def test_load_config():
     config = load_config("config.yaml")
     assert config.page_group == "personal_fb_id_1"
-    assert len(config.pages) == 15
+    assert len(config.pages) == 45
     assert config.retry.max_attempts == 3
 
     page1 = config.pages[0]

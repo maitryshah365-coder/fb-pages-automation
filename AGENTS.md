@@ -25,3 +25,15 @@ Whenever a new Facebook ID or Meta Developer App is created, the assistant MUST 
 
 3. **No Guessing / Verification Checklist:**
    - Always verify token permissions, app publish/live status, and view metrics via Graph API before scheduling bulk posts.
+
+## 🎯 Keyword Trigger: "ANTI" (Multi-Device Anti-Detect Playwright Engine)
+- Whenever the user says the keyword **"ANTI"**, the assistant must immediately recognize that the user wants to initiate the **Multi-Device Anti-Detect Playwright Engine** (Option B documented in `ANTI.md`).
+- The assistant MUST NOT start coding blindly; it must first ask for confirmation:
+  *"Bhai, kya hum ANTI (Multi-Device Playwright Engine) shuru karein? Kya aapke paas Account 1 ki cookies ready hain?"*
+- Once confirmed by the user, proceed with phased setup according to `ANTI.md`.
+
+## 🎯 Keyword Trigger: "WIFI" (Home WiFi Ghost Auto-Wake & Remote Telemetry Engine)
+- Whenever the user says the keyword **"WIFI"**, the assistant must immediately recognize that the user wants to initiate the **Home WiFi Ghost Auto-Wake & Telemetry Engine** for Indian pages (documented in `WIFI.md`).
+- The assistant MUST NOT start coding blindly; it must first ask for confirmation:
+  *"Bhai, kya hum WIFI (Home WiFi Ghost Auto-Wake & Telemetry Engine) shuru karein? Kya naye Indian pages ke IDs aur tokens ready hain?"*
+- Once confirmed by the user, proceed with phased setup according to `WIFI.md`.
