@@ -107,7 +107,6 @@ const FLEET_UK_04_IDS = [
   "981214481738903",  // Silver Oak Social
   "929190903615356",  // Mitchell Gabriel
   "803824339488556",  // Smith Arthur
-  "857530914106167",  // Robinson Jerry
   "762765990263739",  // Robinson Stephen
   "871774779344742",  // Powell Gabriel
   "746108741929454",  // Rodriguez Scott
@@ -160,7 +159,6 @@ const FLEET_UK_07_IDS = [
   "1195883193618072", // Choke The Static
   "802518939617506",  // Lee Charles
   "896072510245887",  // Cooper Billy
-  "755318371007926",  // Alexander Christopher
   "864838050041932",  // Lee Daniel
   "870975689430311",  // Martin John
   "479102298617718",  // Corner Spe
@@ -916,7 +914,7 @@ async function syncLiveMetaGraph(isManual = false) {
     if (isLiveSyncing) {
       console.warn("Live sync watchdog triggered - releasing lock");
       isLiveSyncing = false;
-      const pagesCount = (fullData?.pages || []).length || 128;
+      const pagesCount = (fullData?.pages || []).length || 126;
       finishSyncProgressUI(pagesCount, pagesCount);
       const btnSideSync = document.getElementById("btnSideLiveSync");
       const btnMobSync = document.getElementById("btnMobileSync");
@@ -1212,7 +1210,7 @@ async function syncLiveMetaGraph(isManual = false) {
     console.warn("Live sync error:", err);
     if (statusText) statusText.innerText = "Meta Graph API: Connected (100% Real Data)";
     finishSyncProgressUI(updatedPages, fullData.pages.length);
-    setAiAssistantState("idle", "● Meta Graph Online • 128 Pages Monitored & Ready for Next Upload");
+    setAiAssistantState("idle", "● Meta Graph Online • 126 Pages Monitored & Ready for Next Upload");
   } finally {
     isLiveSyncing = false;
     if (btnSideSync) btnSideSync.classList.remove("spinning");
@@ -1836,7 +1834,7 @@ function selectPage(pageId) {
   const mobActiveName = document.getElementById("mobileActivePageName");
   if (mobActiveName) {
     if (activePageId === "all") {
-      mobActiveName.innerText = "All 128 Pages Portfolio";
+      mobActiveName.innerText = "All 126 Pages Portfolio";
     } else {
       const pObj = fullData?.pages?.find(p => String(p.id) === activePageId);
       mobActiveName.innerText = pObj ? pObj.name : "Active Page";
@@ -3579,14 +3577,13 @@ const DRIVE_CONFIGURED_PAGES = {
   "1023389020850189": { pageName: "uk3_page_11", displayName: "Maple Vision",      ready: true, videoCount: 165, folderId: "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3", handle: "maplevision",      account: "UK Account 3" },
   "855237054348766":  { pageName: "uk3_page_12", displayName: "Perez Steven",      ready: true, videoCount: 149, folderId: "1m4zcAJErDtVSRPiZupC067ildpuCp4Xn", handle: "perezsteven",      account: "UK Account 3" },
 
-  // UK London Account 4 Pages (Nidhi Desai - 12 Pages, London WireGuard Egress)
+  // UK London Account 4 Pages (Nidhi Desai - 11 Pages, London WireGuard Egress)
   "1076375522219372": { pageName: "uk4_page_1",  displayName: "Titan Archive",      ready: true, videoCount: 269, folderId: "11qk-b66GAyO0NTvHX2TUKRiVsiK-Jk7e", handle: "titanarchive",     account: "UK Account 4" },
   "997596213442388":  { pageName: "uk4_page_2",  displayName: "Sovereign Signal",   ready: true, videoCount: 191, folderId: "1s4FC3XfpaCwLC8SjQc7ytMoXbxmW1sa1", handle: "sovereignsignal",  account: "UK Account 4" },
   "1025542247301378": { pageName: "uk4_page_3",  displayName: "Sunny Dusk Stories", ready: true, videoCount: 327, folderId: "1lDezQeKpSXSOg5kafNTED2AMhAyrx4k0", handle: "sunnyduskstories",account: "UK Account 4" },
   "981214481738903":  { pageName: "uk4_page_4",  displayName: "Silver Oak Social",  ready: true, videoCount: 330, folderId: "15hPBojsrRBiBOR0331zGeuYxqOF4ambV", handle: "silveroaksocial", account: "UK Account 4" },
   "929190903615356":  { pageName: "uk4_page_5",  displayName: "Mitchell  Gabriel",  ready: true, videoCount: 242, folderId: "1Y1wCJxMqCzWUh0YMPoh5KGG4YpEnqT6a", handle: "mitchellgabriel", account: "UK Account 4" },
   "803824339488556":  { pageName: "uk4_page_6",  displayName: "Smith  Arthur",      ready: true, videoCount: 67,  folderId: "14NWdo8WKfg9kH4OYGOcZJjCpr0MFXtXk", handle: "smitharthur",     account: "UK Account 4" },
-  "857530914106167":  { pageName: "uk4_page_7",  displayName: "Robinson  Jerry",    ready: true, videoCount: 333, folderId: "1t6HAdbjvYUMy2dTbtwFvip4n4trRpLs6", handle: "robinsonjerry",   account: "UK Account 4" },
   "762765990263739":  { pageName: "uk4_page_8",  displayName: "Robinson  Stephen",  ready: true, videoCount: 460, folderId: "1iMpfR-mZdfljA1OjWOEjAMM9CtODCaLO", handle: "robinsonstephen", account: "UK Account 4" },
   "871774779344742":  { pageName: "uk4_page_9",  displayName: "Powell  Gabriel",    ready: true, videoCount: 220, folderId: "1OgWhFRr1Tez6SJVDBTzJF8-BbFdG9Hgu", handle: "powellgabriel",   account: "UK Account 4" },
   "746108741929454":  { pageName: "uk4_page_10", displayName: "Rodriguez  Scott",   ready: true, videoCount: 547, folderId: "1Bbn4TxIRO-mshKSg7BPvTxHVgF59x8QL", handle: "rodriguezscott",  account: "UK Account 4" },
@@ -3620,8 +3617,7 @@ const DRIVE_CONFIGURED_PAGES = {
   "234852513054858":  { pageName: "uk6_page_11", displayName: "Mai Cartoon Hoon",   ready: true, videoCount: 341, folderId: "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL", handle: "maicartoonhoon",    account: "UK Account 6" },
   "172005056007015":  { pageName: "uk6_page_12", displayName: "Cold Ash",           ready: true, videoCount: 132, folderId: "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO", handle: "coldash",           account: "UK Account 6" },
 
-  // UK London Account 7 Pages (Riya Gaur - 12 Pages, London WireGuard Egress)
-  "755318371007926":  { pageName: "uk7_page_1",  displayName: "Alexander Christopher", ready: true, videoCount: 124, folderId: "1rBpMQwEoMHxSKs9z1gqEiO7mu2T2WcY_", handle: "alexanderchristopher", account: "UK Account 7" },
+  // UK London Account 7 Pages (Riya Gaur - 11 Pages, London WireGuard Egress)
   "1195883193618072": { pageName: "uk7_page_2",  displayName: "Choke The Static",       ready: true, videoCount: 112, folderId: "1B8nrWSuanOEpoDVwJ3iMD6_R1F0gf7kL", handle: "chokethestatic",       account: "UK Account 7" },
   "896072510245887":  { pageName: "uk7_page_3",  displayName: "Cooper Billy",           ready: true, videoCount: 100, folderId: "1jHAChBRkp0q_zOjkEUAC_Rx7neakuwp8", handle: "cooperbilly",           account: "UK Account 7" },
   "479102298617718":  { pageName: "uk7_page_4",  displayName: "Corner Spe",             ready: true, videoCount: 305, folderId: "1D9teONQH9R0z6BhmdsftN55Y67spxKkM", handle: "cornerspe",             account: "UK Account 7" },
@@ -4832,7 +4828,7 @@ function formatRelativeTime(isoStr) {
 function renderDriveDataView() {
   if (!fullData || !fullData.pages) return;
 
-  // Calculate stock numbers across all 10 fleets (128 pages total)
+  // Calculate stock numbers across all 10 fleets (126 pages total)
   let totalStock = 0;
   let a1Stock = 0;
   let a2Stock = 0;
@@ -6318,14 +6314,14 @@ function renderHealthAuditMainView() {
   const fleetConfigs = [
     { tag: "USA 1", owner: "Meghal Chauhan", set: FLEET_USA_01_SET, startIdx: 1, endIdx: 15, flag: "🇺🇸", flagImg: "icons/us.png" },
     { tag: "USA 2", owner: "Mia Shah", set: FLEET_USA_02_SET, startIdx: 16, endIdx: 30, flag: "🇺🇸", flagImg: "icons/us.png" },
-    { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 114, endIdx: 128, flag: "🇺🇸", flagImg: "icons/us.png" },
     { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 2", owner: "Chanda Nai", set: FLEET_UK_02_SET, startIdx: 43, endIdx: 54, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 3", owner: "Mahi Patel", set: FLEET_UK_03_SET, startIdx: 55, endIdx: 66, flag: "🇬🇧", flagImg: "icons/gb.png" },
-    { tag: "UK 4", owner: "Nidhi Desai", set: FLEET_UK_04_SET, startIdx: 67, endIdx: 78, flag: "🇬🇧", flagImg: "icons/gb.png" },
-    { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 79, endIdx: 89, flag: "🇬🇧", flagImg: "icons/gb.png" },
-    { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧", flagImg: "icons/gb.png" },
-    { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 102, endIdx: 113, flag: "🇬🇧", flagImg: "icons/gb.png" }
+    { tag: "UK 4", owner: "Nidhi Desai", set: FLEET_UK_04_SET, startIdx: 67, endIdx: 77, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 78, endIdx: 88, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 89, endIdx: 100, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 101, endIdx: 111, flag: "🇬🇧", flagImg: "icons/gb.png" },
+    { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸", flagImg: "icons/us.png" }
   ];
 
   const auditPages = fullData?.pages || [];
@@ -6703,7 +6699,7 @@ async function runLiveAuditUI(e) {
   });
 
   if (typeof showToast === "function") {
-    const totPages = fullData?.pages?.length || 128;
+    const totPages = fullData?.pages?.length || 126;
     showToast(`🔍 Running live audit across ${totPages} pages...`);
   }
 
@@ -6762,14 +6758,14 @@ async function runLiveAuditUI(e) {
     const fleetConfigs = [
       { tag: "USA 1", owner: "Meghal Chauhan", set: FLEET_USA_01_SET, startIdx: 1, endIdx: 15, flag: "🇺🇸" },
       { tag: "USA 2", owner: "Mia Shah", set: FLEET_USA_02_SET, startIdx: 16, endIdx: 30, flag: "🇺🇸" },
-      { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 114, endIdx: 128, flag: "🇺🇸" },
       { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧" },
       { tag: "UK 2", owner: "Chanda Nai", set: FLEET_UK_02_SET, startIdx: 43, endIdx: 54, flag: "🇬🇧" },
       { tag: "UK 3", owner: "Mahi Patel", set: FLEET_UK_03_SET, startIdx: 55, endIdx: 66, flag: "🇬🇧" },
-      { tag: "UK 4", owner: "Nidhi Desai", set: FLEET_UK_04_SET, startIdx: 67, endIdx: 78, flag: "🇬🇧" },
-      { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 79, endIdx: 89, flag: "🇬🇧" },
-      { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 90, endIdx: 101, flag: "🇬🇧" },
-      { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 102, endIdx: 113, flag: "🇬🇧" }
+      { tag: "UK 4", owner: "Nidhi Desai", set: FLEET_UK_04_SET, startIdx: 67, endIdx: 77, flag: "🇬🇧" },
+      { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 78, endIdx: 88, flag: "🇬🇧" },
+      { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 89, endIdx: 100, flag: "🇬🇧" },
+      { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 101, endIdx: 111, flag: "🇬🇧" },
+      { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸" }
     ];
 
     logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 10 Fleets...", "info", "general");

@@ -97,7 +97,6 @@ FLEET_UK_04_IDS = [
     "981214481738903",  # Silver Oak Social
     "929190903615356",  # Mitchell Gabriel
     "803824339488556",  # Smith Arthur
-    "857530914106167",  # Robinson Jerry
     "762765990263739",  # Robinson Stephen
     "871774779344742",  # Powell Gabriel
     "746108741929454",  # Rodriguez Scott
@@ -142,7 +141,6 @@ FLEET_UK_07_IDS = [
     "1195883193618072", # Choke The Static
     "802518939617506",  # Lee Charles
     "896072510245887",  # Cooper Billy
-    "755318371007926",  # Alexander Christopher
     "864838050041932",  # Lee Daniel
     "870975689430311",  # Martin John
     "479102298617718",  # Corner Spe
@@ -1177,14 +1175,13 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "1023389020850189": audit_data.get("Maple Vision", {}).get("video_count", 165),
         "855237054348766":  audit_data.get("Perez Steven", {}).get("video_count", 149) or audit_data.get("Perez  Steven", {}).get("video_count", 149),
 
-        # UK Account 4 Pages (Nidhi Desai - 12 Pages, London WireGuard Egress)
+        # UK Account 4 Pages (Nidhi Desai - 11 Pages, London WireGuard Egress)
         "1076375522219372": audit_data.get("Titan Archive", {}).get("video_count", 269),
         "997596213442388":  audit_data.get("Sovereign Signal", {}).get("video_count", 191),
         "1025542247301378": audit_data.get("Sunny Dusk Stories", {}).get("video_count", 327),
         "981214481738903":  audit_data.get("Silver Oak Social", {}).get("video_count", 330),
         "929190903615356":  audit_data.get("Mitchell Gabriel", {}).get("video_count", 242) or audit_data.get("Mitchell  Gabriel", {}).get("video_count", 242),
         "803824339488556":  audit_data.get("Smith Arthur", {}).get("video_count", 67) or audit_data.get("Smith  Arthur", {}).get("video_count", 67),
-        "857530914106167":  audit_data.get("Robinson Jerry", {}).get("video_count", 333) or audit_data.get("Robinson  Jerry", {}).get("video_count", 333),
         "762765990263739":  audit_data.get("Robinson Stephen", {}).get("video_count", 460) or audit_data.get("Robinson  Stephen", {}).get("video_count", 460),
         "871774779344742":  audit_data.get("Powell Gabriel", {}).get("video_count", 220) or audit_data.get("Powell  Gabriel", {}).get("video_count", 220),
         "746108741929454":  audit_data.get("Rodriguez Scott", {}).get("video_count", 547) or audit_data.get("Rodriguez  Scott", {}).get("video_count", 547),
@@ -1218,7 +1215,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "234852513054858":  audit_data.get("Mai Cartoon Hoon", {}).get("video_count", 341),
         "172005056007015":  audit_data.get("Cold Ash", {}).get("video_count", 132),
 
-        # UK Account 7 Pages (Riya Gaur - 12 Pages, London WireGuard Egress)
+        # UK Account 7 Pages (Riya Gaur - 11 Pages, London WireGuard Egress)
         "1191247700748920": 61,
         "1304768466050503": 154,
         "1338114526042607": 92,
@@ -1226,7 +1223,6 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "1195883193618072": 112,
         "802518939617506":  386,
         "896072510245887":  100,
-        "755318371007926":  124,
         "864838050041932":  306,
         "870975689430311":  335,
         "479102298617718":  305,
