@@ -602,7 +602,7 @@ function showToast(msg) {
 }
 
 // ----------------- Ultra-Fast Cache-First Data Engine (Instant <0.3s Load) -----------------
-const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v15";
+const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v16";
 
 // Purge obsolete heavy caches in background
 try {
@@ -642,6 +642,8 @@ async function fetchSmartData(url) {
                 renderSidebarPagesList(fullData.pages);
                 renderDrawerPages(fullData.pages);
                 updateRadarSlots();
+                if (typeof renderTopPerformersView === "function") renderTopPerformersView();
+                if (typeof renderHealthAuditMainView === "function") renderHealthAuditMainView();
                 if (document.getElementById("dashboardAnalyticsView")?.style.display === "block") {
                   selectPage(activePageId);
                 }
@@ -1000,6 +1002,7 @@ async function syncLiveMetaGraph(isManual = false) {
     updateRadarSlots();
     if (typeof renderUploadHistoryTable === "function") renderUploadHistoryTable();
     if (typeof renderRecentPostsList === "function") renderRecentPostsList();
+    if (typeof renderTopPerformersView === "function") renderTopPerformersView();
 
     // If running on local server, also trigger backend concurrent sync
     try {
@@ -1110,10 +1113,10 @@ async function syncLiveMetaGraph(isManual = false) {
               }
             });
 
-            // Recalculate page totals
-            p.total_views = (p.videos || []).reduce((sum, v) => sum + (v.views || 0), 0);
-            p.total_likes = (p.videos || []).reduce((sum, v) => sum + (v.likes || 0), 0);
-            p.total_comments = (p.videos || []).reduce((sum, v) => sum + (v.comments || 0), 0);
+            // Recalculate page totals (strictly preserving verified lifetime totals)
+            p.total_views = Math.max(Number(p.total_views) || 0, (p.videos || []).reduce((sum, v) => sum + (Number(v.views) || 0), 0));
+            p.total_likes = Math.max(Number(p.total_likes) || 0, (p.videos || []).reduce((sum, v) => sum + (Number(v.likes) || 0), 0));
+            p.total_comments = Math.max(Number(p.total_comments) || 0, (p.videos || []).reduce((sum, v) => sum + (Number(v.comments) || 0), 0));
 
             // Recalculate portfolio global aggregates
             if (fullData.portfolio) {
@@ -5073,7 +5076,7 @@ function renderDriveInventoryList() {
 // =========================================================================
 
 let currentPerformanceMode = "top"; // "top" or "low"
-let currentTopPerformersTimeframe = 30;
+let currentTopPerformersTimeframe = "all"; // Default to All-Time so complete view ranking is 100% accurate
 let currentTopPerformersSort = "views"; // "views", "likes", "comments", "followers"
 let currentLowFilter = "all"; // "all", "zero", "under500", "gap"
 let currentLowSort = "views_asc"; // "views_asc", "oldest_upload", "least_reels"
@@ -5152,13 +5155,18 @@ function renderTopPerformersView() {
     let tfLikes = reelsForTf.reduce((sum, v) => sum + (Number(v.likes) || 0), 0);
     let tfComments = reelsForTf.reduce((sum, v) => sum + (Number(v.comments) || 0), 0);
 
-    // Smart Fallback: If individual reel views were unpopulated by Graph API, use verified page metrics
-    if (tfViews === 0 && Number(p.total_views) > 0) {
-      const pageLifetimeViews = Number(p.total_views) || 0;
-      if (days >= 30 || days === "all") {
-        tfViews = pageLifetimeViews;
-      } else {
-        tfViews = Math.max(1, Math.round(pageLifetimeViews * (Number(days) / 30)));
+    // Calculate total verified all-time views for this page (videos sum vs page total_views)
+    const vidsTotalViews = pVids.reduce((sum, v) => sum + (Number(v.views) || 0), 0);
+    const pageTotalViews = Number(p.total_views) || 0;
+    const effectiveAllTimeViews = Math.max(pageTotalViews, vidsTotalViews);
+
+    // If timeframe is "all" or undefined or >= 30, strictly guarantee tfViews reflects the full verified views
+    if (days === "all" || !days || Number(days) >= 30) {
+      tfViews = Math.max(tfViews, effectiveAllTimeViews);
+    } else {
+      // For short intervals (1D, 7D, 15D), interpolate proportional velocity if individual reel views are 0
+      if (tfViews === 0 && effectiveAllTimeViews > 0) {
+        tfViews = Math.max(1, Math.round(effectiveAllTimeViews * (Number(days) / 30)));
       }
     }
     if (tfLikes === 0 && p.total_engagement && Number(p.total_engagement.likes) > 0) {
@@ -5298,12 +5306,12 @@ function renderTopPerformersView() {
   if (elCountGap) elCountGap.innerText = countUploadGap;
 
   // ==========================================
-  // MODE 1: TOP 20 PERFORMERS
+  // MODE 1: TOP 50 PERFORMERS
   // ==========================================
   if (currentPerformanceMode === "top") {
     const daysLabel = days === "all" ? "All-Time" : (days === 1 ? "Today" : `${days}D`);
     if (elHeaderIcon) elHeaderIcon.innerText = "🏆";
-    if (elHeaderTitle) elHeaderTitle.innerText = "Top 20 Performers";
+    if (elHeaderTitle) elHeaderTitle.innerText = "Top 50 Performers";
     if (elHeaderSub) elHeaderSub.innerText = `Live Viral Leaderboard & Channel Rankings across all ${pages.length} Facebook Pages`;
     if (elBadge) {
       elBadge.innerText = `${pages.length} Pages Monitored • ${daysLabel}`;
@@ -5317,22 +5325,22 @@ function renderTopPerformersView() {
     if (elQuickFilters) elQuickFilters.style.display = "none";
     if (podiumSection) podiumSection.style.display = "block";
 
-    // Sort Top Pages
+    // Sort Top Pages STRICTLY by Views Descending (with followers & engagement as tie-breakers)
     const topSorted = [...allPagesStats].sort((a, b) => {
-      if (currentTopPerformersSort === "likes") return b.tfLikes - a.tfLikes;
-      if (currentTopPerformersSort === "comments") return b.tfComments - a.tfComments;
-      if (currentTopPerformersSort === "followers") return b.followers - a.followers;
-      return b.tfViews - a.tfViews; // default: views
+      if (currentTopPerformersSort === "likes") return (b.tfLikes - a.tfLikes) || (b.tfViews - a.tfViews);
+      if (currentTopPerformersSort === "comments") return (b.tfComments - a.tfComments) || (b.tfViews - a.tfViews);
+      if (currentTopPerformersSort === "followers") return (b.followers - a.followers) || (b.tfViews - a.tfViews);
+      return (b.tfViews - a.tfViews) || (b.followers - a.followers) || (b.tfEngagement - a.tfEngagement);
     });
 
-    const top20 = topSorted.slice(0, 20);
-    const champion = top20[0] || null;
+    const top50 = topSorted.slice(0, 50);
+    const champion = top50[0] || null;
 
-    const totalTop20Views = top20.reduce((s, x) => s + x.tfViews, 0);
+    const totalTop50Views = top50.reduce((s, x) => s + x.tfViews, 0);
     const totalAllViews = topSorted.reduce((s, x) => s + x.tfViews, 0);
-    const shareOfPortfolio = totalAllViews > 0 ? ((totalTop20Views / totalAllViews) * 100).toFixed(1) : "0";
-    const totalTop20Engagement = top20.reduce((s, x) => s + x.tfEngagement, 0);
-    const avgViewsPerTopPage = Math.round(totalTop20Views / (top20.length || 1));
+    const shareOfPortfolio = totalAllViews > 0 ? ((totalTop50Views / totalAllViews) * 100).toFixed(1) : "0";
+    const totalTop50Engagement = top50.reduce((s, x) => s + x.tfEngagement, 0);
+    const avgViewsPerTopPage = Math.round(totalTop50Views / (top50.length || 1));
 
     // Update KPIs for Top Mode
     if (elKpiLabel1) elKpiLabel1.innerHTML = `🥇 #1 Champion Page`;
@@ -5342,21 +5350,21 @@ function renderTopPerformersView() {
     }
     if (elKpiSub1 && champion) elKpiSub1.innerText = `${champion.tfViews.toLocaleString()} Views (${champion.fleetTag})`;
 
-    if (elKpiLabel2) elKpiLabel2.innerHTML = `🚀 Top 20 Combined Views`;
+    if (elKpiLabel2) elKpiLabel2.innerHTML = `🚀 Top 50 Combined Views`;
     if (elKpiVal2) {
       elKpiVal2.className = "tp-kpi-value gold";
-      elKpiVal2.innerText = totalTop20Views.toLocaleString();
+      elKpiVal2.innerText = totalTop50Views.toLocaleString();
     }
     if (elKpiSub2) elKpiSub2.innerText = `${shareOfPortfolio}% of Portfolio (${totalAllViews.toLocaleString()} Total)`;
 
-    if (elKpiLabel3) elKpiLabel3.innerHTML = `💬 Top 20 Interactions`;
+    if (elKpiLabel3) elKpiLabel3.innerHTML = `💬 Top 50 Interactions`;
     if (elKpiVal3) {
       elKpiVal3.className = "tp-kpi-value";
-      elKpiVal3.innerText = totalTop20Engagement.toLocaleString();
+      elKpiVal3.innerText = totalTop50Engagement.toLocaleString();
     }
     if (elKpiSub3) elKpiSub3.innerText = `Total Likes & Comments`;
 
-    if (elKpiLabel4) elKpiLabel4.innerHTML = `📈 Avg Views / Top Page`;
+    if (elKpiLabel4) elKpiLabel4.innerHTML = `📈 Avg Views / Top 50 Page`;
     if (elKpiVal4) {
       elKpiVal4.className = "tp-kpi-value";
       elKpiVal4.innerText = avgViewsPerTopPage.toLocaleString();
@@ -5366,10 +5374,10 @@ function renderTopPerformersView() {
       elKpiSub4.innerText = `${daysVelLabel} Velocity (${pages.length} Pages)`;
     }
 
-    // Render Podium
+    // Render Podium (Ranks 1 to 3)
     const podiumContainer = document.getElementById("tpPodiumGrid");
     if (podiumContainer) {
-      const top3 = top20.slice(0, 3);
+      const top3 = top50.slice(0, 3);
       const podiumHtml = top3.map((item, idx) => {
         const rank = idx + 1;
         const medal = rank === 1 ? "🥇" : (rank === 2 ? "🥈" : "🥉");
@@ -5396,7 +5404,7 @@ function renderTopPerformersView() {
             <div class="tp-podium-metrics">
               <div>
                 <div class="tp-podium-views">${item.tfViews.toLocaleString()}</div>
-                <div class="tp-podium-views-label">${days}D Views</div>
+                <div class="tp-podium-views-label">${days === "all" ? "Lifetime" : days + "D"} Views</div>
               </div>
               <div class="tp-podium-sub-metrics">
                 <span title="${item.tfLikes.toLocaleString()} Likes">❤️ ${item.tfLikes.toLocaleString()}</span>
@@ -5419,8 +5427,8 @@ function renderTopPerformersView() {
       podiumContainer.innerHTML = podiumHtml || `<div style="color:#64748b;padding:16px;">No pages available</div>`;
     }
 
-    // Render Table for Ranks 4 to 20
-    if (tableHeading) tableHeading.innerText = "📊 Leaderboard Rankings (Ranks #4 to #20)";
+    // Render Table for Ranks 4 to 50
+    if (tableHeading) tableHeading.innerText = "📊 Leaderboard Rankings (Ranks #4 to #50)";
     if (tableHeader) {
       tableHeader.className = "tp-table-header";
       tableHeader.innerHTML = `
@@ -5434,10 +5442,10 @@ function renderTopPerformersView() {
     }
 
     if (tableContainer) {
-      const ranks4to20 = top20.slice(3);
+      const ranks4to50 = top50.slice(3);
       const maxViews = champion ? (champion.tfViews || 1) : 1;
 
-      const rowsHtml = ranks4to20.map((item, idx) => {
+      const rowsHtml = ranks4to50.map((item, idx) => {
         const rank = idx + 4;
         const pctOfLeader = Math.max(6, Math.min(100, Math.round((item.tfViews / maxViews) * 100)));
         const thumb = item.topReel?.thumbnail || item.pic_url;

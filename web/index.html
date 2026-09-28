@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.1.6">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.1.8">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -220,17 +220,17 @@
         </button>
       </div>
 
-      <!-- BOX 7: TOP 20 PERFORMERS -->
+      <!-- BOX 7: TOP 50 PERFORMERS -->
       <div class="drawer-nav-card">
-        <button type="button" class="drawer-nav-tile" id="btnDrawerTopPerformers" onclick="mobileSwitchView('top_performers')" title="Top 20 Performers Leaderboard">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerTopPerformers" onclick="mobileSwitchView('top_performers')" title="Top 50 Performers Leaderboard">
           <div class="tile-content-left">
             <span class="tile-icon">🏆</span>
             <div class="tile-text">
-              <span class="tile-title">Top 20 Performers</span>
+              <span class="tile-title">Top 50 Performers</span>
               <span class="tile-sub">Viral Leaderboard</span>
             </div>
           </div>
-          <span class="side-top-pill" style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">TOP 20</span>
+          <span class="side-top-pill" style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">TOP 50</span>
         </button>
       </div>
 
@@ -387,17 +387,17 @@
         </button>
       </div>
 
-      <!-- BOX 7: TOP 20 PERFORMERS (VIRAL LEADERBOARD) -->
+      <!-- BOX 7: TOP 50 PERFORMERS (VIRAL LEADERBOARD) -->
       <div class="sidebar-nav-box">
-        <button type="button" id="sideNavTopPerformers" class="sidebar-action-tile side-tile-top-performers" onclick="switchMainView('top_performers')" title="Top 20 Performers (Viral Leaderboard & Rankings)">
+        <button type="button" id="sideNavTopPerformers" class="sidebar-action-tile side-tile-top-performers" onclick="switchMainView('top_performers')" title="Top 50 Performers (Viral Leaderboard & Rankings)">
           <div class="tile-content-left">
             <span class="tile-icon">🏆</span>
             <div class="tile-text">
-              <span class="tile-title">Top 20 Performers</span>
+              <span class="tile-title">Top 50 Performers</span>
               <span class="tile-sub">Viral Leaderboard</span>
             </div>
           </div>
-          <span class="side-top-pill" style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">TOP 20</span>
+          <span class="side-top-pill" style="background:rgba(245,186,35,0.2);color:#facc15;border:1px solid rgba(245,186,35,0.4);font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;">TOP 50</span>
         </button>
       </div>
 
@@ -892,12 +892,12 @@
     <!-- ================= TOP PERFORMERS & LOW-VIEW AUDIT VIEW ================= -->
     <div id="topPerformersLeaderboardView" class="dashboard-view-container top-performers-view-container" style="display: none;">
       
-      <!-- Master Mode Switcher Bar (🔥 Top 20 Viral Stars vs ❄️ Low & 0 Views Pages) -->
+      <!-- Master Mode Switcher Bar (🔥 Top 50 Viral Stars vs ❄️ Low & 0 Views Pages) -->
       <div class="perf-mode-switcher-bar">
         <button type="button" class="perf-mode-tab-btn active" id="btnModeTop20" onclick="setPerformanceMode('top')">
           <span class="perf-tab-icon">🔥</span>
-          <span class="perf-tab-title">Top 20 Performers</span>
-          <span class="perf-tab-pill gold">Top 20</span>
+          <span class="perf-tab-title">Top 50 Performers</span>
+          <span class="perf-tab-pill gold">Top 50</span>
         </button>
         <button type="button" class="perf-mode-tab-btn" id="btnModeLow50" onclick="setPerformanceMode('low')">
           <span class="perf-tab-icon">❄️</span>
@@ -912,7 +912,7 @@
           <div class="tp-heading-group">
             <span class="tp-heading-icon" id="tpMainHeaderIcon">🏆</span>
             <div>
-              <h2 class="tp-heading-title" id="tpMainHeaderTitle">Top 20 Performers</h2>
+              <h2 class="tp-heading-title" id="tpMainHeaderTitle">Top 50 Performers</h2>
               <p class="tp-subtitle" id="tpMainHeaderSubtitle">Live Viral Leaderboard & Channel Rankings across all 128 Facebook Pages</p>
             </div>
           </div>
@@ -927,19 +927,19 @@
             <div class="tp-kpi-sub" id="tpKpiSub1">0 Views</div>
           </div>
           <div class="tp-kpi-card" id="tpKpiCard2">
-            <div class="tp-kpi-label" id="tpKpiLabel2">🚀 Top 20 Combined Views</div>
+            <div class="tp-kpi-label" id="tpKpiLabel2">🚀 Top 50 Combined Views</div>
             <div class="tp-kpi-value gold" id="tpKpiVal2">0</div>
             <div class="tp-kpi-sub" id="tpKpiSub2">0% of Portfolio</div>
           </div>
           <div class="tp-kpi-card" id="tpKpiCard3">
-            <div class="tp-kpi-label" id="tpKpiLabel3">💬 Top 20 Interactions</div>
+            <div class="tp-kpi-label" id="tpKpiLabel3">💬 Top 50 Interactions</div>
             <div class="tp-kpi-value" id="tpKpiVal3">0</div>
             <div class="tp-kpi-sub" id="tpKpiSub3">Total Likes & Comments</div>
           </div>
           <div class="tp-kpi-card" id="tpKpiCard4">
-            <div class="tp-kpi-label" id="tpKpiLabel4">📈 Avg Views / Top Page</div>
+            <div class="tp-kpi-label" id="tpKpiLabel4">📈 Avg Views / Top 50 Page</div>
             <div class="tp-kpi-value" id="tpKpiVal4">0</div>
-            <div class="tp-kpi-sub" id="tpKpiSub4">30-Day Velocity</div>
+            <div class="tp-kpi-sub" id="tpKpiSub4">Velocity</div>
           </div>
         </div>
       </div>
@@ -952,10 +952,10 @@
             <button type="button" class="tp-pill-btn" data-tp-days="1" onclick="setTopPerformersTimeframe(1)">Today</button>
             <button type="button" class="tp-pill-btn" data-tp-days="7" onclick="setTopPerformersTimeframe(7)">7 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="15" onclick="setTopPerformersTimeframe(15)">15 Days</button>
-            <button type="button" class="tp-pill-btn active" data-tp-days="30" onclick="setTopPerformersTimeframe(30)">30 Days</button>
+            <button type="button" class="tp-pill-btn" data-tp-days="30" onclick="setTopPerformersTimeframe(30)">30 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="60" onclick="setTopPerformersTimeframe(60)">60 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="90" onclick="setTopPerformersTimeframe(90)">90 Days</button>
-            <button type="button" class="tp-pill-btn" data-tp-days="all" onclick="setTopPerformersTimeframe('all')">All Time</button>
+            <button type="button" class="tp-pill-btn active" data-tp-days="all" onclick="setTopPerformersTimeframe('all')">All Time</button>
           </div>
           <div class="tp-toolbar-right" id="tpSortToolbarTop">
             <span class="tp-toolbar-label">⚡ Sort By:</span>
@@ -990,9 +990,9 @@
         </div>
       </div>
 
-      <!-- Rankings Table (Ranks 4 to 20 for Top, or 1 to 50 for Low) -->
+      <!-- Rankings Table (Ranks 4 to 50 for Top, or 1 to 50 for Low) -->
       <div class="tp-table-section">
-        <div class="tp-section-heading" id="tpTableHeading">📊 Leaderboard Rankings (Ranks #4 to #20)</div>
+        <div class="tp-section-heading" id="tpTableHeading">📊 Leaderboard Rankings (Ranks #4 to #50)</div>
         <div class="tp-table-container">
           <div class="tp-table-header" id="tpTableHeader">
             <div>Rank</div>
@@ -1409,6 +1409,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=10.1.6"></script>
+  <script src="js/gold_app.js?v=10.1.8"></script>
 </body>
 </html>
