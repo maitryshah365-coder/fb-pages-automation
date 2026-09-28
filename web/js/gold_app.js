@@ -766,6 +766,18 @@ async function initDashboard() {
     selectPage("all");
     updateRadarSlots();
 
+    // Immediately update Google Drive total stock badges in sidebar & mobile drawer on startup
+    if (fullData.pages && Array.isArray(fullData.pages)) {
+      const initDriveStock = fullData.pages.reduce((sum, p) => {
+        const count = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : ((typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount) || 0);
+        return sum + count;
+      }, 0);
+      const sideDriveBadge = document.getElementById("sideNavDriveCountBadge");
+      const drawerDriveBadge = document.getElementById("drawerNavDriveCountBadge");
+      if (sideDriveBadge) sideDriveBadge.innerText = initDriveStock.toLocaleString();
+      if (drawerDriveBadge) drawerDriveBadge.innerText = initDriveStock.toLocaleString();
+    }
+
     // Initialize Post Now Studio (Fleet selection, Live Console, and Queue counters)
     initStudioView();
 
@@ -1155,14 +1167,16 @@ async function syncLiveMetaGraph(isManual = false) {
       fullData.today_summary.remaining = Math.max(0, (fullData.today_summary.target_total || 168) - totalUploadedCount);
     }
 
-    // Update Drive Hero & Sidebar Badge
-    const sideBadgeDrive = document.getElementById("sideBadgeDriveCount");
-    if (sideBadgeDrive) {
+    // Update Drive Hero & Sidebar / Drawer Badges
+    const sideBadgeDrive = document.getElementById("sideNavDriveCountBadge");
+    const drawerBadgeDrive = document.getElementById("drawerNavDriveCountBadge");
+    if (sideBadgeDrive || drawerBadgeDrive) {
       let totalStock = 0;
       (fullData.pages || []).forEach(p => {
         totalStock += ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (typeof DRIVE_CONFIGURED_PAGES !== "undefined" ? (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0) : 0));
       });
-      sideBadgeDrive.innerText = totalStock.toLocaleString();
+      if (sideBadgeDrive) sideBadgeDrive.innerText = totalStock.toLocaleString();
+      if (drawerBadgeDrive) drawerBadgeDrive.innerText = totalStock.toLocaleString();
     }
 
     updateSyncProgressUI(98, "Rendering Real-Time Dashboard Views...");
@@ -3618,14 +3632,31 @@ const DRIVE_CONFIGURED_PAGES = {
   "802518939617506":  { pageName: "uk7_page_9",  displayName: "Lee Charles",            ready: true, videoCount: 386, folderId: "1MxP6QD8L1VfvdmLTJMZi_znujU8p1DXB", handle: "leecharles",            account: "UK Account 7" },
   "864838050041932":  { pageName: "uk7_page_10", displayName: "Lee Daniel",             ready: true, videoCount: 306, folderId: "11ObtDv6z6HzTxKbp7RXY8ug4TL9-Fgjj", handle: "leedaniel",             account: "UK Account 7" },
   "208233979039379":  { pageName: "uk7_page_11", displayName: "Memes & Mischief",       ready: true, videoCount: 120, folderId: "1YGKlonl9p1iEtBFAOTF-hDANC9EiTNTi", handle: "memesmischief",         account: "UK Account 7" },
-  "870975689430311":  { pageName: "uk7_page_12", displayName: "Martin John",            ready: true, videoCount: 335, folderId: "1qrc_bt4CioXgYiTybDD_8XXUBLD0PDdT", handle: "martinjohn",            account: "UK Account 7" }
+  "870975689430311":  { pageName: "uk7_page_12", displayName: "Martin John",            ready: true, videoCount: 335, folderId: "1qrc_bt4CioXgYiTybDD_8XXUBLD0PDdT", handle: "martinjohn",            account: "UK Account 7" },
+
+  // USA Fleet 3 Pages (Radika Patel - 15 Pages, 3,910 Videos Total Cloud Stock)
+  "1033900793135926": { pageName: "usa3_page_1",  displayName: "Cloud berry Lane",       ready: true, videoCount: 187, folderId: "1gtFrX3Ji1yjJ5f8yHe1zOcdgMCTDQFMn", handle: "cloudberrylane",       account: "USA Account 3" },
+  "984876688045322":  { pageName: "usa3_page_2",  displayName: "Sunset Mint Post",       ready: true, videoCount: 496, folderId: "1BURCLnzpluribfLIMlx7iPp-qdf_GL2T", handle: "sunsetmintpost",       account: "USA Account 3" },
+  "928116440385651":  { pageName: "usa3_page_3",  displayName: "Timeless Glimpse",       ready: true, videoCount: 361, folderId: "1TcsGrKQd3ueOdVGgjsG5ujrwHmnoLd4N", handle: "timelessglimpse",       account: "USA Account 3" },
+  "495281633679562":  { pageName: "usa3_page_4",  displayName: "The Entertainment Zone", ready: true, videoCount: 49,  folderId: "1pBBPnxX539_8XbACP_xN5ZaqdgnVNdaC", handle: "theentertainmentzone", account: "USA Account 3" },
+  "461899523680517":  { pageName: "usa3_page_5",  displayName: "House Note",             ready: true, videoCount: 313, folderId: "1MMHC7iT-E1r-R8p-uSXY5_JJU5ttxhAp", handle: "housenote",             account: "USA Account 3" },
+  "512339515286069":  { pageName: "usa3_page_6",  displayName: "Wand Wizardry Legend",   ready: true, videoCount: 327, folderId: "12Z5ghscmqcwCCjqK4nE-AEa0ecwPmBxA", handle: "wandwizardrylegend",   account: "USA Account 3" },
+  "481027178422627":  { pageName: "usa3_page_7",  displayName: "Potato Flamingo",        ready: true, videoCount: 140, folderId: "11EFX0WJ32MzLCMbtRU3cehqjmFLuQ3KC", handle: "potatoflamingo",        account: "USA Account 3" },
+  "377394845467706":  { pageName: "usa3_page_8",  displayName: "Wu Tong's Family",       ready: true, videoCount: 490, folderId: "1DUewTYHyfLjT-IEKh0lsWbs30sHT-WiJ", handle: "wutongsfamily",         account: "USA Account 3" },
+  "301441593063746":  { pageName: "usa3_page_9",  displayName: "Prestige Authority",     ready: true, videoCount: 122, folderId: "1S-cw7Fe7G1GyvpYwH1RSe2vGJdC0_0Lm", handle: "prestigeauthority",     account: "USA Account 3" },
+  "372905129232715":  { pageName: "usa3_page_10", displayName: "Sthefany oliveira",      ready: true, videoCount: 152, folderId: "125WfzCXV4G8mtQfHa-9HxUeuIS_BXtYk", handle: "sthefanyoliveira",      account: "USA Account 3" },
+  "271543462710279":  { pageName: "usa3_page_11", displayName: "Iron Republic",          ready: true, videoCount: 169, folderId: "1h9B3ZNGqcWtRUD0-JhBBWCErlK8BsTbb", handle: "ironrepublic",          account: "USA Account 3" },
+  "209182608951563":  { pageName: "usa3_page_12", displayName: "Shadow Executive",       ready: true, videoCount: 503, folderId: "1lK6PK14R0GGQRmk8lCA9L-ketOUFQbP6", handle: "shadowexecutive",       account: "USA Account 3" },
+  "241688455685265":  { pageName: "usa3_page_13", displayName: "Hu1",                    ready: true, videoCount: 54,  folderId: "1R9miZUECFxxSCVYjrLBUi23Hv6HhelYq", handle: "hu1",                    account: "USA Account 3" },
+  "171465126060636":  { pageName: "usa3_page_14", displayName: "Alpha Dynasty",          ready: true, videoCount: 169, folderId: "1OyrUqGKt0bPQqo6mekPjmAd2VJfb4CuQ", handle: "alphadynasty",          account: "USA Account 3" },
+  "160240527166280":  { pageName: "usa3_page_15", displayName: "Path Summer",            ready: true, videoCount: 378, folderId: "1RPhbSb0nV7-yydSD-6m0kc12bhwAG4do", handle: "pathsummer",            account: "USA Account 3" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
 let studioSelectedPageIds = new Set();
 let isStudioDispatching = false;
 let currentStudioAccountFilter = "all";
-let expandedStudioBoxes = new Set(["a1", "a2", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"]);
+let expandedStudioBoxes = new Set(["a1", "a2", "a3", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"]);
 let currentDriveAccountFilter = "all";
 let currentRecentSourceFilter = "all";
 
@@ -4801,25 +4832,30 @@ function formatRelativeTime(isoStr) {
 function renderDriveDataView() {
   if (!fullData || !fullData.pages) return;
 
-  // Calculate stock numbers
+  // Calculate stock numbers across all 10 fleets (128 pages total)
   let totalStock = 0;
   let a1Stock = 0;
   let a2Stock = 0;
+  let a3Stock = 0;
   let ukStock = 0;
 
   fullData.pages.forEach(p => {
     const pid = String(p.id);
-    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+    const dInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]) || null;
     const count = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
-    const isA2 = (p.account === "Account 2") || (p.index > 15 && p.index <= 30);
-    const isUK = (p.account === "UK Account 1") || (p.index > 30) || (p.region === "GB");
+    const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || p.box_group === "Meghal Chauhan";
+    const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
+    const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
+
     totalStock += count;
-    if (isUK) {
-      ukStock += count;
-    } else if (isA2) {
-      a2Stock += count;
-    } else {
+    if (isUSA1) {
       a1Stock += count;
+    } else if (isUSA2) {
+      a2Stock += count;
+    } else if (isUSA3) {
+      a3Stock += count;
+    } else {
+      ukStock += count;
     }
   });
 
@@ -4829,10 +4865,14 @@ function renderDriveDataView() {
   if (elA1) elA1.innerText = `${a1Stock.toLocaleString()} Videos`;
   const elA2 = document.getElementById("driveHeroA2Count");
   if (elA2) elA2.innerText = `${a2Stock.toLocaleString()} Videos`;
+  const elA3 = document.getElementById("driveHeroA3Count");
+  if (elA3) elA3.innerText = `${a3Stock.toLocaleString()} Videos`;
   const elUK = document.getElementById("driveHeroUKCount");
   if (elUK) elUK.innerText = `${ukStock.toLocaleString()} Videos`;
   const elSideBadge = document.getElementById("sideNavDriveCountBadge");
   if (elSideBadge) elSideBadge.innerText = totalStock.toLocaleString();
+  const elDrawerBadge = document.getElementById("drawerNavDriveCountBadge");
+  if (elDrawerBadge) elDrawerBadge.innerText = totalStock.toLocaleString();
 
   renderDriveInventoryList();
 }
@@ -4847,21 +4887,23 @@ function renderDriveInventoryList() {
 
   const filtered = fullData.pages.filter(p => {
     const pid = String(p.id);
-    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
+    const dInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]) || null;
     const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
 
-    const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || (p.index >= 1 && p.index <= 15);
-    const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
-    const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || (p.index > 30 && p.index <= 42);
-    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
-    const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
-    const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
-    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
-    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || (p.index > 89 && p.index <= 101);
-    const isUK7 = FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.index > 101;
+    const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || p.box_group === "Meghal Chauhan";
+    const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
+    const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
+    const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || p.box_group === "Binjal Mehra";
+    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || p.box_group === "Chanda Nai";
+    const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || p.box_group === "Mahi Patel";
+    const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || p.box_group === "Nidhi Desai";
+    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.box_group === "Richi Patel";
+    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.box_group === "Sweta Shah";
+    const isUK7 = (FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.box_group === "Riya Gaur") && !isUSA3;
 
     if (currentDriveAccountFilter === "a1" && !isUSA1) return false;
     if (currentDriveAccountFilter === "a2" && !isUSA2) return false;
+    if (currentDriveAccountFilter === "a3" && !isUSA3) return false;
     if (currentDriveAccountFilter === "uk1" && !isUK1) return false;
     if (currentDriveAccountFilter === "uk2" && !isUK2) return false;
     if (currentDriveAccountFilter === "uk3" && !isUK3) return false;
@@ -4884,15 +4926,17 @@ function renderDriveInventoryList() {
   // Render Desktop Table
   tbody.innerHTML = filtered.map((p, idx) => {
     const pid = String(p.id);
-    const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-    const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
-    const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || (p.index > 30 && p.index <= 42);
-    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
-    const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
-    const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
-    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
-    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || (p.index > 89 && p.index <= 101);
-    const isUK7 = FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.index > 101;
+    const dInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]) || null;
+    const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || p.box_group === "Meghal Chauhan";
+    const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
+    const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
+    const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || p.box_group === "Binjal Mehra";
+    const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || p.box_group === "Chanda Nai";
+    const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || p.box_group === "Mahi Patel";
+    const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || p.box_group === "Nidhi Desai";
+    const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.box_group === "Richi Patel";
+    const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.box_group === "Sweta Shah";
+    const isUK7 = (FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.box_group === "Riya Gaur") && !isUSA3;
 
     const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6 || isUK7;
     const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
@@ -4918,6 +4962,9 @@ function renderDriveInventoryList() {
     } else if (isUK1) {
       badgeClass = 'badge-uk';
       accountLabel = 'Binjal Mehra';
+    } else if (isUSA3) {
+      badgeClass = 'badge-us';
+      accountLabel = 'Radika Patel';
     } else if (isUSA2) {
       badgeClass = 'badge-us';
       accountLabel = 'Mia Shah';
@@ -4926,8 +4973,8 @@ function renderDriveInventoryList() {
     const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
     const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
     const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
-    const handle = dInfo?.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
-    const folderName = `${p.name} - Videos`;
+    const handle = dInfo?.handle || p.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const folderName = p.drive_folder_name || dInfo?.folderName || `${p.name} - Videos`;
     const fillWidth = Math.min(100, Math.round((videoCount / 850) * 100));
 
     let stockHealthBadge = '';
@@ -4987,19 +5034,21 @@ function renderDriveInventoryList() {
   if (mobileContainer) {
     mobileContainer.innerHTML = filtered.map(p => {
       const pid = String(p.id);
-      const dInfo = DRIVE_CONFIGURED_PAGES[pid];
-      const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || (p.index > 15 && p.index <= 30);
-      const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || (p.index > 30 && p.index <= 42);
-      const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || (p.index > 42 && p.index <= 54);
-      const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || (p.index > 54 && p.index <= 66);
-      const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || (p.index > 66 && p.index <= 78);
-      const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || (p.index > 78 && p.index <= 89);
-      const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || (p.index > 89 && p.index <= 101);
-      const isUK7 = FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.index > 101;
+      const dInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]) || null;
+      const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || p.box_group === "Meghal Chauhan";
+      const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
+      const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
+      const isUK1 = FLEET_UK_01_SET.has(pid) || p.account === "UK Account 1" || p.box_group === "Binjal Mehra";
+      const isUK2 = FLEET_UK_02_SET.has(pid) || p.account === "UK Account 2" || p.box_group === "Chanda Nai";
+      const isUK3 = FLEET_UK_03_SET.has(pid) || p.account === "UK Account 3" || p.box_group === "Mahi Patel";
+      const isUK4 = FLEET_UK_04_SET.has(pid) || p.account === "UK Account 4" || p.box_group === "Nidhi Desai";
+      const isUK5 = FLEET_UK_05_SET.has(pid) || p.account === "UK Account 5" || p.box_group === "Richi Patel";
+      const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.box_group === "Sweta Shah";
+      const isUK7 = (FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.box_group === "Riya Gaur") && !isUSA3;
 
       const isUK = isUK1 || isUK2 || isUK3 || isUK4 || isUK5 || isUK6 || isUK7;
       const flagImg = `<img src="${isUK ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUK ? 'UK' : 'US'}" class="app-flag-icon">`;
-      let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : (isUSA2 ? 'badge-a2' : 'badge-a1'), accountLabel = 'Meghal Chauhan';
+      let badgeText = flagImg, badgeClass = isUK ? 'badge-uk' : (isUSA3 ? 'badge-us' : (isUSA2 ? 'badge-a2' : 'badge-a1')), accountLabel = 'Meghal Chauhan';
       if (isUK7) {
         badgeClass = 'badge-uk';
         accountLabel = 'Riya Gaur';
@@ -5021,6 +5070,9 @@ function renderDriveInventoryList() {
       } else if (isUK1) {
         badgeClass = 'badge-uk';
         accountLabel = 'Binjal Mehra';
+      } else if (isUSA3) {
+        badgeClass = 'badge-us';
+        accountLabel = 'Radika Patel';
       } else if (isUSA2) {
         badgeClass = 'badge-a2';
         accountLabel = 'Mia Shah';
@@ -5029,7 +5081,7 @@ function renderDriveInventoryList() {
       const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
       const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
       const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
-      const handle = dInfo?.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const handle = dInfo?.handle || p.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
       let stockHealthBadge = '';
       if (videoCount >= 200) {
