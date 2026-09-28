@@ -1173,7 +1173,7 @@ async function syncLiveMetaGraph(isManual = false) {
     if (sideBadgeDrive || drawerBadgeDrive) {
       let totalStock = 0;
       (fullData.pages || []).forEach(p => {
-        totalStock += ((p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (typeof DRIVE_CONFIGURED_PAGES !== "undefined" ? (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0) : 0));
+        totalStock += ((p.drive_videos_count !== undefined && p.drive_videos_count !== null) ? p.drive_videos_count : (typeof DRIVE_CONFIGURED_PAGES !== "undefined" ? (DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount || 0) : 0));
       });
       if (sideBadgeDrive) sideBadgeDrive.innerText = totalStock.toLocaleString();
       if (drawerBadgeDrive) drawerBadgeDrive.innerText = totalStock.toLocaleString();
@@ -4842,7 +4842,7 @@ function renderDriveDataView() {
   fullData.pages.forEach(p => {
     const pid = String(p.id);
     const dInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]) || null;
-    const count = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const count = (p.drive_videos_count !== undefined && p.drive_videos_count !== null) ? p.drive_videos_count : (dInfo?.videoCount || 0);
     const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || p.box_group === "Meghal Chauhan";
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
     const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
@@ -4970,7 +4970,7 @@ function renderDriveInventoryList() {
       accountLabel = 'Mia Shah';
     }
 
-    const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count !== null) ? p.drive_videos_count : (dInfo?.videoCount || 0);
     const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
     const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
     const handle = dInfo?.handle || p.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -5078,7 +5078,7 @@ function renderDriveInventoryList() {
         accountLabel = 'Mia Shah';
       }
 
-      const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
+      const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count !== null) ? p.drive_videos_count : (dInfo?.videoCount || 0);
       const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
       const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
       const handle = dInfo?.handle || p.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
