@@ -1,14 +1,14 @@
 {
-  "run_id": "36634398983",
-  "run_number": "293",
-  "completed_at": "2026-09-29T22:30:18.659677+00:00",
+  "run_id": "36635554877",
+  "run_number": "294",
+  "completed_at": "2026-09-29T22:35:29.130661+00:00",
   "runner_telemetry": {
-    "ip": "195.86.5.20",
+    "ip": "212.116.231.28",
     "city": "London",
     "region": "England",
     "country": "GB",
     "loc": "51.5085,-0.1257",
-    "org": "AS212238 Datacamp Limited",
+    "org": "AS209854 Cyberzone S.A.",
     "postal": "WC2N",
     "timezone": "Europe/London",
     "readme": "https://ipinfo.io/missingauth"
@@ -16,142 +16,115 @@
   "dry_run": false,
   "results": [
     {
-      "status": "success",
-      "page": "uk6_page_1",
-      "drive_file_id": "12suxAOuhnLS6ErshXLjWkvkyb21acrJx",
-      "facebook_video_id": "2152193392309272",
-      "filename": "A Dragon Everyone Wanted To Meet With A Magical Twist #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "1183175548215394",
-      "page_config_name": "uk6_page_1",
-      "display_name": "Broken Orchard"
+      "status": "failed",
+      "page": "uk7_page_1",
+      "error": "Unable to find the server at www.googleapis.com",
+      "page_id": "1191247700748920",
+      "page_config_name": "uk7_page_1",
+      "display_name": "Dead Languages"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_2",
+      "error": "The read operation timed out",
+      "page_id": "1304768466050503",
+      "page_config_name": "uk7_page_2",
+      "display_name": "Curse The Dawn"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_3",
+      "error": "Unable to find the server at www.googleapis.com",
+      "page_id": "1338114526042607",
+      "page_config_name": "uk7_page_3",
+      "display_name": "Cure For Monday"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_4",
+      "error": "The read operation timed out",
+      "page_id": "1315483674976229",
+      "page_config_name": "uk7_page_4",
+      "display_name": "Cruel Mercy"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_5",
+      "error": "The read operation timed out",
+      "page_id": "1195883193618072",
+      "page_config_name": "uk7_page_5",
+      "display_name": "Choke The Static"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_6",
+      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
+      "page_id": "802518939617506",
+      "page_config_name": "uk7_page_6",
+      "display_name": "Lee  Charles"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_7",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "896072510245887",
+      "page_config_name": "uk7_page_7",
+      "display_name": "Cooper  Billy"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_8",
+      "error": "Unable to find the server at www.googleapis.com",
+      "page_id": "755318371007926",
+      "page_config_name": "uk7_page_8",
+      "display_name": "Alexander  Christopher"
+    },
+    {
+      "status": "failed",
+      "page": "uk7_page_9",
+      "error": "HTTPSConnectionPool(host='graph.facebook.com', port=443): Max retries exceeded with url: /v20.0/864838050041932/video_reels (Caused by NameResolutionError(\"HTTPSConnection(host='graph.facebook.com', port=443): Failed to resolve 'graph.facebook.com' ([Errno -3] Temporary failure in name resolution)\"))",
+      "page_id": "864838050041932",
+      "page_config_name": "uk7_page_9",
+      "display_name": "Lee  Daniel"
     },
     {
       "status": "success",
-      "page": "uk6_page_2",
-      "drive_file_id": "1cLSSzs_WNZfanccaQZGATJIjsuoOAMKk",
-      "facebook_video_id": "1397797189147673",
-      "filename": "Grandma Just Entered The Tournament Before The Final Round #GrandmaGamer #Esports #Gaming #GamingLegend #ProGaming #Underdog #GamingCommunity #ViralGaming #Shorts..mp4",
+      "page": "uk7_page_10",
+      "drive_file_id": "1wxgC_IOxG6vGdtKyiETLpK_tvBOPuNBc",
+      "facebook_video_id": "2963858577295026",
+      "filename": "来一个盲盒#抓娃娃 #抓娃娃高手 #电玩城 #shorts .mp4",
       "post_type": "reel",
-      "page_id": "1218007361389446",
-      "page_config_name": "uk6_page_2",
-      "display_name": "Hollow Echo"
+      "page_id": "870975689430311",
+      "page_config_name": "uk7_page_10",
+      "display_name": "Martin  John"
     },
     {
       "status": "success",
-      "page": "uk6_page_3",
-      "drive_file_id": "1j9deCtW_h6blVnw3KjU9JUrfGH_oxYBp",
-      "facebook_video_id": "1070299385634314",
-      "filename": "Can You Beat This Challenge With Perfect Timing #Shorts..mp4",
+      "page": "uk7_page_11",
+      "drive_file_id": "1rkzu8f8gbbOfGRAS4mpGil4AiXd5g7cc",
+      "facebook_video_id": "1337137244983097",
+      "filename": "#shorts #Funny #Viral #Trend (295).mp4",
       "post_type": "reel",
-      "page_id": "1168998922967230",
-      "page_config_name": "uk6_page_3",
-      "display_name": "Grabeal"
+      "page_id": "479102298617718",
+      "page_config_name": "uk7_page_11",
+      "display_name": "Corner Spe"
     },
     {
       "status": "success",
-      "page": "uk6_page_4",
-      "drive_file_id": "1FLFx95vE9Q_ni6qPl3bOSHYm0KxIEm1s",
-      "facebook_video_id": "4169470513351191",
-      "filename": "Every Kick Has A Purpose For The Team #Football #Soccer #FootballStory #FootballLife #Goal #Dream #Champions #Sports #Cinematic #Motivation #Shorts..mp4",
+      "page": "uk7_page_12",
+      "drive_file_id": "1z9OWZ5jIMcULWmmVJOHGhRL2I3UZHkvG",
+      "facebook_video_id": "1544963617739720",
+      "filename": "The beautiful girl took a bath alone.  #shorts.mp4",
       "post_type": "reel",
-      "page_id": "1260883380432217",
-      "page_config_name": "uk6_page_4",
-      "display_name": "Gentle Ruin"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_5",
-      "drive_file_id": "1qRyl25vBUJf65tkvj4rjrrF0l_TF_TDV",
-      "facebook_video_id": "942575232256892",
-      "filename": "Everything Changed Right Here With The Perfect Ending #Transformation #BeforeAndAfter #GlowUp #Satisfying #TransformationVideo #Amazing #Viral #Trending #Reels #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "1230784326779924",
-      "page_config_name": "uk6_page_5",
-      "display_name": "Heavy Whistle"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_6",
-      "drive_file_id": "1MQccm0xWKLH1rYTRcHPbo6yTYSxJXQiu",
-      "facebook_video_id": "1617918256630067",
-      "filename": "Football Is More Than A Game Against All Odds #Football #Soccer #FootballStory #FootballLife #Goal #Dream #Champions #Sports #Cinematic #Motivation #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "956709574200068",
-      "page_config_name": "uk6_page_6",
-      "display_name": "Echo Ridge"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_7",
-      "drive_file_id": "1UXlRFZ4fBiFLKEg6l0E4xwwhAoeN-hoM",
-      "facebook_video_id": "965788965893878",
-      "filename": "Baby Found The Best Friend Ever That Melted Hearts #Baby #Husky #Cute #BestFriends #DogLover #Heartwarming #Wholesome #CuteMoments #ViralVideo #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "682815954920518",
-      "page_config_name": "uk6_page_7",
-      "display_name": "Prestige Syndicate"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_8",
-      "drive_file_id": "1YSKwCHAa_0o04V6qcyB1lszmntST8IDV",
-      "facebook_video_id": "3490237297815760",
-      "filename": "Inside The World's Biggest Film Set Before Release #BehindTheScenes #Hollywood #MovieMagic #FilmMaking #VFX #FilmSet #Cinematic #MovieProduction #BTS #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "758260714032115",
-      "page_config_name": "uk6_page_8",
-      "display_name": "Power Doctrine"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_9",
-      "drive_file_id": "1ipbrkzN2ti1tiNcTqFd8ekmbCLtA866k",
-      "facebook_video_id": "1401696931496082",
-      "filename": "Nobody Expected What Was Hidden And Nobody Guessed It #Reveal #Unveiling #Surprise #Hidden #WaitForIt #CrowdReaction #ViralVideo #Trending #Reels #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "714841275048147",
-      "page_config_name": "uk6_page_9",
-      "display_name": "Apex Chronicle"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_10",
-      "drive_file_id": "178b4pEJv3B10QcUQ8CL_NaXJEHS6QztJ",
-      "facebook_video_id": "2162385157711317",
-      "filename": "One Decision Changed The Outcome Against All Odds #Wildlife #Nature #WildAnimals #AnimalWorld #Survival #NatureLovers #AnimalKingdom #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "314172255114813",
-      "page_config_name": "uk6_page_10",
-      "display_name": "anymotion"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_11",
-      "drive_file_id": "1MgI4tOkaUd9SeRCt21-Dx0i9gen8_MYz",
-      "facebook_video_id": "1770367490866128",
-      "filename": "One Event Changed The Future Before It Disappeared #History #AncientHistory #WorldHistory #HistoricalFacts #HistoryFacts #Civilization #Educational #LearnHistory #DidYouKnow #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "234852513054858",
-      "page_config_name": "uk6_page_11",
-      "display_name": "Mai Cartoon Hoon"
-    },
-    {
-      "status": "success",
-      "page": "uk6_page_12",
-      "drive_file_id": "1nz45dDgkTGfgtspUGJl0o-XcR8nC6233",
-      "facebook_video_id": "1823357655337757",
-      "filename": "Focus Mode Activated Before The Finals #Esports #Gaming #LockerRoom #TeamHype #GameDay #ProGaming #Tournament #Victory #GamingCommunity #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "172005056007015",
-      "page_config_name": "uk6_page_12",
-      "display_name": "Cold Ash"
+      "page_id": "208233979039379",
+      "page_config_name": "uk7_page_12",
+      "display_name": "Memes & Mischief"
     }
   ],
   "stats": {
     "total": 12,
-    "success": 12,
+    "success": 3,
     "skipped": 0,
-    "failed": 6
+    "failed": 9
   }
 }
