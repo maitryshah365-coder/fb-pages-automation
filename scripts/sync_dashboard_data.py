@@ -165,6 +165,24 @@ FLEET_USA_03_IDS = [
     "160240527166280"   # Path Summer
 ]
 
+FLEET_USA_04_IDS = [
+    "usa4_p01_apex_house",
+    "usa4_p02_quantum_house",
+    "usa4_p03_drift_valley",
+    "usa4_p04_dreams_of_life",
+    "usa4_p05_end_every",
+    "usa4_p06_executive_empire",
+    "usa4_p07_im_joker",
+    "usa4_p08_iron_covenant",
+    "usa4_p09_iron_momentum",
+    "usa4_p10_me_the",
+    "usa4_p11_quiet_harbor",
+    "usa4_p12_radiant_reverie",
+    "usa4_p13_bit_creative",
+    "usa4_p14_atlas_authority",
+    "usa4_p15_blissful_paradox"
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -190,7 +208,8 @@ def get_pages_list():
         {"account": "UK Account 5", "owner": "Richi Patel", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account5_richi_permanent_pages.json")},
         {"account": "UK Account 6", "owner": "Sweta Shah", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account6_sweta_permanent_pages.json")},
         {"account": "UK Account 7", "owner": "Riya Gaur", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account7_riya_permanent_pages.json")},
-        {"account": "Account 3", "owner": "Radika Patel", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account3_radika_permanent_pages.json")}
+        {"account": "Account 3", "owner": "Radika Patel", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account3_radika_permanent_pages.json")},
+        {"account": "USA Account 4", "owner": "Rohini Dutt", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account4_rohini_permanent_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -244,7 +263,8 @@ def get_pages_list():
         (FLEET_UK_05_IDS, "Richi Patel (UK)", "Richi Patel", "GB", 79),
         (FLEET_UK_06_IDS, "Sweta Shah (UK)", "Sweta Shah", "GB", 90),
         (FLEET_UK_07_IDS, "Riya Gaur (UK)", "Riya Gaur", "GB", 102),
-        (FLEET_USA_03_IDS, "Radika Patel (USA)", "Radika Patel", "US", 114)
+        (FLEET_USA_03_IDS, "Radika Patel (USA)", "Radika Patel", "US", 114),
+        (FLEET_USA_04_IDS, "Rohini Dutt (USA)", "Rohini Dutt", "US", 129)
     ]
 
     final_pages = []
@@ -1627,6 +1647,7 @@ def sync_data():
             "uk_account6_pages_count": len([p for p in page_records if "Sweta" in p.get("account", "") or p.get("account") == "UK Account 6"]),
             "uk_account7_pages_count": len([p for p in page_records if "Riya" in p.get("account", "") or p.get("account") == "UK Account 7"]),
             "account3_pages_count": len([p for p in page_records if "Radika" in p.get("account", "") or p.get("account") == "Account 3"]),
+            "account4_pages_count": len([p for p in page_records if "Rohini" in p.get("account", "") or p.get("account") == "USA Account 4"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,

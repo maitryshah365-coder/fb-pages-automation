@@ -41,3 +41,5 @@ check_hist*.py
 find_code.py
 scratch/
 scripts/fetch_account2.py
+**/chrome_user_data/
+*cookies*.json
