@@ -6126,7 +6126,9 @@ function renderUploadHistoryTable() {
   const filtered = uploadHistoryData.filter(item => {
     // Country / Timeframe Filter
     if (uploadHistoryFilter === "us") {
-      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia")) return false;
+      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia") && !item.account?.includes("Radika") && !item.account?.includes("Rohini")) return false;
+    } else if (uploadHistoryFilter === "s25") {
+      if (!item.account?.includes("Rohini") && !item.page_name?.includes("Apex") && !item.location?.includes("New York")) return false;
     } else if (uploadHistoryFilter === "uk") {
       if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta")) return false;
     } else if (uploadHistoryFilter === "today") {
@@ -6382,7 +6384,8 @@ function renderHealthAuditMainView() {
     { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 78, endIdx: 88, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 89, endIdx: 100, flag: "🇬🇧", flagImg: "icons/gb.png" },
     { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 101, endIdx: 111, flag: "🇬🇧", flagImg: "icons/gb.png" },
-    { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸", flagImg: "icons/us.png" }
+    { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸", flagImg: "icons/us.png" },
+    { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", flagImg: "icons/us.png", isDeviceProfile: true, deviceName: "Samsung Galaxy S25 (SM-S931U)" }
   ];
 
   const auditPages = fullData?.pages || [];
@@ -6432,7 +6435,7 @@ function renderHealthAuditMainView() {
 
       const isTokenError = isExplicitTokenError || (isRunTokenError && p.token_status !== "active");
 
-      const hasToken = Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready || p.token_status === "active") && !isTokenError;
+      const hasToken = cfg.isDeviceProfile ? true : (Boolean((p.access_token && p.access_token.length > 20) || dInfo?.ready || p.token_status === "active") && !isTokenError);
       const pToday = getPageTodayPosts(p);
       fleetTodayPosts += pToday;
       totalTodayUploads += pToday;
@@ -6468,7 +6471,7 @@ function renderHealthAuditMainView() {
           <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
             <span style="color: #38bdf8; font-size: 10px; font-weight: 700;">🎬 ${pToday} Reels</span>
             <span style="font-size: 9.5px; padding: 1px 5px; border-radius: 4px; background: ${hasToken ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.2)'}; color: ${hasToken ? '#4ade80' : '#f87171'};">
-              ${hasToken ? 'Active' : 'Error 190'}
+              ${cfg.isDeviceProfile ? 'S25 Active' : (hasToken ? 'Active' : 'Error 190')}
             </span>
           </div>
         </div>
@@ -6482,7 +6485,11 @@ function renderHealthAuditMainView() {
     let cardBg = "rgba(15, 23, 42, 0.6)";
     let statusBadge = `<span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(34,197,94,0.15); color: #4ade80;">● ALL ACTIVE</span>`;
 
-    if (hasTokenIssue) {
+    if (cfg.isDeviceProfile) {
+      cardBorder = "rgba(56, 189, 248, 0.35)";
+      cardBg = "rgba(56, 189, 248, 0.05)";
+      statusBadge = `<span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(56,189,248,0.2); color: #38bdf8;">● S25 STEALTH PROFILE</span>`;
+    } else if (hasTokenIssue) {
       cardBorder = "rgba(239, 68, 68, 0.4)";
       cardBg = "rgba(239, 68, 68, 0.08)";
       statusBadge = `<span style="font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(239,68,68,0.25); color: #f87171;">🚨 ${fleetTokenIssues.length} TOKEN ERRORS</span>`;
@@ -6507,19 +6514,21 @@ function renderHealthAuditMainView() {
 
         <div style="display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: #94a3b8;">🔑 FB Tokens:</span>
-            <span style="color: ${hasTokenIssue ? '#f87171' : '#4ade80'}; font-weight: 700;">
-              ${fleetValid}/${fleetPages.length} Active ${hasTokenIssue ? `(${fleetTokenIssues.length} Expired)` : ''}
+            <span style="color: #94a3b8;">${cfg.isDeviceProfile ? '📱 Device Profile:' : '🔑 FB Tokens:'}</span>
+            <span style="color: #4ade80; font-weight: 700;">
+              ${cfg.isDeviceProfile ? 'Samsung S25 (SM-S931U)' : `${fleetValid}/${fleetPages.length} Active ${hasTokenIssue ? `(${fleetTokenIssues.length} Expired)` : ''}`}
             </span>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: #94a3b8;">🎬 Reels Today:</span>
-            <span style="color: #38bdf8; font-weight: 700;">${fleetTodayPosts} Uploads</span>
+            <span style="color: #94a3b8;">${cfg.isDeviceProfile ? '📍 Carrier / Clock:' : '🎬 Reels Today:'}</span>
+            <span style="color: #facc15; font-weight: 700;">
+              ${cfg.isDeviceProfile ? 'New York, US (EDT / UTC-4)' : `${fleetTodayPosts} Uploads`}
+            </span>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: #94a3b8;">Upload Status:</span>
-            <span style="color: ${hasTokenIssue ? '#f87171' : (hasGap ? '#facc15' : '#4ade80')}; font-weight: 700;">
-              ${hasTokenIssue ? `🚨 ${fleetGaps.length} Failed (Token 190)` : (hasGap ? `⚠️ Missed Slot (${fleetGaps[0].name})` : 'On Schedule')}
+            <span style="color: #94a3b8;">${cfg.isDeviceProfile ? '🎬 Reels Today:' : 'Upload Status:'}</span>
+            <span style="color: #38bdf8; font-weight: 700;">
+              ${cfg.isDeviceProfile ? `${fleetTodayPosts} Uploads (Slot 4: 05:30 AM IST)` : (hasTokenIssue ? `🚨 ${fleetGaps.length} Failed (Token 190)` : (hasGap ? `⚠️ Missed Slot (${fleetGaps[0].name})` : 'On Schedule'))}
             </span>
           </div>
         </div>
