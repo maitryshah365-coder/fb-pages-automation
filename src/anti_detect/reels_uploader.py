@@ -36,14 +36,19 @@ class AntiDetectReelsUploader:
 
     def __init__(self, profile=S25_NEWYORK_PROFILE, asset_id: str = "497577420112654"):
         self.profile = profile
-        self.asset_id = asset_id
+        self.asset_id = str(asset_id) if asset_id else "497577420112654"
         self.session_mgr = ProfileSessionManager(profile.profile_id)
-        self.composer_url = f"https://business.facebook.com/latest/reels_composer?asset_id={asset_id}"
+        if self.asset_id and self.asset_id.isdigit():
+            self.composer_url = f"https://business.facebook.com/latest/reels_composer?asset_id={self.asset_id}"
+        else:
+            self.composer_url = "https://business.facebook.com/latest/reels_composer"
 
     def upload_reel(
         self,
         video_path: str,
         caption: str,
+        page_name: str = "Apex House",
+        asset_id: Optional[str] = None,
         headless: bool = True,
         dry_run: bool = False
     ) -> Dict[str, Any]:
@@ -53,10 +58,13 @@ class AntiDetectReelsUploader:
         if not os.path.exists(video_path):
             return {"status": "error", "message": f"Video file not found: {video_path}"}
 
+        target_asset = str(asset_id) if asset_id else self.asset_id
+        composer_url = f"https://business.facebook.com/latest/reels_composer?asset_id={target_asset}" if (target_asset and target_asset.isdigit()) else "https://business.facebook.com/latest/reels_composer"
+
         print(f"\n=======================================================")
         print(f"🎬 UPLOADING REEL VIA SAMSUNG GALAXY S25 (NEW YORK)")
         print(f"   Video:    {os.path.basename(video_path)}")
-        print(f"   Page:     Apex House (Asset ID: {self.asset_id})")
+        print(f"   Page:     {page_name} (Asset ID: {target_asset})")
         print(f"   Caption:  {caption[:60]}...")
         print(f"   Dry Run:  {dry_run}")
         print(f"=======================================================")
@@ -65,7 +73,7 @@ class AntiDetectReelsUploader:
         playwright, context, page = launch_android_browser(
             profile=self.profile,
             headless=headless,
-            initial_url=self.composer_url
+            initial_url=composer_url
         )
 
         try:
@@ -122,16 +130,16 @@ class AntiDetectReelsUploader:
             # Click Publish / Share
             share_btn = page.query_selector('div[role="button"]:has-text("Publish"), button:has-text("Publish"), div[role="button"]:has-text("Share"), button:has-text("Share")')
             if share_btn:
-                print("🚀 Clicking 'Publish' button...")
+                print(f"🚀 Clicking 'Publish' button for {page_name}...")
                 share_btn.click()
                 time.sleep(random.uniform(8.0, 12.0))
-                print("🎉 REEL SUCCESSFULLY PUBLISHED TO APEX HOUSE!")
+                print(f"🎉 REEL SUCCESSFULLY PUBLISHED TO {page_name.upper()}!")
                 
                 # Log into database
-                self._record_in_db(video_path, "Apex House", "success")
+                self._record_in_db(video_path, page_name, "success")
                 return {
                     "status": "success",
-                    "page": "Apex House",
+                    "page": page_name,
                     "video": os.path.basename(video_path),
                     "elapsed_s": round(time.time() - start_time, 2)
                 }

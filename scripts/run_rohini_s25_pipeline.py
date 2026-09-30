@@ -89,11 +89,22 @@ def get_posted_file_names(page_id: str) -> set:
     try:
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
-        cur.execute("SELECT video_name FROM posted_videos WHERE page_id = ?", (page_id,))
-        rows = cur.fetchall()
-        for r in rows:
-            if r[0]:
-                posted.add(r[0])
+        try:
+            cur.execute("SELECT filename FROM videos WHERE page_id = ? AND status = 'posted'", (page_id,))
+            for r in cur.fetchall():
+                if r[0]:
+                    posted.add(r[0])
+        except Exception:
+            pass
+
+        try:
+            cur.execute("SELECT video_name FROM posted_videos WHERE page_id = ?", (page_id,))
+            for r in cur.fetchall():
+                if r[0]:
+                    posted.add(r[0])
+        except Exception:
+            pass
+
         conn.close()
     except Exception as e:
         print(f"DB check warning: {e}")
@@ -152,13 +163,14 @@ def record_successful_upload(page_id: str, page_name: str, file_name: str):
         cur = conn.cursor()
         now = datetime.now(timezone.utc).isoformat()
         cur.execute("""
-            INSERT OR REPLACE INTO posted_videos (page_id, page_name, video_name, posted_at, status)
-            VALUES (?, ?, ?, ?, ?)
-        """, (page_id, page_name, file_name, now, "published"))
+            INSERT INTO videos (page_id, filename, mime_type, post_type, status, posted_at)
+            VALUES (?, ?, 'video/mp4', 'reel', 'posted', ?)
+        """, (page_id, file_name, now))
         conn.commit()
         conn.close()
+        print(f"   [DB] Recorded '{file_name}' for {page_name} in videos table.")
     except Exception as e:
-        print(f"Failed to record in posted_videos: {e}")
+        print(f"Failed to record in videos: {e}")
 
 
 def main():
@@ -224,12 +236,14 @@ def main():
                 continue
 
         # 2. Upload Reel via Anti-Detect Playwright
-        uploader = AntiDetectReelsUploader(profile=S25_NEWYORK_PROFILE)
+        uploader = AntiDetectReelsUploader(profile=S25_NEWYORK_PROFILE, asset_id=p_id)
         caption = f"Stay inspired ✨ #viral #reels #trending #fyp #{p_name.replace(' ', '')}"
 
         res = uploader.upload_reel(
             video_path=video_path,
             caption=caption,
+            page_name=p_name,
+            asset_id=p_id,
             headless=not args.headed,
             dry_run=args.dry_run
         )
