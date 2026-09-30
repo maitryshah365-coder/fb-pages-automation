@@ -1247,7 +1247,7 @@ async function syncLiveMetaGraph(isManual = false) {
     console.warn("Live sync error:", err);
     if (statusText) statusText.innerText = "Meta Graph API: Connected (100% Real Data)";
     finishSyncProgressUI(updatedPages, fullData.pages.length);
-    setAiAssistantState("idle", "● Meta Graph Online • 126 Pages Monitored & Ready for Next Upload");
+    setAiAssistantState("idle", `● Meta Graph Online • ${fullData?.pages?.length || 141} Pages Monitored & Ready for Next Upload`);
   } finally {
     isLiveSyncing = false;
     if (btnSideSync) btnSideSync.classList.remove("spinning");
@@ -1323,6 +1323,7 @@ function renderSidebarPagesList(pages) {
   const usa1List = [];
   const usa2List = [];
   const usa3List = [];
+  const usa4List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -1338,11 +1339,13 @@ function renderSidebarPagesList(pages) {
       const idMatch = pid.toLowerCase().includes(searchTerm);
       const accMatch = (p.account || "").toLowerCase().includes(searchTerm);
       const ownerMatch = (p.account_owner || "").toLowerCase().includes(searchTerm);
-      if (!nameMatch && !idMatch && !accMatch && !ownerMatch) return;
+      const isMobileMatch = (searchTerm.includes("phone") || searchTerm.includes("mobile") || searchTerm.includes("s25") || searchTerm.includes("ph") || searchTerm.includes("rohini")) && (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")));
+      if (!nameMatch && !idMatch && !accMatch && !ownerMatch && !isMobileMatch) return;
     }
     if (FLEET_USA_01_SET.has(pid)) usa1List.push(p);
     else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
     else if (FLEET_USA_03_SET.has(pid)) usa3List.push(p);
+    else if (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt") usa4List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
@@ -1351,7 +1354,8 @@ function renderSidebarPagesList(pages) {
     else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
     else if (FLEET_UK_07_SET.has(pid)) uk7List.push(p);
     else {
-      if (p.account === "Account 3" || p.index > 113) usa3List.push(p);
+      if ((p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt" || p.index > 126) usa4List.push(p);
+      else if (p.account === "Account 3" || (p.index > 113 && p.index <= 126)) usa3List.push(p);
       else if (p.account === "UK Account 7" || (p.index > 101 && p.index <= 113)) uk7List.push(p);
       else if (p.account === "UK Account 6" || (p.index > 89 && p.index <= 101)) uk6List.push(p);
       else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
@@ -1366,6 +1370,7 @@ function renderSidebarPagesList(pages) {
 
   function renderPageItem(p, accType) {
     const isPageActive = String(p.id) === activePageId;
+    const isMobileSetup = accType === "usa4" || FLEET_USA_04_SET.has(String(p.id)) || (p.account && p.account.includes("Rohini"));
     const followersStr = (p.followers || p.fan_count || p.followers_count || 0).toLocaleString();
     const pToday = getPageTodayPosts(p);
     const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
@@ -1379,17 +1384,20 @@ function renderSidebarPagesList(pages) {
     }).join("");
 
     return `
-      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${escapeHtml(p.name)} • ID: ${p.id} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
+      <div class="side-page-item ${isPageActive ? 'active' : ''} ${isMobileSetup ? 'mobile-page-item' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${isMobileSetup ? '📱 Mobile Setup (S25) • ' : ''}${escapeHtml(p.name)} • ID: ${p.id} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
         <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${escapeHtml(p.name)}" onerror="this.src='https://graph.facebook.com/v21.0/${p.id}/picture?type=large'">
         <div class="side-page-content">
           <div class="side-page-row-top">
-            <span class="side-page-name" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</span>
+            <span class="side-page-name" title="${escapeHtml(p.name)}">
+              ${isMobileSetup ? '<span class="phone-setup-icon" title="Mobile Anti-Detect Setup (Samsung S25)" style="margin-right:4px;">📱</span>' : ''}${escapeHtml(p.name)}
+            </span>
             <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
               ${batteryCells}
             </div>
           </div>
           <div class="side-page-row-bottom">
             <span class="side-page-id-pill" title="Facebook Page ID: ${p.id}">ID: ${p.id}</span>
+            ${isMobileSetup ? '<span class="mobile-badge-chip" title="Samsung Galaxy S25 Device Profile">📱 S25</span>' : ''}
             <span class="side-page-followers">${followersStr} flws</span>
             <div class="side-page-stats-right">
               <span class="side-page-slot-tag ${pToday >= 4 ? 'done' : ''}">${pToday}/4 Slots</span>
@@ -1407,21 +1415,27 @@ function renderSidebarPagesList(pages) {
     const isUk = accType.startsWith("uk");
     const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
     const flagAlt = isUk ? "UK" : "USA";
+    const isMobileFleet = accType === "usa4";
+    const hasActivePage = items.some(p => String(p.id) === activePageId);
+    const isOpen = Boolean(searchTerm) || (hasActivePage && activePageId !== "all");
+
     return `
-      <div class="sidebar-section-box ${cssClass}" data-fleet="${accType}" id="fleetBox_${accType}">
+      <div class="sidebar-section-box ${cssClass} ${isMobileFleet ? 'sidebar-box-mobile-fleet' : ''} ${isOpen ? 'expanded' : ''}" data-fleet="${accType}" id="fleetBox_${accType}">
         <div class="sidebar-box-header" onclick="toggleFleetBox('${accType}', event)" title="${title} • ${items.length} Pages • ${totalFleetDone}/${totalFleetTarget} Slots">
-          <div class="sidebar-box-title">
+          <div class="sidebar-box-title" style="display:flex;align-items:center;gap:6px;">
             <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
+            ${isMobileFleet ? '<span class="phone-setup-icon" title="Samsung Galaxy S25 Mobile Setup" style="font-size:13px;line-height:1;">📱</span>' : ''}
             <span class="sidebar-box-name" title="${title}">${title}</span>
+            ${isMobileFleet ? '<span class="mobile-badge-chip" style="padding:1px 6px;border-radius:10px;">PH S25</span>' : ''}
           </div>
           <div class="sidebar-box-right">
             <span class="fleet-slots-badge ${totalFleetDone >= totalFleetTarget ? 'complete' : ''}">${totalFleetDone}/${totalFleetTarget} Slots</span>
-            <span class="sidebar-box-chevron">▼</span>
+            <span class="sidebar-box-chevron">${isOpen ? '▲' : '▼'}</span>
           </div>
         </div>
-        <div class="sidebar-box-body" style="display: none;">
+        <div class="sidebar-box-body" style="display: ${isOpen ? 'block' : 'none'};">
           <div class="sidebar-box-sub-strip">
-            <span>${items.length} Pages</span>
+            <span>${items.length} Pages ${isMobileFleet ? '• 📱 Mobile S25' : ''}</span>
             <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
           </div>
           ${items.map(p => renderPageItem(p, accType)).join("")}
@@ -1438,6 +1452,9 @@ function renderSidebarPagesList(pages) {
   }
   if (usa3List.length > 0) {
     html += buildBox("sidebar-box-usa3", "usa3", "🇺🇸", "Radika Patel", `${usa3List.length} Pages`, usa3List, "usa3");
+  }
+  if (usa4List.length > 0) {
+    html += buildBox("sidebar-box-usa4", "usa4", "🇺🇸", "Rohini Dutt (S25)", `${usa4List.length} Pages`, usa4List, "usa4");
   }
   if (uk1List.length > 0) {
     html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "Binjal Mehra", `${uk1List.length} Pages`, uk1List, "uk1");
@@ -1673,11 +1690,13 @@ function renderDrawerPages(pages) {
   
   const filtered = pageList.filter(p => {
     if (!searchTerm) return true;
+    const pid = String(p.id || "");
     const nameMatch = (p.name || "").toLowerCase().includes(searchTerm);
-    const idMatch = String(p.id || "").toLowerCase().includes(searchTerm);
+    const idMatch = pid.toLowerCase().includes(searchTerm);
     const accMatch = (p.account || "").toLowerCase().includes(searchTerm);
     const ownerMatch = (p.account_owner || "").toLowerCase().includes(searchTerm);
-    return nameMatch || idMatch || accMatch || ownerMatch;
+    const isMobileMatch = (searchTerm.includes("phone") || searchTerm.includes("mobile") || searchTerm.includes("s25") || searchTerm.includes("ph") || searchTerm.includes("rohini")) && (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")));
+    return nameMatch || idMatch || accMatch || ownerMatch || isMobileMatch;
   });
 
   if (filtered.length === 0) {
@@ -1697,6 +1716,7 @@ function renderDrawerPages(pages) {
   const usa1List = [];
   const usa2List = [];
   const usa3List = [];
+  const usa4List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -1710,6 +1730,7 @@ function renderDrawerPages(pages) {
     if (FLEET_USA_01_SET.has(pid)) usa1List.push(p);
     else if (FLEET_USA_02_SET.has(pid)) usa2List.push(p);
     else if (FLEET_USA_03_SET.has(pid)) usa3List.push(p);
+    else if (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt") usa4List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
@@ -1718,7 +1739,8 @@ function renderDrawerPages(pages) {
     else if (FLEET_UK_06_SET.has(pid)) uk6List.push(p);
     else if (FLEET_UK_07_SET.has(pid)) uk7List.push(p);
     else {
-      if (p.account === "Account 3" || p.index > 113) usa3List.push(p);
+      if ((p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt" || p.index > 126) usa4List.push(p);
+      else if (p.account === "Account 3" || (p.index > 113 && p.index <= 126)) usa3List.push(p);
       else if (p.account === "UK Account 7" || (p.index > 101 && p.index <= 113)) uk7List.push(p);
       else if (p.account === "UK Account 6" || (p.index > 89 && p.index <= 101)) uk6List.push(p);
       else if (p.account === "UK Account 5" || (p.index > 78 && p.index <= 89)) uk5List.push(p);
@@ -1733,6 +1755,7 @@ function renderDrawerPages(pages) {
 
   function renderDrawerItem(p, accType) {
     const isAct = String(p.id) === activePageId;
+    const isMobileSetup = accType === "usa4" || FLEET_USA_04_SET.has(String(p.id)) || (p.account && p.account.includes("Rohini"));
     const name = p.name || `Page ${p.id}`;
     const pId = String(p.id);
     const followers = (p.followers || p.fan_count || p.followers_count || 0);
@@ -1748,13 +1771,16 @@ function renderDrawerPages(pages) {
     }).join("");
 
     return `
-      <div class="drawer-page-item ${isAct ? 'active' : ''}" onclick="onSelectDrawerPage('${p.id}', event)" role="button" tabindex="0" title="${escapeHtml(name)} • ID: ${pId}">
+      <div class="drawer-page-item ${isAct ? 'active' : ''} ${isMobileSetup ? 'mobile-page-item' : ''}" onclick="onSelectDrawerPage('${p.id}', event)" role="button" tabindex="0" title="${isMobileSetup ? '📱 Mobile Setup (S25) • ' : ''}${escapeHtml(name)} • ID: ${pId}">
         <div class="page-item-left">
           <img src="${p.picture || p.pic_url || 'icons/icon-192.png'}" alt="${escapeHtml(name)}" class="page-item-img" loading="lazy" onerror="this.src='https://graph.facebook.com/v21.0/${pId}/picture?type=large'">
           <div class="page-item-info">
-            <span class="page-item-name" title="${escapeHtml(name)}">${escapeHtml(name)}</span>
+            <span class="page-item-name" title="${escapeHtml(name)}">
+              ${isMobileSetup ? '<span class="phone-setup-icon" title="Mobile Anti-Detect Setup (Samsung S25)" style="margin-right:4px;">📱</span>' : ''}${escapeHtml(name)}
+            </span>
             <div class="page-item-row-sub">
               <span class="page-item-id-pill" title="Facebook Page ID: ${pId}">ID: ${pId}</span>
+              ${isMobileSetup ? '<span class="mobile-badge-chip" title="Samsung Galaxy S25 Device Profile">📱 S25</span>' : ''}
               <span class="page-item-meta">${followersStr} flws</span>
             </div>
           </div>
@@ -1777,13 +1803,16 @@ function renderDrawerPages(pages) {
     // When not searching: fleets remain closed/collapsed by default, so user clicks on the account/ID to open its pages!
     const hasActivePage = items.some(p => String(p.id) === activePageId);
     const isOpen = Boolean(searchTerm) || (hasActivePage && activePageId !== "all");
+    const isMobileFleet = accType === "usa4";
 
     return `
-      <div class="drawer-account-section ${cssClass} ${isOpen ? 'open' : ''}" id="drawerFleetBox_${accType}" data-fleet="${accType}">
+      <div class="drawer-account-section ${cssClass} ${isMobileFleet ? 'sec-s25 drawer-box-mobile-fleet' : ''} ${isOpen ? 'open' : ''}" id="drawerFleetBox_${accType}" data-fleet="${accType}">
         <div class="drawer-box-header" onclick="toggleDrawerFleetBox('${accType}', event)" title="${title} • ${items.length} Pages • ${totalFleetDone}/${totalFleetTarget} Slots">
-          <div class="sidebar-box-title">
+          <div class="sidebar-box-title" style="display:flex;align-items:center;gap:6px;">
             <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
+            ${isMobileFleet ? '<span class="phone-setup-icon" title="Samsung Galaxy S25 Mobile Setup" style="font-size:13px;line-height:1;">📱</span>' : ''}
             <span class="sidebar-box-name" title="${title}">${title}</span>
+            ${isMobileFleet ? '<span class="mobile-badge-chip" style="padding:1px 6px;border-radius:10px;">PH S25</span>' : ''}
           </div>
           <div class="sidebar-box-right">
             <span class="fleet-slots-badge ${totalFleetDone >= totalFleetTarget ? 'complete' : ''}">${totalFleetDone}/${totalFleetTarget} Slots</span>
@@ -1792,7 +1821,7 @@ function renderDrawerPages(pages) {
         </div>
         <div class="drawer-box-body" style="display: ${isOpen ? 'block' : 'none'};">
           <div class="sidebar-box-sub-strip">
-            <span>${items.length} Pages</span>
+            <span>${items.length} Pages ${isMobileFleet ? '• 📱 Mobile S25' : ''}</span>
             <span class="fleet-sub-drive">📁 ${totalFleetStock.toLocaleString()} Stock</span>
           </div>
           ${items.map(p => renderDrawerItem(p, accType)).join("")}
@@ -1809,6 +1838,9 @@ function renderDrawerPages(pages) {
   }
   if (usa3List.length > 0) {
     html += buildDrawerFleetBox("sidebar-box-usa3", "usa3", "icons/us.png", "USA", "Radika Patel", usa3List);
+  }
+  if (usa4List.length > 0) {
+    html += buildDrawerFleetBox("sidebar-box-usa4", "usa4", "icons/us.png", "USA", "Rohini Dutt (S25)", usa4List);
   }
   if (uk1List.length > 0) {
     html += buildDrawerFleetBox("sidebar-box-uk1", "uk1", "icons/gb.png", "UK", "Binjal Mehra", uk1List);
@@ -1871,10 +1903,11 @@ function selectPage(pageId) {
   const mobActiveName = document.getElementById("mobileActivePageName");
   if (mobActiveName) {
     if (activePageId === "all") {
-      mobActiveName.innerText = "All 126 Pages Portfolio";
+      mobActiveName.innerText = `All ${fullData?.pages?.length || 141} Pages Portfolio`;
     } else {
       const pObj = fullData?.pages?.find(p => String(p.id) === activePageId);
-      mobActiveName.innerText = pObj ? pObj.name : "Active Page";
+      const isMobilePage = FLEET_USA_04_SET.has(String(activePageId)) || (pObj?.account && pObj.account.includes("Rohini"));
+      mobActiveName.innerText = (isMobilePage ? "📱 " : "") + (pObj ? pObj.name : "Active Page");
     }
   }
 
@@ -1934,9 +1967,11 @@ function selectPage(pageId) {
 // ----------------- Single Page View -----------------
 
 function renderSinglePageView(p) {
+  const isMobilePage = FLEET_USA_04_SET.has(String(p.id)) || (p.account && p.account.includes("Rohini"));
+
   // 1. Header Page Name
   const headerShort = document.getElementById("headerActivePageShortName");
-  if (headerShort) headerShort.innerText = p.name;
+  if (headerShort) headerShort.innerText = (isMobilePage ? "📱 " : "") + p.name;
 
   // 2. Hero Profile
   const heroName = document.getElementById("heroPageName");
@@ -1947,10 +1982,10 @@ function renderSinglePageView(p) {
   const metricReels = document.getElementById("metricHeroReels");
   const metricToday = document.getElementById("metricHeroTodayUploaded");
 
-  if (heroName) heroName.innerText = p.name;
-  const accTag = p.account || (p.index <= 15 ? 'Account 1' : 'Account 2');
-  const ownerTag = p.account_owner || (p.index > 15 ? 'Mia Shah' : 'Account 1 Admin');
-  if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id} • ${accTag} (${ownerTag})`;
+  if (heroName) heroName.innerText = (isMobilePage ? "📱 " : "") + p.name;
+  const accTag = p.account || (isMobilePage ? 'Rohini Dutt' : (p.index <= 15 ? 'Account 1' : 'Account 2'));
+  const ownerTag = p.account_owner || (isMobilePage ? 'Rohini Dutt' : (p.index > 15 ? 'Mia Shah' : 'Account 1 Admin'));
+  if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id} • ${accTag} (${ownerTag})${isMobilePage ? ' • 📱 Samsung Galaxy S25 Mobile Profile' : ''}`;
   if (heroAvatar) heroAvatar.src = p.picture || p.pic_url || 'icons/icon-192.png';
 
   // Filter 100% real reels for the selected timeframe
@@ -3973,6 +4008,8 @@ function renderStudioFleetList() {
 
   const usa1List = [];
   const usa2List = [];
+  const usa3List = [];
+  const usa4List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -3990,11 +4027,14 @@ function renderStudioFleetList() {
     if (query) {
       const matchName = page.name.toLowerCase().includes(query);
       const matchHandle = handle.toLowerCase().includes(query);
-      if (!matchName && !matchHandle) return;
+      const isMobileMatch = (query.includes("phone") || query.includes("mobile") || query.includes("s25") || query.includes("ph") || query.includes("rohini")) && (FLEET_USA_04_SET.has(pId) || (page.account && page.account.includes("Rohini")));
+      if (!matchName && !matchHandle && !isMobileMatch) return;
     }
 
     if (FLEET_USA_01_SET.has(pId)) usa1List.push(page);
     else if (FLEET_USA_02_SET.has(pId)) usa2List.push(page);
+    else if (FLEET_USA_03_SET.has(pId)) usa3List.push(page);
+    else if (FLEET_USA_04_SET.has(pId) || (page.account && page.account.includes("Rohini")) || page.account_owner === "Rohini Dutt" || page.box_group === "Rohini Dutt") usa4List.push(page);
     else if (FLEET_UK_01_SET.has(pId)) uk1List.push(page);
     else if (FLEET_UK_02_SET.has(pId)) uk2List.push(page);
     else if (FLEET_UK_03_SET.has(pId)) uk3List.push(page);
@@ -4003,7 +4043,9 @@ function renderStudioFleetList() {
     else if (FLEET_UK_06_SET.has(pId)) uk6List.push(page);
     else if (FLEET_UK_07_SET.has(pId)) uk7List.push(page);
     else {
-      if (page.account === "UK Account 7" || page.index > 101) uk7List.push(page);
+      if ((page.account && page.account.includes("Rohini")) || page.account_owner === "Rohini Dutt" || page.box_group === "Rohini Dutt" || page.index > 126) usa4List.push(page);
+      else if (page.account === "Account 3" || (page.index > 113 && page.index <= 126)) usa3List.push(page);
+      else if (page.account === "UK Account 7" || (page.index > 101 && page.index <= 113)) uk7List.push(page);
       else if (page.account === "UK Account 6" || (page.index > 89 && page.index <= 101)) uk6List.push(page);
       else if (page.account === "UK Account 5" || (page.index > 78 && page.index <= 89)) uk5List.push(page);
       else if (page.account === "UK Account 4" || (page.index > 66 && page.index <= 78)) uk4List.push(page);
@@ -4024,6 +4066,7 @@ function renderStudioFleetList() {
     const handle = driveInfo?.handle || page.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
     const isUk = accType.startsWith("uk");
+    const isMobileSetup = accType === "usa4" || FLEET_USA_04_SET.has(pId) || (page.account && page.account.includes("Rohini"));
     const flagImg = `<img src="${isUk ? 'icons/gb.png' : 'icons/us.png'}" alt="${isUk ? 'UK' : 'US'}" class="app-flag-icon">`;
     const badgeClass = isUk ? 'badge-uk' : (accType === 'usa2' ? 'badge-a2' : 'badge-a1');
 
@@ -4038,8 +4081,10 @@ function renderStudioFleetList() {
           </div>
           <img class="studio-avatar" src="${page.pic_url || 'icons/icon-192.png'}" alt="${page.name}" onerror="this.src='icons/icon-192.png'">
           <div class="studio-page-meta">
-            <div class="studio-page-name" style="display:flex;align-items:center;">
+            <div class="studio-page-name" style="display:flex;align-items:center;gap:4px;">
+              ${isMobileSetup ? '<span class="phone-setup-icon" title="Mobile Anti-Detect Setup (Samsung S25)" style="font-size:12px;">📱</span>' : ''}
               <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${page.name}</span>
+              ${isMobileSetup ? '<span class="mobile-badge-chip" style="font-size:9px;padding:0 4px;">📱 S25</span>' : ''}
               <span class="page-account-badge ${badgeClass}" style="padding:1px 5px;">${flagImg}</span>
             </div>
             <div class="studio-page-sub">@${handle} • ${isDriveReady ? `<span class="drive-count-green">${videoCount} in Drive</span>` : `<span style="color:#64748b;">Pending Folder</span>`}</div>
@@ -4058,12 +4103,15 @@ function renderStudioFleetList() {
     const isUk = accType.startsWith("uk") || fleetId.startsWith("uk");
     const flagSrc = isUk ? "icons/gb.png" : "icons/us.png";
     const flagAlt = isUk ? "UK" : "USA";
+    const isMobileFleet = fleetId === "a4" || accType === "usa4";
     return `
-      <div class="sidebar-section-box studio-fleet-box ${cssClass} ${isExpanded ? 'expanded' : ''}" data-fleet="${fleetId}" id="studioFleetBox_${fleetId}">
+      <div class="sidebar-section-box studio-fleet-box ${cssClass} ${isMobileFleet ? 'sidebar-box-mobile-fleet' : ''} ${isExpanded ? 'expanded' : ''}" data-fleet="${fleetId}" id="studioFleetBox_${fleetId}">
         <div class="sidebar-box-header" onclick="toggleStudioFleetBox('${fleetId}', event)">
-          <div class="sidebar-box-title">
+          <div class="sidebar-box-title" style="display:flex;align-items:center;gap:6px;">
             <img src="${flagSrc}" alt="${flagAlt}" class="sidebar-box-flag">
+            ${isMobileFleet ? '<span class="phone-setup-icon" title="Samsung Galaxy S25 Mobile Setup" style="font-size:13px;line-height:1;">📱</span>' : ''}
             <span class="sidebar-box-name">${title}</span>
+            ${isMobileFleet ? '<span class="mobile-badge-chip" style="padding:1px 6px;border-radius:10px;">PH S25</span>' : ''}
           </div>
           <div class="sidebar-box-right">
             <button type="button" class="btn-box-select-toggle" onclick="toggleBoxSelectAll('${fleetId}', event)" title="Toggle select all in ${title}">
@@ -4086,6 +4134,12 @@ function renderStudioFleetList() {
   }
   if (usa2List.length > 0) {
     html += buildStudioBox("account-box-us", "a2", "🇺🇸", "Mia Shah", usa2List.length, usa2List, "usa2");
+  }
+  if (usa3List.length > 0) {
+    html += buildStudioBox("account-box-us", "a3", "🇺🇸", "Radika Patel", usa3List.length, usa3List, "usa3");
+  }
+  if (usa4List.length > 0) {
+    html += buildStudioBox("account-box-us", "a4", "🇺🇸", "Rohini Dutt (S25)", usa4List.length, usa4List, "usa4");
   }
   if (uk1List.length > 0) {
     html += buildStudioBox("account-box-uk", "uk1", "🇬🇧", "Binjal Mehra", uk1List.length, uk1List, "uk1");
@@ -4112,7 +4166,7 @@ function renderStudioFleetList() {
   container.innerHTML = html || `<div style="padding:16px;text-align:center;color:#64748b;font-size:11.5px;">No pages found</div>`;
 
   const countBadge = document.getElementById("studioFleetCountBadge");
-  const totalCount = usa1List.length + usa2List.length + uk1List.length + uk2List.length + uk3List.length + uk4List.length + uk5List.length + uk6List.length + uk7List.length;
+  const totalCount = usa1List.length + usa2List.length + usa3List.length + usa4List.length + uk1List.length + uk2List.length + uk3List.length + uk4List.length + uk5List.length + uk6List.length + uk7List.length;
   if (countBadge) {
     countBadge.innerText = `${totalCount} Ready`;
   }
@@ -4138,6 +4192,8 @@ window.toggleBoxSelectAll = function(fleetId, e) {
   let list = [];
   if (fleetId === "a1") list = FLEET_USA_01_IDS;
   else if (fleetId === "a2") list = FLEET_USA_02_IDS;
+  else if (fleetId === "a3") list = FLEET_USA_03_IDS;
+  else if (fleetId === "a4") list = FLEET_USA_04_IDS;
   else if (fleetId === "uk1") list = FLEET_UK_01_IDS;
   else if (fleetId === "uk2") list = FLEET_UK_02_IDS;
   else if (fleetId === "uk3") list = FLEET_UK_03_IDS;
@@ -5346,6 +5402,7 @@ function renderTopPerformersView() {
     else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
     else if (FLEET_UK_07_SET.has(pid)) fleetTag = "UK 7 • Riya Gaur";
     else if (FLEET_USA_03_SET.has(pid)) fleetTag = "USA 3 • Radika Patel";
+    else if (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini"))) fleetTag = "USA 4 • 📱 Rohini Dutt (S25)";
     else if (p.account) fleetTag = p.account;
 
     // Diagnosis tag
@@ -6855,10 +6912,11 @@ async function runLiveAuditUI(e) {
       { tag: "UK 5", owner: "Richi Patel", set: FLEET_UK_05_SET, startIdx: 78, endIdx: 88, flag: "🇬🇧" },
       { tag: "UK 6", owner: "Sweta Shah", set: FLEET_UK_06_SET, startIdx: 89, endIdx: 100, flag: "🇬🇧" },
       { tag: "UK 7", owner: "Riya Gaur", set: FLEET_UK_07_SET, startIdx: 101, endIdx: 111, flag: "🇬🇧" },
-      { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸" }
+      { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸" },
+      { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", isDeviceProfile: true, deviceName: "Samsung Galaxy S25 (SM-S931U)" }
     ];
 
-    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 10 Fleets...", "info", "general");
+    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 11 Fleets...", "info", "general");
 
     let totalValidTokens = 0;
     const tokenIssues = [];
