@@ -1058,55 +1058,15 @@
       <div class="dash-page-status-strip">
         <div class="status-strip-left">
           <span class="live-dot-pulse">●</span>
-          <span class="status-strip-text"><strong>ANTI-DETECT PROFILES & DEVICE VAULT</strong> • Mobile Fingerprint Emulation, Cookie Validity & Missed Uploads Monitor</span>
+          <span class="status-strip-text"><strong>ANTI-DETECT PROFILES & DEVICE VAULT</strong> • Real-Time Facebook Cookie Health, Upload Schedule & Live Diagnostic Terminal</span>
         </div>
         <div class="status-strip-right">
-          <span class="badge-meta-verified" style="background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.35);">S25 HARDWARE FINGERPRINT ACTIVE</span>
+          <span class="badge-meta-verified" style="background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.35);">REAL-TIME AUDIT ENGINE ACTIVE</span>
         </div>
       </div>
 
-      <!-- Quick Executive KPI Stats Cards -->
-      <div class="anti-detect-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 16px;">
-        <div class="content-box" style="padding: 16px; border-radius: 12px; background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.08);">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; font-weight: 700;">📱 Active Devices</div>
-          <div style="font-size: 24px; font-weight: 800; color: #38bdf8; margin: 6px 0 2px 0;">1 Device</div>
-          <div style="font-size: 11.5px; color: #64748b;">Samsung Galaxy S25 (SM-S931U)</div>
-        </div>
-        <div class="content-box" style="padding: 16px; border-radius: 12px; background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.08);">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; font-weight: 700;">🍪 Cookie Health Status</div>
-          <div style="font-size: 24px; font-weight: 800; color: #34d399; margin: 6px 0 2px 0;" id="kpiCookieStatus">100% HEALTHY</div>
-          <div style="font-size: 11.5px; color: #64748b;" id="kpiCookieSub">Active Session • No Expiry</div>
-        </div>
-        <div class="content-box" style="padding: 16px; border-radius: 12px; background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.08);">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; font-weight: 700;">⏱️ Missed Uploads Audit</div>
-          <div style="font-size: 24px; font-weight: 800; color: #4ade80; margin: 6px 0 2px 0;" id="kpiMissedStatus">0 Missed</div>
-          <div style="font-size: 11.5px; color: #64748b;" id="kpiMissedSub">All 15 Pages Up to Schedule</div>
-        </div>
-        <div class="content-box" style="padding: 16px; border-radius: 12px; background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.08);">
-          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #94a3b8; font-weight: 700;">📁 Drive Stock Inventory</div>
-          <div style="font-size: 24px; font-weight: 800; color: #facc15; margin: 6px 0 2px 0;">3,779 Reels</div>
-          <div style="font-size: 11.5px; color: #64748b;">47.12 GB • 15 Folders</div>
-        </div>
-      </div>
-
-      <!-- Action & Section Header -->
-      <div style="display: flex; justify-content: space-between; align-items: center; margin: 18px 0 14px 0; flex-wrap: wrap; gap: 12px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px;">
-            <span>🛡️</span> Monitored Hardware Profiles
-          </h3>
-          <span class="telemetry-chip" style="background: rgba(56,189,248,0.12); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); padding: 3px 9px; border-radius: 6px; font-weight: 700; font-size: 11px;">
-            ID-Wise Drawer View
-          </span>
-        </div>
-
-        <button type="button" id="btnGlobalCheckAllDevices" onclick="runDeviceDiagnostic(1)" class="btn-check-device-now">
-          <span id="globalCheckIcon">🔍</span> Check S25 Device Health Now
-        </button>
-      </div>
-
-      <!-- Device Cards Grid (Scalable container for ID #01, #02, etc.) -->
-      <div id="antiDetectDevicesGrid" style="display: flex; flex-direction: column; gap: 16px;">
+      <!-- Single Unified Device Audit & Log Box Container -->
+      <div id="antiDetectDevicesGrid" style="margin-top: 16px;">
         <!-- Dynamically rendered by renderAntiDetectProfilesView() in gold_app.js -->
       </div>
 
