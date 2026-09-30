@@ -7814,8 +7814,8 @@ async function renderMetaToolsHubView() {
 
   if (kpiAudited) kpiAudited.innerText = `${totalAudited} / 143`;
   if (kpiPolicy) kpiPolicy.innerText = `${cleanCount} / ${totalAudited} Clean (100%)`;
-  if (kpiUnlocked) kpiUnlocked.innerText = `${starsActiveCount} Stars • ${subsReadyCount} Subs`;
-  if (kpiContent) kpiContent.innerText = `39 Top Viral Candidates`;
+  if (kpiUnlocked) kpiUnlocked.innerText = `${starsActiveCount + subsReadyCount} Set Up Ready`;
+  if (kpiContent) kpiContent.innerText = `Policy Review & Waitlist`;
 
   // 2. Filter pages based on active tabs, search query, and status pills
   let filtered = allPages.filter(p => {
@@ -7860,26 +7860,36 @@ async function renderMetaToolsHubView() {
       tableBody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 30px; color: #94a3b8; font-size: 13px;">No pages match your current filter criteria.</td></tr>`;
     } else {
       tableBody.innerHTML = filtered.map((p, idx) => {
-        // Content Monetization badge
-        let contentBadge = `<span class="badge-status-criteria">${p.content_monetization || "N/A"}</span>`;
-        if (p.content_monetization && p.content_monetization.toLowerCase().includes("policy")) {
-          contentBadge = `<span class="badge-status-policy">⏳ Policy Review</span>`;
-        } else if (p.content_monetization && (p.content_monetization.toLowerCase().includes("candidate") || p.content_monetization.includes("Waitlist"))) {
-          contentBadge = `<span class="badge-status-waitlist" style="background:rgba(249,115,22,0.15); border:1px solid #f97316; color:#fb923c;">🔥 Invite Candidate</span>`;
+        // Content Monetization badge (Exact Meta Business Suite Terms)
+        let contentBadge = `<span class="badge-status-criteria">${p.content_monetization || "Criteria Not Met"}</span>`;
+        if (p.content_monetization === "Policy Issues" || (p.content_monetization && p.content_monetization.includes("Policy"))) {
+          contentBadge = `<span class="badge-status-policy">⏳ Policy Issues</span>`;
+        } else if (p.content_monetization && (p.content_monetization.includes("Waitlist") || p.content_monetization.includes("waitlist"))) {
+          contentBadge = `<span class="badge-status-waitlist">📋 Waitlist criteria▼</span>`;
         } else if (p.content_monetization && p.content_monetization.toLowerCase().includes("set up")) {
           contentBadge = `<span class="badge-status-setup">🎉 Set Up</span>`;
+        } else if (p.content_monetization === "Criteria Not Met") {
+          contentBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
         }
 
-        // Subscriptions badge
-        let subBadge = `<span class="badge-status-criteria">${p.subscriptions || "N/A"}</span>`;
-        if (p.subscriptions && (p.subscriptions.toLowerCase().includes("set up") || p.subscriptions.toLowerCase().includes("ready"))) {
-          subBadge = `<span class="badge-status-setup" style="background:rgba(168,85,247,0.15); border:1px solid #a855f7; color:#c084fc;">🎉 Set Up Ready</span>`;
+        // Subscriptions badge (Exact Meta Business Suite Terms)
+        let subBadge = `<span class="badge-status-criteria">${p.subscriptions || "Criteria Not Met"}</span>`;
+        if (p.subscriptions === "Set Up" || (p.subscriptions && p.subscriptions.toLowerCase().includes("set up"))) {
+          subBadge = `<span class="badge-status-setup">🎉 Set Up</span>`;
+        } else if (p.subscriptions === "Not Found") {
+          subBadge = `<span style="color:#64748b; font-size:11.5px; font-weight:600;">Not Found</span>`;
+        } else if (p.subscriptions === "Criteria Not Met") {
+          subBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
         }
 
-        // Stars badge
-        let starBadge = `<span class="badge-status-criteria">${p.stars || "N/A"}</span>`;
-        if (p.stars && (p.stars.toLowerCase().includes("active") || p.stars.toLowerCase().includes("set up"))) {
-          starBadge = `<span class="badge-status-setup" style="background:rgba(234,179,8,0.15); border:1px solid #eab308; color:#fde047; font-weight:800;">⭐ Active</span>`;
+        // Stars badge (Exact Meta Business Suite Terms: Set Up vs Criteria Not Met)
+        let starBadge = `<span class="badge-status-criteria">${p.stars || "Criteria Not Met"}</span>`;
+        if (p.stars === "Set Up" || (p.stars && p.stars.toLowerCase().includes("set up"))) {
+          starBadge = `<span class="badge-status-setup">🎉 Set Up</span>`;
+        } else if (p.stars === "Not Found") {
+          starBadge = `<span style="color:#64748b; font-size:11.5px; font-weight:600;">Not Found</span>`;
+        } else if (p.stars === "Criteria Not Met") {
+          starBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
         }
 
         // Policy badge
