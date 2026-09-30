@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T20:28:37.744047+00:00",
+  "generated_at": "2026-09-30T20:31:03.478319+00:00",
   "total_accounts": 11,
-  "active_live_accounts": 10,
+  "active_live_accounts": 11,
   "total_fleet_pages": 143,
-  "audited_pages_count": 131,
+  "audited_pages_count": 143,
   "accounts": [
     {
       "account_id": "samsung_s25_newyork",
@@ -1451,130 +1451,130 @@
       "owner": "Riya",
       "region": "UK",
       "device": "OnePlus 13 (UK)",
-      "status": "AWAITING_COOKIES",
-      "fb_uid": null,
-      "verified_at": null,
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61592839550391",
+      "verified_at": "2026-09-30T20:31:03.477583+00:00",
       "total_pages": 12,
       "pages": [
         {
           "name": "Dead Languages",
           "page_id": "1191247700748920",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Curse The Dawn",
           "page_id": "1304768466050503",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Cure For Monday",
           "page_id": "1338114526042607",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Cruel Mercy",
           "page_id": "1315483674976229",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Choke The Static",
           "page_id": "1195883193618072",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Lee  Charles",
           "page_id": "802518939617506",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Cooper  Billy",
           "page_id": "896072510245887",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Alexander  Christopher",
           "page_id": "755318371007926",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Lee  Daniel",
           "page_id": "864838050041932",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Martin  John",
           "page_id": "870975689430311",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Corner Spe",
           "page_id": "479102298617718",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Memes & Mischief",
           "page_id": "208233979039379",
-          "overall_status": "Pending Cookie Ingestion",
-          "content_monetization": "Awaiting Cookie",
-          "subscriptions": "Pending Cookie",
-          "stars": "Pending Cookie",
-          "policy_details": "Awaiting Cookie",
-          "recommendation": "Pending"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     }

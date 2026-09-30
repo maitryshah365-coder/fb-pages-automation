@@ -7911,7 +7911,7 @@ async function renderMetaToolsHubView() {
       { id: "uk_account4_nidhi", name: "UK 4 (Nidhi Desai)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
       { id: "uk_account5_richi", name: "UK 5 (Richi Patel)", region: "UK", flag: "🇬🇧", pages: 11, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
       { id: "uk_account6_sweta", name: "UK 6 (Sweta Shah)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account7_riya", name: "UK 7 (Riya)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" }
+      { id: "uk_account7_riya", name: "UK 7 (Riya)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "11 Cookies Active", time: "364.9d left" }
     ];
 
     accountsGrid.innerHTML = accountConfigs.map(acc => {

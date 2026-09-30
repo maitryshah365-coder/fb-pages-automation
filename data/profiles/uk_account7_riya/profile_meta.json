@@ -5,8 +5,8 @@
   "region": "UK",
   "timezone": "Europe/London",
   "device": "OnePlus 13 (UK)",
-  "status": "AWAITING_COOKIES",
-  "fb_uid": null,
+  "status": "ACTIVE_AUTHENTICATED",
+  "fb_uid": "61592839550391",
   "total_pages": 12,
-  "cookies_present": false
+  "cookies_present": true
 }
