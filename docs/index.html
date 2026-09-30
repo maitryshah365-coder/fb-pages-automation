@@ -1103,120 +1103,260 @@
     <!-- ================= META TOOLS & MONETIZATION FLEET HUB VIEW ================= -->
     <div id="metaToolsHubView" class="dashboard-view-container" style="display: none;">
       
-      <!-- Top Status Banner -->
+      <!-- Top Status Banner with Live Audit Button -->
       <div class="dash-page-status-strip">
         <div class="status-strip-left">
           <span class="live-dot-pulse">●</span>
           <span class="status-strip-text"><strong>META TOOLS & MONETIZATION FLEET HUB</strong> • 100% Real-Time Account-Wise Policy & Monetization Audit</span>
         </div>
-        <div class="status-strip-right">
+        <div class="status-strip-right" style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" id="btnRunFleetAuditNow" onclick="runFleetAuditLive()" class="btn-check-device-now" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none; padding: 6px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(16,185,129,0.3);">
+            <span id="fleetAuditBtnIcon">⚡</span> Run Live Fleet Audit
+          </button>
           <span class="badge-meta-verified" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);">11 PROFILE ACCOUNTS • 143 PAGES</span>
         </div>
       </div>
 
-      <!-- Server-Side Location & Isolation Guarantee Banner -->
-      <div class="meta-tools-isolation-banner" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8)); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 16px 20px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;">
-            🛡️
-          </div>
-          <div>
-            <div style="font-size: 14px; font-weight: 800; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
-              <span>Server-Side Location & Device Isolation Verified</span>
-              <span class="telemetry-chip" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); font-size: 10.5px; padding: 2px 7px; border-radius: 5px;">ZERO IP LEAK</span>
-            </div>
-            <div style="font-size: 12px; color: #94a3b8; margin-top: 3px;">
-              Audits and uploads are executed strictly via designated US/UK residential proxies (e.g. NYC WireGuard <code style="color:#38bdf8;">207.244.71.84</code>) with anti-detect hardware profiles. Your Indian mobile/laptop IP is never transmitted to Meta.
-            </div>
-          </div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <button type="button" id="btnRunFleetAuditNow" onclick="runFleetAuditLive()" class="btn-check-device-now" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(16,185,129,0.35);">
-            <span id="fleetAuditBtnIcon">⚡</span> Run Live Fleet Audit
-          </button>
-        </div>
-      </div>
-
-      <!-- 4 KPI Summary Cards -->
-      <div class="meta-tools-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 16px;">
+      <!-- 5 Interactive Monetization Tool Filter Cards -->
+      <div class="meta-tool-filter-grid" id="metaToolFilterGrid">
         
-        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #38bdf8; border-radius: 14px; padding: 18px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
-            <span>Audited Pages</span>
-            <span style="font-size: 18px;">📑</span>
+        <!-- Card 1: All Fleet Pages (Default / Reset) -->
+        <div class="meta-tool-filter-card tool-all active" id="toolFilterCard_all" onclick="filterMetaToolsByTool('all')" title="Click to view all 143 pages across all tools">
+          <div class="tool-card-header" style="color: #94a3b8;">
+            <span>All Fleet Pages</span>
+            <span style="font-size: 16px;">🌐</span>
           </div>
-          <div id="metaKpiAuditedPages" style="font-size: 26px; font-weight: 900; color: #fff; margin-top: 8px;">143 / 143</div>
-          <div style="font-size: 11.5px; color: #38bdf8; margin-top: 4px; font-weight: 600;">All 11 Accounts & 143 Pages Live</div>
+          <div class="tool-card-value" id="metaKpiAllPagesVal" style="color: #f1f5f9;">143 Pages</div>
+          <div class="tool-card-footer" style="color: #94a3b8;">
+            <span>All 11 Accounts & Slots</span>
+          </div>
         </div>
 
-        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #34d399; border-radius: 14px; padding: 18px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
-            <span>Policy & Strike Health</span>
-            <span style="font-size: 18px;">🛡️</span>
+        <!-- Card 2: Stars Set Up Ready -->
+        <div class="meta-tool-filter-card tool-stars" id="toolFilterCard_stars" onclick="filterMetaToolsByTool('stars')" title="Click to filter pages with Stars Set Up ready">
+          <div class="tool-card-header" style="color: #fbbf24;">
+            <span>Stars Set Up Ready</span>
+            <span style="font-size: 16px;">⭐</span>
           </div>
-          <div id="metaKpiPolicyHealth" style="font-size: 26px; font-weight: 900; color: #34d399; margin-top: 8px;">143 / 143 Clean</div>
-          <div style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">0 Monetization Violations (100% Clean)</div>
+          <div class="tool-card-value" id="metaKpiStarsVal" style="color: #fbbf24;">35 Pages</div>
+          <div class="tool-card-footer" style="color: #facc15;">
+            <span>⚡ Set Up Unlocked & Ready</span>
+          </div>
         </div>
 
-        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #f59e0b; border-radius: 14px; padding: 18px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
-            <span>Programs Unlocked</span>
-            <span style="font-size: 18px;">🎉</span>
+        <!-- Card 3: Subscriptions Ready -->
+        <div class="meta-tool-filter-card tool-subs" id="toolFilterCard_subscriptions" onclick="filterMetaToolsByTool('subscriptions')" title="Click to filter pages with Subscriptions Set Up ready">
+          <div class="tool-card-header" style="color: #38bdf8;">
+            <span>Subscriptions Ready</span>
+            <span style="font-size: 16px;">💎</span>
           </div>
-          <div id="metaKpiUnlockedPrograms" style="font-size: 26px; font-weight: 900; color: #fbbf24; margin-top: 8px;">36 Stars • 3 Subs</div>
-          <div style="font-size: 11.5px; color: #facc15; margin-top: 4px; font-weight: 600;">36 Stars Active • 3 Subscriptions Ready</div>
+          <div class="tool-card-value" id="metaKpiSubsVal" style="color: #38bdf8;">3 Pages</div>
+          <div class="tool-card-footer" style="color: #7dd3fc;">
+            <span>💎 Set Up Unlocked & Ready</span>
+          </div>
         </div>
 
-        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #a855f7; border-radius: 14px; padding: 18px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+        <!-- Card 4: Content Monetization -->
+        <div class="meta-tool-filter-card tool-content" id="toolFilterCard_content" onclick="filterMetaToolsByTool('content')" title="Click to filter Content Monetization waitlist & review candidates">
+          <div class="tool-card-header" style="color: #c084fc;">
             <span>Content Monetization</span>
-            <span style="font-size: 18px;">⚡</span>
+            <span style="font-size: 16px;">🎬</span>
           </div>
-          <div id="metaKpiContentMonetization" style="font-size: 26px; font-weight: 900; color: #c084fc; margin-top: 8px;">39 Top Viral</div>
-          <div style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">High-Priority Watch Mins Candidates</div>
+          <div class="tool-card-value" id="metaKpiContentVal" style="color: #c084fc;">Review & Waitlist</div>
+          <div class="tool-card-footer" style="color: #d8b4fe;">
+            <span>📋 Watch Mins Candidates</span>
+          </div>
+        </div>
+
+        <!-- Card 5: Policy & Strike Health -->
+        <div class="meta-tool-filter-card tool-clean" id="toolFilterCard_clean" onclick="filterMetaToolsByTool('clean')" title="Click to filter 100% Policy Clean pages">
+          <div class="tool-card-header" style="color: #34d399;">
+            <span>Policy & Strike Health</span>
+            <span style="font-size: 16px;">🛡️</span>
+          </div>
+          <div class="tool-card-value" id="metaKpiCleanVal" style="color: #34d399;">143 Clean (100%)</div>
+          <div class="tool-card-footer" style="color: #86efac;">
+            <span>🟢 0 Monetization Violations</span>
+          </div>
         </div>
 
       </div>
 
-      <!-- Account Filter Tabs & Search Controls Strip -->
-      <div class="meta-tools-controls-box" style="margin-top: 18px; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 18px;">
+      <!-- Account Filter & Search Strip -->
+      <div class="meta-tools-controls-box" style="margin-top: 14px; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 16px;">
         
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
-          <!-- Account Tabs -->
-          <div class="meta-account-tabs" id="metaAccountTabs" style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" class="meta-tab-btn active" onclick="filterMetaToolsByAccount('all')" id="metaTabAll">
-              🌐 All Accounts (143)
-            </button>
-            <button type="button" class="meta-tab-btn" onclick="filterMetaToolsByAccount('samsung_s25_newyork')" id="metaTabS25">
-              🟢 Rohini Dutt (USA 4) • 15 Live
-            </button>
-            <button type="button" class="meta-tab-btn" onclick="filterMetaToolsByAccount('usa_account1_meghal')" id="metaTabMeghal">
-              🟢 Meghal Chauhan (USA 1) • 15 Live
-            </button>
-            <button type="button" class="meta-tab-btn" onclick="filterMetaToolsByAccount('usa_account2_mia')" id="metaTabMia">
-              🟢 Mia Shah (USA 2) • 15 Live
-            </button>
-            <button type="button" class="meta-tab-btn" onclick="filterMetaToolsByAccount('usa_account3_radika')" id="metaTabRadika">
-              🟢 Radika Patel (USA 3) • 15 Live
-            </button>
-            <button type="button" class="meta-tab-btn" onclick="filterMetaToolsByAccount('uk_fleet')" id="metaTabUk">
-              🟢 UK Accounts 1-6 • 69 Live
-            </button>
-            <button type="button" class="meta-tab-btn" onclick="filterMetaToolsByAccount('uk_account7_riya')" id="metaTabRiya">
-              🟢 Riya (UK 7) • 12 Live
-            </button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="font-size: 12px; font-weight: 800; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;">
+            <span>⚡ Fleet Accounts & Slots (Select Account to View Pages)</span>
+          </div>
+          <div id="metaFilterActiveSummary" style="font-size: 11.5px; color: #38bdf8; font-weight: 700;">
+            Showing: All 11 Accounts • All 143 Pages
+          </div>
+        </div>
+
+        <!-- 12 Slot-Style ID-wise Account Boxes -->
+        <div class="meta-slot-accounts-grid" id="metaSlotAccountsGrid">
+          
+          <!-- Master All Accounts Box -->
+          <div class="meta-slot-card active" id="slotCard_all" onclick="filterMetaToolsByAccount('all')">
+            <div class="meta-slot-top">
+              <span>🌐 ALL FLEETS</span>
+              <span class="meta-slot-badge">143 Pages</span>
+            </div>
+            <div class="meta-slot-name">All 11 Accounts</div>
+            <div class="meta-slot-bottom">
+              <span>All 11 Accounts</span>
+              <span>● Complete</span>
+            </div>
           </div>
 
-          <!-- Quick Status Filter Pills -->
-          <div style="display: flex; gap: 6px; align-items: center;">
-            <button type="button" class="filter-pill-btn active" onclick="filterMetaToolsByStatus('all')" id="metaPillAll">All Status</button>
-            <button type="button" class="filter-pill-btn" onclick="filterMetaToolsByStatus('unlocked')" id="metaPillUnlocked">🎉 Unlocked</button>
-            <button type="button" class="filter-pill-btn" onclick="filterMetaToolsByStatus('clean')" id="metaPillClean">🛡️ Clean Only</button>
+          <!-- Slot 1: USA #1 Meghal Chauhan -->
+          <div class="meta-slot-card" id="slotCard_usa_account1_meghal" onclick="filterMetaToolsByAccount('usa_account1_meghal')">
+            <div class="meta-slot-top">
+              <span><img src="icons/us.png" alt="US" class="app-flag-icon"> #1 USA</span>
+              <span class="meta-slot-badge">15 Pages</span>
+            </div>
+            <div class="meta-slot-name">Meghal Chauhan</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 04:30 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
           </div>
+
+          <!-- Slot 2: USA #2 Mia Shah -->
+          <div class="meta-slot-card" id="slotCard_usa_account2_mia" onclick="filterMetaToolsByAccount('usa_account2_mia')">
+            <div class="meta-slot-top">
+              <span><img src="icons/us.png" alt="US" class="app-flag-icon"> #2 USA</span>
+              <span class="meta-slot-badge">15 Pages</span>
+            </div>
+            <div class="meta-slot-name">Mia Shah</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 04:50 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 3: USA #3 Radika Patel -->
+          <div class="meta-slot-card" id="slotCard_usa_account3_radika" onclick="filterMetaToolsByAccount('usa_account3_radika')">
+            <div class="meta-slot-top">
+              <span><img src="icons/us.png" alt="US" class="app-flag-icon"> #3 USA</span>
+              <span class="meta-slot-badge">15 Pages</span>
+            </div>
+            <div class="meta-slot-name">Radika Patel</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 05:10 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 4: USA #4 Rohini Dutt (Samsung S25) -->
+          <div class="meta-slot-card" id="slotCard_samsung_s25_newyork" onclick="filterMetaToolsByAccount('samsung_s25_newyork')">
+            <div class="meta-slot-top">
+              <span><img src="icons/us.png" alt="US" class="app-flag-icon"> #4 USA</span>
+              <span class="meta-slot-badge">15 Pages</span>
+            </div>
+            <div class="meta-slot-name">Rohini Dutt</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 05:30 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 5: UK #1 Binjal Mehra -->
+          <div class="meta-slot-card" id="slotCard_uk_account1_binjal" onclick="filterMetaToolsByAccount('uk_account1_binjal')">
+            <div class="meta-slot-top">
+              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #1 UK</span>
+              <span class="meta-slot-badge">12 Pages</span>
+            </div>
+            <div class="meta-slot-name">Binjal Mehra</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 02:00 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 6: UK #2 Chanda Nai -->
+          <div class="meta-slot-card" id="slotCard_uk_account2_chanda" onclick="filterMetaToolsByAccount('uk_account2_chanda')">
+            <div class="meta-slot-top">
+              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #2 UK</span>
+              <span class="meta-slot-badge">12 Pages</span>
+            </div>
+            <div class="meta-slot-name">Chanda Nai</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 02:20 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 7: UK #3 Mahi Patel -->
+          <div class="meta-slot-card" id="slotCard_uk_account3_mahi" onclick="filterMetaToolsByAccount('uk_account3_mahi')">
+            <div class="meta-slot-top">
+              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #3 UK</span>
+              <span class="meta-slot-badge">12 Pages</span>
+            </div>
+            <div class="meta-slot-name">Mahi Patel</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 02:30 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 8: UK #4 Nidhi Desai -->
+          <div class="meta-slot-card" id="slotCard_uk_account4_nidhi" onclick="filterMetaToolsByAccount('uk_account4_nidhi')">
+            <div class="meta-slot-top">
+              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #4 UK</span>
+              <span class="meta-slot-badge">12 Pages</span>
+            </div>
+            <div class="meta-slot-name">Nidhi Desai</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 02:40 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 9: UK #5 Richi Patel -->
+          <div class="meta-slot-card" id="slotCard_uk_account5_richi" onclick="filterMetaToolsByAccount('uk_account5_richi')">
+            <div class="meta-slot-top">
+              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #5 UK</span>
+              <span class="meta-slot-badge">11 Pages</span>
+            </div>
+            <div class="meta-slot-name">Richi Patel</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 02:50 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 10: UK #6 Sweta Shah -->
+          <div class="meta-slot-card" id="slotCard_uk_account6_sweta" onclick="filterMetaToolsByAccount('uk_account6_sweta')">
+            <div class="meta-slot-top">
+              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #6 UK</span>
+              <span class="meta-slot-badge">12 Pages</span>
+            </div>
+            <div class="meta-slot-name">Sweta Shah</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 03:00 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
+          <!-- Slot 11: UK #7 Riya Gaur -->
+          <div class="meta-slot-card" id="slotCard_uk_account7_riya" onclick="filterMetaToolsByAccount('uk_account7_riya')">
+            <div class="meta-slot-top">
+              <span><img src="icons/gb.png" alt="UK" class="app-flag-icon"> #7 UK</span>
+              <span class="meta-slot-badge">12 Pages</span>
+            </div>
+            <div class="meta-slot-name">Riya Gaur</div>
+            <div class="meta-slot-bottom">
+              <span>⏰ 03:10 AM IST</span>
+              <span>● Slot 4</span>
+            </div>
+          </div>
+
         </div>
 
         <!-- Search Input -->
-        <div style="position: relative;">
+        <div style="position: relative; margin-top: 12px;">
           <input type="text" id="inputMetaToolsSearch" oninput="onSearchMetaTools(this.value)" placeholder="🔍 Search page name, Page ID, or monetization status..." style="width: 100%; background: rgba(2, 6, 23, 0.85); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 11px 16px; color: #fff; font-size: 13px; outline: none; box-sizing: border-box;">
         </div>
       </div>

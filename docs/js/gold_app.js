@@ -1237,6 +1237,11 @@ async function syncLiveMetaGraph(isManual = false) {
     if (activePageId === "all" && typeof renderAllPortfolioView === "function") {
       renderAllPortfolioView();
     }
+    // Re-render Real-Time Monetization & Tools Hub
+    masterFleetMonetizationData = null;
+    if (typeof renderMetaToolsHubView === "function") {
+      renderMetaToolsHubView();
+    }
 
     // 6. Finish progress bar
     finishSyncProgressUI(updatedPages, totalPages);
@@ -7726,6 +7731,7 @@ async function runDeviceDiagnostic(deviceId) {
 
 let masterFleetMonetizationData = null;
 let currentMetaAccountFilter = "all";
+let currentMetaToolFilter = "all";
 let currentMetaStatusFilter = "all";
 let currentMetaSearchQuery = "";
 
@@ -7744,7 +7750,7 @@ async function fetchMasterFleetData() {
   // Built-in verified fallback (Rohini Dutt 15 live pages + 10 accounts pending)
   masterFleetMonetizationData = {
     total_accounts: 11,
-    total_fleet_pages: 141,
+    total_fleet_pages: 143,
     accounts: [
       {
         account_id: "samsung_s25_newyork",
@@ -7801,41 +7807,48 @@ async function renderMetaToolsHubView() {
     }
   });
 
-  // Calculate live KPI metrics
+  // Calculate live metrics across the fleet
   const totalAudited = allPages.length;
   const cleanCount = allPages.filter(p => p.overall_status && p.overall_status.toLowerCase().includes("no monetization")).length;
-  const starsActiveCount = allPages.filter(p => p.stars && (p.stars.toLowerCase().includes("active") || p.stars.toLowerCase().includes("set up"))).length;
-  const subsReadyCount = allPages.filter(p => p.subscriptions && (p.subscriptions.toLowerCase().includes("set up") || p.subscriptions.toLowerCase().includes("ready"))).length;
+  const starsSetupCount = allPages.filter(p => p.stars && (p.stars.toLowerCase().includes("set up") || p.stars.toLowerCase().includes("active"))).length;
+  const subsSetupCount = allPages.filter(p => p.subscriptions && (p.subscriptions.toLowerCase().includes("set up") || p.subscriptions.toLowerCase().includes("ready"))).length;
 
-  const kpiAudited = document.getElementById("metaKpiAuditedPages");
-  const kpiPolicy = document.getElementById("metaKpiPolicyHealth");
-  const kpiUnlocked = document.getElementById("metaKpiUnlockedPrograms");
-  const kpiContent = document.getElementById("metaKpiContentMonetization");
+  // Update 5 Tool Filter Cards Value Displays
+  const cardAllVal = document.getElementById("metaKpiAllPagesVal");
+  const cardStarsVal = document.getElementById("metaKpiStarsVal");
+  const cardSubsVal = document.getElementById("metaKpiSubsVal");
+  const cardContentVal = document.getElementById("metaKpiContentVal");
+  const cardCleanVal = document.getElementById("metaKpiCleanVal");
 
-  if (kpiAudited) kpiAudited.innerText = `${totalAudited} / 143`;
-  if (kpiPolicy) kpiPolicy.innerText = `${cleanCount} / ${totalAudited} Clean (100%)`;
-  if (kpiUnlocked) kpiUnlocked.innerText = `${starsActiveCount + subsReadyCount} Set Up Ready`;
-  if (kpiContent) kpiContent.innerText = `Policy Review & Waitlist`;
+  if (cardAllVal) cardAllVal.innerText = `${totalAudited} Pages`;
+  if (cardStarsVal) cardStarsVal.innerText = `${starsSetupCount} Pages`;
+  if (cardSubsVal) cardSubsVal.innerText = `${subsSetupCount} Pages`;
+  if (cardContentVal) cardContentVal.innerText = `Review & Waitlist`;
+  if (cardCleanVal) cardCleanVal.innerText = `${cleanCount} Clean (100%)`;
 
-  // 2. Filter pages based on active tabs, search query, and status pills
+  // 2. Filter pages based on active Account Slot, Tool Filter Card, and Search Query
   let filtered = allPages.filter(p => {
-    // Account tab filter
-    if (currentMetaAccountFilter === "uk_fleet") {
-      if (!p.account_id.startsWith("uk_")) return false;
-    } else if (currentMetaAccountFilter !== "all") {
+    // A. Account Slot Filter
+    if (currentMetaAccountFilter !== "all") {
       if (p.account_id !== currentMetaAccountFilter) return false;
     }
 
-    // Status pill filter
-    if (currentMetaStatusFilter === "unlocked") {
-      const isSubSetup = p.subscriptions && p.subscriptions.toLowerCase().includes("set up");
-      const isContentSetup = p.content_monetization && p.content_monetization.toLowerCase().includes("set up");
-      if (!isSubSetup && !isContentSetup) return false;
-    } else if (currentMetaStatusFilter === "clean") {
-      if (!p.overall_status || !p.overall_status.toLowerCase().includes("no monetization")) return false;
+    // B. Tool Filter Card
+    if (currentMetaToolFilter === "stars") {
+      const isStarsSetup = p.stars && (p.stars.toLowerCase().includes("set up") || p.stars.toLowerCase().includes("active"));
+      if (!isStarsSetup) return false;
+    } else if (currentMetaToolFilter === "subscriptions") {
+      const isSubsSetup = p.subscriptions && (p.subscriptions.toLowerCase().includes("set up") || p.subscriptions.toLowerCase().includes("ready"));
+      if (!isSubsSetup) return false;
+    } else if (currentMetaToolFilter === "content") {
+      const isContentCandidate = p.content_monetization && (p.content_monetization.includes("Waitlist") || p.content_monetization.includes("Policy") || p.content_monetization.toLowerCase().includes("set up"));
+      if (!isContentCandidate) return false;
+    } else if (currentMetaToolFilter === "clean") {
+      const isClean = p.overall_status && p.overall_status.toLowerCase().includes("no monetization");
+      if (!isClean) return false;
     }
 
-    // Search query filter
+    // C. Search query filter
     if (currentMetaSearchQuery) {
       const q = currentMetaSearchQuery.toLowerCase();
       const matchName = p.name && p.name.toLowerCase().includes(q);
@@ -7843,11 +7856,42 @@ async function renderMetaToolsHubView() {
       const matchOwner = p.owner && p.owner.toLowerCase().includes(q);
       const matchStatus = p.overall_status && p.overall_status.toLowerCase().includes(q);
       const matchContent = p.content_monetization && p.content_monetization.toLowerCase().includes(q);
-      if (!matchName && !matchId && !matchOwner && !matchStatus && !matchContent) return false;
+      const matchStars = p.stars && p.stars.toLowerCase().includes(q);
+      const matchSubs = p.subscriptions && p.subscriptions.toLowerCase().includes(q);
+      if (!matchName && !matchId && !matchOwner && !matchStatus && !matchContent && !matchStars && !matchSubs) return false;
     }
 
     return true;
   });
+
+  // Update summary strip text
+  const summaryEl = document.getElementById("metaFilterActiveSummary");
+  if (summaryEl) {
+    const accountLabels = {
+      all: "All 11 Accounts",
+      usa_account1_meghal: "Meghal Chauhan (USA 1)",
+      usa_account2_mia: "Mia Shah (USA 2)",
+      usa_account3_radika: "Radika Patel (USA 3)",
+      samsung_s25_newyork: "Rohini Dutt (USA 4)",
+      uk_account1_binjal: "Binjal Mehra (UK 1)",
+      uk_account2_chanda: "Chanda Nai (UK 2)",
+      uk_account3_mahi: "Mahi Patel (UK 3)",
+      uk_account4_nidhi: "Nidhi Desai (UK 4)",
+      uk_account5_richi: "Richi Patel (UK 5)",
+      uk_account6_sweta: "Sweta Shah (UK 6)",
+      uk_account7_riya: "Riya Gaur (UK 7)"
+    };
+    const toolLabels = {
+      all: "All Tools",
+      stars: "⭐ Stars Set Up Ready",
+      subscriptions: "💎 Subscriptions Ready",
+      content: "🎬 Content Monetization",
+      clean: "🛡️ 100% Policy Clean"
+    };
+    const accName = accountLabels[currentMetaAccountFilter] || currentMetaAccountFilter;
+    const toolName = toolLabels[currentMetaToolFilter] || "All Tools";
+    summaryEl.innerText = `Showing: ${accName} • ${toolName} (${filtered.length} Pages)`;
+  }
 
   // Update badge count
   const badgeCount = document.getElementById("metaTableCountBadge");
@@ -7857,7 +7901,7 @@ async function renderMetaToolsHubView() {
   const tableBody = document.getElementById("metaToolsTableBody");
   if (tableBody) {
     if (filtered.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 30px; color: #94a3b8; font-size: 13px;">No pages match your current filter criteria.</td></tr>`;
+      tableBody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 36px; color: #94a3b8; font-size: 13px;">No pages match your current filter criteria. Try clicking another tool or account box.</td></tr>`;
     } else {
       tableBody.innerHTML = filtered.map((p, idx) => {
         // Content Monetization badge (Exact Meta Business Suite Terms)
@@ -7967,17 +8011,24 @@ async function renderMetaToolsHubView() {
   }
 }
 
+function filterMetaToolsByTool(toolType) {
+  currentMetaToolFilter = toolType;
+  
+  // Highlight active tool filter card
+  document.querySelectorAll(".meta-tool-filter-card").forEach(c => c.classList.remove("active"));
+  const activeCard = document.getElementById(`toolFilterCard_${toolType}`);
+  if (activeCard) activeCard.classList.add("active");
+
+  renderMetaToolsHubView();
+}
+
 function filterMetaToolsByAccount(accountId) {
   currentMetaAccountFilter = accountId;
-  document.querySelectorAll(".meta-tab-btn").forEach(btn => btn.classList.remove("active"));
-  
-  if (accountId === "all") document.getElementById("metaTabAll")?.classList.add("active");
-  else if (accountId === "samsung_s25_newyork") document.getElementById("metaTabS25")?.classList.add("active");
-  else if (accountId === "usa_account1_meghal") document.getElementById("metaTabMeghal")?.classList.add("active");
-  else if (accountId === "usa_account2_mia") document.getElementById("metaTabMia")?.classList.add("active");
-  else if (accountId === "usa_account3_radika") document.getElementById("metaTabRadika")?.classList.add("active");
-  else if (accountId === "uk_fleet") document.getElementById("metaTabUk")?.classList.add("active");
-  else if (accountId === "uk_account7_riya") document.getElementById("metaTabRiya")?.classList.add("active");
+
+  // Highlight active slot card
+  document.querySelectorAll(".meta-slot-card").forEach(c => c.classList.remove("active"));
+  const activeSlot = document.getElementById(`slotCard_${accountId}`);
+  if (activeSlot) activeSlot.classList.add("active");
 
   renderMetaToolsHubView();
 }
@@ -8012,7 +8063,7 @@ async function runFleetAuditLive() {
 
   if (btn) btn.disabled = false;
   if (icon) icon.innerHTML = "⚡";
-  showToast("✅ Real-Time Fleet Monetization Audit Updated across 141 Pages!");
+  showToast("✅ Real-Time Fleet Monetization Audit Updated across 143 Pages!");
 }
 
 window.renderAntiDetectProfilesView = renderAntiDetectProfilesView;
@@ -8021,6 +8072,7 @@ window.runDeviceDiagnostic = runDeviceDiagnostic;
 window.clearDeviceAuditTerminal = clearDeviceAuditTerminal;
 window.logDeviceTerminal = logDeviceTerminal;
 window.renderMetaToolsHubView = renderMetaToolsHubView;
+window.filterMetaToolsByTool = filterMetaToolsByTool;
 window.filterMetaToolsByAccount = filterMetaToolsByAccount;
 window.filterMetaToolsByStatus = filterMetaToolsByStatus;
 window.onSearchMetaTools = onSearchMetaTools;

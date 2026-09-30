@@ -8046,6 +8046,204 @@ body {
   opacity: 1;
 }
 
+/* ==========================================================================
+   INTERACTIVE TOOL FILTER CARDS (Stars, Subs, Content, Clean, All)
+   ========================================================================== */
+.meta-tool-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.meta-tool-filter-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.meta-tool-filter-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.meta-tool-filter-card.tool-stars:hover {
+  border-color: rgba(251, 191, 36, 0.6);
+  background: rgba(251, 191, 36, 0.06);
+}
+
+.meta-tool-filter-card.tool-subs:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  background: rgba(56, 189, 248, 0.06);
+}
+
+.meta-tool-filter-card.tool-content:hover {
+  border-color: rgba(192, 132, 252, 0.6);
+  background: rgba(192, 132, 252, 0.06);
+}
+
+.meta-tool-filter-card.tool-clean:hover {
+  border-color: rgba(52, 211, 153, 0.6);
+  background: rgba(52, 211, 153, 0.06);
+}
+
+.meta-tool-filter-card.tool-all:hover {
+  border-color: rgba(148, 163, 184, 0.6);
+  background: rgba(148, 163, 184, 0.06);
+}
+
+/* Active Glowing States */
+.meta-tool-filter-card.active.tool-stars {
+  border-color: #fbbf24 !important;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(217, 119, 6, 0.1)) !important;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.35) !important;
+}
+
+.meta-tool-filter-card.active.tool-subs {
+  border-color: #38bdf8 !important;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.1)) !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.35) !important;
+}
+
+.meta-tool-filter-card.active.tool-content {
+  border-color: #c084fc !important;
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(147, 51, 234, 0.1)) !important;
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.35) !important;
+}
+
+.meta-tool-filter-card.active.tool-clean {
+  border-color: #34d399 !important;
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(16, 185, 129, 0.1)) !important;
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.35) !important;
+}
+
+.meta-tool-filter-card.active.tool-all {
+  border-color: #94a3b8 !important;
+  background: linear-gradient(135deg, rgba(148, 163, 184, 0.2), rgba(71, 85, 105, 0.1)) !important;
+  box-shadow: 0 0 20px rgba(148, 163, 184, 0.25) !important;
+}
+
+.tool-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tool-card-value {
+  font-size: 22px;
+  font-weight: 900;
+  margin-top: 6px;
+  line-height: 1.2;
+}
+
+.tool-card-footer {
+  font-size: 11px;
+  margin-top: 6px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   SLOT-STYLE ID-WISE ACCOUNT BOXES (11 Accounts + All Fleet Grid)
+   ========================================================================== */
+.meta-slot-accounts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.meta-slot-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 9px 11px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: relative;
+}
+
+.meta-slot-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(30, 41, 59, 0.8);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.meta-slot-card.active {
+  border-color: #10b981 !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(5, 150, 105, 0.12)) !important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.32) !important;
+}
+
+.meta-slot-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.meta-slot-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta-slot-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.meta-slot-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+}
+
+.meta-slot-card.active .meta-slot-badge {
+  background: rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.meta-slot-card.active .meta-slot-top {
+  color: #34d399;
+}
+
+.meta-slot-card.active .meta-slot-bottom {
+  color: #a7f3d0;
+}
+
 .filter-pill-btn {
   background: rgba(255, 255, 255, 0.04);
   color: #94a3b8;
