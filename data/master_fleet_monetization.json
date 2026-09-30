@@ -1,7 +1,9 @@
 {
-  "generated_at": "2026-09-30T20:00:52.778961+00:00",
+  "generated_at": "2026-09-30T20:28:37.744047+00:00",
   "total_accounts": 11,
-  "total_fleet_pages": 141,
+  "active_live_accounts": 10,
+  "total_fleet_pages": 143,
+  "audited_pages_count": 131,
   "accounts": [
     {
       "account_id": "samsung_s25_newyork",
@@ -11,7 +13,7 @@
       "device": "Samsung Galaxy S25 (SM-S931U)",
       "status": "ACTIVE_AUTHENTICATED",
       "fb_uid": "61570977560611",
-      "verified_at": "2026-09-30T20:01:03.123724+00:00",
+      "verified_at": "2026-09-30T20:23:20.357282+00:00",
       "total_pages": 15,
       "pages": [
         {
@@ -167,215 +169,890 @@
       ]
     },
     {
+      "account_id": "usa_account1_meghal",
+      "account_name": "Meghal Chauhan (USA 1)",
+      "owner": "Meghal Chauhan",
+      "region": "US",
+      "device": "Samsung Galaxy S25 (US 5G)",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61576376801986",
+      "verified_at": "2026-09-30T20:23:53.538258+00:00",
+      "total_pages": 15,
+      "pages": [
+        {
+          "name": "Mix Mood",
+          "page_id": "988523547680750",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Charmy Owen",
+          "page_id": "1040244259164767",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Silent Peak Social",
+          "page_id": "965629596638624",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Horizon Nest Daily",
+          "page_id": "956622247541040",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Bright Flare Hub",
+          "page_id": "1034326643100670",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "LuxeEpic Frames ",
+          "page_id": "924636817403215",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Lopez  Edward",
+          "page_id": "795016603693140",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Crown Empire",
+          "page_id": "637367679454577",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Crafty Champions",
+          "page_id": "640019675857269",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Fun Life",
+          "page_id": "626061003919674",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Dominion Authority",
+          "page_id": "528360240361556",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Family Fancy",
+          "page_id": "503358542855153",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Me Text",
+          "page_id": "500794979779192",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Bot Mask",
+          "page_id": "468230386376818",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Fresh Hive Network",
+          "page_id": "106309715659174",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        }
+      ]
+    },
+    {
+      "account_id": "usa_account2_mia",
+      "account_name": "Mia Shah (USA 2)",
+      "owner": "Mia Shah",
+      "region": "US",
+      "device": "Samsung Galaxy S25 (US 5G)",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61591169045150",
+      "verified_at": "2026-09-30T20:24:42.228753+00:00",
+      "total_pages": 15,
+      "pages": [
+        {
+          "name": "Crimson Authority",
+          "page_id": "1069951959531260",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Heven Made",
+          "page_id": "979493165253123",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Evening Wise",
+          "page_id": "920161364524597",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Glow City Stories",
+          "page_id": "1005402935985498",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Gonzales  Jordan",
+          "page_id": "802674512937262",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Gonzales  Bradley",
+          "page_id": "765106526695498",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "The Showdown Hub",
+          "page_id": "568171476378321",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Garden Super",
+          "page_id": "454880037713018",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Gold encloud Studio",
+          "page_id": "368653459672717",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Gintube",
+          "page_id": "359780240556577",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Sovereign Labs",
+          "page_id": "211294825398492",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Prestige Frontier",
+          "page_id": "166448239894078",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Zenith Empire",
+          "page_id": "176892285514777",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Crown Voltage",
+          "page_id": "199046363282913",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Supreme Ledger",
+          "page_id": "169686166222750",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        }
+      ]
+    },
+    {
+      "account_id": "usa_account3_radika",
+      "account_name": "Radika Patel (USA 3)",
+      "owner": "Radika Patel",
+      "region": "US",
+      "device": "Samsung Galaxy S25 (US 5G)",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61571361051425",
+      "verified_at": "2026-09-30T20:25:25.694377+00:00",
+      "total_pages": 15,
+      "pages": [
+        {
+          "name": "Cloud berry Lane",
+          "page_id": "1033900793135926",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Sunset Mint Post",
+          "page_id": "984876688045322",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Timeless Glimpse",
+          "page_id": "928116440385651",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "The Entertainment Zone",
+          "page_id": "495281633679562",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "House Note",
+          "page_id": "461899523680517",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Wand Wizardry Legend",
+          "page_id": "512339515286069",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Potato Flamingo",
+          "page_id": "481027178422627",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Wu Tong's Family",
+          "page_id": "377394845467706",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Prestige Authority",
+          "page_id": "301441593063746",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Sthefany oliveira",
+          "page_id": "372905129232715",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Iron Republic",
+          "page_id": "271543462710279",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Shadow Executive",
+          "page_id": "209182608951563",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Hu1",
+          "page_id": "241688455685265",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Alpha Dynasty",
+          "page_id": "171465126060636",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        },
+        {
+          "name": "Path Summer",
+          "page_id": "160240527166280",
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
+        }
+      ]
+    },
+    {
       "account_id": "uk_account1_binjal",
       "account_name": "Binjal Mehra (UK 1)",
       "owner": "Binjal Mehra",
       "region": "UK",
       "device": "Samsung Galaxy S24 Ultra (UK 5G)",
-      "status": "WAITING_FOR_COOKIES",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61592509894844",
+      "verified_at": "2026-09-30T20:26:02.014373+00:00",
       "total_pages": 12,
       "pages": [
         {
           "name": "Bitter Lullaby",
           "page_id": "1275440552308410",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Apex Dominion",
           "page_id": "1094091620443741",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Apex Narrative",
           "page_id": "883030611569420",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Young  Bradley",
           "page_id": "876743625532242",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Scott  Dennis",
           "page_id": "954228904442447",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Wood  Stephen",
           "page_id": "884416694753956",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Morgan  Donald",
           "page_id": "766333629906067",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Rogers  Albert",
           "page_id": "838517782676673",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Roberts  Austin",
           "page_id": "860013240524658",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Mitchell  Jack",
           "page_id": "802792259592614",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Words Though",
           "page_id": "439151942618231",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Quantum Collective",
           "page_id": "297665506763102",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     },
     {
       "account_id": "uk_account2_chanda",
-      "account_name": "Chanda (UK 2)",
-      "owner": "Chanda",
+      "account_name": "Chanda Nai (UK 2)",
+      "owner": "Chanda Nai",
       "region": "UK",
       "device": "Google Pixel 9 Pro (UK)",
-      "status": "WAITING_FOR_COOKIES",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61591462282199",
+      "verified_at": "2026-09-30T20:26:32.359157+00:00",
       "total_pages": 12,
       "pages": [
         {
           "name": "Silent Atlas",
           "page_id": "1257864287403392",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Rusted Compass",
           "page_id": "1278509768670990",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Yo to Gone",
           "page_id": "1165355063335637",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Velvet Authority",
           "page_id": "1054813994376761",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Urban Drift",
           "page_id": "1058909860631103",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Johnson  Jerry",
           "page_id": "1020848977772131",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Hill  Alan",
           "page_id": "820574291145280",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "James  Jose",
           "page_id": "870381232821932",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Titan Republic",
           "page_id": "779283818590888",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Dandelion Diaries",
           "page_id": "514777565046552",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Infinite Stories",
           "page_id": "500491343147382",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Idea Acy",
           "page_id": "490559100806079",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     },
     {
       "account_id": "uk_account3_mahi",
-      "account_name": "Mahi (UK 3)",
-      "owner": "Mahi",
+      "account_name": "Mahi Patel (UK 3)",
+      "owner": "Mahi Patel",
       "region": "UK",
       "device": "Samsung Galaxy S25 (UK)",
-      "status": "WAITING_FOR_COOKIES",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61592795722237",
+      "verified_at": "2026-09-30T20:27:04.345973+00:00",
       "total_pages": 12,
       "pages": [
         {
           "name": "Shifting Stone",
           "page_id": "1190983047436826",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Heavy Whistle",
           "page_id": "1224317344092240",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Lost Glossary",
           "page_id": "1185315564665369",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Noble Frequency",
           "page_id": "960349707172371",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Prime Syndicate",
           "page_id": "1063063230214331",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Empire Catalyst",
           "page_id": "1063289593524919",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Obsidian Theory",
           "page_id": "938570059349598",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Nova District",
           "page_id": "982581511610694",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "New Moon Diaries",
           "page_id": "994921357036127",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Dream Harbor",
           "page_id": "1039102779276966",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Maple Vision",
           "page_id": "1023389020850189",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Perez  Steven",
           "page_id": "855237054348766",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     },
@@ -385,205 +1062,386 @@
       "owner": "Nidhi Desai",
       "region": "UK",
       "device": "Samsung Galaxy S25 (UK)",
-      "status": "WAITING_FOR_COOKIES",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61592780062670",
+      "verified_at": "2026-09-30T20:27:41.806135+00:00",
       "total_pages": 12,
       "pages": [
         {
           "name": "Titan Archive",
           "page_id": "1076375522219372",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Sovereign Signal",
           "page_id": "997596213442388",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Sunny Dusk Stories",
           "page_id": "1025542247301378",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Silver Oak Social",
           "page_id": "981214481738903",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Mitchell  Gabriel",
           "page_id": "929190903615356",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Smith  Arthur",
           "page_id": "803824339488556",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Robinson  Jerry",
           "page_id": "857530914106167",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Robinson  Stephen",
           "page_id": "762765990263739",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Powell  Gabriel",
           "page_id": "871774779344742",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Rodriguez  Scott",
           "page_id": "746108741929454",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Roberts  Richard",
           "page_id": "818808074651170",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Serendipity Spark",
           "page_id": "417387901468629",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     },
     {
       "account_id": "uk_account5_richi",
-      "account_name": "Richi (UK 5)",
-      "owner": "Richi",
+      "account_name": "Richi Patel (UK 5)",
+      "owner": "Richi Patel",
       "region": "UK",
       "device": "Google Pixel 9 (UK)",
-      "status": "WAITING_FOR_COOKIES",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61591621013460",
+      "verified_at": "2026-09-30T20:28:09.950509+00:00",
       "total_pages": 11,
       "pages": [
         {
-          "name": "uk5_page_1",
+          "name": "Exile The Sun",
           "page_id": "1282432698285787",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_2",
+          "name": "Empty Pockets",
           "page_id": "1292135137311847",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_3",
+          "name": "Dirty Halos",
           "page_id": "1372949892557936",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_4",
+          "name": "Deafening Quiet",
           "page_id": "1246041178598806",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_5",
+          "name": "Crooked Hymns",
           "page_id": "1314852728368183",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_6",
+          "name": "Cracked Bell",
           "page_id": "1240652399138492",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_7",
+          "name": "Collapse The Sky",
           "page_id": "1261317297068003",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_8",
+          "name": "Buried Choirs",
           "page_id": "1314791448384472",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_9",
+          "name": "Brittle Crown",
           "page_id": "1275452998982725",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_10",
+          "name": "Broken Halo",
           "page_id": "1345748795277343",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
-          "name": "uk5_page_11",
+          "name": "Blame The Weather",
           "page_id": "1129800936893243",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     },
     {
       "account_id": "uk_account6_sweta",
-      "account_name": "Sweta (UK 6)",
-      "owner": "Sweta",
+      "account_name": "Sweta Shah (UK 6)",
+      "owner": "Sweta Shah",
       "region": "UK",
       "device": "Samsung Galaxy S24 (UK)",
-      "status": "WAITING_FOR_COOKIES",
+      "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61592808741655",
+      "verified_at": "2026-09-30T20:28:37.659446+00:00",
       "total_pages": 12,
       "pages": [
         {
           "name": "Broken Orchard",
           "page_id": "1183175548215394",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Hollow Echo",
           "page_id": "1218007361389446",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Grabeal",
           "page_id": "1168998922967230",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Gentle Ruin",
           "page_id": "1260883380432217",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Heavy Whistle",
           "page_id": "1230784326779924",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Echo Ridge",
           "page_id": "956709574200068",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Prestige Syndicate",
           "page_id": "682815954920518",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Power Doctrine",
           "page_id": "758260714032115",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Apex Chronicle",
           "page_id": "714841275048147",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "anymotion",
           "page_id": "314172255114813",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Mai Cartoon Hoon",
           "page_id": "234852513054858",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Cold Ash",
           "page_id": "172005056007015",
-          "status": "Pending Cookie"
+          "overall_status": "No Monetization Violations",
+          "content_monetization": "Policy Issues",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     },
@@ -593,326 +1451,130 @@
       "owner": "Riya",
       "region": "UK",
       "device": "OnePlus 13 (UK)",
-      "status": "WAITING_FOR_COOKIES",
+      "status": "AWAITING_COOKIES",
+      "fb_uid": null,
+      "verified_at": null,
       "total_pages": 12,
       "pages": [
         {
           "name": "Dead Languages",
           "page_id": "1191247700748920",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Curse The Dawn",
           "page_id": "1304768466050503",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Cure For Monday",
           "page_id": "1338114526042607",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Cruel Mercy",
           "page_id": "1315483674976229",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Choke The Static",
           "page_id": "1195883193618072",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Lee  Charles",
           "page_id": "802518939617506",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Cooper  Billy",
           "page_id": "896072510245887",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Alexander  Christopher",
           "page_id": "755318371007926",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Lee  Daniel",
           "page_id": "864838050041932",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Martin  John",
           "page_id": "870975689430311",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Corner Spe",
           "page_id": "479102298617718",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         },
         {
           "name": "Memes & Mischief",
           "page_id": "208233979039379",
-          "status": "Pending Cookie"
-        }
-      ]
-    },
-    {
-      "account_id": "usa_account1_nidhi",
-      "account_name": "Nidhi Desai (USA 1)",
-      "owner": "Nidhi Desai",
-      "region": "US",
-      "device": "Samsung Galaxy S25 (US 5G)",
-      "status": "WAITING_FOR_COOKIES",
-      "total_pages": 15,
-      "pages": [
-        {
-          "name": "Mix Mood",
-          "page_id": "988523547680750",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Charmy Owen",
-          "page_id": "1040244259164767",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Silent Peak Social",
-          "page_id": "965629596638624",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Horizon Nest Daily",
-          "page_id": "956622247541040",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Bright Flare Hub",
-          "page_id": "1034326643100670",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "LuxeEpic Frames",
-          "page_id": "924636817403215",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Lopez Edward",
-          "page_id": "795016603693140",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Crown Empire",
-          "page_id": "637367679454577",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Crafty Champions",
-          "page_id": "640019675857269",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Fun Life",
-          "page_id": "626061003919674",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Dominion Authority",
-          "page_id": "528360240361556",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Family Fancy",
-          "page_id": "503358542855153",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Me Text",
-          "page_id": "500794979779192",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Bot Mask",
-          "page_id": "468230386376818",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Fresh Hive Network",
-          "page_id": "106309715659174",
-          "status": "Pending Cookie"
-        }
-      ]
-    },
-    {
-      "account_id": "usa_account2_fleet",
-      "account_name": "USA Account 2",
-      "owner": "USA 2 Fleet",
-      "region": "US",
-      "device": "Samsung Galaxy S25 (US 5G)",
-      "status": "WAITING_FOR_COOKIES",
-      "total_pages": 15,
-      "pages": [
-        {
-          "name": "Crimson Authority",
-          "page_id": "1069951959531260",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Heven Made",
-          "page_id": "979493165253123",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Evening Wise",
-          "page_id": "920161364524597",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Glow City Stories",
-          "page_id": "1005402935985498",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Gonzales Jordan",
-          "page_id": "802674512937262",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Gonzales Bradley",
-          "page_id": "765106526695498",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "The Showdown Hub",
-          "page_id": "568171476378321",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Garden Super",
-          "page_id": "454880037713018",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Gold encloud Studio",
-          "page_id": "368653459672717",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Gintube",
-          "page_id": "359780240556577",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Sovereign Labs",
-          "page_id": "211294825398492",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Prestige Frontier",
-          "page_id": "166448239894078",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Zenith Empire",
-          "page_id": "176892285514777",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Crown Voltage",
-          "page_id": "199046363282913",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Supreme Ledger",
-          "page_id": "169686166222750",
-          "status": "Pending Cookie"
-        }
-      ]
-    },
-    {
-      "account_id": "usa_account3_radika",
-      "account_name": "Radika (USA 3)",
-      "owner": "Radika",
-      "region": "US",
-      "device": "Samsung Galaxy S25 (US 5G)",
-      "status": "WAITING_FOR_COOKIES",
-      "total_pages": 15,
-      "pages": [
-        {
-          "name": "Cloud berry Lane",
-          "page_id": "1033900793135926",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Sunset Mint Post",
-          "page_id": "984876688045322",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Timeless Glimpse",
-          "page_id": "928116440385651",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "The Entertainment Zone",
-          "page_id": "495281633679562",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "House Note",
-          "page_id": "461899523680517",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Wand Wizardry Legend",
-          "page_id": "512339515286069",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Potato Flamingo",
-          "page_id": "481027178422627",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Wu Tong's Family",
-          "page_id": "377394845467706",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Prestige Authority",
-          "page_id": "301441593063746",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Sthefany oliveira",
-          "page_id": "372905129232715",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Iron Republic",
-          "page_id": "271543462710279",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Shadow Executive",
-          "page_id": "209182608951563",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Hu1",
-          "page_id": "241688455685265",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Alpha Dynasty",
-          "page_id": "171465126060636",
-          "status": "Pending Cookie"
-        },
-        {
-          "name": "Path Summer",
-          "page_id": "160240527166280",
-          "status": "Pending Cookie"
+          "overall_status": "Pending Cookie Ingestion",
+          "content_monetization": "Awaiting Cookie",
+          "subscriptions": "Pending Cookie",
+          "stars": "Pending Cookie",
+          "policy_details": "Awaiting Cookie",
+          "recommendation": "Pending"
         }
       ]
     }

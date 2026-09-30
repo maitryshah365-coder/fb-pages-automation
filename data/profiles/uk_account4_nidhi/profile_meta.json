@@ -1,9 +1,12 @@
 {
-  "profile_id": "uk_account4_nidhi",
-  "account_name": "Nidhi Desai (UK 4)",
+  "id": "uk_account4_nidhi",
+  "name": "Nidhi Desai (UK 4)",
   "owner": "Nidhi Desai",
   "region": "UK",
-  "timezone_id": "Europe/London",
-  "device_model": "Samsung Galaxy S25 (UK)",
-  "cookies_ready": false
+  "timezone": "Europe/London",
+  "device": "Samsung Galaxy S25 (UK)",
+  "status": "ACTIVE_AUTHENTICATED",
+  "fb_uid": "61592780062670",
+  "total_pages": 12,
+  "cookies_present": true
 }

@@ -1,9 +1,12 @@
 {
-  "profile_id": "uk_account7_riya",
-  "account_name": "Riya (UK 7)",
+  "id": "uk_account7_riya",
+  "name": "Riya (UK 7)",
   "owner": "Riya",
   "region": "UK",
-  "timezone_id": "Europe/London",
-  "device_model": "OnePlus 13 (UK)",
-  "cookies_ready": false
+  "timezone": "Europe/London",
+  "device": "OnePlus 13 (UK)",
+  "status": "AWAITING_COOKIES",
+  "fb_uid": null,
+  "total_pages": 12,
+  "cookies_present": false
 }

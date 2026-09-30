@@ -1,9 +1,12 @@
 {
-  "profile_id": "uk_account6_sweta",
-  "account_name": "Sweta (UK 6)",
-  "owner": "Sweta",
+  "id": "uk_account6_sweta",
+  "name": "Sweta Shah (UK 6)",
+  "owner": "Sweta Shah",
   "region": "UK",
-  "timezone_id": "Europe/London",
-  "device_model": "Samsung Galaxy S24 (UK)",
-  "cookies_ready": false
+  "timezone": "Europe/London",
+  "device": "Samsung Galaxy S24 (UK)",
+  "status": "ACTIVE_AUTHENTICATED",
+  "fb_uid": "61592808741655",
+  "total_pages": 12,
+  "cookies_present": true
 }

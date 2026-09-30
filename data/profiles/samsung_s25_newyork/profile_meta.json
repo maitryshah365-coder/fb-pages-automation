@@ -1,9 +1,12 @@
 {
-  "profile_id": "samsung_s25_newyork",
-  "account_name": "Rohini Dutt (USA 4)",
+  "id": "samsung_s25_newyork",
+  "name": "Rohini Dutt (USA 4)",
   "owner": "Rohini Dutt",
   "region": "US",
-  "timezone_id": "America/New_York",
-  "device_model": "Samsung Galaxy S25 (SM-S931U)",
-  "cookies_ready": true
+  "timezone": "America/New_York",
+  "device": "Samsung Galaxy S25 (SM-S931U)",
+  "status": "ACTIVE_AUTHENTICATED",
+  "fb_uid": "61570977560611",
+  "total_pages": 15,
+  "cookies_present": true
 }

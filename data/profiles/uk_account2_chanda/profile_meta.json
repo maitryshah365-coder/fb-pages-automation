@@ -1,9 +1,12 @@
 {
-  "profile_id": "uk_account2_chanda",
-  "account_name": "Chanda (UK 2)",
-  "owner": "Chanda",
+  "id": "uk_account2_chanda",
+  "name": "Chanda Nai (UK 2)",
+  "owner": "Chanda Nai",
   "region": "UK",
-  "timezone_id": "Europe/London",
-  "device_model": "Google Pixel 9 Pro (UK)",
-  "cookies_ready": false
+  "timezone": "Europe/London",
+  "device": "Google Pixel 9 Pro (UK)",
+  "status": "ACTIVE_AUTHENTICATED",
+  "fb_uid": "61591462282199",
+  "total_pages": 12,
+  "cookies_present": true
 }

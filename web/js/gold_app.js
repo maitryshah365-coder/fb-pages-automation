@@ -7901,17 +7901,17 @@ async function renderMetaToolsHubView() {
   const accountsGrid = document.getElementById("metaAccountsGrid");
   if (accountsGrid) {
     const accountConfigs = [
-      { id: "samsung_s25_newyork", name: "Samsung Galaxy S25 (Rohini Dutt)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "usa_account1_nidhi", name: "USA Account 1 (Nidhi Desai)", region: "US", flag: "🇺🇸", pages: 15, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "usa_account2_fleet", name: "USA Account 2 (Fleet)", region: "US", flag: "🇺🇸", pages: 15, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "usa_account3_radika", name: "USA Account 3 (Radika)", region: "US", flag: "🇺🇸", pages: 15, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "uk_account1_binjal", name: "UK Account 1 (Binjal)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "uk_account2_chanda", name: "UK Account 2 (Chanda)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "uk_account3_mahi", name: "UK Account 3 (Mahi)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "uk_account4_nidhi", name: "UK Account 4 (Nidhi)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "uk_account5_richi", name: "UK Account 5 (Richi)", region: "UK", flag: "🇬🇧", pages: 11, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "uk_account6_sweta", name: "UK Account 6 (Sweta)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" },
-      { id: "uk_account7_riya", name: "UK Account 7 (Riya)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" }
+      { id: "samsung_s25_newyork", name: "Samsung S25 (Rohini Dutt)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "usa_account1_meghal", name: "USA 1 (Meghal Chauhan)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "usa_account2_mia", name: "USA 2 (Mia Shah)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "usa_account3_radika", name: "USA 3 (Radika Patel)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "uk_account1_binjal", name: "UK 1 (Binjal Mehra)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "uk_account2_chanda", name: "UK 2 (Chanda Nai)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "uk_account3_mahi", name: "UK 3 (Mahi Patel)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "uk_account4_nidhi", name: "UK 4 (Nidhi Desai)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "uk_account5_richi", name: "UK 5 (Richi Patel)", region: "UK", flag: "🇬🇧", pages: 11, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "uk_account6_sweta", name: "UK 6 (Sweta Shah)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "uk_account7_riya", name: "UK 7 (Riya)", region: "UK", flag: "🇬🇧", pages: 12, status: "READY", cookies: "Awaiting JSON", time: "Vault Ready" }
     ];
 
     accountsGrid.innerHTML = accountConfigs.map(acc => {
@@ -7940,10 +7940,11 @@ function filterMetaToolsByAccount(accountId) {
   
   if (accountId === "all") document.getElementById("metaTabAll")?.classList.add("active");
   else if (accountId === "samsung_s25_newyork") document.getElementById("metaTabS25")?.classList.add("active");
-  else if (accountId === "usa_account1_nidhi") document.getElementById("metaTabNidhi")?.classList.add("active");
-  else if (accountId === "usa_account2_fleet") document.getElementById("metaTabUsa2")?.classList.add("active");
+  else if (accountId === "usa_account1_meghal") document.getElementById("metaTabMeghal")?.classList.add("active");
+  else if (accountId === "usa_account2_mia") document.getElementById("metaTabMia")?.classList.add("active");
   else if (accountId === "usa_account3_radika") document.getElementById("metaTabRadika")?.classList.add("active");
   else if (accountId === "uk_fleet") document.getElementById("metaTabUk")?.classList.add("active");
+  else if (accountId === "uk_account7_riya") document.getElementById("metaTabRiya")?.classList.add("active");
 
   renderMetaToolsHubView();
 }
