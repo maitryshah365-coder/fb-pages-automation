@@ -111,7 +111,8 @@ const FLEET_UK_04_IDS = [
   "871774779344742",  // Powell Gabriel
   "746108741929454",  // Rodriguez Scott
   "818808074651170",  // Roberts Richard
-  "417387901468629"   // Serendipity Spark
+  "417387901468629",  // Serendipity Spark
+  "857530914106167"   // Robinson Jerry
 ];
 
 const FLEET_UK_05_IDS = [
@@ -162,7 +163,8 @@ const FLEET_UK_07_IDS = [
   "864838050041932",  // Lee Daniel
   "870975689430311",  // Martin John
   "479102298617718",  // Corner Spe
-  "208233979039379"   // Memes & Mischief
+  "208233979039379",  // Memes & Mischief
+  "755318371007926"   // Alexander Christopher
 ];
 
 const FLEET_UK_07_SET = new Set(FLEET_UK_07_IDS);
@@ -188,21 +190,21 @@ const FLEET_USA_03_IDS = [
 const FLEET_USA_03_SET = new Set(FLEET_USA_03_IDS);
 
 const FLEET_USA_04_IDS = [
-  "usa4_p01_apex_house",
-  "usa4_p02_quantum_house",
-  "usa4_p03_drift_valley",
-  "usa4_p04_dreams_of_life",
-  "usa4_p05_end_every",
-  "usa4_p06_executive_empire",
-  "usa4_p07_im_joker",
-  "usa4_p08_iron_covenant",
-  "usa4_p09_iron_momentum",
-  "usa4_p10_me_the",
-  "usa4_p11_quiet_harbor",
-  "usa4_p12_radiant_reverie",
-  "usa4_p13_bit_creative",
-  "usa4_p14_atlas_authority",
-  "usa4_p15_blissful_paradox"
+  "497577420112654",  // Apex House
+  "487987684400252",  // Quantum House
+  "960803123790692",  // Drift Valley
+  "923484537514216",  // Dreams Of Life
+  "511317578722941",  // End Every
+  "416325608224715",  // Executive Empire
+  "467407709785240",  // I'm Joker
+  "223604537511488",  // Iron Covenant
+  "730487193489250",  // Iron Momentum
+  "514016115120845",  // Me The
+  "1009759155555480", // Quiet Harbor
+  "922808234251176",  // Radiant Reverie
+  "288008221072106",  // Bit Creative
+  "243414155514799",  // Atlas Authority
+  "921493174379801"   // Blissful Paradox
 ];
 
 const FLEET_USA_04_SET = new Set(FLEET_USA_04_IDS);

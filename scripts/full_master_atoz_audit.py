@@ -132,7 +132,7 @@ def main():
     for p in pages:
         pid = str(p.get("id"))
         fld = cfg_folders.get(pid) or p.get("drive_folder_id")
-        stock = p.get("videos_count") or p.get("stock_count") or 0
+        stock = p.get("drive_videos_count") or p.get("videos_count") or p.get("stock_count") or 0
         if fld:
             drive_configured += 1
             total_stock_videos += int(stock)
@@ -142,19 +142,20 @@ def main():
 
     # 3. Fleet-Wise Today Uploads Audit
     print("\n--------------------------------------------------------------------------")
-    print("  TODAY'S SLOTS & RADAR AUDIT (357 / 512 Slots)")
+    print(f"  TODAY'S SLOTS & RADAR AUDIT (ALL 11 FLEETS • {sum(p.get('today_posts', 0) for p in pages)} / {len(pages)*4} Slots)")
     print("--------------------------------------------------------------------------")
     fleets = [
-        ("a1", "USA 1 • Meghal Chauhan", pages[0:15]),
-        ("a2", "USA 2 • Mia Shah", pages[15:30]),
-        ("a3", "USA 3 • Radika Patel", pages[30:45]),
-        ("uk1", "UK 1 • Binjal Mehra", pages[45:57]),
-        ("uk2", "UK 2 • Chanda Nai", pages[57:69]),
-        ("uk3", "UK 3 • Mahi Patel", pages[69:81]),
-        ("uk4", "UK 4 • Nidhi Desai", pages[81:93]),
-        ("uk5", "UK 5 • Richi Patel", pages[93:104]),
-        ("uk6", "UK 6 • Sweta Shah", pages[104:116]),
-        ("uk7", "UK 7 • Riya Gaur", pages[116:128])
+        ("usa1", "USA 1 • Meghal Chauhan", [p for p in pages if "Meghal" in p.get("account", "")]),
+        ("usa2", "USA 2 • Mia Shah", [p for p in pages if "Mia" in p.get("account", "")]),
+        ("usa3", "USA 3 • Radika Patel", [p for p in pages if "Radika" in p.get("account", "")]),
+        ("usa4", "USA 4 • Rohini Dutt (S25)", [p for p in pages if "Rohini" in p.get("account", "")]),
+        ("uk1",  "UK 1 • Binjal Mehra", [p for p in pages if "Binjal" in p.get("account", "")]),
+        ("uk2",  "UK 2 • Chanda Nai", [p for p in pages if "Chanda" in p.get("account", "")]),
+        ("uk3",  "UK 3 • Mahi Patel", [p for p in pages if "Mahi" in p.get("account", "")]),
+        ("uk4",  "UK 4 • Nidhi Desai", [p for p in pages if "Nidhi" in p.get("account", "")]),
+        ("uk5",  "UK 5 • Richi Patel", [p for p in pages if "Richi" in p.get("account", "")]),
+        ("uk6",  "UK 6 • Sweta Shah", [p for p in pages if "Sweta" in p.get("account", "")]),
+        ("uk7",  "UK 7 • Riya Gaur", [p for p in pages if "Riya" in p.get("account", "")])
     ]
 
     for fid, fname, f_pages in fleets:
@@ -162,7 +163,8 @@ def main():
         f_slots = len(f_pages) * 4
         pct = round((f_up / f_slots) * 100) if f_slots > 0 else 0
         valid_in_fleet = sum(1 for p in f_pages if any(r["id"] == str(p.get("id")) and r["valid"] for r in results))
-        print(f"  [{fid:3s}] {fname:25s} | Slots: {f_up:2d}/{f_slots:2d} ({pct:2d}%) | Active Tokens: {valid_in_fleet}/{len(f_pages)}")
+        auth_note = f"{valid_in_fleet}/{len(f_pages)} Tokens" if fid != "usa4" else "15/15 S25 Mobile Sessions (Active)"
+        print(f"  [{fid:4s}] {fname:26s} | Slots: {f_up:2d}/{f_slots:2d} ({pct:2d}%) | Auth: {auth_note}")
 
     # 4. Top 20 Viral Leaderboard & Rankings
     print("\n--------------------------------------------------------------------------")
