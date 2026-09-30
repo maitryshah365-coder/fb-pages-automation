@@ -1,12 +1,18 @@
 {
-  "id": "samsung_s25_newyork",
-  "name": "Rohini Dutt (USA 4)",
-  "owner": "Rohini Dutt",
-  "region": "US",
-  "timezone": "America/New_York",
-  "device": "Samsung Galaxy S25 (SM-S931U)",
-  "status": "ACTIVE_AUTHENTICATED",
-  "fb_uid": "61570977560611",
-  "total_pages": 15,
-  "cookies_present": true
+  "profile_id": "samsung_s25_newyork",
+  "device_name": "Samsung Galaxy S25 (US 5G)",
+  "brand": "Samsung",
+  "model": "SM-S931U",
+  "os_version": "15",
+  "timezone_id": "America/New_York",
+  "locale": "en-US",
+  "latitude": 40.7128,
+  "longitude": -74.006,
+  "viewport": {
+    "width": 393,
+    "height": 852,
+    "dpr": 3.0
+  },
+  "user_data_dir": "/home/runner/work/fb-pages-automation/fb-pages-automation/data/profiles/samsung_s25_newyork/chrome_user_data",
+  "updated_at": "2026-09-30T20:30:13.010646+00:00"
 }
