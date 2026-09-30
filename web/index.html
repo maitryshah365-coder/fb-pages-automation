@@ -95,8 +95,8 @@
         <span class="mobile-brand-name">Raj FB Pro</span>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
-        <button type="button" id="btnMobileSync" class="btn-mobile-sync" onclick="triggerMobileSync(event)" title="Sync Real-Time Meta Graph API">
-          <span id="mobileSyncBtnText">⚡ Sync</span>
+        <button type="button" id="btnMobileSync" class="btn-mobile-sync" onclick="triggerMobileSync(event)" title="Master Sync & Audit Fleet (Meta Graph API, Stock & Monetization)">
+          <span id="mobileSyncBtnText">⚡ Master Sync</span>
         </button>
       </div>
     </div>
@@ -234,6 +234,20 @@
         </button>
       </div>
 
+      <!-- BOX 7.5: META TOOLS & MONETIZATION FLEET HUB -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile side-tile-meta-tools" id="btnDrawerMetaToolsHub" onclick="mobileSwitchView('meta_tools_hub')" title="Meta Tools & Monetization Fleet (Policy, Subscriptions & 11 Accounts Audit)">
+          <div class="tile-content-left">
+            <span class="tile-icon">💎</span>
+            <div class="tile-text">
+              <span class="tile-title">Monetization Hub</span>
+              <span class="tile-sub">Policy & Tools Fleet</span>
+            </div>
+          </div>
+          <span class="side-meta-tools-pill" id="drawerNavMetaToolsBadge">15 LIVE</span>
+        </button>
+      </div>
+
       <!-- BOX 8: TOP 50 PERFORMERS -->
       <div class="drawer-nav-card">
         <button type="button" class="drawer-nav-tile" id="btnDrawerTopPerformers" onclick="mobileSwitchView('top_performers')" title="Top 50 Performers Leaderboard">
@@ -285,9 +299,9 @@
         </div>
 
         <!-- Sync Button in Left Sidebar ("synk vala bhi side me lele") -->
-        <button type="button" id="btnSideLiveSync" class="btn-sidebar-sync" title="Sync Real-Time Meta Graph API">
+        <button type="button" id="btnSideLiveSync" class="btn-sidebar-sync" title="Master Sync & Audit Fleet: Sync Meta Graph API, Drive Stock & Monetization Audit across all 11 Accounts">
           <span class="sync-icon">⚡</span>
-          <span class="sync-text" id="sideSyncBtnText">Sync Meta API Live</span>
+          <span class="sync-text" id="sideSyncBtnText">Master Sync & Audit Fleet</span>
         </button>
 
         <!-- Sleek Sync Progress Indicator (% and glowing bar directly near Sync button) -->
@@ -412,6 +426,20 @@
             </div>
           </div>
           <span class="side-anti-detect-pill" id="sideNavAntiDetectBadge">1 ACTIVE</span>
+        </button>
+      </div>
+
+      <!-- BOX 7.5: META TOOLS & MONETIZATION FLEET HUB -->
+      <div class="sidebar-nav-box">
+        <button type="button" id="sideNavMetaToolsHub" class="sidebar-action-tile side-tile-meta-tools" onclick="switchMainView('meta_tools_hub')" title="Meta Tools & Monetization Fleet (Policy, Subscriptions & 11 Accounts Audit)">
+          <div class="tile-content-left">
+            <span class="tile-icon">💎</span>
+            <div class="tile-text">
+              <span class="tile-title">Monetization Hub</span>
+              <span class="tile-sub">Policy & Tools Fleet</span>
+            </div>
+          </div>
+          <span class="side-meta-tools-pill" id="sideNavMetaToolsBadge">15 LIVE</span>
         </button>
       </div>
 
@@ -1068,6 +1096,175 @@
       <!-- Single Unified Device Audit & Log Box Container -->
       <div id="antiDetectDevicesGrid" style="margin-top: 16px;">
         <!-- Dynamically rendered by renderAntiDetectProfilesView() in gold_app.js -->
+      </div>
+
+    </div>
+
+    <!-- ================= META TOOLS & MONETIZATION FLEET HUB VIEW ================= -->
+    <div id="metaToolsHubView" class="dashboard-view-container" style="display: none;">
+      
+      <!-- Top Status Banner -->
+      <div class="dash-page-status-strip">
+        <div class="status-strip-left">
+          <span class="live-dot-pulse">●</span>
+          <span class="status-strip-text"><strong>META TOOLS & MONETIZATION FLEET HUB</strong> • 100% Real-Time Account-Wise Policy & Monetization Audit</span>
+        </div>
+        <div class="status-strip-right">
+          <span class="badge-meta-verified" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);">11 PROFILE ACCOUNTS • 141 PAGES</span>
+        </div>
+      </div>
+
+      <!-- Server-Side Location & Isolation Guarantee Banner -->
+      <div class="meta-tools-isolation-banner" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.8)); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 16px 20px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;">
+            🛡️
+          </div>
+          <div>
+            <div style="font-size: 14px; font-weight: 800; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
+              <span>Server-Side Location & Device Isolation Verified</span>
+              <span class="telemetry-chip" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); font-size: 10.5px; padding: 2px 7px; border-radius: 5px;">ZERO IP LEAK</span>
+            </div>
+            <div style="font-size: 12px; color: #94a3b8; margin-top: 3px;">
+              Audits and uploads are executed strictly via designated US/UK residential proxies (e.g. NYC WireGuard <code style="color:#38bdf8;">207.244.71.84</code>) with anti-detect hardware profiles. Your Indian mobile/laptop IP is never transmitted to Meta.
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" id="btnRunFleetAuditNow" onclick="runFleetAuditLive()" class="btn-check-device-now" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none; padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(16,185,129,0.35);">
+            <span id="fleetAuditBtnIcon">⚡</span> Run Live Fleet Audit
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 KPI Summary Cards -->
+      <div class="meta-tools-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 16px;">
+        
+        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #38bdf8; border-radius: 14px; padding: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+            <span>Audited Pages</span>
+            <span style="font-size: 18px;">📑</span>
+          </div>
+          <div id="metaKpiAuditedPages" style="font-size: 26px; font-weight: 900; color: #fff; margin-top: 8px;">15 / 141</div>
+          <div style="font-size: 11.5px; color: #38bdf8; margin-top: 4px; font-weight: 600;">Rohini Dutt (15 Live) • 10 Accounts Queued</div>
+        </div>
+
+        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #34d399; border-radius: 14px; padding: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+            <span>Policy & Strike Health</span>
+            <span style="font-size: 18px;">🛡️</span>
+          </div>
+          <div id="metaKpiPolicyHealth" style="font-size: 26px; font-weight: 900; color: #34d399; margin-top: 8px;">15 / 15 Clean</div>
+          <div style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">0 Monetization Violations (100% Clean)</div>
+        </div>
+
+        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #f59e0b; border-radius: 14px; padding: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+            <span>Programs Unlocked</span>
+            <span style="font-size: 18px;">🎉</span>
+          </div>
+          <div id="metaKpiUnlockedPrograms" style="font-size: 26px; font-weight: 900; color: #fbbf24; margin-top: 8px;">1 Ready to Set Up</div>
+          <div style="font-size: 11.5px; color: #facc15; margin-top: 4px; font-weight: 600;">Apex House: Subscriptions Unlocked</div>
+        </div>
+
+        <div class="meta-kpi-card" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 4px solid #a855f7; border-radius: 14px; padding: 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase;">
+            <span>Content Monetization</span>
+            <span style="font-size: 18px;">⚡</span>
+          </div>
+          <div id="metaKpiContentMonetization" style="font-size: 26px; font-weight: 900; color: #c084fc; margin-top: 8px;">12 In Review</div>
+          <div style="font-size: 11.5px; color: #94a3b8; margin-top: 4px;">Standard 30-Day Presence Check</div>
+        </div>
+
+      </div>
+
+      <!-- Account Filter Tabs & Search Controls Strip -->
+      <div class="meta-tools-controls-box" style="margin-top: 18px; background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px 18px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+          <!-- Account Tabs -->
+          <div class="meta-account-tabs" id="metaAccountTabs" style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" class="meta-tab-btn active" onclick="filterMetaToolsByAccount('all')" id="metaTabAll">
+              🌐 All Accounts (141)
+            </button>
+            <button type="button" class="meta-tab-btn" onclick="filterMetaToolsByAccount('samsung_s25_newyork')" id="metaTabS25">
+              🟢 Rohini Dutt - USA 4 (15 Live)
+            </button>
+            <button type="button" class="meta-tab-btn pending" onclick="filterMetaToolsByAccount('usa_account1_nidhi')" id="metaTabNidhi">
+              ⏳ Nidhi Desai - USA 1 (15)
+            </button>
+            <button type="button" class="meta-tab-btn pending" onclick="filterMetaToolsByAccount('usa_account2_fleet')" id="metaTabUsa2">
+              ⏳ USA Fleet 2 (15)
+            </button>
+            <button type="button" class="meta-tab-btn pending" onclick="filterMetaToolsByAccount('usa_account3_radika')" id="metaTabRadika">
+              ⏳ Radika - USA 3 (15)
+            </button>
+            <button type="button" class="meta-tab-btn pending" onclick="filterMetaToolsByAccount('uk_fleet')" id="metaTabUk">
+              ⏳ UK Fleet (81)
+            </button>
+          </div>
+
+          <!-- Quick Status Filter Pills -->
+          <div style="display: flex; gap: 6px; align-items: center;">
+            <button type="button" class="filter-pill-btn active" onclick="filterMetaToolsByStatus('all')" id="metaPillAll">All Status</button>
+            <button type="button" class="filter-pill-btn" onclick="filterMetaToolsByStatus('unlocked')" id="metaPillUnlocked">🎉 Unlocked</button>
+            <button type="button" class="filter-pill-btn" onclick="filterMetaToolsByStatus('clean')" id="metaPillClean">🛡️ Clean Only</button>
+          </div>
+        </div>
+
+        <!-- Search Input -->
+        <div style="position: relative;">
+          <input type="text" id="inputMetaToolsSearch" oninput="onSearchMetaTools(this.value)" placeholder="🔍 Search page name, Page ID, or monetization status..." style="width: 100%; background: rgba(2, 6, 23, 0.85); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 11px 16px; color: #fff; font-size: 13px; outline: none; box-sizing: border-box;">
+        </div>
+      </div>
+
+      <!-- Real-Time Monetization Fleet Table -->
+      <div class="meta-tools-table-container" style="margin-top: 16px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
+        
+        <div style="padding: 14px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 15px; font-weight: 800; color: #fff;">📊 Pages Monetization & Policy Matrix</span>
+            <span id="metaTableCountBadge" class="telemetry-chip" style="background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.35); font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 700;">15 Pages Shown</span>
+          </div>
+          <span style="font-size: 11.5px; color: #64748b;">Source: Meta Business Suite Monetization Tools (Direct Query)</span>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="meta-fleet-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12.5px;">
+            <thead>
+              <tr style="background: rgba(2, 6, 23, 0.75); color: #94a3b8; font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <th style="padding: 12px 16px;">#</th>
+                <th style="padding: 12px 16px;">Page Name & ID</th>
+                <th style="padding: 12px 16px;">Account / Device</th>
+                <th style="padding: 12px 16px;">Content Monetization</th>
+                <th style="padding: 12px 16px;">Subscriptions</th>
+                <th style="padding: 12px 16px;">Stars</th>
+                <th style="padding: 12px 16px;">Policy Status</th>
+                <th style="padding: 12px 16px;">Recommendation</th>
+                <th style="padding: 12px 16px; text-align: center;">Meta Suite</th>
+              </tr>
+            </thead>
+            <tbody id="metaToolsTableBody">
+              <!-- Dynamically populated by renderMetaToolsHubView() in gold_app.js -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Multi-Account Cookie Readiness Vault (All 11 Accounts Overview) -->
+      <div class="meta-accounts-vault-box" style="margin-top: 20px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h4 style="font-size: 15px; font-weight: 800; color: #fff; margin: 0;">🔐 Fleet Multi-Account Vault (11 Accounts)</h4>
+            <div style="font-size: 11.5px; color: #94a3b8; margin-top: 2px;">Backend directories and profiles ready to receive cookies</div>
+          </div>
+          <span class="telemetry-chip" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); font-size: 11px; padding: 3px 9px; border-radius: 6px; font-weight: 800;">1 LIVE • 10 READY FOR INGESTION</span>
+        </div>
+
+        <div id="metaAccountsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+          <!-- Dynamically populated by renderMetaToolsHubView() in gold_app.js -->
+        </div>
       </div>
 
     </div>
