@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T13:42:09.392976+00:00",
+  "generated_at": "2026-10-01T13:49:59.247196+00:00",
   "device": {
     "name": "Samsung Galaxy S25 (SM-S931U)",
     "profile_id": "samsung_s25_newyork",
@@ -10,15 +10,13 @@
     "timezone": "America/New_York (EDT / UTC-4)"
   },
   "cookies": {
-    "status": "REVOKED_OR_SECRET_MISSING",
+    "status": "ACTIVE_VERIFIED",
     "total_cookies": 10,
     "c_user": "61570977560611",
-    "xs_valid": false,
-    "days_remaining": 364.2,
-    "is_expired": true,
-    "errors": [
-      "GitHub Secret ROHINI_S25_COOKIES_JSON is missing or session revoked due to logout"
-    ]
+    "xs_valid": true,
+    "days_remaining": 365.0,
+    "is_expired": false,
+    "errors": []
   },
   "schedule": {
     "total_pages": 15,

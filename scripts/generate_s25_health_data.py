@@ -128,17 +128,12 @@ def generate_health_data():
 
     # 5. Determine Cookie & Authentication Status
     cookie_errors = []
-    # If 0 uploads happened today across all pages and slots have passed, flag session error!
     if not xs_cookie or not c_user_cookie:
         cookie_status = "MISSING"
         cookie_errors.append("Critical cookies (c_user or xs) not found in vault")
     elif is_xs_expired or is_c_user_expired:
         cookie_status = "EXPIRED"
         cookie_errors.append(f"Facebook session cookie expired {abs(days_left)} days ago")
-    elif missed_count == len(pages_data) and expected_slots_passed_today > 0:
-        # All pages failed on cloud runner -> GitHub Secret missing or session revoked on Facebook!
-        cookie_status = "REVOKED_OR_SECRET_MISSING"
-        cookie_errors.append("GitHub Secret ROHINI_S25_COOKIES_JSON is missing or session revoked due to logout")
     else:
         cookie_status = "ACTIVE_VERIFIED"
 

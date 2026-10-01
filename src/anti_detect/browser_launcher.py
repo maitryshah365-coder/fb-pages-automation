@@ -82,6 +82,38 @@ def launch_android_browser(
     stealth_code = generate_stealth_js(profile)
     context.add_init_script(stealth_code)
 
+    # Inject session cookies into context if available
+    cookies_path = os.path.join(session_mgr.profile_dir, "cookies.json")
+    if os.path.exists(cookies_path):
+        try:
+            import json as _json
+            with open(cookies_path, "r", encoding="utf-8") as f:
+                raw_cookies = _json.load(f)
+            playwright_cookies = []
+            for c in raw_cookies:
+                pc = {
+                    "name": c["name"],
+                    "value": c["value"],
+                    "domain": c.get("domain", ".facebook.com"),
+                    "path": c.get("path", "/"),
+                    "secure": c.get("secure", True)
+                }
+                if "expirationDate" in c and c["expirationDate"]:
+                    pc["expires"] = float(c["expirationDate"])
+                ss = c.get("sameSite")
+                if ss:
+                    ss_lower = str(ss).lower()
+                    if "lax" in ss_lower:
+                        pc["sameSite"] = "Lax"
+                    elif "strict" in ss_lower:
+                        pc["sameSite"] = "Strict"
+                    elif "none" in ss_lower or "no_restriction" in ss_lower:
+                        pc["sameSite"] = "None"
+                playwright_cookies.append(pc)
+            context.add_cookies(playwright_cookies)
+        except Exception as e:
+            print(f"Warning: Could not inject cookies into context: {e}")
+
     # Get or create the main page
     page = context.pages[0] if context.pages else context.new_page()
 
