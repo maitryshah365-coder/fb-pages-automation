@@ -4982,8 +4982,8 @@
           "total_views": 30093,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -5010,7 +5010,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:39:27.270523+00:00"
         },
         {
           "name": "Curse The Dawn",
@@ -5019,8 +5021,8 @@
           "total_views": 13990,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -5047,7 +5049,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:39:37.114732+00:00"
         },
         {
           "name": "Cure For Monday",
@@ -5056,8 +5060,8 @@
           "total_views": 16265,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -5084,7 +5088,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:39:48.051340+00:00"
         },
         {
           "name": "Cruel Mercy",
@@ -5093,8 +5099,8 @@
           "total_views": 9246,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -5121,7 +5127,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:39:57.908359+00:00"
         },
         {
           "name": "Choke The Static",
@@ -5590,5 +5598,5 @@
     }
   ],
   "total_waitlist_criteria": 43,
-  "last_live_audit_at": "2026-10-01T18:15:44.093779+00:00"
+  "last_live_audit_at": "2026-10-01T18:39:57.908433+00:00"
 }
