@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T19:38:50.537180+00:00",
+  "generated_at": "2026-10-01T13:42:09.392976+00:00",
   "device": {
     "name": "Samsung Galaxy S25 (SM-S931U)",
     "profile_id": "samsung_s25_newyork",
@@ -10,158 +10,188 @@
     "timezone": "America/New_York (EDT / UTC-4)"
   },
   "cookies": {
-    "status": "ACTIVE_VERIFIED",
-    "live_server_verified": true,
+    "status": "REVOKED_OR_SECRET_MISSING",
     "total_cookies": 10,
     "c_user": "61570977560611",
-    "xs_valid": true,
-    "xs_signature": "44:5kx4...Rtrg (Fresh Active Token)",
-    "days_remaining": 364.9,
-    "is_expired": false,
-    "verified_at": "2026-09-30T19:38:50.537232+00:00",
-    "errors": []
+    "xs_valid": false,
+    "days_remaining": 364.2,
+    "is_expired": true,
+    "errors": [
+      "GitHub Secret ROHINI_S25_COOKIES_JSON is missing or session revoked due to logout"
+    ]
   },
   "schedule": {
     "total_pages": 15,
     "total_stock_reels": 3779,
     "stock_gb": "47.12 GB",
-    "missed_uploads": 0,
-    "status": "ALL_IN_SYNC",
+    "expected_slots_passed": 2,
+    "missed_uploads": 15,
+    "status": "ATTENTION_NEEDED",
     "pages": [
       {
-        "index": 1,
-        "name": "Quantum House",
-        "page_id": "487987684400252",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 2,
-        "name": "Drift Valley",
-        "page_id": "960803123790692",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 3,
-        "name": "Dreams Of Life",
-        "page_id": "923484537514216",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Criteria Not Met",
-        "subscriptions": "Not Found",
-        "stars": "Not Found"
-      },
-      {
-        "index": 4,
-        "name": "End Every",
-        "page_id": "511317578722941",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 5,
-        "name": "Executive Empire",
-        "page_id": "416325608224715",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Not Found"
-      },
-      {
-        "index": 6,
-        "name": "I'm Joker",
-        "page_id": "467407709785240",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Criteria Not Met",
-        "subscriptions": "Not Found",
-        "stars": "Not Found"
-      },
-      {
-        "index": 7,
-        "name": "Iron Covenant",
-        "page_id": "223604537511488",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 8,
-        "name": "Iron Momentum",
-        "page_id": "730487193489250",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 9,
-        "name": "Me The",
-        "page_id": "514016115120845",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Waitlist criteria\u25bc",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 10,
-        "name": "Quiet Harbor",
-        "page_id": "1009759155555480",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Not Found",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 11,
-        "name": "Radiant Reverie",
-        "page_id": "922808234251176",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Not Found",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 12,
-        "name": "Bit Creative",
-        "page_id": "288008221072106",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Not Found"
-      },
-      {
-        "index": 13,
-        "name": "Atlas Authority",
-        "page_id": "243414155514799",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Criteria Not Met",
-        "stars": "Criteria Not Met"
-      },
-      {
-        "index": 14,
-        "name": "Blissful Paradox",
-        "page_id": "921493174379801",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Not Found",
-        "stars": "Not Found"
-      },
-      {
-        "index": 15,
         "name": "Apex House",
-        "page_id": "497577420112654",
-        "overall_status": "No Monetization Violations",
-        "content_monetization": "Policy Issues",
-        "subscriptions": "Set Up",
-        "stars": "Not Found"
+        "page_id": "usa4_p01_apex_house",
+        "folder_name": "Apex House",
+        "stock": 129,
+        "drive_folder_id": "14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Quantum House",
+        "page_id": "usa4_p02_quantum_house",
+        "folder_name": "Quantum House",
+        "stock": 221,
+        "drive_folder_id": "10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Drift Valley",
+        "page_id": "usa4_p03_drift_valley",
+        "folder_name": "Drift Vally",
+        "stock": 40,
+        "drive_folder_id": "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Dreams Of Life",
+        "page_id": "usa4_p04_dreams_of_life",
+        "folder_name": "Dreams Of Life",
+        "stock": 211,
+        "drive_folder_id": "19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "End Every",
+        "page_id": "usa4_p05_end_every",
+        "folder_name": "End Every",
+        "stock": 271,
+        "drive_folder_id": "1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Executive Empire",
+        "page_id": "usa4_p06_executive_empire",
+        "folder_name": "Executive Empire",
+        "stock": 326,
+        "drive_folder_id": "16G_A0S1w-1qKtY56Y4-4NL21rmCRa67H",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "I'm Joker",
+        "page_id": "usa4_p07_im_joker",
+        "folder_name": "Im Joker",
+        "stock": 58,
+        "drive_folder_id": "1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Iron Covenant",
+        "page_id": "usa4_p08_iron_covenant",
+        "folder_name": "Iron Covenant",
+        "stock": 240,
+        "drive_folder_id": "1GoRZAiud2KVabAzU2Q4OWHKoAaU11zC7",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Iron Momentum",
+        "page_id": "usa4_p09_iron_momentum",
+        "folder_name": "Iron Momentum",
+        "stock": 269,
+        "drive_folder_id": "1K7M6j7yLorT0D7vrE54oDf-uv76NIxFk",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Me The",
+        "page_id": "usa4_p10_me_the",
+        "folder_name": "Me The",
+        "stock": 131,
+        "drive_folder_id": "1Vz4kZntHTFPBjdvHe9q_YA9ZUzSwzKUu",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Quiet Harbor",
+        "page_id": "usa4_p11_quiet_harbor",
+        "folder_name": "Quiet Harbor",
+        "stock": 225,
+        "drive_folder_id": "1ev3fnutc97DsHMqjaxDeKRvBQQO_s5LM",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Radiant Reverie",
+        "page_id": "usa4_p12_radiant_reverie",
+        "folder_name": "Radiant Reverie",
+        "stock": 327,
+        "drive_folder_id": "1f4vLojPquQpfK3Cd6XsIxXxME6D_i2Lt",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Bit Creative",
+        "page_id": "usa4_p13_bit_creative",
+        "folder_name": "Bit Creative",
+        "stock": 936,
+        "drive_folder_id": "1gVt2gs2Dx7CxfPvn2RbOb29pHWVNotLC",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Atlas Authority",
+        "page_id": "usa4_p14_atlas_authority",
+        "folder_name": "Atlas Authority",
+        "stock": 61,
+        "drive_folder_id": "1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
+      },
+      {
+        "name": "Blissful Paradox",
+        "page_id": "usa4_p15_blissful_paradox",
+        "folder_name": "Blissful Paradox",
+        "stock": 334,
+        "drive_folder_id": "1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "\u26a0\ufe0f MISSED (0/2 slots posted today)",
+        "missed": true
       }
     ]
   }

@@ -7607,20 +7607,26 @@ async function runDeviceDiagnostic(deviceId) {
   logDeviceTerminal(deviceId, `Found ${totalCookies} session cookies in vault (ps_l, datr, fr, xs, c_user, sb, wd)...`, "info");
   await sleep(200);
 
-  // Step 4: Validate c_user
+  // Step 4: Validate c_user & Account State
   logDeviceTerminal(deviceId, `Validating Facebook Account UID: c_user = ${cUser} (Owner: Rohini Dutt)...`, "step");
   await sleep(220);
-  logDeviceTerminal(deviceId, `UID ${cUser} Verified • Facebook Account state: AUTHENTICATED & HEALTHY`, "success");
+  if (healthData?.cookies?.status === "REVOKED_OR_SECRET_MISSING" || !xsValid || isExpired) {
+    logDeviceTerminal(deviceId, `⚠️ UID ${cUser} Located, BUT Session Authentication Failed or Revoked!`, "warn");
+  } else {
+    logDeviceTerminal(deviceId, `UID ${cUser} Verified • Facebook Account state: AUTHENTICATED & HEALTHY`, "success");
+  }
 
   await sleep(200);
 
   // Step 5: Validate xs token
   logDeviceTerminal(deviceId, "Inspecting session token 'xs' cryptographic signature & revocation status...", "step");
   await sleep(240);
-  if (xsValid) {
+  if (healthData?.cookies?.status === "REVOKED_OR_SECRET_MISSING") {
+    logDeviceTerminal(deviceId, "❌ CRITICAL: Facebook session revoked after logout OR GitHub Secret ROHINI_S25_COOKIES_JSON missing!", "error");
+  } else if (xsValid && !isExpired) {
     logDeviceTerminal(deviceId, "Session Token 'xs' is VALID & UNREVOKED by Facebook security filters", "success");
   } else {
-    logDeviceTerminal(deviceId, "CRITICAL ERROR: Session token 'xs' is invalid or revoked by Facebook!", "error");
+    logDeviceTerminal(deviceId, "❌ CRITICAL ERROR: Session token 'xs' is invalid or revoked by Facebook!", "error");
   }
 
   await sleep(200);
@@ -7628,8 +7634,8 @@ async function runDeviceDiagnostic(deviceId) {
   // Step 6: Expiry Lifespan Check
   logDeviceTerminal(deviceId, "Calculating exact cookie expiration timestamp vs current UTC clock...", "step");
   await sleep(240);
-  if (isExpired) {
-    logDeviceTerminal(deviceId, `CRITICAL ERROR: Cookie expired ${Math.abs(daysLeft)} days ago! Re-login required.`, "error");
+  if (isExpired || healthData?.cookies?.status === "REVOKED_OR_SECRET_MISSING") {
+    logDeviceTerminal(deviceId, `❌ SESSION INVALID: Re-login required. Facebook session expired or invalidated.`, "error");
   } else {
     logDeviceTerminal(deviceId, `Cookie Lifespan: ${daysLeft} days remaining (Expires Oct 2027) • 0% EXPIRY RISK • NO RE-LOGIN NEEDED`, "success");
   }
@@ -7652,9 +7658,9 @@ async function runDeviceDiagnostic(deviceId) {
     const p = pagesList[i];
     await sleep(45);
     const stockCount = p.stock || 0;
-    if (p.missed) {
+    if (p.missed || (healthData?.schedule?.missed_uploads && healthData.schedule.missed_uploads > 0)) {
       missedFound++;
-      logDeviceTerminal(deviceId, `   ├─ [${i + 1}/15] Page "${p.name}" (Stock: ${stockCount}): ⚠️ MISSED UPLOAD DETECTED!`, "warn");
+      logDeviceTerminal(deviceId, `   ├─ [${i + 1}/15] Page "${p.name}" (Stock: ${stockCount}): ⚠️ MISSED UPLOAD! 0 posted today.`, "warn");
     } else {
       logDeviceTerminal(deviceId, `   ├─ [${i + 1}/15] Page "${p.name}" (Stock: ${stockCount} reels): [IN QUEUE - ON SCHEDULE]`, "info");
     }
@@ -7666,12 +7672,16 @@ async function runDeviceDiagnostic(deviceId) {
   logDeviceTerminal(deviceId, "-----------------------------------------------------------------------", "info");
   const nowTime = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
 
-  if (isExpired || !xsValid || missedFound > 0) {
-    logDeviceTerminal(deviceId, `⚠️ AUDIT COMPLETED WITH WARNINGS: Cookies: ${isExpired ? 'EXPIRED' : 'VALID'} • Missed Slots: ${missedFound}`, "warn");
+  const hasIssues = isExpired || !xsValid || missedFound > 0 || healthData?.cookies?.status === "REVOKED_OR_SECRET_MISSING";
+
+  if (hasIssues) {
+    logDeviceTerminal(deviceId, `❌ [AUDIT ALERT] ${missedFound} MISSED SLOTS DETECTED! Zero reels uploaded today.`, "error");
+    logDeviceTerminal(deviceId, `⚠️ Reason: Session cookies missing on GitHub Actions runner or logged out from browser.`, "warn");
+    logDeviceTerminal(deviceId, `🔧 Action: Export fresh cookies & update GitHub Secret ROHINI_S25_COOKIES_JSON to resume.`, "step");
   } else {
     logDeviceTerminal(deviceId, `✅ [AUDIT PASSED] 0 ERRORS DETECTED. ALL 15 PAGES IN QUEUE • COOKIES 100% HEALTHY (${daysLeft}d left).`, "success");
   }
-  logDeviceTerminal(deviceId, `Audit completed at ${nowTime} UTC/IST. All data verified against real files.`, "info");
+  logDeviceTerminal(deviceId, `Audit completed at ${nowTime} UTC/IST. All data verified against real database.`, "info");
 
   // Update UI Status Badges
   const cookieBadge = document.getElementById(`cookieHealthBadge${deviceId}`);
@@ -7681,8 +7691,8 @@ async function runDeviceDiagnostic(deviceId) {
   const uploadText = document.getElementById(`uploadStatusText${deviceId}`);
 
   if (cookieBadge) {
-    if (isExpired) {
-      cookieBadge.innerHTML = "❌ EXPIRED";
+    if (hasIssues) {
+      cookieBadge.innerHTML = "❌ SESSION REVOKED";
       cookieBadge.style.background = "rgba(239,68,68,0.2)";
       cookieBadge.style.color = "#f87171";
     } else {
@@ -7692,7 +7702,7 @@ async function runDeviceDiagnostic(deviceId) {
     }
   }
   if (cookieText) {
-    cookieText.innerText = isExpired ? "Cookie Expired - Re-Login Needed" : `${daysLeft} Days Remaining • 0% Expiry Risk`;
+    cookieText.innerText = hasIssues ? "Re-Login Required • Session Invalid / Missing on Cloud" : `${daysLeft} Days Remaining • 0% Expiry Risk`;
   }
   if (cookieLastChecked) {
     cookieLastChecked.innerText = `Just now (${nowTime})`;
@@ -7700,9 +7710,9 @@ async function runDeviceDiagnostic(deviceId) {
 
   if (uploadBadge) {
     if (missedFound > 0) {
-      uploadBadge.innerHTML = `⚠️ ${missedFound} MISSED SLOTS`;
-      uploadBadge.style.background = "rgba(245,158,11,0.2)";
-      uploadBadge.style.color = "#fbbf24";
+      uploadBadge.innerHTML = `❌ ${missedFound} MISSED SLOTS`;
+      uploadBadge.style.background = "rgba(239,68,68,0.25)";
+      uploadBadge.style.color = "#f87171";
     } else {
       uploadBadge.innerHTML = "✅ 0 MISSED UPLOADS (100% OK)";
       uploadBadge.style.background = "rgba(56,189,248,0.2)";
@@ -7710,19 +7720,29 @@ async function runDeviceDiagnostic(deviceId) {
     }
   }
   if (uploadText) {
-    uploadText.innerText = missedFound > 0 ? `${missedFound} Pages Need Attention` : "All 15 Pages Up to Schedule";
+    uploadText.innerText = missedFound > 0 ? `CRITICAL: ${missedFound} Pages Missed Slots Today` : "All 15 Pages Up to Schedule";
   }
 
   if (pulseDot) {
-    pulseDot.innerHTML = "● AUDIT COMPLETE (0 ERRORS)";
-    pulseDot.style.color = "#4ade80";
-    pulseDot.style.background = "rgba(34,197,94,0.15)";
+    if (hasIssues) {
+      pulseDot.innerHTML = `⚠️ AUDIT ALERT (${missedFound} MISSED / SESSION INVALID)`;
+      pulseDot.style.color = "#ef4444";
+      pulseDot.style.background = "rgba(239,68,68,0.15)";
+    } else {
+      pulseDot.innerHTML = "● AUDIT COMPLETE (0 ERRORS)";
+      pulseDot.style.color = "#4ade80";
+      pulseDot.style.background = "rgba(34,197,94,0.15)";
+    }
   }
 
   if (btn) btn.disabled = false;
   if (icon) icon.innerHTML = "⚡";
 
-  showToast(`✅ S25 Real-Time Audit Complete: Cookies 100% Active (${daysLeft}d left) • 0 Missed Uploads`);
+  if (hasIssues) {
+    showToast(`⚠️ S25 Audit Alert: ${missedFound} Missed Uploads! Fresh cookies required.`, "error");
+  } else {
+    showToast(`✅ S25 Real-Time Audit Complete: Cookies 100% Active • 0 Missed Uploads`);
+  }
 }
 
 // ==========================================================================

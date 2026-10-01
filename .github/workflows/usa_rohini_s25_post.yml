@@ -88,6 +88,11 @@ jobs:
         run: |
           sudo wg-quick down wg0 2>/dev/null || true
 
+      - name: Update S25 Live Diagnostic & Upload Health State
+        if: always()
+        run: |
+          python scripts/generate_s25_health_data.py
+
       - name: Persist Database & Dashboard State
         if: always()
         run: |
