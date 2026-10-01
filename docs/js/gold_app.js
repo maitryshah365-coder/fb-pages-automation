@@ -8223,15 +8223,18 @@ async function runFleetAuditLive() {
 
   const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
   if (!isLocal) {
-    showAuditProgressModal("LOCAL ENGINE REQUIRED", `
-      <div style="color: #f87171; font-weight: 700; margin-bottom: 6px;">⚠️ GitHub Pages is Static Hosting!</div>
+    showAuditProgressModal("CLOUD 24/7 AUTO-SYNC", `
+      <div style="color: #38bdf8; font-weight: 800; font-size: 13px; margin-bottom: 6px;">☁️ 24/7 Cloud Engine Active</div>
       <div style="font-size: 11.5px; line-height: 1.5; color: #cbd5e1;">
-        Real Facebook Playwright scraping runs on your PC's Python server.<br>
-        Please open the local app to run real live audits:
+        Facebook live audits run in GitHub Actions cloud <strong>every 3 hours (Zero PC Needed)</strong>.<br><br>
+        To run an instant live audit right now from your phone:
       </div>
-      <div style="margin-top: 10px;">
-        <a href="http://localhost:8089/#meta-tools" target="_blank" style="display: inline-block; background: #0284c7; color: #fff; font-weight: 800; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 11.5px;">
-          🚀 Open Local Engine (http://localhost:8089)
+      <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+        <a href="https://github.com/maitryshah365-coder/fb-pages-automation/actions/workflows/sync_monetization_fleet.yml" target="_blank" style="display: block; text-align: center; background: linear-gradient(135deg, #059669, #10b981); color: #fff; font-weight: 800; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-size: 12px;">
+          ⚡ Tap Here to Run Instant Cloud Audit
+        </a>
+        <a href="http://192.168.1.5:8089/#meta-tools" target="_blank" style="display: block; text-align: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #93c5fd; font-weight: 700; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 11px;">
+          💻 Open Local PC Engine (http://192.168.1.5:8089)
         </a>
       </div>
     `);
@@ -8305,15 +8308,15 @@ async function runFleetAuditLive() {
 async function auditSinglePageLive(accountId, pageId, pageName) {
   const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
   if (!isLocal) {
-    showAuditProgressModal("LOCAL ENGINE REQUIRED", `
-      <div style="color: #f87171; font-weight: 700; margin-bottom: 6px;">⚠️ GitHub Pages is Static Hosting!</div>
+    showAuditProgressModal("CLOUD 24/7 AUTO-SYNC", `
+      <div style="color: #38bdf8; font-weight: 800; font-size: 13px; margin-bottom: 6px;">☁️ Cloud Auto-Sync Active</div>
       <div style="font-size: 11.5px; line-height: 1.5; color: #cbd5e1;">
-        Real Facebook scraping requires your local computer server.<br>
-        Please open the local app to run real live audits:
+        Page audits run continuously in GitHub Actions cloud.<br>
+        To trigger a full fleet audit from your phone without PC:
       </div>
       <div style="margin-top: 10px;">
-        <a href="http://localhost:8089/#meta-tools" target="_blank" style="display: inline-block; background: #0284c7; color: #fff; font-weight: 800; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 11.5px;">
-          🚀 Open Local Engine (http://localhost:8089)
+        <a href="https://github.com/maitryshah365-coder/fb-pages-automation/actions/workflows/sync_monetization_fleet.yml" target="_blank" style="display: block; text-align: center; background: linear-gradient(135deg, #059669, #10b981); color: #fff; font-weight: 800; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-size: 12px;">
+          ⚡ Tap to Trigger Cloud Audit on GitHub
         </a>
       </div>
     `);
