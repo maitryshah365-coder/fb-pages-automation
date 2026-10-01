@@ -8103,9 +8103,14 @@ async function renderMetaToolsHubView() {
               <span style="color: #34d399; font-weight: 700; font-size: 11.5px;">✅ ${p.recommendation || 'Recommendable'}</span>
             </td>
             <td style="padding: 12px 16px; text-align: center;">
-              <a href="${suiteUrl}" target="_blank" rel="noopener noreferrer" class="btn-meta-suite" title="Open in Meta Business Suite">
-                <span>↗ Open Suite</span>
-              </a>
+              <div style="display: inline-flex; gap: 6px; justify-content: center; align-items: center;">
+                <button type="button" onclick="auditSinglePageLive('${p.account_id}', '${p.page_id}', '${(p.name || '').replace(/'/g, "\\'")}')" class="btn-meta-suite" style="background: linear-gradient(135deg, #0284c7, #0ea5e9); border: none; cursor: pointer; color: #fff; font-weight: 800; padding: 4px 8px; font-size: 11px; border-radius: 6px;" title="Visit Facebook live and parse monetization data">
+                  <span>⚡ Audit Live</span>
+                </button>
+                <a href="${suiteUrl}" target="_blank" rel="noopener noreferrer" class="btn-meta-suite" title="Open in Meta Business Suite">
+                  <span>↗ Open Suite</span>
+                </a>
+              </div>
             </td>
           </tr>
         `;
@@ -8176,23 +8181,183 @@ function onSearchMetaTools(val) {
   renderMetaToolsHubView();
 }
 
+function showAuditProgressModal(title, text) {
+  let modal = document.getElementById("realAuditFloatingModal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "realAuditFloatingModal";
+    modal.style.cssText = "position: fixed; bottom: 24px; right: 24px; width: 380px; background: linear-gradient(135deg, #090d16, #0f172a); border: 1.5px solid #0284c7; border-radius: 12px; box-shadow: 0 12px 35px rgba(0,0,0,0.85); z-index: 999999; padding: 16px; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; display: flex; flex-direction: column; gap: 10px;";
+    document.body.appendChild(modal);
+  }
+  modal.style.display = "flex";
+  modal.innerHTML = `
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="font-weight: 800; font-size: 13px; color: #38bdf8; display: flex; align-items: center; gap: 8px;">
+        <span style="display: inline-block;">⚡</span>
+        <span>${title}</span>
+      </div>
+      <button onclick="document.getElementById('realAuditFloatingModal').style.display='none'" style="background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 14px;">✕</button>
+    </div>
+    <div id="realAuditStatusText" style="font-size: 12px; color: #cbd5e1; line-height: 1.4;">${text}</div>
+    <div style="height: 6px; width: 100%; background: #1e293b; border-radius: 3px; overflow: hidden;">
+      <div id="realAuditProgressBar" style="height: 100%; width: 20%; background: linear-gradient(90deg, #0284c7, #38bdf8); border-radius: 3px; transition: width 0.3s;"></div>
+    </div>
+  `;
+}
+
+function updateAuditProgressModal(text, current, total) {
+  const statusEl = document.getElementById("realAuditStatusText");
+  const barEl = document.getElementById("realAuditProgressBar");
+  if (statusEl) statusEl.innerText = text;
+  if (barEl && total > 0) {
+    const pct = Math.min(100, Math.round((current / total) * 100));
+    barEl.style.width = `${pct}%`;
+  }
+}
+
 async function runFleetAuditLive() {
   const btn = document.getElementById("btnRunFleetAuditNow");
   const icon = document.getElementById("fleetAuditBtnIcon");
   if (btn) btn.disabled = true;
   if (icon) icon.innerHTML = "⏳";
 
-  showToast("⚡ Synchronizing Live Multi-Account Facebook Monetization Fleet...");
-  
-  // Force reload fresh JSON
-  masterFleetMonetizationData = null;
-  await sleep(400);
-  const data = await fetchMasterFleetData();
-  await renderMetaToolsHubView();
+  const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  if (!isLocal) {
+    showAuditProgressModal("LOCAL ENGINE REQUIRED", `
+      <div style="color: #f87171; font-weight: 700; margin-bottom: 6px;">⚠️ GitHub Pages is Static Hosting!</div>
+      <div style="font-size: 11.5px; line-height: 1.5; color: #cbd5e1;">
+        Real Facebook Playwright scraping runs on your PC's Python server.<br>
+        Please open the local app to run real live audits:
+      </div>
+      <div style="margin-top: 10px;">
+        <a href="http://localhost:8089/#meta-tools" target="_blank" style="display: inline-block; background: #0284c7; color: #fff; font-weight: 800; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 11.5px;">
+          🚀 Open Local Engine (http://localhost:8089)
+        </a>
+      </div>
+    `);
+    if (btn) btn.disabled = false;
+    if (icon) icon.innerHTML = "⚡";
+    return;
+  }
 
-  if (btn) btn.disabled = false;
-  if (icon) icon.innerHTML = "⚡";
-  showToast(`✅ Real-Time Fleet Monetization Synchronized across ${data ? data.total_fleet_pages : 158} Pages (${data ? data.total_accounts : 12} Accounts)!`);
+  const targetAccount = currentMetaAccountFilter !== "all" ? currentMetaAccountFilter : null;
+  const label = targetAccount || "all 12 accounts";
+
+  showToast(`⚡ Launching Real Live Facebook Auditor for ${label}...`);
+  showAuditProgressModal("REAL LIVE FACEBOOK AUDITOR", `Connecting to Playwright Engine for ${label}...`);
+
+  try {
+    const res = await fetch("/api/audit-live", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ account_id: targetAccount })
+    });
+
+    let pollCount = 0;
+    const interval = setInterval(async () => {
+      pollCount++;
+      try {
+        const sRes = await fetch("/api/audit-status?t=" + Date.now());
+        if (sRes.ok) {
+          const s = await sRes.json();
+          if (s.status === "running") {
+            updateAuditProgressModal(s.message, s.progress_current, s.progress_total);
+            if (pollCount % 2 === 0) {
+              masterFleetMonetizationData = null;
+              await fetchMasterFleetData();
+              await renderMetaToolsHubView();
+            }
+          } else if (s.status === "completed" || s.status === "idle") {
+            clearInterval(interval);
+            updateAuditProgressModal("✅ Live Facebook Audit Finished! Data updated.", 1, 1);
+            masterFleetMonetizationData = null;
+            const data = await fetchMasterFleetData();
+            await renderMetaToolsHubView();
+            if (btn) btn.disabled = false;
+            if (icon) icon.innerHTML = "⚡";
+            showToast("✅ Real Facebook Data Successfully Synced!");
+            setTimeout(() => {
+              const m = document.getElementById("realAuditFloatingModal");
+              if (m) m.style.display = "none";
+            }, 3000);
+          } else if (s.status === "error") {
+            clearInterval(interval);
+            updateAuditProgressModal(`❌ Error: ${s.error_message || s.message}`, 0, 100);
+            if (btn) btn.disabled = false;
+            if (icon) icon.innerHTML = "⚡";
+          }
+        }
+      } catch (err) {
+        console.warn("Poll status error:", err);
+      }
+    }, 2000);
+  } catch (e) {
+    console.warn("Live API call failed:", e);
+    updateAuditProgressModal(`
+      <div style="color: #f87171; font-weight: 700;">⚠️ Local Engine Not Responding</div>
+      <div style="font-size: 11px; margin-top: 4px; color: #cbd5e1;">Please double-click <strong>START_REAL_LIVE_SERVER.bat</strong> in project folder.</div>
+    `, 0, 100);
+    if (btn) btn.disabled = false;
+    if (icon) icon.innerHTML = "⚡";
+  }
+}
+
+async function auditSinglePageLive(accountId, pageId, pageName) {
+  const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  if (!isLocal) {
+    showAuditProgressModal("LOCAL ENGINE REQUIRED", `
+      <div style="color: #f87171; font-weight: 700; margin-bottom: 6px;">⚠️ GitHub Pages is Static Hosting!</div>
+      <div style="font-size: 11.5px; line-height: 1.5; color: #cbd5e1;">
+        Real Facebook scraping requires your local computer server.<br>
+        Please open the local app to run real live audits:
+      </div>
+      <div style="margin-top: 10px;">
+        <a href="http://localhost:8089/#meta-tools" target="_blank" style="display: inline-block; background: #0284c7; color: #fff; font-weight: 800; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-size: 11.5px;">
+          🚀 Open Local Engine (http://localhost:8089)
+        </a>
+      </div>
+    `);
+    return;
+  }
+
+  showToast(`⚡ Live Auditing [${pageName}] on Facebook...`);
+  showAuditProgressModal("LIVE PAGE AUDITOR", `Opening Facebook Meta Business Suite for ${pageName} (${pageId})...`);
+
+  try {
+    await fetch("/api/audit-live", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ account_id: accountId, page_id: pageId })
+    });
+
+    const interval = setInterval(async () => {
+      try {
+        const sRes = await fetch("/api/audit-status?t=" + Date.now());
+        if (sRes.ok) {
+          const s = await sRes.json();
+          if (s.status === "running") {
+            updateAuditProgressModal(s.message, 1, 1);
+          } else if (s.status === "completed" || s.status === "idle") {
+            clearInterval(interval);
+            updateAuditProgressModal(`✅ [${pageName}] Live Audit Finished!`, 1, 1);
+            masterFleetMonetizationData = null;
+            await fetchMasterFleetData();
+            await renderMetaToolsHubView();
+            showToast(`✅ [${pageName}] Real Data Synchronized from Facebook!`);
+            setTimeout(() => {
+              const m = document.getElementById("realAuditFloatingModal");
+              if (m) m.style.display = "none";
+            }, 2500);
+          } else if (s.status === "error") {
+            clearInterval(interval);
+            updateAuditProgressModal(`❌ Error: ${s.error_message || s.message}`, 0, 1);
+          }
+        }
+      } catch (err) {}
+    }, 2000);
+  } catch (e) {
+    showToast(`❌ Could not trigger live audit: ${e}`);
+  }
 }
 
 window.renderAntiDetectProfilesView = renderAntiDetectProfilesView;
@@ -8208,6 +8373,7 @@ window.filterMetaToolsByAccount = filterMetaToolsByAccount;
 window.filterMetaToolsByStatus = filterMetaToolsByStatus;
 window.onSearchMetaTools = onSearchMetaTools;
 window.runFleetAuditLive = runFleetAuditLive;
+window.auditSinglePageLive = auditSinglePageLive;
 
 // ----------------- App Lifecycle Initialization -----------------
 function initApp() {
