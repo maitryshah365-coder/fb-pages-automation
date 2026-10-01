@@ -7424,8 +7424,8 @@ const antiDetectProfilesData = [
     cookie_age_text: "Session Active (Long-Lived Meta Cookie)",
     cookie_health_score: "100%",
     total_pages: 15,
-    stock_videos: 1376,
-    stock_gb: "18.42 GB",
+    stock_videos: 3131,
+    stock_gb: "45.57 GB",
     missed_uploads: 0,
     daily_quota: 15,
     today_uploaded: 0,
@@ -7440,21 +7440,21 @@ const antiDetectProfilesData = [
       canvas: "Anti-Fingerprint Noise Injected (Emulated)"
     },
     pages: [
-      { name: "The Daily Spark", stock: 100, drive_id: "16deNYAwBPFU7bcXZffCt2F242_XeRvIP", folder: "The Daily Spark", status: "Healthy" },
-      { name: "The Chill Spot", stock: 100, drive_id: "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ", folder: "The Chill Spot", status: "Healthy" },
-      { name: "Tag The", stock: 100, drive_id: "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z", folder: "Tag The", status: "Healthy" },
+      { name: "The Daily Spark", stock: 187, drive_id: "16deNYAwBPFU7bcXZffCt2F242_XeRvIP", folder: "The Daily Spark", status: "Healthy" },
+      { name: "The Chill Spot", stock: 224, drive_id: "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ", folder: "The Chill Spot", status: "Healthy" },
+      { name: "Tag The", stock: 218, drive_id: "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z", folder: "Tag The", status: "Healthy" },
       { name: "Stellar Vibes", stock: 31, drive_id: "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl", folder: "Stellar Vibes", status: "Healthy" },
-      { name: "Sovereign Collective", stock: 100, drive_id: "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt", folder: "Sovereign Collective", status: "Healthy" },
-      { name: "Silent Grove", stock: 100, drive_id: "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy", folder: "Silent Grove", status: "Healthy" },
-      { name: "Royal Vanguard", stock: 100, drive_id: "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU", folder: "Royal Vanguard", status: "Healthy" },
+      { name: "Sovereign Collective", stock: 104, drive_id: "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt", folder: "Sovereign Collective", status: "Healthy" },
+      { name: "Silent Grove", stock: 487, drive_id: "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy", folder: "Silent Grove", status: "Healthy" },
+      { name: "Royal Vanguard", stock: 305, drive_id: "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU", folder: "Royal Vanguard", status: "Healthy" },
       { name: "Royal Frontier", stock: 45, drive_id: "18LJsnXYPZPmPiX922GOyJaahKkIv01_J", folder: "Royal Frontier", status: "Healthy" },
-      { name: "Rajat Gupta", stock: 100, drive_id: "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0", folder: "Rajat Gupta", status: "Healthy" },
-      { name: "Mouth The Hang", stock: 100, drive_id: "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR", folder: "Mouth The hang", status: "Healthy" },
-      { name: "Mojo Day", stock: 100, drive_id: "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql", folder: "Mojo Day", status: "Healthy" },
-      { name: "Fly Happy", stock: 100, drive_id: "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH", folder: "Fly Happy", status: "Healthy" },
-      { name: "Flute Tomography Nature", stock: 100, drive_id: "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk", folder: "Flute Tomography Nature", status: "Healthy" },
-      { name: "Faro Fact", stock: 100, drive_id: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", folder: "Faro Fact", status: "Healthy" },
-      { name: "Cosmic Mirage", stock: 100, drive_id: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", folder: "Cosmic Mirage", status: "Healthy" }
+      { name: "Rajat Gupta", stock: 132, drive_id: "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0", folder: "Rajat Gupta", status: "Healthy" },
+      { name: "Mouth The Hang", stock: 160, drive_id: "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR", folder: "Mouth The hang", status: "Healthy" },
+      { name: "Mojo Day", stock: 352, drive_id: "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql", folder: "Mojo Day", status: "Healthy" },
+      { name: "Fly Happy", stock: 315, drive_id: "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH", folder: "Fly Happy", status: "Healthy" },
+      { name: "Flute Tomography Nature", stock: 162, drive_id: "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk", folder: "Flute Tomography Nature", status: "Healthy" },
+      { name: "Faro Fact", stock: 133, drive_id: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", folder: "Faro Fact", status: "Healthy" },
+      { name: "Cosmic Mirage", stock: 276, drive_id: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", folder: "Cosmic Mirage", status: "Healthy" }
     ]
   }
 ];

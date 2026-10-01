@@ -8,7 +8,7 @@
   "device_model": "Google Pixel 9 Pro (US 5G)",
   "fb_uid": "61560847721711",
   "total_pages": 15,
-  "total_stock_videos": 1376,
+  "total_stock_videos": 3131,
   "pages": [
     {
       "id": "usa5_p01_daily_spark",
@@ -16,7 +16,7 @@
       "name": "The Daily Spark",
       "drive_folder_name": "The Daily Spark",
       "drive_folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
-      "drive_videos_count": 100,
+      "drive_videos_count": 187,
       "daily_limit": 4
     },
     {
@@ -25,7 +25,7 @@
       "name": "The Chill Spot",
       "drive_folder_name": "The Chill Spot",
       "drive_folder_id": "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ",
-      "drive_videos_count": 100,
+      "drive_videos_count": 224,
       "daily_limit": 4
     },
     {
@@ -34,7 +34,7 @@
       "name": "Tag The",
       "drive_folder_name": "Tag The",
       "drive_folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
-      "drive_videos_count": 100,
+      "drive_videos_count": 218,
       "daily_limit": 4
     },
     {
@@ -52,7 +52,7 @@
       "name": "Sovereign Collective",
       "drive_folder_name": "Sovereign Collective",
       "drive_folder_id": "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt",
-      "drive_videos_count": 100,
+      "drive_videos_count": 104,
       "daily_limit": 4
     },
     {
@@ -61,7 +61,7 @@
       "name": "Silent Grove",
       "drive_folder_name": "Silent Grove",
       "drive_folder_id": "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy",
-      "drive_videos_count": 100,
+      "drive_videos_count": 487,
       "daily_limit": 4
     },
     {
@@ -70,7 +70,7 @@
       "name": "Royal Vanguard",
       "drive_folder_name": "Royal Vanguard",
       "drive_folder_id": "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU",
-      "drive_videos_count": 100,
+      "drive_videos_count": 305,
       "daily_limit": 4
     },
     {
@@ -88,7 +88,7 @@
       "name": "Rajat Gupta",
       "drive_folder_name": "Rajat Gupta",
       "drive_folder_id": "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0",
-      "drive_videos_count": 100,
+      "drive_videos_count": 132,
       "daily_limit": 4
     },
     {
@@ -97,7 +97,7 @@
       "name": "Mouth The Hang",
       "drive_folder_name": "Mouth The hang",
       "drive_folder_id": "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR",
-      "drive_videos_count": 100,
+      "drive_videos_count": 160,
       "daily_limit": 4
     },
     {
@@ -106,7 +106,7 @@
       "name": "Mojo Day",
       "drive_folder_name": "Mojo Day",
       "drive_folder_id": "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql",
-      "drive_videos_count": 100,
+      "drive_videos_count": 352,
       "daily_limit": 4
     },
     {
@@ -115,7 +115,7 @@
       "name": "Fly Happy",
       "drive_folder_name": "Fly Happy",
       "drive_folder_id": "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH",
-      "drive_videos_count": 100,
+      "drive_videos_count": 315,
       "daily_limit": 4
     },
     {
@@ -124,7 +124,7 @@
       "name": "Flute Tomography Nature",
       "drive_folder_name": "Flute Tomography Nature",
       "drive_folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
-      "drive_videos_count": 100,
+      "drive_videos_count": 162,
       "daily_limit": 4
     },
     {
@@ -133,7 +133,7 @@
       "name": "Faro Fact",
       "drive_folder_name": "Faro Fact",
       "drive_folder_id": "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM",
-      "drive_videos_count": 100,
+      "drive_videos_count": 133,
       "daily_limit": 4
     },
     {
@@ -142,8 +142,9 @@
       "name": "Cosmic Mirage",
       "drive_folder_name": "Cosmic Mirage",
       "drive_folder_id": "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1",
-      "drive_videos_count": 100,
+      "drive_videos_count": 276,
       "daily_limit": 4
     }
-  ]
+  ],
+  "total_stock_gb": 45.57
 }
