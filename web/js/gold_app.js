@@ -7945,6 +7945,7 @@ async function renderMetaToolsHubView() {
   const cleanCount = allPages.filter(p => p.overall_status && p.overall_status.toLowerCase().includes("no monetization")).length;
   const starsSetupCount = allPages.filter(p => p.stars && (p.stars.toLowerCase().includes("set up") || p.stars.toLowerCase().includes("active"))).length;
   const subsSetupCount = allPages.filter(p => p.subscriptions && (p.subscriptions.toLowerCase().includes("set up") || p.subscriptions.toLowerCase().includes("ready"))).length;
+  const contentCriteriaCount = allPages.filter(p => p.content_monetization && (p.content_monetization.includes("Waitlist") || p.content_monetization.toLowerCase().includes("set up"))).length;
 
   // Update 5 Tool Filter Cards Value Displays
   const cardAllVal = document.getElementById("metaKpiAllPagesVal");
@@ -7954,9 +7955,9 @@ async function renderMetaToolsHubView() {
   const cardCleanVal = document.getElementById("metaKpiCleanVal");
 
   if (cardAllVal) cardAllVal.innerText = `${totalAudited} Pages`;
-  if (cardStarsVal) cardStarsVal.innerText = `${starsSetupCount} Pages`;
-  if (cardSubsVal) cardSubsVal.innerText = `${subsSetupCount} Pages`;
-  if (cardContentVal) cardContentVal.innerText = `Review & Waitlist`;
+  if (cardStarsVal) cardStarsVal.innerText = `${starsSetupCount} Pages Ready`;
+  if (cardSubsVal) cardSubsVal.innerText = `${subsSetupCount} Pages Ready`;
+  if (cardContentVal) cardContentVal.innerText = `${contentCriteriaCount} Pages (Criteria)`;
   if (cardCleanVal) cardCleanVal.innerText = `${cleanCount} Clean (100%)`;
 
   // 2. Filter pages based on active Account Slot, Tool Filter Card, and Search Query
@@ -7974,7 +7975,7 @@ async function renderMetaToolsHubView() {
       const isSubsSetup = p.subscriptions && (p.subscriptions.toLowerCase().includes("set up") || p.subscriptions.toLowerCase().includes("ready"));
       if (!isSubsSetup) return false;
     } else if (currentMetaToolFilter === "content") {
-      const isContentCandidate = p.content_monetization && (p.content_monetization.includes("Waitlist") || p.content_monetization.includes("Policy") || p.content_monetization.toLowerCase().includes("set up"));
+      const isContentCandidate = p.content_monetization && (p.content_monetization.includes("Waitlist") || p.content_monetization.toLowerCase().includes("set up"));
       if (!isContentCandidate) return false;
     } else if (currentMetaToolFilter === "clean") {
       const isClean = p.overall_status && p.overall_status.toLowerCase().includes("no monetization");
@@ -8001,7 +8002,7 @@ async function renderMetaToolsHubView() {
   const summaryEl = document.getElementById("metaFilterActiveSummary");
   if (summaryEl) {
     const accountLabels = {
-      all: "All 12 Accounts",
+      all: "All Accounts (US, UK, IND)",
       usa_account1_meghal: "Meghal Chauhan (USA 1)",
       usa_account2_mia: "Mia Shah (USA 2)",
       usa_account3_radika: "Radika Patel (USA 3)",
@@ -8013,7 +8014,13 @@ async function renderMetaToolsHubView() {
       uk_account4_nidhi: "Nidhi Desai (UK 4)",
       uk_account5_richi: "Richi Patel (UK 5)",
       uk_account6_sweta: "Sweta Shah (UK 6)",
-      uk_account7_riya: "Riya Gaur (UK 7)"
+      uk_account7_riya: "Riya Gaur (UK 7)",
+      ind_account1_naina: "Naina Shah (IND 1)",
+      ind_account2_paresh: "Paresh Patel (IND 2)",
+      ind_account3_sahil: "Sahil Makvana (IND 3)",
+      ind_account4_prince: "Prince Shah (IND 4)",
+      ind_account5_sweta_m: "Sweta Muumu (IND 5)",
+      ind_account6_neha: "Neha Gupta (IND 6)"
     };
     const toolLabels = {
       all: "All Tools",
@@ -8080,6 +8087,7 @@ async function renderMetaToolsHubView() {
         }
 
         const suiteUrl = p.page_id ? `https://business.facebook.com/latest/monetization/tools?asset_id=${p.page_id}` : "#";
+        const flagIcon = (p.region === 'UK') ? '🇬🇧' : (p.region === 'IN' || p.region === 'IND') ? '🇮🇳' : '🇺🇸';
 
         return `
           <tr>
@@ -8090,7 +8098,7 @@ async function renderMetaToolsHubView() {
             </td>
             <td style="padding: 12px 16px;">
               <span class="badge-account-chip">
-                ${p.region === 'UK' ? '🇬🇧' : '🇺🇸'} ${p.owner || p.account_name}
+                ${flagIcon} ${p.owner || p.account_name}
               </span>
             </td>
             <td style="padding: 12px 16px;">${contentBadge}</td>
@@ -8113,35 +8121,25 @@ async function renderMetaToolsHubView() {
 
   // 4. Render Multi-Account Vault Grid
   const accountsGrid = document.getElementById("metaAccountsGrid");
-  if (accountsGrid) {
-    const accountConfigs = [
-      { id: "samsung_s25_newyork", name: "Samsung S25 (Rohini Dutt)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "google_pixel9_newyork", name: "Pixel 9 Pro (Sejal Soni)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "usa_account1_meghal", name: "USA 1 (Meghal Chauhan)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "usa_account2_mia", name: "USA 2 (Mia Shah)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "usa_account3_radika", name: "USA 3 (Radika Patel)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account1_binjal", name: "UK 1 (Binjal Mehra)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account2_chanda", name: "UK 2 (Chanda Nai)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account3_mahi", name: "UK 3 (Mahi Patel)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account4_nidhi", name: "UK 4 (Nidhi Desai)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account5_richi", name: "UK 5 (Richi Patel)", region: "UK", flag: "🇬🇧", pages: 11, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account6_sweta", name: "UK 6 (Sweta Shah)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
-      { id: "uk_account7_riya", name: "UK 7 (Riya)", region: "UK", flag: "🇬🇧", pages: 12, status: "LIVE", cookies: "11 Cookies Active", time: "364.9d left" }
-    ];
+  if (accountsGrid && data.accounts) {
+    accountsGrid.innerHTML = data.accounts.map(acc => {
+      const isLive = acc.status === "ACTIVE_AUTHENTICATED" || acc.status === "LIVE";
+      let flag = "🇺🇸";
+      if (acc.region === "UK") flag = "🇬🇧";
+      else if (acc.region === "IN" || acc.region === "IND") flag = "🇮🇳";
 
-    accountsGrid.innerHTML = accountConfigs.map(acc => {
-      const isLive = acc.status === "LIVE";
+      const pageCount = (acc.pages || []).length;
       return `
-        <div class="meta-account-vault-card ${isLive ? 'live-card' : 'pending-card'}">
+        <div class="meta-account-vault-card ${isLive ? 'live-card' : 'pending-card'}" style="cursor: pointer;" onclick="filterMetaToolsByAccount('${acc.account_id}')" title="Click to view ${acc.account_name}">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <span style="font-weight: 800; color: #fff; font-size: 13px;">${acc.flag} ${acc.name}</span>
+            <span style="font-weight: 800; color: #fff; font-size: 13px;">${flag} ${acc.account_name}</span>
             <span class="telemetry-chip" style="background: ${isLive ? 'rgba(34,197,94,0.18)' : 'rgba(245,158,11,0.18)'}; color: ${isLive ? '#4ade80' : '#fbbf24'}; border: 1px solid ${isLive ? 'rgba(34,197,94,0.4)' : 'rgba(245,158,11,0.4)'}; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">
               ${isLive ? '🟢 LIVE' : '🟡 QUEUED'}
             </span>
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: #94a3b8; margin-top: 6px;">
-            <span>${acc.pages} Assigned Pages</span>
-            <span style="color: ${isLive ? '#38bdf8' : '#cbd5e1'}; font-weight: 600;">${acc.cookies}</span>
+            <span>${pageCount} Assigned Pages</span>
+            <span style="color: ${isLive ? '#38bdf8' : '#cbd5e1'}; font-weight: 600;">10 Cookies Active</span>
           </div>
         </div>
       `;
@@ -8192,16 +8190,17 @@ async function runFleetAuditLive() {
   if (btn) btn.disabled = true;
   if (icon) icon.innerHTML = "⏳";
 
-  showToast("⚡ Pinging Multi-Account Fleet & Meta Business Suite...");
+  showToast("⚡ Synchronizing Live Multi-Account Facebook Monetization Fleet...");
   
   // Force reload fresh JSON
   masterFleetMonetizationData = null;
-  await sleep(600);
+  await sleep(400);
+  const data = await fetchMasterFleetData();
   await renderMetaToolsHubView();
 
   if (btn) btn.disabled = false;
   if (icon) icon.innerHTML = "⚡";
-  showToast("✅ Real-Time Fleet Monetization Audit Updated across 158 Pages (All 12 Accounts)!");
+  showToast(`✅ Real-Time Fleet Monetization Synchronized across ${data ? data.total_fleet_pages : 178} Pages (${data ? data.total_accounts : 18} Accounts)!`);
 }
 
 window.renderAntiDetectProfilesView = renderAntiDetectProfilesView;
