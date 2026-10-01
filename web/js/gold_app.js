@@ -8002,7 +8002,7 @@ async function renderMetaToolsHubView() {
   const summaryEl = document.getElementById("metaFilterActiveSummary");
   if (summaryEl) {
     const accountLabels = {
-      all: "All Accounts (US, UK, IND)",
+      all: "All 12 Accounts",
       usa_account1_meghal: "Meghal Chauhan (USA 1)",
       usa_account2_mia: "Mia Shah (USA 2)",
       usa_account3_radika: "Radika Patel (USA 3)",
@@ -8014,13 +8014,7 @@ async function renderMetaToolsHubView() {
       uk_account4_nidhi: "Nidhi Desai (UK 4)",
       uk_account5_richi: "Richi Patel (UK 5)",
       uk_account6_sweta: "Sweta Shah (UK 6)",
-      uk_account7_riya: "Riya Gaur (UK 7)",
-      ind_account1_naina: "Naina Shah (IND 1)",
-      ind_account2_paresh: "Paresh Patel (IND 2)",
-      ind_account3_sahil: "Sahil Makvana (IND 3)",
-      ind_account4_prince: "Prince Shah (IND 4)",
-      ind_account5_sweta_m: "Sweta Muumu (IND 5)",
-      ind_account6_neha: "Neha Gupta (IND 6)"
+      uk_account7_riya: "Riya Gaur (UK 7)"
     };
     const toolLabels = {
       all: "All Tools",
@@ -8087,7 +8081,7 @@ async function renderMetaToolsHubView() {
         }
 
         const suiteUrl = p.page_id ? `https://business.facebook.com/latest/monetization/tools?asset_id=${p.page_id}` : "#";
-        const flagIcon = (p.region === 'UK') ? '🇬🇧' : (p.region === 'IN' || p.region === 'IND') ? '🇮🇳' : '🇺🇸';
+        const flagIcon = (p.region === 'UK') ? '🇬🇧' : '🇺🇸';
 
         return `
           <tr>
@@ -8124,9 +8118,7 @@ async function renderMetaToolsHubView() {
   if (accountsGrid && data.accounts) {
     accountsGrid.innerHTML = data.accounts.map(acc => {
       const isLive = acc.status === "ACTIVE_AUTHENTICATED" || acc.status === "LIVE";
-      let flag = "🇺🇸";
-      if (acc.region === "UK") flag = "🇬🇧";
-      else if (acc.region === "IN" || acc.region === "IND") flag = "🇮🇳";
+      let flag = (acc.region === "UK") ? "🇬🇧" : "🇺🇸";
 
       const pageCount = (acc.pages || []).length;
       return `
@@ -8200,7 +8192,7 @@ async function runFleetAuditLive() {
 
   if (btn) btn.disabled = false;
   if (icon) icon.innerHTML = "⚡";
-  showToast(`✅ Real-Time Fleet Monetization Synchronized across ${data ? data.total_fleet_pages : 178} Pages (${data ? data.total_accounts : 18} Accounts)!`);
+  showToast(`✅ Real-Time Fleet Monetization Synchronized across ${data ? data.total_fleet_pages : 158} Pages (${data ? data.total_accounts : 12} Accounts)!`);
 }
 
 window.renderAntiDetectProfilesView = renderAntiDetectProfilesView;

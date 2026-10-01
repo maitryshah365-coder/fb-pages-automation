@@ -1,10 +1,6 @@
 """
-Master Fleet Monetization Matrix Generator
-Synchronizes real-world Facebook audits from:
-- C:\\Users\\Win\\Desktop\\Creat Area Pages names.txt (Criteria / Waitlist pages)
-- C:\\Users\\Win\\Desktop\\Setup Ayay hua hai.txt (Setup unlocked pages)
-- temp\\final_monetization_matrix.json (1st Test verified results)
-- Permanent Page Registries across UK, USA, and IND accounts
+Master Fleet Monetization Matrix Generator (USA & UK Fleets Only - 12 Accounts)
+Strictly operates within the project repository workspace.
 """
 
 import json
@@ -24,7 +20,25 @@ def norm(s):
         return ""
     return " ".join(str(s).lower().replace("  ", " ").strip().split())
 
-# Ground truth Criteria targets (from desktop "Creat Area Pages names.txt")
+# Filter strictly to the 12 USA & UK accounts (remove any IND accounts)
+ALLOWED_ACCOUNT_IDS = {
+    "usa_account1_meghal",
+    "usa_account2_mia",
+    "usa_account3_radika",
+    "samsung_s25_newyork",
+    "google_pixel9_newyork",
+    "uk_account1_binjal",
+    "uk_account2_chanda",
+    "uk_account3_mahi",
+    "uk_account4_nidhi",
+    "uk_account5_richi",
+    "uk_account6_sweta",
+    "uk_account7_riya"
+}
+
+master['accounts'] = [acc for acc in master['accounts'] if acc.get('account_id') in ALLOWED_ACCOUNT_IDS]
+
+# Criteria pages within USA and UK fleet accounts
 CRITERIA_TARGETS = {
     # UK (Binjal Mehra)
     "wood stephen", "wooden speten", "roberts austin", "roberst austin",
@@ -48,26 +62,12 @@ CRITERIA_TARGETS = {
     "potato flamingo", "sthefany oliveira",
     # USA (Rohini Dutt)
     "me the",
-    
-    # IND (Naina Shah)
-    "james jerry", "price john",
-    # IND (Paresh Patel)
-    "prive matthew", "prive meatthew", "urban joy collective",
-    # IND (Sahil Makvana)
-    "wilson carl",
-    # IND (Prince Shah)
-    "richardson roberts",
-    # IND (Sweta Muumu)
-    "thumb news",
-    # IND (Neha Gupta)
-    "murfy patrick", "foster carl", "torers gabrial", "perez ronald", "simmous ethan"
 }
 
-# Ground truth Setup Targets (from "Setup Ayay hua hai.txt" and 1st test verified)
+# Setup Stars & Subscriptions targets (USA & UK fleet accounts)
 SETUP_STARS_TARGETS = {
     "robinson jerry", "robison jerry",
     "alexander christopher",
-    "book your",
     "johnson jerry",
     "prestige frontier",
     "me text",
@@ -97,10 +97,9 @@ SETUP_SUBS_TARGETS = {
     "robinson jerry", "robison jerry",
     "alexander christopher",
     "johnson jerry",
-    "book your",
 }
 
-# Ensure missing UK pages from permanent registries are in their respective accounts
+# Ensure missing UK pages from permanent registries are present in their accounts
 for acc in master['accounts']:
     acc_id = acc.get('account_id')
     pages = acc.get('pages', [])
@@ -131,11 +130,11 @@ for acc in master['accounts']:
                 "recommendation": "Recommendable"
             })
             
-    # Apply ground truth Criteria & Setup updates
+    # Apply Criteria & Setup updates strictly for USA & UK
     for p in pages:
         p_norm = norm(p['name'])
         
-        # Check criteria match (exact match against targets)
+        # Check criteria match
         is_criteria = False
         for ct in CRITERIA_TARGETS:
             if p_norm == ct:
@@ -159,187 +158,7 @@ for acc in master['accounts']:
     acc['pages'] = pages
     acc['total_pages'] = len(pages)
 
-# Now define and attach the 6 IND Accounts
-ind_accounts = [
-    {
-        "account_id": "ind_account1_naina",
-        "account_name": "Naina Shah (IND 1)",
-        "owner": "Naina Shah",
-        "region": "IN",
-        "device": "OnePlus 12 (IN)",
-        "status": "ACTIVE_AUTHENTICATED",
-        "fb_uid": "61571000101",
-        "verified_at": datetime.datetime.now().isoformat(),
-        "total_pages": 2,
-        "pages": [
-            {
-                "name": "James Jerry",
-                "page_id": "1098447812301",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Waitlist criteria▼",
-                "subscriptions": "Criteria Not Met",
-                "stars": "Criteria Not Met",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            },
-            {
-                "name": "Price John",
-                "page_id": "1098447812302",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Waitlist criteria▼",
-                "subscriptions": "Criteria Not Met",
-                "stars": "Criteria Not Met",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            }
-        ]
-    },
-    {
-        "account_id": "ind_account2_paresh",
-        "account_name": "Paresh Patel (IND 2)",
-        "owner": "Paresh Patel",
-        "region": "IN",
-        "device": "OnePlus 12 (IN)",
-        "status": "ACTIVE_AUTHENTICATED",
-        "fb_uid": "61571000102",
-        "verified_at": datetime.datetime.now().isoformat(),
-        "total_pages": 2,
-        "pages": [
-            {
-                "name": "Prive Matthew",
-                "page_id": "1098447812303",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Waitlist criteria▼",
-                "subscriptions": "Criteria Not Met",
-                "stars": "Criteria Not Met",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            },
-            {
-                "name": "Urban Joy Collective",
-                "page_id": "1098447812304",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Waitlist criteria▼",
-                "subscriptions": "Criteria Not Met",
-                "stars": "Criteria Not Met",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            }
-        ]
-    },
-    {
-        "account_id": "ind_account3_sahil",
-        "account_name": "Sahil Makvana (IND 3)",
-        "owner": "Sahil Makvana",
-        "region": "IN",
-        "device": "OnePlus 12 (IN)",
-        "status": "ACTIVE_AUTHENTICATED",
-        "fb_uid": "61571000103",
-        "verified_at": datetime.datetime.now().isoformat(),
-        "total_pages": 1,
-        "pages": [
-            {
-                "name": "Wilson Carl",
-                "page_id": "1098447812305",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Waitlist criteria▼",
-                "subscriptions": "Criteria Not Met",
-                "stars": "Criteria Not Met",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            }
-        ]
-    },
-    {
-        "account_id": "ind_account4_prince",
-        "account_name": "Prince Shah (IND 4)",
-        "owner": "Prince Shah",
-        "region": "IN",
-        "device": "OnePlus 12 (IN)",
-        "status": "ACTIVE_AUTHENTICATED",
-        "fb_uid": "61571000104",
-        "verified_at": datetime.datetime.now().isoformat(),
-        "total_pages": 2,
-        "pages": [
-            {
-                "name": "Book Your",
-                "page_id": "1098447812306",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Criteria Not Met",
-                "subscriptions": "Set Up",
-                "stars": "Set Up",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            },
-            {
-                "name": "Richardson Roberts",
-                "page_id": "1098447812307",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Waitlist criteria▼",
-                "subscriptions": "Criteria Not Met",
-                "stars": "Criteria Not Met",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            }
-        ]
-    },
-    {
-        "account_id": "ind_account5_sweta_m",
-        "account_name": "Sweta Muumu (IND 5)",
-        "owner": "Sweta Muumu",
-        "region": "IN",
-        "device": "OnePlus 12 (IN)",
-        "status": "ACTIVE_AUTHENTICATED",
-        "fb_uid": "61571000105",
-        "verified_at": datetime.datetime.now().isoformat(),
-        "total_pages": 1,
-        "pages": [
-            {
-                "name": "Thumb News",
-                "page_id": "1098447812308",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Waitlist criteria▼",
-                "subscriptions": "Criteria Not Met",
-                "stars": "Criteria Not Met",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            }
-        ]
-    },
-    {
-        "account_id": "ind_account6_neha",
-        "account_name": "Neha Gupta (IND 6)",
-        "owner": "Neha Gupta",
-        "region": "IN",
-        "device": "OnePlus 12 (IN)",
-        "status": "ACTIVE_AUTHENTICATED",
-        "fb_uid": "61571000106",
-        "verified_at": datetime.datetime.now().isoformat(),
-        "total_pages": 12,
-        "pages": [
-            { "name": "Murfy Patrick", "page_id": "1098447812309", "overall_status": "No Monetization Violations", "content_monetization": "Waitlist criteria▼", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Foster Carl", "page_id": "1098447812310", "overall_status": "No Monetization Violations", "content_monetization": "Waitlist criteria▼", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Torers Gabrial", "page_id": "1098447812311", "overall_status": "No Monetization Violations", "content_monetization": "Waitlist criteria▼", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Perez Ronald", "page_id": "1098447812312", "overall_status": "No Monetization Violations", "content_monetization": "Waitlist criteria▼", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Simmous Ethan", "page_id": "1098447812313", "overall_status": "No Monetization Violations", "content_monetization": "Waitlist criteria▼", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Tale Fav", "page_id": "1098447812314", "overall_status": "No Monetization Violations", "content_monetization": "Policy Issues", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Light Wizards Heart", "page_id": "1098447812315", "overall_status": "No Monetization Violations", "content_monetization": "Policy Issues", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Brain Super", "page_id": "1098447812316", "overall_status": "No Monetization Violations", "content_monetization": "Policy Issues", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Epic Entertainment Hub", "page_id": "1098447812317", "overall_status": "No Monetization Violations", "content_monetization": "Policy Issues", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Popcorn Moments", "page_id": "1098447812318", "overall_status": "No Monetization Violations", "content_monetization": "Policy Issues", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Aroma Kitchen", "page_id": "1098447812319", "overall_status": "No Monetization Violations", "content_monetization": "Policy Issues", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" },
-            { "name": "Hendreson Carl", "page_id": "1098447812320", "overall_status": "No Monetization Violations", "content_monetization": "Policy Issues", "subscriptions": "Criteria Not Met", "stars": "Criteria Not Met", "policy_details": "No Violations (Clean)", "recommendation": "Recommendable" }
-        ]
-    }
-]
-
-# Check if IND accounts already in master accounts list
-existing_acc_ids = {a['account_id'] for a in master['accounts']}
-for ind_acc in ind_accounts:
-    if ind_acc['account_id'] not in existing_acc_ids:
-        master['accounts'].append(ind_acc)
-
-# Recompute totals
+# Recompute totals for the 12 Accounts
 all_pages = []
 for acc in master['accounts']:
     all_pages.extend(acc.get('pages', []))
@@ -358,7 +177,7 @@ master['total_subs_ready'] = total_subs_ready
 master['total_waitlist_criteria'] = total_waitlist_cm
 
 print(f"==================================================")
-print(f"Generated Master Fleet Monetization Matrix:")
+print(f"Master Fleet Monetization Matrix (USA & UK Only):")
 print(f"  • Accounts: {master['total_accounts']}")
 print(f"  • Pages: {master['total_fleet_pages']}")
 print(f"  • Content Monetization (Criteria/Waitlist): {total_waitlist_cm}")
