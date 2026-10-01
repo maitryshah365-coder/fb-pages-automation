@@ -19,14 +19,13 @@ on:
       - '.triggers/run_sejal.trigger'
       - '.triggers/run_all.trigger'
 
-  # Scheduled 4 times daily (USA New York Times EDT - Staggered Slot):
-  # Slot 1: 12:30 PM EDT (16:30 UTC)
-  # Slot 2: 05:30 PM EDT (21:30 UTC)
-  # Slot 3: 09:30 PM EDT (01:30 UTC next day)
-  # Slot 4: 01:00 AM EDT (05:00 UTC next day)
+  # Scheduled 4 times daily (USA Times EDT - Staggered +20m Offset from Rohini Dutt):
+  # Slot 1: 11:20 PM EDT prev day (03:20 UTC / 08:50 AM IST)
+  # Slot 2: 11:20 AM EDT (15:20 UTC / 08:50 PM IST)
+  # Slot 3: 04:20 PM EDT (20:20 UTC / 01:50 AM IST next day)
+  # Slot 4: 08:20 PM EDT (00:20 UTC next day / 05:50 AM IST next day)
   schedule:
-    - cron: "30 1,16,21 * * *"
-    - cron: "0 5 * * *"
+    - cron: "20 0,3,15,20 * * *"
 
 concurrency:
   group: sejal-pixel9-upload-group

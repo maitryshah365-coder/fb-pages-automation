@@ -1,5 +1,5 @@
 {
-  "synced_at": "2026-10-01T14:36:30.221026+00:00",
+  "synced_at": "2026-10-01T15:10:40.814709+00:00",
   "today_summary": {
     "target_total": 624,
     "uploaded": 213,
@@ -75,10 +75,10 @@
       "10:40 PM"
     ],
     "usa_account5_slots_edt": [
-      "12:30 PM",
-      "05:30 PM",
-      "09:30 PM",
-      "01:00 AM"
+      "11:20 PM",
+      "11:20 AM",
+      "04:20 PM",
+      "08:20 PM"
     ]
   },
   "runner_telemetry": {
@@ -134165,11 +134165,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -134179,8 +134184,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -134191,8 +134196,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -134214,22 +134219,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -134351,11 +134345,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -134365,8 +134364,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -134377,8 +134376,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -134400,22 +134399,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -134537,11 +134525,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -134551,8 +134544,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -134563,8 +134556,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -134586,22 +134579,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -134723,11 +134705,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -134737,8 +134724,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -134749,8 +134736,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -134772,22 +134759,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -134909,11 +134885,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -134923,8 +134904,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -134935,8 +134916,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -134958,22 +134939,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -135095,11 +135065,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -135109,8 +135084,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -135121,8 +135096,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -135144,22 +135119,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -135281,11 +135245,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -135295,8 +135264,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -135307,8 +135276,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -135330,22 +135299,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -135467,11 +135425,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -135481,8 +135444,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -135493,8 +135456,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -135516,22 +135479,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -135653,11 +135605,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -135667,8 +135624,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -135679,8 +135636,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -135702,22 +135659,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -135839,11 +135785,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -135853,8 +135804,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -135865,8 +135816,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -135888,22 +135839,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -136025,11 +135965,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -136039,8 +135984,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -136051,8 +135996,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -136074,22 +136019,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -136211,11 +136145,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -136225,8 +136164,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -136237,8 +136176,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -136260,22 +136199,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -136397,11 +136325,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -136411,8 +136344,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -136423,8 +136356,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -136446,22 +136379,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -136583,11 +136505,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -136597,8 +136524,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -136609,8 +136536,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -136632,22 +136559,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },
@@ -136769,11 +136685,16 @@
       "monetization": {
         "standing": "Good Standing",
         "policy_status": "No Monetization Violations",
-        "stars_status": "0/500 Followers (0.0%)",
-        "stars_active": false,
-        "subscriptions_status": "0/10k Followers (0.0%)",
-        "subscriptions_ready": false,
-        "content_monetization_status": "Building Engagement",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
         "criteria_tools": [
           {
             "name": "Stars Program",
@@ -136783,8 +136704,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 500 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
             "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
           },
           {
@@ -136795,8 +136716,8 @@
             "setup_ready": false,
             "action_label": null,
             "badge_class": "in-progress",
-            "progress_pct": 0.0,
-            "criteria": "0 / 10,000 Followers (0.0%)",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
             "desc": "Monthly recurring income from dedicated supporters."
           },
           {
@@ -136818,22 +136739,11 @@
             "sub": "Unified In-Stream, Reels & Bonus",
             "icon": "🎬",
             "type": "Invitation Only (Meta Beta)",
-            "status": "Building Engagement",
+            "status": "Active Invitation Candidate",
             "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "0 / 1,000,000 Views Required",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
             "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
-          },
-          {
-            "name": "Creator Performance Challenges",
-            "sub": "Engagement Bonus",
-            "icon": "🎁",
-            "type": "Invitation Only",
-            "status": "Invitation Candidate",
-            "badge_class": "invite-only",
-            "progress_pct": 0.0,
-            "criteria": "High Reel Interactions",
-            "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
           }
         ]
       },

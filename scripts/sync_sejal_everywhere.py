@@ -314,10 +314,10 @@ def sync_sejal_fleet():
                 pdata["today_summary"]["active_pages_count"] = len(filtered_pages)
                 pdata["today_summary"]["target_total"] = len(filtered_pages) * 4
                 pdata["today_summary"]["usa_account5_slots_edt"] = [
-                    "12:30 PM",
-                    "05:30 PM",
-                    "09:30 PM",
-                    "01:00 AM"
+                    "11:20 PM",
+                    "11:20 AM",
+                    "04:20 PM",
+                    "08:20 PM"
                 ]
 
             with open(ppath, "w", encoding="utf-8") as f:

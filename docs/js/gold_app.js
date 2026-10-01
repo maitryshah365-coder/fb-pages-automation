@@ -3404,11 +3404,11 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 20, m: 0, label: "Slot 3" },
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 0, m: 0, label: "Slot 4" },
 
-  // Sejal Soni - 15 Pages (Google Pixel 9 Pro Anti-Detect Profile - Staggered Slot)
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 16, m: 30, label: "Slot 1" },
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 21, m: 30, label: "Slot 2" },
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 1, m: 30, label: "Slot 3" },
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 5, m: 0, label: "Slot 4" },
+  // Sejal Soni - 15 Pages (Google Pixel 9 Pro Anti-Detect Profile - Staggered +20m Slot)
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 3, m: 20, label: "Slot 1" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 15, m: 20, label: "Slot 2" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 20, m: 20, label: "Slot 3" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 0, m: 20, label: "Slot 4" },
 
   // Binjal Mehra - 12 Pages
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
@@ -3456,25 +3456,25 @@ const FLEET_SCHEDULE_SLOTS = [
 function updateRadarSlots() {
   if (!fullData?.pages) return;
   const fleets = [
-    { id: "a1", set: FLEET_USA_01_SET, defaultSlots: 60 },
-    { id: "a2", set: FLEET_USA_02_SET, defaultSlots: 60 },
-    { id: "a3", set: FLEET_USA_03_SET, defaultSlots: 60 },
-    { id: "a4", set: FLEET_USA_04_SET, defaultSlots: 60 },
-    { id: "uk1", set: FLEET_UK_01_SET, defaultSlots: 48 },
-    { id: "uk2", set: FLEET_UK_02_SET, defaultSlots: 48 },
-    { id: "uk3", set: FLEET_UK_03_SET, defaultSlots: 48 },
-    { id: "uk4", set: FLEET_UK_04_SET, defaultSlots: 48 },
-    { id: "uk5", set: FLEET_UK_05_SET, defaultSlots: 44 },
-    { id: "uk6", set: FLEET_UK_06_SET, defaultSlots: 48 },
-    { id: "uk7", set: FLEET_UK_07_SET, defaultSlots: 48 }
+    { id: "a1", matcher: p => FLEET_USA_01_SET.has(String(p.id)) || (p.account && p.account.includes("Meghal")), defaultSlots: 60 },
+    { id: "a2", matcher: p => FLEET_USA_02_SET.has(String(p.id)) || (p.account && p.account.includes("Mia")), defaultSlots: 60 },
+    { id: "a3", matcher: p => FLEET_USA_03_SET.has(String(p.id)) || (p.account && p.account.includes("Radika")), defaultSlots: 60 },
+    { id: "a4", matcher: p => FLEET_USA_04_SET.has(String(p.id)) || (p.page_id && FLEET_USA_04_SET.has(String(p.page_id))) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt", defaultSlots: 60 },
+    { id: "a5", matcher: p => FLEET_USA_05_SET.has(String(p.id)) || (p.page_id && FLEET_USA_05_SET.has(String(p.page_id))) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni", defaultSlots: 60 },
+    { id: "uk1", matcher: p => FLEET_UK_01_SET.has(String(p.id)) || (p.account && p.account.includes("Binjal")), defaultSlots: 48 },
+    { id: "uk2", matcher: p => FLEET_UK_02_SET.has(String(p.id)) || (p.account && p.account.includes("Chanda")), defaultSlots: 48 },
+    { id: "uk3", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")), defaultSlots: 48 },
+    { id: "uk4", matcher: p => FLEET_UK_04_SET.has(String(p.id)) || (p.account && p.account.includes("Nidhi")), defaultSlots: 44 },
+    { id: "uk5", matcher: p => FLEET_UK_05_SET.has(String(p.id)) || (p.account && p.account.includes("Richi")), defaultSlots: 44 },
+    { id: "uk6", matcher: p => FLEET_UK_06_SET.has(String(p.id)) || (p.account && p.account.includes("Sweta")), defaultSlots: 48 },
+    { id: "uk7", matcher: p => FLEET_UK_07_SET.has(String(p.id)) || (p.account && p.account.includes("Riya")), defaultSlots: 44 }
   ];
 
   let grandTotalUploaded = 0;
   let grandTotalSlots = 0;
 
   fleets.forEach(f => {
-    if (!f.set || typeof f.set.has !== "function") return;
-    const fleetPages = fullData.pages.filter(p => f.set.has(String(p.id)));
+    const fleetPages = fullData.pages.filter(f.matcher);
     const done = fleetPages.reduce((sum, p) => sum + getPageTodayPosts(p), 0);
     const slots = (fleetPages.length > 0) ? fleetPages.length * 4 : f.defaultSlots;
     grandTotalUploaded += done;
@@ -3620,17 +3620,18 @@ function initAutomationRadarLiveEngine() {
 
   // Make Radar Fleet cards interactive clickable tiles
   const fleetFilterMap = {
-    a1: { name: "USA 01 • Meghal Chauhan", set: FLEET_USA_01_SET },
-    a2: { name: "USA 02 • Mia Shah", set: FLEET_USA_02_SET },
-    a3: { name: "USA 03 • Radika Patel", set: FLEET_USA_03_SET },
-    a4: { name: "USA 04 • Rohini Dutt", set: FLEET_USA_04_SET },
-    uk1: { name: "UK 01 • Binjal Mehra", set: FLEET_UK_01_SET },
-    uk2: { name: "UK 02 • Chanda Nai", set: FLEET_UK_02_SET },
-    uk3: { name: "UK 03 • Mahi Patel", set: FLEET_UK_03_SET },
-    uk4: { name: "UK 04 • Nidhi Desai", set: FLEET_UK_04_SET },
-    uk5: { name: "UK 05 • Richi Patel", set: FLEET_UK_05_SET },
-    uk6: { name: "UK 06 • Sweta Shah", set: FLEET_UK_06_SET },
-    uk7: { name: "UK 07 • Riya Gaur", set: FLEET_UK_07_SET }
+    a1: { name: "USA 01 • Meghal Chauhan", matcher: p => FLEET_USA_01_SET.has(String(p.id)) || (p.account && p.account.includes("Meghal")) },
+    a2: { name: "USA 02 • Mia Shah", matcher: p => FLEET_USA_02_SET.has(String(p.id)) || (p.account && p.account.includes("Mia")) },
+    a3: { name: "USA 03 • Radika Patel", matcher: p => FLEET_USA_03_SET.has(String(p.id)) || (p.account && p.account.includes("Radika")) },
+    a4: { name: "USA 04 • Rohini Dutt", matcher: p => FLEET_USA_04_SET.has(String(p.id)) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" },
+    a5: { name: "USA 05 • Sejal Soni", matcher: p => FLEET_USA_05_SET.has(String(p.id)) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" },
+    uk1: { name: "UK 01 • Binjal Mehra", matcher: p => FLEET_UK_01_SET.has(String(p.id)) || (p.account && p.account.includes("Binjal")) },
+    uk2: { name: "UK 02 • Chanda Nai", matcher: p => FLEET_UK_02_SET.has(String(p.id)) || (p.account && p.account.includes("Chanda")) },
+    uk3: { name: "UK 03 • Mahi Patel", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")) },
+    uk4: { name: "UK 04 • Nidhi Desai", matcher: p => FLEET_UK_04_SET.has(String(p.id)) || (p.account && p.account.includes("Nidhi")) },
+    uk5: { name: "UK 05 • Richi Patel", matcher: p => FLEET_UK_05_SET.has(String(p.id)) || (p.account && p.account.includes("Richi")) },
+    uk6: { name: "UK 06 • Sweta Shah", matcher: p => FLEET_UK_06_SET.has(String(p.id)) || (p.account && p.account.includes("Sweta")) },
+    uk7: { name: "UK 07 • Riya Gaur", matcher: p => FLEET_UK_07_SET.has(String(p.id)) || (p.account && p.account.includes("Riya")) }
   };
 
   Object.keys(fleetFilterMap).forEach(fId => {
@@ -3641,7 +3642,7 @@ function initAutomationRadarLiveEngine() {
       cardEl.addEventListener("click", () => {
         const info = fleetFilterMap[fId];
         if (info && fullData?.pages) {
-          const fleetPages = fullData.pages.filter(p => info.set.has(String(p.id)));
+          const fleetPages = fullData.pages.filter(info.matcher);
           if (fleetPages.length > 0) {
             showToast(`🧭 Selected ${info.name} (${fleetPages.length} Pages)`);
             selectPage(fleetPages[0].id);

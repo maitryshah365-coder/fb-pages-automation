@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T14:53:57.896695+00:00",
+  "generated_at": "2026-10-01T15:10:40.455025+00:00",
   "total_accounts": 12,
   "active_live_accounts": 12,
   "total_fleet_pages": 156,
@@ -6046,636 +6046,189 @@
       "region": "US",
       "device": "Google Pixel 9 Pro (US 5G)",
       "status": "ACTIVE_AUTHENTICATED",
+      "fb_uid": "61560847721711",
+      "verified_at": "2026-10-01T15:10:40.353258+00:00",
+      "total_pages": 15,
       "pages": [
         {
           "name": "The Daily Spark",
-          "page_id": "usa5_p01_daily_spark",
+          "page_id": "534342423102401",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "The Chill Spot",
-          "page_id": "usa5_p02_chill_spot",
+          "page_id": "564341273430022",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Tag The",
-          "page_id": "usa5_p03_tag_the",
+          "page_id": "497636683426759",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Stellar Vibes",
-          "page_id": "usa5_p04_stellar_vibes",
+          "page_id": "877069835495630",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Sovereign Collective",
-          "page_id": "usa5_p05_sovereign_collective",
+          "page_id": "615554031639811",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Silent Grove",
-          "page_id": "usa5_p06_silent_grove",
+          "page_id": "1033250263200686",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Royal Vanguard",
-          "page_id": "usa5_p07_royal_vanguard",
+          "page_id": "614891248372171",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Royal Frontier",
-          "page_id": "usa5_p08_royal_frontier",
+          "page_id": "686470024541027",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Rajat Gupta",
-          "page_id": "usa5_p09_rajat_gupta",
+          "page_id": "424138757454796",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Mouth The Hang",
-          "page_id": "usa5_p10_mouth_the_hang",
+          "page_id": "976706512196056",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Mojo Day",
-          "page_id": "usa5_p11_mojo_day",
+          "page_id": "473290599201289",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Fly Happy",
-          "page_id": "usa5_p12_fly_happy",
+          "page_id": "340559612467800",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Flute Tomography Nature",
-          "page_id": "usa5_p13_flute_tomography",
+          "page_id": "472703539265672",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Faro Fact",
-          "page_id": "usa5_p14_faro_fact",
+          "page_id": "502777659582958",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         },
         {
           "name": "Cosmic Mirage",
-          "page_id": "usa5_p15_cosmic_mirage",
+          "page_id": "855725930966508",
           "followers": 0,
           "total_views": 0,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Building Engagement",
-          "content_badge": "Building",
-          "subscriptions": "0/10k Followers (0.0%)",
-          "subscriptions_badge": "In Progress (0.0%)",
-          "subscriptions_pct": 0.0,
-          "stars": "0/500 Followers (0.0%)",
-          "stars_badge": "In Progress (0.0%)",
-          "stars_pct": 0.0,
-          "branded_content": "Active & Compliant",
-          "policy_details": "Clean / Zero Policy Strikes",
-          "recommendation": "Recommendable",
-          "criteria_breakdown": {
-            "stars": {
-              "met": false,
-              "current": 0,
-              "target": 500,
-              "label": "500 Followers for Stars"
-            },
-            "subscriptions": {
-              "met": false,
-              "current": 0,
-              "target": 10000,
-              "label": "10,000 Followers for Subscriptions"
-            },
-            "content_monetization": {
-              "met": false,
-              "current_views": 0,
-              "target_views": 1000000,
-              "label": "60,000 Watch Mins / 1M Views for Bonus & In-Stream"
-            },
-            "policy": {
-              "met": true,
-              "label": "Partner Monetization Policy Compliance"
-            }
-          }
+          "content_monetization": "Invite only",
+          "subscriptions": "Criteria Not Met",
+          "stars": "Criteria Not Met",
+          "policy_details": "No Violations (Clean)",
+          "recommendation": "Recommendable"
         }
       ]
     }
