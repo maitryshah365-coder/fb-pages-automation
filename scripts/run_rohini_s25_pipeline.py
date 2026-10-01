@@ -136,7 +136,7 @@ def download_next_reel(drive_service, folder_id: str, page_id: str) -> tuple:
 
     if not candidate:
         print(f"   No unposted videos found in folder {folder_id}")
-        return None, None
+        return None, None, None
 
     file_id = candidate["id"]
     file_name = candidate["name"]
@@ -153,19 +153,20 @@ def download_next_reel(drive_service, folder_id: str, page_id: str) -> tuple:
         fh.close()
         print(f"   Downloaded to: {local_path}")
 
-    return local_path, file_name
+    return local_path, file_name, file_id
 
 
-def record_successful_upload(page_id: str, page_name: str, file_name: str):
+def record_successful_upload(page_id: str, page_name: str, file_name: str, drive_file_id: str = ""):
     """Save upload record to posted_videos.db."""
     try:
         conn = sqlite3.connect(DB_PATH)
         cur = conn.cursor()
         now = datetime.now(timezone.utc).isoformat()
+        file_id_val = drive_file_id or f"s25_drive_{int(time.time())}"
         cur.execute("""
-            INSERT INTO videos (page_id, filename, mime_type, post_type, status, posted_at)
-            VALUES (?, ?, 'video/mp4', 'reel', 'posted', ?)
-        """, (page_id, file_name, now))
+            INSERT INTO videos (page_id, drive_file_id, filename, mime_type, post_type, status, first_seen_at, posted_at)
+            VALUES (?, ?, ?, 'video/mp4', 'reel', 'posted', ?, ?)
+        """, (page_id, file_id_val, file_name, now, now))
         conn.commit()
         conn.close()
         print(f"   [DB] Recorded '{file_name}' for {page_name} in videos table.")
@@ -215,8 +216,9 @@ def main():
         # 1. Acquire Video
         video_path = None
         file_name = None
+        drive_file_id = None
         if drive_service and folder_id:
-            video_path, file_name = download_next_reel(drive_service, folder_id, p_id)
+            video_path, file_name, drive_file_id = download_next_reel(drive_service, folder_id, p_id)
 
         if not video_path or not os.path.exists(video_path):
             if args.dry_run:
@@ -231,6 +233,7 @@ def main():
                     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
                 video_path = dummy_path
                 file_name = "test_s25_reel.mp4"
+                drive_file_id = "test_s25_drive_id"
             else:
                 print(f"   Skipping {p_name}: No video available to post.")
                 continue
@@ -250,7 +253,7 @@ def main():
         results.append({"page": p_name, "status": res.get("status"), "result": res})
 
         if res.get("status") == "success" and not args.dry_run:
-            record_successful_upload(p_id, p_name, file_name)
+            record_successful_upload(p_id, p_name, file_name, drive_file_id)
 
         # Clean up downloaded temp file
         if video_path and os.path.exists(video_path) and "test_s25_reel" not in video_path:
