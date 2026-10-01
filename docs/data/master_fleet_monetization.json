@@ -3843,7 +3843,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:56:58.702162+00:00"
+          "verified_at": "2026-10-01T18:54:58.346643+00:00"
         },
         {
           "name": "Sovereign Signal",
@@ -3882,7 +3882,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:57:07.188831+00:00"
+          "verified_at": "2026-10-01T18:55:08.048978+00:00"
         },
         {
           "name": "Sunny Dusk Stories",
@@ -3921,7 +3921,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:57:15.983598+00:00"
+          "verified_at": "2026-10-01T18:55:17.942382+00:00"
         },
         {
           "name": "Silver Oak Social",
@@ -3960,7 +3960,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:57:24.819752+00:00"
+          "verified_at": "2026-10-01T18:55:27.289899+00:00"
         },
         {
           "name": "Mitchell  Gabriel",
@@ -3999,7 +3999,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:57:33.310589+00:00"
+          "verified_at": "2026-10-01T18:55:36.829440+00:00"
         },
         {
           "name": "Smith  Arthur",
@@ -4038,7 +4038,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:57:41.879239+00:00"
+          "verified_at": "2026-10-01T18:55:46.480780+00:00"
         },
         {
           "name": "Robinson  Stephen",
@@ -4077,7 +4077,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:57:50.406640+00:00"
+          "verified_at": "2026-10-01T18:55:56.463481+00:00"
         },
         {
           "name": "Powell  Gabriel",
@@ -4116,7 +4116,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:57:58.947074+00:00"
+          "verified_at": "2026-10-01T18:56:05.672990+00:00"
         },
         {
           "name": "Rodriguez  Scott",
@@ -4155,7 +4155,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:58:07.505727+00:00"
+          "verified_at": "2026-10-01T18:56:14.989915+00:00"
         },
         {
           "name": "Roberts  Richard",
@@ -4194,7 +4194,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:58:16.399207+00:00"
+          "verified_at": "2026-10-01T18:56:24.171113+00:00"
         },
         {
           "name": "Serendipity Spark",
@@ -4233,7 +4233,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:58:24.958669+00:00"
+          "verified_at": "2026-10-01T18:56:33.329330+00:00"
         },
         {
           "name": "Robinson  Jerry",
@@ -4245,7 +4245,7 @@
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
           "verified_live": true,
-          "verified_at": "2026-10-01T18:58:29.703534+00:00"
+          "verified_at": "2026-10-01T18:56:38.066147+00:00"
         }
       ],
       "total_pages": 12
@@ -4265,8 +4265,8 @@
           "total_views": 16229,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -4293,7 +4293,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:58:53.710300+00:00"
         },
         {
           "name": "Empty Pockets",
@@ -4301,9 +4303,9 @@
           "followers": 30,
           "total_views": 19241,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "content_monetization": "Waitlist criteria\u25bc",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -4330,7 +4332,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:59:02.453122+00:00"
         },
         {
           "name": "Dirty Halos",
@@ -4339,8 +4343,8 @@
           "total_views": 9345,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -4367,7 +4371,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:59:11.409790+00:00"
         },
         {
           "name": "Deafening Quiet",
@@ -4376,8 +4382,8 @@
           "total_views": 22843,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -4404,7 +4410,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:59:20.391245+00:00"
         },
         {
           "name": "Crooked Hymns",
@@ -4413,8 +4421,8 @@
           "total_views": 14640,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -4441,7 +4449,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:59:29.537417+00:00"
         },
         {
           "name": "Cracked Bell",
@@ -4450,7 +4460,7 @@
           "total_views": 269881,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
+          "subscriptions": "Set Up",
           "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
@@ -4478,7 +4488,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:59:38.499394+00:00"
         },
         {
           "name": "Collapse The Sky",
@@ -4487,7 +4499,7 @@
           "total_views": 866619,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
+          "subscriptions": "Set Up",
           "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
@@ -4515,7 +4527,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:59:47.891950+00:00"
         },
         {
           "name": "Buried Choirs",
@@ -4524,8 +4538,8 @@
           "total_views": 10734,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -4552,7 +4566,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:59:56.754155+00:00"
         },
         {
           "name": "Brittle Crown",
@@ -4561,8 +4577,8 @@
           "total_views": 9208,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
-          "stars": "Criteria Not Met",
+          "subscriptions": "Set Up",
+          "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
           "recommendation": "Recommendable",
@@ -4589,7 +4605,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:00:05.824731+00:00"
         },
         {
           "name": "Broken Halo",
@@ -4597,8 +4615,8 @@
           "followers": 2620,
           "total_views": 1708665,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Waitlist criteria\u25bc",
-          "subscriptions": "Criteria Not Met",
+          "content_monetization": "Criteria Not Met",
+          "subscriptions": "Set Up",
           "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
@@ -4626,7 +4644,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:00:15.017895+00:00"
         },
         {
           "name": "Blame The Weather",
@@ -4635,7 +4655,7 @@
           "total_views": 116069,
           "overall_status": "No Monetization Violations",
           "content_monetization": "Policy Issues",
-          "subscriptions": "Criteria Not Met",
+          "subscriptions": "Set Up",
           "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
@@ -4663,7 +4683,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:00:23.963826+00:00"
         }
       ],
       "total_pages": 11
@@ -5754,5 +5776,5 @@
     }
   ],
   "total_waitlist_criteria": 43,
-  "last_live_audit_at": "2026-10-01T18:58:29.703606+00:00"
+  "last_live_audit_at": "2026-10-01T19:00:23.963851+00:00"
 }
