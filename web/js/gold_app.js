@@ -8038,35 +8038,38 @@ async function renderMetaToolsHubView() {
       tableBody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 36px; color: #94a3b8; font-size: 13px;">No pages match your current filter criteria. Try clicking another tool or account box.</td></tr>`;
     } else {
       tableBody.innerHTML = filtered.map((p, idx) => {
-        // Content Monetization badge (Exact Meta Business Suite Terms)
-        let contentBadge = `<span class="badge-status-criteria">${p.content_monetization || "Criteria Not Met"}</span>`;
-        if (p.content_monetization === "Policy Issues" || (p.content_monetization && p.content_monetization.includes("Policy"))) {
-          contentBadge = `<span class="badge-status-policy">⏳ Policy Issues</span>`;
-        } else if (p.content_monetization && (p.content_monetization.includes("Waitlist") || p.content_monetization.includes("waitlist"))) {
+        // Content Monetization badge (Exact Meta Business Suite Terms from 1st Test)
+        let cmVal = (p.content_monetization || "").toLowerCase();
+        let contentBadge = `<span class="badge-status-policy">⏳ Policy Issues</span>`;
+        if (cmVal.includes("waitlist")) {
           contentBadge = `<span class="badge-status-waitlist">📋 Waitlist criteria▼</span>`;
-        } else if (p.content_monetization && p.content_monetization.toLowerCase().includes("set up")) {
+        } else if (cmVal.includes("set up")) {
           contentBadge = `<span class="badge-status-setup">🎉 Set Up</span>`;
-        } else if (p.content_monetization === "Criteria Not Met") {
+        } else if (cmVal.includes("criteria not met")) {
           contentBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
+        } else {
+          contentBadge = `<span class="badge-status-policy">⏳ Policy Issues</span>`;
         }
 
-        // Subscriptions badge (Exact Meta Business Suite Terms)
-        let subBadge = `<span class="badge-status-criteria">${p.subscriptions || "Criteria Not Met"}</span>`;
-        if (p.subscriptions === "Set Up" || (p.subscriptions && p.subscriptions.toLowerCase().includes("set up"))) {
+        // Subscriptions badge (Exact Meta Business Suite Terms from 1st Test)
+        let subVal = (p.subscriptions || "").toLowerCase();
+        let subBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
+        if (subVal.includes("set up")) {
           subBadge = `<span class="badge-status-setup">🎉 Set Up</span>`;
-        } else if (p.subscriptions === "Not Found") {
+        } else if (subVal.includes("not found")) {
           subBadge = `<span style="color:#64748b; font-size:11.5px; font-weight:600;">Not Found</span>`;
-        } else if (p.subscriptions === "Criteria Not Met") {
+        } else {
           subBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
         }
 
-        // Stars badge (Exact Meta Business Suite Terms: Set Up vs Criteria Not Met)
-        let starBadge = `<span class="badge-status-criteria">${p.stars || "Criteria Not Met"}</span>`;
-        if (p.stars === "Set Up" || (p.stars && p.stars.toLowerCase().includes("set up"))) {
+        // Stars badge (Exact Meta Business Suite Terms from 1st Test)
+        let starVal = (p.stars || "").toLowerCase();
+        let starBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
+        if (starVal.includes("set up") || starVal.includes("active")) {
           starBadge = `<span class="badge-status-setup">🎉 Set Up</span>`;
-        } else if (p.stars === "Not Found") {
+        } else if (starVal.includes("not found")) {
           starBadge = `<span style="color:#64748b; font-size:11.5px; font-weight:600;">Not Found</span>`;
-        } else if (p.stars === "Criteria Not Met") {
+        } else {
           starBadge = `<span class="badge-status-criteria">Criteria Not Met</span>`;
         }
 
