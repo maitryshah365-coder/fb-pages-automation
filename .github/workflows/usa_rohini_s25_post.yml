@@ -14,6 +14,11 @@ on:
         type: string
         default: ""
 
+  push:
+    paths:
+      - '.triggers/run_rohini.trigger'
+      - '.triggers/run_all.trigger'
+
   # Scheduled 4 times daily (USA Times EDT - Staggered Slot):
   # Slot 1: 11:00 AM EDT (03:00 UTC)
   # Slot 2: 04:00 PM EDT (20:00 UTC)
