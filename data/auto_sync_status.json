@@ -1,11 +1,11 @@
 {
-  "daemon_status": "RUNNING",
+  "daemon_status": "SLEEPING_UNTIL_NEXT_CYCLE",
   "cycle": 1,
   "total_accounts": 12,
   "current_account_index": 12,
   "current_account": "Sejal Soni (USA 5)",
-  "current_page": "Cosmic Mirage (15/15)",
+  "current_page": "Cycle Complete",
   "cycle_started_at": "2026-10-01T18:42:16.648792+00:00",
-  "last_successful_cycle_at": null,
-  "updated_at": "2026-10-01T19:05:55.330274+00:00"
+  "last_successful_cycle_at": "2026-10-01T19:06:08.305656+00:00",
+  "updated_at": "2026-10-01T19:06:08.305696+00:00"
 }

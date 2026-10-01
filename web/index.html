@@ -1116,9 +1116,22 @@
         </div>
         <div class="status-strip-right" style="display: flex; align-items: center; gap: 8px;">
           <button type="button" id="btnRunFleetAuditNow" onclick="runFleetAuditLive()" class="btn-check-device-now" style="background: linear-gradient(135deg, #059669, #10b981); color: #fff; border: none; padding: 6px 14px; border-radius: 8px; font-size: 11.5px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(16,185,129,0.3);">
-            <span id="fleetAuditBtnIcon">⚡</span> Run Live Fleet Audit
+            <span id="fleetAuditBtnIcon">⚡</span> <span id="fleetAuditBtnLabel">Run Live Fleet Audit</span>
           </button>
           <span class="badge-meta-verified" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35);">12 PROFILE ACCOUNTS • 158 PAGES</span>
+        </div>
+      </div>
+
+      <!-- Live Fleet Audit Percentage Progress Bar (Matches Main Dashboard) -->
+      <div id="metaAuditProgressBarWrapper" style="display: none; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 10px; padding: 10px 16px; margin: 12px 0 16px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span id="metaAuditProgressStatusText" style="font-size: 12px; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px;">
+            <span>⚙️</span> Auditing Multi-Account Facebook Monetization Fleet...
+          </span>
+          <span id="metaAuditProgressPercentText" style="font-size: 13px; font-weight: 900; color: #10b981; font-family: monospace;">0%</span>
+        </div>
+        <div style="height: 7px; width: 100%; background: #1e293b; border-radius: 4px; overflow: hidden;">
+          <div id="metaAuditProgressBarFill" style="height: 100%; width: 0%; background: linear-gradient(90deg, #0284c7, #10b981); border-radius: 4px; transition: width 0.3s ease;"></div>
         </div>
       </div>
 
