@@ -1,11 +1,11 @@
 {
-  "synced_at": "2026-10-01T14:28:11.515465+00:00",
+  "synced_at": "2026-10-01T14:36:30.221026+00:00",
   "today_summary": {
-    "target_total": 564,
-    "uploaded": 224,
-    "remaining": 340,
-    "active_pages_count": 141,
-    "total_db_posted": 2482,
+    "target_total": 624,
+    "uploaded": 213,
+    "remaining": 351,
+    "active_pages_count": 156,
+    "total_db_posted": 2469,
     "daily_slots_edt": [
       "10:00 AM",
       "03:00 PM",
@@ -73,6 +73,12 @@
       "02:10 PM",
       "06:10 PM",
       "10:40 PM"
+    ],
+    "usa_account5_slots_edt": [
+      "12:30 PM",
+      "05:30 PM",
+      "09:30 PM",
+      "01:00 AM"
     ]
   },
   "runner_telemetry": {
@@ -138550,6 +138556,2706 @@
             "progress_pct": 70,
             "criteria": "High Reel Interactions",
             "desc": "Special Meta cash bonuses awarded based on monthly reach and Reel interactions."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p01_daily_spark",
+      "page_id": "534342423102401",
+      "name": "The Daily Spark",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/534342423102401/picture?type=large",
+      "link": "https://www.facebook.com/534342423102401",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
+      "drive_folder_name": "The Daily Spark",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p02_chill_spot",
+      "page_id": "564341273430022",
+      "name": "The Chill Spot",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/564341273430022/picture?type=large",
+      "link": "https://www.facebook.com/564341273430022",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ",
+      "drive_folder_name": "The Chill Spot",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p03_tag_the",
+      "page_id": "497636683426759",
+      "name": "Tag The",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/497636683426759/picture?type=large",
+      "link": "https://www.facebook.com/497636683426759",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
+      "drive_folder_name": "Tag The",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p04_stellar_vibes",
+      "page_id": "877069835495630",
+      "name": "Stellar Vibes",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/877069835495630/picture?type=large",
+      "link": "https://www.facebook.com/877069835495630",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl",
+      "drive_folder_name": "Stellar Vibes",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 31,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p05_sovereign_collective",
+      "page_id": "615554031639811",
+      "name": "Sovereign Collective",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/615554031639811/picture?type=large",
+      "link": "https://www.facebook.com/615554031639811",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt",
+      "drive_folder_name": "Sovereign Collective",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p06_silent_grove",
+      "page_id": "1033250263200686",
+      "name": "Silent Grove",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/1033250263200686/picture?type=large",
+      "link": "https://www.facebook.com/1033250263200686",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy",
+      "drive_folder_name": "Silent Grove",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p07_royal_vanguard",
+      "page_id": "614891248372171",
+      "name": "Royal Vanguard",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/614891248372171/picture?type=large",
+      "link": "https://www.facebook.com/614891248372171",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU",
+      "drive_folder_name": "Royal Vanguard",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p08_royal_frontier",
+      "page_id": "686470024541027",
+      "name": "Royal Frontier",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/686470024541027/picture?type=large",
+      "link": "https://www.facebook.com/686470024541027",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "18LJsnXYPZPmPiX922GOyJaahKkIv01_J",
+      "drive_folder_name": "Royal Frontier",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 45,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p09_rajat_gupta",
+      "page_id": "424138757454796",
+      "name": "Rajat Gupta",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/424138757454796/picture?type=large",
+      "link": "https://www.facebook.com/424138757454796",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0",
+      "drive_folder_name": "Rajat Gupta",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p10_mouth_the_hang",
+      "page_id": "976706512196056",
+      "name": "Mouth The Hang",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/976706512196056/picture?type=large",
+      "link": "https://www.facebook.com/976706512196056",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR",
+      "drive_folder_name": "Mouth The hang",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p11_mojo_day",
+      "page_id": "473290599201289",
+      "name": "Mojo Day",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/473290599201289/picture?type=large",
+      "link": "https://www.facebook.com/473290599201289",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql",
+      "drive_folder_name": "Mojo Day",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p12_fly_happy",
+      "page_id": "340559612467800",
+      "name": "Fly Happy",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/340559612467800/picture?type=large",
+      "link": "https://www.facebook.com/340559612467800",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH",
+      "drive_folder_name": "Fly Happy",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p13_flute_tomography",
+      "page_id": "472703539265672",
+      "name": "Flute Tomography Nature",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/472703539265672/picture?type=large",
+      "link": "https://www.facebook.com/472703539265672",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
+      "drive_folder_name": "Flute Tomography Nature",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p14_faro_fact",
+      "page_id": "502777659582958",
+      "name": "Faro Fact",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/502777659582958/picture?type=large",
+      "link": "https://www.facebook.com/502777659582958",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM",
+      "drive_folder_name": "Faro Fact",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
+          }
+        ]
+      },
+      "videos": []
+    },
+    {
+      "id": "usa5_p15_cosmic_mirage",
+      "page_id": "855725930966508",
+      "name": "Cosmic Mirage",
+      "account": "Sejal Soni (USA)",
+      "account_owner": "Sejal Soni",
+      "device": "Google Pixel 9 Pro",
+      "device_profile": "google_pixel9_newyork",
+      "followers": 0,
+      "fan_count": 0,
+      "category": "Digital creator",
+      "pic_url": "https://graph.facebook.com/v20.0/855725930966508/picture?type=large",
+      "link": "https://www.facebook.com/855725930966508",
+      "access_token": "",
+      "token_status": "session_cookie_auth",
+      "auth_method": "anti_detect_playwright",
+      "health": "Optimal",
+      "today_posts": 0,
+      "live_meta_insights": {
+        "organic_impressions": 0,
+        "organic_video_views": 0,
+        "views_30s_complete": 0,
+        "profile_views_total": 0,
+        "daily_follows": 0,
+        "post_engagements": 0,
+        "reel_likes": 0
+      },
+      "daily_limit": 4,
+      "drive_folder_id": "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1",
+      "drive_folder_name": "Cosmic Mirage",
+      "is_configured": true,
+      "has_drive_folder": true,
+      "drive_videos_count": 100,
+      "total_posts": 0,
+      "total_views": 0,
+      "total_engagement": {
+        "likes": 0,
+        "comments": 0
+      },
+      "last_upload_ip": {
+        "ip": "207.244.71.84",
+        "city": "New York",
+        "region": "New York",
+        "country": "United States",
+        "org": "AS20473 Datacamp / Dedicated WireGuard",
+        "flag": "🇺🇸",
+        "timestamp": "Ready for Next Slot"
+      },
+      "audience": {
+        "has_real_data": false,
+        "message": "Demographic Insights Pending Professional Dashboard Sync",
+        "reason": "Meta Business Suite session connected via Google Pixel 9 Pro."
+      },
+      "page_status": {
+        "has_no_issues": true,
+        "headline": "Page has no issues",
+        "community_standards": {
+          "status": "Good news: no violations to show.",
+          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
+        },
+        "account_status": {
+          "status": "No restrictions",
+          "sub": "Your account looks good! Check in on other things you manage."
+        },
+        "extra_features": {
+          "recommendations": "Active",
+          "monetization": "In Progress"
+        },
+        "suspension_check": "Clean / Zero Restrictions"
+      },
+      "content_monetization": {
+        "has_criteria_area": false,
+        "program_type": "invite_only",
+        "type_label": "Invite-Only Page",
+        "type_badge": "📬 Invite-Only",
+        "criteria_met_count": 3,
+        "waitlist_headline": "3 of 6 criteria met",
+        "is_setup_ready": false,
+        "criteria_rules": [],
+        "invite_only_overview": {
+          "headline": "Not yet eligible",
+          "sub": "As you grow your audience, you'll unlock more ways to make money.",
+          "tools": [
+            {
+              "name": "Content monetization",
+              "icon": "🎬",
+              "desc": "Earn money from Facebook for all your well-performing, eligible content.",
+              "status": "Invite only",
+              "badge_type": "invite"
+            },
+            {
+              "name": "Subscriptions",
+              "icon": "💎",
+              "desc": "Generate income monthly with exclusive content.",
+              "status": "1 of 3 criteria met",
+              "badge_type": "criteria"
+            }
+          ],
+          "beta_headline": "Content monetization beta",
+          "beta_sub": "We're actively working to expand access and make this program available to more creators soon.",
+          "status_title": "Invite only",
+          "status_desc": "This program is currently only available by invitation. Tap notify me and we'll let you know when you're eligible.",
+          "action_label": "Notify me",
+          "candidate_status": "Active Candidate (4x daily USA video posting accelerates invitation)",
+          "progress_pct": 60
+        }
+      },
+      "recommendation": {
+        "is_recommendable": true,
+        "badge": "Page is Recommendable",
+        "headline": "We're helping you grow your audience",
+        "desc": "Your page brings people together. Content posted on this page is eligible to be suggested to new viewers across Facebook Reels, Feed, and Watch."
+      },
+      "monetization": {
+        "standing": "Good Standing",
+        "policy_status": "No Monetization Violations",
+        "content_monetization": {
+          "has_criteria_area": false,
+          "program_type": "invite_only",
+          "type_label": "Invite-Only Page",
+          "type_badge": "📬 Invite-Only",
+          "criteria_met_count": 3,
+          "waitlist_headline": "3 of 6 criteria met",
+          "is_setup_ready": false,
+          "criteria_rules": []
+        },
+        "criteria_tools": [
+          {
+            "name": "Stars Program",
+            "icon": "⭐",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 500 Followers",
+            "desc": "Earn direct payouts when viewers send Stars during Reels and live videos."
+          },
+          {
+            "name": "Fan Subscriptions",
+            "icon": "💎",
+            "type": "Criteria Based",
+            "status": "In Progress",
+            "setup_ready": false,
+            "action_label": null,
+            "badge_class": "in-progress",
+            "progress_pct": 0,
+            "criteria": "0 / 10,000 Followers",
+            "desc": "Monthly recurring income from dedicated supporters."
+          },
+          {
+            "name": "Branded Content Tag",
+            "icon": "🤝",
+            "type": "Criteria Based",
+            "status": "Active & Compliant",
+            "setup_ready": true,
+            "action_label": "🏷️ Tag Sponsors",
+            "badge_class": "eligible",
+            "progress_pct": 100,
+            "criteria": "Zero Policy Violations",
+            "desc": "Tag sponsor brands with Meta's official paid partnership handshake label."
+          }
+        ],
+        "invite_tools": [
+          {
+            "name": "Content Monetization Program (Beta)",
+            "sub": "Unified In-Stream, Reels & Bonus",
+            "icon": "🎬",
+            "type": "Invitation Only (Meta Beta)",
+            "status": "Active Invitation Candidate",
+            "badge_class": "invite-only",
+            "progress_pct": 30,
+            "criteria": "Reels Upload Velocity & Policy Standing",
+            "desc": "Meta's new unified program combining Reels ads, longer video in-stream ads, and performance rewards into a single monthly payout."
           }
         ]
       },

@@ -1,0 +1,195 @@
+{
+  "generated_at": "2026-10-01T14:39:20.050338+00:00",
+  "device": {
+    "name": "Google Pixel 9 Pro (US 5G)",
+    "profile_id": "google_pixel9_newyork",
+    "model": "Pixel 9 Pro (Google Tensor G4)",
+    "owner": "Sejal Soni",
+    "fb_uid": "61560847721711",
+    "proxy_ip": "207.244.71.84 (NYC Dedicated WireGuard Proxy)",
+    "timezone": "America/New_York (EDT / UTC-4)"
+  },
+  "cookies": {
+    "status": "ACTIVE_VERIFIED",
+    "total_cookies": 10,
+    "c_user": "61560847721711",
+    "xs_valid": true,
+    "days_remaining": 365.0,
+    "is_expired": false,
+    "errors": []
+  },
+  "schedule": {
+    "total_pages": 15,
+    "total_stock_reels": 1376,
+    "stock_gb": "14.2 GB",
+    "missed_uploads": 0,
+    "status": "ALL_IN_SYNC",
+    "pages": [
+      {
+        "name": "The Daily Spark",
+        "page_id": "534342423102401",
+        "folder_name": "The Daily Spark",
+        "stock": 100,
+        "drive_folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "The Chill Spot",
+        "page_id": "564341273430022",
+        "folder_name": "The Chill Spot",
+        "stock": 100,
+        "drive_folder_id": "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Tag The",
+        "page_id": "497636683426759",
+        "folder_name": "Tag The",
+        "stock": 100,
+        "drive_folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Stellar Vibes",
+        "page_id": "877069835495630",
+        "folder_name": "Stellar Vibes",
+        "stock": 31,
+        "drive_folder_id": "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (31 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Sovereign Collective",
+        "page_id": "615554031639811",
+        "folder_name": "Sovereign Collective",
+        "stock": 100,
+        "drive_folder_id": "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Silent Grove",
+        "page_id": "1033250263200686",
+        "folder_name": "Silent Grove",
+        "stock": 100,
+        "drive_folder_id": "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Royal Vanguard",
+        "page_id": "614891248372171",
+        "folder_name": "Royal Vanguard",
+        "stock": 100,
+        "drive_folder_id": "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Royal Frontier",
+        "page_id": "686470024541027",
+        "folder_name": "Royal Frontier",
+        "stock": 45,
+        "drive_folder_id": "18LJsnXYPZPmPiX922GOyJaahKkIv01_J",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (45 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Rajat Gupta",
+        "page_id": "424138757454796",
+        "folder_name": "Rajat Gupta",
+        "stock": 100,
+        "drive_folder_id": "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Mouth The Hang",
+        "page_id": "976706512196056",
+        "folder_name": "Mouth The hang",
+        "stock": 100,
+        "drive_folder_id": "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Mojo Day",
+        "page_id": "473290599201289",
+        "folder_name": "Mojo Day",
+        "stock": 100,
+        "drive_folder_id": "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Fly Happy",
+        "page_id": "340559612467800",
+        "folder_name": "Fly Happy",
+        "stock": 100,
+        "drive_folder_id": "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Flute Tomography Nature",
+        "page_id": "472703539265672",
+        "folder_name": "Flute Tomography Nature",
+        "stock": 100,
+        "drive_folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Faro Fact",
+        "page_id": "502777659582958",
+        "folder_name": "Faro Fact",
+        "stock": 100,
+        "drive_folder_id": "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      },
+      {
+        "name": "Cosmic Mirage",
+        "page_id": "855725930966508",
+        "folder_name": "Cosmic Mirage",
+        "stock": 100,
+        "drive_folder_id": "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1",
+        "today_uploads": 0,
+        "last_upload": null,
+        "status": "In Queue (100 reels in stock)",
+        "missed": false
+      }
+    ]
+  }
+}

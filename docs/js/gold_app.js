@@ -209,6 +209,26 @@ const FLEET_USA_04_IDS = [
 
 const FLEET_USA_04_SET = new Set(FLEET_USA_04_IDS);
 
+const FLEET_USA_05_IDS = [
+  "534342423102401",  // The Daily Spark
+  "564341273430022",  // The Chill Spot
+  "497636683426759",  // Tag The
+  "877069835495630",  // Stellar Vibes
+  "615554031639811",  // Sovereign Collective
+  "1033250263200686", // Silent Grove
+  "614891248372171",  // Royal Vanguard
+  "686470024541027",  // Royal Frontier
+  "424138757454796",  // Rajat Gupta
+  "976706512196056",  // Mouth The Hang
+  "473290599201289",  // Mojo Day
+  "340559612467800",  // Fly Happy
+  "472703539265672",  // Flute Tomography Nature
+  "502777659582958",  // Faro Fact
+  "855725930966508"   // Cosmic Mirage
+];
+
+const FLEET_USA_05_SET = new Set(FLEET_USA_05_IDS);
+
 
 function enforceStrictFleetSorting(pages) {
   if (!pages || !Array.isArray(pages)) return [];
@@ -219,6 +239,7 @@ function enforceStrictFleetSorting(pages) {
   const usa2 = [];
   const usa3 = [];
   const usa4 = [];
+  const usa5 = [];
   const uk1 = [];
   const uk2 = [];
   const uk3 = [];
@@ -403,11 +424,27 @@ function enforceStrictFleetSorting(pages) {
     }
   });
 
+  FLEET_USA_05_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 141 + i + 1;
+      p.account = "Sejal Soni";
+      p.account_owner = "Sejal Soni";
+      p.account_tag = "Sejal Soni";
+      p.account_badge = "US";
+      p.box_group = "Sejal Soni";
+      p.region = "US";
+      p.country = "US";
+      p.flag = "icons/us.png";
+      usa5.push(p);
+    }
+  });
+
   // Collect any remaining pages if any
-  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_USA_04_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_USA_04_IDS, ...FLEET_USA_05_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
-  return [...usa1, ...usa2, ...usa3, ...usa4, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
+  return [...usa1, ...usa2, ...usa3, ...usa4, ...usa5, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
 }
 
 function filterVideoCategory(cat) {
@@ -3351,6 +3388,12 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 20, m: 0, label: "Slot 3" },
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 0, m: 0, label: "Slot 4" },
 
+  // Sejal Soni - 15 Pages (Google Pixel 9 Pro Anti-Detect Profile - Staggered Slot)
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 16, m: 30, label: "Slot 1" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 21, m: 30, label: "Slot 2" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 1, m: 30, label: "Slot 3" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 5, m: 0, label: "Slot 4" },
+
   // Binjal Mehra - 12 Pages
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 0, label: "Slot 2" },
@@ -3511,7 +3554,7 @@ function initAutomationRadarLiveEngine() {
         if (targetCard) targetCard.classList.add("active-next");
 
         // Dynamically update each fleet card's time to its specific next upcoming run
-        const fleetIds = ["a1", "a2", "a3", "a4", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
+        const fleetIds = ["a1", "a2", "a3", "a4", "a5", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
         fleetIds.forEach(fId => {
           let fNextSlot = null;
           let fMinDiffMs = Infinity;
@@ -5060,11 +5103,13 @@ function renderDriveInventoryList() {
     const isUK6 = FLEET_UK_06_SET.has(pid) || p.account === "UK Account 6" || p.box_group === "Sweta Shah";
     const isUK7 = (FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.box_group === "Riya Gaur") && !isUSA3;
     const isUSA4 = (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt";
+    const isUSA5 = (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni";
 
     if (currentDriveAccountFilter === "a1" && !isUSA1) return false;
     if (currentDriveAccountFilter === "a2" && !isUSA2) return false;
     if (currentDriveAccountFilter === "a3" && !isUSA3) return false;
     if (currentDriveAccountFilter === "a4" && !isUSA4) return false;
+    if (currentDriveAccountFilter === "a5" && !isUSA5) return false;
     if (currentDriveAccountFilter === "uk1" && !isUK1) return false;
     if (currentDriveAccountFilter === "uk2" && !isUK2) return false;
     if (currentDriveAccountFilter === "uk3" && !isUK3) return false;
@@ -6958,7 +7003,7 @@ async function runLiveAuditUI(e) {
       { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", isDeviceProfile: true, deviceName: "Samsung Galaxy S25 (SM-S931U)" }
     ];
 
-    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 11 Fleets...", "info", "general");
+    logAuditTerminal("🔑 [2/4] Verifying Facebook Page Access Tokens across 12 Fleets...", "info", "general");
 
     let totalValidTokens = 0;
     const tokenIssues = [];
@@ -7296,6 +7341,16 @@ function getDeviceUploadBadge(item) {
   if (isRohiniS25) {
     return `<span class="badge-device-upload" title="Emulated Mobile Device: Samsung Galaxy S25 (SM-S931U)">📱 Rohini • S25</span>`;
   }
+  const sejalPages = [
+    "the daily spark", "the chill spot", "tag the", "stellar vibes", 
+    "sovereign collective", "silent grove", "royal vanguard", "royal frontier", 
+    "rajat gupta", "mouth the hang", "mojo day", "fly happy", 
+    "flute tomography nature", "faro fact", "cosmic mirage"
+  ];
+  const isSejalPixel9 = acc.includes("sejal") || dev.includes("pixel") || prof.includes("pixel9") || sejalPages.some(sp => pName.includes(sp));
+  if (isSejalPixel9) {
+    return `<span class="badge-device-upload" style="background: rgba(167,139,250,0.18); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.4);" title="Emulated Mobile Device: Google Pixel 9 Pro (Tensor G4)">📱 Sejal • Pixel 9 Pro</span>`;
+  }
   if (item.device) {
     return `<span class="badge-device-upload">📱 ${item.device}</span>`;
   }
@@ -7351,6 +7406,55 @@ const antiDetectProfilesData = [
       { name: "Atlas Authority", stock: 61, drive_id: "1aT_AtlasAuthority_Folder_ID_Samp", folder: "Atlas Authority", status: "Healthy" },
       { name: "Im Joker", stock: 58, drive_id: "1iM_ImJoker_Folder_ID_Sample_Drive", folder: "Im Joker", status: "Healthy" },
       { name: "Drift Valley", stock: 40, drive_id: "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6", folder: "Drift Vally", status: "Healthy" }
+    ]
+  },
+  {
+    id: 2,
+    profile_code: "USA-NYC-PIXEL9",
+    name: "Google Pixel 9 Pro (US 5G)",
+    model: "Pixel 9 Pro (Tensor G4)",
+    owner: "Sejal Soni",
+    fb_uid: "61560847721711",
+    country: "USA",
+    country_flag: "🇺🇸",
+    region: "New York City, NY",
+    timezone: "America/New_York (EDT / UTC-4)",
+    dedicated_ip: "207.244.71.84 (NYC Dedicated WireGuard Proxy)",
+    cookie_status: "ACTIVE",
+    cookie_age_text: "Session Active (Long-Lived Meta Cookie)",
+    cookie_health_score: "100%",
+    total_pages: 15,
+    stock_videos: 1376,
+    stock_gb: "18.42 GB",
+    missed_uploads: 0,
+    daily_quota: 15,
+    today_uploaded: 0,
+    status_summary: "All 15 Pages In Sync • 0 Uploads Missed",
+    fingerprint: {
+      os: "Android 15 (VanillaIceCream)",
+      build: "AP2A.240905.003",
+      browser: "Chrome Mobile 134.0.6998.39",
+      screen: "1280 x 2856 (495 dpi, 120Hz)",
+      gpu: "Mali-G715-Immortalis (Google Tensor G4)",
+      webrtc: "Protected (Disabled / Isolated via WireGuard)",
+      canvas: "Anti-Fingerprint Noise Injected (Emulated)"
+    },
+    pages: [
+      { name: "The Daily Spark", stock: 100, drive_id: "16deNYAwBPFU7bcXZffCt2F242_XeRvIP", folder: "The Daily Spark", status: "Healthy" },
+      { name: "The Chill Spot", stock: 100, drive_id: "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ", folder: "The Chill Spot", status: "Healthy" },
+      { name: "Tag The", stock: 100, drive_id: "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z", folder: "Tag The", status: "Healthy" },
+      { name: "Stellar Vibes", stock: 31, drive_id: "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl", folder: "Stellar Vibes", status: "Healthy" },
+      { name: "Sovereign Collective", stock: 100, drive_id: "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt", folder: "Sovereign Collective", status: "Healthy" },
+      { name: "Silent Grove", stock: 100, drive_id: "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy", folder: "Silent Grove", status: "Healthy" },
+      { name: "Royal Vanguard", stock: 100, drive_id: "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU", folder: "Royal Vanguard", status: "Healthy" },
+      { name: "Royal Frontier", stock: 45, drive_id: "18LJsnXYPZPmPiX922GOyJaahKkIv01_J", folder: "Royal Frontier", status: "Healthy" },
+      { name: "Rajat Gupta", stock: 100, drive_id: "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0", folder: "Rajat Gupta", status: "Healthy" },
+      { name: "Mouth The Hang", stock: 100, drive_id: "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR", folder: "Mouth The hang", status: "Healthy" },
+      { name: "Mojo Day", stock: 100, drive_id: "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql", folder: "Mojo Day", status: "Healthy" },
+      { name: "Fly Happy", stock: 100, drive_id: "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH", folder: "Fly Happy", status: "Healthy" },
+      { name: "Flute Tomography Nature", stock: 100, drive_id: "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk", folder: "Flute Tomography Nature", status: "Healthy" },
+      { name: "Faro Fact", stock: 100, drive_id: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", folder: "Faro Fact", status: "Healthy" },
+      { name: "Cosmic Mirage", stock: 100, drive_id: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", folder: "Cosmic Mirage", status: "Healthy" }
     ]
   }
 ];
@@ -7558,9 +7662,11 @@ async function runDeviceDiagnostic(deviceId) {
     consoleEl.innerHTML = "";
   }
 
-  showToast("📱 Starting Real-Time S25 Device & Cookie Audit...");
+  const isPixel = (deviceId === 2 || String(deviceId).includes("pixel") || String(deviceId).includes("sejal"));
+  const devTitle = isPixel ? "PIXEL 9 PRO (SEJAL SONI)" : "S25 (ROHINI DUTT)";
+  showToast(`📱 Starting Real-Time ${devTitle} Device & Cookie Audit...`);
   logDeviceTerminal(deviceId, "=======================================================================", "header");
-  logDeviceTerminal(deviceId, "🚀 INITIATING REAL-TIME S25 HARDWARE & COOKIE INTEGRITY AUDIT", "header");
+  logDeviceTerminal(deviceId, `🚀 INITIATING REAL-TIME ${devTitle} HARDWARE & COOKIE INTEGRITY AUDIT`, "header");
   logDeviceTerminal(deviceId, "=======================================================================", "header");
 
   await sleep(180);
@@ -7573,29 +7679,32 @@ async function runDeviceDiagnostic(deviceId) {
   await sleep(180);
 
   // Step 2: Device Emulation Profile
-  logDeviceTerminal(deviceId, "Verifying hardware profile: Samsung Galaxy S25 (SM-S931U • Android 15)...", "step");
+  logDeviceTerminal(deviceId, isPixel ? "Verifying hardware profile: Google Pixel 9 Pro (Tensor G4 • Android 15)..." : "Verifying hardware profile: Samsung Galaxy S25 (SM-S931U • Android 15)...", "step");
   await sleep(220);
-  logDeviceTerminal(deviceId, "Emulation Verified: Snapdragon 8 Elite • Chrome 134 • Canvas/WebGL Noise Active • WebRTC Isolated", "success");
+  logDeviceTerminal(deviceId, isPixel ? "Emulation Verified: Google Tensor G4 • Mali-G715 • Chrome 134 • Canvas/WebGL Noise Active • WebRTC Isolated" : "Emulation Verified: Snapdragon 8 Elite • Chrome 134 • Canvas/WebGL Noise Active • WebRTC Isolated", "success");
 
   await sleep(200);
 
   // Step 3: Fetch Real Data from Server / JSON
-  logDeviceTerminal(deviceId, "Querying live session cookie vault from data/profiles/samsung_s25_newyork/cookies.json...", "step");
+  const healthFile = isPixel ? "data/pixel9_device_health.json" : "data/s25_device_health.json";
+  const cookiePath = isPixel ? "data/profiles/google_pixel9_newyork/cookies.json" : "data/profiles/samsung_s25_newyork/cookies.json";
+  logDeviceTerminal(deviceId, `Querying live session cookie vault from ${cookiePath}...`, "step");
   
   let healthData = null;
   try {
-    const res = await fetch(`data/s25_device_health.json?v=${Date.now()}`, { cache: "no-store" });
+    const res = await fetch(`${healthFile}?v=${Date.now()}`, { cache: "no-store" });
     if (res.ok) {
       healthData = await res.json();
     }
   } catch (err) {
-    console.warn("Could not fetch s25_device_health.json directly:", err);
+    console.warn(`Could not fetch ${healthFile} directly:`, err);
   }
 
   await sleep(260);
 
   // Fallback defaults if healthData fetch failed
-  const cUser = healthData?.cookies?.c_user || "61570977560611";
+  const cUser = healthData?.cookies?.c_user || (isPixel ? "61560847721711" : "61570977560611");
+  const ownerName = isPixel ? "Sejal Soni" : "Rohini Dutt";
   const daysLeft = healthData?.cookies?.days_remaining !== undefined ? healthData.cookies.days_remaining : 364.9;
   const isExpired = healthData?.cookies?.is_expired || false;
   const xsValid = healthData?.cookies?.xs_valid !== false;
@@ -7608,7 +7717,7 @@ async function runDeviceDiagnostic(deviceId) {
   await sleep(200);
 
   // Step 4: Validate c_user & Account State
-  logDeviceTerminal(deviceId, `Validating Facebook Account UID: c_user = ${cUser} (Owner: Rohini Dutt)...`, "step");
+  logDeviceTerminal(deviceId, `Validating Facebook Account UID: c_user = ${cUser} (Owner: ${ownerName})...`, "step");
   await sleep(220);
   if (healthData?.cookies?.status === "REVOKED_OR_SECRET_MISSING" || !xsValid || isExpired) {
     logDeviceTerminal(deviceId, `⚠️ UID ${cUser} Located, BUT Session Authentication Failed or Revoked!`, "warn");
@@ -7999,6 +8108,7 @@ async function renderMetaToolsHubView() {
   if (accountsGrid) {
     const accountConfigs = [
       { id: "samsung_s25_newyork", name: "Samsung S25 (Rohini Dutt)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
+      { id: "google_pixel9_newyork", name: "Pixel 9 Pro (Sejal Soni)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
       { id: "usa_account1_meghal", name: "USA 1 (Meghal Chauhan)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
       { id: "usa_account2_mia", name: "USA 2 (Mia Shah)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },
       { id: "usa_account3_radika", name: "USA 3 (Radika Patel)", region: "US", flag: "🇺🇸", pages: 15, status: "LIVE", cookies: "10 Cookies Active", time: "364.9d left" },

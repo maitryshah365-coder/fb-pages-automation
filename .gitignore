@@ -44,3 +44,4 @@ scripts/fetch_account2.py
 **/chrome_user_data/
 *cookies*.json
 !data/profiles/samsung_s25_newyork/cookies.json
+!data/profiles/google_pixel9_newyork/cookies.json

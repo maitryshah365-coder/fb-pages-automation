@@ -1,0 +1,153 @@
+page_group: usa_account_5_sejal
+account_name: Sejal Soni
+country_code: US
+target_location: New York, New York, United States
+require_us_ip: true
+require_uk_ip: false
+device_profile: google_pixel9_newyork
+device_model: Google Pixel 9 Pro (US 5G)
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '534342423102401'
+  name: page_144
+  display_name: The Daily Spark
+  enabled: true
+  drive_folder_id: 16deNYAwBPFU7bcXZffCt2F242_XeRvIP
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '564341273430022'
+  name: page_145
+  display_name: The Chill Spot
+  enabled: true
+  drive_folder_id: 1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '497636683426759'
+  name: page_146
+  display_name: Tag The
+  enabled: true
+  drive_folder_id: 1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '877069835495630'
+  name: page_147
+  display_name: Stellar Vibes
+  enabled: true
+  drive_folder_id: 1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '615554031639811'
+  name: page_148
+  display_name: Sovereign Collective
+  enabled: true
+  drive_folder_id: 1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '1033250263200686'
+  name: page_149
+  display_name: Silent Grove
+  enabled: true
+  drive_folder_id: 1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '614891248372171'
+  name: page_150
+  display_name: Royal Vanguard
+  enabled: true
+  drive_folder_id: 1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '686470024541027'
+  name: page_151
+  display_name: Royal Frontier
+  enabled: true
+  drive_folder_id: 18LJsnXYPZPmPiX922GOyJaahKkIv01_J
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '424138757454796'
+  name: page_152
+  display_name: Rajat Gupta
+  enabled: true
+  drive_folder_id: 1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '976706512196056'
+  name: page_153
+  display_name: Mouth The Hang
+  enabled: true
+  drive_folder_id: 1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '473290599201289'
+  name: page_154
+  display_name: Mojo Day
+  enabled: true
+  drive_folder_id: 1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '340559612467800'
+  name: page_155
+  display_name: Fly Happy
+  enabled: true
+  drive_folder_id: 1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '472703539265672'
+  name: page_156
+  display_name: Flute Tomography Nature
+  enabled: true
+  drive_folder_id: 1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '502777659582958'
+  name: page_157
+  display_name: Faro Fact
+  enabled: true
+  drive_folder_id: 1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+
+- page_id: '855725930966508'
+  name: page_158
+  display_name: Cosmic Mirage
+  enabled: true
+  drive_folder_id: 1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []

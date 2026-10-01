@@ -87,3 +87,49 @@ S25_NEWYORK_PROFILE = DeviceProfile(
     network_downlink_mbps=45.0,
     network_rtt_ms=30
 )
+
+
+# --------------------------------------------------------------------------
+# Google Pixel 9 Pro (US Model GEC77) • New York Dedicated Profile
+# Owner: Sejal Soni (USA Account 5)
+# --------------------------------------------------------------------------
+PIXEL9_NEWYORK_PROFILE = DeviceProfile(
+    profile_id="google_pixel9_newyork",
+    device_name="Google Pixel 9 Pro (US 5G)",
+    brand="Google",
+    model="Pixel 9 Pro",
+    os_name="Android",
+    os_version="15",
+    user_agent=(
+        "Mozilla/5.0 (Linux; Android 15; Pixel 9 Pro) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/134.0.6998.39 Mobile Safari/537.36"
+    ),
+    platform="Linux armv8l",
+    viewport_width=412,
+    viewport_height=892,
+    device_scale_factor=2.625,
+    is_mobile=True,
+    has_touch=True,
+    max_touch_points=5,
+    hardware_concurrency=8,        # Google Tensor G4 8-core
+    device_memory_gb=16,           # 16 GB LPDDR5X RAM
+    webgl_vendor="ARM",
+    webgl_renderer="Mali-G715 Immortalis MC10",
+    battery_level=0.91,            # 91% Battery
+    battery_charging=False,
+    battery_discharging_time=36000, # 10 hours
+    
+    # New York, USA Telemetry (Midtown Manhattan Node)
+    timezone_id="America/New_York",
+    locale="en-US",
+    languages=["en-US", "en"],
+    latitude=40.7580,              # Manhattan Center
+    longitude=-73.9855,            # Manhattan Center
+    accuracy=10.0,                 # High-accuracy GPS lock
+    
+    network_effective_type="4g",
+    network_downlink_mbps=55.0,
+    network_rtt_ms=25
+)
+

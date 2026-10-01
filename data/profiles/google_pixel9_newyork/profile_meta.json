@@ -1,0 +1,18 @@
+{
+  "profile_id": "google_pixel9_newyork",
+  "device_name": "Google Pixel 9 Pro (US 5G)",
+  "brand": "Google",
+  "model": "Pixel 9 Pro",
+  "os_version": "15",
+  "timezone_id": "America/New_York",
+  "locale": "en-US",
+  "latitude": 40.758,
+  "longitude": -73.9855,
+  "viewport": {
+    "width": 412,
+    "height": 892,
+    "dpr": 2.625
+  },
+  "user_data_dir": "E:\\Anty Working\\Google_Drive_to_Facebook_Automation_Master_Spec\\data\\profiles\\google_pixel9_newyork\\chrome_user_data",
+  "updated_at": "2026-10-01T14:29:52.385087+00:00"
+}
