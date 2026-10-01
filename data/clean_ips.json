@@ -461,7 +461,14 @@
       "city": "London",
       "org": "AS9009 M247 Europe SRL",
       "success_count": 1
+    },
+    "194.54.144.83": {
+      "last_verified_at": "2026-10-01T14:43:09.352045+00:00",
+      "country": "US",
+      "city": "New York City",
+      "org": "AS62240 Clouvider",
+      "success_count": 1
     }
   },
-  "updated_at": "2026-10-01T13:23:05.280084+00:00"
+  "updated_at": "2026-10-01T14:43:09.352028+00:00"
 }
