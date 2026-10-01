@@ -3364,7 +3364,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:52:57.620051+00:00"
+          "verified_at": "2026-10-01T18:54:54.295297+00:00"
         },
         {
           "name": "Heavy Whistle",
@@ -3403,7 +3403,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:53:07.705452+00:00"
+          "verified_at": "2026-10-01T18:55:03.937208+00:00"
         },
         {
           "name": "Lost Glossary",
@@ -3442,7 +3442,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:53:17.286668+00:00"
+          "verified_at": "2026-10-01T18:55:12.832648+00:00"
         },
         {
           "name": "Noble Frequency",
@@ -3481,7 +3481,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:53:26.836139+00:00"
+          "verified_at": "2026-10-01T18:55:22.158402+00:00"
         },
         {
           "name": "Prime Syndicate",
@@ -3520,7 +3520,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:53:35.931476+00:00"
+          "verified_at": "2026-10-01T18:55:30.933608+00:00"
         },
         {
           "name": "Empire Catalyst",
@@ -3559,7 +3559,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:53:45.382058+00:00"
+          "verified_at": "2026-10-01T18:55:39.949434+00:00"
         },
         {
           "name": "Obsidian Theory",
@@ -3598,7 +3598,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:53:54.126175+00:00"
+          "verified_at": "2026-10-01T18:55:48.693060+00:00"
         },
         {
           "name": "Nova District",
@@ -3637,7 +3637,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:54:03.115509+00:00"
+          "verified_at": "2026-10-01T18:55:58.173709+00:00"
         },
         {
           "name": "New Moon Diaries",
@@ -3676,7 +3676,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:54:12.224488+00:00"
+          "verified_at": "2026-10-01T18:56:06.925126+00:00"
         },
         {
           "name": "Dream Harbor",
@@ -3715,7 +3715,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:54:21.064731+00:00"
+          "verified_at": "2026-10-01T18:56:15.446759+00:00"
         },
         {
           "name": "Maple Vision",
@@ -3754,7 +3754,7 @@
             }
           },
           "verified_live": true,
-          "verified_at": "2026-10-01T18:54:30.173103+00:00"
+          "verified_at": "2026-10-01T18:56:24.807647+00:00"
         },
         {
           "name": "Perez  Steven",
@@ -3762,8 +3762,8 @@
           "followers": 8716,
           "total_views": 23346,
           "overall_status": "No Monetization Violations",
-          "content_monetization": "Waitlist criteria\u25bc",
-          "subscriptions": "Criteria Not Met",
+          "content_monetization": "Criteria Not Met",
+          "subscriptions": "Set Up",
           "stars": "Set Up",
           "branded_content": "Active & Compliant",
           "policy_details": "No Violations (Clean)",
@@ -3791,7 +3791,9 @@
               "met": true,
               "label": "Partner Monetization Policy Compliance"
             }
-          }
+          },
+          "verified_live": true,
+          "verified_at": "2026-10-01T18:56:35.509275+00:00"
         }
       ],
       "total_pages": 12
@@ -5728,5 +5730,5 @@
     }
   ],
   "total_waitlist_criteria": 43,
-  "last_live_audit_at": "2026-10-01T18:54:30.173144+00:00"
+  "last_live_audit_at": "2026-10-01T18:56:35.509330+00:00"
 }
