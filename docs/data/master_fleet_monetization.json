@@ -5642,7 +5642,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:04:51.536927+00:00"
         },
         {
           "name": "The Chill Spot",
@@ -5654,7 +5656,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:04:56.545760+00:00"
         },
         {
           "name": "Tag The",
@@ -5666,7 +5670,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:01.625542+00:00"
         },
         {
           "name": "Stellar Vibes",
@@ -5678,7 +5684,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:06.460341+00:00"
         },
         {
           "name": "Sovereign Collective",
@@ -5690,7 +5698,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:11.369776+00:00"
         },
         {
           "name": "Silent Grove",
@@ -5702,7 +5712,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:16.179307+00:00"
         },
         {
           "name": "Royal Vanguard",
@@ -5714,7 +5726,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:21.055679+00:00"
         },
         {
           "name": "Royal Frontier",
@@ -5726,7 +5740,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:25.972308+00:00"
         },
         {
           "name": "Rajat Gupta",
@@ -5738,7 +5754,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:30.751899+00:00"
         },
         {
           "name": "Mouth The Hang",
@@ -5750,7 +5768,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:35.659089+00:00"
         },
         {
           "name": "Mojo Day",
@@ -5762,7 +5782,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:40.734133+00:00"
         },
         {
           "name": "Fly Happy",
@@ -5774,7 +5796,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:45.662736+00:00"
         },
         {
           "name": "Flute Tomography Nature",
@@ -5786,7 +5810,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:50.407995+00:00"
         },
         {
           "name": "Faro Fact",
@@ -5798,7 +5824,9 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:05:55.299874+00:00"
         },
         {
           "name": "Cosmic Mirage",
@@ -5810,11 +5838,13 @@
           "subscriptions": "Criteria Not Met",
           "stars": "Criteria Not Met",
           "policy_details": "No Violations (Clean)",
-          "recommendation": "Recommendable"
+          "recommendation": "Recommendable",
+          "verified_live": true,
+          "verified_at": "2026-10-01T19:06:00.254878+00:00"
         }
       ]
     }
   ],
   "total_waitlist_criteria": 43,
-  "last_live_audit_at": "2026-10-01T19:04:32.062365+00:00"
+  "last_live_audit_at": "2026-10-01T19:06:00.254901+00:00"
 }
