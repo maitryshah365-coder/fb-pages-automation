@@ -23,7 +23,8 @@ accounts_config = [
     {"account_id": "uk_account4_nidhi",   "account_name": "Nidhi Desai (UK 4)",       "owner": "Nidhi Desai",     "region": "UK", "device": "Google Pixel 8 Pro UK",     "status": "ACTIVE_AUTHENTICATED"},
     {"account_id": "uk_account5_richi",   "account_name": "Richi Patel (UK 5)",       "owner": "Richi Patel",     "region": "UK", "device": "Nothing Phone 2 UK",        "status": "ACTIVE_AUTHENTICATED"},
     {"account_id": "uk_account6_sweta",   "account_name": "Sweta Shah (UK 6)",        "owner": "Sweta Shah",      "region": "UK", "device": "OnePlus Open UK",           "status": "ACTIVE_AUTHENTICATED"},
-    {"account_id": "uk_account7_riya",    "account_name": "Riya (UK 7)",              "owner": "Riya Gaur",       "region": "UK", "device": "Motorola Edge 50 Ultra UK", "status": "ACTIVE_AUTHENTICATED"}
+    {"account_id": "uk_account7_riya",    "account_name": "Riya (UK 7)",              "owner": "Riya Gaur",       "region": "UK", "device": "Motorola Edge 50 Ultra UK", "status": "ACTIVE_AUTHENTICATED"},
+    {"account_id": "google_pixel9_newyork","account_name": "Sejal Soni (USA 5)",       "owner": "Sejal Soni",      "region": "US", "device": "Google Pixel 9 Pro (US 5G)", "status": "ACTIVE_AUTHENTICATED"}
 ]
 
 # Build accurate monetization node for each page
@@ -34,8 +35,10 @@ def get_acc_id_for_page(p):
     acc = p.get("account", "").lower()
     owner = p.get("account_owner", "").lower()
     tag = p.get("account_tag", "").lower()
-    full_str = f"{acc} {owner} {tag}"
+    prof = p.get("device_profile", "").lower()
+    full_str = f"{acc} {owner} {tag} {prof}"
 
+    if "sejal" in full_str or "pixel9" in full_str: return "google_pixel9_newyork"
     if "meghal" in full_str: return "usa_account1_meghal"
     if "mia" in full_str: return "usa_account2_mia"
     if "radika" in full_str: return "usa_account3_radika"
@@ -47,7 +50,7 @@ def get_acc_id_for_page(p):
     if "richi" in full_str: return "uk_account5_richi"
     if "sweta" in full_str: return "uk_account6_sweta"
     if "riya" in full_str: return "uk_account7_riya"
-    return "usa_account1_meghal"
+    return "google_pixel9_newyork" if "pixel" in full_str else "usa_account1_meghal"
 
 total_stars_active = 0
 total_subs_ready = 0

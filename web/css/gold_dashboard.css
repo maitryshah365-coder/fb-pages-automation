@@ -8400,3 +8400,34 @@ body {
 }
 
 
+
+
+/* Mobile Phone Setup (Google Pixel 9 Pro / Sejal Soni) */
+.sidebar-box-usa5,
+.drawer-account-section.sec-pixel9,
+.sidebar-section-box.sidebar-box-pixel9,
+.drawer-account-section.drawer-box-pixel9 {
+  border-color: rgba(167, 139, 250, 0.35) !important;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(91, 33, 182, 0.22) 100%) !important;
+}
+
+.sidebar-box-usa5:hover,
+.drawer-account-section.sec-pixel9:hover,
+.sidebar-section-box.sidebar-box-pixel9:hover,
+.drawer-account-section.drawer-box-pixel9:hover {
+  border-color: rgba(167, 139, 250, 0.7) !important;
+}
+
+.sidebar-box-usa5.expanded,
+.drawer-account-section.sec-pixel9.open,
+.sidebar-section-box.sidebar-box-pixel9.expanded,
+.drawer-account-section.drawer-box-pixel9.open {
+  border-color: #a78bfa !important;
+  box-shadow: 0 4px 18px rgba(167, 139, 250, 0.25) !important;
+}
+
+.mobile-badge-chip.pixel9 {
+  background: rgba(167, 139, 250, 0.18) !important;
+  color: #c4b5fd !important;
+  border: 1px solid rgba(167, 139, 250, 0.4) !important;
+}
