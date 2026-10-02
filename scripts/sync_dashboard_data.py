@@ -166,21 +166,21 @@ FLEET_USA_03_IDS = [
 ]
 
 FLEET_USA_04_IDS = [
-    "usa4_p01_apex_house",
-    "usa4_p02_quantum_house",
-    "usa4_p03_drift_valley",
-    "usa4_p04_dreams_of_life",
-    "usa4_p05_end_every",
-    "usa4_p06_executive_empire",
-    "usa4_p07_im_joker",
-    "usa4_p08_iron_covenant",
-    "usa4_p09_iron_momentum",
-    "usa4_p10_me_the",
-    "usa4_p11_quiet_harbor",
-    "usa4_p12_radiant_reverie",
-    "usa4_p13_bit_creative",
-    "usa4_p14_atlas_authority",
-    "usa4_p15_blissful_paradox"
+    "497577420112654",  # Apex House
+    "487987684400252",  # Quantum House
+    "960803123790692",  # Drift Valley
+    "923484537514216",  # Dreams Of Life
+    "511317578722941",  # End Every
+    "416325608224715",  # Executive Empire
+    "467407709785240",  # I'm Joker
+    "223604537511488",  # Iron Covenant
+    "730487193489250",  # Iron Momentum
+    "514016115120845",  # Me The
+    "1009759155555480", # Quiet Harbor
+    "922808234251176",  # Radiant Reverie
+    "288008221072106",  # Bit Creative
+    "243414155514799",  # Atlas Authority
+    "921493174379801"   # Blissful Paradox
 ]
 
 
@@ -704,6 +704,17 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "ip": live_ip,
             "city": "New York",
             "region": "New York (11419)",
+            "country": "United States",
+            "country_name": "United States",
+            "org": "AS20949 Surfshark Ltd (New York Gateway)",
+            "flag": "🇺🇸",
+            "timestamp": "Verified New York Egress"
+        }
+    elif pid in FLEET_USA_04_IDS or "Rohini" in acc_owner or "Rohini" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "New York",
+            "region": "New York (10001)",
             "country": "United States",
             "country_name": "United States",
             "org": "AS20949 Surfshark Ltd (New York Gateway)",

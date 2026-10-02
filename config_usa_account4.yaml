@@ -4,8 +4,7 @@ country_code: US
 target_location: New York, New York, United States
 require_us_ip: true
 require_uk_ip: false
-device_profile: samsung_s25_newyork
-device_model: Samsung Galaxy S25 (SM-S931U)
+ai_disclosure_status: pending_determination
 delete_after_post: true
 database:
   path: data/posted_videos.db
@@ -24,130 +23,146 @@ pages:
   drive_folder_id: 14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p02'
+  page_access_token: EAAP0RmwU8DgBSk9crrlem8lH7ZAZBApH33ILcjZCcGJgnEBH6xf5PrRG7KQ2Ygek4BJ2ytJMqCUY1YoHCHMPF2ZCjcUZAu88AmibToljjJixPImIIDqtad5ZBYZCkDEhDou1yUeofmyVLxJCmswTodSxOhOIpIIWI30oy6nZABJU1bDvX0X5eVnjOZBj9OJaZCZAJGDZCtfcc4S5
+- page_id: '487987684400252'
   name: page_47
   display_name: Quantum House
   enabled: true
   drive_folder_id: 10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p03'
+  page_access_token: EAAP0RmwU8DgBSk8rGwTnbdmZCG3O3o7iRz1oOXJCZBrZAhZCMTJ5AYpfA2brBIEaWJvZC8R2aIu71ZCH1pCjHZAbHOfo4Lzmg2WTuoimkO50cxhjN4TlT6J6yofE6EHX5jNk4g5wiJxkbJkZC9ZBHhvEcXxwQdee4ErDxwubyViDWoVuPhv1jqHpwE351sM6vPohfbkOmzdeK
+- page_id: '960803123790692'
   name: page_48
   display_name: Drift Valley
   enabled: true
   drive_folder_id: 1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p04'
+  page_access_token: EAAP0RmwU8DgBSjgEQve5dppEr3c6HuhuI0tHn4vOoVpEtWtXmjMMA7B3ZBqPmlIx2vPhAQ1y2iGFgsfHCxa7GxQZBk48NHPpxDSowLEIeoJMEya9WuA62Nqi5B4E0ApwBZA7YereuULZBFQS5RiPTW6bpG7rbODnKdccfwqcvXMJoO9xkW6x5CctkSST2ZAAUxlVRDgVu
+- page_id: '923484537514216'
   name: page_49
   display_name: Dreams Of Life
   enabled: true
   drive_folder_id: 19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p05'
+  page_access_token: EAAP0RmwU8DgBSiUr44EHGtx1J6lOxd2RjZACQgAp56KXj32xkyBMpZAOOkudPp4cBo5YMKIUrzVz57wQd2ZAGtFuQfZCnZBFj3u5QMxn4kl953LtUsuoa8CUPQrVwhSvtftK6GlIfBZCnZCDlCSekHmloJVHt0Ywq8yEPrfTRbBx7QVYJSwIlboWZAtsb3aY5OF2Qf3oLoE2
+- page_id: '511317578722941'
   name: page_50
   display_name: End Every
   enabled: true
   drive_folder_id: 1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p06'
+  page_access_token: EAAP0RmwU8DgBSraA8k6pILBQ5J6P98LQpIv16ztK638EOifgojmoCmzfjU8pHrVSyyWB1EKKJ5uONrCrig0p6KszvncxVRzWAOng1SuYbkUGszd5Sddm4eolPig6Rmp6mDrVIEdoEJIIgJZBk7DBkpqZCiHmYvrOuxzSX7HlrZB4R52ZB1aH2FF1xeFV3XdhEx72Bgzf
+- page_id: '416325608224715'
   name: page_51
   display_name: Executive Empire
   enabled: true
   drive_folder_id: 16G_A0S1w-1qKtY56Y4-4NL21rmCRa67H
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p07'
+  page_access_token: EAAP0RmwU8DgBStNwTUDjNATuhh1WJmJ91u4ZC9AwlE4LMkSz9kZCyLqlKVszxdlcZBZCZBtHP8tstWYSIOFrt9QVLzgPs11fyilSmodjhTZBgxrdXuBnAZASAEZATkWmFAixSHi45JIfGmZADBOyLwopnNQY4xfPynesvZAFE4KoE5PBBTpsn9iUP7ECu8MfjYoprWt3MAM6RK
+- page_id: '467407709785240'
   name: page_52
   display_name: I'm Joker
   enabled: true
   drive_folder_id: 1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p08'
+  page_access_token: EAAP0RmwU8DgBSpZA8eT4ZAo0vvhAJcnYZBzA2IaZCxvVNd7SZArDzDUg3crn349473PlGM7ZAJzvcP7kZBNOIpTYqrbDp55baX1aEZBbLjYnjIOZAExanrBo15WLELBY8eXW5qu6hhTVkJCQ4ZCZAMKm5S7SQoPR6ar32gNqpCfVZC6HhgbukFtFAYnDLLhrzIiwRxuTZAZBZCiCIpY
+- page_id: '223604537511488'
   name: page_53
   display_name: Iron Covenant
   enabled: true
   drive_folder_id: 1GoRZAiud2KVabAzU2Q4OWHKoAaU11zC7
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p09'
+  page_access_token: EAAP0RmwU8DgBSvtUflZC86HZCCz1ug5DCL7Gipg5E5VZASDo6UoBSr2fXIXDmQkzMe3KXrTZCANuGG0F4fKgkl4EVZAQE06hRs1V7BwFzuvqcZBcZAkOUIK3VX3MzZA6lrDNvNXTZBa8mPZAZAyaVGMyicj87fOjfwmKMxCc8PvyYfbT6DWh9MZA1LlazsAedA8ZAqas5p5CGVYkZD
+- page_id: '730487193489250'
   name: page_54
   display_name: Iron Momentum
   enabled: true
   drive_folder_id: 1K7M6j7yLorT0D7vrE54oDf-uv76NIxFk
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p10'
+  page_access_token: EAAP0RmwU8DgBSsJbHN0XEFRhsBGLbKssjIaPokWx8HRrDDCYAZCCAaDYSedZBPu3eC6zW8Xj6CrOFenUoU6imtwhFG2Iavn9ozOCTHzAsWuicRZBxk2Ul2kJkjihQu7bSMR7BOZCQrw3mlWYA2Yeu7LKnzJ4kt1NwFO34OqRwi9tpr0JlgtysshJUeUm76Nvla5j25Yh
+- page_id: '514016115120845'
   name: page_55
   display_name: Me The
   enabled: true
   drive_folder_id: 1Vz4kZntHTFPBjdvHe9q_YA9ZUzSwzKUu
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p11'
+  page_access_token: EAAP0RmwU8DgBSo5TMo7ZACIOqzGghhvbVxxZAq8BBWnNAIvFz9oHZCjkVahgx4ZCeWFIygaefWfIYnDOk8rzPAeZCloyJoP7q4CyBShgFpBawRSNo0xPj1RpfZAmVlblNiR72p3CvWPdLKc0UQ6zTEid1WWpQgveKPc56dZBcZBg6PiNUj6IKsZA3k5i0OT1XHrXBNX6qpV0G
+- page_id: '1009759155555480'
   name: page_56
   display_name: Quiet Harbor
   enabled: true
   drive_folder_id: 1ev3fnutc97DsHMqjaxDeKRvBQQO_s5LM
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p12'
+  page_access_token: EAAP0RmwU8DgBSrrrPxCLwMUJNH1nB7fTJbgZBfTB0C5v4vWShmyH9GTvbD2awmgk6IhKRU6SGV4M3WLTOwrrPwe920N6YtXjZCvwNRtwmGpRkK724QZAYJ7NJHsV6Q0JJRVilsjXjzSiLO5B8u5XTD24LQpq5xAzMgoTaYcxToRitsZCtSqzIjjO34dgXTLp7Fs8nbqy
+- page_id: '922808234251176'
   name: page_57
   display_name: Radiant Reverie
   enabled: true
   drive_folder_id: 1f4vLojPquQpfK3Cd6XsIxXxME6D_i2Lt
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p13'
+  page_access_token: EAAP0RmwU8DgBShoFQEZCUKaeUqbi3aYyz9UEoAVGO7XE81ZBVmRokfARZC164nk8uYWPPfr4064eH1Ob49jpEZCY1pRCKuxd3bbkiIuZC6MXwEwWZB1Qn8qJDlJvu1QrUNEt2g7iUZBYaqM02V0MUgZBApj6yZC9k4M7GNNP7b6dUGPUKTAYKxgaMjTKrDKzu7SoGBtpItm3W
+- page_id: '288008221072106'
   name: page_58
   display_name: Bit Creative
   enabled: true
   drive_folder_id: 1gVt2gs2Dx7CxfPvn2RbOb29pHWVNotLC
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p14'
+  page_access_token: EAAP0RmwU8DgBSpFxpW09gjkyp25JEAgdBRDvgLEezA4xkYNruiicCA0RE6J8hXe7vybZCw8Qsjg1CEKZCxBGynfeOn2BpiS1rXSFivtv6ucUPwzOQXZAjMD31LKiO7Ah0b50812vlU6CtDBEy7JT4D2HD4bE6j7PHE9ha9mAfZCq6YMsxyEmZA0G3Efvy8BNlM8z7GcBw
+- page_id: '243414155514799'
   name: page_59
   display_name: Atlas Authority
   enabled: true
   drive_folder_id: 1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
-
-- page_id: 'usa4_p15'
+  page_access_token: EAAP0RmwU8DgBSgdThiaXbF4NjonMIoNkNTxx7FUGoWmU2VSYegvGJGOMjyYZBQpAZBVpaF5mnJvciZCwZC773ktwvVzFrWxx3s5wwM7yECvKkDsrcZBBmONU1JtZA3ipwcKZCwrhZBFLNNcNPV1sSS0sE5Nh7sE5ZAuTNfTiIwuRft4hVZBbLNzdjE9lVGOsIQt32lrlR5s6UZD
+- page_id: '921493174379801'
   name: page_60
   display_name: Blissful Paradox
   enabled: true
   drive_folder_id: 1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a
   daily_limit: 4
   title_mode: filename
+  description_footer: ''
   default_hashtags: []
+  page_access_token: EAAP0RmwU8DgBSv5qS2LIP7MchjYznvSZARH8B9MDofL4hLZBeqdCSU7I0K7IV1wut3ANSC4ZBnY5uQPLdZAd5zSDlIItCVwhvgGcZBtIfOy1QF7IXZBJFCw7Y6IyRO3IUlvaeTohLAZA1juCdIpIC3sxvE62FtpbIEjLMnTN44ueiX5wNDJz90cdFcYHwPrIuROIOKSKHRu

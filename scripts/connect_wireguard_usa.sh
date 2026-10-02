@@ -33,6 +33,11 @@ elif [[ "$TARGET_LOC_LOWER" == *"radika"* ]] || [[ "$TARGET_LOC_LOWER" == *"1141
     TARGET_PUBKEY="rhuoCmHdyYrh0zW3J0YXZK4aN3It7DD26TXlACuWnwU="
     TARGET_REGION_DESC="New York, New York (11419) [Account 3 - Radika Patel]"
     TARGET_CITY="New York"
+elif [[ "$TARGET_LOC_LOWER" == *"rohini"* ]] || [[ "$TARGET_LOC_LOWER" == *"account_4"* ]] || [[ "$TARGET_LOC_LOWER" == *"usa4"* ]]; then
+    TARGET_ENDPOINT="us-nyc.prod.surfshark.com:51820"
+    TARGET_PUBKEY="rhuoCmHdyYrh0zW3J0YXZK4aN3It7DD26TXlACuWnwU="
+    TARGET_REGION_DESC="New York, New York [Account 4 - Rohini Dutt]"
+    TARGET_CITY="New York"
 else
     # Default fallback to New York
     TARGET_ENDPOINT="us-nyc.prod.surfshark.com:51820"
