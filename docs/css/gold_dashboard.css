@@ -701,8 +701,7 @@ body {
   flex-wrap: wrap;
 }
 
-.page-item-id-pill,
-.side-page-id-pill {
+.page-item-id-pill {
   font-family: 'SF Mono', Consolas, 'Courier New', monospace;
   font-size: 10.5px;
   font-weight: 600;
@@ -715,6 +714,27 @@ body {
   line-height: 1.25;
   display: inline-flex;
   align-items: center;
+  user-select: all;
+  -webkit-user-select: all;
+}
+
+.side-page-id-pill {
+  font-family: 'JetBrains Mono', Consolas, monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: #f5ba23;
+  background: rgba(245, 186, 35, 0.12);
+  border: 1px solid rgba(245, 186, 35, 0.28);
+  padding: 1px 4px;
+  border-radius: 4px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  max-width: 86px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 1;
   user-select: all;
   -webkit-user-select: all;
 }
@@ -3380,9 +3400,9 @@ body {
 
 /* Fixed/Sticky Left Navigation Sidebar Panel (Desktop / Web) */
 .studio-left-sidebar {
-  width: 300px;
-  min-width: 300px;
-  max-width: 300px;
+  width: 325px;
+  min-width: 325px;
+  max-width: 325px;
   background: #080b11;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   position: sticky;
@@ -3392,7 +3412,7 @@ body {
   overscroll-behavior: auto;
   overscroll-behavior-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 16px 12px 30px;
+  padding: 14px 10px 30px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -3808,7 +3828,7 @@ body {
 
 .sidebar-section-box.expanded .sidebar-box-body {
   display: block;
-  padding: 4px 4px 6px;
+  padding: 4px 2px 6px;
   box-sizing: border-box;
   width: 100%;
   overflow: visible !important;
@@ -4107,25 +4127,28 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
+  overflow: hidden;
 }
 
 .side-page-followers {
-  font-size: 9.5px;
+  font-size: 8.5px;
   color: #64748b;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   flex-shrink: 1;
+  margin-left: 2px;
 }
 
 .side-page-stats-right {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .side-page-slot-tag {
@@ -4139,6 +4162,7 @@ body {
   border-radius: 3px;
   white-space: nowrap;
   letter-spacing: -0.2px;
+  flex-shrink: 0;
 }
 
 .side-page-slot-tag.done {
@@ -6143,14 +6167,17 @@ body {
 }
 
 .battery-drive-tag {
-  font-size: 8.5px;
-  font-weight: 600;
+  font-size: 9px;
+  font-weight: 700;
   color: #34d399;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 3px;
   padding: 1px 4px;
   white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
 }
 
 .fleet-slots-badge {
