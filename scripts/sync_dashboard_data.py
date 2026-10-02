@@ -691,11 +691,24 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             if p.get("live_meta_insights"):
                 live_meta_insights = dict(p["live_meta_insights"])
 
-    # 3. Resolve Real Last Upload IP & Location by Fleet Assignment
+    # 3. Resolve Real Last Upload, IP & Location by Fleet Assignment
     acc_owner = str(p.get("account_owner", ""))
     acc_str = str(p.get("account", ""))
     run_info = runs_by_page.get(pid)
     live_ip = (run_info and run_info.get("runner_ip")) or curr_telemetry.get("ip", "178.239.163.90")
+
+    last_upload_time = None
+    last_video_title = None
+    if db_videos:
+        last_upload_time = db_videos[0].get("posted_at")
+        last_video_title = db_videos[0].get("title")
+    elif meta_videos:
+        last_upload_time = meta_videos[0].get("posted_at") or meta_videos[0].get("created_time_iso")
+        last_video_title = meta_videos[0].get("title")
+    elif run_info:
+        last_upload_time = run_info.get("started_at")
+
+    ts_val = last_upload_time or ""
 
     if pid in FLEET_USA_01_IDS or "Meghal" in acc_owner or "Meghal" in acc_str:
         ip_data = {
@@ -706,7 +719,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United States",
             "org": "AS20949 Surfshark Ltd (Los Angeles Gateway)",
             "flag": "🇺🇸",
-            "timestamp": "Verified Los Angeles Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified Los Angeles Egress"
         }
     elif pid in FLEET_USA_02_IDS or "Mia" in acc_owner or "Mia" in acc_str:
         ip_data = {
@@ -717,7 +731,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United States",
             "org": "AS20949 Surfshark Ltd (New York Gateway)",
             "flag": "🇺🇸",
-            "timestamp": "Verified New York Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified New York Egress"
         }
     elif pid in FLEET_USA_03_IDS or "Radika" in acc_owner or "Radika" in acc_str:
         ip_data = {
@@ -728,7 +743,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United States",
             "org": "AS20949 Surfshark Ltd (New York Gateway)",
             "flag": "🇺🇸",
-            "timestamp": "Verified New York Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified New York Egress"
         }
     elif pid in FLEET_USA_04_IDS or "Rohini" in acc_owner or "Rohini" in acc_str:
         ip_data = {
@@ -739,7 +755,20 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United States",
             "org": "AS20949 Surfshark Ltd (New York Gateway)",
             "flag": "🇺🇸",
-            "timestamp": "Verified New York Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified New York Egress"
+        }
+    elif pid in FLEET_USA_05_IDS or "Sejal" in acc_owner or "Sejal" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "Miami",
+            "region": "Florida (33101)",
+            "country": "United States",
+            "country_name": "United States",
+            "org": "AS20949 Surfshark Ltd (Miami Gateway)",
+            "flag": "🇺🇸",
+            "timestamp": ts_val,
+            "egress_status": "Verified Miami Egress"
         }
     elif pid in FLEET_UK_06_IDS or "Sweta" in acc_owner or "Sweta" in acc_str:
         ip_data = {
@@ -750,7 +779,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark West UK)",
             "flag": "🇬🇧",
-            "timestamp": "Verified Newport Wales Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified Newport Wales Egress"
         }
     elif pid in FLEET_UK_01_IDS or "Binjal" in acc_owner or "Binjal" in acc_str:
         ip_data = {
@@ -761,7 +791,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
             "flag": "🇬🇧",
-            "timestamp": "Verified London Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified London Egress"
         }
     elif pid in FLEET_UK_02_IDS or "Chanda" in acc_owner or "Chanda" in acc_str:
         ip_data = {
@@ -772,7 +803,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
             "flag": "🇬🇧",
-            "timestamp": "Verified London Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified London Egress"
         }
     elif pid in FLEET_UK_03_IDS or "Mahi" in acc_owner or "Mahi" in acc_str:
         ip_data = {
@@ -783,7 +815,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
             "flag": "🇬🇧",
-            "timestamp": "Verified London Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified London Egress"
         }
     elif pid in FLEET_UK_04_IDS or "Nidhi" in acc_owner or "Nidhi" in acc_str:
         ip_data = {
@@ -794,7 +827,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
             "flag": "🇬🇧",
-            "timestamp": "Verified London Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified London Egress"
         }
     elif pid in FLEET_UK_05_IDS or "Richi" in acc_owner or "Richi" in acc_str:
         ip_data = {
@@ -805,7 +839,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
             "flag": "🇬🇧",
-            "timestamp": "Verified London Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified London Egress"
         }
     elif pid in FLEET_UK_07_IDS or "Riya" in acc_owner or "Riya" in acc_str:
         ip_data = {
@@ -816,7 +851,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country_name": "United Kingdom",
             "org": "AS25369 Hydra Communications Ltd (Surfshark London)",
             "flag": "🇬🇧",
-            "timestamp": "Verified London Egress"
+            "timestamp": ts_val,
+            "egress_status": "Verified London Egress"
         }
     else:
         ip_data = {
@@ -826,7 +862,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "country": curr_telemetry.get("country_name", "United Kingdom"),
             "org": curr_telemetry.get("org", "Surfshark Network"),
             "flag": curr_telemetry.get("flag", "🇬🇧"),
-            "timestamp": "Ready for Next Slot"
+            "timestamp": ts_val,
+            "egress_status": "Ready for Next Slot"
         }
 
     # 4. Modern Meta 2025/2026 Monetization Breakdown
@@ -1355,6 +1392,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         },
         # Real Upload IP & Location Tracker for this Page
         "last_upload_ip": ip_data,
+        "last_upload": last_upload_time,
+        "last_upload_title": last_video_title,
         # Real Audience Demographics from Screenshot 1
         "audience": audience_data,
         # Real Facebook Page Quality & Status from Screenshot 2
@@ -1611,7 +1650,7 @@ def sync_data():
                 p_pic = p_info.get("picture") or p_info.get("pic_url") or ""
                 acc_name = p_info.get("account") or "Unknown"
                 
-                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name) or ("Nidhi" in acc_name) or ("Richi" in acc_name) or ("Sweta" in acc_name)
+                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name) or ("Nidhi" in acc_name) or ("Richi" in acc_name) or ("Sweta" in acc_name) or ("Riya" in acc_name)
                 country_code = "GB" if is_uk else "US"
                 country_flag = "🇬🇧 UK" if is_uk else "🇺🇸 USA"
                 

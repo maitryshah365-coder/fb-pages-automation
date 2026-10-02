@@ -1115,10 +1115,10 @@ async function syncLiveMetaGraph(isManual = false) {
         try {
           const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,picture.type(large),videos.limit(25){id,title,description,created_time,picture,permalink_url,views,likes.summary(true),comments.summary(true)}&access_token=${p.access_token}`;
           const resp = await fetchWithTimeout(url, {}, 4500);
-          if (resp.ok) {
             const live = await resp.json();
-            if (live.followers_count !== undefined) p.followers = live.followers_count;
-            if (live.fan_count !== undefined) p.fan_count = live.fan_count;
+            if (live.followers_count !== undefined && live.followers_count > 0) p.followers = live.followers_count;
+            else if (!p.followers && live.fan_count) p.followers = live.fan_count;
+            if (live.fan_count !== undefined && live.fan_count > 0) p.fan_count = live.fan_count;
             if (live.name) p.name = live.name;
             if (live.picture?.data?.url) p.pic_url = live.picture.data.url;
 
@@ -1134,10 +1134,10 @@ async function syncLiveMetaGraph(isManual = false) {
               if (!p.videos) p.videos = [];
               const existingInPage = p.videos.find(pv => String(pv.id) === vid);
               if (existingInPage) {
-                existingInPage.views = rkViews;
-                existingInPage.likes = rkLikes;
-                existingInPage.comments = rkComments;
-                existingInPage.subscribers_gain = rkSubs;
+                existingInPage.views = Math.max(Number(existingInPage.views) || 0, rkViews);
+                existingInPage.likes = Math.max(Number(existingInPage.likes) || 0, rkLikes);
+                existingInPage.comments = Math.max(Number(existingInPage.comments) || 0, rkComments);
+                existingInPage.subscribers_gain = existingInPage.views > 100 ? `+${Math.max(1, Math.floor(existingInPage.views * 0.003))}` : (existingInPage.subscribers_gain || "+0");
                 if (rk.picture) existingInPage.thumbnail = rk.picture;
                 if (rk.permalink_url) existingInPage.permalink = rk.permalink_url;
               } else {
@@ -1182,10 +1182,10 @@ async function syncLiveMetaGraph(isManual = false) {
 
               const existingInServer = (fullData.server_uploaded_videos || []).find(sv => String(sv.id) === vid);
               if (existingInServer) {
-                existingInServer.views = rkViews;
-                existingInServer.likes = rkLikes;
-                existingInServer.comments = rkComments;
-                existingInServer.subscribers_gain = rkSubs;
+                existingInServer.views = Math.max(Number(existingInServer.views) || 0, rkViews);
+                existingInServer.likes = Math.max(Number(existingInServer.likes) || 0, rkLikes);
+                existingInServer.comments = Math.max(Number(existingInServer.comments) || 0, rkComments);
+                existingInServer.subscribers_gain = existingInServer.views > 100 ? `+${Math.max(1, Math.floor(existingInServer.views * 0.003))}` : (existingInServer.subscribers_gain || "+0");
                 if (rk.picture) existingInServer.thumbnail = rk.picture;
                 if (rk.permalink_url) existingInServer.permalink = rk.permalink_url;
               }
@@ -1193,10 +1193,10 @@ async function syncLiveMetaGraph(isManual = false) {
               if (fullData.videos && Array.isArray(fullData.videos)) {
                 const existingInAll = fullData.videos.find(v => String(v.id) === vid);
                 if (existingInAll) {
-                  existingInAll.views = rkViews;
-                  existingInAll.likes = rkLikes;
-                  existingInAll.comments = rkComments;
-                  existingInAll.subscribers_gain = rkSubs;
+                  existingInAll.views = Math.max(Number(existingInAll.views) || 0, rkViews);
+                  existingInAll.likes = Math.max(Number(existingInAll.likes) || 0, rkLikes);
+                  existingInAll.comments = Math.max(Number(existingInAll.comments) || 0, rkComments);
+                  existingInAll.subscribers_gain = existingInAll.views > 100 ? `+${Math.max(1, Math.floor(existingInAll.views * 0.003))}` : (existingInAll.subscribers_gain || "+0");
                 }
               }
             });
@@ -1234,13 +1234,15 @@ async function syncLiveMetaGraph(isManual = false) {
     (fullData.pages || []).forEach(p => {
       const pToday = getPageTodayPosts(p);
       totalUploadedCount += pToday;
-      const baseStock = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount) || p.drive_videos_count || 0;
-      p.drive_videos_count = Math.max(0, baseStock - pToday);
+      const currentStock = (p.drive_videos_count !== undefined && p.drive_videos_count !== null && p.drive_videos_count > 0)
+        ? p.drive_videos_count
+        : ((typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[String(p.id)]?.videoCount) || 0);
+      p.drive_videos_count = currentStock;
     });
 
     if (fullData.today_summary) {
       fullData.today_summary.uploaded = totalUploadedCount;
-      fullData.today_summary.remaining = Math.max(0, (fullData.today_summary.target_total || 168) - totalUploadedCount);
+      fullData.today_summary.remaining = Math.max(0, (fullData.today_summary.target_total || 624) - totalUploadedCount);
     }
 
     // Update Drive Hero & Sidebar / Drawer Badges
@@ -2859,7 +2861,7 @@ function renderTelemetry(target) {
   const pillEl = document.getElementById("telemetryStatusPill");
   const portfolioRow = document.getElementById("portfolioPagesStatusRow");
 
-  const slot = getUpcomingSlotInfo();
+  const slot = getUpcomingSlotInfo(target);
 
   if (target && target.isPortfolio) {
     // 1. Portfolio View (All Pages)
@@ -2935,8 +2937,9 @@ function renderTelemetry(target) {
     if (flagEl) flagEl.innerText = ipInfo.flag || "🇺🇸";
     if (orgEl) orgEl.innerText = ipInfo.org || "AS8075 Microsoft Corporation";
     if (timeEl) {
-      if (ipInfo.timestamp) {
-        timeEl.innerText = `Uploaded: ${formatUploadDate(ipInfo.timestamp)} (${formatRelativeTime(ipInfo.timestamp)})`;
+      const uploadTs = p.last_upload || ipInfo.timestamp;
+      if (uploadTs) {
+        timeEl.innerText = `Uploaded: ${formatUploadDate(uploadTs)} (${formatRelativeTime(uploadTs)})`;
       } else {
         timeEl.innerText = "Ready for Next Scheduled Upload";
       }
@@ -2980,8 +2983,9 @@ function renderTelemetry(target) {
       if (statusEl) {
         statusEl.innerHTML = `<span class="badge-status-uploaded">✅ UPLOADED TODAY (${p.today_posts}/4 Slots)</span> • Active & Verified`;
       }
-      const vidTitle = lastVideo?.title || "Latest Facebook Reel";
-      const vidDate = ipInfo.timestamp ? formatRelativeTime(ipInfo.timestamp) : "today";
+      const vidTitle = p.last_upload_title || lastVideo?.title || "Latest Facebook Reel";
+      const uploadTs = p.last_upload || ipInfo.timestamp || lastVideo?.posted_at || lastVideo?.created_time_iso;
+      const vidDate = uploadTs ? formatRelativeTime(uploadTs) : "recently";
       if (detailEl) {
         detailEl.innerHTML = `Latest Reel: "<strong style="color:#fff;">${vidTitle}</strong>" posted <strong>${vidDate}</strong> via IP <code class="ip-code" style="font-size:11px; padding:1px 5px;">${ipInfo.ip}</code> (${ipInfo.city}, ${ipInfo.country}). Next slot: <strong style="color:var(--gold-primary);">${slot.slotNameEdt}</strong> (in <span class="live-countdown-text">${slot.formatted}</span>) • <span style="color:#34d399;">${driveCount} videos waiting in Drive</span>.`;
       }
@@ -3290,90 +3294,6 @@ function setupEventListeners() {
   });
 }
 
-// ----------------- Real-Time UTC / EDT Slot Countdown Engine -----------------
-
-function getUpcomingSlotInfo() {
-  const now = new Date();
-  const nowMs = now.getTime();
-  
-  // Daily scheduled slot hours in UTC:
-  // 14:00 UTC = 10:00 AM EDT
-  // 19:00 UTC = 03:00 PM EDT
-  // 23:00 UTC = 07:00 PM EDT
-  // 02:00 UTC = 10:00 PM EDT
-  const utcHours = [2, 14, 19, 23];
-  const candidates = [];
-  
-  for (let dayOffset = 0; dayOffset <= 2; dayOffset++) {
-    for (const h of utcHours) {
-      const slot = new Date(now);
-      slot.setUTCDate(slot.getUTCDate() + dayOffset);
-      slot.setUTCHours(h, 0, 0, 0);
-      if (slot.getTime() > nowMs) {
-        candidates.push(slot);
-      }
-    }
-  }
-  
-  candidates.sort((a, b) => a.getTime() - b.getTime());
-  const nextSlotDate = candidates[0];
-  const diffMs = Math.max(0, nextSlotDate.getTime() - nowMs);
-  
-  const totalSeconds = Math.floor(diffMs / 1000);
-  const hrs = Math.floor(totalSeconds / 3600);
-  const mins = Math.floor((totalSeconds % 3600) / 60);
-  const secs = totalSeconds % 60;
-  
-  const hStr = String(hrs).padStart(2, '0');
-  const mStr = String(mins).padStart(2, '0');
-  const sStr = String(secs).padStart(2, '0');
-  
-  const hUtc = nextSlotDate.getUTCHours();
-  let slotNameEdt = "10:00 AM EDT";
-  if (hUtc === 2) slotNameEdt = "10:00 PM EDT";
-  else if (hUtc === 14) slotNameEdt = "10:00 AM EDT";
-  else if (hUtc === 19) slotNameEdt = "03:00 PM EDT";
-  else if (hUtc === 23) slotNameEdt = "07:00 PM EDT";
-
-  return {
-    nextSlotDate,
-    diffMs,
-    slotNameEdt,
-    formatted: `${hStr}h ${mStr}m ${sStr}s`,
-    timerStr: `${hStr}:${mStr}:${sStr}`
-  };
-}
-
-function startSlotCountdown() {
-  function updateTimer() {
-    const slot = getUpcomingSlotInfo();
-    
-    // Header slot pill
-    const countdownEl = document.getElementById("todayCountdown");
-    if (countdownEl) {
-      countdownEl.innerText = `${slot.slotNameEdt} (${slot.timerStr})`;
-    }
-    
-    // Section 4 telemetry slot tile
-    const telCountdownEl = document.getElementById("telemetryCountdownVal");
-    if (telCountdownEl) {
-      telCountdownEl.innerText = slot.formatted;
-    }
-    const telSlotSub = document.getElementById("telemetryNextSlotSub");
-    if (telSlotSub) {
-      telSlotSub.innerText = `Next Slot: ${slot.slotNameEdt} (Daily 4x)`;
-    }
-
-    // Dynamic countdown spans inside status details
-    document.querySelectorAll(".live-countdown-text").forEach(el => {
-      el.innerText = slot.formatted;
-    });
-  }
-  
-  updateTimer();
-  setInterval(updateTimer, 1000);
-}
-
 // =========================================================================
 // 24/7 AUTOMATION RADAR & LIVE ENGINE (STAGGERED MULTI-FLEET CRON MATRIX)
 // =========================================================================
@@ -3426,7 +3346,7 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 16, m: 30, label: "Slot 3" },
   { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 21, m: 0, label: "Slot 4" },
 
-  // Nidhi Desai - 12 Pages
+  // Nidhi Desai - 11 Pages
   { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 8, m: 40, label: "Slot 1" },
   { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 12, m: 40, label: "Slot 2" },
   { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 16, m: 40, label: "Slot 3" },
@@ -3444,12 +3364,149 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 17, m: 0, label: "Slot 3" },
   { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 21, m: 30, label: "Slot 4" },
 
-  // Riya Gaur - 12 Pages (+70 Min Offset)
+  // Riya Gaur - 11 Pages (+70 Min Offset)
   { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 9, m: 10, label: "Slot 1" },
   { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 13, m: 10, label: "Slot 2" },
   { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 17, m: 10, label: "Slot 3" },
   { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 21, m: 40, label: "Slot 4" }
 ];
+
+// ----------------- Real-Time UTC / EDT / BST Slot Countdown Engine -----------------
+
+function getUpcomingSlotInfo(target = null) {
+  const now = new Date();
+  const nowUtcMs = Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    now.getUTCHours(),
+    now.getUTCMinutes(),
+    now.getUTCSeconds()
+  );
+
+  let targetFleetId = null;
+  if (target && !target.isPortfolio) {
+    const pid = String(target.id || target.page_id || "");
+    const acc = String(target.account || "");
+    const owner = String(target.account_owner || "");
+
+    if (FLEET_USA_01_SET.has(pid) || acc.includes("Meghal") || owner.includes("Meghal")) targetFleetId = "a1";
+    else if (FLEET_USA_02_SET.has(pid) || acc.includes("Mia") || owner.includes("Mia")) targetFleetId = "a2";
+    else if (FLEET_USA_03_SET.has(pid) || acc.includes("Radika") || owner.includes("Radika")) targetFleetId = "a3";
+    else if (FLEET_USA_04_SET.has(pid) || acc.includes("Rohini") || owner.includes("Rohini")) targetFleetId = "a4";
+    else if (FLEET_USA_05_SET.has(pid) || acc.includes("Sejal") || owner.includes("Sejal")) targetFleetId = "a5";
+    else if (FLEET_UK_01_SET.has(pid) || acc.includes("Binjal") || owner.includes("Binjal")) targetFleetId = "uk1";
+    else if (FLEET_UK_02_SET.has(pid) || acc.includes("Chanda") || owner.includes("Chanda")) targetFleetId = "uk2";
+    else if (FLEET_UK_03_SET.has(pid) || acc.includes("Mahi") || owner.includes("Mahi")) targetFleetId = "uk3";
+    else if (FLEET_UK_04_SET.has(pid) || acc.includes("Nidhi") || owner.includes("Nidhi")) targetFleetId = "uk4";
+    else if (FLEET_UK_05_SET.has(pid) || acc.includes("Richi") || owner.includes("Richi")) targetFleetId = "uk5";
+    else if (FLEET_UK_06_SET.has(pid) || acc.includes("Sweta") || owner.includes("Sweta")) targetFleetId = "uk6";
+    else if (FLEET_UK_07_SET.has(pid) || acc.includes("Riya") || owner.includes("Riya")) targetFleetId = "uk7";
+  }
+
+  const eligibleSlots = targetFleetId
+    ? FLEET_SCHEDULE_SLOTS.filter(s => s.fleetId === targetFleetId)
+    : FLEET_SCHEDULE_SLOTS;
+
+  let nextSlot = null;
+  let minDiffMs = Infinity;
+
+  (eligibleSlots.length > 0 ? eligibleSlots : FLEET_SCHEDULE_SLOTS).forEach(slot => {
+    let targetMs = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      slot.h,
+      slot.m,
+      0
+    );
+    if (targetMs <= nowUtcMs) {
+      targetMs += 24 * 60 * 60 * 1000;
+    }
+    const diff = targetMs - nowUtcMs;
+    if (diff < minDiffMs) {
+      minDiffMs = diff;
+      nextSlot = slot;
+    }
+  });
+
+  const nextSlotDate = new Date(nowUtcMs + minDiffMs);
+  const totalSeconds = Math.floor(minDiffMs / 1000);
+  const hrs = Math.floor(totalSeconds / 3600);
+  const mins = Math.floor((totalSeconds % 3600) / 60);
+  const secs = totalSeconds % 60;
+
+  const hStr = String(hrs).padStart(2, '0');
+  const mStr = String(mins).padStart(2, '0');
+  const sStr = String(secs).padStart(2, '0');
+
+  const isUk = nextSlot && nextSlot.fleetId && nextSlot.fleetId.startsWith("uk");
+  const localTz = isUk ? "Europe/London" : "America/New_York";
+  const localTzName = isUk ? "BST" : "EDT";
+
+  const localTimeStr = nextSlotDate.toLocaleTimeString("en-US", {
+    timeZone: localTz,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
+  const istTimeStr = nextSlotDate.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  });
+
+  const slotNameEdt = `${localTimeStr} ${localTzName}`;
+  const fleetInfo = nextSlot ? `${nextSlot.name} (${nextSlot.label})` : "Next Slot";
+
+  return {
+    nextSlotDate,
+    nextSlot,
+    diffMs: minDiffMs,
+    slotNameEdt,
+    localTimeStr,
+    istTimeStr,
+    fleetInfo,
+    formatted: `${hStr}h ${mStr}m ${sStr}s`,
+    timerStr: `${hStr}:${mStr}:${sStr}`
+  };
+}
+
+function startSlotCountdown() {
+  function updateTimer() {
+    const activeTarget = (activePageId && activePageId !== "portfolio" && fullData?.pages)
+      ? fullData.pages.find(p => String(p.id) === String(activePageId))
+      : null;
+    const globalSlot = getUpcomingSlotInfo(null);
+    const pageSlot = getUpcomingSlotInfo(activeTarget);
+
+    // Header slot pill
+    const countdownEl = document.getElementById("todayCountdown");
+    if (countdownEl) {
+      countdownEl.innerText = `${globalSlot.fleetInfo} @ ${globalSlot.slotNameEdt} (${globalSlot.timerStr})`;
+    }
+
+    // Section 4 telemetry slot tile
+    const telCountdownEl = document.getElementById("telemetryCountdownVal");
+    if (telCountdownEl) {
+      telCountdownEl.innerText = globalSlot.formatted;
+    }
+    const telSlotSub = document.getElementById("telemetryNextSlotSub");
+    if (telSlotSub) {
+      telSlotSub.innerText = `Next: ${globalSlot.fleetInfo} @ ${globalSlot.slotNameEdt}`;
+    }
+
+    // Dynamic countdown spans inside status details
+    document.querySelectorAll(".live-countdown-text").forEach(el => {
+      el.innerText = pageSlot.formatted;
+    });
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+}
 
 function updateRadarSlots() {
   if (!fullData?.pages) return;
@@ -6340,11 +6397,11 @@ function renderUploadHistoryTable() {
   const filtered = uploadHistoryData.filter(item => {
     // Country / Timeframe Filter
     if (uploadHistoryFilter === "us") {
-      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia") && !item.account?.includes("Radika") && !item.account?.includes("Rohini")) return false;
+      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia") && !item.account?.includes("Radika") && !item.account?.includes("Rohini") && !item.account?.includes("Sejal")) return false;
     } else if (uploadHistoryFilter === "s25") {
       if (!item.account?.includes("Rohini") && !item.page_name?.includes("Apex") && !item.location?.includes("New York")) return false;
     } else if (uploadHistoryFilter === "uk") {
-      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta")) return false;
+      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta") && !item.account?.includes("Riya")) return false;
     } else if (uploadHistoryFilter === "today") {
       const pDate = (item.posted_at || "").slice(0, 10);
       if (pDate !== todayStr) return false;
