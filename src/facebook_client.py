@@ -206,14 +206,30 @@ class FacebookClient:
         # Step 3: Finish and Publish
         def _finish():
             url = f"{self.base_url}/{page_id}/videos"
+            clean_title = (title or "").strip()[:100]
+            clean_desc = (description or "").strip()[:1000]
             payload = {
                 "upload_phase": "finish",
                 "upload_session_id": session_id,
-                "title": title,
-                "description": description,
+                "title": clean_title,
+                "description": clean_desc,
                 "access_token": self.page_access_token
             }
             res = requests.post(url, data=payload, timeout=30)
+            if not res.ok:
+                try:
+                    err_data = res.json().get("error", {})
+                    if err_data.get("code") == 100 and err_data.get("error_subcode") == 1363143:
+                        logger.warning(f"[{page_id}] Finish failed with Invalid parameter (1363143). Retrying with minimal finish payload...")
+                        fallback_payload = {
+                            "upload_phase": "finish",
+                            "upload_session_id": session_id,
+                            "description": clean_desc,
+                            "access_token": self.page_access_token
+                        }
+                        res = requests.post(url, data=fallback_payload, timeout=30)
+                except Exception:
+                    pass
             if not res.ok:
                 self._handle_api_error(res, "Classic Video Finish Phase")
             data = res.json()
