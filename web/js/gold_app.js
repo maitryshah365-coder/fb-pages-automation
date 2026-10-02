@@ -1115,6 +1115,7 @@ async function syncLiveMetaGraph(isManual = false) {
         try {
           const url = `https://graph.facebook.com/v20.0/${p.id}?fields=id,name,followers_count,fan_count,category,picture.type(large),videos.limit(25){id,title,description,created_time,picture,permalink_url,views,likes.summary(true),comments.summary(true)}&access_token=${p.access_token}`;
           const resp = await fetchWithTimeout(url, {}, 4500);
+          if (resp.ok) {
             const live = await resp.json();
             if (live.followers_count !== undefined && live.followers_count > 0) p.followers = live.followers_count;
             else if (!p.followers && live.fan_count) p.followers = live.fan_count;
