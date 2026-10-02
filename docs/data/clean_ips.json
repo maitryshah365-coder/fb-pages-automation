@@ -531,7 +531,14 @@
       "city": "London",
       "org": "AS25369 Hydra Communications Ltd",
       "success_count": 1
+    },
+    "185.245.82.2": {
+      "last_verified_at": "2026-10-02T12:08:42.522160+00:00",
+      "country": "GB",
+      "city": "London",
+      "org": "AS62240 Clouvider",
+      "success_count": 1
     }
   },
-  "updated_at": "2026-10-02T09:26:28.015565+00:00"
+  "updated_at": "2026-10-02T12:08:42.522141+00:00"
 }
