@@ -111,8 +111,7 @@ const FLEET_UK_04_IDS = [
   "871774779344742",  // Powell Gabriel
   "746108741929454",  // Rodriguez Scott
   "818808074651170",  // Roberts Richard
-  "417387901468629",  // Serendipity Spark
-  "857530914106167"   // Robinson Jerry
+  "417387901468629"   // Serendipity Spark
 ];
 
 const FLEET_UK_05_IDS = [
@@ -163,8 +162,7 @@ const FLEET_UK_07_IDS = [
   "864838050041932",  // Lee Daniel
   "870975689430311",  // Martin John
   "479102298617718",  // Corner Spe
-  "208233979039379",  // Memes & Mischief
-  "755318371007926"   // Alexander Christopher
+  "208233979039379"   // Memes & Mischief
 ];
 
 const FLEET_UK_07_SET = new Set(FLEET_UK_07_IDS);

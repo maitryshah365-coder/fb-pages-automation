@@ -99,36 +99,9 @@ SETUP_SUBS_TARGETS = {
     "johnson jerry",
 }
 
-# Ensure missing UK pages from permanent registries are present in their accounts
+# Deleted pages Robinson Jerry and Alexander Christopher are permanently purged from UK 4 and UK 7
 for acc in master['accounts']:
-    acc_id = acc.get('account_id')
     pages = acc.get('pages', [])
-    
-    if acc_id == "uk_account4_nidhi":
-        if not any("857530914106167" == p.get('page_id') or "robinson jerry" in norm(p.get('name')) for p in pages):
-            pages.append({
-                "name": "Robinson  Jerry",
-                "page_id": "857530914106167",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Criteria Not Met",
-                "subscriptions": "Set Up",
-                "stars": "Set Up",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            })
-            
-    if acc_id == "uk_account7_riya":
-        if not any("755318371007926" == p.get('page_id') or "alexander" in norm(p.get('name')) for p in pages):
-            pages.append({
-                "name": "Alexander  Christopher",
-                "page_id": "755318371007926",
-                "overall_status": "No Monetization Violations",
-                "content_monetization": "Criteria Not Met",
-                "subscriptions": "Set Up",
-                "stars": "Set Up",
-                "policy_details": "No Violations (Clean)",
-                "recommendation": "Recommendable"
-            })
             
     # Apply Criteria & Setup updates strictly for USA & UK
     for p in pages:

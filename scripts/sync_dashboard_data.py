@@ -97,7 +97,6 @@ FLEET_UK_04_IDS = [
     "981214481738903",  # Silver Oak Social
     "929190903615356",  # Mitchell Gabriel
     "803824339488556",  # Smith Arthur
-    "857530914106167",  # Robinson Jerry
     "762765990263739",  # Robinson Stephen
     "871774779344742",  # Powell Gabriel
     "746108741929454",  # Rodriguez Scott
@@ -142,7 +141,6 @@ FLEET_UK_07_IDS = [
     "1195883193618072", # Choke The Static
     "802518939617506",  # Lee Charles
     "896072510245887",  # Cooper Billy
-    "755318371007926",  # Alexander Christopher
     "864838050041932",  # Lee Daniel
     "870975689430311",  # Martin John
     "479102298617718",  # Corner Spe
@@ -273,7 +271,7 @@ def get_pages_list():
         except Exception:
             pass
 
-    # Build the 158 pages strictly ordered by the 12 fleets
+    # Build the 156 pages strictly ordered by the 12 fleets
     fleet_order = [
         (FLEET_USA_01_IDS, "Meghal Chauhan (USA)", "Meghal Chauhan", "US", 1),
         (FLEET_USA_02_IDS, "Mia Shah (USA)", "Mia Shah", "US", 16),
@@ -281,12 +279,12 @@ def get_pages_list():
         (FLEET_UK_02_IDS, "Chanda Nai (UK)", "Chanda Nai", "GB", 43),
         (FLEET_UK_03_IDS, "Mahi Patel (UK)", "Mahi Patel", "GB", 55),
         (FLEET_UK_04_IDS, "Nidhi Desai (UK)", "Nidhi Desai", "GB", 67),
-        (FLEET_UK_05_IDS, "Richi Patel (UK)", "Richi Patel", "GB", 79),
-        (FLEET_UK_06_IDS, "Sweta Shah (UK)", "Sweta Shah", "GB", 90),
-        (FLEET_UK_07_IDS, "Riya Gaur (UK)", "Riya Gaur", "GB", 102),
-        (FLEET_USA_03_IDS, "Radika Patel (USA)", "Radika Patel", "US", 114),
-        (FLEET_USA_04_IDS, "Rohini Dutt (USA)", "Rohini Dutt", "US", 129),
-        (FLEET_USA_05_IDS, "Sejal Soni (USA)", "Sejal Soni", "US", 144)
+        (FLEET_UK_05_IDS, "Richi Patel (UK)", "Richi Patel", "GB", 78),
+        (FLEET_UK_06_IDS, "Sweta Shah (UK)", "Sweta Shah", "GB", 89),
+        (FLEET_UK_07_IDS, "Riya Gaur (UK)", "Riya Gaur", "GB", 101),
+        (FLEET_USA_03_IDS, "Radika Patel (USA)", "Radika Patel", "US", 112),
+        (FLEET_USA_04_IDS, "Rohini Dutt (USA)", "Rohini Dutt", "US", 127),
+        (FLEET_USA_05_IDS, "Sejal Soni (USA)", "Sejal Soni", "US", 142)
     ]
 
     final_pages = []
@@ -1332,8 +1330,8 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "index": idx,
         "id": pid,
         "name": p_name,
-        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else ("Richi Patel (UK)" if idx <= 89 else ("Sweta Shah (UK)" if idx <= 101 else ("Riya Gaur (UK)" if idx <= 113 else ("Radika Patel (USA)" if idx <= 128 else ("Rohini Dutt (USA)" if idx <= 143 else "Sejal Soni (USA)"))))))))))),
-        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else ("Richi Patel" if idx <= 89 else ("Sweta Shah" if idx <= 101 else ("Riya Gaur" if idx <= 113 else ("Radika Patel" if idx <= 128 else ("Rohini Dutt" if idx <= 143 else "Sejal Soni"))))))))))),
+        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 77 else ("Richi Patel (UK)" if idx <= 88 else ("Sweta Shah (UK)" if idx <= 100 else ("Riya Gaur (UK)" if idx <= 111 else ("Radika Patel (USA)" if idx <= 126 else ("Rohini Dutt (USA)" if idx <= 141 else "Sejal Soni (USA)"))))))))))),
+        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 77 else ("Richi Patel" if idx <= 88 else ("Sweta Shah" if idx <= 100 else ("Riya Gaur" if idx <= 111 else ("Radika Patel" if idx <= 126 else ("Rohini Dutt" if idx <= 141 else "Sejal Soni"))))))))))),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,

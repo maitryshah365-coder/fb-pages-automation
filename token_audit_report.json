@@ -2,7 +2,7 @@
   "audit_timestamp": "2026-09-30T20:31:00.056676+00:00",
   "total_pages": 143,
   "valid_tokens_count": 126,
-  "invalid_tokens_count": 17,
+  "invalid_tokens_count": 15,
   "drive_configured_count": 143,
   "total_stock_videos": 33083,
   "today_uploaded_total": 371,
@@ -187,30 +187,6 @@
       "followers": 0,
       "views": 0,
       "today_posts": 0,
-      "is_published": null
-    },
-    {
-      "id": "857530914106167",
-      "name": "Robinson  Jerry",
-      "account": "Nidhi Desai (UK)",
-      "has_token": true,
-      "valid": false,
-      "error": "[190] The user must be an administrator, editor, or",
-      "followers": 0,
-      "views": 0,
-      "today_posts": 0,
-      "is_published": null
-    },
-    {
-      "id": "755318371007926",
-      "name": "Alexander  Christopher",
-      "account": "Riya Gaur (UK)",
-      "has_token": true,
-      "valid": false,
-      "error": "[190] The user must be an administrator, editor, or",
-      "followers": 1,
-      "views": 120,
-      "today_posts": 1,
       "is_published": null
     }
   ]
