@@ -97,6 +97,7 @@ FLEET_UK_04_IDS = [
     "981214481738903",  # Silver Oak Social
     "929190903615356",  # Mitchell Gabriel
     "803824339488556",  # Smith Arthur
+    "857530914106167",  # Robinson Jerry
     "762765990263739",  # Robinson Stephen
     "871774779344742",  # Powell Gabriel
     "746108741929454",  # Rodriguez Scott
@@ -141,6 +142,7 @@ FLEET_UK_07_IDS = [
     "1195883193618072", # Choke The Static
     "802518939617506",  # Lee Charles
     "896072510245887",  # Cooper Billy
+    "755318371007926",  # Alexander Christopher
     "864838050041932",  # Lee Daniel
     "870975689430311",  # Martin John
     "479102298617718",  # Corner Spe
@@ -183,6 +185,24 @@ FLEET_USA_04_IDS = [
     "921493174379801"   # Blissful Paradox
 ]
 
+FLEET_USA_05_IDS = [
+    "534342423102401",  # The Daily Spark
+    "564341273430022",  # The Chill Spot
+    "497636683426759",  # Tag The
+    "877069835495630",  # Stellar Vibes
+    "615554031639811",  # Sovereign Collective
+    "1033250263200686", # Silent Grove
+    "614891248372171",  # Royal Vanguard
+    "686470024541027",  # Royal Frontier
+    "424138757454796",  # Rajat Gupta
+    "976706512196056",  # Mouth The Hang
+    "473290599201289",  # Mojo Day
+    "340559612467800",  # Fly Happy
+    "472703539265672",  # Flute Tomography Nature
+    "502777659582958",  # Faro Fact
+    "855725930966508"   # Cosmic Mirage
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -209,7 +229,8 @@ def get_pages_list():
         {"account": "UK Account 6", "owner": "Sweta Shah", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account6_sweta_permanent_pages.json")},
         {"account": "UK Account 7", "owner": "Riya Gaur", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account7_riya_permanent_pages.json")},
         {"account": "Account 3", "owner": "Radika Patel", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account3_radika_permanent_pages.json")},
-        {"account": "USA Account 4", "owner": "Rohini Dutt", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account4_rohini_permanent_pages.json")}
+        {"account": "USA Account 4", "owner": "Rohini Dutt", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account4_rohini_permanent_pages.json")},
+        {"account": "USA Account 5", "owner": "Sejal Soni", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account5_sejal_permanent_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -252,7 +273,7 @@ def get_pages_list():
         except Exception:
             pass
 
-    # Build the 101 pages strictly ordered by the 8 fleets
+    # Build the 158 pages strictly ordered by the 12 fleets
     fleet_order = [
         (FLEET_USA_01_IDS, "Meghal Chauhan (USA)", "Meghal Chauhan", "US", 1),
         (FLEET_USA_02_IDS, "Mia Shah (USA)", "Mia Shah", "US", 16),
@@ -264,7 +285,8 @@ def get_pages_list():
         (FLEET_UK_06_IDS, "Sweta Shah (UK)", "Sweta Shah", "GB", 90),
         (FLEET_UK_07_IDS, "Riya Gaur (UK)", "Riya Gaur", "GB", 102),
         (FLEET_USA_03_IDS, "Radika Patel (USA)", "Radika Patel", "US", 114),
-        (FLEET_USA_04_IDS, "Rohini Dutt (USA)", "Rohini Dutt", "US", 129)
+        (FLEET_USA_04_IDS, "Rohini Dutt (USA)", "Rohini Dutt", "US", 129),
+        (FLEET_USA_05_IDS, "Sejal Soni (USA)", "Sejal Soni", "US", 144)
     ]
 
     final_pages = []
@@ -1128,6 +1150,15 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         except Exception:
             pass
 
+    verified_audit_path = os.path.join(BASE_DIR, "data", "drive_verified_stock_audit.json")
+    verified_audit_pages = {}
+    if os.path.exists(verified_audit_path):
+        try:
+            with open(verified_audit_path, "r", encoding="utf-8") as vaf:
+                verified_audit_pages = json.load(vaf).get("pages", {})
+        except Exception:
+            pass
+
     # Exact verified counts from deep Google Drive scan (all 54 pages fully paginated)
     known_base = {
         # Account 1 Pages (15 Pages)
@@ -1277,23 +1308,32 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "160240527166280":  378
     }
     base_stock = 0
-    if drive_folder_id:
-        for audit_entry in audit_data.values():
-            if isinstance(audit_entry, dict) and (audit_entry.get("folder_id") == drive_folder_id or audit_entry.get("page_id") == pid):
-                base_stock = audit_entry.get("video_count", 0)
+    if pid in verified_audit_pages and verified_audit_pages[pid].get("valid_videos_stock") is not None:
+        base_stock = verified_audit_pages[pid]["valid_videos_stock"]
+    elif drive_folder_id:
+        for vp in verified_audit_pages.values():
+            if vp.get("folder_id") == drive_folder_id and vp.get("valid_videos_stock") is not None:
+                base_stock = vp["valid_videos_stock"]
                 break
+
     if base_stock == 0:
-        base_stock = p.get("drive_videos_count", 0) or 0
-    if base_stock == 0:
-        base_stock = known_base.get(pid, 0)
-    current_drive_stock = max(0, base_stock - today_posts) if base_stock > 0 else 0
+        if drive_folder_id:
+            for audit_entry in audit_data.values():
+                if isinstance(audit_entry, dict) and (audit_entry.get("folder_id") == drive_folder_id or audit_entry.get("page_id") == pid):
+                    base_stock = audit_entry.get("video_count", 0)
+                    break
+        if base_stock == 0:
+            base_stock = p.get("drive_videos_count", 0) or 0
+        if base_stock == 0:
+            base_stock = known_base.get(pid, 0)
+    current_drive_stock = max(0, base_stock)
 
     return {
         "index": idx,
         "id": pid,
         "name": p_name,
-        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else ("Richi Patel (UK)" if idx <= 89 else ("Sweta Shah (UK)" if idx <= 101 else "Riya Gaur (UK)")))))))),
-        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else ("Richi Patel" if idx <= 89 else ("Sweta Shah" if idx <= 101 else "Riya Gaur")))))))),
+        "account": p.get("account") or ("Meghal Chauhan (USA)" if idx <= 15 else ("Mia Shah (USA)" if idx <= 30 else ("Binjal Mehra (UK)" if idx <= 42 else ("Chanda Nai (UK)" if idx <= 54 else ("Mahi Patel (UK)" if idx <= 66 else ("Nidhi Desai (UK)" if idx <= 78 else ("Richi Patel (UK)" if idx <= 89 else ("Sweta Shah (UK)" if idx <= 101 else ("Riya Gaur (UK)" if idx <= 113 else ("Radika Patel (USA)" if idx <= 128 else ("Rohini Dutt (USA)" if idx <= 143 else "Sejal Soni (USA)"))))))))))),
+        "account_owner": p.get("account_owner") or ("Meghal Chauhan" if idx <= 15 else ("Mia Shah" if idx <= 30 else ("Binjal Mehra" if idx <= 42 else ("Chanda Nai" if idx <= 54 else ("Mahi Patel" if idx <= 66 else ("Nidhi Desai" if idx <= 78 else ("Richi Patel" if idx <= 89 else ("Sweta Shah" if idx <= 101 else ("Riya Gaur" if idx <= 113 else ("Radika Patel" if idx <= 128 else ("Rohini Dutt" if idx <= 143 else "Sejal Soni"))))))))))),
         "followers": live_followers,
         "fan_count": live_fans,
         "category": category,
@@ -1659,12 +1699,14 @@ def sync_data():
             "uk_account7_pages_count": len([p for p in page_records if "Riya" in p.get("account", "") or p.get("account") == "UK Account 7"]),
             "account3_pages_count": len([p for p in page_records if "Radika" in p.get("account", "") or p.get("account") == "Account 3"]),
             "account4_pages_count": len([p for p in page_records if "Rohini" in p.get("account", "") or p.get("account") == "USA Account 4"]),
+            "account5_pages_count": len([p for p in page_records if "Sejal" in p.get("account", "") or p.get("account") == "USA Account 5"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,
             "total_likes": total_portfolio_likes,
             "total_views": total_views,
             "total_posts": total_posts,
+            "total_stock_videos": sum(p.get("drive_videos_count", 0) for p in page_records),
             "total_db_posted": total_db_posted if 'total_db_posted' in locals() else len(upload_history)
         },
         "pages": page_records

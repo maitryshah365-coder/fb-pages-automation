@@ -3817,14 +3817,48 @@ const DRIVE_CONFIGURED_PAGES = {
   "209182608951563":  { pageName: "usa3_page_12", displayName: "Shadow Executive",       ready: true, videoCount: 503, folderId: "1lK6PK14R0GGQRmk8lCA9L-ketOUFQbP6", handle: "shadowexecutive",       account: "USA Account 3" },
   "241688455685265":  { pageName: "usa3_page_13", displayName: "Hu1",                    ready: true, videoCount: 54,  folderId: "1R9miZUECFxxSCVYjrLBUi23Hv6HhelYq", handle: "hu1",                    account: "USA Account 3" },
   "171465126060636":  { pageName: "usa3_page_14", displayName: "Alpha Dynasty",          ready: true, videoCount: 169, folderId: "1OyrUqGKt0bPQqo6mekPjmAd2VJfb4CuQ", handle: "alphadynasty",          account: "USA Account 3" },
-  "160240527166280":  { pageName: "usa3_page_15", displayName: "Path Summer",            ready: true, videoCount: 378, folderId: "1RPhbSb0nV7-yydSD-6m0kc12bhwAG4do", handle: "pathsummer",            account: "USA Account 3" }
+  "160240527166280":  { pageName: "usa3_page_15", displayName: "Path Summer",            ready: true, videoCount: 378, folderId: "1RPhbSb0nV7-yydSD-6m0kc12bhwAG4do", handle: "pathsummer",            account: "USA Account 3" },
+
+  // USA Fleet 4 Pages (Rohini Dutt - 15 Pages, 3,779 Videos Cloud Stock)
+  "497577420112654": { pageName: "usa4_page_1", displayName: "Apex House", ready: true, videoCount: 129, folderId: "14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6", handle: "apexhouse", account: "USA Account 4" },
+  "487987684400252": { pageName: "usa4_page_2", displayName: "Quantum House", ready: true, videoCount: 221, folderId: "10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa", handle: "quantumhouse", account: "USA Account 4" },
+  "960803123790692": { pageName: "usa4_page_3", displayName: "Drift Valley", ready: true, videoCount: 40, folderId: "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6", handle: "driftvalley", account: "USA Account 4" },
+  "923484537514216": { pageName: "usa4_page_4", displayName: "Dreams Of Life", ready: true, videoCount: 211, folderId: "19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG", handle: "dreamsoflife", account: "USA Account 4" },
+  "511317578722941": { pageName: "usa4_page_5", displayName: "End Every", ready: true, videoCount: 271, folderId: "1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c", handle: "endevery", account: "USA Account 4" },
+  "416325608224715": { pageName: "usa4_page_6", displayName: "Executive Empire", ready: true, videoCount: 326, folderId: "16G_A0S1w-1qKtY56Y4-4NL21rmCRa67H", handle: "executiveempire", account: "USA Account 4" },
+  "467407709785240": { pageName: "usa4_page_7", displayName: "I'm Joker", ready: true, videoCount: 58, folderId: "1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7", handle: "imjoker", account: "USA Account 4" },
+  "223604537511488": { pageName: "usa4_page_8", displayName: "Iron Covenant", ready: true, videoCount: 240, folderId: "1GoRZAiud2KVabAzU2Q4OWHKoAaU11zC7", handle: "ironcovenant", account: "USA Account 4" },
+  "730487193489250": { pageName: "usa4_page_9", displayName: "Iron Momentum", ready: true, videoCount: 269, folderId: "1K7M6j7yLorT0D7vrE54oDf-uv76NIxFk", handle: "ironmomentum", account: "USA Account 4" },
+  "514016115120845": { pageName: "usa4_page_10", displayName: "Me The", ready: true, videoCount: 131, folderId: "1Vz4kZntHTFPBjdvHe9q_YA9ZUzSwzKUu", handle: "methe", account: "USA Account 4" },
+  "1009759155555480": { pageName: "usa4_page_11", displayName: "Quiet Harbor", ready: true, videoCount: 225, folderId: "1ev3fnutc97DsHMqjaxDeKRvBQQO_s5LM", handle: "quietharbor", account: "USA Account 4" },
+  "922808234251176": { pageName: "usa4_page_12", displayName: "Radiant Reverie", ready: true, videoCount: 327, folderId: "1f4vLojPquQpfK3Cd6XsIxXxME6D_i2Lt", handle: "radiantreverie", account: "USA Account 4" },
+  "288008221072106": { pageName: "usa4_page_13", displayName: "Bit Creative", ready: true, videoCount: 936, folderId: "1gVt2gs2Dx7CxfPvn2RbOb29pHWVNotLC", handle: "bitcreative", account: "USA Account 4" },
+  "243414155514799": { pageName: "usa4_page_14", displayName: "Atlas Authority", ready: true, videoCount: 61, folderId: "1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31", handle: "atlasauthority", account: "USA Account 4" },
+  "921493174379801": { pageName: "usa4_page_15", displayName: "Blissful Paradox", ready: true, videoCount: 334, folderId: "1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a", handle: "blissfulparadox", account: "USA Account 4" },
+
+  // USA Fleet 5 Pages (Sejal Soni - 15 Pages, 3,131 Videos Cloud Stock)
+  "534342423102401": { pageName: "usa5_page_1", displayName: "The Daily Spark", ready: true, videoCount: 187, folderId: "16deNYAwBPFU7bcXZffCt2F242_XeRvIP", handle: "thedailyspark", account: "USA Account 5" },
+  "564341273430022": { pageName: "usa5_page_2", displayName: "The Chill Spot", ready: true, videoCount: 224, folderId: "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ", handle: "thechillspot", account: "USA Account 5" },
+  "497636683426759": { pageName: "usa5_page_3", displayName: "Tag The", ready: true, videoCount: 218, folderId: "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z", handle: "tagthe", account: "USA Account 5" },
+  "877069835495630": { pageName: "usa5_page_4", displayName: "Stellar Vibes", ready: true, videoCount: 31, folderId: "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl", handle: "stellarvibes", account: "USA Account 5" },
+  "615554031639811": { pageName: "usa5_page_5", displayName: "Sovereign Collective", ready: true, videoCount: 104, folderId: "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt", handle: "sovereigncollective", account: "USA Account 5" },
+  "1033250263200686": { pageName: "usa5_page_6", displayName: "Silent Grove", ready: true, videoCount: 487, folderId: "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy", handle: "silentgrove", account: "USA Account 5" },
+  "614891248372171": { pageName: "usa5_page_7", displayName: "Royal Vanguard", ready: true, videoCount: 305, folderId: "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU", handle: "royalvanguard", account: "USA Account 5" },
+  "686470024541027": { pageName: "usa5_page_8", displayName: "Royal Frontier", ready: true, videoCount: 45, folderId: "18LJsnXYPZPmPiX922GOyJaahKkIv01_J", handle: "royalfrontier", account: "USA Account 5" },
+  "424138757454796": { pageName: "usa5_page_9", displayName: "Rajat Gupta", ready: true, videoCount: 132, folderId: "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0", handle: "rajatgupta", account: "USA Account 5" },
+  "976706512196056": { pageName: "usa5_page_10", displayName: "Mouth The Hang", ready: true, videoCount: 160, folderId: "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR", handle: "mouththehang", account: "USA Account 5" },
+  "473290599201289": { pageName: "usa5_page_11", displayName: "Mojo Day", ready: true, videoCount: 352, folderId: "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql", handle: "mojoday", account: "USA Account 5" },
+  "340559612467800": { pageName: "usa5_page_12", displayName: "Fly Happy", ready: true, videoCount: 315, folderId: "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH", handle: "flyhappy", account: "USA Account 5" },
+  "472703539265672": { pageName: "usa5_page_13", displayName: "Flute Tomography Nature", ready: true, videoCount: 162, folderId: "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk", handle: "flutetomographynature", account: "USA Account 5" },
+  "502777659582958": { pageName: "usa5_page_14", displayName: "Faro Fact", ready: true, videoCount: 133, folderId: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", handle: "farofact", account: "USA Account 5" },
+  "855725930966508": { pageName: "usa5_page_15", displayName: "Cosmic Mirage", ready: true, videoCount: 276, folderId: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", handle: "cosmicmirage", account: "USA Account 5" }
 };
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
 let studioSelectedPageIds = new Set();
 let isStudioDispatching = false;
 let currentStudioAccountFilter = "all";
-let expandedStudioBoxes = new Set(["a1", "a2", "a3", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"]);
+let expandedStudioBoxes = new Set(["a1", "a2", "a3", "a4", "a5", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"]);
 let currentDriveAccountFilter = "all";
 let currentRecentSourceFilter = "all";
 
@@ -5046,12 +5080,13 @@ function formatRelativeTime(isoStr) {
 function renderDriveDataView() {
   if (!fullData || !fullData.pages) return;
 
-  // Calculate stock numbers across all 11 fleets (141 pages total)
+  // Calculate stock numbers across all 12 fleets (158 pages total)
   let totalStock = 0;
   let a1Stock = 0;
   let a2Stock = 0;
   let a3Stock = 0;
   let a4Stock = 0;
+  let a5Stock = 0;
   let ukStock = 0;
 
   fullData.pages.forEach(p => {
@@ -5062,6 +5097,7 @@ function renderDriveDataView() {
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
     const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
     const isUSA4 = FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt";
+    const isUSA5 = FLEET_USA_05_SET.has(pid) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni";
 
     totalStock += count;
     if (isUSA1) {
@@ -5072,6 +5108,8 @@ function renderDriveDataView() {
       a3Stock += count;
     } else if (isUSA4) {
       a4Stock += count;
+    } else if (isUSA5) {
+      a5Stock += count;
     } else {
       ukStock += count;
     }
@@ -5087,6 +5125,8 @@ function renderDriveDataView() {
   if (elA3) elA3.innerText = `${a3Stock.toLocaleString()} Videos`;
   const elA4 = document.getElementById("driveHeroA4Count");
   if (elA4) elA4.innerText = `${a4Stock.toLocaleString()} Videos`;
+  const elA5 = document.getElementById("driveHeroA5Count");
+  if (elA5) elA5.innerText = `${a5Stock.toLocaleString()} Videos`;
   const elUK = document.getElementById("driveHeroUKCount");
   if (elUK) elUK.innerText = `${ukStock.toLocaleString()} Videos`;
   const elSideBadge = document.getElementById("sideNavDriveCountBadge");

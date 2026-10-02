@@ -70,7 +70,8 @@ class DriveClient:
             name = f.get("name", "")
             ext = os.path.splitext(name)[1].lower()
             mime = f.get("mimeType", "")
-            if ext in SUPPORTED_EXTENSIONS or mime in SUPPORTED_MIME_TYPES:
+            size = int(f.get("size") or 0)
+            if (ext in SUPPORTED_EXTENSIONS or mime in SUPPORTED_MIME_TYPES) and size > 0:
                 video_files.append(f)
 
         # If empty, check subfolders

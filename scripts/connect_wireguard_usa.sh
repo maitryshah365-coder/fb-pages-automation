@@ -84,14 +84,41 @@ EOF
     fi
 
     echo "Waiting for tunnel handshake..."
-    sleep 3
+    sleep 4
 
-    # Check Egress Telemetry
-    GEO=$(curl -s --max-time 8 https://ipinfo.io/json || curl -s --max-time 8 https://ipapi.co/json || echo "{}")
-    COUNTRY=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('country', ''))" 2>/dev/null || echo "")
-    CITY=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('city', ''))" 2>/dev/null || echo "")
-    IP=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('ip', ''))" 2>/dev/null || echo "")
-    ORG=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('org', ''))" 2>/dev/null || echo "")
+    # Check Egress Telemetry with multi-provider retry
+    GEO="{}"
+    COUNTRY=""
+    CITY=""
+    IP=""
+    ORG=""
+    for check_try in 1 2 3; do
+        GEO=$(curl -s --max-time 6 https://ipinfo.io/json 2>/dev/null || true)
+        COUNTRY=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('country', ''))" 2>/dev/null || echo "")
+        if [ -n "$COUNTRY" ]; then
+            CITY=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('city', ''))" 2>/dev/null || echo "")
+            IP=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('ip', ''))" 2>/dev/null || echo "")
+            ORG=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('org', ''))" 2>/dev/null || echo "")
+            break
+        fi
+        GEO=$(curl -s --max-time 6 https://freeipapi.com/api/json 2>/dev/null || true)
+        COUNTRY=$(echo "$GEO" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('countryCode') or d.get('country', ''))" 2>/dev/null || echo "")
+        if [ -n "$COUNTRY" ]; then
+            CITY=$(echo "$GEO" | python3 -c "import sys, json; d=json.load(sys.stdin); print(d.get('cityName') or d.get('city', ''))" 2>/dev/null || echo "")
+            IP=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('ipAddress', ''))" 2>/dev/null || echo "")
+            ORG="Surfshark WireGuard USA"
+            break
+        fi
+        GEO=$(curl -s --max-time 6 https://ipapi.co/json 2>/dev/null || true)
+        COUNTRY=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('country', ''))" 2>/dev/null || echo "")
+        if [ -n "$COUNTRY" ]; then
+            CITY=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('city', ''))" 2>/dev/null || echo "")
+            IP=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('ip', ''))" 2>/dev/null || echo "")
+            ORG=$(echo "$GEO" | python3 -c "import sys, json; print(json.load(sys.stdin).get('org', ''))" 2>/dev/null || echo "")
+            break
+        fi
+        sleep 2
+    done
 
     echo "📍 Connected Egress IP: $IP"
     echo "📍 Detected Geo:        $CITY, $COUNTRY 🇺🇸"
