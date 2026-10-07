@@ -1,1 +1,16 @@
-{"dirty_ips": {}}
+{
+  "dirty_ips": {
+    "185.44.77.63": {
+      "flagged_at": "2026-10-07T13:07:15.088619+00:00",
+      "reasons": [
+        "Meta Edge Block on https://graph.facebook.com: Connection Error: HTTPSConnectionPool(host='graph.facebook.com', port=443): Read timed out. (read timeout=6)",
+        "Meta Edge Block on https://m.facebook.com: Connection Error: HTTPSConnectionPool(host='www.facebook.com', port=443): Read timed out. (read timeout=6)"
+      ],
+      "country": "GB",
+      "city": "London",
+      "org": "AS25369 Hydra Communications Ltd",
+      "hit_count": 1
+    }
+  },
+  "updated_at": "2026-10-07T13:07:15.088595+00:00"
+}
