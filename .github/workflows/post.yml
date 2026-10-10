@@ -27,11 +27,13 @@ on:
   # Account 2 (Pages 16-30): +20 Min Offset (10:20 AM, 3:20 PM, 7:20 PM, 10:20 PM EDT)
   # Account 3 (Pages 31-45 - Radika Patel): +40 Min Offset (10:40 AM, 3:40 PM, 7:40 PM, 10:40 PM EDT)
   # Account 4 (Pages 46-60 - Rohini Dutt): +60 Min Offset (11:00 AM, 4:00 PM, 8:00 PM, 11:00 PM EDT)
+  # Account 5 (Pages 144-158 - Sejal Soni): +80 Min Offset (11:20 AM, 4:20 PM, 8:20 PM, 11:20 PM EDT)
   schedule:
     - cron: "0 2,14,19,23 * * *"
     - cron: "20 2,14,19,23 * * *"
     - cron: "40 2,14,19,23 * * *"
     - cron: "0 3,15,20,0 * * *"
+    - cron: "20 3,15,20,0 * * *"
 
 concurrency:
   group: facebook-upload-${{ github.event.inputs.page || github.event.schedule || 'default' }}
@@ -163,7 +165,10 @@ jobs:
           fi
 
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "0 3,15,20,0 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "20 3,15,20,0 * * *" ]; then
+              echo "⏰ Staggered Cron Triggered: Running Account 5 (Pages 144-158 - Sejal Soni) [+80 Min Offset]"
+              python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
+            elif [ "${{ github.event.schedule }}" = "0 3,15,20,0 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 4 (Pages 46-60 - Rohini Dutt) [+60 Min Offset]"
               python main.py --config config_usa_account4.yaml $DRY_ARG --require-us
             elif [ "${{ github.event.schedule }}" = "40 2,14,19,23 * * *" ]; then
@@ -178,7 +183,9 @@ jobs:
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
-            if [ "$REQ_PAGE" = "account_4" ] || [ "$REQ_PAGE" = "usa4" ]; then
+            if [ "$REQ_PAGE" = "account_5" ] || [ "$REQ_PAGE" = "usa5" ]; then
+              python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
+            elif [ "$REQ_PAGE" = "account_4" ] || [ "$REQ_PAGE" = "usa4" ]; then
               python main.py --config config_usa_account4.yaml $DRY_ARG --require-us
             elif [ "$REQ_PAGE" = "account_1" ] || [ "$REQ_PAGE" = "usa1" ]; then
               python main.py --config config.yaml $DRY_ARG --require-us --page "page_1,page_2,page_3,page_4,page_5,page_6,page_7,page_8,page_9,page_10,page_11,page_12,page_13,page_14,page_15"
@@ -189,8 +196,11 @@ jobs:
             elif [ "$REQ_PAGE" = "all" ]; then
               python main.py --config config.yaml $DRY_ARG --require-us
               python main.py --config config_usa_account4.yaml $DRY_ARG --require-us
+              python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
             else
-              if [[ "$REQ_PAGE" == *"page_4"* ]] || [[ "$REQ_PAGE" == *"page_5"* ]] || [[ "$REQ_PAGE" == *"page_60"* ]]; then
+              if [[ "$REQ_PAGE" == *"page_14"* ]] || [[ "$REQ_PAGE" == *"page_15"* ]]; then
+                python main.py --config config_usa_account5.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
+              elif [[ "$REQ_PAGE" == *"page_4"* ]] || [[ "$REQ_PAGE" == *"page_5"* ]] || [[ "$REQ_PAGE" == *"page_60"* ]]; then
                 python main.py --config config_usa_account4.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
               else
                 python main.py --config config.yaml $DRY_ARG --require-us --page "$REQ_PAGE"

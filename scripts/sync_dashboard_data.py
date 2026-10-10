@@ -241,12 +241,15 @@ def get_pages_list():
                     raw = json.load(f)
                     p_list = raw.get("pages", []) if isinstance(raw, dict) else raw
                     for p in p_list:
-                        pid = str(p.get("id") or p.get("page_id") or "")
-                        if pid:
-                            p["_account_tag"] = acc["account"]
-                            p["_owner_tag"] = acc["owner"]
-                            p["_region_tag"] = acc["region"]
-                            all_found_by_id[pid] = p
+                        num_id = str(p.get("page_id") or "")
+                        alt_id = str(p.get("id") or "")
+                        p["_account_tag"] = acc["account"]
+                        p["_owner_tag"] = acc["owner"]
+                        p["_region_tag"] = acc["region"]
+                        if num_id:
+                            all_found_by_id[num_id] = p
+                        if alt_id:
+                            all_found_by_id[alt_id] = p
             except Exception as e:
                 print(f"Error loading {fpath}: {e}")
 
@@ -260,6 +263,7 @@ def get_pages_list():
                 pid = str(p.get("page_id", ""))
                 tok = p.get("page_access_token", "")
                 fld = p.get("drive_folder_id", "")
+                pname = p.get("name", "")
                 if pid:
                     if pid not in all_found_by_id:
                         all_found_by_id[pid] = {}
@@ -268,6 +272,8 @@ def get_pages_list():
                         all_found_by_id[pid]["page_access_token"] = tok
                     if fld:
                         all_found_by_id[pid]["drive_folder_id"] = fld
+                    if pname and not pname.lower().startswith("page ") and not pname.lower().startswith("page_"):
+                        all_found_by_id[pid]["name"] = pname
         except Exception:
             pass
 
@@ -298,7 +304,12 @@ def get_pages_list():
             merged_p.update({k: v for k, v in source_p.items() if v is not None and not k.startswith("_")})
             merged_p["id"] = pid
             merged_p["index"] = idx
-            merged_p["name"] = source_p.get("name") or base_p.get("name") or f"Page {idx}"
+
+            # Authentic name resolution: prioritize non-numeric human name
+            cand_name = source_p.get("name") or base_p.get("name") or source_p.get("displayName") or base_p.get("displayName")
+            if not cand_name or cand_name.lower().startswith("page ") or cand_name.lower().startswith("page_") or cand_name.isdigit():
+                cand_name = base_p.get("name") or source_p.get("name") or f"Page {idx}"
+            merged_p["name"] = cand_name
             merged_p["account"] = acc_name
             merged_p["account_owner"] = acc_owner
             merged_p["region"] = acc_region

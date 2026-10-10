@@ -20,15 +20,16 @@ with sync_playwright() as p:
     page = browser.new_page(viewport={"width": 1440, "height": 900})
     url = f"http://127.0.0.1:{PORT}/index.html"
     print("Navigating to:", url)
-    page.goto(url, wait_until="networkidle", timeout=15000)
+    page.goto(url, wait_until="domcontentloaded", timeout=15000)
     time.sleep(3)
     page.screenshot(path="temp_verified_dashboard.png")
 
-    btn = page.locator('text="Monetization Hub"').first
+    btn = page.get_by_text("Health & Audit").first
     if btn.count() > 0:
         btn.click()
         time.sleep(2)
-        page.screenshot(path="temp_verified_monetization_hub.png")
+        page.screenshot(path="temp_verified_health_audit.png")
+        print("Health & Audit screenshot captured!")
 
     browser.close()
 

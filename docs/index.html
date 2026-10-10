@@ -970,6 +970,7 @@
             <button type="button" class="tp-pill-btn" data-tp-days="1" onclick="setTopPerformersTimeframe(1)">Today</button>
             <button type="button" class="tp-pill-btn" data-tp-days="7" onclick="setTopPerformersTimeframe(7)">7 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="15" onclick="setTopPerformersTimeframe(15)">15 Days</button>
+            <button type="button" class="tp-pill-btn" data-tp-days="28" onclick="setTopPerformersTimeframe(28)">28 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="30" onclick="setTopPerformersTimeframe(30)">30 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="60" onclick="setTopPerformersTimeframe(60)">60 Days</button>
             <button type="button" class="tp-pill-btn" data-tp-days="90" onclick="setTopPerformersTimeframe(90)">90 Days</button>
@@ -1190,8 +1191,11 @@
           <h3 class="box-title">Key Analytics & Performance Overview</h3>
         </div>
         <div class="timeframe-toggle-wrapper" id="timeframeSelector">
+          <button class="timeframe-pill" data-days="1" id="btnTf1">Today</button>
           <button class="timeframe-pill" data-days="7" id="btnTf7">7 Days</button>
+          <button class="timeframe-pill" data-days="15" id="btnTf15">15 Days</button>
           <button class="timeframe-pill active" data-days="28" id="btnTf28">28 Days</button>
+          <button class="timeframe-pill" data-days="30" id="btnTf30">30 Days</button>
           <button class="timeframe-pill" data-days="60" id="btnTf60">60 Days</button>
           <button class="timeframe-pill" data-days="90" id="btnTf90">90 Days</button>
           <button class="timeframe-pill" data-days="all" id="btnTfAll">All Time</button>
@@ -1329,8 +1333,11 @@
             <button class="timeframe-pill" id="btnFilterServerReels" onclick="filterVideoCategory('server')">⚡ Server Uploads</button>
           </div>
           <div class="timeframe-toggle-wrapper" id="reelsTimeframeSelector">
+            <button class="timeframe-pill" data-days="1" id="btnReelTf1">Today</button>
             <button class="timeframe-pill" data-days="7" id="btnReelTf7">7 Days</button>
+            <button class="timeframe-pill" data-days="15" id="btnReelTf15">15 Days</button>
             <button class="timeframe-pill active" data-days="28" id="btnReelTf28">28 Days</button>
+            <button class="timeframe-pill" data-days="30" id="btnReelTf30">30 Days</button>
             <button class="timeframe-pill" data-days="60" id="btnReelTf60">60 Days</button>
             <button class="timeframe-pill" data-days="90" id="btnReelTf90">90 Days</button>
             <button class="timeframe-pill" data-days="all" id="btnReelTfAll">All Time</button>

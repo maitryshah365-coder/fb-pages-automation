@@ -33,6 +33,7 @@ const sandbox = {
   },
   document: {
     readyState: 'complete',
+    documentElement: mockElement('html'),
     addEventListener: () => {},
     getElementById: (id) => mockElement(id),
     querySelectorAll: (sel) => [mockElement('sel1')],

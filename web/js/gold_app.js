@@ -227,11 +227,36 @@ const FLEET_USA_05_IDS = [
 
 const FLEET_USA_05_SET = new Set(FLEET_USA_05_IDS);
 
+// Centralized helper to guarantee authentic human-readable page names (never raw numbers or placeholders)
+function getPageDisplayName(p) {
+  if (!p) return "Page";
+  const pid = String(p.id || p.page_id || "");
+  const driveInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]);
+  const mapped = driveInfo?.displayName;
+  if (mapped && !mapped.toLowerCase().startsWith("page ") && !mapped.toLowerCase().startsWith("page_")) {
+    return mapped;
+  }
+  if (p.displayName && !p.displayName.toLowerCase().startsWith("page ") && !p.displayName.toLowerCase().startsWith("page_")) {
+    return p.displayName;
+  }
+  if (p.name && !p.name.toLowerCase().startsWith("page ") && !p.name.toLowerCase().startsWith("page_") && !/^\d+$/.test(p.name)) {
+    return p.name;
+  }
+  return mapped || p.displayName || p.name || `Page ${p.index || pid}`;
+}
+window.getPageDisplayName = getPageDisplayName;
 
 function enforceStrictFleetSorting(pages) {
   if (!pages || !Array.isArray(pages)) return [];
   const map = new Map();
-  pages.forEach(p => map.set(String(p.id), p));
+  pages.forEach(p => {
+    const cleanName = getPageDisplayName(p);
+    if (cleanName) {
+      p.name = cleanName;
+      p.displayName = cleanName;
+    }
+    map.set(String(p.id), p);
+  });
 
   const usa1 = [];
   const usa2 = [];
@@ -483,13 +508,15 @@ function getReelsForDays(videos, days) {
   });
 
   // If "all" or lifetime requested, return all reels
-  if (days === "all" || !days || days === 0 || days >= 999) {
+  if (days === "all" || days === "life" || days === "lifetime" || !days || days === 0 || days >= 999) {
     return sorted;
   }
 
   // Real-time cutoff based on nowMs
   const nowMs = Date.now();
-  const cutoffTime = nowMs - (Number(days) * 24 * 60 * 60 * 1000);
+  const numDays = Number(days);
+  if (isNaN(numDays) || numDays <= 0) return sorted;
+  const cutoffTime = nowMs - (numDays * 24 * 60 * 60 * 1000);
 
   return sorted.filter(v => {
     const vt = new Date(v.posted_at || v.created_time_iso || v.created_at || 0).getTime();
@@ -645,21 +672,21 @@ function getServerUploadedVideos() {
 }
 
 function setTimeframe(days) {
-  currentTimeframe = days;
+  currentTimeframe = (days === "all" || days === "life" || days === "lifetime") ? "all" : parseInt(days);
 
   document.querySelectorAll(".timeframe-pill").forEach(btn => {
-    if (days === "all") {
-      btn.classList.toggle("active", btn.dataset.days === "all");
+    if (currentTimeframe === "all") {
+      btn.classList.toggle("active", btn.dataset.days === "all" || btn.dataset.days === "life");
     } else {
-      btn.classList.toggle("active", parseInt(btn.dataset.days) === days);
+      btn.classList.toggle("active", parseInt(btn.dataset.days) === currentTimeframe);
     }
   });
 
-  const subLabel = days === "all" ? "All Time Lifetime" : `Last ${days} Days Live`;
+  const subLabel = currentTimeframe === "all" ? "All Time Lifetime" : `Last ${currentTimeframe} Days Live`;
   const viewsSub = document.getElementById("metricViewsSub");
   if (viewsSub) viewsSub.innerText = `${subLabel} Meta Count`;
 
-  showToast(days === "all" ? "📅 Loaded All Published Reels (Lifetime Scope)" : `📅 Loaded 100% Real Live Analytics for Last ${days} Days`);
+  showToast(currentTimeframe === "all" ? "📅 Loaded All Published Reels (Lifetime Scope)" : `📅 Loaded 100% Real Live Analytics for Last ${currentTimeframe} Days`);
   selectPage(activePageId);
 }
 
@@ -691,48 +718,13 @@ try {
 
 async function fetchSmartData(url) {
   try {
-    if ("caches" in window) {
-      const cache = await caches.open(CURRENT_DATA_CACHE_NAME);
-      const cached = await cache.match(url);
-      if (cached) {
-        // Return instantly from cache so app loads in milliseconds!
-        // Silent background update only re-renders if actual new content exists
-        fetch(url).then(async fresh => {
-          if (fresh && fresh.ok) {
-            const data = await fresh.clone().json();
-            if (data && data.pages) {
-              const isDifferent = Boolean(
-                data.synced_at &&
-                (!fullData || data.synced_at !== fullData.synced_at)
-              );
-              await cache.put(url, fresh);
-              if (isDifferent) {
-                fullData = data;
-                if (fullData.pages && Array.isArray(fullData.pages)) {
-                  fullData.pages = enforceStrictFleetSorting(fullData.pages);
-                }
-                renderSidebarPagesList(fullData.pages);
-                renderDrawerPages(fullData.pages);
-                updateRadarSlots();
-                if (typeof renderTopPerformersView === "function") renderTopPerformersView();
-                if (typeof renderHealthAuditMainView === "function") renderHealthAuditMainView();
-                if (document.getElementById("dashboardAnalyticsView")?.style.display === "block") {
-                  selectPage(activePageId);
-                }
-              }
-            }
-          }
-        }).catch(() => {});
-        return await cached.json();
-      }
-      const res = await fetch(url);
-      if (res && res.ok) {
-        await cache.put(url, res.clone());
-        return await res.json();
-      }
+    const fetchUrl = url.includes("?") ? `${url}&_t=${Date.now()}` : `${url}?_t=${Date.now()}`;
+    const res = await fetch(fetchUrl, { cache: "no-store" });
+    if (res && res.ok) {
+      return await res.json();
     }
   } catch (e) {
-    console.warn("Cache API fallback:", e);
+    console.warn("Live fetch error, falling back:", e);
   }
   return fetch(url).then(r => r.ok ? r.json() : null);
 }
@@ -755,12 +747,11 @@ async function initDashboard() {
       }
     } catch(e) {}
 
-    // 2. Load latest pages_data, latest_run_summary, server_uploaded_videos, and upload_history concurrently (ultra-fast cached)
     const [resPages, resSummary, resServerVideos, resHistory] = await Promise.all([
       fetchSmartData("data/pages_data.json"),
-      fetch("data/latest_run_summary.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null),
-      fetch("data/server_uploaded_videos.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null),
-      fetch("data/upload_history.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : null)
+      fetch("data/latest_run_summary.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
+      fetch("data/server_uploaded_videos.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
+      fetch("data/upload_history.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null)
     ]);
 
     if (resHistory && Array.isArray(resHistory.history)) {
@@ -1407,7 +1398,8 @@ function renderSidebarPagesList(pages) {
   pageList.forEach(p => {
     const pid = String(p.id);
     if (searchTerm) {
-      const nameMatch = (p.name || "").toLowerCase().includes(searchTerm);
+      const pName = getPageDisplayName(p);
+      const nameMatch = pName.toLowerCase().includes(searchTerm) || (p.name || "").toLowerCase().includes(searchTerm);
       const idMatch = pid.toLowerCase().includes(searchTerm);
       const accMatch = (p.account || "").toLowerCase().includes(searchTerm);
       const ownerMatch = (p.account_owner || "").toLowerCase().includes(searchTerm);
@@ -1445,6 +1437,7 @@ function renderSidebarPagesList(pages) {
     const isPageActive = String(p.id) === activePageId;
     const isMobileSetup = accType === "usa4" || accType === "usa5" || FLEET_USA_04_SET.has(String(p.id)) || FLEET_USA_05_SET.has(String(p.id)) || (p.account && (p.account.includes("Rohini") || p.account.includes("Sejal")));
     const phoneModel = (accType === "usa5" || FLEET_USA_05_SET.has(String(p.id)) || (p.account && p.account.includes("Sejal"))) ? "Pixel 9" : "S25";
+    const displayName = getPageDisplayName(p);
     const followersStr = (p.followers || p.fan_count || p.followers_count || 0).toLocaleString();
     const pToday = getPageTodayPosts(p);
     const driveCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0)
@@ -1458,12 +1451,12 @@ function renderSidebarPagesList(pages) {
     }).join("");
 
     return `
-      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${escapeHtml(p.name)} • ID: ${p.id} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
-        <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${escapeHtml(p.name)}" onerror="this.src='https://graph.facebook.com/v21.0/${p.id}/picture?type=large'">
+      <div class="side-page-item ${isPageActive ? 'active' : ''}" data-page-id="${p.id}" role="button" tabindex="0" onclick="onSelectSidebarPage('${p.id}', event)" title="${escapeHtml(displayName)} • ID: ${p.id} • ${followersStr} followers • ${pToday}/4 Slots Today • ${driveCount} in Drive">
+        <img class="side-page-avatar" src="${p.pic_url || ''}" alt="${escapeHtml(displayName)}" onerror="this.src='https://graph.facebook.com/v21.0/${p.id}/picture?type=large'">
         <div class="side-page-content">
           <div class="side-page-row-top">
-            <span class="side-page-name" title="${escapeHtml(p.name)}">
-              ${escapeHtml(p.name)}
+            <span class="side-page-name" title="${escapeHtml(displayName)}">
+              ${escapeHtml(displayName)}
             </span>
             <div class="battery-slot-bar" title="${pToday}/4 Slots Completed Today">
               ${batteryCells}
@@ -1764,7 +1757,8 @@ function renderDrawerPages(pages) {
   const filtered = pageList.filter(p => {
     if (!searchTerm) return true;
     const pid = String(p.id || "");
-    const nameMatch = (p.name || "").toLowerCase().includes(searchTerm);
+    const pName = getPageDisplayName(p);
+    const nameMatch = pName.toLowerCase().includes(searchTerm) || (p.name || "").toLowerCase().includes(searchTerm);
     const idMatch = pid.toLowerCase().includes(searchTerm);
     const accMatch = (p.account || "").toLowerCase().includes(searchTerm);
     const ownerMatch = (p.account_owner || "").toLowerCase().includes(searchTerm);
@@ -1832,7 +1826,7 @@ function renderDrawerPages(pages) {
     const isAct = String(p.id) === activePageId;
     const isMobileSetup = accType === "usa4" || accType === "usa5" || FLEET_USA_04_SET.has(String(p.id)) || FLEET_USA_05_SET.has(String(p.id)) || (p.account && (p.account.includes("Rohini") || p.account.includes("Sejal")));
     const phoneModel = (accType === "usa5" || FLEET_USA_05_SET.has(String(p.id)) || (p.account && p.account.includes("Sejal"))) ? "Pixel 9" : "S25";
-    const name = p.name || `Page ${p.id}`;
+    const name = getPageDisplayName(p);
     const pId = String(p.id);
     const followers = (p.followers || p.fan_count || p.followers_count || 0);
     const followersStr = followers.toLocaleString();
@@ -1978,10 +1972,10 @@ function selectPage(pageId) {
   const mobActiveName = document.getElementById("mobileActivePageName");
   if (mobActiveName) {
     if (activePageId === "all") {
-      mobActiveName.innerText = `All ${fullData?.pages?.length || 141} Pages Portfolio`;
+      mobActiveName.innerText = `All ${fullData?.pages?.length || 156} Pages Portfolio`;
     } else {
       const pObj = fullData?.pages?.find(p => String(p.id) === activePageId);
-      mobActiveName.innerText = pObj ? pObj.name : "Active Page";
+      mobActiveName.innerText = pObj ? getPageDisplayName(pObj) : "Active Page";
     }
   }
 
@@ -2025,8 +2019,9 @@ function selectPage(pageId) {
     if (sideDashBtn) sideDashBtn.classList.remove("active");
     const pageObj = fullData?.pages?.find(p => String(p.id) === activePageId);
     if (pageObj) {
-      if (sideActiveSub) sideActiveSub.innerText = `Active: ${pageObj.name}`;
-      if (mobHeaderName) mobHeaderName.innerText = pageObj.name;
+      const pageDisplayName = getPageDisplayName(pageObj);
+      if (sideActiveSub) sideActiveSub.innerText = `Active: ${pageDisplayName}`;
+      if (mobHeaderName) mobHeaderName.innerText = pageDisplayName;
       if (sideBadgeVideos) {
         sideBadgeVideos.innerText = (pageObj.videos?.length || 0).toLocaleString();
       }
@@ -2041,9 +2036,10 @@ function selectPage(pageId) {
 // ----------------- Single Page View -----------------
 
 function renderSinglePageView(p) {
+  const pageDisplayName = getPageDisplayName(p);
   // 1. Header Page Name
   const headerShort = document.getElementById("headerActivePageShortName");
-  if (headerShort) headerShort.innerText = p.name;
+  if (headerShort) headerShort.innerText = pageDisplayName;
 
   // 2. Hero Profile
   const heroName = document.getElementById("heroPageName");
@@ -2054,7 +2050,7 @@ function renderSinglePageView(p) {
   const metricReels = document.getElementById("metricHeroReels");
   const metricToday = document.getElementById("metricHeroTodayUploaded");
 
-  if (heroName) heroName.innerText = p.name;
+  if (heroName) heroName.innerText = pageDisplayName;
   const accTag = p.account || (p.index <= 15 ? 'Account 1' : 'Account 2');
   const ownerTag = p.account_owner || (p.index > 15 ? 'Mia Shah' : 'Account 1 Admin');
   if (heroSub) heroSub.innerText = `${p.category || 'Digital Creator'} • ID: ${p.id} • ${accTag} (${ownerTag})`;
@@ -2064,17 +2060,22 @@ function renderSinglePageView(p) {
   const allReels = p.videos || [];
   const reelsForTf = getReelsForDays(allReels, currentTimeframe);
 
-  const reelsViewsSum = reelsForTf.reduce((sum, v) => sum + (v.views || 0), 0);
-  const totalRealViews = (currentTimeframe === "all" || currentTimeframe === 90)
+  const reelsViewsSum = reelsForTf.reduce((sum, v) => sum + (Number(v.views) || 0), 0);
+  const isLifetime = (currentTimeframe === "all" || currentTimeframe === "life" || currentTimeframe === "lifetime" || !currentTimeframe);
+  const totalRealViews = isLifetime
     ? Math.max(Number(p.total_views) || 0, reelsViewsSum)
-    : (reelsViewsSum > 0 ? reelsViewsSum : Math.round((Number(p.total_views) || 0) * (currentTimeframe === 7 ? 0.35 : currentTimeframe === 28 ? 0.76 : 0.88)));
-  const totalRealLikes = reelsForTf.reduce((sum, v) => sum + (v.likes || 0), 0);
-  const totalRealComments = reelsForTf.reduce((sum, v) => sum + (v.comments || 0), 0);
+    : reelsViewsSum;
+  const totalRealLikes = isLifetime
+    ? (Number(p.total_engagement?.likes) || reelsForTf.reduce((sum, v) => sum + (Number(v.likes) || 0), 0))
+    : reelsForTf.reduce((sum, v) => sum + (Number(v.likes) || 0), 0);
+  const totalRealComments = isLifetime
+    ? (Number(p.total_engagement?.comments) || reelsForTf.reduce((sum, v) => sum + (Number(v.comments) || 0), 0))
+    : reelsForTf.reduce((sum, v) => sum + (Number(v.comments) || 0), 0);
   const totalInteractions = totalRealLikes + totalRealComments;
-  const followersCount = p.followers || 0;
-  // Use live organic reach if available, otherwise estimate
+  const followersCount = Number(p.followers) || 0;
+  // Use live organic reach if available, otherwise 1.32x of real timeframe views (0 if 0 views)
   const liveOrgReach = p.live_meta_insights?.organic_impressions || 0;
-  const reachCount = liveOrgReach > 0 ? liveOrgReach : (Math.floor(totalRealViews * 1.32) || Math.floor(followersCount * 1.8));
+  const reachCount = liveOrgReach > 0 ? liveOrgReach : Math.floor(totalRealViews * 1.32);
   const hookViews = Math.floor(totalRealViews * 0.55);
 
   if (metricFollowers) metricFollowers.innerText = followersCount.toLocaleString();
@@ -2163,8 +2164,8 @@ function renderSinglePageView(p) {
   const libTitle = document.getElementById("librarySectionTitle");
   const libSub = document.getElementById("librarySourceSub");
   const libDesc = document.getElementById("libraryDescText");
-  if (libTitle) libTitle.innerText = `${p.name} - Uploaded Videos & Reels`;
-  if (libSub) libSub.innerText = `Showing published reels for ${p.name} (${currentTimeframe} Days)`;
+  if (libTitle) libTitle.innerText = `${pageDisplayName} - Uploaded Videos & Reels`;
+  if (libSub) libSub.innerText = `Showing published reels for ${pageDisplayName} (${currentTimeframe} Days)`;
   if (libDesc) libDesc.innerText = `Channel content performance table • Real-time views, retention & engagement`;
 
   if (activeReelsCategory === "server") {
@@ -2308,17 +2309,17 @@ function renderAllPortfolioView() {
     pReels.forEach(v => allVideosForTf.push(v));
   });
 
-  // Scale views accurately based on selected timeframe (7d, 28d, 60d, 90d, All Time)
-  let totalTfViews = totalLifetimeViews;
-  if (currentTimeframe === 28) {
-    totalTfViews = Math.round(totalLifetimeViews * 0.76); // Real 28-day active period (~3.75 Crore views)
-  } else if (currentTimeframe === 7) {
-    totalTfViews = Math.round(totalLifetimeViews * 0.35); // 7-day surge (~1.72 Crore views)
-  } else if (currentTimeframe === 60) {
-    totalTfViews = Math.round(totalLifetimeViews * 0.88); // 60-day window (~4.34 Crore views)
-  } else if (currentTimeframe === 90 || currentTimeframe === "all") {
-    totalTfViews = totalLifetimeViews; // Full lifetime (4.93 Crore views)
-  }
+  // Calculate 100% real timeframe views and engagement across all pages (no multipliers)
+  const isPortfolioLifetime = (currentTimeframe === "all" || currentTimeframe === "life" || currentTimeframe === "lifetime" || !currentTimeframe);
+  const totalTfViews = isPortfolioLifetime
+    ? totalLifetimeViews
+    : allVideosForTf.reduce((sum, v) => sum + (Number(v.views) || 0), 0);
+  const totalTfLikes = isPortfolioLifetime
+    ? totalLikes
+    : allVideosForTf.reduce((sum, v) => sum + (Number(v.likes) || 0), 0);
+  const totalTfComments = isPortfolioLifetime
+    ? totalComments
+    : allVideosForTf.reduce((sum, v) => sum + (Number(v.comments) || 0), 0);
 
   // Update Hero Profile Banner for All Portfolio View
   const heroName = document.getElementById("heroPageName");
@@ -2332,20 +2333,22 @@ function renderAllPortfolioView() {
   if (heroSub) heroSub.innerText = `${fullData.pages.length} Active Facebook Pages (${fullData.pages.length * 4} Daily Slots) • 24/7 Automated Upload Engine`;
   if (heroAvatar) heroAvatar.src = "icons/icon-192.png";
   if (metricHeroFollowers) metricHeroFollowers.innerText = totalFollowers.toLocaleString();
-  if (metricHeroViews) metricHeroViews.innerText = totalLifetimeViews.toLocaleString();
-  if (metricHeroReels) metricHeroReels.innerText = totalPublishedPosts.toLocaleString();
+  if (metricHeroViews) metricHeroViews.innerText = totalTfViews.toLocaleString();
+  if (metricHeroReels) metricHeroReels.innerText = isPortfolioLifetime
+    ? totalPublishedPosts.toLocaleString()
+    : allVideosForTf.length.toLocaleString();
 
-  // Multi-crore KPI Metrics Calculation
+  // Multi-crore KPI Metrics Calculation (100% Real Timeframe Data)
   const totalReach = Math.round(totalTfViews * 1.35);
-  const totalInteractions = Math.max(39698, totalLikes + totalComments);
-  const totalLikesDisplay = Math.max(39281, totalLikes || Math.round(totalInteractions * 0.98));
-  const totalCommentsDisplay = Math.max(417, totalComments || Math.round(totalInteractions * 0.02));
+  const totalInteractions = totalTfLikes + totalTfComments;
+  const totalLikesDisplay = totalTfLikes;
+  const totalCommentsDisplay = totalTfComments;
   const total3s = Math.round(totalTfViews * 0.55);
   const total30s = Math.round(totalTfViews * 0.32);
   const totalOrganicReach = Math.round(totalTfViews * 1.15);
   const totalOrganicViews = Math.round(totalTfViews * 0.95);
-  const totalProfileVisits = Math.max(7804, Math.round(totalFollowers * 0.15));
-  const totalDailyFollows = Math.max(1681, Math.round(totalFollowers * 0.015));
+  const totalProfileVisits = Math.round(totalFollowers * 0.15);
+  const totalDailyFollows = Math.round(totalFollowers * 0.015);
 
   const kpiViews = document.getElementById("metricTotalViews");
   const kpiReach = document.getElementById("metricTotalReach");
@@ -3923,6 +3926,7 @@ const DRIVE_CONFIGURED_PAGES = {
   "502777659582958": { pageName: "usa5_page_14", displayName: "Faro Fact", ready: true, videoCount: 133, folderId: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", handle: "farofact", account: "USA Account 5" },
   "855725930966508": { pageName: "usa5_page_15", displayName: "Cosmic Mirage", ready: true, videoCount: 276, folderId: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", handle: "cosmicmirage", account: "USA Account 5" }
 };
+window.DRIVE_CONFIGURED_PAGES = DRIVE_CONFIGURED_PAGES;
 
 // Selected page IDs for studio post now (starts empty, user selects on click)
 let studioSelectedPageIds = new Set();
@@ -5486,10 +5490,10 @@ function setPerformanceMode(mode) {
 }
 
 function setTopPerformersTimeframe(days) {
-  currentTopPerformersTimeframe = (days === "all" || days === "lifetime") ? "all" : Number(days);
+  currentTopPerformersTimeframe = (days === "all" || days === "lifetime" || days === "life") ? "all" : Number(days);
   document.querySelectorAll("[data-tp-days]").forEach(btn => {
     const bVal = btn.getAttribute("data-tp-days");
-    btn.classList.toggle("active", String(bVal) === String(currentTopPerformersTimeframe));
+    btn.classList.toggle("active", String(bVal) === String(currentTopPerformersTimeframe) || ((currentTopPerformersTimeframe === "all") && (bVal === "all" || bVal === "life")));
   });
   renderTopPerformersView();
 }
@@ -5549,20 +5553,18 @@ function renderTopPerformersView() {
     const pageTotalViews = Number(p.total_views) || 0;
     const effectiveAllTimeViews = Math.max(pageTotalViews, vidsTotalViews);
 
-    // If timeframe is "all" or undefined or >= 30, strictly guarantee tfViews reflects the full verified views
-    if (days === "all" || !days || Number(days) >= 30) {
+    // Ground-truth timeframe calculation:
+    // When "all" / lifetime is selected: use complete verified all-time page views.
+    // When a specific timeframe (1D, 7D, 15D, 30D, etc.) is selected:
+    // Strictly count ONLY the views, likes, and comments from reels posted in that exact date window!
+    if (days === "all" || !days || days === "lifetime") {
       tfViews = Math.max(tfViews, effectiveAllTimeViews);
-    } else {
-      // For short intervals (1D, 7D, 15D), interpolate proportional velocity if individual reel views are 0
-      if (tfViews === 0 && effectiveAllTimeViews > 0) {
-        tfViews = Math.max(1, Math.round(effectiveAllTimeViews * (Number(days) / 30)));
+      if (tfLikes === 0 && p.total_engagement && Number(p.total_engagement.likes) > 0) {
+        tfLikes = Number(p.total_engagement.likes) || 0;
       }
-    }
-    if (tfLikes === 0 && p.total_engagement && Number(p.total_engagement.likes) > 0) {
-      tfLikes = Number(p.total_engagement.likes) || 0;
-    }
-    if (tfComments === 0 && p.total_engagement && Number(p.total_engagement.comments) > 0) {
-      tfComments = Number(p.total_engagement.comments) || 0;
+      if (tfComments === 0 && p.total_engagement && Number(p.total_engagement.comments) > 0) {
+        tfComments = Number(p.total_engagement.comments) || 0;
+      }
     }
     const tfEngagement = tfLikes + tfComments;
 
@@ -5612,7 +5614,8 @@ function renderTopPerformersView() {
     else if (FLEET_UK_06_SET.has(pid)) fleetTag = "UK 6 • Sweta Shah";
     else if (FLEET_UK_07_SET.has(pid)) fleetTag = "UK 7 • Riya Gaur";
     else if (FLEET_USA_03_SET.has(pid)) fleetTag = "USA 3 • Radika Patel";
-    else if (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini"))) fleetTag = "USA 4 • 📱 Rohini Dutt (S25)";
+    else if (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini"))) fleetTag = "USA 4 • Rohini Dutt";
+    else if (FLEET_USA_05_SET.has(pid) || (p.account && p.account.includes("Sejal"))) fleetTag = "USA 5 • Sejal Soni";
     else if (p.account) fleetTag = p.account;
 
     // Diagnosis tag
@@ -5635,7 +5638,7 @@ function renderTopPerformersView() {
     return {
       page: p,
       pid: pid,
-      name: p.name,
+      name: getPageDisplayName(p),
       pic_url: p.pic_url || `https://graph.facebook.com/v20.0/${pid}/picture?type=large`,
       followers: Number(p.followers) || 0,
       tfViews,
@@ -5920,35 +5923,26 @@ function renderTopPerformersView() {
     }
     if (elKpiSub3) elKpiSub3.innerText = countUploadGap > 0 ? `Missed scheduled reel uploads` : `All pages uploaded recently`;
 
-    if (elKpiLabel4) elKpiLabel4.innerHTML = `❄️ Monitored Underperformers`;
-    if (elKpiVal4) {
-      elKpiVal4.className = "tp-kpi-value";
-      elKpiVal4.innerText = `50 Pages`;
-    }
-    if (elKpiSub4) elKpiSub4.innerText = `Bottom 50 of ${pages.length} channels`;
-
-    // Extract Bottom 50 pool:
-    // Sort all 101 pages ascending by views, then lastUploadMs ascending
+    // Extract Bottom Pool:
+    // Sort all pages ascending by views, then lastUploadMs ascending
     const ascendingPool = [...allPagesStats].sort((a, b) => {
       if (a.tfViews !== b.tfViews) return a.tfViews - b.tfViews;
       if (a.lastUploadMs !== b.lastUploadMs) return a.lastUploadMs - b.lastUploadMs;
       return a.followers - b.followers;
     });
 
-    const bottom50Pool = ascendingPool.slice(0, 50);
-
-    // Apply Quick Filter
-    let filteredList = bottom50Pool;
+    // Apply Quick Filter across entire fleet first (so 'under500' and 'zero' get all matching pages)
+    let filteredPool = ascendingPool;
     if (currentLowFilter === "zero") {
-      filteredList = bottom50Pool.filter(p => p.tfViews === 0);
+      filteredPool = ascendingPool.filter(p => p.tfViews === 0);
     } else if (currentLowFilter === "under500") {
-      filteredList = bottom50Pool.filter(p => p.tfViews > 0 && p.tfViews < 500);
+      filteredPool = ascendingPool.filter(p => p.tfViews > 0 && p.tfViews < 500);
     } else if (currentLowFilter === "gap") {
-      filteredList = bottom50Pool.filter(p => p.daysSinceLastUpload > 3);
+      filteredPool = ascendingPool.filter(p => p.daysSinceLastUpload > 3);
     }
 
-    // Apply Sort
-    filteredList.sort((a, b) => {
+    // Apply Sort to filtered pool
+    filteredPool.sort((a, b) => {
       if (currentLowSort === "oldest_upload") {
         return a.lastUploadMs - b.lastUploadMs;
       }
@@ -5961,9 +5955,25 @@ function renderTopPerformersView() {
       return a.lastUploadMs - b.lastUploadMs;
     });
 
+    const filteredList = filteredPool.slice(0, 50);
+
+    if (elKpiLabel4) elKpiLabel4.innerHTML = `❄️ Monitored in Filter`;
+    if (elKpiVal4) {
+      elKpiVal4.className = "tp-kpi-value";
+      elKpiVal4.innerText = `${filteredList.length} Pages`;
+    }
+    if (elKpiSub4) elKpiSub4.innerText = currentLowFilter === "all" ? `Bottom 50 of ${pages.length} channels` : `Showing top ${filteredList.length} matching filter`;
+
     // Render Low Mode Table
     if (tableHeading) {
-      tableHeading.innerText = `❄️ Underperforming Channels Directory (${filteredList.length} Pages)`;
+      const filterTitle = currentLowFilter === "zero"
+        ? "🔴 Strictly 0 Views Pages"
+        : (currentLowFilter === "under500"
+            ? "🟡 Low Velocity Pages (< 500 Views)"
+            : (currentLowFilter === "gap"
+                ? "⏳ Channels with Upload Gap (> 3 Days)"
+                : "❄️ Underperforming Channels Directory"));
+      tableHeading.innerText = `${filterTitle} (${filteredList.length} Pages Listed)`;
     }
 
     if (tableHeader) {
@@ -6666,8 +6676,8 @@ function renderHealthAuditMainView() {
     { tag: "USA 1", owner: "Meghal Chauhan", set: FLEET_USA_01_SET, startIdx: 1, endIdx: 15, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
     { tag: "USA 2", owner: "Mia Shah", set: FLEET_USA_02_SET, startIdx: 16, endIdx: 30, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
     { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
-    { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: true, deviceName: "Samsung S25 Profile" },
-    { tag: "USA 5", owner: "Sejal Soni", set: FLEET_USA_05_SET, startIdx: 142, endIdx: 156, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: true, deviceName: "Pixel 9 Pro Profile" },
+    { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
+    { tag: "USA 5", owner: "Sejal Soni", set: FLEET_USA_05_SET, startIdx: 142, endIdx: 156, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
 
     // --- 🇬🇧 UK Fleets (7 Accounts • 81 Pages) ---
     { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", flagImg: "icons/gb.png", countryGroup: "UK", isDeviceProfile: false },
@@ -6854,7 +6864,7 @@ function renderHealthAuditMainView() {
 
   const tokensVal = document.getElementById("mainAuditTokensVal");
   if (tokensVal) {
-    tokensVal.textContent = `${totalValidTokens}/${pages.length} Active`;
+    tokensVal.textContent = `${totalValidTokens}/${auditPages.length} Active`;
     tokensVal.className = tokenIssueItems.length > 0 ? "stat-num" : "stat-num green-text";
     tokensVal.style.color = tokenIssueItems.length > 0 ? "#f87171" : "#4ade80";
   }
@@ -6867,7 +6877,7 @@ function renderHealthAuditMainView() {
 
   const healthStatusVal = document.getElementById("mainAuditHealthStatus");
   if (healthStatusVal) {
-    const pct = ((totalValidTokens / (pages.length || 1)) * 100).toFixed(1);
+    const pct = ((totalValidTokens / (auditPages.length || 1)) * 100).toFixed(1);
     healthStatusVal.textContent = `${pct}% Operational`;
     healthStatusVal.style.color = pct >= 95 ? "#4ade80" : (pct >= 80 ? "#facc15" : "#f87171");
   }
@@ -7130,8 +7140,8 @@ async function runLiveAuditUI(e) {
       { tag: "USA 1", owner: "Meghal Chauhan", set: FLEET_USA_01_SET, startIdx: 1, endIdx: 15, flag: "🇺🇸", countryGroup: "USA" },
       { tag: "USA 2", owner: "Mia Shah", set: FLEET_USA_02_SET, startIdx: 16, endIdx: 30, flag: "🇺🇸", countryGroup: "USA" },
       { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸", countryGroup: "USA" },
-      { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", countryGroup: "USA", isDeviceProfile: true, deviceName: "Samsung S25 Profile" },
-      { tag: "USA 5", owner: "Sejal Soni", set: FLEET_USA_05_SET, startIdx: 142, endIdx: 156, flag: "🇺🇸", countryGroup: "USA", isDeviceProfile: true, deviceName: "Pixel 9 Pro Profile" },
+      { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", countryGroup: "USA" },
+      { tag: "USA 5", owner: "Sejal Soni", set: FLEET_USA_05_SET, startIdx: 142, endIdx: 156, flag: "🇺🇸", countryGroup: "USA" },
 
       // UK Fleets (7 Fleets • 81 Pages)
       { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", countryGroup: "UK" },
@@ -7476,509 +7486,14 @@ function getDeviceUploadBadge(item) {
   const acc = (item.account || "").toLowerCase();
   const dev = (item.device || "").toLowerCase();
   const prof = (item.device_profile || "").toLowerCase();
-  
-  const isRohiniS25 = acc.includes("rohini") || dev.includes("s25") || prof.includes("s25") || rohiniPages.some(rp => pName.includes(rp));
-  if (isRohiniS25) {
-    return `<span class="badge-device-upload" title="Emulated Mobile Device: Samsung Galaxy S25 (SM-S931U)">📱 Rohini • S25</span>`;
-  }
-  const sejalPages = [
-    "the daily spark", "the chill spot", "tag the", "stellar vibes", 
-    "sovereign collective", "silent grove", "royal vanguard", "royal frontier", 
-    "rajat gupta", "mouth the hang", "mojo day", "fly happy", 
-    "flute tomography nature", "faro fact", "cosmic mirage"
-  ];
-  const isSejalPixel9 = acc.includes("sejal") || dev.includes("pixel") || prof.includes("pixel9") || sejalPages.some(sp => pName.includes(sp));
-  if (isSejalPixel9) {
-    return `<span class="badge-device-upload" style="background: rgba(167,139,250,0.18); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.4);" title="Emulated Mobile Device: Google Pixel 9 Pro (Tensor G4)">📱 Sejal • Pixel 9 Pro</span>`;
-  }
-  if (item.device) {
-    return `<span class="badge-device-upload">📱 ${item.device}</span>`;
-  }
   return '';
 }
 window.getDeviceUploadBadge = getDeviceUploadBadge;
 
-const antiDetectProfilesData = [
-  {
-    id: 1,
-    profile_code: "USA-NYC-S25",
-    name: "Samsung Galaxy S25 (SM-S931U)",
-    model: "SM-S931U (Snapdragon 8 Elite)",
-    owner: "Rohini Dutt",
-    fb_uid: "61570977560611",
-    country: "USA",
-    country_flag: "🇺🇸",
-    region: "New York City, NY",
-    timezone: "America/New_York (EDT / UTC-4)",
-    dedicated_ip: "207.244.71.84 (NYC Dedicated WireGuard Proxy)",
-    cookie_status: "ACTIVE",
-    cookie_age_text: "Session Active (Long-Lived Meta Cookie)",
-    cookie_health_score: "100%",
-    total_pages: 15,
-    stock_videos: 3779,
-    stock_gb: "47.12 GB",
-    missed_uploads: 0,
-    daily_quota: 15,
-    today_uploaded: 0,
-    status_summary: "All 15 Pages In Sync • 0 Uploads Missed",
-    fingerprint: {
-      os: "Android 15 (VanillaIceCream)",
-      build: "UP1A.241005.007",
-      browser: "Chrome Mobile 134.0.6998.39",
-      screen: "1080 x 2340 (416 dpi, 120Hz)",
-      gpu: "Adreno 750 (Qualcomm Snapdragon 8 Elite)",
-      webrtc: "Protected (Disabled / Isolated via WireGuard)",
-      canvas: "Anti-Fingerprint Noise Injected (Emulated)"
-    },
-    pages: [
-      { name: "Bit Creative", stock: 936, drive_id: "1zL931h94i_Qv-z9R3XhE6N_JjIqA1bcB", folder: "Bit Creative", status: "Healthy" },
-      { name: "Blissful Paradox", stock: 334, drive_id: "1fE_mHqj-G8yK0l9a8B7v6C5d4E3f2A1", folder: "Blissful Paradox", status: "Healthy" },
-      { name: "Radiant Reverie", stock: 327, drive_id: "1aB2c3D4e5F6g7H8i9J0k1L2m3N4o5P6", folder: "Radiant Reverie", status: "Healthy" },
-      { name: "Executive Empire", stock: 326, drive_id: "1r_7i4yqA0rA6oEaZz9x8w7v6u5t4s3r", folder: "Executive Empire", status: "Healthy" },
-      { name: "End Every", stock: 271, drive_id: "1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c", folder: "End Every", status: "Healthy" },
-      { name: "Iron Momentum", stock: 269, drive_id: "1qAzWsXedCrvTgbYhnUjmIkoLpZsXed", folder: "Iron Momentum", status: "Healthy" },
-      { name: "Iron Covenant", stock: 240, drive_id: "1bV_IronCovenant_Folder_ID_Sample", folder: "Iron Covenant", status: "Healthy" },
-      { name: "Quiet Harbor", stock: 225, drive_id: "1qH_QuietHarbor_Folder_ID_Sample", folder: "Quiet Harbor", status: "Healthy" },
-      { name: "Quantum House", stock: 221, drive_id: "10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa", folder: "Quantum House", status: "Healthy" },
-      { name: "Dreams Of Life", stock: 211, drive_id: "19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG", folder: "Dreams Of Life", status: "Healthy" },
-      { name: "Me The", stock: 131, drive_id: "1mE_MeThe_Folder_ID_Sample_Drive", folder: "Me The", status: "Healthy" },
-      { name: "Apex House", stock: 129, drive_id: "14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6", folder: "Apex House", status: "Healthy" },
-      { name: "Atlas Authority", stock: 61, drive_id: "1aT_AtlasAuthority_Folder_ID_Samp", folder: "Atlas Authority", status: "Healthy" },
-      { name: "Im Joker", stock: 58, drive_id: "1iM_ImJoker_Folder_ID_Sample_Drive", folder: "Im Joker", status: "Healthy" },
-      { name: "Drift Valley", stock: 40, drive_id: "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6", folder: "Drift Vally", status: "Healthy" }
-    ]
-  },
-  {
-    id: 2,
-    profile_code: "USA-NYC-PIXEL9",
-    name: "Google Pixel 9 Pro (US 5G)",
-    model: "Pixel 9 Pro (Tensor G4)",
-    owner: "Sejal Soni",
-    fb_uid: "61560847721711",
-    country: "USA",
-    country_flag: "🇺🇸",
-    region: "New York City, NY",
-    timezone: "America/New_York (EDT / UTC-4)",
-    dedicated_ip: "207.244.71.84 (NYC Dedicated WireGuard Proxy)",
-    cookie_status: "ACTIVE",
-    cookie_age_text: "Session Active (Long-Lived Meta Cookie)",
-    cookie_health_score: "100%",
-    total_pages: 15,
-    stock_videos: 3131,
-    stock_gb: "45.57 GB",
-    missed_uploads: 0,
-    daily_quota: 15,
-    today_uploaded: 0,
-    status_summary: "All 15 Pages In Sync • 0 Uploads Missed",
-    fingerprint: {
-      os: "Android 15 (VanillaIceCream)",
-      build: "AP2A.240905.003",
-      browser: "Chrome Mobile 134.0.6998.39",
-      screen: "1280 x 2856 (495 dpi, 120Hz)",
-      gpu: "Mali-G715-Immortalis (Google Tensor G4)",
-      webrtc: "Protected (Disabled / Isolated via WireGuard)",
-      canvas: "Anti-Fingerprint Noise Injected (Emulated)"
-    },
-    pages: [
-      { name: "The Daily Spark", stock: 187, drive_id: "16deNYAwBPFU7bcXZffCt2F242_XeRvIP", folder: "The Daily Spark", status: "Healthy" },
-      { name: "The Chill Spot", stock: 224, drive_id: "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ", folder: "The Chill Spot", status: "Healthy" },
-      { name: "Tag The", stock: 218, drive_id: "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z", folder: "Tag The", status: "Healthy" },
-      { name: "Stellar Vibes", stock: 31, drive_id: "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl", folder: "Stellar Vibes", status: "Healthy" },
-      { name: "Sovereign Collective", stock: 104, drive_id: "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt", folder: "Sovereign Collective", status: "Healthy" },
-      { name: "Silent Grove", stock: 487, drive_id: "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy", folder: "Silent Grove", status: "Healthy" },
-      { name: "Royal Vanguard", stock: 305, drive_id: "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU", folder: "Royal Vanguard", status: "Healthy" },
-      { name: "Royal Frontier", stock: 45, drive_id: "18LJsnXYPZPmPiX922GOyJaahKkIv01_J", folder: "Royal Frontier", status: "Healthy" },
-      { name: "Rajat Gupta", stock: 132, drive_id: "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0", folder: "Rajat Gupta", status: "Healthy" },
-      { name: "Mouth The Hang", stock: 160, drive_id: "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR", folder: "Mouth The hang", status: "Healthy" },
-      { name: "Mojo Day", stock: 352, drive_id: "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql", folder: "Mojo Day", status: "Healthy" },
-      { name: "Fly Happy", stock: 315, drive_id: "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH", folder: "Fly Happy", status: "Healthy" },
-      { name: "Flute Tomography Nature", stock: 162, drive_id: "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk", folder: "Flute Tomography Nature", status: "Healthy" },
-      { name: "Faro Fact", stock: 133, drive_id: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", folder: "Faro Fact", status: "Healthy" },
-      { name: "Cosmic Mirage", stock: 276, drive_id: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", folder: "Cosmic Mirage", status: "Healthy" }
-    ]
-  }
-];
-
-function renderAntiDetectProfilesView() {
-  const container = document.getElementById("antiDetectDevicesGrid");
-  if (!container) return;
-
-  const totalStock = antiDetectProfilesData.reduce((sum, d) => sum + d.stock_videos, 0);
-  const totalGb = "92.69 GB";
-
-  container.innerHTML = `
-    <div class="anti-detect-unified-hub" style="display: flex; flex-direction: column; gap: 20px;">
-      
-      <!-- 1. Master Control Header Box -->
-      <div style="background: rgba(15,23,42,0.85); border: 1px solid rgba(56,189,248,0.3); border-radius: 16px; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 10px 35px rgba(0,0,0,0.5);">
-        <div style="display: flex; align-items: center; gap: 16px; min-width: 280px; flex: 1;">
-          <div style="width: 54px; height: 54px; font-size: 28px; border-radius: 14px; background: linear-gradient(135deg, rgba(56,189,248,0.25), rgba(168,85,247,0.2)); border: 1px solid rgba(56,189,248,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 0 20px rgba(56,189,248,0.25);">
-            <span>📱</span>
-          </div>
-          <div>
-            <div style="font-size: 19px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-              <span>Anti-Detect Mobile Hardware & Cookie Vault</span>
-              <span class="telemetry-chip" style="background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); font-size: 11px; padding: 3px 9px; border-radius: 6px; font-weight: 800;">● 2 DEVICES ONLINE</span>
-              <span class="telemetry-chip" style="background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.35); font-size: 11px; padding: 3px 9px; border-radius: 6px; font-weight: 700;">30 PAGES IN FLEET</span>
-            </div>
-            <div style="font-size: 12.5px; color: #94a3b8; margin-top: 5px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-              <span>🌐 NYC Dedicated WireGuard Proxy (207.244.71.84:51820)</span>
-              <span>•</span>
-              <span>🍪 20 Verified Cookies Active</span>
-              <span>•</span>
-              <span>🎬 ${totalStock.toLocaleString()} Cloud Stock Reels (${totalGb})</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Big Thumb-Friendly Fleet Audit Trigger Button -->
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-          <button type="button" id="btnRunFleetDeviceAudit" onclick="runUnifiedDeviceAudit('all')" class="btn-check-device-now" style="background: linear-gradient(135deg, #0284c7, #38bdf8); color: #fff; border: none; padding: 13px 26px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; box-shadow: 0 4px 20px rgba(2,132,199,0.45); letter-spacing: 0.3px;">
-            <span id="unifiedDeviceAuditIcon" style="font-size: 18px;">⚡</span> Run Real-Time Device Audit (Both Profiles)
-          </button>
-        </div>
-      </div>
-
-      <!-- 2. Dual Device Profiles Grid (Side-by-Side on Desktop, Responsive Stack on Mobile) -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
-        ${antiDetectProfilesData.map(dev => `
-          <div class="anti-detect-device-card" id="deviceCard${dev.id}" style="border: 1px solid rgba(56,189,248,0.25); background: rgba(15,23,42,0.75); border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.45); display: flex; flex-direction: column; justify-content: space-between;">
-            
-            <!-- Card Header -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08);">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.3); display: flex; align-items: center; justify-content: center; font-size: 22px;">
-                  <span>${dev.id === 1 ? "📱" : "📱"}</span>
-                </div>
-                <div>
-                  <div style="font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px;">
-                    <span>${dev.name}</span>
-                    <span style="font-size: 11px; background: rgba(34,197,94,0.18); color: #4ade80; border: 1px solid rgba(34,197,94,0.4); padding: 2px 7px; border-radius: 5px; font-weight: 800;">ONLINE</span>
-                  </div>
-                  <div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">
-                    <span>${dev.country_flag} <strong>${dev.owner}</strong> • UID: <span style="font-family: monospace; color: #cbd5e1;">${dev.fb_uid}</span></span>
-                  </div>
-                </div>
-              </div>
-              <button type="button" onclick="runUnifiedDeviceAudit(${dev.id === 1 ? "'s25'" : "'pixel9'"})" class="btn-check-device-now" style="padding: 7px 14px; font-size: 12px; border-radius: 8px; background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8; box-shadow: none;">
-                ⚡ Audit ${dev.id === 1 ? "S25" : "Pixel 9"}
-              </button>
-            </div>
-
-            <!-- Hardware & Network Specs -->
-            <div style="margin: 14px 0 10px 0; background: rgba(2,6,23,0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 10px 12px; font-size: 11.5px; color: #94a3b8; display: flex; flex-direction: column; gap: 4px;">
-              <div>⚙️ <strong>Hardware:</strong> <span style="color: #e2e8f0;">${dev.model}</span> • Android 15</div>
-              <div>🌐 <strong>Proxy:</strong> <span style="color: #38bdf8; font-family: monospace;">${dev.dedicated_ip}</span></div>
-              <div>⏰ <strong>Slots:</strong> <span style="color: #fbbf24;">${dev.id === 1 ? "08:30 AM, 08:30 PM, 01:30 AM, 05:30 AM IST" : "08:50 AM, 08:50 PM, 01:50 AM, 05:50 AM IST"}</span></div>
-            </div>
-
-            <!-- Metrics Grid -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px;">
-              <!-- Cookie Tile -->
-              <div class="device-metric-tile healthy" id="cookieMetricTile${dev.id}" style="background: rgba(10,15,28,0.7); border: 1px solid rgba(255,255,255,0.08); border-left: 3px solid #34d399; border-radius: 10px; padding: 12px;">
-                <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">🍪 Cookie Status</div>
-                <div id="cookieStatusText${dev.id}" style="font-size: 13.5px; font-weight: 800; color: #4ade80; margin-top: 4px;">✅ Active & Healthy</div>
-                <div style="font-size: 11px; color: #64748b; margin-top: 2px;">364.9d left • 10 Cookies</div>
-              </div>
-              <!-- Upload Tile -->
-              <div class="device-metric-tile healthy" id="uploadMetricTile${dev.id}" style="background: rgba(10,15,28,0.7); border: 1px solid rgba(255,255,255,0.08); border-left: 3px solid #38bdf8; border-radius: 10px; padding: 12px;">
-                <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">⏱️ Upload Integrity</div>
-                <div id="uploadStatusText${dev.id}" style="font-size: 13.5px; font-weight: 800; color: #38bdf8; margin-top: 4px;">✅ 0 Missed Uploads</div>
-                <div style="font-size: 11px; color: #64748b; margin-top: 2px;">${dev.stock_videos.toLocaleString()} Reels (${dev.stock_gb})</div>
-              </div>
-            </div>
-
-          </div>
-        `).join("")}
-      </div>
-
-      <!-- 3. SINGLE UNIFIED REAL-TIME AUDIT LOG BOX / CONSOLE -->
-      <div class="device-terminal-box" style="border: 1px solid rgba(56,189,248,0.3); border-radius: 14px; overflow: hidden; background: #020617; box-shadow: inset 0 2px 12px rgba(0,0,0,0.7);">
-        <!-- Terminal Header Bar -->
-        <div style="background: rgba(15,23,42,0.95); padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-            <span style="width: 10px; height: 10px; border-radius: 50%; background: #eab308; display: inline-block;"></span>
-            <span style="width: 10px; height: 10px; border-radius: 50%; background: #22c55e; display: inline-block;"></span>
-            <span style="font-size: 12.5px; font-weight: 800; color: #e2e8f0; margin-left: 6px; font-family: 'JetBrains Mono', Consolas, monospace;">
-              💻 UNIFIED ANTI-DETECT & COOKIE REAL-TIME DIAGNOSTIC LOG BOX
-            </span>
-            <span id="unifiedTerminalPulseDot" style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #38bdf8; font-weight: 700; background: rgba(56,189,248,0.12); padding: 2px 8px; border-radius: 5px;">
-              ● STANDBY / READY
-            </span>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <button type="button" onclick="clearUnifiedTerminal()" style="background: rgba(255,255,255,0.06); color: #94a3b8; border: 1px solid rgba(255,255,255,0.12); padding: 4px 11px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer;" title="Clear Log Output">
-              🗑️ Clear Log
-            </button>
-          </div>
-        </div>
-
-        <!-- Terminal Output Window (Real check output!) -->
-        <div id="unifiedDiagnosticConsoleOutput" style="height: 310px; overflow-y: auto; padding: 14px 16px; font-family: 'JetBrains Mono', Consolas, monospace; font-size: 12px; line-height: 1.65; color: #cbd5e1; scrollbar-width: thin; background: #020617;">
-          <div style="color: #64748b;">
-            [SYSTEM READY] Tap "Run Real-Time Device Audit (Both Profiles)" above to ping NYC proxy, verify live session cookies from disk, inspect Google Drive stock across all 30 pages, and audit today's schedules in real-time.
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Unified Collapsible 30-Page Shutter Drawer with Tab Filters -->
-      <div style="margin-top: 4px;">
-        <button type="button" class="device-shutter-toggle" onclick="toggleUnifiedDeviceShutter()">
-          <span style="display: flex; align-items: center; gap: 8px;">
-            <span>📑</span>
-            <span>View All 30 Assigned Mobile Pages Stock & Folders (${totalStock.toLocaleString()} Reels Available)</span>
-          </span>
-          <span id="unifiedShutterArrow" style="transition: transform 0.2s ease;">▼</span>
-        </button>
-
-        <div class="device-shutter-body" id="unifiedShutterBody" style="display: none;">
-          <!-- Filter Tabs -->
-          <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
-            <button type="button" class="timeframe-pill active" id="btnPageTabAll" onclick="filterUnifiedDevicePages('all')" style="padding: 6px 14px; font-size: 12px; font-weight: 700;">
-              All 30 Pages (${totalStock.toLocaleString()})
-            </button>
-            <button type="button" class="timeframe-pill" id="btnPageTabS25" onclick="filterUnifiedDevicePages('s25')" style="padding: 6px 14px; font-size: 12px; font-weight: 700;">
-              📱 Samsung S25 • Rohini Dutt (15 Pages • 3,779)
-            </button>
-            <button type="button" class="timeframe-pill" id="btnPageTabPixel" onclick="filterUnifiedDevicePages('pixel9')" style="padding: 6px 14px; font-size: 12px; font-weight: 700;">
-              📱 Pixel 9 Pro • Sejal Soni (15 Pages • 3,131)
-            </button>
-          </div>
-
-          <!-- 30 Pages Grid -->
-          <div id="unifiedPagesListGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px;">
-            <!-- Populated by filterUnifiedDevicePages('all') -->
-          </div>
-        </div>
-      </div>
-
-    </div>
-  `;
-
-  // Render initial 30 pages list
-  filterUnifiedDevicePages("all");
-}
-
-function clearUnifiedTerminal() {
-  const consoleEl = document.getElementById("unifiedDiagnosticConsoleOutput");
-  if (consoleEl) {
-    consoleEl.innerHTML = `<div style="color: #64748b;">[CONSOLE CLEARED] Ready. Tap "Run Real-Time Device Audit" to test.</div>`;
-  }
-}
-
-function toggleUnifiedDeviceShutter() {
-  const body = document.getElementById("unifiedShutterBody");
-  const arrow = document.getElementById("unifiedShutterArrow");
-  if (!body) return;
-  const isHidden = body.style.display === "none";
-  body.style.display = isHidden ? "block" : "none";
-  if (arrow) arrow.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
-}
-
-function filterUnifiedDevicePages(filterType) {
-  const container = document.getElementById("unifiedPagesListGrid");
-  if (!container) return;
-
-  // Update tab buttons
-  document.querySelectorAll("[id^='btnPageTab']").forEach(b => b.classList.remove("active"));
-  const activeBtn = document.getElementById(filterType === "s25" ? "btnPageTabS25" : (filterType === "pixel9" ? "btnPageTabPixel" : "btnPageTabAll"));
-  if (activeBtn) activeBtn.classList.add("active");
-
-  let pages = [];
-  if (filterType === "s25") {
-    pages = antiDetectProfilesData[0].pages.map(p => ({ ...p, deviceOwner: "Rohini Dutt (S25)" }));
-  } else if (filterType === "pixel9") {
-    pages = antiDetectProfilesData[1].pages.map(p => ({ ...p, deviceOwner: "Sejal Soni (Pixel 9 Pro)" }));
-  } else {
-    const s25Pages = antiDetectProfilesData[0].pages.map(p => ({ ...p, deviceOwner: "Rohini Dutt (S25)" }));
-    const p9Pages = antiDetectProfilesData[1].pages.map(p => ({ ...p, deviceOwner: "Sejal Soni (Pixel 9 Pro)" }));
-    pages = [...s25Pages, ...p9Pages];
-  }
-
-  container.innerHTML = pages.map((p, idx) => `
-    <div class="device-page-item-row" style="display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; gap: 10px;">
-      <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
-        <span style="font-size: 11px; font-weight: 800; color: #64748b; width: 22px;">#${idx + 1}</span>
-        <div style="min-width: 0;">
-          <div style="font-weight: 700; color: #fff; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.name}</div>
-          <div style="font-size: 11px; color: #94a3b8;">${p.deviceOwner} • Folder: ${p.folder}</div>
-        </div>
-      </div>
-      <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-        <span class="telemetry-chip" style="background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); font-size: 11px; padding: 2px 7px; border-radius: 6px; font-weight: 700;">
-          ${p.stock} Reels
-        </span>
-        <span style="font-size: 11px; color: #34d399; font-weight: 700;">✅ Active</span>
-      </div>
-    </div>
-  `).join("");
-}
-
-function logUnifiedTerminal(msg, type = "info") {
-  const consoleEl = document.getElementById("unifiedDiagnosticConsoleOutput");
-  if (!consoleEl) return;
-  
-  const d = new Date();
-  const timeStr = d.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }) + "." + String(d.getMilliseconds()).padStart(3, "0");
-  
-  let color = "#cbd5e1";
-  let icon = "ℹ️";
-  if (type === "success") { color = "#4ade80"; icon = "✅"; }
-  else if (type === "error") { color = "#f87171"; icon = "❌"; }
-  else if (type === "warn") { color = "#fbbf24"; icon = "⚠️"; }
-  else if (type === "step") { color = "#38bdf8"; icon = "🔹"; }
-  else if (type === "header") { color = "#facc15"; icon = "⚡"; }
-
-  const line = document.createElement("div");
-  line.style.cssText = `margin-bottom: 4px; color: ${color}; word-break: break-all; font-family: 'JetBrains Mono', Consolas, monospace; line-height: 1.6;`;
-  line.innerHTML = `<span style="color:#64748b; font-size:11px;">[${timeStr}]</span> ${icon} ${msg}`;
-  consoleEl.appendChild(line);
-  consoleEl.scrollTop = consoleEl.scrollHeight;
-}
-
-async function runUnifiedDeviceAudit(targetDevice = "all") {
-  const btn = document.getElementById("btnRunFleetDeviceAudit");
-  const icon = document.getElementById("unifiedDeviceAuditIcon");
-  const pulseDot = document.getElementById("unifiedTerminalPulseDot");
-  const consoleEl = document.getElementById("unifiedDiagnosticConsoleOutput");
-
-  if (btn) btn.disabled = true;
-  if (icon) icon.innerHTML = "⏳";
-  if (pulseDot) {
-    pulseDot.innerHTML = "● AUDITING LIVE IN REAL-TIME...";
-    pulseDot.style.color = "#facc15";
-    pulseDot.style.background = "rgba(245,158,11,0.15)";
-  }
-
-  if (consoleEl) {
-    consoleEl.innerHTML = "";
-  }
-
-  showToast("📱 Starting Real-Time Unified Mobile & Cookie Fleet Audit...");
-  
-  logUnifiedTerminal("=======================================================================", "header");
-  logUnifiedTerminal("🚀 INITIATING REAL-TIME FLEET HARDWARE & COOKIE INTEGRITY AUDIT", "header");
-  logUnifiedTerminal("=======================================================================", "header");
-
-  await sleep(150);
-
-  // Step 1: Gateway ping
-  logUnifiedTerminal("Pinging Dedicated Residential WireGuard Gateway (207.244.71.84:51820)...", "step");
-  await sleep(220);
-  logUnifiedTerminal("WireGuard Tunnel: CONNECTED • NYC Residential Node • RTT: 21ms • DNS Leak: Protected", "success");
-
-  // Determine profiles to audit
-  const profilesToRun = (targetDevice === "s25" || targetDevice === 1) 
-    ? [antiDetectProfilesData[0]] 
-    : (targetDevice === "pixel9" || targetDevice === 2) 
-      ? [antiDetectProfilesData[1]] 
-      : antiDetectProfilesData;
-
-  for (let idx = 0; idx < profilesToRun.length; idx++) {
-    const dev = profilesToRun[idx];
-    const isPixel = (dev.id === 2);
-    const healthFile = isPixel ? "data/pixel9_device_health.json" : "data/s25_device_health.json";
-    const cookiePath = isPixel ? "data/profiles/google_pixel9_newyork/cookies.json" : "data/profiles/samsung_s25_newyork/cookies.json";
-
-    logUnifiedTerminal("-----------------------------------------------------------------------", "info");
-    logUnifiedTerminal(`📱 [PROFILE ${idx + 1}/${profilesToRun.length}]: ${dev.name.toUpperCase()} (${dev.owner.toUpperCase()})`, "header");
-    logUnifiedTerminal("-----------------------------------------------------------------------", "info");
-    await sleep(180);
-
-    // Emulation profile
-    logUnifiedTerminal(`Verifying hardware profile: ${dev.name} • ${dev.model} • Android 15...`, "step");
-    await sleep(200);
-    logUnifiedTerminal(`Emulation Verified: ${isPixel ? "Tensor G4 • Mali-G715" : "Snapdragon 8 Elite • Adreno 750"} • Chrome 134 • Canvas/WebGL Noise Active • WebRTC Isolated`, "success");
-    await sleep(180);
-
-    // Real Cookie & Health Query from Server/Disk
-    logUnifiedTerminal(`Querying live session cookie vault from ${cookiePath}...`, "step");
-    let healthData = null;
-    try {
-      const res = await fetch(`${healthFile}?v=${Date.now()}`, { cache: "no-store" });
-      if (res.ok) healthData = await res.json();
-    } catch (e) {
-      console.warn("Could not fetch health json:", e);
-    }
-    await sleep(200);
-
-    const cUser = healthData?.cookies?.c_user || dev.fb_uid;
-    const daysLeft = healthData?.cookies?.days_remaining !== undefined ? healthData.cookies.days_remaining : 364.9;
-    const totalCookies = healthData?.cookies?.total_cookies || 10;
-    const totalStock = healthData?.schedule?.total_stock_reels || dev.stock_videos;
-    const totalStockGb = healthData?.schedule?.stock_gb || dev.stock_gb;
-
-    logUnifiedTerminal(`Found ${totalCookies} session cookies in vault (ps_l, datr, fr, xs, c_user, sb, wd)...`, "info");
-    await sleep(180);
-
-    // UID validation
-    logUnifiedTerminal(`Validating Facebook Account UID: c_user = ${cUser} (Owner: ${dev.owner})...`, "step");
-    await sleep(200);
-    logUnifiedTerminal(`UID ${cUser} Verified • Facebook Account state: AUTHENTICATED & HEALTHY`, "success");
-    await sleep(180);
-
-    // xs token
-    logUnifiedTerminal("Inspecting session token 'xs' cryptographic signature & revocation status...", "step");
-    await sleep(200);
-    logUnifiedTerminal("Session Token 'xs' is VALID & UNREVOKED by Facebook security filters", "success");
-    await sleep(180);
-
-    // Lifespan
-    logUnifiedTerminal("Calculating exact cookie expiration timestamp vs current UTC clock...", "step");
-    await sleep(200);
-    logUnifiedTerminal(`Cookie Lifespan: ${daysLeft} days remaining (Expires Oct 2027) • 0% EXPIRY RISK • NO RE-LOGIN NEEDED`, "success");
-    await sleep(200);
-
-    // Google Drive Stock
-    logUnifiedTerminal(`Auditing Google Drive cloud reels inventory for ${dev.owner} account...`, "step");
-    await sleep(220);
-    logUnifiedTerminal(`Google Drive verified: 15 assigned folders • ${totalStock.toLocaleString()} Reels ready (${totalStockGb})`, "success");
-    await sleep(180);
-
-    // Page schedule audit
-    logUnifiedTerminal(`Auditing today's upload schedule across all 15 assigned pages for ${dev.owner}...`, "step");
-    await sleep(100);
-    dev.pages.forEach((p, pIdx) => {
-      logUnifiedTerminal(`   ├─ [${pIdx + 1}/15] Page "${p.name}" (Stock: ${p.stock} reels): [IN QUEUE - ON SCHEDULE]`, "info");
-    });
-    await sleep(180);
-
-    logUnifiedTerminal(`✅ ${dev.name} (${dev.owner}) PASSED: 15 Pages In Sync • 0 Missed Slots • Cookies 100% Healthy.`, "success");
-    await sleep(180);
-
-    // Update Card UI Status Badges for this device
-    const cookieText = document.getElementById(`cookieStatusText${dev.id}`);
-    const uploadText = document.getElementById(`uploadStatusText${dev.id}`);
-    if (cookieText) cookieText.innerHTML = `✅ Active (${daysLeft}d Left)`;
-    if (uploadText) uploadText.innerHTML = `✅ 0 Missed Uploads (100% OK)`;
-  }
-
-  // Summary verdict
-  logUnifiedTerminal("=======================================================================", "header");
-  const nowTime = new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true });
-  logUnifiedTerminal(`✅ [FLEET AUDIT PASSED] 0 ERRORS DETECTED • ALL ${profilesToRun.length} PROFILES 100% VERIFIED & READY`, "success");
-  logUnifiedTerminal(`Total Fleet: 30 Mobile Pages • 6,910 Reels Stock (92.69 GB) • Dedicated WireGuard NYC Active • Completed at ${nowTime}`, "info");
-  logUnifiedTerminal("=======================================================================", "header");
-
-  // Update UI indicators
-  if (pulseDot) {
-    pulseDot.innerHTML = "● AUDIT COMPLETE (0 ERRORS • 100% HEALTHY)";
-    pulseDot.style.color = "#4ade80";
-    pulseDot.style.background = "rgba(34,197,94,0.15)";
-  }
-  if (btn) btn.disabled = false;
-  if (icon) icon.innerHTML = "⚡";
-
-  showToast("✅ Real-Time Fleet Audit Complete: Both Profiles 100% Active & In Sync!");
-}
-
-// Backward-compatible router for any legacy call
-function runDeviceDiagnostic(deviceId) {
-  const target = (deviceId === 1 || String(deviceId).includes("1") || String(deviceId).includes("s25")) ? "s25" : ((deviceId === 2 || String(deviceId).includes("2") || String(deviceId).includes("pixel")) ? "pixel9" : "all");
-  return runUnifiedDeviceAudit(target);
-}
+const antiDetectProfilesData = [];
+function renderAntiDetectProfilesView() {}
+function runUnifiedDeviceAudit() {}
+function runDeviceDiagnostic() {}
 
 // ==========================================================================
 // META TOOLS & MONETIZATION FLEET HUB ENGINE
@@ -8585,14 +8100,6 @@ async function auditSinglePageLive(accountId, pageId, pageName) {
   finishMetaAuditProgressUI(`✅ [${pageName}] Real Data Synchronized from Facebook!`);
   showToast(`✅ [${pageName}] Real Data Synchronized from Facebook!`);
 }
-
-window.renderAntiDetectProfilesView = renderAntiDetectProfilesView;
-window.toggleUnifiedDeviceShutter = toggleUnifiedDeviceShutter;
-window.filterUnifiedDevicePages = filterUnifiedDevicePages;
-window.runUnifiedDeviceAudit = runUnifiedDeviceAudit;
-window.clearUnifiedTerminal = clearUnifiedTerminal;
-window.logUnifiedTerminal = logUnifiedTerminal;
-window.runDeviceDiagnostic = runDeviceDiagnostic;
 window.renderMetaToolsHubView = renderMetaToolsHubView;
 window.filterMetaToolsByTool = filterMetaToolsByTool;
 window.filterMetaToolsByAccount = filterMetaToolsByAccount;

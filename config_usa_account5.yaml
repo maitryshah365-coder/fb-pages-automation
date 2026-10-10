@@ -4,8 +4,6 @@ country_code: US
 target_location: New York, New York, United States
 require_us_ip: true
 require_uk_ip: false
-device_profile: google_pixel9_newyork
-device_model: Google Pixel 9 Pro (US 5G)
 delete_after_post: true
 database:
   path: data/posted_videos.db
@@ -25,7 +23,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSub57v80cXi0KbQi26TUh9pJ05YWVzYZCR0WzuOe1cigAyOkus6DMB8ZB6dSszRNlvQjVKyMkbWNV0cfv9K3R3V4GRb4anS9pH9gRKNZB35p8x9F15mmPg3KbkMFY1BnsCtZBfhADHp8zXPR7Vj6qYiyJpoZAMTAAQd63Ii0xLlmoQ7oS5RumT640
 - page_id: '564341273430022'
   name: page_145
   display_name: The Chill Spot
@@ -34,7 +32,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSo0G6Y1qS4xnGbEdkrZCKkhYJ1GcqBXi0kjXFBDUprJXNpIGyPSEo2PZAi6DYiCQXp31tQ7kuLFSZB2MgCXZC1OLIsK5Wz2CJg3a0hknjhTCpoQrMm7ZCVUN47qZAvcRqCE2PbQ901sEeUVtZArm4rlWLuUVkZCopKv7cTllfG08BGGcaZCuoIPs3egQZB
 - page_id: '497636683426759'
   name: page_146
   display_name: Tag The
@@ -43,7 +41,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBShntSyab2s9FUritonqTMeZA60mNC6co1cOnXqZAoO0ZCSQRN7o3ckXIaG3cgUvKTctYhweXl1hDoPyb0xCKUd1xZCUSbtyWp1lo8F6GhcIZCypig9oDveBUfVZCtawbTF9HrbOyftRZCZAtkSAVA57ZBO9dAtV7NRjSgsJDZBsKMTXZCWZAaS3wRuMvZAxzV
 - page_id: '877069835495630'
   name: page_147
   display_name: Stellar Vibes
@@ -52,7 +50,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSkboMdNRRjebncgkgGMcx2gKuMZBFg2ogAQl42JsxcGvl6Pqi6SAuNKjXRFSosdiQvzOKRV8MEzbLBG0hXSwxajUAUIPyZBKZAIKOEKUmzQ6ErZC8G0uuJBGiTMZAFeVj4xClBSPkfe8VdZBuYxebKIQZBExhIM3TibO9UHmyd32k7IfmBR4eE0F8j2
 - page_id: '615554031639811'
   name: page_148
   display_name: Sovereign Collective
@@ -61,7 +59,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSiNNA93sOvY3DXkyp6e3Y73zhTAGd7cSAnnqSlDZCSus7DmZBSFnlB1bBNQCGZBA0gPOrFcmEZCp03JfoFXmFshqNbGkioAGd0JapuXWpqyy5VZBsTzDjvXJOuyyafS80ZAFsHOBDvAlwsHZCpeSGmxrhCB8KohtZAZAPFgQfeQ5pnzzOgh6ZBpNDn7Tdk
 - page_id: '1033250263200686'
   name: page_149
   display_name: Silent Grove
@@ -70,7 +68,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSq7TKgM8O28oAW5hhji8qqIMtlbrVMZBT5XZAEJN907140fuqdK1lQMAR7x8xLzho1QfrFNmI2ZB2E9jBo019xvNJvQ0Nu5WNixZBCZCIreyqIdDZAs0DvyZCEPtpjwDFN1YrcJSFdBJz0W2bbyuC9GoX0138YYyuhfPc1sh5HrOueaZCgHrtINVC2SX
 - page_id: '614891248372171'
   name: page_150
   display_name: Royal Vanguard
@@ -79,7 +77,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSikZCp9coS1YLDjgtQPkKDMKTs4UEVUFXYDKHu6kSHDDzga0ZAR8lnJiZAgwJyQK6AtvzpKBGZCr7kZA4Wx3fpmBE1Fq1tQesoYQ6FdNWJsF2qg8MwWzkzrsVJMyyUPUsyaJoXSx9cTdso7sKjEWFfSqITHW2tDQwfIJ6NkHWtjFwxPtEjYXwxBPh
 - page_id: '686470024541027'
   name: page_151
   display_name: Royal Frontier
@@ -88,7 +86,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSpeHsIQr3suSGsZCT54DFl42AzxsUFgPOwl8zHTQ1yqYYorVzrBlKTiOJHd6SrnzHAdZBZCBKuZAo9ZCLWlQy9iZB7nlpfhKDe9MmGQJdZBjD6VHMNWqJlyDWKimkUsIHD1QvB3G7nQUs3hQHEyK5XBjTGIKI3Jwq0zHZBTIPhV68FOLa7G3y756ltca
 - page_id: '424138757454796'
   name: page_152
   display_name: Rajat Gupta
@@ -97,7 +95,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBShOZCWwpGwZBMB0BZAhmkHZBoTY1cjAnDmhYdwtlI52qFkkye1qNpVll9vc5sSbfO4QIPEUOX7eIiUEYMivd6XrpuHJN5mG4t5cl9kpmHgAi22lD3mnwi76DSEhIbaopsyoYJtVzc2kOwiT9f93fnnrEw9KLp0A8sEgUH2n3ibgwV8LyZAM0V184D
 - page_id: '976706512196056'
   name: page_153
   display_name: Mouth The Hang
@@ -106,7 +104,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSsZBs43PCo8f83PitlDzwGtdTfNdsERZCwydaJWfRW39SfunU5ARhAnjqnYoao2IqiZCMzZCvh9lKORLUO2wxLn7tZA9j3ZCCZBkTXzW5eQEil4BjLPuAvbaX04mUcOyQUYwkmQ1iTStuyvZCkBBDzFtKPFheyZAERFKHXZBrG1ZCl5KZCtev9xe6ffLEOBt
 - page_id: '473290599201289'
   name: page_154
   display_name: Mojo Day
@@ -115,7 +113,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSiD7CCi4PbmunMkZBreXHtNLxcqkm85j0kbGKkGhAY0lT7FCVBxxLgYBzZCL9HfaXNqPpoBprhXZCZAZAbsWjeXgZBz7RTrEAto5gXlpOSnc0ZBZBNheDhfZCgpL0ls6d6ogldn6FHZBZCgPQ0TuPZCHGqb5YZCRjpqdiEktco0W4OISR6vw3xhYPyRHX7Ycq
 - page_id: '340559612467800'
   name: page_155
   display_name: Fly Happy
@@ -124,7 +122,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBShiOr3vakJysUkBn8gZCZCV632FK5Asez8YdhYPl3go3mul5cc0CDqm1PrqxZAxLHS5It1l6ZBQ6HYtZCBjXerh6hMUs2Ib4fR5T4rcwDkNELHBZBLTcIjbcnpKQF4ZAvP4gv4nzAnjjnQ7IhZC6ZA0AEXRTUKapLkZAZCXpjXb1mUTPN5sY2vJNZAS60iiZB
 - page_id: '472703539265672'
   name: page_156
   display_name: Flute Tomography Nature
@@ -133,7 +131,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSpVrxYiLR1PZAYvkZC3YqwsGvYCXAGcXSdJrPZCTilyurygEZCPLvRZAoxNZCORamvPAUaIgJDtXmnh4lbAlc7SNfZBS4aAcyMZAKSO1rkACWZA8LqKoRS6iCcxPgRn9VQ8PUDXjYJD6FBVe9pBKlysO3kITtZCytsWZBRNEXQsNXZC3bOZCo6h84bXdOifOa
 - page_id: '502777659582958'
   name: page_157
   display_name: Faro Fact
@@ -142,7 +140,7 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
-
+  page_access_token: EAAgUjkINWPgBSsoDZCI8MLZBi9hWrIZCtnZAmngftJnAX81X6vl0tpdbxAzzqFwHrVkfnx8XSUSmnyffjuzxliqjUXKQJ2G98Q71aGgYf453nGxDHdlCYXZAZBJNG5E2D1YYa1yaARAaZBaQ8vNMtIQlr4d2jlC4ibTZAfGHZCnlxYIRuZCUcmxzuZASefUSqH5eGC0uoIK
 - page_id: '855725930966508'
   name: page_158
   display_name: Cosmic Mirage
@@ -151,3 +149,4 @@ pages:
   daily_limit: 4
   title_mode: filename
   default_hashtags: []
+  page_access_token: EAAgUjkINWPgBStjxjDQrliw9DqQBd71Dc4HZATin6ZBRWZCmZAZBGqCu6wLLCV6z0SFYiruyTAZCsZAXpWKZCuFZCrUO6jPgUEHzMnO2hm6a4Uo7ck16w2cZAeD1e9yzIlT7XmUAJwrw7qvHXjrbZCJUImF4f4Tvcv7dFInRiSSsD3qOahO9cdmKLCyOwF45PZB27IdF76UY
