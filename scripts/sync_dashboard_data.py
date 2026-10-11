@@ -415,6 +415,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
     total_page_views = 0
     total_page_likes = 0
     total_page_comments = 0
+    existing_videos_map = {str(v.get("id")): v for v in p.get("videos", [])}
 
     if token:
         try:
@@ -582,15 +583,22 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             v_likes = 0
             v_comm = 0
             v_thumb = f"https://graph.facebook.com/v20.0/{fb_vid}/picture"
+            if fb_vid in existing_videos_map:
+                old_v = existing_videos_map[fb_vid]
+                v_views = old_v.get("views", 0)
+                v_likes = old_v.get("likes", 0)
+                v_comm = old_v.get("comments", 0)
+                v_thumb = old_v.get("thumbnail") or v_thumb
+
             if token:
                 try:
                     g_res = requests.get(f"https://graph.facebook.com/v20.0/{fb_vid}", params={
                         "fields": "id,views,likes.summary(true),comments.summary(true),picture",
                         "access_token": token
                     }, timeout=4).json()
-                    if "views" in g_res: v_views = g_res.get("views", 0)
-                    if "likes" in g_res: v_likes = g_res.get("likes", {}).get("summary", {}).get("total_count", 0)
-                    if "comments" in g_res: v_comm = g_res.get("comments", {}).get("summary", {}).get("total_count", 0)
+                    if "views" in g_res: v_views = max(v_views, g_res.get("views", 0))
+                    if "likes" in g_res: v_likes = max(v_likes, g_res.get("likes", {}).get("summary", {}).get("total_count", 0))
+                    if "comments" in g_res: v_comm = max(v_comm, g_res.get("comments", {}).get("summary", {}).get("total_count", 0))
                     if "picture" in g_res: v_thumb = g_res.get("picture", v_thumb)
                 except Exception:
                     pass
@@ -1781,6 +1789,12 @@ def sync_data():
         with open(uh_file, "w", encoding="utf-8") as out:
             json.dump(uh_payload, out, indent=2, ensure_ascii=False)
         print(f"Saved {uh_file} (Latest {len(upload_history)} upload records)")
+
+        # Dedicated endpoint for server uploaded reels
+        suv_file = os.path.join(BASE_DIR, folder, "server_uploaded_videos.json")
+        with open(suv_file, "w", encoding="utf-8") as out:
+            json.dump(server_uploaded_videos[:300], out, indent=2, ensure_ascii=False)
+        print(f"Saved {suv_file} ({len(server_uploaded_videos[:300])} server uploaded reels)")
 
 
 if __name__ == "__main__":
