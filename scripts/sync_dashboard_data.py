@@ -633,13 +633,14 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
 
     if total_page_likes == 0 and meta_videos:
         total_page_likes = sum(v.get("likes", 0) for v in meta_videos)
-    existing_likes = (p.get("total_engagement") or {}).get("likes", 0) or p.get("total_likes", 0) or 0
+    p_eng = p.get("total_engagement")
+    existing_likes = (p_eng.get("likes", 0) if isinstance(p_eng, dict) else 0) or p.get("total_likes", 0) or 0
     if existing_likes > total_page_likes:
         total_page_likes = existing_likes
 
     if total_page_comments == 0 and meta_videos:
         total_page_comments = sum(v.get("comments", 0) for v in meta_videos)
-    existing_comments = (p.get("total_engagement") or {}).get("comments", 0) or p.get("total_comments", 0) or 0
+    existing_comments = (p_eng.get("comments", 0) if isinstance(p_eng, dict) else 0) or p.get("total_comments", 0) or 0
     if existing_comments > total_page_comments:
         total_page_comments = existing_comments
 
@@ -1551,7 +1552,7 @@ def sync_data():
         page_records = [f.result() for f in futures]
 
     total_portfolio_followers = sum(p.get("followers", 0) for p in page_records)
-    total_portfolio_likes = sum(p.get("total_engagement", {}).get("likes", 0) for p in page_records)
+    total_portfolio_likes = sum((p.get("total_engagement", {}).get("likes", 0) if isinstance(p.get("total_engagement"), dict) else (p.get("total_likes", 0) or 0)) for p in page_records)
     total_today_posted = sum(p.get("today_posts", 0) for p in page_records)
     total_views = sum(p.get("total_views", 0) for p in page_records)
     total_posts = sum(p.get("total_posts", 0) for p in page_records)
