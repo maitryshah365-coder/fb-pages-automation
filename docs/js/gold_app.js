@@ -6285,6 +6285,19 @@ let uploadHistoryPageSize = 50;
 let uploadHistoryPollInterval = null;
 let isFetchingUploadHistory = false;
 
+function setUploadHistoryFilter(f) {
+  uploadHistoryFilter = f || "all";
+  uploadHistoryPageSize = 50;
+  const filterGroup = document.getElementById("historyCountryFilters");
+  if (filterGroup && typeof filterGroup.querySelectorAll === "function") {
+    filterGroup.querySelectorAll(".timeframe-pill").forEach(b => {
+      b.classList.toggle("active", (b.dataset.filter || "all") === uploadHistoryFilter);
+    });
+  }
+  renderUploadHistoryTable();
+}
+window.setUploadHistoryFilter = setUploadHistoryFilter;
+
 function initUploadHistoryEngine() {
   // Lazy-load upload history after initial dashboard renders to keep first paint instant
   setTimeout(() => {
@@ -6308,11 +6321,7 @@ function initUploadHistoryEngine() {
   if (filterGroup && typeof filterGroup.querySelectorAll === "function") {
     filterGroup.querySelectorAll(".timeframe-pill").forEach(btn => {
       btn.addEventListener("click", () => {
-        filterGroup.querySelectorAll(".timeframe-pill").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        uploadHistoryFilter = btn.dataset.filter || "all";
-        uploadHistoryPageSize = 50;
-        renderUploadHistoryTable();
+        setUploadHistoryFilter(btn.dataset.filter || "all");
       });
     });
   }
@@ -6404,7 +6413,6 @@ function renderUploadHistoryTable() {
   if (!tbody) return;
 
   const query = uploadHistorySearch;
-  const todayStr = new Date().toISOString().slice(0, 10);
 
   const filtered = uploadHistoryData.filter(item => {
     // Country / Timeframe Filter
@@ -6415,8 +6423,7 @@ function renderUploadHistoryTable() {
     } else if (uploadHistoryFilter === "uk") {
       if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta") && !item.account?.includes("Riya")) return false;
     } else if (uploadHistoryFilter === "today") {
-      const pDate = (item.posted_at || "").slice(0, 10);
-      if (pDate !== todayStr) return false;
+      if (!isDateToday(item.posted_at)) return false;
     }
 
     // Search Query Filter
@@ -7502,8 +7509,11 @@ async function fetchMasterFleetData() {
   try {
     const res = await fetch(`data/master_fleet_monetization.json?v=${Date.now()}`, { cache: "no-store" });
     if (res.ok) {
-      masterFleetMonetizationData = await res.json();
-      return masterFleetMonetizationData;
+      const parsed = await res.json();
+      if (parsed && Array.isArray(parsed.accounts)) {
+        masterFleetMonetizationData = parsed;
+        return masterFleetMonetizationData;
+      }
     }
   } catch (e) {
     console.warn("Could not fetch master_fleet_monetization.json, trying fallback:", e);
@@ -7549,7 +7559,7 @@ async function fetchMasterFleetData() {
 
 async function renderMetaToolsHubView() {
   const data = await fetchMasterFleetData();
-  if (!data) return;
+  if (!data || !Array.isArray(data.accounts)) return;
 
   // 1. Gather all pages across accounts
   let allPages = [];

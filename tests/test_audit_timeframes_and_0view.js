@@ -196,7 +196,8 @@ sandbox.selectPage(String(testPage.id));
 
 [1, 7, 15, 28, 30, 'all', 'life'].forEach(tf => {
   sandbox.setTimeframe(tf);
-  const displayedViews = elements['metricHeroViews']?.innerText?.replace(/,/g, '');
+  const displayedKpiViews = elements['metricTotalViews']?.innerText?.replace(/,/g, '');
+  const heroLifetimeViews = elements['metricHeroViews']?.innerText?.replace(/,/g, '');
   
   // Calculate expected pure ground truth
   const reels = sandbox.getReelsForDays(testPage.videos || [], tf);
@@ -204,20 +205,26 @@ sandbox.selectPage(String(testPage.id));
   const isLife = (tf === 'all' || tf === 'life' || tf === 'lifetime');
   const expected = isLife ? Math.max(Number(testPage.total_views) || 0, expectedReelsSum) : expectedReelsSum;
   
-  assert.strictEqual(Number(displayedViews), expected, `Single page views for tf ${tf} mismatch: expected ${expected}, got ${displayedViews}`);
+  assert.strictEqual(Number(displayedKpiViews), expected, `Single page KPI views for tf ${tf} mismatch: expected ${expected}, got ${displayedKpiViews}`);
+  assert.strictEqual(Number(heroLifetimeViews), Number(testPage.total_views) || expected, `Single page hero views should show total page views`);
 });
 console.log("✅ CHECK 4: Single Page View computes 100% exact views for every timeframe (no multipliers)!");
 
 // Test portfolio view
 sandbox.selectPage("all");
+const totalLifetimeFleet = pagesData.pages.reduce((sum, p) => sum + (Number(p.total_views) || 0), 0);
+
 [1, 7, 15, 28, 30, 60, 90, 'all', 'life'].forEach(tf => {
   sandbox.setTimeframe(tf);
   const heroViews = elements['metricHeroViews']?.innerText?.replace(/,/g, '');
+  const kpiViews = elements['metricTotalViews']?.innerText?.replace(/,/g, '');
   const isLife = (tf === 'all' || tf === 'life' || tf === 'lifetime');
   
+  // Hero banner must always lock to total lifetime fleet views
+  assert.strictEqual(Number(heroViews), totalLifetimeFleet, `Portfolio hero banner must permanently lock to fleet lifetime views`);
+  
   if (isLife) {
-    const totalLifetime = pagesData.pages.reduce((sum, p) => sum + (Number(p.total_views) || 0), 0);
-    assert.strictEqual(Number(heroViews), totalLifetime, `Portfolio lifetime views mismatch`);
+    assert.strictEqual(Number(kpiViews), totalLifetimeFleet, `Portfolio lifetime KPI views mismatch`);
   } else {
     // Pure sum of all videos for that timeframe
     let allVidsTf = [];
@@ -226,7 +233,7 @@ sandbox.selectPage("all");
       r.forEach(v => allVidsTf.push(v));
     });
     const expected = allVidsTf.reduce((sum, v) => sum + (Number(v.views) || 0), 0);
-    assert.strictEqual(Number(heroViews), expected, `Portfolio timeframe ${tf} views mismatch`);
+    assert.strictEqual(Number(kpiViews), expected, `Portfolio timeframe ${tf} KPI views mismatch: expected ${expected}, got ${kpiViews}`);
   }
 });
 console.log("✅ CHECK 5: Portfolio View computes 100% exact real sums for every timeframe!");

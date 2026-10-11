@@ -1,8 +1,13 @@
 import os
 import json
 import sqlite3
+import logging
 from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor
 import requests
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("sync_dashboard_data")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, "data", "posted_videos.db")
@@ -1617,6 +1622,13 @@ def sync_data():
 
     server_uploaded_videos.sort(key=lambda x: x.get("created_time_iso") or x.get("created_at") or "", reverse=True)
 
+    if not server_uploaded_videos and os.path.exists(os.path.join(BASE_DIR, "docs", "data", "server_uploaded_videos.json")):
+        try:
+            with open(os.path.join(BASE_DIR, "docs", "data", "server_uploaded_videos.json"), "r", encoding="utf-8") as f_suv:
+                server_uploaded_videos = json.load(f_suv)
+        except Exception as err:
+            logger.warning(f"Fallback server_uploaded_videos error: {err}")
+
     # Build complete upload history with full runner IP telemetry
     upload_history = []
     if os.path.exists(DB_PATH):
@@ -1711,6 +1723,17 @@ def sync_data():
             conn.close()
         except Exception as e:
             logger.warning(f"Error building upload history: {e}")
+
+    # Fallback preservation: never wipe upload_history if DB was unavailable or error occurred
+    if not upload_history and os.path.exists(os.path.join(BASE_DIR, "docs", "data", "upload_history.json")):
+        try:
+            with open(os.path.join(BASE_DIR, "docs", "data", "upload_history.json"), "r", encoding="utf-8") as f_prev:
+                prev_uh = json.load(f_prev)
+                upload_history = prev_uh.get("history", [])
+                if 'total_db_posted' not in locals() or not total_db_posted:
+                    total_db_posted = prev_uh.get("total_db_posted", len(upload_history))
+        except Exception as err:
+            logger.warning(f"Fallback upload_history error: {err}")
 
     payload = {
         "synced_at": datetime.now(timezone.utc).isoformat(),
