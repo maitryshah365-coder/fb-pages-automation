@@ -674,7 +674,7 @@ function getServerUploadedVideos() {
 function setTimeframe(days) {
   currentTimeframe = (days === "all" || days === "life" || days === "lifetime") ? "all" : parseInt(days);
 
-  document.querySelectorAll(".timeframe-pill").forEach(btn => {
+  document.querySelectorAll("#timeframeSelector .timeframe-pill").forEach(btn => {
     if (currentTimeframe === "all") {
       btn.classList.toggle("active", btn.dataset.days === "all" || btn.dataset.days === "life");
     } else {
@@ -682,11 +682,11 @@ function setTimeframe(days) {
     }
   });
 
-  const subLabel = currentTimeframe === "all" ? "All Time Lifetime" : `Last ${currentTimeframe} Days Live`;
+  const subLabel = currentTimeframe === "all" ? "All Time Lifetime" : (currentTimeframe === 1 ? "Today's Live" : `Last ${currentTimeframe} Days Live`);
   const viewsSub = document.getElementById("metricViewsSub");
   if (viewsSub) viewsSub.innerText = `${subLabel} Meta Count`;
 
-  showToast(currentTimeframe === "all" ? "📅 Loaded All Published Reels (Lifetime Scope)" : `📅 Loaded 100% Real Live Analytics for Last ${currentTimeframe} Days`);
+  showToast(currentTimeframe === "all" ? "📅 Loaded All Published Reels (Lifetime Scope)" : `📅 Loaded 100% Real Live Analytics for ${currentTimeframe === 1 ? 'Today' : 'Last ' + currentTimeframe + ' Days'}`);
   selectPage(activePageId);
 }
 
@@ -3249,8 +3249,8 @@ function setupEventListeners() {
   document.getElementById("pagesDrawerOverlay")?.addEventListener("click", closePageDrawer);
   document.getElementById("btnSelectAllPages")?.addEventListener("click", () => selectPage("all"));
 
-  // Timeframe Pills (7, 28, 60, 90 Days & All Time) - Analytics & Reels Library
-  document.querySelectorAll(".timeframe-pill").forEach(btn => {
+  // Timeframe Pills (Today, 7, 15, 28, 30, 60, 90 Days & All Time) - Analytics & Reels Library
+  document.querySelectorAll("#timeframeSelector .timeframe-pill").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       const d = btn.dataset.days;
