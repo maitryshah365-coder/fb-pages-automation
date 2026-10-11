@@ -1215,9 +1215,32 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
     if os.path.exists(verified_audit_path):
         try:
             with open(verified_audit_path, "r", encoding="utf-8") as vaf:
-                verified_audit_pages = json.load(vaf).get("pages", {})
-        except Exception:
-            pass
+                v_raw = json.load(vaf)
+                f_map = v_raw.get("folders") or v_raw.get("pages") or {}
+                for k, f_entry in f_map.items():
+                    if isinstance(f_entry, dict):
+                        pid_key = str(f_entry.get("page_id") or "")
+                        fid_key = str(f_entry.get("folder_id") or "")
+                        pname_key = str(f_entry.get("page_name") or k)
+                        cnt = f_entry.get("video_count")
+                        if cnt is None:
+                            cnt = f_entry.get("valid_videos_stock")
+                        if cnt is None:
+                            cnt = f_entry.get("valid")
+                        entry_dict = {
+                            "valid_videos_stock": cnt,
+                            "folder_id": fid_key,
+                            "status": f_entry.get("status"),
+                            "zero_byte_wiped": f_entry.get("zero_byte_wiped") or f_entry.get("wiped", 0)
+                        }
+                        if pid_key:
+                            verified_audit_pages[pid_key] = entry_dict
+                        if fid_key:
+                            verified_audit_pages[fid_key] = entry_dict
+                        if pname_key:
+                            verified_audit_pages[pname_key] = entry_dict
+        except Exception as e:
+            print("Error parsing verified_audit_path:", e)
 
     # Exact verified counts from deep Google Drive scan (all 54 pages fully paginated)
     known_base = {
@@ -1370,11 +1393,16 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
     base_stock = None
     if pid in verified_audit_pages and verified_audit_pages[pid].get("valid_videos_stock") is not None:
         base_stock = verified_audit_pages[pid]["valid_videos_stock"]
+    elif p_name in verified_audit_pages and verified_audit_pages[p_name].get("valid_videos_stock") is not None:
+        base_stock = verified_audit_pages[p_name]["valid_videos_stock"]
     elif drive_folder_id:
         for vp in verified_audit_pages.values():
             if vp.get("folder_id") == drive_folder_id and vp.get("valid_videos_stock") is not None:
                 base_stock = vp["valid_videos_stock"]
                 break
+
+    if base_stock is None and p_name in audit_data and isinstance(audit_data[p_name], dict):
+        base_stock = audit_data[p_name].get("video_count")
 
     if base_stock is None and drive_folder_id:
         for audit_entry in audit_data.values():
@@ -1382,9 +1410,9 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 base_stock = audit_entry.get("video_count")
                 break
     if base_stock is None:
-        base_stock = p.get("drive_videos_count")
+        base_stock = known_base.get(pid)
     if base_stock is None:
-        base_stock = known_base.get(pid, 0)
+        base_stock = p.get("drive_videos_count", 0)
     current_drive_stock = max(0, int(base_stock or 0))
 
     return {
