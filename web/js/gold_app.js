@@ -512,9 +512,14 @@ function getReelsForDays(videos, days) {
     return sorted;
   }
 
-  // Real-time cutoff based on nowMs
-  const nowMs = Date.now();
   const numDays = Number(days);
+  // Strict operational Today: only reels posted on today's calendar date
+  if (numDays === 1) {
+    return sorted.filter(v => isDateToday(v.posted_at || v.created_time_iso || v.created_at));
+  }
+
+  // Real-time cutoff based on nowMs for multi-day periods (7, 15, 28, 30, 60, 90 days)
+  const nowMs = Date.now();
   if (isNaN(numDays) || numDays <= 0) return sorted;
   const cutoffTime = nowMs - (numDays * 24 * 60 * 60 * 1000);
 
@@ -530,25 +535,14 @@ function isDateToday(isoOrDateStr) {
   if (!isoOrDateStr) return false;
   const now = new Date();
 
-  // 1. Direct 16-Hour Operational Posting Cycle Check (Current active day's completed slots without yesterday's spillover)
-  try {
-    const d = new Date(isoOrDateStr);
-    if (!isNaN(d.getTime())) {
-      const diffMs = now.getTime() - d.getTime();
-      if (diffMs >= -600000 && diffMs <= 16 * 60 * 60 * 1000) {
-        return true;
-      }
-    }
-  } catch (e) {}
-
-  // 2. Fallback to calendar date matching across operational timezones
+  // Calendar date matching across active operational timezones (UTC, EDT, BST, IST)
   const todayStrings = new Set();
   try { todayStrings.add(now.toISOString().slice(0, 10)); } catch(e) {}
   try { todayStrings.add(now.toLocaleDateString("en-CA")); } catch(e) {}
   try { todayStrings.add(now.toLocaleDateString("en-CA", { timeZone: "America/New_York" })); } catch(e) {}
   try { todayStrings.add(now.toLocaleDateString("en-CA", { timeZone: "Europe/London" })); } catch(e) {}
   try { todayStrings.add(now.toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" })); } catch(e) {}
-  
+
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const dispDateToday = `${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
   todayStrings.add(dispDateToday);
