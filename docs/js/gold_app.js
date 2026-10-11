@@ -5149,11 +5149,13 @@ function renderDriveDataView() {
   let a4Stock = 0;
   let a5Stock = 0;
   let ukStock = 0;
+  let emptyFoldersCount = 0;
+  let criticalFoldersCount = 0;
 
   fullData.pages.forEach(p => {
     const pid = String(p.id);
     const dInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]) || null;
-    const count = (p.drive_videos_count !== undefined && p.drive_videos_count !== null) ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const count = (typeof p.drive_videos_count === "number") ? p.drive_videos_count : (dInfo?.videoCount !== undefined ? dInfo.videoCount : 0);
     const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || p.box_group === "Meghal Chauhan";
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
     const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
@@ -5161,6 +5163,12 @@ function renderDriveDataView() {
     const isUSA5 = FLEET_USA_05_SET.has(pid) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni";
 
     totalStock += count;
+    if (count === 0) {
+      emptyFoldersCount++;
+    } else if (count <= 15) {
+      criticalFoldersCount++;
+    }
+
     if (isUSA1) {
       a1Stock += count;
     } else if (isUSA2) {
@@ -5178,6 +5186,8 @@ function renderDriveDataView() {
 
   const elTotal = document.getElementById("driveHeroTotalCount");
   if (elTotal) elTotal.innerText = `${totalStock.toLocaleString()} Videos`;
+  const elEmpty = document.getElementById("driveHeroEmptyCount");
+  if (elEmpty) elEmpty.innerText = `${emptyFoldersCount} Needs Refill`;
   const elA1 = document.getElementById("driveHeroA1Count");
   if (elA1) elA1.innerText = `${a1Stock.toLocaleString()} Videos`;
   const elA2 = document.getElementById("driveHeroA2Count");
@@ -5195,6 +5205,11 @@ function renderDriveDataView() {
   const elDrawerBadge = document.getElementById("drawerNavDriveCountBadge");
   if (elDrawerBadge) elDrawerBadge.innerText = totalStock.toLocaleString();
 
+  const btnEmpty = document.getElementById("btnDriveFilterEmptyStock");
+  if (btnEmpty) btnEmpty.innerHTML = `🔴 Empty (${emptyFoldersCount})`;
+  const btnCrit = document.getElementById("btnDriveFilterCritStock");
+  if (btnCrit) btnCrit.innerHTML = `⚠️ Critical &le; 15 (${criticalFoldersCount})`;
+
   renderDriveInventoryList();
 }
 
@@ -5209,7 +5224,7 @@ function renderDriveInventoryList() {
   const filtered = fullData.pages.filter(p => {
     const pid = String(p.id);
     const dInfo = (typeof DRIVE_CONFIGURED_PAGES !== "undefined" && DRIVE_CONFIGURED_PAGES[pid]) || null;
-    const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count > 0) ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const videoCount = (typeof p.drive_videos_count === "number") ? p.drive_videos_count : (dInfo?.videoCount !== undefined ? dInfo.videoCount : 0);
 
     const isUSA1 = FLEET_USA_01_SET.has(pid) || p.account === "Account 1" || p.box_group === "Meghal Chauhan";
     const isUSA2 = FLEET_USA_02_SET.has(pid) || p.account === "Account 2" || p.box_group === "Mia Shah";
@@ -5224,6 +5239,8 @@ function renderDriveInventoryList() {
     const isUSA4 = (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt";
     const isUSA5 = (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni";
 
+    if (currentDriveAccountFilter === "empty_stock" && videoCount > 0) return false;
+    if (currentDriveAccountFilter === "critical_stock" && (videoCount === 0 || videoCount > 15)) return false;
     if (currentDriveAccountFilter === "a1" && !isUSA1) return false;
     if (currentDriveAccountFilter === "a2" && !isUSA2) return false;
     if (currentDriveAccountFilter === "a3" && !isUSA3) return false;
@@ -5299,7 +5316,7 @@ function renderDriveInventoryList() {
       accountLabel = 'Mia Shah';
     }
 
-    const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count !== null) ? p.drive_videos_count : (dInfo?.videoCount || 0);
+    const videoCount = (typeof p.drive_videos_count === "number") ? p.drive_videos_count : (dInfo?.videoCount !== undefined ? dInfo.videoCount : 0);
     const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
     const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
     const handle = dInfo?.handle || p.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -5307,16 +5324,27 @@ function renderDriveInventoryList() {
     const fillWidth = Math.min(100, Math.round((videoCount / 850) * 100));
 
     let stockHealthBadge = '';
-    if (videoCount >= 200) {
+    let actionBadge = '<span class="badge-status-uploaded" style="font-size:11px; padding:3px 8px;">✅ Active Stock</span>';
+
+    if (videoCount === 0) {
+      stockHealthBadge = `<span class="stock-health-badge" style="background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.6); color:#f87171; font-weight:800; padding:2px 8px; border-radius:6px;" title="Empty Folder (0 videos ready - Immediate Refill Required)">🔴 Empty (0)</span>`;
+      actionBadge = `<span style="background:rgba(239,68,68,0.25); border:1px solid #ef4444; color:#fca5a5; font-size:11px; font-weight:800; padding:3px 8px; border-radius:6px; animation:pulse 2s infinite;">🚨 REFILL NEEDED</span>`;
+    } else if (videoCount <= 5) {
+      stockHealthBadge = `<span class="stock-health-badge" style="background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.6); color:#f87171; font-weight:700; padding:2px 8px; border-radius:6px;" title="Critical Stock (${videoCount} videos ready - Refill Soon)">⚠️ Critical (${videoCount})</span>`;
+      actionBadge = `<span style="background:rgba(234,179,8,0.2); border:1px solid #eab308; color:#fde047; font-size:11px; font-weight:700; padding:3px 8px; border-radius:6px;">⚠️ Critical Refill</span>`;
+    } else if (videoCount <= 15) {
+      stockHealthBadge = `<span class="stock-health-badge" style="background:rgba(234,179,8,0.2); border:1px solid rgba(234,179,8,0.6); color:#facc15; font-weight:700; padding:2px 8px; border-radius:6px;" title="Low Stock (${videoCount} videos ready)">🟡 Low (${videoCount})</span>`;
+      actionBadge = `<span style="background:rgba(234,179,8,0.15); border:1px solid rgba(234,179,8,0.4); color:#facc15; font-size:11px; font-weight:600; padding:3px 8px; border-radius:6px;">🟡 Attention</span>`;
+    } else if (videoCount >= 200) {
       stockHealthBadge = `<span class="stock-health-badge stock-health-high" title="High Stock (${videoCount} videos)">🟢 High</span>`;
     } else if (videoCount >= 100) {
       stockHealthBadge = `<span class="stock-health-badge stock-health-med" title="Healthy Stock (${videoCount} videos)">🟡 Healthy</span>`;
     } else {
-      stockHealthBadge = `<span class="stock-health-badge stock-health-low" title="Low Stock Alert (${videoCount} videos)">🟠 Low Alert</span>`;
+      stockHealthBadge = `<span class="stock-health-badge stock-health-low" title="Moderate Stock (${videoCount} videos)">🟠 Moderate (${videoCount})</span>`;
     }
 
     return `
-      <tr>
+      <tr style="${videoCount === 0 ? 'background:rgba(239,68,68,0.06);' : ''}">
         <td style="color:#64748b; font-weight:700;">#${p.index || idx + 1}</td>
         <td>
           <div style="display:flex; align-items:center; gap:10px;">
@@ -5338,10 +5366,10 @@ function renderDriveInventoryList() {
         </td>
         <td>
           <div style="display:flex; align-items:center; gap:8px;">
-            <div class="drive-stock-pill" style="margin-bottom:0;">
-              <span>${videoCount.toLocaleString()}</span>
+            <div class="drive-stock-pill" style="margin-bottom:0; ${videoCount === 0 ? 'background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.5);' : ''}">
+              <span style="${videoCount === 0 ? 'color:#f87171; font-weight:800;' : ''}">${videoCount.toLocaleString()}</span>
               <div class="drive-stock-bar-bg" title="${videoCount} videos ready">
-                <div class="drive-stock-bar-fill" style="width: ${fillWidth}%;"></div>
+                <div class="drive-stock-bar-fill" style="width: ${fillWidth}%; ${videoCount === 0 ? 'background:#ef4444;' : ''}"></div>
               </div>
             </div>
             ${stockHealthBadge}
@@ -5353,7 +5381,7 @@ function renderDriveInventoryList() {
           </a>
         </td>
         <td>
-          <span class="badge-status-uploaded" style="font-size:11px; padding:3px 8px;">✅ Active Stock</span>
+          ${actionBadge}
         </td>
       </tr>
     `;
@@ -5411,22 +5439,33 @@ function renderDriveInventoryList() {
         accountLabel = 'Mia Shah';
       }
 
-      const videoCount = (p.drive_videos_count !== undefined && p.drive_videos_count !== null) ? p.drive_videos_count : (dInfo?.videoCount || 0);
+      const videoCount = (typeof p.drive_videos_count === "number") ? p.drive_videos_count : (dInfo?.videoCount !== undefined ? dInfo.videoCount : 0);
       const folderId = p.drive_folder_id || dInfo?.folderId || "17nUsqjZwIs3Ak2jfHSxcoaoAqpR94rXg";
       const driveUrl = `https://drive.google.com/drive/folders/${folderId}`;
       const handle = dInfo?.handle || p.handle || p.name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
       let stockHealthBadge = '';
-      if (videoCount >= 200) {
+      let actionBadge = '<span class="badge-status-uploaded" style="font-size:10.5px;">✅ Active</span>';
+
+      if (videoCount === 0) {
+        stockHealthBadge = `<span class="stock-health-badge" style="background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.6); color:#f87171; font-weight:800; padding:2px 8px; border-radius:6px;">🔴 Empty (0)</span>`;
+        actionBadge = `<span style="background:rgba(239,68,68,0.25); border:1px solid #ef4444; color:#fca5a5; font-size:10.5px; font-weight:800; padding:2px 6px; border-radius:6px;">🚨 REFILL</span>`;
+      } else if (videoCount <= 5) {
+        stockHealthBadge = `<span class="stock-health-badge" style="background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.6); color:#f87171; font-weight:700; padding:2px 8px; border-radius:6px;">⚠️ Critical (${videoCount})</span>`;
+        actionBadge = `<span style="background:rgba(234,179,8,0.2); border:1px solid #eab308; color:#fde047; font-size:10.5px; font-weight:700; padding:2px 6px; border-radius:6px;">⚠️ Critical</span>`;
+      } else if (videoCount <= 15) {
+        stockHealthBadge = `<span class="stock-health-badge" style="background:rgba(234,179,8,0.2); border:1px solid rgba(234,179,8,0.6); color:#facc15; font-weight:700; padding:2px 8px; border-radius:6px;">🟡 Low (${videoCount})</span>`;
+        actionBadge = `<span style="background:rgba(234,179,8,0.15); border:1px solid rgba(234,179,8,0.4); color:#facc15; font-size:10.5px; font-weight:600; padding:2px 6px; border-radius:6px;">🟡 Low</span>`;
+      } else if (videoCount >= 200) {
         stockHealthBadge = `<span class="stock-health-badge stock-health-high" title="High Stock (${videoCount} videos)">🟢 High</span>`;
       } else if (videoCount >= 100) {
         stockHealthBadge = `<span class="stock-health-badge stock-health-med" title="Healthy Stock (${videoCount} videos)">🟡 Healthy</span>`;
       } else {
-        stockHealthBadge = `<span class="stock-health-badge stock-health-low" title="Low Stock Alert (${videoCount} videos)">🟠 Low Alert</span>`;
+        stockHealthBadge = `<span class="stock-health-badge stock-health-low" title="Moderate Stock (${videoCount} videos)">🟠 Moderate (${videoCount})</span>`;
       }
 
       return `
-        <div class="mobile-yt-card drive-inventory-card" style="display:flex !important; flex-direction:column !important; width:100% !important; box-sizing:border-box !important; padding:14px; margin-bottom:12px; border-radius:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08);">
+        <div class="mobile-yt-card drive-inventory-card" style="display:flex !important; flex-direction:column !important; width:100% !important; box-sizing:border-box !important; padding:14px; margin-bottom:12px; border-radius:12px; background:${videoCount === 0 ? 'rgba(239,68,68,0.06)' : 'rgba(255,255,255,0.03)'}; border:1px solid ${videoCount === 0 ? 'rgba(239,68,68,0.4)' : 'rgba(255,255,255,0.08)'};">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <div style="display:flex; align-items:center; gap:10px;">
               <img src="${p.pic_url || 'icons/icon-192.png'}" alt="${p.name}" style="width:36px; height:36px; border-radius:50%; object-fit:cover;" onerror="this.src='icons/icon-192.png'">
@@ -5438,12 +5477,12 @@ function renderDriveInventoryList() {
                 <div style="font-size:11.5px; color:#94a3b8;">@${handle} • ${accountLabel}</div>
               </div>
             </div>
-            <span class="badge-status-uploaded" style="font-size:10.5px;">✅ Active</span>
+            ${actionBadge}
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 10px; background:rgba(0,0,0,0.25); border-radius:8px; margin-bottom:10px;">
             <span style="font-size:12px; color:#94a3b8;">Drive Stock:</span>
             <div style="display:flex; align-items:center; gap:8px;">
-              <strong style="color:#34d399; font-size:13px;">📁 ${videoCount.toLocaleString()} Videos</strong>
+              <strong style="color:${videoCount === 0 ? '#f87171' : (videoCount <= 15 ? '#facc15' : '#34d399')}; font-size:13px;">📁 ${videoCount.toLocaleString()} Videos</strong>
               ${stockHealthBadge}
             </div>
           </div>

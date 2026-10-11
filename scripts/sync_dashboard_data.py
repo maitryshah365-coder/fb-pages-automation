@@ -1367,7 +1367,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
         "171465126060636":  169,
         "160240527166280":  378
     }
-    base_stock = 0
+    base_stock = None
     if pid in verified_audit_pages and verified_audit_pages[pid].get("valid_videos_stock") is not None:
         base_stock = verified_audit_pages[pid]["valid_videos_stock"]
     elif drive_folder_id:
@@ -1376,17 +1376,16 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
                 base_stock = vp["valid_videos_stock"]
                 break
 
-    if base_stock == 0:
-        if drive_folder_id:
-            for audit_entry in audit_data.values():
-                if isinstance(audit_entry, dict) and (audit_entry.get("folder_id") == drive_folder_id or audit_entry.get("page_id") == pid):
-                    base_stock = audit_entry.get("video_count", 0)
-                    break
-        if base_stock == 0:
-            base_stock = p.get("drive_videos_count", 0) or 0
-        if base_stock == 0:
-            base_stock = known_base.get(pid, 0)
-    current_drive_stock = max(0, base_stock)
+    if base_stock is None and drive_folder_id:
+        for audit_entry in audit_data.values():
+            if isinstance(audit_entry, dict) and (audit_entry.get("folder_id") == drive_folder_id or audit_entry.get("page_id") == pid):
+                base_stock = audit_entry.get("video_count")
+                break
+    if base_stock is None:
+        base_stock = p.get("drive_videos_count")
+    if base_stock is None:
+        base_stock = known_base.get(pid, 0)
+    current_drive_stock = max(0, int(base_stock or 0))
 
     return {
         "index": idx,

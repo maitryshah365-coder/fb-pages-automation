@@ -37775,7 +37775,7 @@
     "total_likes": 661099,
     "total_views": 114878808,
     "total_posts": 23030,
-    "total_stock_videos": 32014,
+    "total_stock_videos": 27587,
     "total_db_posted": 3908
   },
   "pages": [
@@ -37807,7 +37807,7 @@
       "drive_folder_id": "17BbHIA91odhMXfphN0JlblzWbR0IQKsy",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 15,
+      "drive_videos_count": 0,
       "total_posts": 98,
       "total_views": 985,
       "total_engagement": {
@@ -38566,7 +38566,9 @@
           "permalink": "/reel/2545672522603747/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 58,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 2,
@@ -38596,7 +38598,7 @@
       "drive_folder_id": "1D3y9fSqvz8Be1ted5Wic7egRJzBn--gB",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 20,
+      "drive_videos_count": 0,
       "total_posts": 103,
       "total_views": 23390,
       "total_engagement": {
@@ -39355,7 +39357,9 @@
           "permalink": "/reel/1594784848808568/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 20,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 3,
@@ -39385,7 +39389,7 @@
       "drive_folder_id": "14C9FurpGwA_QUyK14cM3EyfFJrDB3YUp",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 133,
+      "drive_videos_count": 102,
       "total_posts": 113,
       "total_views": 5313,
       "total_engagement": {
@@ -40144,7 +40148,9 @@
           "permalink": "/reel/1114931721127721/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 4,
@@ -40174,7 +40180,7 @@
       "drive_folder_id": "1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 164,
+      "drive_videos_count": 132,
       "total_posts": 143,
       "total_views": 5871,
       "total_engagement": {
@@ -40933,7 +40939,9 @@
           "permalink": "/reel/1518241243679205/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 5,
@@ -40963,7 +40971,7 @@
       "drive_folder_id": "1ohpJm22Koo_ouVSQZCwiHE0pwAyAyxDg",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 81,
+      "drive_videos_count": 49,
       "total_posts": 152,
       "total_views": 23334,
       "total_engagement": {
@@ -41722,7 +41730,9 @@
           "permalink": "/reel/1080913454842410/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 6,
@@ -41752,7 +41762,7 @@
       "drive_folder_id": "1QTgVkYEc269hX7630a_LI4AWnlid7kHk",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 301,
+      "drive_videos_count": 269,
       "total_posts": 200,
       "total_views": 188342,
       "total_engagement": {
@@ -42511,7 +42521,9 @@
           "permalink": "/reel/1034593146306625/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 7,
@@ -42541,7 +42553,7 @@
       "drive_folder_id": "1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 793,
+      "drive_videos_count": 761,
       "total_posts": 200,
       "total_views": 360807,
       "total_engagement": {
@@ -43393,7 +43405,9 @@
           "permalink": "/reel/1076777891625425/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 8,
@@ -43423,7 +43437,7 @@
       "drive_folder_id": "1rjGrEIrCk9TlEJBABjo0K-8MKAaBxZy9",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 297,
+      "drive_videos_count": 265,
       "total_posts": 200,
       "total_views": 981738,
       "total_engagement": {
@@ -44182,7 +44196,9 @@
           "permalink": "/reel/2875239882859436/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 9,
@@ -44212,7 +44228,7 @@
       "drive_folder_id": "1qMwQtRtvJXbmV8iEYW1GS0IQ8VDLWA6s",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 376,
+      "drive_videos_count": 344,
       "total_posts": 200,
       "total_views": 1746880,
       "total_engagement": {
@@ -45070,7 +45086,9 @@
           "permalink": "/reel/950141467656441/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 10,
@@ -45100,7 +45118,7 @@
       "drive_folder_id": "1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 281,
+      "drive_videos_count": 249,
       "total_posts": 200,
       "total_views": 161038,
       "total_engagement": {
@@ -45859,7 +45877,9 @@
           "permalink": "/reel/3728440023989764/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 11,
@@ -45889,7 +45909,7 @@
       "drive_folder_id": "1Kir7IF-zX_XN8FoaasVJTPT_TRQ1J0Xg",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 249,
+      "drive_videos_count": 217,
       "total_posts": 200,
       "total_views": 120143,
       "total_engagement": {
@@ -46648,7 +46668,9 @@
           "permalink": "/reel/1031736823224788/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 12,
@@ -46678,7 +46700,7 @@
       "drive_folder_id": "1UDZx4XRzdn-5r7O9WRfUOSui2nCWuR5R",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 217,
+      "drive_videos_count": 185,
       "total_posts": 200,
       "total_views": 1073785,
       "total_engagement": {
@@ -47437,7 +47459,9 @@
           "permalink": "/reel/1090167246978276/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 13,
@@ -47467,7 +47491,7 @@
       "drive_folder_id": "1qcMeV4Fe8e15G1qQ5HhSIKZcrrI6FAZm",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 125,
+      "drive_videos_count": 93,
       "total_posts": 200,
       "total_views": 5995062,
       "total_engagement": {
@@ -48319,7 +48343,9 @@
           "permalink": "/reel/1115246331084030/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 14,
@@ -48349,7 +48375,7 @@
       "drive_folder_id": "1g_Z4BtdfNqT2jF3hL9tExTr9W3Ly1YrZ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 55,
+      "drive_videos_count": 23,
       "total_posts": 200,
       "total_views": 166876,
       "total_engagement": {
@@ -49108,7 +49134,9 @@
           "permalink": "/reel/1794857145183792/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 15,
@@ -49138,7 +49166,7 @@
       "drive_folder_id": "1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 268,
+      "drive_videos_count": 236,
       "total_posts": 200,
       "total_views": 361095,
       "total_engagement": {
@@ -50029,7 +50057,9 @@
           "permalink": "/reel/1131384959564116/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 16,
@@ -50059,7 +50089,7 @@
       "drive_folder_id": "1r0GTk9iza1TiPpOqw9lx2zgkJER7u4rE",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 159,
+      "drive_videos_count": 127,
       "total_posts": 96,
       "total_views": 382,
       "total_engagement": {
@@ -50818,7 +50848,9 @@
           "permalink": "/reel/1640637004166748/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 17,
@@ -50848,7 +50880,7 @@
       "drive_folder_id": "1UYolyoRJJRmGOOX2-cVXW3v54j4uGWmx",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 159,
+      "drive_videos_count": 127,
       "total_posts": 124,
       "total_views": 223,
       "total_engagement": {
@@ -51607,7 +51639,9 @@
           "permalink": "/reel/1817898722991379/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 71,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 18,
@@ -51637,7 +51671,7 @@
       "drive_folder_id": "1Mku1ublcXUl9yXtUqI7elvqGYJu5r1q4",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 1204,
+      "drive_videos_count": 1172,
       "total_posts": 127,
       "total_views": 8499,
       "total_engagement": {
@@ -52396,7 +52430,9 @@
           "permalink": "/reel/1570151460940862/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 19,
@@ -52426,7 +52462,7 @@
       "drive_folder_id": "1ENSslOPlICVXbfReiNUseXdlTSVpUxl7",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 20,
+      "drive_videos_count": 0,
       "total_posts": 102,
       "total_views": 20,
       "total_engagement": {
@@ -53185,7 +53221,9 @@
           "permalink": "/reel/3943343195808855/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 60,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 20,
@@ -53215,7 +53253,7 @@
       "drive_folder_id": "1MwFCsFG1ZqDuQ4Fho8X8B4r75poMXrrr",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 115,
+      "drive_videos_count": 83,
       "total_posts": 200,
       "total_views": 279984,
       "total_engagement": {
@@ -53974,7 +54012,9 @@
           "permalink": "/reel/2010726659642681/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 21,
@@ -54004,7 +54044,7 @@
       "drive_folder_id": "1a_DSwQNT0Fe5zW_NyitXF5_O7a1RgGqd",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 12,
+      "drive_videos_count": 0,
       "total_posts": 200,
       "total_views": 468981,
       "total_engagement": {
@@ -54763,7 +54803,9 @@
           "permalink": "/reel/2242133533226104/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 12,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 22,
@@ -54793,7 +54835,7 @@
       "drive_folder_id": "12WpeflSfnQ7tIQMcxvBeqB1EkimP04Lm",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 520,
+      "drive_videos_count": 488,
       "total_posts": 107,
       "total_views": 10953,
       "total_engagement": {
@@ -55552,7 +55594,9 @@
           "permalink": "/reel/2316391945842998/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 23,
@@ -55582,7 +55626,7 @@
       "drive_folder_id": "1CAWiUuoA9ObfEYPWYXTkWDrXQbFd80Ap",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 252,
+      "drive_videos_count": 220,
       "total_posts": 200,
       "total_views": 97024,
       "total_engagement": {
@@ -56341,7 +56385,9 @@
           "permalink": "/reel/1727017955047769/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 24,
@@ -56371,7 +56417,7 @@
       "drive_folder_id": "1k4NsbkmZMmGNXJH_egsHGrY150MpUD49",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 319,
+      "drive_videos_count": 287,
       "total_posts": 200,
       "total_views": 261919,
       "total_engagement": {
@@ -57130,7 +57176,9 @@
           "permalink": "/reel/2094432317820992/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 25,
@@ -57160,7 +57208,7 @@
       "drive_folder_id": "1tjUfLMHLd7DBRFyvoRbaYBaM7lJjnfPz",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 247,
+      "drive_videos_count": 215,
       "total_posts": 200,
       "total_views": 5566114,
       "total_engagement": {
@@ -57919,7 +57967,9 @@
           "permalink": "/reel/1440417651516926/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 26,
@@ -57949,7 +57999,7 @@
       "drive_folder_id": "1YaPfOqlG20D89o4jUcBSbylP3XmbFRWD",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 9,
+      "drive_videos_count": 0,
       "total_posts": 88,
       "total_views": 14972,
       "total_engagement": {
@@ -58708,7 +58758,9 @@
           "permalink": "/reel/1546225556955276/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 9,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 27,
@@ -58738,7 +58790,7 @@
       "drive_folder_id": "1nB6AnKW6ubj4WjJdMJSErgL-zOe9gGsQ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 31,
+      "drive_videos_count": 0,
       "total_posts": 102,
       "total_views": 24177,
       "total_engagement": {
@@ -59497,7 +59549,9 @@
           "permalink": "/reel/941025908568031/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 31,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 28,
@@ -59527,7 +59581,7 @@
       "drive_folder_id": "1T08BZA_E_RlB3Y3w8fiMqhOXnlTWbINR",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 418,
+      "drive_videos_count": 387,
       "total_posts": 150,
       "total_views": 22027,
       "total_engagement": {
@@ -60286,7 +60340,9 @@
           "permalink": "/reel/1095514119982103/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 71,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 29,
@@ -60316,7 +60372,7 @@
       "drive_folder_id": "1w1rNyesYpatr1gqMgTgTqbF4aTPLsDhu",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 92,
+      "drive_videos_count": 60,
       "total_posts": 145,
       "total_views": 15095,
       "total_engagement": {
@@ -61075,7 +61131,9 @@
           "permalink": "/reel/2637576283363638/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 30,
@@ -61105,7 +61163,7 @@
       "drive_folder_id": "1IZzrDjRxAVTTXb4suo5tmFEKa4q6RN7v",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 152,
+      "drive_videos_count": 120,
       "total_posts": 152,
       "total_views": 123885,
       "total_engagement": {
@@ -61864,7 +61922,9 @@
           "permalink": "/reel/960539313767730/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 72,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 31,
@@ -61894,7 +61954,7 @@
       "drive_folder_id": "17SQXMG8HL8tGgXI1-Tn5I5mQ8Ce0h0a2",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 313,
+      "drive_videos_count": 281,
       "total_posts": 93,
       "total_views": 30862,
       "total_engagement": {
@@ -62653,7 +62713,9 @@
           "permalink": "/reel/1693889375477179/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 32,
@@ -62683,7 +62745,7 @@
       "drive_folder_id": "1hhkz2KlqkCJ7wpbgKk4ya_361AtlAjvw",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 105,
+      "drive_videos_count": 73,
       "total_posts": 93,
       "total_views": 197578,
       "total_engagement": {
@@ -63442,7 +63504,9 @@
           "permalink": "/reel/1389216393192042/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 33,
@@ -63472,7 +63536,7 @@
       "drive_folder_id": "1vTdVLboxrjH3lRqCDChX6r0MvlOW_6xZ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 136,
+      "drive_videos_count": 104,
       "total_posts": 93,
       "total_views": 23013,
       "total_engagement": {
@@ -64231,7 +64295,9 @@
           "permalink": "/reel/1096550986461042/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 34,
@@ -64261,7 +64327,7 @@
       "drive_folder_id": "1PBRUGAoXqpmr_2L6YuxkVACX3LBEFJiE",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 205,
+      "drive_videos_count": 173,
       "total_posts": 200,
       "total_views": 275691,
       "total_engagement": {
@@ -65020,7 +65086,9 @@
           "permalink": "/reel/1805515447312367/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 35,
@@ -65050,7 +65118,7 @@
       "drive_folder_id": "1JmtVwNgjy0ze94TaUe3_a1GKxZKmh7oY",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 170,
+      "drive_videos_count": 138,
       "total_posts": 200,
       "total_views": 135549,
       "total_engagement": {
@@ -65809,7 +65877,9 @@
           "permalink": "/reel/1468035938719004/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 36,
@@ -65839,7 +65909,7 @@
       "drive_folder_id": "1Z9Ov642iD-iilWbIVOm0b-jdbFbDNdoB",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 431,
+      "drive_videos_count": 399,
       "total_posts": 200,
       "total_views": 857872,
       "total_engagement": {
@@ -66598,7 +66668,9 @@
           "permalink": "/reel/1746988426583049/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 37,
@@ -66628,7 +66700,7 @@
       "drive_folder_id": "1ISgWlF4cUFvRzDhyqRf7n41UGNSqBHlP",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 169,
+      "drive_videos_count": 137,
       "total_posts": 200,
       "total_views": 184104,
       "total_engagement": {
@@ -67387,7 +67459,9 @@
           "permalink": "/reel/1820290859156971/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 38,
@@ -67417,7 +67491,7 @@
       "drive_folder_id": "1zkNs_XzwXhiElCQimHdHxORUnJnPLXSJ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 395,
+      "drive_videos_count": 363,
       "total_posts": 200,
       "total_views": 668372,
       "total_engagement": {
@@ -68176,7 +68250,9 @@
           "permalink": "/reel/1840990687051626/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 39,
@@ -68206,7 +68282,7 @@
       "drive_folder_id": "1gm2neO5u2CWo-xBUP1nN507GUeoSqmRk",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 249,
+      "drive_videos_count": 218,
       "total_posts": 200,
       "total_views": 1783246,
       "total_engagement": {
@@ -68965,7 +69041,9 @@
           "permalink": "/reel/2694974634252614/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 80,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 40,
@@ -68995,7 +69073,7 @@
       "drive_folder_id": "1hOeE4b28ph5m5QiTvYZyQ8Mduc8bLhbO",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 377,
+      "drive_videos_count": 346,
       "total_posts": 200,
       "total_views": 30361,
       "total_engagement": {
@@ -69754,7 +69832,9 @@
           "permalink": "/reel/1122124633725771/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 80,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 41,
@@ -69784,7 +69864,7 @@
       "drive_folder_id": "1BpkOd2UoI5-XbRvdVmaL2m3KJGO5ci29",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 54,
+      "drive_videos_count": 22,
       "total_posts": 200,
       "total_views": 848221,
       "total_engagement": {
@@ -70543,7 +70623,9 @@
           "permalink": "/reel/1481334447238784/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 42,
@@ -70573,7 +70655,7 @@
       "drive_folder_id": "1DiHP1KqZXnPqlIghqDiyk1_733vzUmtM",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 162,
+      "drive_videos_count": 131,
       "total_posts": 200,
       "total_views": 3779549,
       "total_engagement": {
@@ -71332,7 +71414,9 @@
           "permalink": "/reel/1994123664615630/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 80,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 43,
@@ -71362,7 +71446,7 @@
       "drive_folder_id": "1zdfwUiZlN8H0QzXDEKtpBp4UQjk0q1MV",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 209,
+      "drive_videos_count": 178,
       "total_posts": 200,
       "total_views": 30340,
       "total_engagement": {
@@ -72121,7 +72205,9 @@
           "permalink": "/reel/1087605817470365/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 82,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 44,
@@ -72151,7 +72237,7 @@
       "drive_folder_id": "1dvWHkAVYOmArdtqYGZ0pyKgVXHFlXkPH",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 356,
+      "drive_videos_count": 324,
       "total_posts": 200,
       "total_views": 56420,
       "total_engagement": {
@@ -72910,7 +72996,9 @@
           "permalink": "/reel/2530650604112664/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 45,
@@ -72940,7 +73028,7 @@
       "drive_folder_id": "1_a9DIPESOnEZ7BSbFNo7sHOn4uUi74xp",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 312,
+      "drive_videos_count": 280,
       "total_posts": 200,
       "total_views": 3224640,
       "total_engagement": {
@@ -73699,7 +73787,9 @@
           "permalink": "/reel/1141933091850190/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 46,
@@ -73729,7 +73819,7 @@
       "drive_folder_id": "1VH4Ca2nFhnjvSuBrwS803DEtaZlLlCGB",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 279,
+      "drive_videos_count": 197,
       "total_posts": 200,
       "total_views": 28728,
       "total_engagement": {
@@ -74488,7 +74578,9 @@
           "permalink": "/reel/1808602347226601/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 82,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 47,
@@ -74518,7 +74610,7 @@
       "drive_folder_id": "1fRa1X-SMP4KtvVAOOQzsx2Pk7dpC7Mn7",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 137,
+      "drive_videos_count": 105,
       "total_posts": 200,
       "total_views": 277381,
       "total_engagement": {
@@ -75277,7 +75369,9 @@
           "permalink": "/reel/1984987439505586/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 48,
@@ -75307,7 +75401,7 @@
       "drive_folder_id": "1lftaQxHI_cbKfNsmFBzmgBVcWl4f7QpB",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 133,
+      "drive_videos_count": 101,
       "total_posts": 200,
       "total_views": 3777642,
       "total_engagement": {
@@ -76066,7 +76160,9 @@
           "permalink": "/reel/1664981838391247/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 49,
@@ -76096,7 +76192,7 @@
       "drive_folder_id": "1y9HGtyLg8q5drHn1vaREFKcnh2bGum74",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 74,
+      "drive_videos_count": 42,
       "total_posts": 102,
       "total_views": 3253,
       "total_engagement": {
@@ -76855,7 +76951,9 @@
           "permalink": "/reel/939628315887754/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 50,
@@ -76885,7 +76983,7 @@
       "drive_folder_id": "1OGQOLu-9Eyrj3lDe3ciuD5dZnH6D09kx",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 200,
+      "drive_videos_count": 168,
       "total_posts": 104,
       "total_views": 22703,
       "total_engagement": {
@@ -77644,7 +77742,9 @@
           "permalink": "/reel/28943315988632456/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 51,
@@ -77674,7 +77774,7 @@
       "drive_folder_id": "1lrpqZhufJxUotz2sO4G_u8GE8POzWrq8",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 69,
+      "drive_videos_count": 37,
       "total_posts": 106,
       "total_views": 26271,
       "total_engagement": {
@@ -78433,7 +78533,9 @@
           "permalink": "/reel/1925896868386542/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 52,
@@ -78463,7 +78565,7 @@
       "drive_folder_id": "1Ty_piHhtKXG1TghvpQiPsL3fY0Z8dvvM",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 132,
+      "drive_videos_count": 100,
       "total_posts": 102,
       "total_views": 25199,
       "total_engagement": {
@@ -79222,7 +79324,9 @@
           "permalink": "/reel/1091067800507339/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 53,
@@ -79252,7 +79356,7 @@
       "drive_folder_id": "1Nc1y9TjqkTP-Si20ChGRd0VbC8sMjbWV",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 262,
+      "drive_videos_count": 230,
       "total_posts": 107,
       "total_views": 3659262,
       "total_engagement": {
@@ -80011,7 +80115,9 @@
           "permalink": "/reel/1409757048000127/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 54,
@@ -80041,7 +80147,7 @@
       "drive_folder_id": "15XTWHGdBlk4vZfhWNVB1nqNUTg449ocx",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 210,
+      "drive_videos_count": 178,
       "total_posts": 102,
       "total_views": 26196,
       "total_engagement": {
@@ -80800,7 +80906,9 @@
           "permalink": "/reel/2016663609031049/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 83,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 55,
@@ -80830,7 +80938,7 @@
       "drive_folder_id": "12KLecp9a14wb8mpv25SBtSBz_G3ggD3H",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 92,
+      "drive_videos_count": 59,
       "total_posts": 88,
       "total_views": 28735,
       "total_engagement": {
@@ -81589,7 +81697,9 @@
           "permalink": "/reel/1324157413010410/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 56,
@@ -81619,7 +81729,7 @@
       "drive_folder_id": "1qRO-UGA5bvxgBOU5ecFt7QLPCp9I5QgO",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 112,
+      "drive_videos_count": 273,
       "total_posts": 87,
       "total_views": 1557,
       "total_engagement": {
@@ -82378,7 +82488,9 @@
           "permalink": "/reel/1993464494695982/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 57,
@@ -82408,7 +82520,7 @@
       "drive_folder_id": "11mH7IVu6Nv5MP00jpxRAnngU2Blgcam3",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 241,
+      "drive_videos_count": 208,
       "total_posts": 87,
       "total_views": 18843,
       "total_engagement": {
@@ -83167,7 +83279,9 @@
           "permalink": "/reel/958888407271686/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 58,
@@ -83197,7 +83311,7 @@
       "drive_folder_id": "1kQRM_1mLb2TkWtDpXL_2k5ABrEFdo2rj",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 89,
+      "drive_videos_count": 56,
       "total_posts": 92,
       "total_views": 15904,
       "total_engagement": {
@@ -83956,7 +84070,9 @@
           "permalink": "/reel/2868252926880854/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 59,
@@ -83986,7 +84102,7 @@
       "drive_folder_id": "1ty72KRjCUo6rfEoECVipYtJ8z9_EJKH8",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 83,
+      "drive_videos_count": 50,
       "total_posts": 91,
       "total_views": 3010,
       "total_engagement": {
@@ -84745,7 +84861,9 @@
           "permalink": "/reel/1557455846153361/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 60,
@@ -84775,7 +84893,7 @@
       "drive_folder_id": "1rGFyfznO6crcBJm2iIMAGP07c2KhgoOu",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 91,
+      "drive_videos_count": 58,
       "total_posts": 91,
       "total_views": 21730,
       "total_engagement": {
@@ -85534,7 +85652,9 @@
           "permalink": "/reel/2507476153013039/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 61,
@@ -85564,7 +85684,7 @@
       "drive_folder_id": "1-rnWGv5ubF2V0jJtBCarzYBPetRMzhAX",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 110,
+      "drive_videos_count": 77,
       "total_posts": 91,
       "total_views": 30045,
       "total_engagement": {
@@ -86323,7 +86443,9 @@
           "permalink": "/reel/1809530440362998/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 62,
@@ -86353,7 +86475,7 @@
       "drive_folder_id": "1v97_7qE5YKzl3paJ7mcVKZH8O2r87hre",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 299,
+      "drive_videos_count": 266,
       "total_posts": 90,
       "total_views": 15472,
       "total_engagement": {
@@ -87112,7 +87234,9 @@
           "permalink": "/reel/1804717590720892/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 63,
@@ -87142,7 +87266,7 @@
       "drive_folder_id": "1kpk_XGNplLiSnYxb9B0bGGTq8Po8wjKQ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 303,
+      "drive_videos_count": 270,
       "total_posts": 90,
       "total_views": 44724,
       "total_engagement": {
@@ -87901,7 +88025,9 @@
           "permalink": "/reel/943114755540236/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 64,
@@ -87931,7 +88057,7 @@
       "drive_folder_id": "1tYfVrfivBZBYhx736ihaZ2Mgb0UCo1Hj",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 212,
+      "drive_videos_count": 179,
       "total_posts": 90,
       "total_views": 3771,
       "total_engagement": {
@@ -88690,7 +88816,9 @@
           "permalink": "/reel/2295148534357292/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 65,
@@ -88720,7 +88848,7 @@
       "drive_folder_id": "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 394,
+      "drive_videos_count": 361,
       "total_posts": 91,
       "total_views": 283170,
       "total_engagement": {
@@ -89479,7 +89607,9 @@
           "permalink": "/reel/1630021552046386/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 66,
@@ -89509,7 +89639,7 @@
       "drive_folder_id": "1m4zcAJErDtVSRPiZupC067ildpuCp4Xn",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 120,
+      "drive_videos_count": 87,
       "total_posts": 106,
       "total_views": 35387,
       "total_engagement": {
@@ -90268,7 +90398,9 @@
           "permalink": "/reel/4643482442594887/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 67,
@@ -90298,7 +90430,7 @@
       "drive_folder_id": "11qk-b66GAyO0NTvHX2TUKRiVsiK-Jk7e",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 224,
+      "drive_videos_count": 191,
       "total_posts": 87,
       "total_views": 1836,
       "total_engagement": {
@@ -91057,7 +91189,9 @@
           "permalink": "/reel/4555403641408339/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 68,
@@ -91087,7 +91221,7 @@
       "drive_folder_id": "1s4FC3XfpaCwLC8SjQc7ytMoXbxmW1sa1",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 146,
+      "drive_videos_count": 114,
       "total_posts": 86,
       "total_views": 1524,
       "total_engagement": {
@@ -91846,7 +91980,9 @@
           "permalink": "/reel/2011958732827901/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 77,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 69,
@@ -91876,7 +92012,7 @@
       "drive_folder_id": "1lDezQeKpSXSOg5kafNTED2AMhAyrx4k0",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 282,
+      "drive_videos_count": 250,
       "total_posts": 85,
       "total_views": 1102,
       "total_engagement": {
@@ -92635,7 +92771,9 @@
           "permalink": "/reel/1122077063584328/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 77,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 70,
@@ -92665,7 +92803,7 @@
       "drive_folder_id": "15hPBojsrRBiBOR0331zGeuYxqOF4ambV",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 285,
+      "drive_videos_count": 253,
       "total_posts": 201,
       "total_views": 421337,
       "total_engagement": {
@@ -93425,7 +93563,9 @@
           "permalink": "/reel/1944494530326808/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 77,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 71,
@@ -93455,7 +93595,7 @@
       "drive_folder_id": "1Y1wCJxMqCzWUh0YMPoh5KGG4YpEnqT6a",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 197,
+      "drive_videos_count": 165,
       "total_posts": 200,
       "total_views": 1927920,
       "total_engagement": {
@@ -94214,7 +94354,9 @@
           "permalink": "/reel/1863445464625076/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 77,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 72,
@@ -94244,7 +94386,7 @@
       "drive_folder_id": "14NWdo8WKfg9kH4OYGOcZJjCpr0MFXtXk",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 31,
+      "drive_videos_count": 0,
       "total_posts": 200,
       "total_views": 284184,
       "total_engagement": {
@@ -95003,7 +95145,9 @@
           "permalink": "/reel/4491328984455292/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 67,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 73,
@@ -95033,7 +95177,7 @@
       "drive_folder_id": "1iMpfR-mZdfljA1OjWOEjAMM9CtODCaLO",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 416,
+      "drive_videos_count": 383,
       "total_posts": 200,
       "total_views": 145534,
       "total_engagement": {
@@ -95792,7 +95936,9 @@
           "permalink": "/reel/2319952005505505/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 77,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 74,
@@ -95822,7 +95968,7 @@
       "drive_folder_id": "1OgWhFRr1Tez6SJVDBTzJF8-BbFdG9Hgu",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 176,
+      "drive_videos_count": 144,
       "total_posts": 200,
       "total_views": 1041955,
       "total_engagement": {
@@ -96581,7 +96727,9 @@
           "permalink": "/reel/3289359191255160/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 76,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 75,
@@ -96611,7 +96759,7 @@
       "drive_folder_id": "1Bbn4TxIRO-mshKSg7BPvTxHVgF59x8QL",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 503,
+      "drive_videos_count": 471,
       "total_posts": 200,
       "total_views": 23986,
       "total_engagement": {
@@ -97370,7 +97518,9 @@
           "permalink": "/reel/1128704572924432/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 76,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 76,
@@ -97400,7 +97550,7 @@
       "drive_folder_id": "1Imakyr8eJJvH9YwJP6pTbozbTQFO_lWz",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 315,
+      "drive_videos_count": 283,
       "total_posts": 200,
       "total_views": 3249069,
       "total_engagement": {
@@ -98159,7 +98309,9 @@
           "permalink": "/reel/1413417136868789/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 76,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 77,
@@ -98189,7 +98341,7 @@
       "drive_folder_id": "1gKXG4J5c2h_9Ioh8gUmRS1ytNVgNTK4s",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 287,
+      "drive_videos_count": 254,
       "total_posts": 200,
       "total_views": 14459,
       "total_engagement": {
@@ -98948,7 +99100,9 @@
           "permalink": "/reel/2367344034095808/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 78,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 78,
@@ -98978,7 +99132,7 @@
       "drive_folder_id": "1Mxn-OsHxuAr0XI8hLXdP36CHd7bu4kHY",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 49,
+      "drive_videos_count": 18,
       "total_posts": 82,
       "total_views": 16229,
       "total_engagement": {
@@ -99737,7 +99891,9 @@
           "permalink": "/reel/1131024969450310/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 80,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 79,
@@ -99767,7 +99923,7 @@
       "drive_folder_id": "1HJuayNj7NWyNqlPQvtHBa4bqXYjK7Fta",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 92,
+      "drive_videos_count": 61,
       "total_posts": 83,
       "total_views": 38484,
       "total_engagement": {
@@ -100526,7 +100682,9 @@
           "permalink": "/reel/1081961994631780/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 80,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 80,
@@ -100556,7 +100714,7 @@
       "drive_folder_id": "1_84m7mzqO_UH7wZ7Ibu0m0zZKCPq1t9_",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 106,
+      "drive_videos_count": 74,
       "total_posts": 80,
       "total_views": 14288,
       "total_engagement": {
@@ -101315,7 +101473,9 @@
           "permalink": "/reel/28934601916165463/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 81,
@@ -101345,7 +101505,7 @@
       "drive_folder_id": "1EScmrSEvJZ-0RVZUi4EbNwwXZvFY1xj-",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 33,
+      "drive_videos_count": 1,
       "total_posts": 80,
       "total_views": 41885,
       "total_engagement": {
@@ -102104,7 +102264,9 @@
           "permalink": "/reel/1138853195769155/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "CRITICAL"
     },
     {
       "index": 82,
@@ -102134,7 +102296,7 @@
       "drive_folder_id": "16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 40,
+      "drive_videos_count": 8,
       "total_posts": 83,
       "total_views": 26051,
       "total_engagement": {
@@ -102893,7 +103055,9 @@
           "permalink": "/reel/1080086894817344/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "LOW"
     },
     {
       "index": 83,
@@ -102923,7 +103087,7 @@
       "drive_folder_id": "1SLLaD5EJpjI0y3sJ-SHW54z3MbJpuSZ6",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 10,
+      "drive_videos_count": 0,
       "total_posts": 56,
       "total_views": 304817,
       "total_engagement": {
@@ -103682,7 +103846,9 @@
           "permalink": "/reel/1875610523403005/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 55,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 84,
@@ -103712,7 +103878,7 @@
       "drive_folder_id": "121F8kWME99saVsz1ZHUDFa3kuDIYpNH9",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 35,
+      "drive_videos_count": 3,
       "total_posts": 80,
       "total_views": 1488213,
       "total_engagement": {
@@ -104471,7 +104637,9 @@
           "permalink": "/reel/1395692815965873/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "CRITICAL"
     },
     {
       "index": 85,
@@ -104501,7 +104669,7 @@
       "drive_folder_id": "1llro8tw5sNIYX3t0tvz10OERwo2km59y",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 275,
+      "drive_videos_count": 243,
       "total_posts": 82,
       "total_views": 17788,
       "total_engagement": {
@@ -105260,7 +105428,9 @@
           "permalink": "/reel/1920104789400551/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 86,
@@ -105290,7 +105460,7 @@
       "drive_folder_id": "1IYB4VZUz8p7iKpF-sgCcrFPu5KiYmI0T",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 58,
+      "drive_videos_count": 26,
       "total_posts": 84,
       "total_views": 16837,
       "total_engagement": {
@@ -106049,7 +106219,9 @@
           "permalink": "/reel/1430343382641465/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 87,
@@ -106079,7 +106251,7 @@
       "drive_folder_id": "1MTyWjVldpCHaBSkdlQOK9JhsMIC93N5G",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 95,
+      "drive_videos_count": 63,
       "total_posts": 84,
       "total_views": 2747519,
       "total_engagement": {
@@ -106838,7 +107010,9 @@
           "permalink": "/reel/1029216686806795/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 81,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 88,
@@ -106868,7 +107042,7 @@
       "drive_folder_id": "15Lz5f-JHrHPQskqyIxR7AVamDLxOO07V",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 24,
+      "drive_videos_count": 0,
       "total_posts": 77,
       "total_views": 128807,
       "total_engagement": {
@@ -107627,7 +107801,9 @@
           "permalink": "/reel/1439736528247588/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 89,
@@ -107657,7 +107833,7 @@
       "drive_folder_id": "155aMRaWuUAInSgQrl0gatk_EvIEmqM87",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 315,
+      "drive_videos_count": 284,
       "total_posts": 91,
       "total_views": 10212,
       "total_engagement": {
@@ -108416,7 +108592,9 @@
           "permalink": "/reel/1084274934330293/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 90,
@@ -108446,7 +108624,7 @@
       "drive_folder_id": "1Z_LJ5MrLW_77keBWsri6GmHV4hCPnhZX",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 91,
+      "drive_videos_count": 60,
       "total_posts": 89,
       "total_views": 3690,
       "total_engagement": {
@@ -109205,7 +109383,9 @@
           "permalink": "/reel/2180281243369316/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 91,
@@ -109235,7 +109415,7 @@
       "drive_folder_id": "12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 396,
+      "drive_videos_count": 365,
       "total_posts": 89,
       "total_views": 20173,
       "total_engagement": {
@@ -109994,7 +110174,9 @@
           "permalink": "/reel/2189301864965247/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 92,
@@ -110024,7 +110206,7 @@
       "drive_folder_id": "1plS4eTfwt1-KCH-pcqe664IxtnejOWXk",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 107,
+      "drive_videos_count": 76,
       "total_posts": 91,
       "total_views": 2688,
       "total_engagement": {
@@ -110783,7 +110965,9 @@
           "permalink": "/reel/1279152634319676/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 93,
@@ -110813,7 +110997,7 @@
       "drive_folder_id": "1J2v6SLGahed5tXgGApcjaqJWhmW0rf1h",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 304,
+      "drive_videos_count": 273,
       "total_posts": 89,
       "total_views": 6213,
       "total_engagement": {
@@ -111572,7 +111756,9 @@
           "permalink": "/reel/1480610910558097/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 94,
@@ -111602,7 +111788,7 @@
       "drive_folder_id": "19vXbTj79kcd1saSgA72l8utIG3H7p720",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 104,
+      "drive_videos_count": 74,
       "total_posts": 94,
       "total_views": 19235,
       "total_engagement": {
@@ -112361,7 +112547,9 @@
           "permalink": "/reel/1412583580297881/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 95,
@@ -112391,7 +112579,7 @@
       "drive_folder_id": "1bfZHFaP_shW75sOo15S1iTY0FmqMjVBO",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 117,
+      "drive_videos_count": 87,
       "total_posts": 94,
       "total_views": 2769,
       "total_engagement": {
@@ -113150,7 +113338,9 @@
           "permalink": "/reel/4612007372279120/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 96,
@@ -113180,7 +113370,7 @@
       "drive_folder_id": "1AEA6Zbh2_47bJJtBBpLCu66DHJ-F-AVc",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 105,
+      "drive_videos_count": 75,
       "total_posts": 96,
       "total_views": 6603,
       "total_engagement": {
@@ -113939,7 +114129,9 @@
           "permalink": "/reel/1129248466223738/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 97,
@@ -113969,7 +114161,7 @@
       "drive_folder_id": "1mLhtU-CriRi1sRDy46qdlrdREbMbcg46",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 135,
+      "drive_videos_count": 105,
       "total_posts": 93,
       "total_views": 2914,
       "total_engagement": {
@@ -114728,7 +114920,9 @@
           "permalink": "/reel/1809714510477021/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 98,
@@ -114758,7 +114952,7 @@
       "drive_folder_id": "1djwykfiTZ70yjubKkMlv7h84j_ucmosb",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 102,
+      "drive_videos_count": 72,
       "total_posts": 122,
       "total_views": 5617,
       "total_engagement": {
@@ -115517,7 +115711,9 @@
           "permalink": "/reel/1750052156212993/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 99,
@@ -115547,7 +115743,7 @@
       "drive_folder_id": "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 297,
+      "drive_videos_count": 267,
       "total_posts": 200,
       "total_views": 34656,
       "total_engagement": {
@@ -116306,7 +116502,9 @@
           "permalink": "/reel/2441417756349549/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 100,
@@ -116336,7 +116534,7 @@
       "drive_folder_id": "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 88,
+      "drive_videos_count": 58,
       "total_posts": 94,
       "total_views": 2082,
       "total_engagement": {
@@ -117095,7 +117293,9 @@
           "permalink": "/reel/28115835298117530/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 101,
@@ -117125,7 +117325,7 @@
       "drive_folder_id": "1BgBzzfGAI819mRUR2ObAp-EkxaQX7czH",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 19,
+      "drive_videos_count": 0,
       "total_posts": 64,
       "total_views": 52318,
       "total_engagement": {
@@ -117884,7 +118084,9 @@
           "permalink": "/reel/2137300810239179/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 61,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 102,
@@ -117914,7 +118116,7 @@
       "drive_folder_id": "14gX_X6qAs4mprk6q8MVsZXGhNnntwcMh",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 112,
+      "drive_videos_count": 81,
       "total_posts": 73,
       "total_views": 21431,
       "total_engagement": {
@@ -118673,7 +118875,9 @@
           "permalink": "/reel/1455718389773181/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 103,
@@ -118703,7 +118907,7 @@
       "drive_folder_id": "1j8-OzrvjLdl0EVPtbzmagVqIqzIZ9ppJ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 50,
+      "drive_videos_count": 19,
       "total_posts": 74,
       "total_views": 32562,
       "total_engagement": {
@@ -119462,7 +119666,9 @@
           "permalink": "/reel/1094521356288502/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 104,
@@ -119492,7 +119698,7 @@
       "drive_folder_id": "1IDM7f7Or6HnDkvk-3X0TnvTedDowUoFu",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 46,
+      "drive_videos_count": 15,
       "total_posts": 76,
       "total_views": 16360,
       "total_engagement": {
@@ -120251,7 +120457,9 @@
           "permalink": "/reel/2324018335008483/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "LOW"
     },
     {
       "index": 105,
@@ -120281,7 +120489,7 @@
       "drive_folder_id": "1B8nrWSuanOEpoDVwJ3iMD6_R1F0gf7kL",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 70,
+      "drive_videos_count": 39,
       "total_posts": 75,
       "total_views": 31665,
       "total_engagement": {
@@ -121040,7 +121248,9 @@
           "permalink": "/reel/3187414104796992/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 106,
@@ -121070,7 +121280,7 @@
       "drive_folder_id": "1MxP6QD8L1VfvdmLTJMZi_znujU8p1DXB",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 344,
+      "drive_videos_count": 312,
       "total_posts": 200,
       "total_views": 47933,
       "total_engagement": {
@@ -121829,7 +122039,9 @@
           "permalink": "/reel/1092189936732805/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 107,
@@ -121859,7 +122071,7 @@
       "drive_folder_id": "1jHAChBRkp0q_zOjkEUAC_Rx7neakuwp8",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 58,
+      "drive_videos_count": 27,
       "total_posts": 200,
       "total_views": 815604,
       "total_engagement": {
@@ -122618,7 +122830,9 @@
           "permalink": "/reel/1451677650220891/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 108,
@@ -122648,7 +122862,7 @@
       "drive_folder_id": "11ObtDv6z6HzTxKbp7RXY8ug4TL9-Fgjj",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 264,
+      "drive_videos_count": 233,
       "total_posts": 200,
       "total_views": 17655,
       "total_engagement": {
@@ -123407,7 +123621,9 @@
           "permalink": "/reel/1104480565498778/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 109,
@@ -123437,7 +123653,7 @@
       "drive_folder_id": "1qrc_bt4CioXgYiTybDD_8XXUBLD0PDdT",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 292,
+      "drive_videos_count": 261,
       "total_posts": 200,
       "total_views": 379170,
       "total_engagement": {
@@ -124196,7 +124412,9 @@
           "permalink": "/reel/4551092845154170/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 110,
@@ -124226,7 +124444,7 @@
       "drive_folder_id": "1D9teONQH9R0z6BhmdsftN55Y67spxKkM",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 262,
+      "drive_videos_count": 231,
       "total_posts": 200,
       "total_views": 15170,
       "total_engagement": {
@@ -124985,7 +125203,9 @@
           "permalink": "/reel/2392289318177562/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 111,
@@ -125015,7 +125235,7 @@
       "drive_folder_id": "1YGKlonl9p1iEtBFAOTF-hDANC9EiTNTi",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 77,
+      "drive_videos_count": 46,
       "total_posts": 200,
       "total_views": 1375573,
       "total_engagement": {
@@ -125774,7 +125994,9 @@
           "permalink": "/reel/961352009732083/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 112,
@@ -125804,7 +126026,7 @@
       "drive_folder_id": "1gtFrX3Ji1yjJ5f8yHe1zOcdgMCTDQFMn",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 145,
+      "drive_videos_count": 112,
       "total_posts": 86,
       "total_views": 1886,
       "total_engagement": {
@@ -126563,7 +126785,9 @@
           "permalink": "/reel/1718554705877736/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 113,
@@ -126593,7 +126817,7 @@
       "drive_folder_id": "1BURCLnzpluribfLIMlx7iPp-qdf_GL2T",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 454,
+      "drive_videos_count": 421,
       "total_posts": 115,
       "total_views": 2452,
       "total_engagement": {
@@ -127352,7 +127576,9 @@
           "permalink": "/reel/2155165561756143/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 114,
@@ -127382,7 +127608,7 @@
       "drive_folder_id": "1TcsGrKQd3ueOdVGgjsG5ujrwHmnoLd4N",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 319,
+      "drive_videos_count": 286,
       "total_posts": 200,
       "total_views": 3911129,
       "total_engagement": {
@@ -128141,7 +128367,9 @@
           "permalink": "/reel/4402093123434065/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 75,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 115,
@@ -128171,7 +128399,7 @@
       "drive_folder_id": "1pBBPnxX539_8XbACP_xN5ZaqdgnVNdaC",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 9,
+      "drive_videos_count": 0,
       "total_posts": 200,
       "total_views": 144933,
       "total_engagement": {
@@ -128930,7 +129158,9 @@
           "permalink": "/reel/3282882105231895/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 50,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 116,
@@ -128960,7 +129190,7 @@
       "drive_folder_id": "1MMHC7iT-E1r-R8p-uSXY5_JJU5ttxhAp",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 273,
+      "drive_videos_count": 241,
       "total_posts": 200,
       "total_views": 2926132,
       "total_engagement": {
@@ -129719,7 +129949,9 @@
           "permalink": "/reel/2456956168047870/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 117,
@@ -129749,7 +129981,7 @@
       "drive_folder_id": "12Z5ghscmqcwCCjqK4nE-AEa0ecwPmBxA",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 287,
+      "drive_videos_count": 255,
       "total_posts": 200,
       "total_views": 1272694,
       "total_engagement": {
@@ -130508,7 +130740,9 @@
           "permalink": "/reel/1097598456578450/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 118,
@@ -130538,7 +130772,7 @@
       "drive_folder_id": "11EFX0WJ32MzLCMbtRU3cehqjmFLuQ3KC",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 102,
+      "drive_videos_count": 70,
       "total_posts": 200,
       "total_views": 790412,
       "total_engagement": {
@@ -131297,7 +131531,9 @@
           "permalink": "/reel/1144032565244208/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 119,
@@ -131327,7 +131563,7 @@
       "drive_folder_id": "1DUewTYHyfLjT-IEKh0lsWbs30sHT-WiJ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 450,
+      "drive_videos_count": 418,
       "total_posts": 200,
       "total_views": 1266743,
       "total_engagement": {
@@ -132086,7 +132322,9 @@
           "permalink": "/reel/38638173025826764/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 120,
@@ -132116,7 +132354,7 @@
       "drive_folder_id": "1S-cw7Fe7G1GyvpYwH1RSe2vGJdC0_0Lm",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 82,
+      "drive_videos_count": 50,
       "total_posts": 200,
       "total_views": 298550,
       "total_engagement": {
@@ -132875,7 +133113,9 @@
           "permalink": "/reel/1108801344954903/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 121,
@@ -132905,7 +133145,7 @@
       "drive_folder_id": "125WfzCXV4G8mtQfHa-9HxUeuIS_BXtYk",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 112,
+      "drive_videos_count": 80,
       "total_posts": 200,
       "total_views": 622236,
       "total_engagement": {
@@ -133664,7 +133904,9 @@
           "permalink": "/reel/1397319499057866/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 73,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 122,
@@ -133694,7 +133936,7 @@
       "drive_folder_id": "1h9B3ZNGqcWtRUD0-JhBBWCErlK8BsTbb",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 128,
+      "drive_videos_count": 96,
       "total_posts": 200,
       "total_views": 342529,
       "total_engagement": {
@@ -134453,7 +134695,9 @@
           "permalink": "/reel/1125923716776965/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 123,
@@ -134483,7 +134727,7 @@
       "drive_folder_id": "1lK6PK14R0GGQRmk8lCA9L-ketOUFQbP6",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 462,
+      "drive_videos_count": 430,
       "total_posts": 106,
       "total_views": 649,
       "total_engagement": {
@@ -135242,7 +135486,9 @@
           "permalink": "/reel/4671991973125433/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 124,
@@ -135272,7 +135518,7 @@
       "drive_folder_id": "1R9miZUECFxxSCVYjrLBUi23Hv6HhelYq",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 13,
+      "drive_videos_count": 0,
       "total_posts": 87,
       "total_views": 1043,
       "total_engagement": {
@@ -136031,7 +136277,9 @@
           "permalink": "/reel/1058954683642115/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 55,
+      "drive_stock_status": "EMPTY"
     },
     {
       "index": 125,
@@ -136061,7 +136309,7 @@
       "drive_folder_id": "1OyrUqGKt0bPQqo6mekPjmAd2VJfb4CuQ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 128,
+      "drive_videos_count": 96,
       "total_posts": 103,
       "total_views": 2711,
       "total_engagement": {
@@ -136820,7 +137068,9 @@
           "permalink": "/reel/1108360715064975/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 126,
@@ -136850,7 +137100,7 @@
       "drive_folder_id": "1RPhbSb0nV7-yydSD-6m0kc12bhwAG4do",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 337,
+      "drive_videos_count": 305,
       "total_posts": 200,
       "total_views": 211785,
       "total_engagement": {
@@ -137609,7 +137859,9 @@
           "permalink": "/reel/958103084034540/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 74,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 127,
@@ -137639,7 +137891,7 @@
       "drive_folder_id": "14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 129,
+      "drive_videos_count": 96,
       "total_posts": 200,
       "total_views": 25540166,
       "total_engagement": {
@@ -138398,7 +138650,9 @@
           "permalink": "/reel/1772050864876797/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 128,
@@ -138428,7 +138682,7 @@
       "drive_folder_id": "10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 221,
+      "drive_videos_count": 188,
       "total_posts": 200,
       "total_views": 69092,
       "total_engagement": {
@@ -139187,7 +139441,9 @@
           "permalink": "/reel/4139335299697838/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 129,
@@ -139217,7 +139473,7 @@
       "drive_folder_id": "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 40,
+      "drive_videos_count": 7,
       "total_posts": 85,
       "total_views": 3168,
       "total_engagement": {
@@ -139976,7 +140232,9 @@
           "permalink": "/reel/1447793824130538/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "LOW"
     },
     {
       "index": 130,
@@ -140006,7 +140264,7 @@
       "drive_folder_id": "19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 211,
+      "drive_videos_count": 178,
       "total_posts": 200,
       "total_views": 4471378,
       "total_engagement": {
@@ -140765,7 +141023,9 @@
           "permalink": "/reel/1107242498329543/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 131,
@@ -140795,7 +141055,7 @@
       "drive_folder_id": "1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 271,
+      "drive_videos_count": 238,
       "total_posts": 200,
       "total_views": 7089,
       "total_engagement": {
@@ -141554,7 +141814,9 @@
           "permalink": "/reel/1539570524594237/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 132,
@@ -141584,7 +141846,7 @@
       "drive_folder_id": "16G_A0S1w-1qKtY56Y4-4NL21rmCRa67H",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 326,
+      "drive_videos_count": 293,
       "total_posts": 200,
       "total_views": 1979298,
       "total_engagement": {
@@ -142343,7 +142605,9 @@
           "permalink": "/reel/3269103466812668/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 133,
@@ -142373,7 +142637,7 @@
       "drive_folder_id": "1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 58,
+      "drive_videos_count": 25,
       "total_posts": 200,
       "total_views": 6193723,
       "total_engagement": {
@@ -143132,7 +143396,9 @@
           "permalink": "/reel/2068922320656078/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 134,
@@ -143162,7 +143428,7 @@
       "drive_folder_id": "1GoRZAiud2KVabAzU2Q4OWHKoAaU11zC7",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 240,
+      "drive_videos_count": 207,
       "total_posts": 65,
       "total_views": 2190,
       "total_engagement": {
@@ -143978,7 +144244,9 @@
           "permalink": "/reel/1068973205766707/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 135,
@@ -144008,7 +144276,7 @@
       "drive_folder_id": "1K7M6j7yLorT0D7vrE54oDf-uv76NIxFk",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 269,
+      "drive_videos_count": 236,
       "total_posts": 200,
       "total_views": 46902,
       "total_engagement": {
@@ -144767,7 +145035,9 @@
           "permalink": "/reel/958288093384657/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 136,
@@ -144797,7 +145067,7 @@
       "drive_folder_id": "1Vz4kZntHTFPBjdvHe9q_YA9ZUzSwzKUu",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 131,
+      "drive_videos_count": 98,
       "total_posts": 200,
       "total_views": 651191,
       "total_engagement": {
@@ -145556,7 +145826,9 @@
           "permalink": "/reel/997688613378255/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 137,
@@ -145586,7 +145858,7 @@
       "drive_folder_id": "1ev3fnutc97DsHMqjaxDeKRvBQQO_s5LM",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 225,
+      "drive_videos_count": 192,
       "total_posts": 80,
       "total_views": 3248,
       "total_engagement": {
@@ -146345,7 +146617,9 @@
           "permalink": "/reel/1093543126755084/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 138,
@@ -146375,7 +146649,7 @@
       "drive_folder_id": "1f4vLojPquQpfK3Cd6XsIxXxME6D_i2Lt",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 327,
+      "drive_videos_count": 294,
       "total_posts": 200,
       "total_views": 223679,
       "total_engagement": {
@@ -147134,7 +147408,9 @@
           "permalink": "/reel/2248339099355628/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 139,
@@ -147164,7 +147440,7 @@
       "drive_folder_id": "1gVt2gs2Dx7CxfPvn2RbOb29pHWVNotLC",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 936,
+      "drive_videos_count": 906,
       "total_posts": 201,
       "total_views": 458364,
       "total_engagement": {
@@ -147924,7 +148200,9 @@
           "permalink": "/reel/949727641017805/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 36,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 140,
@@ -147954,7 +148232,7 @@
       "drive_folder_id": "1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 61,
+      "drive_videos_count": 28,
       "total_posts": 67,
       "total_views": 1797,
       "total_engagement": {
@@ -148713,7 +148991,9 @@
           "permalink": "/reel/2058265341464877/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 141,
@@ -148743,7 +149023,7 @@
       "drive_folder_id": "1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 334,
+      "drive_videos_count": 301,
       "total_posts": 200,
       "total_views": 1719789,
       "total_engagement": {
@@ -149502,7 +149782,9 @@
           "permalink": "/reel/1404919454938987/",
           "server_uploaded": true
         }
-      ]
+      ],
+      "drive_zero_wiped": 33,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 142,
@@ -149532,7 +149814,7 @@
       "drive_folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 187,
+      "drive_videos_count": 184,
       "total_posts": 200,
       "total_views": 2405127,
       "total_engagement": {
@@ -150291,7 +150573,9 @@
           "permalink": "/reel/1430957955724184/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 143,
@@ -150321,7 +150605,7 @@
       "drive_folder_id": "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 224,
+      "drive_videos_count": 221,
       "total_posts": 200,
       "total_views": 80563,
       "total_engagement": {
@@ -151080,7 +151364,9 @@
           "permalink": "/reel/1693387058344679/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 144,
@@ -151110,7 +151396,7 @@
       "drive_folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 218,
+      "drive_videos_count": 215,
       "total_posts": 200,
       "total_views": 821819,
       "total_engagement": {
@@ -151869,7 +152155,9 @@
           "permalink": "/reel/1729360454927079/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 145,
@@ -151899,7 +152187,7 @@
       "drive_folder_id": "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 31,
+      "drive_videos_count": 28,
       "total_posts": 200,
       "total_views": 50709,
       "total_engagement": {
@@ -152658,7 +152946,9 @@
           "permalink": "/reel/1330266432415745/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 146,
@@ -152688,7 +152978,7 @@
       "drive_folder_id": "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 104,
+      "drive_videos_count": 101,
       "total_posts": 200,
       "total_views": 317497,
       "total_engagement": {
@@ -153447,7 +153737,9 @@
           "permalink": "/reel/1016243574425746/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 147,
@@ -153477,7 +153769,7 @@
       "drive_folder_id": "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 487,
+      "drive_videos_count": 484,
       "total_posts": 59,
       "total_views": 5333,
       "total_engagement": {
@@ -154236,7 +154528,9 @@
           "permalink": "/reel/1494205075324711/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 148,
@@ -154266,7 +154560,7 @@
       "drive_folder_id": "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 305,
+      "drive_videos_count": 302,
       "total_posts": 200,
       "total_views": 30361,
       "total_engagement": {
@@ -155025,7 +155319,9 @@
           "permalink": "/reel/26874237712217488/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 149,
@@ -155055,7 +155351,7 @@
       "drive_folder_id": "18LJsnXYPZPmPiX922GOyJaahKkIv01_J",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 45,
+      "drive_videos_count": 42,
       "total_posts": 200,
       "total_views": 108126,
       "total_engagement": {
@@ -155814,7 +156110,9 @@
           "permalink": "/reel/1548184853602574/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 150,
@@ -155844,7 +156142,7 @@
       "drive_folder_id": "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 132,
+      "drive_videos_count": 129,
       "total_posts": 200,
       "total_views": 261497,
       "total_engagement": {
@@ -156603,7 +156901,9 @@
           "permalink": "/reel/2165393644242927/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 151,
@@ -156633,7 +156933,7 @@
       "drive_folder_id": "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 160,
+      "drive_videos_count": 157,
       "total_posts": 42,
       "total_views": 618,
       "total_engagement": {
@@ -157392,7 +157692,9 @@
           "permalink": "/reel/1407754731166750/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 152,
@@ -157422,7 +157724,7 @@
       "drive_folder_id": "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 352,
+      "drive_videos_count": 349,
       "total_posts": 200,
       "total_views": 414455,
       "total_engagement": {
@@ -158181,7 +158483,9 @@
           "permalink": "/reel/1502159874456378/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 153,
@@ -158972,7 +159276,9 @@
           "permalink": "/reel/2981573808717275/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 154,
@@ -159002,7 +159308,7 @@
       "drive_folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 162,
+      "drive_videos_count": 159,
       "total_posts": 200,
       "total_views": 301162,
       "total_engagement": {
@@ -159761,7 +160067,9 @@
           "permalink": "/reel/929902250093711/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 155,
@@ -159791,7 +160099,7 @@
       "drive_folder_id": "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 133,
+      "drive_videos_count": 130,
       "total_posts": 200,
       "total_views": 432112,
       "total_engagement": {
@@ -160550,7 +160858,9 @@
           "permalink": "/reel/1461046775344570/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     },
     {
       "index": 156,
@@ -160580,7 +160890,7 @@
       "drive_folder_id": "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 276,
+      "drive_videos_count": 273,
       "total_posts": 200,
       "total_views": 2964881,
       "total_engagement": {
@@ -161339,7 +161649,9 @@
           "permalink": "/reel/1003038925799553/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "drive_zero_wiped": 4,
+      "drive_stock_status": "HEALTHY"
     }
   ]
 }
