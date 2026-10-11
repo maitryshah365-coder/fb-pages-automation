@@ -10,7 +10,7 @@ let isLiveSyncing = false;
 let currentVideos = [];
 let videosShownCount = 8;
 let activeAudienceTab = "countries";
-let currentTimeframe = 28;
+let currentTimeframe = "all";
 let currentTimeframeMultiplier = 1.0;
 let activeReelsCategory = "all";
 window.setFullData = (d) => { fullData = d; };
@@ -2079,8 +2079,8 @@ function renderSinglePageView(p) {
   const hookViews = Math.floor(totalRealViews * 0.55);
 
   if (metricFollowers) metricFollowers.innerText = followersCount.toLocaleString();
-  if (metricViews) metricViews.innerText = totalRealViews.toLocaleString();
-  if (metricReels) metricReels.innerText = reelsForTf.length.toLocaleString();
+  if (metricViews) metricViews.innerText = (Number(p.total_views) || totalRealViews).toLocaleString();
+  if (metricReels) metricReels.innerText = (Number(p.total_posts) || allReels.length).toLocaleString();
   const pageTodayCount = getPageTodayPosts(p);
   const isConfiguredPage = Boolean(DRIVE_CONFIGURED_PAGES[String(p.id)]?.ready || (pageTodayCount > 0) || p.is_configured !== false);
   if (metricToday) {
@@ -2333,10 +2333,8 @@ function renderAllPortfolioView() {
   if (heroSub) heroSub.innerText = `${fullData.pages.length} Active Facebook Pages (${fullData.pages.length * 4} Daily Slots) • 24/7 Automated Upload Engine`;
   if (heroAvatar) heroAvatar.src = "icons/icon-192.png";
   if (metricHeroFollowers) metricHeroFollowers.innerText = totalFollowers.toLocaleString();
-  if (metricHeroViews) metricHeroViews.innerText = totalTfViews.toLocaleString();
-  if (metricHeroReels) metricHeroReels.innerText = isPortfolioLifetime
-    ? totalPublishedPosts.toLocaleString()
-    : allVideosForTf.length.toLocaleString();
+  if (metricHeroViews) metricHeroViews.innerText = totalLifetimeViews.toLocaleString();
+  if (metricHeroReels) metricHeroReels.innerText = totalPublishedPosts.toLocaleString();
 
   // Multi-crore KPI Metrics Calculation (100% Real Timeframe Data)
   const totalReach = Math.round(totalTfViews * 1.35);
