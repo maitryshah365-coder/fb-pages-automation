@@ -344,11 +344,11 @@
       "success_count": 2
     },
     "84.17.35.77": {
-      "last_verified_at": "2026-09-29T23:48:56.150006+00:00",
+      "last_verified_at": "2026-10-13T15:00:06.696114+00:00",
       "country": "US",
       "city": "New York City",
-      "org": "AS60068 Datacamp Limited",
-      "success_count": 1
+      "org": "Datacamp Limited",
+      "success_count": 2
     },
     "84.17.35.74": {
       "last_verified_at": "2026-10-06T15:18:09.812469+00:00",
@@ -1464,5 +1464,5 @@
       "success_count": 1
     }
   },
-  "updated_at": "2026-10-13T14:41:02.173652+00:00"
+  "updated_at": "2026-10-13T15:00:06.696094+00:00"
 }
