@@ -456,11 +456,11 @@
       "success_count": 3
     },
     "141.98.100.12": {
-      "last_verified_at": "2026-10-01T13:23:05.280104+00:00",
+      "last_verified_at": "2026-10-18T12:49:58.287023+00:00",
       "country": "GB",
       "city": "London",
       "org": "AS9009 M247 Europe SRL",
-      "success_count": 1
+      "success_count": 2
     },
     "146.70.186.140": {
       "last_verified_at": "2026-10-09T03:18:10.630540+00:00",
@@ -1751,5 +1751,5 @@
       "success_count": 1
     }
   },
-  "updated_at": "2026-10-18T12:23:36.387606+00:00"
+  "updated_at": "2026-10-18T12:49:58.287001+00:00"
 }
