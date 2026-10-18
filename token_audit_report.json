@@ -1,12 +1,70 @@
 {
-  "audit_timestamp": "2026-10-05T15:10:50.695162+00:00",
+  "audit_timestamp": "2026-10-18T10:27:53.790204+00:00",
   "total_pages": 156,
   "valid_tokens_count": 156,
   "invalid_tokens_count": 0,
-  "drive_configured_count": 156,
-  "total_stock_videos": 32058,
-  "today_uploaded_total": 277,
-  "target_daily_slots": 624,
-  "zero_views_count": 0,
-  "invalid_pages": []
+  "valid_percentage": 100.0,
+  "invalid_pages": [],
+  "valid_pages_summary_by_account": {
+    "Meghal Chauhan (USA)": {
+      "total": 15,
+      "valid": 15,
+      "invalid": 0
+    },
+    "Mia Shah (USA)": {
+      "total": 15,
+      "valid": 15,
+      "invalid": 0
+    },
+    "Binjal Mehra (UK)": {
+      "total": 12,
+      "valid": 12,
+      "invalid": 0
+    },
+    "Chanda Nai (UK)": {
+      "total": 12,
+      "valid": 12,
+      "invalid": 0
+    },
+    "Mahi Patel (UK)": {
+      "total": 12,
+      "valid": 12,
+      "invalid": 0
+    },
+    "Nidhi Desai (UK)": {
+      "total": 11,
+      "valid": 11,
+      "invalid": 0
+    },
+    "Richi Patel (UK)": {
+      "total": 11,
+      "valid": 11,
+      "invalid": 0
+    },
+    "Sweta Shah (UK)": {
+      "total": 12,
+      "valid": 12,
+      "invalid": 0
+    },
+    "Riya Gaur (UK)": {
+      "total": 11,
+      "valid": 11,
+      "invalid": 0
+    },
+    "Radika Patel (USA)": {
+      "total": 15,
+      "valid": 15,
+      "invalid": 0
+    },
+    "Rohini Dutt (USA)": {
+      "total": 15,
+      "valid": 15,
+      "invalid": 0
+    },
+    "Sejal Soni (USA)": {
+      "total": 15,
+      "valid": 15,
+      "invalid": 0
+    }
+  }
 }

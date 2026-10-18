@@ -720,7 +720,20 @@ async function fetchSmartData(url) {
   } catch (e) {
     console.warn("Live fetch error, falling back:", e);
   }
-  return fetch(url).then(r => r.ok ? r.json() : null);
+  try {
+    const fallbackRes = await fetch(url);
+    if (fallbackRes && fallbackRes.ok) return await fallbackRes.json();
+  } catch (e) {
+    console.warn("Direct fetch error:", e);
+  }
+  // 3rd fallback: raw GitHub if running online and local path failed
+  if (url.includes("pages_data.json")) {
+    try {
+      const rawRes = await fetch(`https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/pages_data.json?_t=${Date.now()}`);
+      if (rawRes && rawRes.ok) return await rawRes.json();
+    } catch(e) {}
+  }
+  return null;
 }
 
 // ----------------- Initial Load -----------------
@@ -742,10 +755,10 @@ async function initDashboard() {
     } catch(e) {}
 
     const [resPages, resSummary, resServerVideos, resHistory] = await Promise.all([
-      fetchSmartData("data/pages_data.json"),
-      fetch("data/latest_run_summary.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
-      fetch("data/server_uploaded_videos.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null),
-      fetch("data/upload_history.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null)
+      fetchSmartData("data/pages_data.json").catch(() => null),
+      fetch("data/latest_run_summary.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch("data/server_uploaded_videos.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch("data/upload_history.json?_t=" + Date.now(), { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null)
     ]);
 
     if (resHistory && Array.isArray(resHistory.history)) {
@@ -947,7 +960,7 @@ function triggerAiLiveSync(event) {
 }
 window.triggerAiLiveSync = triggerAiLiveSync;
 
-const fetchWithTimeout = (url, opts = {}, timeoutMs = 5000) => {
+const fetchWithTimeout = (url, opts = {}, timeoutMs = 15000) => {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeoutMs);
   return fetch(url, { ...opts, signal: controller.signal })
@@ -955,9 +968,25 @@ const fetchWithTimeout = (url, opts = {}, timeoutMs = 5000) => {
 };
 
 async function syncLiveMetaGraph(isManual = false) {
-  if (!fullData || isLiveSyncing) {
+  if (isLiveSyncing) {
     if (isManual) showToast("⏳ Sync already in progress, refreshing data...");
     return;
+  }
+
+  // If fullData is not loaded yet, fetch it before syncing
+  if (!fullData || !fullData.pages || fullData.pages.length === 0) {
+    if (isManual) showToast("⚡ Fetching fresh pages data before sync...");
+    try {
+      const fresh = await fetchSmartData("data/pages_data.json");
+      if (fresh && fresh.pages && fresh.pages.length > 0) {
+        fullData = fresh;
+        if (Array.isArray(fullData.pages)) fullData.pages = enforceStrictFleetSorting(fullData.pages);
+      }
+    } catch (e) {}
+    if (!fullData || !fullData.pages || fullData.pages.length === 0) {
+      if (isManual) showToast("⚠️ Unable to load pages. Please check internet connection.");
+      return;
+    }
   }
 
   // If not manual, strictly enforce 30 minutes interval (even on hard page refresh)
@@ -973,14 +1002,14 @@ async function syncLiveMetaGraph(isManual = false) {
     if (isLiveSyncing) {
       console.warn("Live sync watchdog triggered - releasing lock");
       isLiveSyncing = false;
-      const pagesCount = (fullData?.pages || []).length || 126;
+      const pagesCount = (fullData?.pages || []).length || 156;
       finishSyncProgressUI(pagesCount, pagesCount);
       const btnSideSync = document.getElementById("btnSideLiveSync");
       const btnMobSync = document.getElementById("btnMobileSync");
       if (btnSideSync) btnSideSync.classList.remove("spinning");
       if (btnMobSync) btnMobSync.classList.remove("spinning");
     }
-  }, 20000);
+  }, 60000);
 
   const btnSideSync = document.getElementById("btnSideLiveSync");
   const btnMobSync = document.getElementById("btnMobileSync");
@@ -1004,12 +1033,12 @@ async function syncLiveMetaGraph(isManual = false) {
       let freshData = null;
       const rawPagesUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/pages_data.json?v=${syncTimestamp}`;
       try {
-        const rawRes = await fetchWithTimeout(rawPagesUrl, { cache: "no-store" }, 5000);
+        const rawRes = await fetchWithTimeout(rawPagesUrl, { cache: "no-store" }, 15000);
         if (rawRes.ok) freshData = await rawRes.json();
       } catch (e) {}
 
       if (!freshData) {
-        const freshRes = await fetchWithTimeout(`data/pages_data.json?v=${syncTimestamp}`, { cache: "no-store" }, 5000);
+        const freshRes = await fetchWithTimeout(`data/pages_data.json?v=${syncTimestamp}`, { cache: "no-store" }, 15000);
         if (freshRes.ok) freshData = await freshRes.json();
       }
 
