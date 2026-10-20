@@ -122,12 +122,12 @@
 
       <!-- BOX 1: MASTER DASHBOARD -->
       <div class="drawer-nav-card">
-        <button type="button" class="drawer-nav-tile" id="btnDrawerDashboard" onclick="mobileSwitchView('dashboard')" title="Master Dashboard (All 156 Pages Portfolio)">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerDashboard" onclick="mobileSwitchView('dashboard')" title="Master Dashboard (All 171 Pages Portfolio)">
           <div class="tile-content-left">
             <span class="tile-icon">📊</span>
             <div class="tile-text">
               <span class="tile-title">Dashboard</span>
-              <span class="tile-sub">All 156 Pages Portfolio</span>
+              <span class="tile-sub">All 171 Pages Portfolio</span>
             </div>
           </div>
           <span class="tile-badge-gold">Master</span>
@@ -141,11 +141,11 @@
             <span class="tile-icon">📑</span>
             <div class="tile-text">
               <span class="tile-title">All Pages List</span>
-              <span class="tile-sub" id="drawerActivePageSub">156 Facebook Pages</span>
+              <span class="tile-sub" id="drawerActivePageSub">171 Facebook Pages</span>
             </div>
           </div>
           <div class="tile-content-right">
-            <span class="pages-count-pill" id="sidebarPagesCountBadge">156 Pages</span>
+            <span class="pages-count-pill" id="sidebarPagesCountBadge">171 Pages</span>
             <span class="drawer-shutter-arrow" id="drawerPagesShutterArrow">▼</span>
           </div>
         </button>
@@ -154,7 +154,7 @@
         <div class="drawer-pages-shutter-body" id="drawerPagesShutterBody" style="display: none;">
           <!-- Page Search Bar -->
           <div class="drawer-search-box">
-            <input type="search" id="sidebarPagesSearch" class="drawer-search-input" placeholder="🔍 Search across all 156 pages or ID..." onclick="event.stopPropagation()">
+            <input type="search" id="sidebarPagesSearch" class="drawer-search-input" placeholder="🔍 Search across all 171 pages or ID..." onclick="event.stopPropagation()">
           </div>
 
           <!-- The 10 Fleet Accordions List (Populated dynamically) -->
@@ -296,7 +296,7 @@
             <span class="tile-icon">📊</span>
             <div class="tile-text">
               <span class="tile-title">Dashboard</span>
-              <span class="tile-sub">All 156 Pages Portfolio</span>
+              <span class="tile-sub">All 171 Pages Portfolio</span>
             </div>
           </div>
           <span class="tile-badge-gold">Master</span>
@@ -314,7 +314,7 @@
             </div>
           </div>
           <div class="pages-header-right">
-            <span class="pages-count-pill" id="sidePagesCountBadge">156 Pages</span>
+            <span class="pages-count-pill" id="sidePagesCountBadge">171 Pages</span>
             <span class="pages-toggle-arrow" id="sidePagesToggleArrow">▼</span>
           </div>
         </button>
@@ -322,7 +322,7 @@
         <!-- Shutter Body (Closed by default - Shutter Band) -->
         <div class="sidebar-pages-body" id="sidePagesShutterBody">
           <div class="sidebar-pages-search-row">
-            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search across all 156 pages..." onclick="event.stopPropagation()">
+            <input type="text" id="sidePagesSearchInput" class="side-pages-search-input" placeholder="🔍 Search across all 171 pages..." onclick="event.stopPropagation()">
           </div>
 
           <div class="sidebar-pages-scroll-list" id="sidebarPagesScrollList">
@@ -601,6 +601,10 @@
             <span class="stat-num" id="driveHeroA5Count" style="color: #a78bfa;">3,131 Videos</span>
           </div>
           <div class="strip-stat">
+            <span class="stat-label"><img src="icons/us.png" alt="US" class="app-flag-icon"> Kalpesh Stock</span>
+            <span class="stat-num" id="driveHeroA6Count" style="color: #ec4899;">2,062 Videos</span>
+          </div>
+          <div class="strip-stat">
             <span class="stat-label"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> London Stock</span>
             <span class="stat-num" id="driveHeroUKCount" style="color: #facc15;">16,886 Videos</span>
           </div>
@@ -610,7 +614,7 @@
           </div>
           <div class="strip-stat">
             <span class="stat-label">Configured Folders</span>
-            <span class="stat-num green-text">156 / 156 Ready</span>
+            <span class="stat-num green-text">171 / 171 Ready</span>
           </div>
         </div>
       </section>
@@ -627,7 +631,7 @@
           </div>
           <div class="library-header-actions">
             <div class="timeframe-toggle-wrapper" id="driveAccountFilters">
-              <button type="button" class="timeframe-pill active" data-filter="all" id="btnDriveFilterAll">All (156)</button>
+              <button type="button" class="timeframe-pill active" data-filter="all" id="btnDriveFilterAll">All (171)</button>
               <button type="button" class="timeframe-pill" data-filter="empty_stock" id="btnDriveFilterEmptyStock" style="background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.6); color: #f87171; font-weight: 800;">🔴 Empty (12)</button>
               <button type="button" class="timeframe-pill" data-filter="critical_stock" id="btnDriveFilterCritStock" style="background: rgba(234,179,8,0.2); border-color: rgba(234,179,8,0.6); color: #facc15; font-weight: 800;">⚠️ Critical &le; 15 (5)</button>
               <button type="button" class="timeframe-pill" data-filter="a1" id="btnDriveFilterA1"><img src="icons/us.png" alt="US" class="app-flag-icon"> Meghal Chauhan (15)</button>
@@ -635,6 +639,7 @@
               <button type="button" class="timeframe-pill" data-filter="a3" id="btnDriveFilterA3"><img src="icons/us.png" alt="US" class="app-flag-icon"> Radika Patel (15)</button>
               <button type="button" class="timeframe-pill" data-filter="a4" id="btnDriveFilterA4"><img src="icons/us.png" alt="US" class="app-flag-icon"> Rohini Dutt (15)</button>
               <button type="button" class="timeframe-pill" data-filter="a5" id="btnDriveFilterA5"><img src="icons/us.png" alt="US" class="app-flag-icon"> Sejal Soni (15)</button>
+              <button type="button" class="timeframe-pill" data-filter="a6" id="btnDriveFilterA6"><img src="icons/us.png" alt="US" class="app-flag-icon"> Kalpesh Shah (15)</button>
               <button type="button" class="timeframe-pill" data-filter="uk1" id="btnDriveFilterUK1"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> Binjal Mehra (12)</button>
               <button type="button" class="timeframe-pill" data-filter="uk2" id="btnDriveFilterUK2"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> Chanda Nai (12)</button>
               <button type="button" class="timeframe-pill" data-filter="uk3" id="btnDriveFilterUK3"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> Mahi Patel (12)</button>
@@ -937,10 +942,10 @@
             <span class="tp-heading-icon" id="tpMainHeaderIcon">🏆</span>
             <div>
               <h2 class="tp-heading-title" id="tpMainHeaderTitle">Top 50 Performers</h2>
-              <p class="tp-subtitle" id="tpMainHeaderSubtitle">Live Viral Leaderboard & Channel Rankings across all 156 Facebook Pages</p>
+              <p class="tp-subtitle" id="tpMainHeaderSubtitle">Live Viral Leaderboard & Channel Rankings across all 171 Facebook Pages</p>
             </div>
           </div>
-          <span class="tp-heading-badge" id="tpLeaderboardBadge">156 Pages Monitored</span>
+          <span class="tp-heading-badge" id="tpLeaderboardBadge">171 Pages Monitored</span>
         </div>
 
         <!-- Executive KPI Grid (Swapped dynamically based on Mode) -->
@@ -1061,10 +1066,10 @@
           </div>
           
           <div class="radar-header-actions">
-            <div class="radar-today-uploads-badge" id="radarTodayUploadsBadge" title="Total Facebook Reels uploaded today across all 101 configured pages">
+            <div class="radar-today-uploads-badge" id="radarTodayUploadsBadge" title="Total Facebook Reels uploaded today across all 171 configured pages">
               <span class="radar-upload-icon">🎬</span>
               <span class="radar-upload-label">Today's Uploads:</span>
-              <span class="radar-upload-count" id="radarTodayUploadsCount">0 / 624 Slots</span>
+              <span class="radar-upload-count" id="radarTodayUploadsCount">0 / 684 Slots</span>
               <span class="radar-upload-pct" id="radarTodayUploadsPct">(0% Done)</span>
             </div>
 
@@ -1075,7 +1080,7 @@
           </div>
         </div>
 
-        <!-- 7-Fleet Staggered Execution Matrix -->
+        <!-- 13-Account Staggered Execution Matrix -->
         <div class="radar-timeline-grid" id="radarTimelineGrid">
           <div class="radar-timeline-card" id="radarCard_a1">
             <div class="radar-card-top"><span><img src="icons/us.png" alt="US" class="app-flag-icon"> #1</span><span>15 Pages</span></div>
@@ -1107,6 +1112,13 @@
             <div class="radar-card-name">Sejal Soni</div>
             <div class="radar-card-time">05:50 AM IST (Slot 4)</div>
             <div class="radar-card-slots" id="radarSlots_a5">0 / 60 Slots</div>
+          </div>
+
+          <div class="radar-timeline-card" id="radarCard_a6">
+            <div class="radar-card-top"><span><img src="icons/us.png" alt="US" class="app-flag-icon"> #6</span><span>15 Pages</span></div>
+            <div class="radar-card-name">Kalpesh Shah</div>
+            <div class="radar-card-time">09:10 AM IST (Slot 1)</div>
+            <div class="radar-card-slots" id="radarSlots_a6">0 / 60 Slots</div>
           </div>
 
           <div class="radar-timeline-card" id="radarCard_uk1">
@@ -1168,7 +1180,7 @@
             <h2 id="heroPageName" class="hero-title">All Pages Portfolio</h2>
             <span class="verified-icon">✓</span>
           </div>
-          <div id="heroPageSub" class="hero-meta">158 Active Facebook Pages (632 Daily Slots) • 24/7 Automated Upload Engine</div>
+          <div id="heroPageSub" class="hero-meta">171 Active Facebook Pages (684 Daily Slots) • 24/7 Automated Upload Engine</div>
         </div>
       </div>
 

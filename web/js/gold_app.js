@@ -501,7 +501,7 @@ function enforceStrictFleetSorting(pages) {
   });
 
   // Collect any remaining pages if any
-  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_USA_04_IDS, ...FLEET_USA_05_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_USA_04_IDS, ...FLEET_USA_05_IDS, ...FLEET_USA_06_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
   return [...usa1, ...usa2, ...usa3, ...usa4, ...usa5, ...usa6, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
@@ -1447,6 +1447,7 @@ function renderSidebarPagesList(pages) {
   const usa3List = [];
   const usa4List = [];
   const usa5List = [];
+  const usa6List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -1471,6 +1472,7 @@ function renderSidebarPagesList(pages) {
     else if (FLEET_USA_03_SET.has(pid)) usa3List.push(p);
     else if (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt") usa4List.push(p);
     else if (FLEET_USA_05_SET.has(pid) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni") usa5List.push(p);
+    else if (FLEET_USA_06_SET.has(pid) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah" || p.box_group === "Kalpesh Shah") usa6List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
@@ -1581,6 +1583,9 @@ function renderSidebarPagesList(pages) {
   }
   if (usa5List.length > 0) {
     html += buildBox("sidebar-box-usa5", "usa5", "🇺🇸", "Sejal Soni", `${usa5List.length} Pages`, usa5List, "usa5");
+  }
+  if (usa6List.length > 0) {
+    html += buildBox("sidebar-box-usa6", "usa6", "🇺🇸", "Kalpesh Shah", `${usa6List.length} Pages`, usa6List, "usa6");
   }
   if (uk1List.length > 0) {
     html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "Binjal Mehra", `${uk1List.length} Pages`, uk1List, "uk1");
@@ -1845,6 +1850,7 @@ function renderDrawerPages(pages) {
   const usa3List = [];
   const usa4List = [];
   const usa5List = [];
+  const usa6List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -1860,6 +1866,7 @@ function renderDrawerPages(pages) {
     else if (FLEET_USA_03_SET.has(pid)) usa3List.push(p);
     else if (FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt") usa4List.push(p);
     else if (FLEET_USA_05_SET.has(pid) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni") usa5List.push(p);
+    else if (FLEET_USA_06_SET.has(pid) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah" || p.box_group === "Kalpesh Shah") usa6List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
@@ -3404,6 +3411,12 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 20, m: 20, label: "Slot 3" },
   { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 0, m: 20, label: "Slot 4" },
 
+  // Kalpesh Shah - 15 Pages (USA Account 6 - Staggered +40m Slot)
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 3, m: 40, label: "Slot 1" },
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 15, m: 40, label: "Slot 2" },
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 20, m: 40, label: "Slot 3" },
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 0, m: 40, label: "Slot 4" },
+
   // Binjal Mehra - 12 Pages
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 0, label: "Slot 2" },
@@ -3592,6 +3605,7 @@ function updateRadarSlots() {
     { id: "a3", matcher: p => FLEET_USA_03_SET.has(String(p.id)) || (p.account && p.account.includes("Radika")), defaultSlots: 60 },
     { id: "a4", matcher: p => FLEET_USA_04_SET.has(String(p.id)) || (p.page_id && FLEET_USA_04_SET.has(String(p.page_id))) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt", defaultSlots: 60 },
     { id: "a5", matcher: p => FLEET_USA_05_SET.has(String(p.id)) || (p.page_id && FLEET_USA_05_SET.has(String(p.page_id))) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni", defaultSlots: 60 },
+    { id: "a6", matcher: p => FLEET_USA_06_SET.has(String(p.id)) || (p.page_id && FLEET_USA_06_SET.has(String(p.page_id))) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah", defaultSlots: 60 },
     { id: "uk1", matcher: p => FLEET_UK_01_SET.has(String(p.id)) || (p.account && p.account.includes("Binjal")), defaultSlots: 48 },
     { id: "uk2", matcher: p => FLEET_UK_02_SET.has(String(p.id)) || (p.account && p.account.includes("Chanda")), defaultSlots: 48 },
     { id: "uk3", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")), defaultSlots: 48 },
@@ -3701,7 +3715,7 @@ function initAutomationRadarLiveEngine() {
         if (targetCard) targetCard.classList.add("active-next");
 
         // Dynamically update each fleet card's time to its specific next upcoming run
-        const fleetIds = ["a1", "a2", "a3", "a4", "a5", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
+        const fleetIds = ["a1", "a2", "a3", "a4", "a5", "a6", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
         fleetIds.forEach(fId => {
           let fNextSlot = null;
           let fMinDiffMs = Infinity;
@@ -3756,6 +3770,7 @@ function initAutomationRadarLiveEngine() {
     a3: { name: "USA 03 • Radika Patel", matcher: p => FLEET_USA_03_SET.has(String(p.id)) || (p.account && p.account.includes("Radika")) },
     a4: { name: "USA 04 • Rohini Dutt", matcher: p => FLEET_USA_04_SET.has(String(p.id)) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" },
     a5: { name: "USA 05 • Sejal Soni", matcher: p => FLEET_USA_05_SET.has(String(p.id)) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" },
+    a6: { name: "USA 06 • Kalpesh Shah", matcher: p => FLEET_USA_06_SET.has(String(p.id)) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah" },
     uk1: { name: "UK 01 • Binjal Mehra", matcher: p => FLEET_UK_01_SET.has(String(p.id)) || (p.account && p.account.includes("Binjal")) },
     uk2: { name: "UK 02 • Chanda Nai", matcher: p => FLEET_UK_02_SET.has(String(p.id)) || (p.account && p.account.includes("Chanda")) },
     uk3: { name: "UK 03 • Mahi Patel", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")) },
@@ -4297,6 +4312,7 @@ function renderStudioFleetList() {
   const usa3List = [];
   const usa4List = [];
   const usa5List = [];
+  const usa6List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -4322,6 +4338,8 @@ function renderStudioFleetList() {
     else if (FLEET_USA_02_SET.has(pId)) usa2List.push(page);
     else if (FLEET_USA_03_SET.has(pId)) usa3List.push(page);
     else if (FLEET_USA_04_SET.has(pId) || (page.account && page.account.includes("Rohini")) || page.account_owner === "Rohini Dutt" || page.box_group === "Rohini Dutt") usa4List.push(page);
+    else if (FLEET_USA_05_SET.has(pId) || (page.account && page.account.includes("Sejal")) || page.account_owner === "Sejal Soni" || page.box_group === "Sejal Soni") usa5List.push(page);
+    else if (FLEET_USA_06_SET.has(pId) || (page.account && page.account.includes("Kalpesh")) || page.account_owner === "Kalpesh Shah" || page.box_group === "Kalpesh Shah") usa6List.push(page);
     else if (FLEET_UK_01_SET.has(pId)) uk1List.push(page);
     else if (FLEET_UK_02_SET.has(pId)) uk2List.push(page);
     else if (FLEET_UK_03_SET.has(pId)) uk3List.push(page);
@@ -4423,6 +4441,12 @@ function renderStudioFleetList() {
   if (usa4List.length > 0) {
     html += buildStudioBox("account-box-us", "a4", "🇺🇸", "Rohini Dutt (S25)", usa4List.length, usa4List, "usa4");
   }
+  if (usa5List.length > 0) {
+    html += buildStudioBox("account-box-us", "a5", "🇺🇸", "Sejal Soni (Pixel 9)", usa5List.length, usa5List, "usa5");
+  }
+  if (usa6List.length > 0) {
+    html += buildStudioBox("account-box-us", "a6", "🇺🇸", "Kalpesh Shah", usa6List.length, usa6List, "usa6");
+  }
   if (uk1List.length > 0) {
     html += buildStudioBox("account-box-uk", "uk1", "🇬🇧", "Binjal Mehra", uk1List.length, uk1List, "uk1");
   }
@@ -4476,6 +4500,8 @@ window.toggleBoxSelectAll = function(fleetId, e) {
   else if (fleetId === "a2") list = FLEET_USA_02_IDS;
   else if (fleetId === "a3") list = FLEET_USA_03_IDS;
   else if (fleetId === "a4") list = FLEET_USA_04_IDS;
+  else if (fleetId === "a5") list = FLEET_USA_05_IDS;
+  else if (fleetId === "a6") list = FLEET_USA_06_IDS;
   else if (fleetId === "uk1") list = FLEET_UK_01_IDS;
   else if (fleetId === "uk2") list = FLEET_UK_02_IDS;
   else if (fleetId === "uk3") list = FLEET_UK_03_IDS;
@@ -5232,6 +5258,7 @@ function renderDriveDataView() {
   let a3Stock = 0;
   let a4Stock = 0;
   let a5Stock = 0;
+  let a6Stock = 0;
   let ukStock = 0;
   let emptyFoldersCount = 0;
   let criticalFoldersCount = 0;
@@ -5245,6 +5272,7 @@ function renderDriveDataView() {
     const isUSA3 = FLEET_USA_03_SET.has(pid) || p.account === "Radika Patel (USA)" || p.box_group === "Radika Patel";
     const isUSA4 = FLEET_USA_04_SET.has(pid) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt";
     const isUSA5 = FLEET_USA_05_SET.has(pid) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni";
+    const isUSA6 = FLEET_USA_06_SET.has(pid) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah" || p.box_group === "Kalpesh Shah";
 
     totalStock += count;
     if (count === 0) {
@@ -5263,6 +5291,8 @@ function renderDriveDataView() {
       a4Stock += count;
     } else if (isUSA5) {
       a5Stock += count;
+    } else if (isUSA6) {
+      a6Stock += count;
     } else {
       ukStock += count;
     }
@@ -5282,6 +5312,8 @@ function renderDriveDataView() {
   if (elA4) elA4.innerText = `${a4Stock.toLocaleString()} Videos`;
   const elA5 = document.getElementById("driveHeroA5Count");
   if (elA5) elA5.innerText = `${a5Stock.toLocaleString()} Videos`;
+  const elA6 = document.getElementById("driveHeroA6Count");
+  if (elA6) elA6.innerText = `${a6Stock.toLocaleString()} Videos`;
   const elUK = document.getElementById("driveHeroUKCount");
   if (elUK) elUK.innerText = `${ukStock.toLocaleString()} Videos`;
   const elSideBadge = document.getElementById("sideNavDriveCountBadge");
@@ -5322,6 +5354,7 @@ function renderDriveInventoryList() {
     const isUK7 = (FLEET_UK_07_SET.has(pid) || p.account === "UK Account 7" || p.box_group === "Riya Gaur") && !isUSA3;
     const isUSA4 = (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" || p.box_group === "Rohini Dutt";
     const isUSA5 = (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" || p.box_group === "Sejal Soni";
+    const isUSA6 = (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah" || p.box_group === "Kalpesh Shah" || FLEET_USA_06_SET.has(pid);
 
     if (currentDriveAccountFilter === "empty_stock" && videoCount > 0) return false;
     if (currentDriveAccountFilter === "critical_stock" && (videoCount === 0 || videoCount > 15)) return false;
@@ -5330,6 +5363,7 @@ function renderDriveInventoryList() {
     if (currentDriveAccountFilter === "a3" && !isUSA3) return false;
     if (currentDriveAccountFilter === "a4" && !isUSA4) return false;
     if (currentDriveAccountFilter === "a5" && !isUSA5) return false;
+    if (currentDriveAccountFilter === "a6" && !isUSA6) return false;
     if (currentDriveAccountFilter === "uk1" && !isUK1) return false;
     if (currentDriveAccountFilter === "uk2" && !isUK2) return false;
     if (currentDriveAccountFilter === "uk3" && !isUK3) return false;
@@ -6800,6 +6834,7 @@ function renderHealthAuditMainView() {
     { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
     { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
     { tag: "USA 5", owner: "Sejal Soni", set: FLEET_USA_05_SET, startIdx: 142, endIdx: 156, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
+    { tag: "USA 6", owner: "Kalpesh Shah", set: FLEET_USA_06_SET, startIdx: 157, endIdx: 171, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
 
     // --- 🇬🇧 UK Fleets (7 Accounts • 81 Pages) ---
     { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", flagImg: "icons/gb.png", countryGroup: "UK", isDeviceProfile: false },
@@ -7264,6 +7299,7 @@ async function runLiveAuditUI(e) {
       { tag: "USA 3", owner: "Radika Patel", set: FLEET_USA_03_SET, startIdx: 112, endIdx: 126, flag: "🇺🇸", countryGroup: "USA" },
       { tag: "USA 4", owner: "Rohini Dutt", set: FLEET_USA_04_SET, startIdx: 127, endIdx: 141, flag: "🇺🇸", countryGroup: "USA" },
       { tag: "USA 5", owner: "Sejal Soni", set: FLEET_USA_05_SET, startIdx: 142, endIdx: 156, flag: "🇺🇸", countryGroup: "USA" },
+      { tag: "USA 6", owner: "Kalpesh Shah", set: FLEET_USA_06_SET, startIdx: 157, endIdx: 171, flag: "🇺🇸", countryGroup: "USA" },
 
       // UK Fleets (7 Fleets • 81 Pages)
       { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", countryGroup: "UK" },
