@@ -1,173 +1,212 @@
 {
-  "updated_at": 1791712088.7057123,
-  "total_folders": 156,
-  "total_valid_stock": 27587,
-  "total_zero_byte": 9841,
-  "empty_count": 12,
+  "updated_at": 1792507788.4123032,
+  "total_folders": 171,
+  "total_valid_stock": 25106,
+  "total_zero_byte": 14124,
+  "empty_count": 26,
   "critical_count": 2,
-  "low_count": 3,
-  "healthy_count": 139,
+  "low_count": 6,
+  "healthy_count": 137,
   "empty_folders": [
     {
-      "page_id": "988523547680750",
-      "page_name": "Mix Mood",
+      "page_id": "1129800936893243",
+      "page_name": "Blame The Weather",
+      "account": "Richi Patel (UK)",
+      "folder_id": "15Lz5f-JHrHPQskqyIxR7AVamDLxOO07V",
+      "video_count": 0,
+      "zero_byte_wiped": 73,
+      "total_files": 75,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "468230386376818",
+      "page_name": "Bot Mask",
       "account": "Meghal Chauhan (USA)",
-      "folder_id": "17BbHIA91odhMXfphN0JlblzWbR0IQKsy",
-      "valid": 0,
-      "wiped": 58,
-      "total": 58
+      "folder_id": "1g_Z4BtdfNqT2jF3hL9tExTr9W3Ly1YrZ",
+      "video_count": 0,
+      "zero_byte_wiped": 97,
+      "total_files": 97,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "1275452998982725",
+      "page_name": "Brittle Crown",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1IYB4VZUz8p7iKpF-sgCcrFPu5KiYmI0T",
+      "video_count": 0,
+      "zero_byte_wiped": 107,
+      "total_files": 109,
+      "status": "EMPTY",
+      "error": null
     },
     {
       "page_id": "1040244259164767",
       "page_name": "Charmy Owen",
       "account": "Meghal Chauhan (USA)",
       "folder_id": "1D3y9fSqvz8Be1ted5Wic7egRJzBn--gB",
-      "valid": 0,
-      "wiped": 20,
-      "total": 20
-    },
-    {
-      "page_id": "1005402935985498",
-      "page_name": "Glow City Stories",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1ENSslOPlICVXbfReiNUseXdlTSVpUxl7",
-      "valid": 0,
-      "wiped": 60,
-      "total": 60
-    },
-    {
-      "page_id": "765106526695498",
-      "page_name": "Gonzales  Bradley",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1a_DSwQNT0Fe5zW_NyitXF5_O7a1RgGqd",
-      "valid": 0,
-      "wiped": 12,
-      "total": 12
-    },
-    {
-      "page_id": "211294825398492",
-      "page_name": "Sovereign Labs",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1YaPfOqlG20D89o4jUcBSbylP3XmbFRWD",
-      "valid": 0,
-      "wiped": 9,
-      "total": 9
-    },
-    {
-      "page_id": "166448239894078",
-      "page_name": "Prestige Frontier",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1nB6AnKW6ubj4WjJdMJSErgL-zOe9gGsQ",
-      "valid": 0,
-      "wiped": 31,
-      "total": 31
-    },
-    {
-      "page_id": "803824339488556",
-      "page_name": "Smith  Arthur",
-      "account": "Nidhi Desai (UK)",
-      "folder_id": "14NWdo8WKfg9kH4OYGOcZJjCpr0MFXtXk",
-      "valid": 0,
-      "wiped": 67,
-      "total": 67
-    },
-    {
-      "page_id": "1240652399138492",
-      "page_name": "Cracked Bell",
-      "account": "Richi Patel (UK)",
-      "folder_id": "1SLLaD5EJpjI0y3sJ-SHW54z3MbJpuSZ6",
-      "valid": 0,
-      "wiped": 55,
-      "total": 55
-    },
-    {
-      "page_id": "1129800936893243",
-      "page_name": "Blame The Weather",
-      "account": "Richi Patel (UK)",
-      "folder_id": "15Lz5f-JHrHPQskqyIxR7AVamDLxOO07V",
-      "valid": 0,
-      "wiped": 73,
-      "total": 75
-    },
-    {
-      "page_id": "1191247700748920",
-      "page_name": "Dead Languages",
-      "account": "Riya Gaur (UK)",
-      "folder_id": "1BgBzzfGAI819mRUR2ObAp-EkxaQX7czH",
-      "valid": 0,
-      "wiped": 61,
-      "total": 61
-    },
-    {
-      "page_id": "495281633679562",
-      "page_name": "The Entertainment Zone",
-      "account": "Radika Patel (USA)",
-      "folder_id": "1pBBPnxX539_8XbACP_xN5ZaqdgnVNdaC",
-      "valid": 0,
-      "wiped": 50,
-      "total": 50
-    },
-    {
-      "page_id": "241688455685265",
-      "page_name": "Hu1",
-      "account": "Radika Patel (USA)",
-      "folder_id": "1R9miZUECFxxSCVYjrLBUi23Hv6HhelYq",
-      "valid": 0,
-      "wiped": 55,
-      "total": 55
-    }
-  ],
-  "critical_folders": [
-    {
-      "page_id": "1246041178598806",
-      "page_name": "Deafening Quiet",
-      "account": "Richi Patel (UK)",
-      "folder_id": "1EScmrSEvJZ-0RVZUi4EbNwwXZvFY1xj-",
-      "valid": 1,
-      "wiped": 81,
-      "total": 82
+      "video_count": 0,
+      "zero_byte_wiped": 20,
+      "total_files": 20,
+      "status": "EMPTY",
+      "error": null
     },
     {
       "page_id": "1261317297068003",
       "page_name": "Collapse The Sky",
       "account": "Richi Patel (UK)",
       "folder_id": "121F8kWME99saVsz1ZHUDFa3kuDIYpNH9",
-      "valid": 3,
-      "wiped": 81,
-      "total": 84
-    }
-  ],
-  "low_folders": [
+      "video_count": 0,
+      "zero_byte_wiped": 84,
+      "total_files": 84,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "896072510245887",
+      "page_name": "Cooper  Billy",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1jHAChBRkp0q_zOjkEUAC_Rx7neakuwp8",
+      "video_count": 0,
+      "zero_byte_wiped": 100,
+      "total_files": 100,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "1240652399138492",
+      "page_name": "Cracked Bell",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1SLLaD5EJpjI0y3sJ-SHW54z3MbJpuSZ6",
+      "video_count": 0,
+      "zero_byte_wiped": 55,
+      "total_files": 55,
+      "status": "EMPTY",
+      "error": null
+    },
     {
       "page_id": "1314852728368183",
       "page_name": "Crooked Hymns",
       "account": "Richi Patel (UK)",
       "folder_id": "16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi",
-      "valid": 8,
-      "wiped": 81,
-      "total": 89
+      "video_count": 0,
+      "zero_byte_wiped": 89,
+      "total_files": 89,
+      "status": "EMPTY",
+      "error": null
     },
     {
       "page_id": "1315483674976229",
       "page_name": "Cruel Mercy",
       "account": "Riya Gaur (UK)",
       "folder_id": "1IDM7f7Or6HnDkvk-3X0TnvTedDowUoFu",
-      "valid": 15,
-      "wiped": 73,
-      "total": 88
+      "video_count": 0,
+      "zero_byte_wiped": 88,
+      "total_files": 88,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "1338114526042607",
+      "page_name": "Cure For Monday",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1j8-OzrvjLdl0EVPtbzmagVqIqzIZ9ppJ",
+      "video_count": 0,
+      "zero_byte_wiped": 92,
+      "total_files": 92,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "1191247700748920",
+      "page_name": "Dead Languages",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1BgBzzfGAI819mRUR2ObAp-EkxaQX7czH",
+      "video_count": 0,
+      "zero_byte_wiped": 61,
+      "total_files": 61,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "1246041178598806",
+      "page_name": "Deafening Quiet",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1EScmrSEvJZ-0RVZUi4EbNwwXZvFY1xj-",
+      "video_count": 0,
+      "zero_byte_wiped": 82,
+      "total_files": 82,
+      "status": "EMPTY",
+      "error": null
     },
     {
       "page_id": "960803123790692",
       "page_name": "Drift Valley",
       "account": "Rohini Dutt (USA)",
       "folder_id": "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6",
-      "valid": 7,
-      "wiped": 33,
-      "total": 40
-    }
-  ],
-  "folders": {
-    "Mix Mood": {
+      "video_count": 0,
+      "zero_byte_wiped": 40,
+      "total_files": 40,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "1282432698285787",
+      "page_name": "Exile The Sun",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1Mxn-OsHxuAr0XI8hLXdP36CHd7bu4kHY",
+      "video_count": 0,
+      "zero_byte_wiped": 98,
+      "total_files": 100,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "1005402935985498",
+      "page_name": "Glow City Stories",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1ENSslOPlICVXbfReiNUseXdlTSVpUxl7",
+      "video_count": 0,
+      "zero_byte_wiped": 60,
+      "total_files": 60,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "765106526695498",
+      "page_name": "Gonzales  Bradley",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1a_DSwQNT0Fe5zW_NyitXF5_O7a1RgGqd",
+      "video_count": 0,
+      "zero_byte_wiped": 12,
+      "total_files": 12,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "241688455685265",
+      "page_name": "Hu1",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1R9miZUECFxxSCVYjrLBUi23Hv6HhelYq",
+      "video_count": 0,
+      "zero_byte_wiped": 55,
+      "total_files": 55,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "467407709785240",
+      "page_name": "I'm Joker",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7",
+      "video_count": 0,
+      "zero_byte_wiped": 58,
+      "total_files": 58,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
       "page_id": "988523547680750",
       "page_name": "Mix Mood",
       "account": "Meghal Chauhan (USA)",
@@ -175,8 +214,180 @@
       "video_count": 0,
       "zero_byte_wiped": 58,
       "total_files": 58,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
     },
+    {
+      "page_id": "166448239894078",
+      "page_name": "Prestige Frontier",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1nB6AnKW6ubj4WjJdMJSErgL-zOe9gGsQ",
+      "video_count": 0,
+      "zero_byte_wiped": 31,
+      "total_files": 31,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "755804217626888",
+      "page_name": "Remedies The",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1zxMlVAj392Ijd_Nolc-St3oom1QlYv7A",
+      "video_count": 0,
+      "zero_byte_wiped": 0,
+      "total_files": 0,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "756809930857575",
+      "page_name": "Roberts  Charles",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "10FVosLV31a0Coz-5orPY4uI9jeS4qhc2",
+      "video_count": 0,
+      "zero_byte_wiped": 0,
+      "total_files": 0,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "803824339488556",
+      "page_name": "Smith  Arthur",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "14NWdo8WKfg9kH4OYGOcZJjCpr0MFXtXk",
+      "video_count": 0,
+      "zero_byte_wiped": 67,
+      "total_files": 67,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "211294825398492",
+      "page_name": "Sovereign Labs",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1YaPfOqlG20D89o4jUcBSbylP3XmbFRWD",
+      "video_count": 0,
+      "zero_byte_wiped": 9,
+      "total_files": 9,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "495281633679562",
+      "page_name": "The Entertainment Zone",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1pBBPnxX539_8XbACP_xN5ZaqdgnVNdaC",
+      "video_count": 0,
+      "zero_byte_wiped": 50,
+      "total_files": 50,
+      "status": "EMPTY",
+      "error": null
+    },
+    {
+      "page_id": "439151942618231",
+      "page_name": "Words Though",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1BpkOd2UoI5-XbRvdVmaL2m3KJGO5ci29",
+      "video_count": 0,
+      "zero_byte_wiped": 103,
+      "total_files": 103,
+      "status": "EMPTY",
+      "error": null
+    }
+  ],
+  "critical_folders": [
+    {
+      "page_id": "243414155514799",
+      "page_name": "Atlas Authority",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31",
+      "video_count": 1,
+      "zero_byte_wiped": 60,
+      "total_files": 61,
+      "status": "CRITICAL",
+      "error": null
+    },
+    {
+      "page_id": "877069835495630",
+      "page_name": "Stellar Vibes",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl",
+      "video_count": 1,
+      "zero_byte_wiped": 31,
+      "total_files": 36,
+      "status": "CRITICAL",
+      "error": null
+    }
+  ],
+  "low_folders": [
+    {
+      "page_id": "779283818590888",
+      "page_name": "Titan Republic",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1lrpqZhufJxUotz2sO4G_u8GE8POzWrq8",
+      "video_count": 6,
+      "zero_byte_wiped": 114,
+      "total_files": 120,
+      "status": "LOW",
+      "error": null
+    },
+    {
+      "page_id": "1278509768670990",
+      "page_name": "Rusted Compass",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1y9HGtyLg8q5drHn1vaREFKcnh2bGum74",
+      "video_count": 11,
+      "zero_byte_wiped": 114,
+      "total_files": 125,
+      "status": "LOW",
+      "error": null
+    },
+    {
+      "page_id": "1195883193618072",
+      "page_name": "Choke The Static",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1B8nrWSuanOEpoDVwJ3iMD6_R1F0gf7kL",
+      "video_count": 11,
+      "zero_byte_wiped": 101,
+      "total_files": 112,
+      "status": "LOW",
+      "error": null
+    },
+    {
+      "page_id": "686470024541027",
+      "page_name": "Royal Frontier",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "18LJsnXYPZPmPiX922GOyJaahKkIv01_J",
+      "video_count": 14,
+      "zero_byte_wiped": 32,
+      "total_files": 46,
+      "status": "LOW",
+      "error": null
+    },
+    {
+      "page_id": "1034326643100670",
+      "page_name": "Bright Flare Hub",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1ohpJm22Koo_ouVSQZCwiHE0pwAyAyxDg",
+      "video_count": 15,
+      "zero_byte_wiped": 108,
+      "total_files": 123,
+      "status": "LOW",
+      "error": null
+    },
+    {
+      "page_id": "301441593063746",
+      "page_name": "Prestige Authority",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1S-cw7Fe7G1GyvpYwH1RSe2vGJdC0_0Lm",
+      "video_count": 15,
+      "zero_byte_wiped": 108,
+      "total_files": 123,
+      "status": "LOW",
+      "error": null
+    }
+  ],
+  "folders": {
     "Charmy Owen": {
       "page_id": "1040244259164767",
       "page_name": "Charmy Owen",
@@ -185,167 +396,140 @@
       "video_count": 0,
       "zero_byte_wiped": 20,
       "total_files": 20,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
     },
     "Silent Peak Social": {
       "page_id": "965629596638624",
       "page_name": "Silent Peak Social",
       "account": "Meghal Chauhan (USA)",
       "folder_id": "14C9FurpGwA_QUyK14cM3EyfFJrDB3YUp",
-      "video_count": 102,
-      "zero_byte_wiped": 73,
+      "video_count": 68,
+      "zero_byte_wiped": 107,
       "total_files": 175,
-      "status": "HEALTHY"
-    },
-    "Horizon Nest Daily": {
-      "page_id": "956622247541040",
-      "page_name": "Horizon Nest Daily",
-      "account": "Meghal Chauhan (USA)",
-      "folder_id": "1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs",
-      "video_count": 132,
-      "zero_byte_wiped": 74,
-      "total_files": 206,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Bright Flare Hub": {
       "page_id": "1034326643100670",
       "page_name": "Bright Flare Hub",
       "account": "Meghal Chauhan (USA)",
       "folder_id": "1ohpJm22Koo_ouVSQZCwiHE0pwAyAyxDg",
-      "video_count": 49,
-      "zero_byte_wiped": 74,
+      "video_count": 15,
+      "zero_byte_wiped": 108,
       "total_files": 123,
-      "status": "HEALTHY"
-    },
-    "LuxeEpic Frames ": {
-      "page_id": "924636817403215",
-      "page_name": "LuxeEpic Frames ",
-      "account": "Meghal Chauhan (USA)",
-      "folder_id": "1QTgVkYEc269hX7630a_LI4AWnlid7kHk",
-      "video_count": 269,
-      "zero_byte_wiped": 74,
-      "total_files": 343,
-      "status": "HEALTHY"
-    },
-    "Lopez  Edward": {
-      "page_id": "795016603693140",
-      "page_name": "Lopez  Edward",
-      "account": "Meghal Chauhan (USA)",
-      "folder_id": "1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN",
-      "video_count": 761,
-      "zero_byte_wiped": 74,
-      "total_files": 835,
-      "status": "HEALTHY"
+      "status": "LOW",
+      "error": null
     },
     "Crown Empire": {
       "page_id": "637367679454577",
       "page_name": "Crown Empire",
       "account": "Meghal Chauhan (USA)",
       "folder_id": "1rjGrEIrCk9TlEJBABjo0K-8MKAaBxZy9",
-      "video_count": 265,
-      "zero_byte_wiped": 74,
+      "video_count": 231,
+      "zero_byte_wiped": 108,
       "total_files": 339,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Crafty Champions": {
-      "page_id": "640019675857269",
-      "page_name": "Crafty Champions",
+    "LuxeEpic Frames ": {
+      "page_id": "924636817403215",
+      "page_name": "LuxeEpic Frames ",
       "account": "Meghal Chauhan (USA)",
-      "folder_id": "1qMwQtRtvJXbmV8iEYW1GS0IQ8VDLWA6s",
-      "video_count": 344,
-      "zero_byte_wiped": 74,
-      "total_files": 418,
-      "status": "HEALTHY"
+      "folder_id": "1QTgVkYEc269hX7630a_LI4AWnlid7kHk",
+      "video_count": 235,
+      "zero_byte_wiped": 108,
+      "total_files": 343,
+      "status": "HEALTHY",
+      "error": null
     },
-    "Fun Life": {
-      "page_id": "626061003919674",
-      "page_name": "Fun Life",
+    "Mix Mood": {
+      "page_id": "988523547680750",
+      "page_name": "Mix Mood",
       "account": "Meghal Chauhan (USA)",
-      "folder_id": "1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ",
-      "video_count": 249,
-      "zero_byte_wiped": 74,
-      "total_files": 323,
-      "status": "HEALTHY"
-    },
-    "Dominion Authority": {
-      "page_id": "528360240361556",
-      "page_name": "Dominion Authority",
-      "account": "Meghal Chauhan (USA)",
-      "folder_id": "1Kir7IF-zX_XN8FoaasVJTPT_TRQ1J0Xg",
-      "video_count": 217,
-      "zero_byte_wiped": 74,
-      "total_files": 291,
-      "status": "HEALTHY"
-    },
-    "Family Fancy": {
-      "page_id": "503358542855153",
-      "page_name": "Family Fancy",
-      "account": "Meghal Chauhan (USA)",
-      "folder_id": "1UDZx4XRzdn-5r7O9WRfUOSui2nCWuR5R",
-      "video_count": 185,
-      "zero_byte_wiped": 74,
-      "total_files": 259,
-      "status": "HEALTHY"
+      "folder_id": "17BbHIA91odhMXfphN0JlblzWbR0IQKsy",
+      "video_count": 0,
+      "zero_byte_wiped": 58,
+      "total_files": 58,
+      "status": "EMPTY",
+      "error": null
     },
     "Me Text": {
       "page_id": "500794979779192",
       "page_name": "Me Text",
       "account": "Meghal Chauhan (USA)",
       "folder_id": "1qcMeV4Fe8e15G1qQ5HhSIKZcrrI6FAZm",
-      "video_count": 93,
-      "zero_byte_wiped": 74,
+      "video_count": 59,
+      "zero_byte_wiped": 108,
       "total_files": 167,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Dominion Authority": {
+      "page_id": "528360240361556",
+      "page_name": "Dominion Authority",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1Kir7IF-zX_XN8FoaasVJTPT_TRQ1J0Xg",
+      "video_count": 183,
+      "zero_byte_wiped": 108,
+      "total_files": 291,
+      "status": "HEALTHY",
+      "error": null
     },
     "Bot Mask": {
       "page_id": "468230386376818",
       "page_name": "Bot Mask",
       "account": "Meghal Chauhan (USA)",
       "folder_id": "1g_Z4BtdfNqT2jF3hL9tExTr9W3Ly1YrZ",
-      "video_count": 23,
-      "zero_byte_wiped": 74,
+      "video_count": 0,
+      "zero_byte_wiped": 97,
       "total_files": 97,
-      "status": "HEALTHY"
+      "status": "EMPTY",
+      "error": null
     },
-    "Fresh Hive Network": {
-      "page_id": "106309715659174",
-      "page_name": "Fresh Hive Network",
+    "Crafty Champions": {
+      "page_id": "640019675857269",
+      "page_name": "Crafty Champions",
       "account": "Meghal Chauhan (USA)",
-      "folder_id": "1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH",
-      "video_count": 236,
-      "zero_byte_wiped": 74,
-      "total_files": 310,
-      "status": "HEALTHY"
+      "folder_id": "1qMwQtRtvJXbmV8iEYW1GS0IQ8VDLWA6s",
+      "video_count": 310,
+      "zero_byte_wiped": 108,
+      "total_files": 418,
+      "status": "HEALTHY",
+      "error": null
     },
-    "Crimson Authority": {
-      "page_id": "1069951959531260",
-      "page_name": "Crimson Authority",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1r0GTk9iza1TiPpOqw9lx2zgkJER7u4rE",
-      "video_count": 127,
-      "zero_byte_wiped": 72,
-      "total_files": 199,
-      "status": "HEALTHY"
+    "Family Fancy": {
+      "page_id": "503358542855153",
+      "page_name": "Family Fancy",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1UDZx4XRzdn-5r7O9WRfUOSui2nCWuR5R",
+      "video_count": 151,
+      "zero_byte_wiped": 108,
+      "total_files": 259,
+      "status": "HEALTHY",
+      "error": null
     },
-    "Heven Made": {
-      "page_id": "979493165253123",
-      "page_name": "Heven Made",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1UYolyoRJJRmGOOX2-cVXW3v54j4uGWmx",
-      "video_count": 127,
-      "zero_byte_wiped": 71,
-      "total_files": 198,
-      "status": "HEALTHY"
+    "Lopez  Edward": {
+      "page_id": "795016603693140",
+      "page_name": "Lopez  Edward",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN",
+      "video_count": 727,
+      "zero_byte_wiped": 108,
+      "total_files": 835,
+      "status": "HEALTHY",
+      "error": null
     },
-    "Evening Wise": {
-      "page_id": "920161364524597",
-      "page_name": "Evening Wise",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1Mku1ublcXUl9yXtUqI7elvqGYJu5r1q4",
-      "video_count": 1172,
-      "zero_byte_wiped": 72,
-      "total_files": 1244,
-      "status": "HEALTHY"
+    "Fun Life": {
+      "page_id": "626061003919674",
+      "page_name": "Fun Life",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ",
+      "video_count": 215,
+      "zero_byte_wiped": 108,
+      "total_files": 323,
+      "status": "HEALTHY",
+      "error": null
     },
     "Glow City Stories": {
       "page_id": "1005402935985498",
@@ -355,17 +539,30 @@
       "video_count": 0,
       "zero_byte_wiped": 60,
       "total_files": 60,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
     },
-    "Gonzales  Jordan": {
-      "page_id": "802674512937262",
-      "page_name": "Gonzales  Jordan",
+    "Crimson Authority": {
+      "page_id": "1069951959531260",
+      "page_name": "Crimson Authority",
       "account": "Mia Shah (USA)",
-      "folder_id": "1MwFCsFG1ZqDuQ4Fho8X8B4r75poMXrrr",
-      "video_count": 83,
-      "zero_byte_wiped": 72,
-      "total_files": 155,
-      "status": "HEALTHY"
+      "folder_id": "1r0GTk9iza1TiPpOqw9lx2zgkJER7u4rE",
+      "video_count": 92,
+      "zero_byte_wiped": 107,
+      "total_files": 199,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Fresh Hive Network": {
+      "page_id": "106309715659174",
+      "page_name": "Fresh Hive Network",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH",
+      "video_count": 202,
+      "zero_byte_wiped": 108,
+      "total_files": 310,
+      "status": "HEALTHY",
+      "error": null
     },
     "Gonzales  Bradley": {
       "page_id": "765106526695498",
@@ -375,47 +572,63 @@
       "video_count": 0,
       "zero_byte_wiped": 12,
       "total_files": 12,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
     },
-    "The Showdown Hub": {
-      "page_id": "568171476378321",
-      "page_name": "The Showdown Hub",
+    "Gonzales  Jordan": {
+      "page_id": "802674512937262",
+      "page_name": "Gonzales  Jordan",
       "account": "Mia Shah (USA)",
-      "folder_id": "12WpeflSfnQ7tIQMcxvBeqB1EkimP04Lm",
-      "video_count": 488,
-      "zero_byte_wiped": 72,
-      "total_files": 560,
-      "status": "HEALTHY"
+      "folder_id": "1MwFCsFG1ZqDuQ4Fho8X8B4r75poMXrrr",
+      "video_count": 48,
+      "zero_byte_wiped": 107,
+      "total_files": 155,
+      "status": "HEALTHY",
+      "error": null
     },
     "Garden Super": {
       "page_id": "454880037713018",
       "page_name": "Garden Super",
       "account": "Mia Shah (USA)",
       "folder_id": "1CAWiUuoA9ObfEYPWYXTkWDrXQbFd80Ap",
-      "video_count": 220,
-      "zero_byte_wiped": 72,
+      "video_count": 185,
+      "zero_byte_wiped": 107,
       "total_files": 292,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Heven Made": {
+      "page_id": "979493165253123",
+      "page_name": "Heven Made",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1UYolyoRJJRmGOOX2-cVXW3v54j4uGWmx",
+      "video_count": 92,
+      "zero_byte_wiped": 106,
+      "total_files": 198,
+      "status": "HEALTHY",
+      "error": null
     },
     "Gold encloud Studio": {
       "page_id": "368653459672717",
       "page_name": "Gold encloud Studio",
       "account": "Mia Shah (USA)",
       "folder_id": "1k4NsbkmZMmGNXJH_egsHGrY150MpUD49",
-      "video_count": 287,
-      "zero_byte_wiped": 72,
+      "video_count": 253,
+      "zero_byte_wiped": 106,
       "total_files": 359,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Gintube": {
-      "page_id": "359780240556577",
-      "page_name": "Gintube",
+    "The Showdown Hub": {
+      "page_id": "568171476378321",
+      "page_name": "The Showdown Hub",
       "account": "Mia Shah (USA)",
-      "folder_id": "1tjUfLMHLd7DBRFyvoRbaYBaM7lJjnfPz",
-      "video_count": 215,
-      "zero_byte_wiped": 72,
-      "total_files": 287,
-      "status": "HEALTHY"
+      "folder_id": "12WpeflSfnQ7tIQMcxvBeqB1EkimP04Lm",
+      "video_count": 453,
+      "zero_byte_wiped": 107,
+      "total_files": 560,
+      "status": "HEALTHY",
+      "error": null
     },
     "Sovereign Labs": {
       "page_id": "211294825398492",
@@ -425,7 +638,19 @@
       "video_count": 0,
       "zero_byte_wiped": 9,
       "total_files": 9,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
+    },
+    "Horizon Nest Daily": {
+      "page_id": "956622247541040",
+      "page_name": "Horizon Nest Daily",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs",
+      "video_count": 98,
+      "zero_byte_wiped": 108,
+      "total_files": 206,
+      "status": "HEALTHY",
+      "error": null
     },
     "Prestige Frontier": {
       "page_id": "166448239894078",
@@ -435,447 +660,481 @@
       "video_count": 0,
       "zero_byte_wiped": 31,
       "total_files": 31,
-      "status": "EMPTY"
-    },
-    "Zenith Empire": {
-      "page_id": "176892285514777",
-      "page_name": "Zenith Empire",
-      "account": "Mia Shah (USA)",
-      "folder_id": "1T08BZA_E_RlB3Y3w8fiMqhOXnlTWbINR",
-      "video_count": 387,
-      "zero_byte_wiped": 71,
-      "total_files": 458,
-      "status": "HEALTHY"
+      "status": "EMPTY",
+      "error": null
     },
     "Crown Voltage": {
       "page_id": "199046363282913",
       "page_name": "Crown Voltage",
       "account": "Mia Shah (USA)",
       "folder_id": "1w1rNyesYpatr1gqMgTgTqbF4aTPLsDhu",
-      "video_count": 60,
-      "zero_byte_wiped": 72,
+      "video_count": 26,
+      "zero_byte_wiped": 106,
       "total_files": 132,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Supreme Ledger": {
       "page_id": "169686166222750",
       "page_name": "Supreme Ledger",
       "account": "Mia Shah (USA)",
       "folder_id": "1IZzrDjRxAVTTXb4suo5tmFEKa4q6RN7v",
-      "video_count": 120,
-      "zero_byte_wiped": 72,
+      "video_count": 85,
+      "zero_byte_wiped": 107,
       "total_files": 192,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Zenith Empire": {
+      "page_id": "176892285514777",
+      "page_name": "Zenith Empire",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1T08BZA_E_RlB3Y3w8fiMqhOXnlTWbINR",
+      "video_count": 352,
+      "zero_byte_wiped": 106,
+      "total_files": 458,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Gintube": {
+      "page_id": "359780240556577",
+      "page_name": "Gintube",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1tjUfLMHLd7DBRFyvoRbaYBaM7lJjnfPz",
+      "video_count": 181,
+      "zero_byte_wiped": 106,
+      "total_files": 287,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Evening Wise": {
+      "page_id": "920161364524597",
+      "page_name": "Evening Wise",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1Mku1ublcXUl9yXtUqI7elvqGYJu5r1q4",
+      "video_count": 1137,
+      "zero_byte_wiped": 107,
+      "total_files": 1244,
+      "status": "HEALTHY",
+      "error": null
     },
     "Bitter Lullaby": {
       "page_id": "1275440552308410",
       "page_name": "Bitter Lullaby",
       "account": "Binjal Mehra (UK)",
       "folder_id": "17SQXMG8HL8tGgXI1-Tn5I5mQ8Ce0h0a2",
-      "video_count": 281,
-      "zero_byte_wiped": 81,
+      "video_count": 250,
+      "zero_byte_wiped": 112,
       "total_files": 362,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Apex Dominion": {
       "page_id": "1094091620443741",
       "page_name": "Apex Dominion",
       "account": "Binjal Mehra (UK)",
       "folder_id": "1hhkz2KlqkCJ7wpbgKk4ya_361AtlAjvw",
-      "video_count": 73,
-      "zero_byte_wiped": 81,
+      "video_count": 42,
+      "zero_byte_wiped": 112,
       "total_files": 154,
-      "status": "HEALTHY"
-    },
-    "Apex Narrative": {
-      "page_id": "883030611569420",
-      "page_name": "Apex Narrative",
-      "account": "Binjal Mehra (UK)",
-      "folder_id": "1vTdVLboxrjH3lRqCDChX6r0MvlOW_6xZ",
-      "video_count": 104,
-      "zero_byte_wiped": 81,
-      "total_files": 185,
-      "status": "HEALTHY"
-    },
-    "Young  Bradley": {
-      "page_id": "876743625532242",
-      "page_name": "Young  Bradley",
-      "account": "Binjal Mehra (UK)",
-      "folder_id": "1PBRUGAoXqpmr_2L6YuxkVACX3LBEFJiE",
-      "video_count": 173,
-      "zero_byte_wiped": 81,
-      "total_files": 254,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Scott  Dennis": {
       "page_id": "954228904442447",
       "page_name": "Scott  Dennis",
       "account": "Binjal Mehra (UK)",
       "folder_id": "1JmtVwNgjy0ze94TaUe3_a1GKxZKmh7oY",
-      "video_count": 138,
-      "zero_byte_wiped": 81,
+      "video_count": 107,
+      "zero_byte_wiped": 112,
       "total_files": 219,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Wood  Stephen": {
-      "page_id": "884416694753956",
-      "page_name": "Wood  Stephen",
+    "Young  Bradley": {
+      "page_id": "876743625532242",
+      "page_name": "Young  Bradley",
       "account": "Binjal Mehra (UK)",
-      "folder_id": "1Z9Ov642iD-iilWbIVOm0b-jdbFbDNdoB",
-      "video_count": 399,
-      "zero_byte_wiped": 81,
-      "total_files": 480,
-      "status": "HEALTHY"
+      "folder_id": "1PBRUGAoXqpmr_2L6YuxkVACX3LBEFJiE",
+      "video_count": 142,
+      "zero_byte_wiped": 112,
+      "total_files": 254,
+      "status": "HEALTHY",
+      "error": null
     },
     "Morgan  Donald": {
       "page_id": "766333629906067",
       "page_name": "Morgan  Donald",
       "account": "Binjal Mehra (UK)",
       "folder_id": "1ISgWlF4cUFvRzDhyqRf7n41UGNSqBHlP",
-      "video_count": 137,
-      "zero_byte_wiped": 81,
+      "video_count": 106,
+      "zero_byte_wiped": 112,
       "total_files": 218,
-      "status": "HEALTHY"
-    },
-    "Rogers  Albert": {
-      "page_id": "838517782676673",
-      "page_name": "Rogers  Albert",
-      "account": "Binjal Mehra (UK)",
-      "folder_id": "1zkNs_XzwXhiElCQimHdHxORUnJnPLXSJ",
-      "video_count": 363,
-      "zero_byte_wiped": 81,
-      "total_files": 444,
-      "status": "HEALTHY"
-    },
-    "Roberts  Austin": {
-      "page_id": "860013240524658",
-      "page_name": "Roberts  Austin",
-      "account": "Binjal Mehra (UK)",
-      "folder_id": "1gm2neO5u2CWo-xBUP1nN507GUeoSqmRk",
-      "video_count": 218,
-      "zero_byte_wiped": 80,
-      "total_files": 298,
-      "status": "HEALTHY"
-    },
-    "Mitchell  Jack": {
-      "page_id": "802792259592614",
-      "page_name": "Mitchell  Jack",
-      "account": "Binjal Mehra (UK)",
-      "folder_id": "1hOeE4b28ph5m5QiTvYZyQ8Mduc8bLhbO",
-      "video_count": 346,
-      "zero_byte_wiped": 80,
-      "total_files": 426,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Words Though": {
       "page_id": "439151942618231",
       "page_name": "Words Though",
       "account": "Binjal Mehra (UK)",
       "folder_id": "1BpkOd2UoI5-XbRvdVmaL2m3KJGO5ci29",
-      "video_count": 22,
-      "zero_byte_wiped": 81,
+      "video_count": 0,
+      "zero_byte_wiped": 103,
       "total_files": 103,
-      "status": "HEALTHY"
+      "status": "EMPTY",
+      "error": null
+    },
+    "Apex Narrative": {
+      "page_id": "883030611569420",
+      "page_name": "Apex Narrative",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1vTdVLboxrjH3lRqCDChX6r0MvlOW_6xZ",
+      "video_count": 73,
+      "zero_byte_wiped": 112,
+      "total_files": 185,
+      "status": "HEALTHY",
+      "error": null
     },
     "Quantum Collective": {
       "page_id": "297665506763102",
       "page_name": "Quantum Collective",
       "account": "Binjal Mehra (UK)",
       "folder_id": "1DiHP1KqZXnPqlIghqDiyk1_733vzUmtM",
-      "video_count": 131,
-      "zero_byte_wiped": 80,
+      "video_count": 100,
+      "zero_byte_wiped": 111,
       "total_files": 211,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Roberts  Austin": {
+      "page_id": "860013240524658",
+      "page_name": "Roberts  Austin",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1gm2neO5u2CWo-xBUP1nN507GUeoSqmRk",
+      "video_count": 187,
+      "zero_byte_wiped": 111,
+      "total_files": 298,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Wood  Stephen": {
+      "page_id": "884416694753956",
+      "page_name": "Wood  Stephen",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1Z9Ov642iD-iilWbIVOm0b-jdbFbDNdoB",
+      "video_count": 368,
+      "zero_byte_wiped": 112,
+      "total_files": 480,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Rogers  Albert": {
+      "page_id": "838517782676673",
+      "page_name": "Rogers  Albert",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1zkNs_XzwXhiElCQimHdHxORUnJnPLXSJ",
+      "video_count": 332,
+      "zero_byte_wiped": 112,
+      "total_files": 444,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Mitchell  Jack": {
+      "page_id": "802792259592614",
+      "page_name": "Mitchell  Jack",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1hOeE4b28ph5m5QiTvYZyQ8Mduc8bLhbO",
+      "video_count": 315,
+      "zero_byte_wiped": 111,
+      "total_files": 426,
+      "status": "HEALTHY",
+      "error": null
     },
     "Dandelion Diaries": {
       "page_id": "514777565046552",
       "page_name": "Dandelion Diaries",
       "account": "Chanda Nai (UK)",
       "folder_id": "1zdfwUiZlN8H0QzXDEKtpBp4UQjk0q1MV",
-      "video_count": 178,
-      "zero_byte_wiped": 82,
+      "video_count": 148,
+      "zero_byte_wiped": 112,
       "total_files": 260,
-      "status": "HEALTHY"
-    },
-    "Hill  Alan": {
-      "page_id": "820574291145280",
-      "page_name": "Hill  Alan",
-      "account": "Chanda Nai (UK)",
-      "folder_id": "1dvWHkAVYOmArdtqYGZ0pyKgVXHFlXkPH",
-      "video_count": 324,
-      "zero_byte_wiped": 83,
-      "total_files": 407,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Idea Acy": {
       "page_id": "490559100806079",
       "page_name": "Idea Acy",
       "account": "Chanda Nai (UK)",
       "folder_id": "1_a9DIPESOnEZ7BSbFNo7sHOn4uUi74xp",
-      "video_count": 280,
-      "zero_byte_wiped": 83,
+      "video_count": 249,
+      "zero_byte_wiped": 114,
       "total_files": 363,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Infinite Stories": {
-      "page_id": "500491343147382",
-      "page_name": "Infinite Stories",
+    "Hill  Alan": {
+      "page_id": "820574291145280",
+      "page_name": "Hill  Alan",
       "account": "Chanda Nai (UK)",
-      "folder_id": "1VH4Ca2nFhnjvSuBrwS803DEtaZlLlCGB",
-      "video_count": 197,
-      "zero_byte_wiped": 82,
-      "total_files": 279,
-      "status": "HEALTHY"
+      "folder_id": "1dvWHkAVYOmArdtqYGZ0pyKgVXHFlXkPH",
+      "video_count": 293,
+      "zero_byte_wiped": 114,
+      "total_files": 407,
+      "status": "HEALTHY",
+      "error": null
     },
     "James  Jose": {
       "page_id": "870381232821932",
       "page_name": "James  Jose",
       "account": "Chanda Nai (UK)",
       "folder_id": "1fRa1X-SMP4KtvVAOOQzsx2Pk7dpC7Mn7",
-      "video_count": 105,
-      "zero_byte_wiped": 83,
+      "video_count": 74,
+      "zero_byte_wiped": 114,
       "total_files": 188,
-      "status": "HEALTHY"
-    },
-    "Johnson  Jerry": {
-      "page_id": "1020848977772131",
-      "page_name": "Johnson  Jerry",
-      "account": "Chanda Nai (UK)",
-      "folder_id": "1lftaQxHI_cbKfNsmFBzmgBVcWl4f7QpB",
-      "video_count": 101,
-      "zero_byte_wiped": 83,
-      "total_files": 184,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Rusted Compass": {
       "page_id": "1278509768670990",
       "page_name": "Rusted Compass",
       "account": "Chanda Nai (UK)",
       "folder_id": "1y9HGtyLg8q5drHn1vaREFKcnh2bGum74",
-      "video_count": 42,
-      "zero_byte_wiped": 83,
+      "video_count": 11,
+      "zero_byte_wiped": 114,
       "total_files": 125,
-      "status": "HEALTHY"
+      "status": "LOW",
+      "error": null
+    },
+    "Johnson  Jerry": {
+      "page_id": "1020848977772131",
+      "page_name": "Johnson  Jerry",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1lftaQxHI_cbKfNsmFBzmgBVcWl4f7QpB",
+      "video_count": 70,
+      "zero_byte_wiped": 114,
+      "total_files": 184,
+      "status": "HEALTHY",
+      "error": null
     },
     "Silent Atlas": {
       "page_id": "1257864287403392",
       "page_name": "Silent Atlas",
       "account": "Chanda Nai (UK)",
       "folder_id": "1OGQOLu-9Eyrj3lDe3ciuD5dZnH6D09kx",
-      "video_count": 168,
-      "zero_byte_wiped": 83,
+      "video_count": 137,
+      "zero_byte_wiped": 114,
       "total_files": 251,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Infinite Stories": {
+      "page_id": "500491343147382",
+      "page_name": "Infinite Stories",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1VH4Ca2nFhnjvSuBrwS803DEtaZlLlCGB",
+      "video_count": 166,
+      "zero_byte_wiped": 113,
+      "total_files": 279,
+      "status": "HEALTHY",
+      "error": null
     },
     "Titan Republic": {
       "page_id": "779283818590888",
       "page_name": "Titan Republic",
       "account": "Chanda Nai (UK)",
       "folder_id": "1lrpqZhufJxUotz2sO4G_u8GE8POzWrq8",
-      "video_count": 37,
-      "zero_byte_wiped": 83,
+      "video_count": 6,
+      "zero_byte_wiped": 114,
       "total_files": 120,
-      "status": "HEALTHY"
+      "status": "LOW",
+      "error": null
     },
     "Urban Drift": {
       "page_id": "1058909860631103",
       "page_name": "Urban Drift",
       "account": "Chanda Nai (UK)",
       "folder_id": "1Ty_piHhtKXG1TghvpQiPsL3fY0Z8dvvM",
-      "video_count": 100,
-      "zero_byte_wiped": 83,
+      "video_count": 69,
+      "zero_byte_wiped": 114,
       "total_files": 183,
-      "status": "HEALTHY"
-    },
-    "Velvet Authority": {
-      "page_id": "1054813994376761",
-      "page_name": "Velvet Authority",
-      "account": "Chanda Nai (UK)",
-      "folder_id": "1Nc1y9TjqkTP-Si20ChGRd0VbC8sMjbWV",
-      "video_count": 230,
-      "zero_byte_wiped": 83,
-      "total_files": 313,
-      "status": "HEALTHY"
-    },
-    "Yo to Gone": {
-      "page_id": "1165355063335637",
-      "page_name": "Yo to Gone",
-      "account": "Chanda Nai (UK)",
-      "folder_id": "15XTWHGdBlk4vZfhWNVB1nqNUTg449ocx",
-      "video_count": 178,
-      "zero_byte_wiped": 83,
-      "total_files": 261,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Shifting Stone": {
       "page_id": "1190983047436826",
       "page_name": "Shifting Stone",
       "account": "Mahi Patel (UK)",
       "folder_id": "12KLecp9a14wb8mpv25SBtSBz_G3ggD3H",
-      "video_count": 59,
-      "zero_byte_wiped": 78,
+      "video_count": 28,
+      "zero_byte_wiped": 109,
       "total_files": 137,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Heavy Whistle": {
       "page_id": "1230784326779924",
       "page_name": "Heavy Whistle",
       "account": "Sweta Shah (UK)",
       "folder_id": "1J2v6SLGahed5tXgGApcjaqJWhmW0rf1h",
-      "video_count": 273,
-      "zero_byte_wiped": 75,
+      "video_count": 244,
+      "zero_byte_wiped": 104,
       "total_files": 348,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Velvet Authority": {
+      "page_id": "1054813994376761",
+      "page_name": "Velvet Authority",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1Nc1y9TjqkTP-Si20ChGRd0VbC8sMjbWV",
+      "video_count": 199,
+      "zero_byte_wiped": 114,
+      "total_files": 313,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Yo to Gone": {
+      "page_id": "1165355063335637",
+      "page_name": "Yo to Gone",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "15XTWHGdBlk4vZfhWNVB1nqNUTg449ocx",
+      "video_count": 147,
+      "zero_byte_wiped": 114,
+      "total_files": 261,
+      "status": "HEALTHY",
+      "error": null
     },
     "Lost Glossary": {
       "page_id": "1185315564665369",
       "page_name": "Lost Glossary",
       "account": "Mahi Patel (UK)",
       "folder_id": "11mH7IVu6Nv5MP00jpxRAnngU2Blgcam3",
-      "video_count": 208,
-      "zero_byte_wiped": 78,
+      "video_count": 177,
+      "zero_byte_wiped": 109,
       "total_files": 286,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Noble Frequency": {
       "page_id": "960349707172371",
       "page_name": "Noble Frequency",
       "account": "Mahi Patel (UK)",
       "folder_id": "1kQRM_1mLb2TkWtDpXL_2k5ABrEFdo2rj",
-      "video_count": 56,
-      "zero_byte_wiped": 78,
+      "video_count": 25,
+      "zero_byte_wiped": 109,
       "total_files": 134,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Prime Syndicate": {
       "page_id": "1063063230214331",
       "page_name": "Prime Syndicate",
       "account": "Mahi Patel (UK)",
       "folder_id": "1ty72KRjCUo6rfEoECVipYtJ8z9_EJKH8",
-      "video_count": 50,
-      "zero_byte_wiped": 78,
+      "video_count": 19,
+      "zero_byte_wiped": 109,
       "total_files": 128,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Empire Catalyst": {
       "page_id": "1063289593524919",
       "page_name": "Empire Catalyst",
       "account": "Mahi Patel (UK)",
       "folder_id": "1rGFyfznO6crcBJm2iIMAGP07c2KhgoOu",
-      "video_count": 58,
-      "zero_byte_wiped": 78,
+      "video_count": 27,
+      "zero_byte_wiped": 109,
       "total_files": 136,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Obsidian Theory": {
       "page_id": "938570059349598",
       "page_name": "Obsidian Theory",
       "account": "Mahi Patel (UK)",
       "folder_id": "1-rnWGv5ubF2V0jJtBCarzYBPetRMzhAX",
-      "video_count": 77,
-      "zero_byte_wiped": 78,
+      "video_count": 46,
+      "zero_byte_wiped": 109,
       "total_files": 155,
-      "status": "HEALTHY"
-    },
-    "Nova District": {
-      "page_id": "982581511610694",
-      "page_name": "Nova District",
-      "account": "Mahi Patel (UK)",
-      "folder_id": "1v97_7qE5YKzl3paJ7mcVKZH8O2r87hre",
-      "video_count": 266,
-      "zero_byte_wiped": 78,
-      "total_files": 344,
-      "status": "HEALTHY"
-    },
-    "New Moon Diaries": {
-      "page_id": "994921357036127",
-      "page_name": "New Moon Diaries",
-      "account": "Mahi Patel (UK)",
-      "folder_id": "1kpk_XGNplLiSnYxb9B0bGGTq8Po8wjKQ",
-      "video_count": 270,
-      "zero_byte_wiped": 78,
-      "total_files": 348,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Dream Harbor": {
       "page_id": "1039102779276966",
       "page_name": "Dream Harbor",
       "account": "Mahi Patel (UK)",
       "folder_id": "1tYfVrfivBZBYhx736ihaZ2Mgb0UCo1Hj",
-      "video_count": 179,
-      "zero_byte_wiped": 78,
+      "video_count": 148,
+      "zero_byte_wiped": 109,
       "total_files": 257,
-      "status": "HEALTHY"
-    },
-    "Maple Vision": {
-      "page_id": "1023389020850189",
-      "page_name": "Maple Vision",
-      "account": "Mahi Patel (UK)",
-      "folder_id": "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3",
-      "video_count": 361,
-      "zero_byte_wiped": 78,
-      "total_files": 439,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Perez  Steven": {
       "page_id": "855237054348766",
       "page_name": "Perez  Steven",
       "account": "Mahi Patel (UK)",
       "folder_id": "1m4zcAJErDtVSRPiZupC067ildpuCp4Xn",
-      "video_count": 87,
-      "zero_byte_wiped": 78,
+      "video_count": 56,
+      "zero_byte_wiped": 109,
       "total_files": 165,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Titan Archive": {
-      "page_id": "1076375522219372",
-      "page_name": "Titan Archive",
-      "account": "Nidhi Desai (UK)",
-      "folder_id": "11qk-b66GAyO0NTvHX2TUKRiVsiK-Jk7e",
-      "video_count": 191,
-      "zero_byte_wiped": 78,
-      "total_files": 269,
-      "status": "HEALTHY"
+    "Nova District": {
+      "page_id": "982581511610694",
+      "page_name": "Nova District",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1v97_7qE5YKzl3paJ7mcVKZH8O2r87hre",
+      "video_count": 235,
+      "zero_byte_wiped": 109,
+      "total_files": 344,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Maple Vision": {
+      "page_id": "1023389020850189",
+      "page_name": "Maple Vision",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3",
+      "video_count": 330,
+      "zero_byte_wiped": 109,
+      "total_files": 439,
+      "status": "HEALTHY",
+      "error": null
     },
     "Sovereign Signal": {
       "page_id": "997596213442388",
       "page_name": "Sovereign Signal",
       "account": "Nidhi Desai (UK)",
       "folder_id": "1s4FC3XfpaCwLC8SjQc7ytMoXbxmW1sa1",
-      "video_count": 114,
-      "zero_byte_wiped": 77,
+      "video_count": 84,
+      "zero_byte_wiped": 107,
       "total_files": 191,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Sunny Dusk Stories": {
-      "page_id": "1025542247301378",
-      "page_name": "Sunny Dusk Stories",
+    "Titan Archive": {
+      "page_id": "1076375522219372",
+      "page_name": "Titan Archive",
       "account": "Nidhi Desai (UK)",
-      "folder_id": "1lDezQeKpSXSOg5kafNTED2AMhAyrx4k0",
-      "video_count": 250,
-      "zero_byte_wiped": 77,
-      "total_files": 327,
-      "status": "HEALTHY"
+      "folder_id": "11qk-b66GAyO0NTvHX2TUKRiVsiK-Jk7e",
+      "video_count": 161,
+      "zero_byte_wiped": 108,
+      "total_files": 269,
+      "status": "HEALTHY",
+      "error": null
     },
-    "Silver Oak Social": {
-      "page_id": "981214481738903",
-      "page_name": "Silver Oak Social",
-      "account": "Nidhi Desai (UK)",
-      "folder_id": "15hPBojsrRBiBOR0331zGeuYxqOF4ambV",
-      "video_count": 253,
-      "zero_byte_wiped": 77,
+    "New Moon Diaries": {
+      "page_id": "994921357036127",
+      "page_name": "New Moon Diaries",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1kpk_XGNplLiSnYxb9B0bGGTq8Po8wjKQ",
+      "video_count": 239,
+      "zero_byte_wiped": 109,
       "total_files": 348,
-      "status": "HEALTHY"
-    },
-    "Mitchell  Gabriel": {
-      "page_id": "929190903615356",
-      "page_name": "Mitchell  Gabriel",
-      "account": "Nidhi Desai (UK)",
-      "folder_id": "1Y1wCJxMqCzWUh0YMPoh5KGG4YpEnqT6a",
-      "video_count": 165,
-      "zero_byte_wiped": 77,
-      "total_files": 242,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Smith  Arthur": {
       "page_id": "803824339488556",
@@ -885,107 +1144,140 @@
       "video_count": 0,
       "zero_byte_wiped": 67,
       "total_files": 67,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
     },
-    "Robinson  Stephen": {
-      "page_id": "762765990263739",
-      "page_name": "Robinson  Stephen",
+    "Mitchell  Gabriel": {
+      "page_id": "929190903615356",
+      "page_name": "Mitchell  Gabriel",
       "account": "Nidhi Desai (UK)",
-      "folder_id": "1iMpfR-mZdfljA1OjWOEjAMM9CtODCaLO",
-      "video_count": 383,
-      "zero_byte_wiped": 77,
-      "total_files": 460,
-      "status": "HEALTHY"
+      "folder_id": "1Y1wCJxMqCzWUh0YMPoh5KGG4YpEnqT6a",
+      "video_count": 135,
+      "zero_byte_wiped": 107,
+      "total_files": 242,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Sunny Dusk Stories": {
+      "page_id": "1025542247301378",
+      "page_name": "Sunny Dusk Stories",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1lDezQeKpSXSOg5kafNTED2AMhAyrx4k0",
+      "video_count": 220,
+      "zero_byte_wiped": 107,
+      "total_files": 327,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Silver Oak Social": {
+      "page_id": "981214481738903",
+      "page_name": "Silver Oak Social",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "15hPBojsrRBiBOR0331zGeuYxqOF4ambV",
+      "video_count": 223,
+      "zero_byte_wiped": 107,
+      "total_files": 348,
+      "status": "HEALTHY",
+      "error": null
     },
     "Powell  Gabriel": {
       "page_id": "871774779344742",
       "page_name": "Powell  Gabriel",
       "account": "Nidhi Desai (UK)",
       "folder_id": "1OgWhFRr1Tez6SJVDBTzJF8-BbFdG9Hgu",
-      "video_count": 144,
-      "zero_byte_wiped": 76,
+      "video_count": 115,
+      "zero_byte_wiped": 105,
       "total_files": 220,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Rodriguez  Scott": {
-      "page_id": "746108741929454",
-      "page_name": "Rodriguez  Scott",
+    "Robinson  Stephen": {
+      "page_id": "762765990263739",
+      "page_name": "Robinson  Stephen",
       "account": "Nidhi Desai (UK)",
-      "folder_id": "1Bbn4TxIRO-mshKSg7BPvTxHVgF59x8QL",
-      "video_count": 471,
-      "zero_byte_wiped": 76,
-      "total_files": 547,
-      "status": "HEALTHY"
+      "folder_id": "1iMpfR-mZdfljA1OjWOEjAMM9CtODCaLO",
+      "video_count": 353,
+      "zero_byte_wiped": 107,
+      "total_files": 460,
+      "status": "HEALTHY",
+      "error": null
     },
     "Roberts  Richard": {
       "page_id": "818808074651170",
       "page_name": "Roberts  Richard",
       "account": "Nidhi Desai (UK)",
       "folder_id": "1Imakyr8eJJvH9YwJP6pTbozbTQFO_lWz",
-      "video_count": 283,
-      "zero_byte_wiped": 76,
+      "video_count": 253,
+      "zero_byte_wiped": 106,
       "total_files": 359,
-      "status": "HEALTHY"
-    },
-    "Serendipity Spark": {
-      "page_id": "417387901468629",
-      "page_name": "Serendipity Spark",
-      "account": "Nidhi Desai (UK)",
-      "folder_id": "1gKXG4J5c2h_9Ioh8gUmRS1ytNVgNTK4s",
-      "video_count": 254,
-      "zero_byte_wiped": 78,
-      "total_files": 332,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Exile The Sun": {
       "page_id": "1282432698285787",
       "page_name": "Exile The Sun",
       "account": "Richi Patel (UK)",
       "folder_id": "1Mxn-OsHxuAr0XI8hLXdP36CHd7bu4kHY",
-      "video_count": 18,
-      "zero_byte_wiped": 80,
+      "video_count": 0,
+      "zero_byte_wiped": 98,
       "total_files": 100,
-      "status": "HEALTHY"
+      "status": "EMPTY",
+      "error": null
+    },
+    "Rodriguez  Scott": {
+      "page_id": "746108741929454",
+      "page_name": "Rodriguez  Scott",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1Bbn4TxIRO-mshKSg7BPvTxHVgF59x8QL",
+      "video_count": 441,
+      "zero_byte_wiped": 106,
+      "total_files": 547,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Serendipity Spark": {
+      "page_id": "417387901468629",
+      "page_name": "Serendipity Spark",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1gKXG4J5c2h_9Ioh8gUmRS1ytNVgNTK4s",
+      "video_count": 224,
+      "zero_byte_wiped": 108,
+      "total_files": 332,
+      "status": "HEALTHY",
+      "error": null
     },
     "Empty Pockets": {
       "page_id": "1292135137311847",
       "page_name": "Empty Pockets",
       "account": "Richi Patel (UK)",
       "folder_id": "1HJuayNj7NWyNqlPQvtHBa4bqXYjK7Fta",
-      "video_count": 61,
-      "zero_byte_wiped": 80,
+      "video_count": 29,
+      "zero_byte_wiped": 112,
       "total_files": 141,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Dirty Halos": {
       "page_id": "1372949892557936",
       "page_name": "Dirty Halos",
       "account": "Richi Patel (UK)",
       "folder_id": "1_84m7mzqO_UH7wZ7Ibu0m0zZKCPq1t9_",
-      "video_count": 74,
-      "zero_byte_wiped": 81,
+      "video_count": 42,
+      "zero_byte_wiped": 113,
       "total_files": 155,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Deafening Quiet": {
       "page_id": "1246041178598806",
       "page_name": "Deafening Quiet",
       "account": "Richi Patel (UK)",
       "folder_id": "1EScmrSEvJZ-0RVZUi4EbNwwXZvFY1xj-",
-      "video_count": 1,
-      "zero_byte_wiped": 81,
+      "video_count": 0,
+      "zero_byte_wiped": 82,
       "total_files": 82,
-      "status": "CRITICAL"
-    },
-    "Crooked Hymns": {
-      "page_id": "1314852728368183",
-      "page_name": "Crooked Hymns",
-      "account": "Richi Patel (UK)",
-      "folder_id": "16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi",
-      "video_count": 8,
-      "zero_byte_wiped": 81,
-      "total_files": 89,
-      "status": "LOW"
+      "status": "EMPTY",
+      "error": null
     },
     "Cracked Bell": {
       "page_id": "1240652399138492",
@@ -995,47 +1287,19 @@
       "video_count": 0,
       "zero_byte_wiped": 55,
       "total_files": 55,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
     },
     "Collapse The Sky": {
       "page_id": "1261317297068003",
       "page_name": "Collapse The Sky",
       "account": "Richi Patel (UK)",
       "folder_id": "121F8kWME99saVsz1ZHUDFa3kuDIYpNH9",
-      "video_count": 3,
-      "zero_byte_wiped": 81,
+      "video_count": 0,
+      "zero_byte_wiped": 84,
       "total_files": 84,
-      "status": "CRITICAL"
-    },
-    "Buried Choirs": {
-      "page_id": "1314791448384472",
-      "page_name": "Buried Choirs",
-      "account": "Richi Patel (UK)",
-      "folder_id": "1llro8tw5sNIYX3t0tvz10OERwo2km59y",
-      "video_count": 243,
-      "zero_byte_wiped": 81,
-      "total_files": 324,
-      "status": "HEALTHY"
-    },
-    "Brittle Crown": {
-      "page_id": "1275452998982725",
-      "page_name": "Brittle Crown",
-      "account": "Richi Patel (UK)",
-      "folder_id": "1IYB4VZUz8p7iKpF-sgCcrFPu5KiYmI0T",
-      "video_count": 26,
-      "zero_byte_wiped": 81,
-      "total_files": 109,
-      "status": "HEALTHY"
-    },
-    "Broken Halo": {
-      "page_id": "1345748795277343",
-      "page_name": "Broken Halo",
-      "account": "Richi Patel (UK)",
-      "folder_id": "1MTyWjVldpCHaBSkdlQOK9JhsMIC93N5G",
-      "video_count": 63,
-      "zero_byte_wiped": 81,
-      "total_files": 144,
-      "status": "HEALTHY"
+      "status": "EMPTY",
+      "error": null
     },
     "Blame The Weather": {
       "page_id": "1129800936893243",
@@ -1045,117 +1309,151 @@
       "video_count": 0,
       "zero_byte_wiped": 73,
       "total_files": 75,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
     },
-    "Broken Orchard": {
-      "page_id": "1183175548215394",
-      "page_name": "Broken Orchard",
-      "account": "Sweta Shah (UK)",
-      "folder_id": "155aMRaWuUAInSgQrl0gatk_EvIEmqM87",
-      "video_count": 284,
-      "zero_byte_wiped": 75,
-      "total_files": 359,
-      "status": "HEALTHY"
+    "Brittle Crown": {
+      "page_id": "1275452998982725",
+      "page_name": "Brittle Crown",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1IYB4VZUz8p7iKpF-sgCcrFPu5KiYmI0T",
+      "video_count": 0,
+      "zero_byte_wiped": 107,
+      "total_files": 109,
+      "status": "EMPTY",
+      "error": null
+    },
+    "Broken Halo": {
+      "page_id": "1345748795277343",
+      "page_name": "Broken Halo",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1MTyWjVldpCHaBSkdlQOK9JhsMIC93N5G",
+      "video_count": 31,
+      "zero_byte_wiped": 113,
+      "total_files": 144,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Buried Choirs": {
+      "page_id": "1314791448384472",
+      "page_name": "Buried Choirs",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1llro8tw5sNIYX3t0tvz10OERwo2km59y",
+      "video_count": 211,
+      "zero_byte_wiped": 113,
+      "total_files": 324,
+      "status": "HEALTHY",
+      "error": null
     },
     "Hollow Echo": {
       "page_id": "1218007361389446",
       "page_name": "Hollow Echo",
       "account": "Sweta Shah (UK)",
       "folder_id": "1Z_LJ5MrLW_77keBWsri6GmHV4hCPnhZX",
-      "video_count": 60,
-      "zero_byte_wiped": 75,
+      "video_count": 31,
+      "zero_byte_wiped": 104,
       "total_files": 135,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Grabeal": {
-      "page_id": "1168998922967230",
-      "page_name": "Grabeal",
+    "Broken Orchard": {
+      "page_id": "1183175548215394",
+      "page_name": "Broken Orchard",
       "account": "Sweta Shah (UK)",
-      "folder_id": "12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N",
-      "video_count": 365,
-      "zero_byte_wiped": 75,
-      "total_files": 440,
-      "status": "HEALTHY"
+      "folder_id": "155aMRaWuUAInSgQrl0gatk_EvIEmqM87",
+      "video_count": 255,
+      "zero_byte_wiped": 104,
+      "total_files": 359,
+      "status": "HEALTHY",
+      "error": null
     },
     "Gentle Ruin": {
       "page_id": "1260883380432217",
       "page_name": "Gentle Ruin",
       "account": "Sweta Shah (UK)",
       "folder_id": "1plS4eTfwt1-KCH-pcqe664IxtnejOWXk",
-      "video_count": 76,
-      "zero_byte_wiped": 75,
+      "video_count": 47,
+      "zero_byte_wiped": 104,
       "total_files": 151,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Echo Ridge": {
       "page_id": "956709574200068",
       "page_name": "Echo Ridge",
       "account": "Sweta Shah (UK)",
       "folder_id": "19vXbTj79kcd1saSgA72l8utIG3H7p720",
-      "video_count": 74,
-      "zero_byte_wiped": 74,
+      "video_count": 43,
+      "zero_byte_wiped": 105,
       "total_files": 148,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Prestige Syndicate": {
       "page_id": "682815954920518",
       "page_name": "Prestige Syndicate",
       "account": "Sweta Shah (UK)",
       "folder_id": "1bfZHFaP_shW75sOo15S1iTY0FmqMjVBO",
-      "video_count": 87,
-      "zero_byte_wiped": 74,
+      "video_count": 57,
+      "zero_byte_wiped": 104,
       "total_files": 161,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Grabeal": {
+      "page_id": "1168998922967230",
+      "page_name": "Grabeal",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N",
+      "video_count": 336,
+      "zero_byte_wiped": 104,
+      "total_files": 440,
+      "status": "HEALTHY",
+      "error": null
     },
     "Power Doctrine": {
       "page_id": "758260714032115",
       "page_name": "Power Doctrine",
       "account": "Sweta Shah (UK)",
       "folder_id": "1AEA6Zbh2_47bJJtBBpLCu66DHJ-F-AVc",
-      "video_count": 75,
-      "zero_byte_wiped": 74,
+      "video_count": 45,
+      "zero_byte_wiped": 104,
       "total_files": 149,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Apex Chronicle": {
       "page_id": "714841275048147",
       "page_name": "Apex Chronicle",
       "account": "Sweta Shah (UK)",
       "folder_id": "1mLhtU-CriRi1sRDy46qdlrdREbMbcg46",
-      "video_count": 105,
-      "zero_byte_wiped": 74,
+      "video_count": 75,
+      "zero_byte_wiped": 104,
       "total_files": 179,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "anymotion": {
       "page_id": "314172255114813",
       "page_name": "anymotion",
       "account": "Sweta Shah (UK)",
       "folder_id": "1djwykfiTZ70yjubKkMlv7h84j_ucmosb",
-      "video_count": 72,
-      "zero_byte_wiped": 74,
+      "video_count": 42,
+      "zero_byte_wiped": 104,
       "total_files": 146,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Mai Cartoon Hoon": {
-      "page_id": "234852513054858",
-      "page_name": "Mai Cartoon Hoon",
-      "account": "Sweta Shah (UK)",
-      "folder_id": "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL",
-      "video_count": 267,
-      "zero_byte_wiped": 74,
-      "total_files": 341,
-      "status": "HEALTHY"
-    },
-    "Cold Ash": {
-      "page_id": "172005056007015",
-      "page_name": "Cold Ash",
-      "account": "Sweta Shah (UK)",
-      "folder_id": "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO",
-      "video_count": 58,
-      "zero_byte_wiped": 74,
-      "total_files": 132,
-      "status": "HEALTHY"
+    "Cure For Monday": {
+      "page_id": "1338114526042607",
+      "page_name": "Cure For Monday",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1j8-OzrvjLdl0EVPtbzmagVqIqzIZ9ppJ",
+      "video_count": 0,
+      "zero_byte_wiped": 92,
+      "total_files": 92,
+      "status": "EMPTY",
+      "error": null
     },
     "Dead Languages": {
       "page_id": "1191247700748920",
@@ -1165,137 +1463,129 @@
       "video_count": 0,
       "zero_byte_wiped": 61,
       "total_files": 61,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
+    },
+    "Cold Ash": {
+      "page_id": "172005056007015",
+      "page_name": "Cold Ash",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO",
+      "video_count": 28,
+      "zero_byte_wiped": 104,
+      "total_files": 132,
+      "status": "HEALTHY",
+      "error": null
     },
     "Curse The Dawn": {
       "page_id": "1304768466050503",
       "page_name": "Curse The Dawn",
       "account": "Riya Gaur (UK)",
       "folder_id": "14gX_X6qAs4mprk6q8MVsZXGhNnntwcMh",
-      "video_count": 81,
-      "zero_byte_wiped": 73,
+      "video_count": 52,
+      "zero_byte_wiped": 102,
       "total_files": 154,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Cure For Monday": {
-      "page_id": "1338114526042607",
-      "page_name": "Cure For Monday",
-      "account": "Riya Gaur (UK)",
-      "folder_id": "1j8-OzrvjLdl0EVPtbzmagVqIqzIZ9ppJ",
-      "video_count": 19,
-      "zero_byte_wiped": 73,
-      "total_files": 92,
-      "status": "HEALTHY"
+    "Mai Cartoon Hoon": {
+      "page_id": "234852513054858",
+      "page_name": "Mai Cartoon Hoon",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL",
+      "video_count": 238,
+      "zero_byte_wiped": 103,
+      "total_files": 341,
+      "status": "HEALTHY",
+      "error": null
     },
     "Cruel Mercy": {
       "page_id": "1315483674976229",
       "page_name": "Cruel Mercy",
       "account": "Riya Gaur (UK)",
       "folder_id": "1IDM7f7Or6HnDkvk-3X0TnvTedDowUoFu",
-      "video_count": 15,
-      "zero_byte_wiped": 73,
+      "video_count": 0,
+      "zero_byte_wiped": 88,
       "total_files": 88,
-      "status": "LOW"
+      "status": "EMPTY",
+      "error": null
     },
     "Choke The Static": {
       "page_id": "1195883193618072",
       "page_name": "Choke The Static",
       "account": "Riya Gaur (UK)",
       "folder_id": "1B8nrWSuanOEpoDVwJ3iMD6_R1F0gf7kL",
-      "video_count": 39,
-      "zero_byte_wiped": 73,
+      "video_count": 11,
+      "zero_byte_wiped": 101,
       "total_files": 112,
-      "status": "HEALTHY"
-    },
-    "Lee  Charles": {
-      "page_id": "802518939617506",
-      "page_name": "Lee  Charles",
-      "account": "Riya Gaur (UK)",
-      "folder_id": "1MxP6QD8L1VfvdmLTJMZi_znujU8p1DXB",
-      "video_count": 312,
-      "zero_byte_wiped": 74,
-      "total_files": 386,
-      "status": "HEALTHY"
+      "status": "LOW",
+      "error": null
     },
     "Cooper  Billy": {
       "page_id": "896072510245887",
       "page_name": "Cooper  Billy",
       "account": "Riya Gaur (UK)",
       "folder_id": "1jHAChBRkp0q_zOjkEUAC_Rx7neakuwp8",
-      "video_count": 27,
-      "zero_byte_wiped": 73,
+      "video_count": 0,
+      "zero_byte_wiped": 100,
       "total_files": 100,
-      "status": "HEALTHY"
+      "status": "EMPTY",
+      "error": null
     },
     "Lee  Daniel": {
       "page_id": "864838050041932",
       "page_name": "Lee  Daniel",
       "account": "Riya Gaur (UK)",
       "folder_id": "11ObtDv6z6HzTxKbp7RXY8ug4TL9-Fgjj",
-      "video_count": 233,
-      "zero_byte_wiped": 73,
+      "video_count": 203,
+      "zero_byte_wiped": 103,
       "total_files": 306,
-      "status": "HEALTHY"
-    },
-    "Martin  John": {
-      "page_id": "870975689430311",
-      "page_name": "Martin  John",
-      "account": "Riya Gaur (UK)",
-      "folder_id": "1qrc_bt4CioXgYiTybDD_8XXUBLD0PDdT",
-      "video_count": 261,
-      "zero_byte_wiped": 74,
-      "total_files": 335,
-      "status": "HEALTHY"
-    },
-    "Corner Spe": {
-      "page_id": "479102298617718",
-      "page_name": "Corner Spe",
-      "account": "Riya Gaur (UK)",
-      "folder_id": "1D9teONQH9R0z6BhmdsftN55Y67spxKkM",
-      "video_count": 231,
-      "zero_byte_wiped": 74,
-      "total_files": 305,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Memes & Mischief": {
       "page_id": "208233979039379",
       "page_name": "Memes & Mischief",
       "account": "Riya Gaur (UK)",
       "folder_id": "1YGKlonl9p1iEtBFAOTF-hDANC9EiTNTi",
-      "video_count": 46,
-      "zero_byte_wiped": 74,
+      "video_count": 16,
+      "zero_byte_wiped": 104,
       "total_files": 120,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Martin  John": {
+      "page_id": "870975689430311",
+      "page_name": "Martin  John",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1qrc_bt4CioXgYiTybDD_8XXUBLD0PDdT",
+      "video_count": 231,
+      "zero_byte_wiped": 104,
+      "total_files": 335,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Corner Spe": {
+      "page_id": "479102298617718",
+      "page_name": "Corner Spe",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1D9teONQH9R0z6BhmdsftN55Y67spxKkM",
+      "video_count": 201,
+      "zero_byte_wiped": 104,
+      "total_files": 305,
+      "status": "HEALTHY",
+      "error": null
     },
     "Cloud berry Lane": {
       "page_id": "1033900793135926",
       "page_name": "Cloud berry Lane",
       "account": "Radika Patel (USA)",
       "folder_id": "1gtFrX3Ji1yjJ5f8yHe1zOcdgMCTDQFMn",
-      "video_count": 112,
-      "zero_byte_wiped": 75,
+      "video_count": 77,
+      "zero_byte_wiped": 110,
       "total_files": 187,
-      "status": "HEALTHY"
-    },
-    "Sunset Mint Post": {
-      "page_id": "984876688045322",
-      "page_name": "Sunset Mint Post",
-      "account": "Radika Patel (USA)",
-      "folder_id": "1BURCLnzpluribfLIMlx7iPp-qdf_GL2T",
-      "video_count": 421,
-      "zero_byte_wiped": 75,
-      "total_files": 496,
-      "status": "HEALTHY"
-    },
-    "Timeless Glimpse": {
-      "page_id": "928116440385651",
-      "page_name": "Timeless Glimpse",
-      "account": "Radika Patel (USA)",
-      "folder_id": "1TcsGrKQd3ueOdVGgjsG5ujrwHmnoLd4N",
-      "video_count": 286,
-      "zero_byte_wiped": 75,
-      "total_files": 361,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "The Entertainment Zone": {
       "page_id": "495281633679562",
@@ -1305,87 +1595,404 @@
       "video_count": 0,
       "zero_byte_wiped": 50,
       "total_files": 50,
-      "status": "EMPTY"
+      "status": "EMPTY",
+      "error": null
+    },
+    "Lee  Charles": {
+      "page_id": "802518939617506",
+      "page_name": "Lee  Charles",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1MxP6QD8L1VfvdmLTJMZi_znujU8p1DXB",
+      "video_count": 283,
+      "zero_byte_wiped": 103,
+      "total_files": 386,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Sunset Mint Post": {
+      "page_id": "984876688045322",
+      "page_name": "Sunset Mint Post",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1BURCLnzpluribfLIMlx7iPp-qdf_GL2T",
+      "video_count": 386,
+      "zero_byte_wiped": 110,
+      "total_files": 496,
+      "status": "HEALTHY",
+      "error": null
     },
     "House Note": {
       "page_id": "461899523680517",
       "page_name": "House Note",
       "account": "Radika Patel (USA)",
       "folder_id": "1MMHC7iT-E1r-R8p-uSXY5_JJU5ttxhAp",
-      "video_count": 241,
-      "zero_byte_wiped": 73,
+      "video_count": 206,
+      "zero_byte_wiped": 108,
       "total_files": 314,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Wand Wizardry Legend": {
-      "page_id": "512339515286069",
-      "page_name": "Wand Wizardry Legend",
+    "Timeless Glimpse": {
+      "page_id": "928116440385651",
+      "page_name": "Timeless Glimpse",
       "account": "Radika Patel (USA)",
-      "folder_id": "12Z5ghscmqcwCCjqK4nE-AEa0ecwPmBxA",
-      "video_count": 255,
-      "zero_byte_wiped": 73,
-      "total_files": 328,
-      "status": "HEALTHY"
+      "folder_id": "1TcsGrKQd3ueOdVGgjsG5ujrwHmnoLd4N",
+      "video_count": 251,
+      "zero_byte_wiped": 110,
+      "total_files": 361,
+      "status": "HEALTHY",
+      "error": null
     },
     "Potato Flamingo": {
       "page_id": "481027178422627",
       "page_name": "Potato Flamingo",
       "account": "Radika Patel (USA)",
       "folder_id": "11EFX0WJ32MzLCMbtRU3cehqjmFLuQ3KC",
-      "video_count": 70,
-      "zero_byte_wiped": 73,
+      "video_count": 35,
+      "zero_byte_wiped": 108,
       "total_files": 143,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
-    "Wu Tong's Family": {
-      "page_id": "377394845467706",
-      "page_name": "Wu Tong's Family",
+    "Wand Wizardry Legend": {
+      "page_id": "512339515286069",
+      "page_name": "Wand Wizardry Legend",
       "account": "Radika Patel (USA)",
-      "folder_id": "1DUewTYHyfLjT-IEKh0lsWbs30sHT-WiJ",
-      "video_count": 418,
-      "zero_byte_wiped": 73,
-      "total_files": 491,
-      "status": "HEALTHY"
+      "folder_id": "12Z5ghscmqcwCCjqK4nE-AEa0ecwPmBxA",
+      "video_count": 220,
+      "zero_byte_wiped": 108,
+      "total_files": 328,
+      "status": "HEALTHY",
+      "error": null
     },
     "Prestige Authority": {
       "page_id": "301441593063746",
       "page_name": "Prestige Authority",
       "account": "Radika Patel (USA)",
       "folder_id": "1S-cw7Fe7G1GyvpYwH1RSe2vGJdC0_0Lm",
-      "video_count": 50,
-      "zero_byte_wiped": 73,
+      "video_count": 15,
+      "zero_byte_wiped": 108,
       "total_files": 123,
-      "status": "HEALTHY"
-    },
-    "Sthefany oliveira": {
-      "page_id": "372905129232715",
-      "page_name": "Sthefany oliveira",
-      "account": "Radika Patel (USA)",
-      "folder_id": "125WfzCXV4G8mtQfHa-9HxUeuIS_BXtYk",
-      "video_count": 80,
-      "zero_byte_wiped": 73,
-      "total_files": 153,
-      "status": "HEALTHY"
+      "status": "LOW",
+      "error": null
     },
     "Iron Republic": {
       "page_id": "271543462710279",
       "page_name": "Iron Republic",
       "account": "Radika Patel (USA)",
       "folder_id": "1h9B3ZNGqcWtRUD0-JhBBWCErlK8BsTbb",
-      "video_count": 96,
-      "zero_byte_wiped": 74,
+      "video_count": 62,
+      "zero_byte_wiped": 108,
       "total_files": 170,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Sthefany oliveira": {
+      "page_id": "372905129232715",
+      "page_name": "Sthefany oliveira",
+      "account": "Radika Patel (USA)",
+      "folder_id": "125WfzCXV4G8mtQfHa-9HxUeuIS_BXtYk",
+      "video_count": 46,
+      "zero_byte_wiped": 107,
+      "total_files": 153,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Wu Tong's Family": {
+      "page_id": "377394845467706",
+      "page_name": "Wu Tong's Family",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1DUewTYHyfLjT-IEKh0lsWbs30sHT-WiJ",
+      "video_count": 383,
+      "zero_byte_wiped": 108,
+      "total_files": 491,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Alpha Dynasty": {
+      "page_id": "171465126060636",
+      "page_name": "Alpha Dynasty",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1OyrUqGKt0bPQqo6mekPjmAd2VJfb4CuQ",
+      "video_count": 61,
+      "zero_byte_wiped": 109,
+      "total_files": 170,
+      "status": "HEALTHY",
+      "error": null
     },
     "Shadow Executive": {
       "page_id": "209182608951563",
       "page_name": "Shadow Executive",
       "account": "Radika Patel (USA)",
       "folder_id": "1lK6PK14R0GGQRmk8lCA9L-ketOUFQbP6",
-      "video_count": 430,
-      "zero_byte_wiped": 74,
+      "video_count": 395,
+      "zero_byte_wiped": 109,
       "total_files": 504,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Apex House": {
+      "page_id": "497577420112654",
+      "page_name": "Apex House",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6",
+      "video_count": 69,
+      "zero_byte_wiped": 60,
+      "total_files": 129,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Path Summer": {
+      "page_id": "160240527166280",
+      "page_name": "Path Summer",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1RPhbSb0nV7-yydSD-6m0kc12bhwAG4do",
+      "video_count": 270,
+      "zero_byte_wiped": 109,
+      "total_files": 379,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Drift Valley": {
+      "page_id": "960803123790692",
+      "page_name": "Drift Valley",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6",
+      "video_count": 0,
+      "zero_byte_wiped": 40,
+      "total_files": 40,
+      "status": "EMPTY",
+      "error": null
+    },
+    "Quantum House": {
+      "page_id": "487987684400252",
+      "page_name": "Quantum House",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa",
+      "video_count": 161,
+      "zero_byte_wiped": 60,
+      "total_files": 221,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Dreams Of Life": {
+      "page_id": "923484537514216",
+      "page_name": "Dreams Of Life",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG",
+      "video_count": 151,
+      "zero_byte_wiped": 60,
+      "total_files": 211,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "End Every": {
+      "page_id": "511317578722941",
+      "page_name": "End Every",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c",
+      "video_count": 211,
+      "zero_byte_wiped": 60,
+      "total_files": 271,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Crooked Hymns": {
+      "page_id": "1314852728368183",
+      "page_name": "Crooked Hymns",
+      "account": "Richi Patel (UK)",
+      "folder_id": "16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi",
+      "video_count": 0,
+      "zero_byte_wiped": 89,
+      "total_files": 89,
+      "status": "EMPTY",
+      "error": null
+    },
+    "Executive Empire": {
+      "page_id": "416325608224715",
+      "page_name": "Executive Empire",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "16G_A0S1w-1qKtY56Y4-4NL21rmCRa67H",
+      "video_count": 266,
+      "zero_byte_wiped": 60,
+      "total_files": 326,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "I'm Joker": {
+      "page_id": "467407709785240",
+      "page_name": "I'm Joker",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7",
+      "video_count": 0,
+      "zero_byte_wiped": 58,
+      "total_files": 58,
+      "status": "EMPTY",
+      "error": null
+    },
+    "Iron Covenant": {
+      "page_id": "223604537511488",
+      "page_name": "Iron Covenant",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1GoRZAiud2KVabAzU2Q4OWHKoAaU11zC7",
+      "video_count": 179,
+      "zero_byte_wiped": 61,
+      "total_files": 240,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Iron Momentum": {
+      "page_id": "730487193489250",
+      "page_name": "Iron Momentum",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1K7M6j7yLorT0D7vrE54oDf-uv76NIxFk",
+      "video_count": 208,
+      "zero_byte_wiped": 61,
+      "total_files": 269,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Me The": {
+      "page_id": "514016115120845",
+      "page_name": "Me The",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1Vz4kZntHTFPBjdvHe9q_YA9ZUzSwzKUu",
+      "video_count": 71,
+      "zero_byte_wiped": 60,
+      "total_files": 131,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Quiet Harbor": {
+      "page_id": "1009759155555480",
+      "page_name": "Quiet Harbor",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1ev3fnutc97DsHMqjaxDeKRvBQQO_s5LM",
+      "video_count": 165,
+      "zero_byte_wiped": 60,
+      "total_files": 225,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "The Daily Spark": {
+      "page_id": "534342423102401",
+      "page_name": "The Daily Spark",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
+      "video_count": 156,
+      "zero_byte_wiped": 32,
+      "total_files": 188,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Blissful Paradox": {
+      "page_id": "921493174379801",
+      "page_name": "Blissful Paradox",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a",
+      "video_count": 273,
+      "zero_byte_wiped": 61,
+      "total_files": 334,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Atlas Authority": {
+      "page_id": "243414155514799",
+      "page_name": "Atlas Authority",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31",
+      "video_count": 1,
+      "zero_byte_wiped": 60,
+      "total_files": 61,
+      "status": "CRITICAL",
+      "error": null
+    },
+    "The Chill Spot": {
+      "page_id": "564341273430022",
+      "page_name": "The Chill Spot",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ",
+      "video_count": 193,
+      "zero_byte_wiped": 32,
+      "total_files": 225,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Tag The": {
+      "page_id": "497636683426759",
+      "page_name": "Tag The",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
+      "video_count": 187,
+      "zero_byte_wiped": 32,
+      "total_files": 219,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Stellar Vibes": {
+      "page_id": "877069835495630",
+      "page_name": "Stellar Vibes",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl",
+      "video_count": 1,
+      "zero_byte_wiped": 31,
+      "total_files": 36,
+      "status": "CRITICAL",
+      "error": null
+    },
+    "Sovereign Collective": {
+      "page_id": "615554031639811",
+      "page_name": "Sovereign Collective",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt",
+      "video_count": 73,
+      "zero_byte_wiped": 32,
+      "total_files": 105,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Royal Frontier": {
+      "page_id": "686470024541027",
+      "page_name": "Royal Frontier",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "18LJsnXYPZPmPiX922GOyJaahKkIv01_J",
+      "video_count": 14,
+      "zero_byte_wiped": 32,
+      "total_files": 46,
+      "status": "LOW",
+      "error": null
+    },
+    "Silent Grove": {
+      "page_id": "1033250263200686",
+      "page_name": "Silent Grove",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy",
+      "video_count": 456,
+      "zero_byte_wiped": 32,
+      "total_files": 488,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Rajat Gupta": {
+      "page_id": "424138757454796",
+      "page_name": "Rajat Gupta",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0",
+      "video_count": 101,
+      "zero_byte_wiped": 32,
+      "total_files": 133,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Royal Vanguard": {
+      "page_id": "614891248372171",
+      "page_name": "Royal Vanguard",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU",
+      "video_count": 274,
+      "zero_byte_wiped": 32,
+      "total_files": 306,
+      "status": "HEALTHY",
+      "error": null
     },
     "Hu1": {
       "page_id": "241688455685265",
@@ -1395,327 +2002,2144 @@
       "video_count": 0,
       "zero_byte_wiped": 55,
       "total_files": 55,
-      "status": "EMPTY"
-    },
-    "Alpha Dynasty": {
-      "page_id": "171465126060636",
-      "page_name": "Alpha Dynasty",
-      "account": "Radika Patel (USA)",
-      "folder_id": "1OyrUqGKt0bPQqo6mekPjmAd2VJfb4CuQ",
-      "video_count": 96,
-      "zero_byte_wiped": 74,
-      "total_files": 170,
-      "status": "HEALTHY"
-    },
-    "Path Summer": {
-      "page_id": "160240527166280",
-      "page_name": "Path Summer",
-      "account": "Radika Patel (USA)",
-      "folder_id": "1RPhbSb0nV7-yydSD-6m0kc12bhwAG4do",
-      "video_count": 305,
-      "zero_byte_wiped": 74,
-      "total_files": 379,
-      "status": "HEALTHY"
-    },
-    "Apex House": {
-      "page_id": "497577420112654",
-      "page_name": "Apex House",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6",
-      "video_count": 96,
-      "zero_byte_wiped": 33,
-      "total_files": 129,
-      "status": "HEALTHY"
-    },
-    "Quantum House": {
-      "page_id": "487987684400252",
-      "page_name": "Quantum House",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa",
-      "video_count": 188,
-      "zero_byte_wiped": 33,
-      "total_files": 221,
-      "status": "HEALTHY"
-    },
-    "Drift Valley": {
-      "page_id": "960803123790692",
-      "page_name": "Drift Valley",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6",
-      "video_count": 7,
-      "zero_byte_wiped": 33,
-      "total_files": 40,
-      "status": "LOW"
-    },
-    "Dreams Of Life": {
-      "page_id": "923484537514216",
-      "page_name": "Dreams Of Life",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG",
-      "video_count": 178,
-      "zero_byte_wiped": 33,
-      "total_files": 211,
-      "status": "HEALTHY"
-    },
-    "End Every": {
-      "page_id": "511317578722941",
-      "page_name": "End Every",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c",
-      "video_count": 238,
-      "zero_byte_wiped": 33,
-      "total_files": 271,
-      "status": "HEALTHY"
-    },
-    "Executive Empire": {
-      "page_id": "416325608224715",
-      "page_name": "Executive Empire",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "16G_A0S1w-1qKtY56Y4-4NL21rmCRa67H",
-      "video_count": 293,
-      "zero_byte_wiped": 33,
-      "total_files": 326,
-      "status": "HEALTHY"
-    },
-    "I'm Joker": {
-      "page_id": "467407709785240",
-      "page_name": "I'm Joker",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7",
-      "video_count": 25,
-      "zero_byte_wiped": 33,
-      "total_files": 58,
-      "status": "HEALTHY"
-    },
-    "Iron Covenant": {
-      "page_id": "223604537511488",
-      "page_name": "Iron Covenant",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1GoRZAiud2KVabAzU2Q4OWHKoAaU11zC7",
-      "video_count": 207,
-      "zero_byte_wiped": 33,
-      "total_files": 240,
-      "status": "HEALTHY"
-    },
-    "Iron Momentum": {
-      "page_id": "730487193489250",
-      "page_name": "Iron Momentum",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1K7M6j7yLorT0D7vrE54oDf-uv76NIxFk",
-      "video_count": 236,
-      "zero_byte_wiped": 33,
-      "total_files": 269,
-      "status": "HEALTHY"
-    },
-    "Me The": {
-      "page_id": "514016115120845",
-      "page_name": "Me The",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1Vz4kZntHTFPBjdvHe9q_YA9ZUzSwzKUu",
-      "video_count": 98,
-      "zero_byte_wiped": 33,
-      "total_files": 131,
-      "status": "HEALTHY"
-    },
-    "Quiet Harbor": {
-      "page_id": "1009759155555480",
-      "page_name": "Quiet Harbor",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1ev3fnutc97DsHMqjaxDeKRvBQQO_s5LM",
-      "video_count": 192,
-      "zero_byte_wiped": 33,
-      "total_files": 225,
-      "status": "HEALTHY"
+      "status": "EMPTY",
+      "error": null
     },
     "Radiant Reverie": {
       "page_id": "922808234251176",
       "page_name": "Radiant Reverie",
       "account": "Rohini Dutt (USA)",
       "folder_id": "1f4vLojPquQpfK3Cd6XsIxXxME6D_i2Lt",
-      "video_count": 294,
-      "zero_byte_wiped": 33,
+      "video_count": 267,
+      "zero_byte_wiped": 60,
       "total_files": 327,
-      "status": "HEALTHY"
-    },
-    "Bit Creative": {
-      "page_id": "288008221072106",
-      "page_name": "Bit Creative",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1gVt2gs2Dx7CxfPvn2RbOb29pHWVNotLC",
-      "video_count": 906,
-      "zero_byte_wiped": 36,
-      "total_files": 942,
-      "status": "HEALTHY"
-    },
-    "Atlas Authority": {
-      "page_id": "243414155514799",
-      "page_name": "Atlas Authority",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31",
-      "video_count": 28,
-      "zero_byte_wiped": 33,
-      "total_files": 61,
-      "status": "HEALTHY"
-    },
-    "Blissful Paradox": {
-      "page_id": "921493174379801",
-      "page_name": "Blissful Paradox",
-      "account": "Rohini Dutt (USA)",
-      "folder_id": "1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a",
-      "video_count": 301,
-      "zero_byte_wiped": 33,
-      "total_files": 334,
-      "status": "HEALTHY"
-    },
-    "The Daily Spark": {
-      "page_id": "534342423102401",
-      "page_name": "The Daily Spark",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
-      "video_count": 184,
-      "zero_byte_wiped": 4,
-      "total_files": 188,
-      "status": "HEALTHY"
-    },
-    "The Chill Spot": {
-      "page_id": "564341273430022",
-      "page_name": "The Chill Spot",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ",
-      "video_count": 221,
-      "zero_byte_wiped": 4,
-      "total_files": 225,
-      "status": "HEALTHY"
-    },
-    "Tag The": {
-      "page_id": "497636683426759",
-      "page_name": "Tag The",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
-      "video_count": 215,
-      "zero_byte_wiped": 4,
-      "total_files": 219,
-      "status": "HEALTHY"
-    },
-    "Stellar Vibes": {
-      "page_id": "877069835495630",
-      "page_name": "Stellar Vibes",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl",
-      "video_count": 28,
-      "zero_byte_wiped": 4,
-      "total_files": 36,
-      "status": "HEALTHY"
-    },
-    "Sovereign Collective": {
-      "page_id": "615554031639811",
-      "page_name": "Sovereign Collective",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt",
-      "video_count": 101,
-      "zero_byte_wiped": 4,
-      "total_files": 105,
-      "status": "HEALTHY"
-    },
-    "Silent Grove": {
-      "page_id": "1033250263200686",
-      "page_name": "Silent Grove",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy",
-      "video_count": 484,
-      "zero_byte_wiped": 4,
-      "total_files": 488,
-      "status": "HEALTHY"
-    },
-    "Royal Vanguard": {
-      "page_id": "614891248372171",
-      "page_name": "Royal Vanguard",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU",
-      "video_count": 302,
-      "zero_byte_wiped": 4,
-      "total_files": 306,
-      "status": "HEALTHY"
-    },
-    "Royal Frontier": {
-      "page_id": "686470024541027",
-      "page_name": "Royal Frontier",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "18LJsnXYPZPmPiX922GOyJaahKkIv01_J",
-      "video_count": 42,
-      "zero_byte_wiped": 4,
-      "total_files": 46,
-      "status": "HEALTHY"
-    },
-    "Rajat Gupta": {
-      "page_id": "424138757454796",
-      "page_name": "Rajat Gupta",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0",
-      "video_count": 129,
-      "zero_byte_wiped": 4,
-      "total_files": 133,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Mouth The Hang": {
       "page_id": "976706512196056",
       "page_name": "Mouth The Hang",
       "account": "Sejal Soni (USA)",
       "folder_id": "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR",
-      "video_count": 157,
-      "zero_byte_wiped": 4,
+      "video_count": 129,
+      "zero_byte_wiped": 32,
       "total_files": 161,
-      "status": "HEALTHY"
-    },
-    "Mojo Day": {
-      "page_id": "473290599201289",
-      "page_name": "Mojo Day",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql",
-      "video_count": 349,
-      "zero_byte_wiped": 4,
-      "total_files": 353,
-      "status": "HEALTHY"
-    },
-    "Fly Happy": {
-      "page_id": "340559612467800",
-      "page_name": "Fly Happy",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH",
-      "video_count": 315,
-      "zero_byte_wiped": 4,
-      "total_files": 320,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
     },
     "Flute Tomography Nature": {
       "page_id": "472703539265672",
       "page_name": "Flute Tomography Nature",
       "account": "Sejal Soni (USA)",
       "folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
-      "video_count": 159,
-      "zero_byte_wiped": 4,
+      "video_count": 131,
+      "zero_byte_wiped": 32,
       "total_files": 163,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Mojo Day": {
+      "page_id": "473290599201289",
+      "page_name": "Mojo Day",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql",
+      "video_count": 321,
+      "zero_byte_wiped": 32,
+      "total_files": 353,
+      "status": "HEALTHY",
+      "error": null
     },
     "Faro Fact": {
       "page_id": "502777659582958",
       "page_name": "Faro Fact",
       "account": "Sejal Soni (USA)",
       "folder_id": "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM",
-      "video_count": 130,
-      "zero_byte_wiped": 4,
+      "video_count": 102,
+      "zero_byte_wiped": 32,
       "total_files": 134,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Fly Happy": {
+      "page_id": "340559612467800",
+      "page_name": "Fly Happy",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH",
+      "video_count": 288,
+      "zero_byte_wiped": 32,
+      "total_files": 320,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Neon Life": {
+      "page_id": "907450442461718",
+      "page_name": "Neon Life",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1P6xt1xo_25SeR2ZSD0AvVhjOLw1HBxps",
+      "video_count": 66,
+      "zero_byte_wiped": 1,
+      "total_files": 67,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Happy River Journal": {
+      "page_id": "922363730970762",
+      "page_name": "Happy River Journal",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1Dwx7TNz7MD5KqTXYRM0k2xnH6NwRgTd1",
+      "video_count": 51,
+      "zero_byte_wiped": 0,
+      "total_files": 51,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Ocean Breeze Post": {
+      "page_id": "1026390193887535",
+      "page_name": "Ocean Breeze Post",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1mujU0an1-H5Rzmba-8lUaj9-wyliNxJs",
+      "video_count": 252,
+      "zero_byte_wiped": 0,
+      "total_files": 252,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Echoes of Tomorrow": {
+      "page_id": "935873802936980",
+      "page_name": "Echoes of Tomorrow",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1X-fvuvF839VuwQ8KjajGdM9msH7GxFyS",
+      "video_count": 52,
+      "zero_byte_wiped": 0,
+      "total_files": 52,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Gonzales  Terry": {
+      "page_id": "844271675438705",
+      "page_name": "Gonzales  Terry",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1CnIQYos-wmkVuUClLH1r1ILLQ8Dwm_iY",
+      "video_count": 71,
+      "zero_byte_wiped": 0,
+      "total_files": 71,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Gonzalez  Paul": {
+      "page_id": "863106796879644",
+      "page_name": "Gonzalez  Paul",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1AQwzULByYACcwO9UXwKHFEO54gY8Tmly",
+      "video_count": 210,
+      "zero_byte_wiped": 0,
+      "total_files": 210,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Remedies The": {
+      "page_id": "755804217626888",
+      "page_name": "Remedies The",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1zxMlVAj392Ijd_Nolc-St3oom1QlYv7A",
+      "video_count": 0,
+      "zero_byte_wiped": 0,
+      "total_files": 0,
+      "status": "EMPTY",
+      "error": null
+    },
+    "Roberts  Charles": {
+      "page_id": "756809930857575",
+      "page_name": "Roberts  Charles",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "10FVosLV31a0Coz-5orPY4uI9jeS4qhc2",
+      "video_count": 0,
+      "zero_byte_wiped": 0,
+      "total_files": 0,
+      "status": "EMPTY",
+      "error": null
+    },
+    "Lively Moments": {
+      "page_id": "623092600889709",
+      "page_name": "Lively Moments",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1UY6f-_7NcGg6PMFbodoSLmWaEcGaAboV",
+      "video_count": 158,
+      "zero_byte_wiped": 0,
+      "total_files": 158,
+      "status": "HEALTHY",
+      "error": null
     },
     "Cosmic Mirage": {
       "page_id": "855725930966508",
       "page_name": "Cosmic Mirage",
       "account": "Sejal Soni (USA)",
       "folder_id": "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1",
-      "video_count": 273,
-      "zero_byte_wiped": 4,
+      "video_count": 245,
+      "zero_byte_wiped": 32,
       "total_files": 277,
-      "status": "HEALTHY"
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Happy place": {
+      "page_id": "660234803835581",
+      "page_name": "Happy place",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "12TzotKAwMMV2M6Gt1vBAF9UFX-Fmw3XO",
+      "video_count": 129,
+      "zero_byte_wiped": 0,
+      "total_files": 130,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Funny Fizz": {
+      "page_id": "625545143972469",
+      "page_name": "Funny Fizz",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1oPjU-tnOg1yEjdanukEowMr5sM7A-aNH",
+      "video_count": 75,
+      "zero_byte_wiped": 0,
+      "total_files": 75,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Empire Frequency": {
+      "page_id": "223564530849556",
+      "page_name": "Empire Frequency",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1HaCxXmwAi8g_ZCVAWvRPHAuNUzzFnoDT",
+      "video_count": 82,
+      "zero_byte_wiped": 0,
+      "total_files": 82,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Bit Creative": {
+      "page_id": "288008221072106",
+      "page_name": "Bit Creative",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1gVt2gs2Dx7CxfPvn2RbOb29pHWVNotLC",
+      "video_count": 879,
+      "zero_byte_wiped": 63,
+      "total_files": 942,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Library Other": {
+      "page_id": "491073987419875",
+      "page_name": "Library Other",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1yUPN-jXITUqDju8eW1FoH5BrgKemKYOB",
+      "video_count": 196,
+      "zero_byte_wiped": 0,
+      "total_files": 196,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Laugh Flicks": {
+      "page_id": "531842053356648",
+      "page_name": "Laugh Flicks",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1NqfOEB1hJnl2VzRigL3lv6uppJLCm05d",
+      "video_count": 236,
+      "zero_byte_wiped": 0,
+      "total_files": 236,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "Empire Doctrine": {
+      "page_id": "170121316193510",
+      "page_name": "Empire Doctrine",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1_2ook2_doYRCEW-WsNnfkrscghuWhTQV",
+      "video_count": 222,
+      "zero_byte_wiped": 0,
+      "total_files": 222,
+      "status": "HEALTHY",
+      "error": null
+    }
+  },
+  "by_page_id": {
+    "1040244259164767": {
+      "page_id": "1040244259164767",
+      "page_name": "Charmy Owen",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1D3y9fSqvz8Be1ted5Wic7egRJzBn--gB",
+      "video_count": 0,
+      "zero_byte_wiped": 20,
+      "total_files": 20,
+      "status": "EMPTY",
+      "error": null
+    },
+    "965629596638624": {
+      "page_id": "965629596638624",
+      "page_name": "Silent Peak Social",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "14C9FurpGwA_QUyK14cM3EyfFJrDB3YUp",
+      "video_count": 68,
+      "zero_byte_wiped": 107,
+      "total_files": 175,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1034326643100670": {
+      "page_id": "1034326643100670",
+      "page_name": "Bright Flare Hub",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1ohpJm22Koo_ouVSQZCwiHE0pwAyAyxDg",
+      "video_count": 15,
+      "zero_byte_wiped": 108,
+      "total_files": 123,
+      "status": "LOW",
+      "error": null
+    },
+    "637367679454577": {
+      "page_id": "637367679454577",
+      "page_name": "Crown Empire",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1rjGrEIrCk9TlEJBABjo0K-8MKAaBxZy9",
+      "video_count": 231,
+      "zero_byte_wiped": 108,
+      "total_files": 339,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "924636817403215": {
+      "page_id": "924636817403215",
+      "page_name": "LuxeEpic Frames ",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1QTgVkYEc269hX7630a_LI4AWnlid7kHk",
+      "video_count": 235,
+      "zero_byte_wiped": 108,
+      "total_files": 343,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "988523547680750": {
+      "page_id": "988523547680750",
+      "page_name": "Mix Mood",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "17BbHIA91odhMXfphN0JlblzWbR0IQKsy",
+      "video_count": 0,
+      "zero_byte_wiped": 58,
+      "total_files": 58,
+      "status": "EMPTY",
+      "error": null
+    },
+    "500794979779192": {
+      "page_id": "500794979779192",
+      "page_name": "Me Text",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1qcMeV4Fe8e15G1qQ5HhSIKZcrrI6FAZm",
+      "video_count": 59,
+      "zero_byte_wiped": 108,
+      "total_files": 167,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "528360240361556": {
+      "page_id": "528360240361556",
+      "page_name": "Dominion Authority",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1Kir7IF-zX_XN8FoaasVJTPT_TRQ1J0Xg",
+      "video_count": 183,
+      "zero_byte_wiped": 108,
+      "total_files": 291,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "468230386376818": {
+      "page_id": "468230386376818",
+      "page_name": "Bot Mask",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1g_Z4BtdfNqT2jF3hL9tExTr9W3Ly1YrZ",
+      "video_count": 0,
+      "zero_byte_wiped": 97,
+      "total_files": 97,
+      "status": "EMPTY",
+      "error": null
+    },
+    "640019675857269": {
+      "page_id": "640019675857269",
+      "page_name": "Crafty Champions",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1qMwQtRtvJXbmV8iEYW1GS0IQ8VDLWA6s",
+      "video_count": 310,
+      "zero_byte_wiped": 108,
+      "total_files": 418,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "503358542855153": {
+      "page_id": "503358542855153",
+      "page_name": "Family Fancy",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1UDZx4XRzdn-5r7O9WRfUOSui2nCWuR5R",
+      "video_count": 151,
+      "zero_byte_wiped": 108,
+      "total_files": 259,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "795016603693140": {
+      "page_id": "795016603693140",
+      "page_name": "Lopez  Edward",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1ralqo6pxghtHiKM78YaNN0DPh_-IM4iN",
+      "video_count": 727,
+      "zero_byte_wiped": 108,
+      "total_files": 835,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "626061003919674": {
+      "page_id": "626061003919674",
+      "page_name": "Fun Life",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1Wi708vjd3QgJJpMswvkzhLPDbOTrNHKQ",
+      "video_count": 215,
+      "zero_byte_wiped": 108,
+      "total_files": 323,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1005402935985498": {
+      "page_id": "1005402935985498",
+      "page_name": "Glow City Stories",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1ENSslOPlICVXbfReiNUseXdlTSVpUxl7",
+      "video_count": 0,
+      "zero_byte_wiped": 60,
+      "total_files": 60,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1069951959531260": {
+      "page_id": "1069951959531260",
+      "page_name": "Crimson Authority",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1r0GTk9iza1TiPpOqw9lx2zgkJER7u4rE",
+      "video_count": 92,
+      "zero_byte_wiped": 107,
+      "total_files": 199,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "106309715659174": {
+      "page_id": "106309715659174",
+      "page_name": "Fresh Hive Network",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1T94gNwTtzp6AvLK7V2Yq2fEEA15We4gH",
+      "video_count": 202,
+      "zero_byte_wiped": 108,
+      "total_files": 310,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "765106526695498": {
+      "page_id": "765106526695498",
+      "page_name": "Gonzales  Bradley",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1a_DSwQNT0Fe5zW_NyitXF5_O7a1RgGqd",
+      "video_count": 0,
+      "zero_byte_wiped": 12,
+      "total_files": 12,
+      "status": "EMPTY",
+      "error": null
+    },
+    "802674512937262": {
+      "page_id": "802674512937262",
+      "page_name": "Gonzales  Jordan",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1MwFCsFG1ZqDuQ4Fho8X8B4r75poMXrrr",
+      "video_count": 48,
+      "zero_byte_wiped": 107,
+      "total_files": 155,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "454880037713018": {
+      "page_id": "454880037713018",
+      "page_name": "Garden Super",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1CAWiUuoA9ObfEYPWYXTkWDrXQbFd80Ap",
+      "video_count": 185,
+      "zero_byte_wiped": 107,
+      "total_files": 292,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "979493165253123": {
+      "page_id": "979493165253123",
+      "page_name": "Heven Made",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1UYolyoRJJRmGOOX2-cVXW3v54j4uGWmx",
+      "video_count": 92,
+      "zero_byte_wiped": 106,
+      "total_files": 198,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "368653459672717": {
+      "page_id": "368653459672717",
+      "page_name": "Gold encloud Studio",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1k4NsbkmZMmGNXJH_egsHGrY150MpUD49",
+      "video_count": 253,
+      "zero_byte_wiped": 106,
+      "total_files": 359,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "568171476378321": {
+      "page_id": "568171476378321",
+      "page_name": "The Showdown Hub",
+      "account": "Mia Shah (USA)",
+      "folder_id": "12WpeflSfnQ7tIQMcxvBeqB1EkimP04Lm",
+      "video_count": 453,
+      "zero_byte_wiped": 107,
+      "total_files": 560,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "211294825398492": {
+      "page_id": "211294825398492",
+      "page_name": "Sovereign Labs",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1YaPfOqlG20D89o4jUcBSbylP3XmbFRWD",
+      "video_count": 0,
+      "zero_byte_wiped": 9,
+      "total_files": 9,
+      "status": "EMPTY",
+      "error": null
+    },
+    "956622247541040": {
+      "page_id": "956622247541040",
+      "page_name": "Horizon Nest Daily",
+      "account": "Meghal Chauhan (USA)",
+      "folder_id": "1Y7TfoDqSqHGWAxVHQiLMj3uKFkTWAbQs",
+      "video_count": 98,
+      "zero_byte_wiped": 108,
+      "total_files": 206,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "166448239894078": {
+      "page_id": "166448239894078",
+      "page_name": "Prestige Frontier",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1nB6AnKW6ubj4WjJdMJSErgL-zOe9gGsQ",
+      "video_count": 0,
+      "zero_byte_wiped": 31,
+      "total_files": 31,
+      "status": "EMPTY",
+      "error": null
+    },
+    "199046363282913": {
+      "page_id": "199046363282913",
+      "page_name": "Crown Voltage",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1w1rNyesYpatr1gqMgTgTqbF4aTPLsDhu",
+      "video_count": 26,
+      "zero_byte_wiped": 106,
+      "total_files": 132,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "169686166222750": {
+      "page_id": "169686166222750",
+      "page_name": "Supreme Ledger",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1IZzrDjRxAVTTXb4suo5tmFEKa4q6RN7v",
+      "video_count": 85,
+      "zero_byte_wiped": 107,
+      "total_files": 192,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "176892285514777": {
+      "page_id": "176892285514777",
+      "page_name": "Zenith Empire",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1T08BZA_E_RlB3Y3w8fiMqhOXnlTWbINR",
+      "video_count": 352,
+      "zero_byte_wiped": 106,
+      "total_files": 458,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "359780240556577": {
+      "page_id": "359780240556577",
+      "page_name": "Gintube",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1tjUfLMHLd7DBRFyvoRbaYBaM7lJjnfPz",
+      "video_count": 181,
+      "zero_byte_wiped": 106,
+      "total_files": 287,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "920161364524597": {
+      "page_id": "920161364524597",
+      "page_name": "Evening Wise",
+      "account": "Mia Shah (USA)",
+      "folder_id": "1Mku1ublcXUl9yXtUqI7elvqGYJu5r1q4",
+      "video_count": 1137,
+      "zero_byte_wiped": 107,
+      "total_files": 1244,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1275440552308410": {
+      "page_id": "1275440552308410",
+      "page_name": "Bitter Lullaby",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "17SQXMG8HL8tGgXI1-Tn5I5mQ8Ce0h0a2",
+      "video_count": 250,
+      "zero_byte_wiped": 112,
+      "total_files": 362,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1094091620443741": {
+      "page_id": "1094091620443741",
+      "page_name": "Apex Dominion",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1hhkz2KlqkCJ7wpbgKk4ya_361AtlAjvw",
+      "video_count": 42,
+      "zero_byte_wiped": 112,
+      "total_files": 154,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "954228904442447": {
+      "page_id": "954228904442447",
+      "page_name": "Scott  Dennis",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1JmtVwNgjy0ze94TaUe3_a1GKxZKmh7oY",
+      "video_count": 107,
+      "zero_byte_wiped": 112,
+      "total_files": 219,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "876743625532242": {
+      "page_id": "876743625532242",
+      "page_name": "Young  Bradley",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1PBRUGAoXqpmr_2L6YuxkVACX3LBEFJiE",
+      "video_count": 142,
+      "zero_byte_wiped": 112,
+      "total_files": 254,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "766333629906067": {
+      "page_id": "766333629906067",
+      "page_name": "Morgan  Donald",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1ISgWlF4cUFvRzDhyqRf7n41UGNSqBHlP",
+      "video_count": 106,
+      "zero_byte_wiped": 112,
+      "total_files": 218,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "439151942618231": {
+      "page_id": "439151942618231",
+      "page_name": "Words Though",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1BpkOd2UoI5-XbRvdVmaL2m3KJGO5ci29",
+      "video_count": 0,
+      "zero_byte_wiped": 103,
+      "total_files": 103,
+      "status": "EMPTY",
+      "error": null
+    },
+    "883030611569420": {
+      "page_id": "883030611569420",
+      "page_name": "Apex Narrative",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1vTdVLboxrjH3lRqCDChX6r0MvlOW_6xZ",
+      "video_count": 73,
+      "zero_byte_wiped": 112,
+      "total_files": 185,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "297665506763102": {
+      "page_id": "297665506763102",
+      "page_name": "Quantum Collective",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1DiHP1KqZXnPqlIghqDiyk1_733vzUmtM",
+      "video_count": 100,
+      "zero_byte_wiped": 111,
+      "total_files": 211,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "860013240524658": {
+      "page_id": "860013240524658",
+      "page_name": "Roberts  Austin",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1gm2neO5u2CWo-xBUP1nN507GUeoSqmRk",
+      "video_count": 187,
+      "zero_byte_wiped": 111,
+      "total_files": 298,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "884416694753956": {
+      "page_id": "884416694753956",
+      "page_name": "Wood  Stephen",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1Z9Ov642iD-iilWbIVOm0b-jdbFbDNdoB",
+      "video_count": 368,
+      "zero_byte_wiped": 112,
+      "total_files": 480,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "838517782676673": {
+      "page_id": "838517782676673",
+      "page_name": "Rogers  Albert",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1zkNs_XzwXhiElCQimHdHxORUnJnPLXSJ",
+      "video_count": 332,
+      "zero_byte_wiped": 112,
+      "total_files": 444,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "802792259592614": {
+      "page_id": "802792259592614",
+      "page_name": "Mitchell  Jack",
+      "account": "Binjal Mehra (UK)",
+      "folder_id": "1hOeE4b28ph5m5QiTvYZyQ8Mduc8bLhbO",
+      "video_count": 315,
+      "zero_byte_wiped": 111,
+      "total_files": 426,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "514777565046552": {
+      "page_id": "514777565046552",
+      "page_name": "Dandelion Diaries",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1zdfwUiZlN8H0QzXDEKtpBp4UQjk0q1MV",
+      "video_count": 148,
+      "zero_byte_wiped": 112,
+      "total_files": 260,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "490559100806079": {
+      "page_id": "490559100806079",
+      "page_name": "Idea Acy",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1_a9DIPESOnEZ7BSbFNo7sHOn4uUi74xp",
+      "video_count": 249,
+      "zero_byte_wiped": 114,
+      "total_files": 363,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "820574291145280": {
+      "page_id": "820574291145280",
+      "page_name": "Hill  Alan",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1dvWHkAVYOmArdtqYGZ0pyKgVXHFlXkPH",
+      "video_count": 293,
+      "zero_byte_wiped": 114,
+      "total_files": 407,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "870381232821932": {
+      "page_id": "870381232821932",
+      "page_name": "James  Jose",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1fRa1X-SMP4KtvVAOOQzsx2Pk7dpC7Mn7",
+      "video_count": 74,
+      "zero_byte_wiped": 114,
+      "total_files": 188,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1278509768670990": {
+      "page_id": "1278509768670990",
+      "page_name": "Rusted Compass",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1y9HGtyLg8q5drHn1vaREFKcnh2bGum74",
+      "video_count": 11,
+      "zero_byte_wiped": 114,
+      "total_files": 125,
+      "status": "LOW",
+      "error": null
+    },
+    "1020848977772131": {
+      "page_id": "1020848977772131",
+      "page_name": "Johnson  Jerry",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1lftaQxHI_cbKfNsmFBzmgBVcWl4f7QpB",
+      "video_count": 70,
+      "zero_byte_wiped": 114,
+      "total_files": 184,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1257864287403392": {
+      "page_id": "1257864287403392",
+      "page_name": "Silent Atlas",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1OGQOLu-9Eyrj3lDe3ciuD5dZnH6D09kx",
+      "video_count": 137,
+      "zero_byte_wiped": 114,
+      "total_files": 251,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "500491343147382": {
+      "page_id": "500491343147382",
+      "page_name": "Infinite Stories",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1VH4Ca2nFhnjvSuBrwS803DEtaZlLlCGB",
+      "video_count": 166,
+      "zero_byte_wiped": 113,
+      "total_files": 279,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "779283818590888": {
+      "page_id": "779283818590888",
+      "page_name": "Titan Republic",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1lrpqZhufJxUotz2sO4G_u8GE8POzWrq8",
+      "video_count": 6,
+      "zero_byte_wiped": 114,
+      "total_files": 120,
+      "status": "LOW",
+      "error": null
+    },
+    "1058909860631103": {
+      "page_id": "1058909860631103",
+      "page_name": "Urban Drift",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1Ty_piHhtKXG1TghvpQiPsL3fY0Z8dvvM",
+      "video_count": 69,
+      "zero_byte_wiped": 114,
+      "total_files": 183,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1190983047436826": {
+      "page_id": "1190983047436826",
+      "page_name": "Shifting Stone",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "12KLecp9a14wb8mpv25SBtSBz_G3ggD3H",
+      "video_count": 28,
+      "zero_byte_wiped": 109,
+      "total_files": 137,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1224317344092240": {
+      "page_id": "1224317344092240",
+      "page_name": "Heavy Whistle",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1qRO-UGA5bvxgBOU5ecFt7QLPCp9I5QgO",
+      "video_count": 48,
+      "zero_byte_wiped": 109,
+      "total_files": 157,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1054813994376761": {
+      "page_id": "1054813994376761",
+      "page_name": "Velvet Authority",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "1Nc1y9TjqkTP-Si20ChGRd0VbC8sMjbWV",
+      "video_count": 199,
+      "zero_byte_wiped": 114,
+      "total_files": 313,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1165355063335637": {
+      "page_id": "1165355063335637",
+      "page_name": "Yo to Gone",
+      "account": "Chanda Nai (UK)",
+      "folder_id": "15XTWHGdBlk4vZfhWNVB1nqNUTg449ocx",
+      "video_count": 147,
+      "zero_byte_wiped": 114,
+      "total_files": 261,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1185315564665369": {
+      "page_id": "1185315564665369",
+      "page_name": "Lost Glossary",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "11mH7IVu6Nv5MP00jpxRAnngU2Blgcam3",
+      "video_count": 177,
+      "zero_byte_wiped": 109,
+      "total_files": 286,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "960349707172371": {
+      "page_id": "960349707172371",
+      "page_name": "Noble Frequency",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1kQRM_1mLb2TkWtDpXL_2k5ABrEFdo2rj",
+      "video_count": 25,
+      "zero_byte_wiped": 109,
+      "total_files": 134,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1063063230214331": {
+      "page_id": "1063063230214331",
+      "page_name": "Prime Syndicate",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1ty72KRjCUo6rfEoECVipYtJ8z9_EJKH8",
+      "video_count": 19,
+      "zero_byte_wiped": 109,
+      "total_files": 128,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1063289593524919": {
+      "page_id": "1063289593524919",
+      "page_name": "Empire Catalyst",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1rGFyfznO6crcBJm2iIMAGP07c2KhgoOu",
+      "video_count": 27,
+      "zero_byte_wiped": 109,
+      "total_files": 136,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "938570059349598": {
+      "page_id": "938570059349598",
+      "page_name": "Obsidian Theory",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1-rnWGv5ubF2V0jJtBCarzYBPetRMzhAX",
+      "video_count": 46,
+      "zero_byte_wiped": 109,
+      "total_files": 155,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1039102779276966": {
+      "page_id": "1039102779276966",
+      "page_name": "Dream Harbor",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1tYfVrfivBZBYhx736ihaZ2Mgb0UCo1Hj",
+      "video_count": 148,
+      "zero_byte_wiped": 109,
+      "total_files": 257,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "855237054348766": {
+      "page_id": "855237054348766",
+      "page_name": "Perez  Steven",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1m4zcAJErDtVSRPiZupC067ildpuCp4Xn",
+      "video_count": 56,
+      "zero_byte_wiped": 109,
+      "total_files": 165,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "982581511610694": {
+      "page_id": "982581511610694",
+      "page_name": "Nova District",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1v97_7qE5YKzl3paJ7mcVKZH8O2r87hre",
+      "video_count": 235,
+      "zero_byte_wiped": 109,
+      "total_files": 344,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1023389020850189": {
+      "page_id": "1023389020850189",
+      "page_name": "Maple Vision",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1dsNVv6eLexXzp6s_8w_m0LCLd-y2_si3",
+      "video_count": 330,
+      "zero_byte_wiped": 109,
+      "total_files": 439,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "997596213442388": {
+      "page_id": "997596213442388",
+      "page_name": "Sovereign Signal",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1s4FC3XfpaCwLC8SjQc7ytMoXbxmW1sa1",
+      "video_count": 84,
+      "zero_byte_wiped": 107,
+      "total_files": 191,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1076375522219372": {
+      "page_id": "1076375522219372",
+      "page_name": "Titan Archive",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "11qk-b66GAyO0NTvHX2TUKRiVsiK-Jk7e",
+      "video_count": 161,
+      "zero_byte_wiped": 108,
+      "total_files": 269,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "994921357036127": {
+      "page_id": "994921357036127",
+      "page_name": "New Moon Diaries",
+      "account": "Mahi Patel (UK)",
+      "folder_id": "1kpk_XGNplLiSnYxb9B0bGGTq8Po8wjKQ",
+      "video_count": 239,
+      "zero_byte_wiped": 109,
+      "total_files": 348,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "803824339488556": {
+      "page_id": "803824339488556",
+      "page_name": "Smith  Arthur",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "14NWdo8WKfg9kH4OYGOcZJjCpr0MFXtXk",
+      "video_count": 0,
+      "zero_byte_wiped": 67,
+      "total_files": 67,
+      "status": "EMPTY",
+      "error": null
+    },
+    "929190903615356": {
+      "page_id": "929190903615356",
+      "page_name": "Mitchell  Gabriel",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1Y1wCJxMqCzWUh0YMPoh5KGG4YpEnqT6a",
+      "video_count": 135,
+      "zero_byte_wiped": 107,
+      "total_files": 242,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1025542247301378": {
+      "page_id": "1025542247301378",
+      "page_name": "Sunny Dusk Stories",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1lDezQeKpSXSOg5kafNTED2AMhAyrx4k0",
+      "video_count": 220,
+      "zero_byte_wiped": 107,
+      "total_files": 327,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "981214481738903": {
+      "page_id": "981214481738903",
+      "page_name": "Silver Oak Social",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "15hPBojsrRBiBOR0331zGeuYxqOF4ambV",
+      "video_count": 223,
+      "zero_byte_wiped": 107,
+      "total_files": 348,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "871774779344742": {
+      "page_id": "871774779344742",
+      "page_name": "Powell  Gabriel",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1OgWhFRr1Tez6SJVDBTzJF8-BbFdG9Hgu",
+      "video_count": 115,
+      "zero_byte_wiped": 105,
+      "total_files": 220,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "762765990263739": {
+      "page_id": "762765990263739",
+      "page_name": "Robinson  Stephen",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1iMpfR-mZdfljA1OjWOEjAMM9CtODCaLO",
+      "video_count": 353,
+      "zero_byte_wiped": 107,
+      "total_files": 460,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "818808074651170": {
+      "page_id": "818808074651170",
+      "page_name": "Roberts  Richard",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1Imakyr8eJJvH9YwJP6pTbozbTQFO_lWz",
+      "video_count": 253,
+      "zero_byte_wiped": 106,
+      "total_files": 359,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1282432698285787": {
+      "page_id": "1282432698285787",
+      "page_name": "Exile The Sun",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1Mxn-OsHxuAr0XI8hLXdP36CHd7bu4kHY",
+      "video_count": 0,
+      "zero_byte_wiped": 98,
+      "total_files": 100,
+      "status": "EMPTY",
+      "error": null
+    },
+    "746108741929454": {
+      "page_id": "746108741929454",
+      "page_name": "Rodriguez  Scott",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1Bbn4TxIRO-mshKSg7BPvTxHVgF59x8QL",
+      "video_count": 441,
+      "zero_byte_wiped": 106,
+      "total_files": 547,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "417387901468629": {
+      "page_id": "417387901468629",
+      "page_name": "Serendipity Spark",
+      "account": "Nidhi Desai (UK)",
+      "folder_id": "1gKXG4J5c2h_9Ioh8gUmRS1ytNVgNTK4s",
+      "video_count": 224,
+      "zero_byte_wiped": 108,
+      "total_files": 332,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1292135137311847": {
+      "page_id": "1292135137311847",
+      "page_name": "Empty Pockets",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1HJuayNj7NWyNqlPQvtHBa4bqXYjK7Fta",
+      "video_count": 29,
+      "zero_byte_wiped": 112,
+      "total_files": 141,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1372949892557936": {
+      "page_id": "1372949892557936",
+      "page_name": "Dirty Halos",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1_84m7mzqO_UH7wZ7Ibu0m0zZKCPq1t9_",
+      "video_count": 42,
+      "zero_byte_wiped": 113,
+      "total_files": 155,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1246041178598806": {
+      "page_id": "1246041178598806",
+      "page_name": "Deafening Quiet",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1EScmrSEvJZ-0RVZUi4EbNwwXZvFY1xj-",
+      "video_count": 0,
+      "zero_byte_wiped": 82,
+      "total_files": 82,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1240652399138492": {
+      "page_id": "1240652399138492",
+      "page_name": "Cracked Bell",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1SLLaD5EJpjI0y3sJ-SHW54z3MbJpuSZ6",
+      "video_count": 0,
+      "zero_byte_wiped": 55,
+      "total_files": 55,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1261317297068003": {
+      "page_id": "1261317297068003",
+      "page_name": "Collapse The Sky",
+      "account": "Richi Patel (UK)",
+      "folder_id": "121F8kWME99saVsz1ZHUDFa3kuDIYpNH9",
+      "video_count": 0,
+      "zero_byte_wiped": 84,
+      "total_files": 84,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1129800936893243": {
+      "page_id": "1129800936893243",
+      "page_name": "Blame The Weather",
+      "account": "Richi Patel (UK)",
+      "folder_id": "15Lz5f-JHrHPQskqyIxR7AVamDLxOO07V",
+      "video_count": 0,
+      "zero_byte_wiped": 73,
+      "total_files": 75,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1275452998982725": {
+      "page_id": "1275452998982725",
+      "page_name": "Brittle Crown",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1IYB4VZUz8p7iKpF-sgCcrFPu5KiYmI0T",
+      "video_count": 0,
+      "zero_byte_wiped": 107,
+      "total_files": 109,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1345748795277343": {
+      "page_id": "1345748795277343",
+      "page_name": "Broken Halo",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1MTyWjVldpCHaBSkdlQOK9JhsMIC93N5G",
+      "video_count": 31,
+      "zero_byte_wiped": 113,
+      "total_files": 144,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1314791448384472": {
+      "page_id": "1314791448384472",
+      "page_name": "Buried Choirs",
+      "account": "Richi Patel (UK)",
+      "folder_id": "1llro8tw5sNIYX3t0tvz10OERwo2km59y",
+      "video_count": 211,
+      "zero_byte_wiped": 113,
+      "total_files": 324,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1218007361389446": {
+      "page_id": "1218007361389446",
+      "page_name": "Hollow Echo",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1Z_LJ5MrLW_77keBWsri6GmHV4hCPnhZX",
+      "video_count": 31,
+      "zero_byte_wiped": 104,
+      "total_files": 135,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1183175548215394": {
+      "page_id": "1183175548215394",
+      "page_name": "Broken Orchard",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "155aMRaWuUAInSgQrl0gatk_EvIEmqM87",
+      "video_count": 255,
+      "zero_byte_wiped": 104,
+      "total_files": 359,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1260883380432217": {
+      "page_id": "1260883380432217",
+      "page_name": "Gentle Ruin",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1plS4eTfwt1-KCH-pcqe664IxtnejOWXk",
+      "video_count": 47,
+      "zero_byte_wiped": 104,
+      "total_files": 151,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "956709574200068": {
+      "page_id": "956709574200068",
+      "page_name": "Echo Ridge",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "19vXbTj79kcd1saSgA72l8utIG3H7p720",
+      "video_count": 43,
+      "zero_byte_wiped": 105,
+      "total_files": 148,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "682815954920518": {
+      "page_id": "682815954920518",
+      "page_name": "Prestige Syndicate",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1bfZHFaP_shW75sOo15S1iTY0FmqMjVBO",
+      "video_count": 57,
+      "zero_byte_wiped": 104,
+      "total_files": 161,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1168998922967230": {
+      "page_id": "1168998922967230",
+      "page_name": "Grabeal",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "12AaNdo9dX-T1L0j4iSMgskI_cWPmeK4N",
+      "video_count": 336,
+      "zero_byte_wiped": 104,
+      "total_files": 440,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "758260714032115": {
+      "page_id": "758260714032115",
+      "page_name": "Power Doctrine",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1AEA6Zbh2_47bJJtBBpLCu66DHJ-F-AVc",
+      "video_count": 45,
+      "zero_byte_wiped": 104,
+      "total_files": 149,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "714841275048147": {
+      "page_id": "714841275048147",
+      "page_name": "Apex Chronicle",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1mLhtU-CriRi1sRDy46qdlrdREbMbcg46",
+      "video_count": 75,
+      "zero_byte_wiped": 104,
+      "total_files": 179,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1230784326779924": {
+      "page_id": "1230784326779924",
+      "page_name": "Heavy Whistle",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1J2v6SLGahed5tXgGApcjaqJWhmW0rf1h",
+      "video_count": 244,
+      "zero_byte_wiped": 104,
+      "total_files": 348,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "314172255114813": {
+      "page_id": "314172255114813",
+      "page_name": "anymotion",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1djwykfiTZ70yjubKkMlv7h84j_ucmosb",
+      "video_count": 42,
+      "zero_byte_wiped": 104,
+      "total_files": 146,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1338114526042607": {
+      "page_id": "1338114526042607",
+      "page_name": "Cure For Monday",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1j8-OzrvjLdl0EVPtbzmagVqIqzIZ9ppJ",
+      "video_count": 0,
+      "zero_byte_wiped": 92,
+      "total_files": 92,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1191247700748920": {
+      "page_id": "1191247700748920",
+      "page_name": "Dead Languages",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1BgBzzfGAI819mRUR2ObAp-EkxaQX7czH",
+      "video_count": 0,
+      "zero_byte_wiped": 61,
+      "total_files": 61,
+      "status": "EMPTY",
+      "error": null
+    },
+    "172005056007015": {
+      "page_id": "172005056007015",
+      "page_name": "Cold Ash",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1Wt6eVJgWzXWwk5SX0z4OcZ0-XaYOT-XO",
+      "video_count": 28,
+      "zero_byte_wiped": 104,
+      "total_files": 132,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1304768466050503": {
+      "page_id": "1304768466050503",
+      "page_name": "Curse The Dawn",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "14gX_X6qAs4mprk6q8MVsZXGhNnntwcMh",
+      "video_count": 52,
+      "zero_byte_wiped": 102,
+      "total_files": 154,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "234852513054858": {
+      "page_id": "234852513054858",
+      "page_name": "Mai Cartoon Hoon",
+      "account": "Sweta Shah (UK)",
+      "folder_id": "1i-WbksRHDO81ZEQs5F33F6uOUECtd1aL",
+      "video_count": 238,
+      "zero_byte_wiped": 103,
+      "total_files": 341,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1315483674976229": {
+      "page_id": "1315483674976229",
+      "page_name": "Cruel Mercy",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1IDM7f7Or6HnDkvk-3X0TnvTedDowUoFu",
+      "video_count": 0,
+      "zero_byte_wiped": 88,
+      "total_files": 88,
+      "status": "EMPTY",
+      "error": null
+    },
+    "1195883193618072": {
+      "page_id": "1195883193618072",
+      "page_name": "Choke The Static",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1B8nrWSuanOEpoDVwJ3iMD6_R1F0gf7kL",
+      "video_count": 11,
+      "zero_byte_wiped": 101,
+      "total_files": 112,
+      "status": "LOW",
+      "error": null
+    },
+    "896072510245887": {
+      "page_id": "896072510245887",
+      "page_name": "Cooper  Billy",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1jHAChBRkp0q_zOjkEUAC_Rx7neakuwp8",
+      "video_count": 0,
+      "zero_byte_wiped": 100,
+      "total_files": 100,
+      "status": "EMPTY",
+      "error": null
+    },
+    "864838050041932": {
+      "page_id": "864838050041932",
+      "page_name": "Lee  Daniel",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "11ObtDv6z6HzTxKbp7RXY8ug4TL9-Fgjj",
+      "video_count": 203,
+      "zero_byte_wiped": 103,
+      "total_files": 306,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "208233979039379": {
+      "page_id": "208233979039379",
+      "page_name": "Memes & Mischief",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1YGKlonl9p1iEtBFAOTF-hDANC9EiTNTi",
+      "video_count": 16,
+      "zero_byte_wiped": 104,
+      "total_files": 120,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "870975689430311": {
+      "page_id": "870975689430311",
+      "page_name": "Martin  John",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1qrc_bt4CioXgYiTybDD_8XXUBLD0PDdT",
+      "video_count": 231,
+      "zero_byte_wiped": 104,
+      "total_files": 335,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "479102298617718": {
+      "page_id": "479102298617718",
+      "page_name": "Corner Spe",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1D9teONQH9R0z6BhmdsftN55Y67spxKkM",
+      "video_count": 201,
+      "zero_byte_wiped": 104,
+      "total_files": 305,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1033900793135926": {
+      "page_id": "1033900793135926",
+      "page_name": "Cloud berry Lane",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1gtFrX3Ji1yjJ5f8yHe1zOcdgMCTDQFMn",
+      "video_count": 77,
+      "zero_byte_wiped": 110,
+      "total_files": 187,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "495281633679562": {
+      "page_id": "495281633679562",
+      "page_name": "The Entertainment Zone",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1pBBPnxX539_8XbACP_xN5ZaqdgnVNdaC",
+      "video_count": 0,
+      "zero_byte_wiped": 50,
+      "total_files": 50,
+      "status": "EMPTY",
+      "error": null
+    },
+    "802518939617506": {
+      "page_id": "802518939617506",
+      "page_name": "Lee  Charles",
+      "account": "Riya Gaur (UK)",
+      "folder_id": "1MxP6QD8L1VfvdmLTJMZi_znujU8p1DXB",
+      "video_count": 283,
+      "zero_byte_wiped": 103,
+      "total_files": 386,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "984876688045322": {
+      "page_id": "984876688045322",
+      "page_name": "Sunset Mint Post",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1BURCLnzpluribfLIMlx7iPp-qdf_GL2T",
+      "video_count": 386,
+      "zero_byte_wiped": 110,
+      "total_files": 496,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "461899523680517": {
+      "page_id": "461899523680517",
+      "page_name": "House Note",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1MMHC7iT-E1r-R8p-uSXY5_JJU5ttxhAp",
+      "video_count": 206,
+      "zero_byte_wiped": 108,
+      "total_files": 314,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "928116440385651": {
+      "page_id": "928116440385651",
+      "page_name": "Timeless Glimpse",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1TcsGrKQd3ueOdVGgjsG5ujrwHmnoLd4N",
+      "video_count": 251,
+      "zero_byte_wiped": 110,
+      "total_files": 361,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "481027178422627": {
+      "page_id": "481027178422627",
+      "page_name": "Potato Flamingo",
+      "account": "Radika Patel (USA)",
+      "folder_id": "11EFX0WJ32MzLCMbtRU3cehqjmFLuQ3KC",
+      "video_count": 35,
+      "zero_byte_wiped": 108,
+      "total_files": 143,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "512339515286069": {
+      "page_id": "512339515286069",
+      "page_name": "Wand Wizardry Legend",
+      "account": "Radika Patel (USA)",
+      "folder_id": "12Z5ghscmqcwCCjqK4nE-AEa0ecwPmBxA",
+      "video_count": 220,
+      "zero_byte_wiped": 108,
+      "total_files": 328,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "301441593063746": {
+      "page_id": "301441593063746",
+      "page_name": "Prestige Authority",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1S-cw7Fe7G1GyvpYwH1RSe2vGJdC0_0Lm",
+      "video_count": 15,
+      "zero_byte_wiped": 108,
+      "total_files": 123,
+      "status": "LOW",
+      "error": null
+    },
+    "271543462710279": {
+      "page_id": "271543462710279",
+      "page_name": "Iron Republic",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1h9B3ZNGqcWtRUD0-JhBBWCErlK8BsTbb",
+      "video_count": 62,
+      "zero_byte_wiped": 108,
+      "total_files": 170,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "372905129232715": {
+      "page_id": "372905129232715",
+      "page_name": "Sthefany oliveira",
+      "account": "Radika Patel (USA)",
+      "folder_id": "125WfzCXV4G8mtQfHa-9HxUeuIS_BXtYk",
+      "video_count": 46,
+      "zero_byte_wiped": 107,
+      "total_files": 153,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "377394845467706": {
+      "page_id": "377394845467706",
+      "page_name": "Wu Tong's Family",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1DUewTYHyfLjT-IEKh0lsWbs30sHT-WiJ",
+      "video_count": 383,
+      "zero_byte_wiped": 108,
+      "total_files": 491,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "171465126060636": {
+      "page_id": "171465126060636",
+      "page_name": "Alpha Dynasty",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1OyrUqGKt0bPQqo6mekPjmAd2VJfb4CuQ",
+      "video_count": 61,
+      "zero_byte_wiped": 109,
+      "total_files": 170,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "209182608951563": {
+      "page_id": "209182608951563",
+      "page_name": "Shadow Executive",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1lK6PK14R0GGQRmk8lCA9L-ketOUFQbP6",
+      "video_count": 395,
+      "zero_byte_wiped": 109,
+      "total_files": 504,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "497577420112654": {
+      "page_id": "497577420112654",
+      "page_name": "Apex House",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "14ZSA4bG56rjCwBaQgXKdbEtDApEv8KZ6",
+      "video_count": 69,
+      "zero_byte_wiped": 60,
+      "total_files": 129,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "160240527166280": {
+      "page_id": "160240527166280",
+      "page_name": "Path Summer",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1RPhbSb0nV7-yydSD-6m0kc12bhwAG4do",
+      "video_count": 270,
+      "zero_byte_wiped": 109,
+      "total_files": 379,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "960803123790692": {
+      "page_id": "960803123790692",
+      "page_name": "Drift Valley",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1ijqHlmfC4Ndtxlrfe_na8U55YDUUIdm6",
+      "video_count": 0,
+      "zero_byte_wiped": 40,
+      "total_files": 40,
+      "status": "EMPTY",
+      "error": null
+    },
+    "487987684400252": {
+      "page_id": "487987684400252",
+      "page_name": "Quantum House",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "10HTYd85hqAA7AyzTaQ_AE6jv5VlQgAWa",
+      "video_count": 161,
+      "zero_byte_wiped": 60,
+      "total_files": 221,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "923484537514216": {
+      "page_id": "923484537514216",
+      "page_name": "Dreams Of Life",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "19nAZ26Jp8tRWUybGFns6XJL4oHH-P5FG",
+      "video_count": 151,
+      "zero_byte_wiped": 60,
+      "total_files": 211,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "511317578722941": {
+      "page_id": "511317578722941",
+      "page_name": "End Every",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1eojZAIdVW0crOaFQS9u9q7PjaPQt0s2c",
+      "video_count": 211,
+      "zero_byte_wiped": 60,
+      "total_files": 271,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1314852728368183": {
+      "page_id": "1314852728368183",
+      "page_name": "Crooked Hymns",
+      "account": "Richi Patel (UK)",
+      "folder_id": "16ULxnynxNkKqLDXxiHlH8GPSAgcbyPzi",
+      "video_count": 0,
+      "zero_byte_wiped": 89,
+      "total_files": 89,
+      "status": "EMPTY",
+      "error": null
+    },
+    "416325608224715": {
+      "page_id": "416325608224715",
+      "page_name": "Executive Empire",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "16G_A0S1w-1qKtY56Y4-4NL21rmCRa67H",
+      "video_count": 266,
+      "zero_byte_wiped": 60,
+      "total_files": 326,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "467407709785240": {
+      "page_id": "467407709785240",
+      "page_name": "I'm Joker",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1riVa-s4mVklREPH2mTKzX6mUVx0GHoi7",
+      "video_count": 0,
+      "zero_byte_wiped": 58,
+      "total_files": 58,
+      "status": "EMPTY",
+      "error": null
+    },
+    "223604537511488": {
+      "page_id": "223604537511488",
+      "page_name": "Iron Covenant",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1GoRZAiud2KVabAzU2Q4OWHKoAaU11zC7",
+      "video_count": 179,
+      "zero_byte_wiped": 61,
+      "total_files": 240,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "730487193489250": {
+      "page_id": "730487193489250",
+      "page_name": "Iron Momentum",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1K7M6j7yLorT0D7vrE54oDf-uv76NIxFk",
+      "video_count": 208,
+      "zero_byte_wiped": 61,
+      "total_files": 269,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "514016115120845": {
+      "page_id": "514016115120845",
+      "page_name": "Me The",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1Vz4kZntHTFPBjdvHe9q_YA9ZUzSwzKUu",
+      "video_count": 71,
+      "zero_byte_wiped": 60,
+      "total_files": 131,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1009759155555480": {
+      "page_id": "1009759155555480",
+      "page_name": "Quiet Harbor",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1ev3fnutc97DsHMqjaxDeKRvBQQO_s5LM",
+      "video_count": 165,
+      "zero_byte_wiped": 60,
+      "total_files": 225,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "534342423102401": {
+      "page_id": "534342423102401",
+      "page_name": "The Daily Spark",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
+      "video_count": 156,
+      "zero_byte_wiped": 32,
+      "total_files": 188,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "921493174379801": {
+      "page_id": "921493174379801",
+      "page_name": "Blissful Paradox",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a",
+      "video_count": 273,
+      "zero_byte_wiped": 61,
+      "total_files": 334,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "243414155514799": {
+      "page_id": "243414155514799",
+      "page_name": "Atlas Authority",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1SKQBKaZhfhnrVjTC0X0bpm2syY8SND31",
+      "video_count": 1,
+      "zero_byte_wiped": 60,
+      "total_files": 61,
+      "status": "CRITICAL",
+      "error": null
+    },
+    "564341273430022": {
+      "page_id": "564341273430022",
+      "page_name": "The Chill Spot",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ",
+      "video_count": 193,
+      "zero_byte_wiped": 32,
+      "total_files": 225,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "497636683426759": {
+      "page_id": "497636683426759",
+      "page_name": "Tag The",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
+      "video_count": 187,
+      "zero_byte_wiped": 32,
+      "total_files": 219,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "877069835495630": {
+      "page_id": "877069835495630",
+      "page_name": "Stellar Vibes",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl",
+      "video_count": 1,
+      "zero_byte_wiped": 31,
+      "total_files": 36,
+      "status": "CRITICAL",
+      "error": null
+    },
+    "615554031639811": {
+      "page_id": "615554031639811",
+      "page_name": "Sovereign Collective",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt",
+      "video_count": 73,
+      "zero_byte_wiped": 32,
+      "total_files": 105,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "686470024541027": {
+      "page_id": "686470024541027",
+      "page_name": "Royal Frontier",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "18LJsnXYPZPmPiX922GOyJaahKkIv01_J",
+      "video_count": 14,
+      "zero_byte_wiped": 32,
+      "total_files": 46,
+      "status": "LOW",
+      "error": null
+    },
+    "1033250263200686": {
+      "page_id": "1033250263200686",
+      "page_name": "Silent Grove",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy",
+      "video_count": 456,
+      "zero_byte_wiped": 32,
+      "total_files": 488,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "424138757454796": {
+      "page_id": "424138757454796",
+      "page_name": "Rajat Gupta",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1LmV-QtwmaYJqoDr0sQDed5OUquuG8hs0",
+      "video_count": 101,
+      "zero_byte_wiped": 32,
+      "total_files": 133,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "614891248372171": {
+      "page_id": "614891248372171",
+      "page_name": "Royal Vanguard",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1az7G3sOLUye-d0eK5KyBjFD2ui28oPOU",
+      "video_count": 274,
+      "zero_byte_wiped": 32,
+      "total_files": 306,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "241688455685265": {
+      "page_id": "241688455685265",
+      "page_name": "Hu1",
+      "account": "Radika Patel (USA)",
+      "folder_id": "1R9miZUECFxxSCVYjrLBUi23Hv6HhelYq",
+      "video_count": 0,
+      "zero_byte_wiped": 55,
+      "total_files": 55,
+      "status": "EMPTY",
+      "error": null
+    },
+    "922808234251176": {
+      "page_id": "922808234251176",
+      "page_name": "Radiant Reverie",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1f4vLojPquQpfK3Cd6XsIxXxME6D_i2Lt",
+      "video_count": 267,
+      "zero_byte_wiped": 60,
+      "total_files": 327,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "976706512196056": {
+      "page_id": "976706512196056",
+      "page_name": "Mouth The Hang",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR",
+      "video_count": 129,
+      "zero_byte_wiped": 32,
+      "total_files": 161,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "472703539265672": {
+      "page_id": "472703539265672",
+      "page_name": "Flute Tomography Nature",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
+      "video_count": 131,
+      "zero_byte_wiped": 32,
+      "total_files": 163,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "473290599201289": {
+      "page_id": "473290599201289",
+      "page_name": "Mojo Day",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql",
+      "video_count": 321,
+      "zero_byte_wiped": 32,
+      "total_files": 353,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "502777659582958": {
+      "page_id": "502777659582958",
+      "page_name": "Faro Fact",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM",
+      "video_count": 102,
+      "zero_byte_wiped": 32,
+      "total_files": 134,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "340559612467800": {
+      "page_id": "340559612467800",
+      "page_name": "Fly Happy",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH",
+      "video_count": 288,
+      "zero_byte_wiped": 32,
+      "total_files": 320,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "907450442461718": {
+      "page_id": "907450442461718",
+      "page_name": "Neon Life",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1P6xt1xo_25SeR2ZSD0AvVhjOLw1HBxps",
+      "video_count": 66,
+      "zero_byte_wiped": 1,
+      "total_files": 67,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "922363730970762": {
+      "page_id": "922363730970762",
+      "page_name": "Happy River Journal",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1Dwx7TNz7MD5KqTXYRM0k2xnH6NwRgTd1",
+      "video_count": 51,
+      "zero_byte_wiped": 0,
+      "total_files": 51,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "1026390193887535": {
+      "page_id": "1026390193887535",
+      "page_name": "Ocean Breeze Post",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1mujU0an1-H5Rzmba-8lUaj9-wyliNxJs",
+      "video_count": 252,
+      "zero_byte_wiped": 0,
+      "total_files": 252,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "935873802936980": {
+      "page_id": "935873802936980",
+      "page_name": "Echoes of Tomorrow",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1X-fvuvF839VuwQ8KjajGdM9msH7GxFyS",
+      "video_count": 52,
+      "zero_byte_wiped": 0,
+      "total_files": 52,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "844271675438705": {
+      "page_id": "844271675438705",
+      "page_name": "Gonzales  Terry",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1CnIQYos-wmkVuUClLH1r1ILLQ8Dwm_iY",
+      "video_count": 71,
+      "zero_byte_wiped": 0,
+      "total_files": 71,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "863106796879644": {
+      "page_id": "863106796879644",
+      "page_name": "Gonzalez  Paul",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1AQwzULByYACcwO9UXwKHFEO54gY8Tmly",
+      "video_count": 210,
+      "zero_byte_wiped": 0,
+      "total_files": 210,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "755804217626888": {
+      "page_id": "755804217626888",
+      "page_name": "Remedies The",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1zxMlVAj392Ijd_Nolc-St3oom1QlYv7A",
+      "video_count": 0,
+      "zero_byte_wiped": 0,
+      "total_files": 0,
+      "status": "EMPTY",
+      "error": null
+    },
+    "756809930857575": {
+      "page_id": "756809930857575",
+      "page_name": "Roberts  Charles",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "10FVosLV31a0Coz-5orPY4uI9jeS4qhc2",
+      "video_count": 0,
+      "zero_byte_wiped": 0,
+      "total_files": 0,
+      "status": "EMPTY",
+      "error": null
+    },
+    "623092600889709": {
+      "page_id": "623092600889709",
+      "page_name": "Lively Moments",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1UY6f-_7NcGg6PMFbodoSLmWaEcGaAboV",
+      "video_count": 158,
+      "zero_byte_wiped": 0,
+      "total_files": 158,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "855725930966508": {
+      "page_id": "855725930966508",
+      "page_name": "Cosmic Mirage",
+      "account": "Sejal Soni (USA)",
+      "folder_id": "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1",
+      "video_count": 245,
+      "zero_byte_wiped": 32,
+      "total_files": 277,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "660234803835581": {
+      "page_id": "660234803835581",
+      "page_name": "Happy place",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "12TzotKAwMMV2M6Gt1vBAF9UFX-Fmw3XO",
+      "video_count": 129,
+      "zero_byte_wiped": 0,
+      "total_files": 130,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "625545143972469": {
+      "page_id": "625545143972469",
+      "page_name": "Funny Fizz",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1oPjU-tnOg1yEjdanukEowMr5sM7A-aNH",
+      "video_count": 75,
+      "zero_byte_wiped": 0,
+      "total_files": 75,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "223564530849556": {
+      "page_id": "223564530849556",
+      "page_name": "Empire Frequency",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1HaCxXmwAi8g_ZCVAWvRPHAuNUzzFnoDT",
+      "video_count": 82,
+      "zero_byte_wiped": 0,
+      "total_files": 82,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "288008221072106": {
+      "page_id": "288008221072106",
+      "page_name": "Bit Creative",
+      "account": "Rohini Dutt (USA)",
+      "folder_id": "1gVt2gs2Dx7CxfPvn2RbOb29pHWVNotLC",
+      "video_count": 879,
+      "zero_byte_wiped": 63,
+      "total_files": 942,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "491073987419875": {
+      "page_id": "491073987419875",
+      "page_name": "Library Other",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1yUPN-jXITUqDju8eW1FoH5BrgKemKYOB",
+      "video_count": 196,
+      "zero_byte_wiped": 0,
+      "total_files": 196,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "531842053356648": {
+      "page_id": "531842053356648",
+      "page_name": "Laugh Flicks",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1NqfOEB1hJnl2VzRigL3lv6uppJLCm05d",
+      "video_count": 236,
+      "zero_byte_wiped": 0,
+      "total_files": 236,
+      "status": "HEALTHY",
+      "error": null
+    },
+    "170121316193510": {
+      "page_id": "170121316193510",
+      "page_name": "Empire Doctrine",
+      "account": "Kalpesh Shah (USA)",
+      "folder_id": "1_2ook2_doYRCEW-WsNnfkrscghuWhTQV",
+      "video_count": 222,
+      "zero_byte_wiped": 0,
+      "total_files": 222,
+      "status": "HEALTHY",
+      "error": null
     }
   }
 }
