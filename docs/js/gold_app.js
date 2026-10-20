@@ -227,6 +227,27 @@ const FLEET_USA_05_IDS = [
 
 const FLEET_USA_05_SET = new Set(FLEET_USA_05_IDS);
 
+const FLEET_USA_06_IDS = [
+  "907450442461718",
+  "1026390193887535",
+  "922363730970762",
+  "935873802936980",
+  "844271675438705",
+  "863106796879644",
+  "755804217626888",
+  "756809930857575",
+  "660234803835581",
+  "623092600889709",
+  "531842053356648",
+  "625545143972469",
+  "491073987419875",
+  "223564530849556",
+  "170121316193510"
+];
+
+const FLEET_USA_06_SET = new Set(FLEET_USA_06_IDS);
+
+
 // Centralized helper to guarantee authentic human-readable page names (never raw numbers or placeholders)
 function getPageDisplayName(p) {
   if (!p) return "Page";
@@ -462,12 +483,28 @@ function enforceStrictFleetSorting(pages) {
       usa5.push(p);
     }
   });
+  const usa6 = [];
+  FLEET_USA_06_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 156 + i + 1;
+      p.account = "Kalpesh Shah";
+      p.account_owner = "Kalpesh Shah";
+      p.account_tag = "Kalpesh Shah";
+      p.account_badge = "US";
+      p.box_group = "Kalpesh Shah";
+      p.region = "US";
+      p.country = "US";
+      p.flag = "icons/us.png";
+      usa6.push(p);
+    }
+  });
 
   // Collect any remaining pages if any
   const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_USA_04_IDS, ...FLEET_USA_05_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
-  return [...usa1, ...usa2, ...usa3, ...usa4, ...usa5, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
+  return [...usa1, ...usa2, ...usa3, ...usa4, ...usa5, ...usa6, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
 }
 
 function filterVideoCategory(cat) {
@@ -3945,7 +3982,25 @@ const DRIVE_CONFIGURED_PAGES = {
   "340559612467800": { pageName: "usa5_page_12", displayName: "Fly Happy", ready: true, videoCount: 315, folderId: "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH", handle: "flyhappy", account: "USA Account 5" },
   "472703539265672": { pageName: "usa5_page_13", displayName: "Flute Tomography Nature", ready: true, videoCount: 162, folderId: "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk", handle: "flutetomographynature", account: "USA Account 5" },
   "502777659582958": { pageName: "usa5_page_14", displayName: "Faro Fact", ready: true, videoCount: 133, folderId: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", handle: "farofact", account: "USA Account 5" },
-  "855725930966508": { pageName: "usa5_page_15", displayName: "Cosmic Mirage", ready: true, videoCount: 276, folderId: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", handle: "cosmicmirage", account: "USA Account 5" }
+  "855725930966508": { pageName: "usa5_page_15", displayName: "Cosmic Mirage", ready: true, videoCount: 276, folderId: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", handle: "cosmicmirage", account: "USA Account 5" },
+
+  // USA Account 6 Pages (Kalpesh Shah - 15 Pages)
+  "907450442461718": { pageName: "page_159", displayName: "Neon Life", ready: true, videoCount: 67, folderId: "1P6xt1xo_25SeR2ZSD0AvVhjOLw1HBxps", handle: "neonlife", account: "USA Account 6" },
+  "1026390193887535": { pageName: "page_160", displayName: "Ocean Breeze Post", ready: true, videoCount: 199, folderId: "1mujU0an1-H5Rzmba-8lUaj9-wyliNxJs", handle: "oceanbreezepost", account: "USA Account 6" },
+  "922363730970762": { pageName: "page_161", displayName: "Happy River Journal", ready: true, videoCount: 51, folderId: "1Dwx7TNz7MD5KqTXYRM0k2xnH6NwRgTd1", handle: "happyriverjournal", account: "USA Account 6" },
+  "935873802936980": { pageName: "page_162", displayName: "Echoes of Tomorrow", ready: true, videoCount: 52, folderId: "1X-fvuvF839VuwQ8KjajGdM9msH7GxFyS", handle: "echoesoftomorrow", account: "USA Account 6" },
+  "844271675438705": { pageName: "page_163", displayName: "Gonzales  Terry", ready: true, videoCount: 71, folderId: "1CnIQYos-wmkVuUClLH1r1ILLQ8Dwm_iY", handle: "gonzalesterry", account: "USA Account 6" },
+  "863106796879644": { pageName: "page_164", displayName: "Gonzalez  Paul", ready: true, videoCount: 199, folderId: "1AQwzULByYACcwO9UXwKHFEO54gY8Tmly", handle: "gonzalezpaul", account: "USA Account 6" },
+  "755804217626888": { pageName: "page_165", displayName: "Remedies The", ready: true, videoCount: 0, folderId: "1zxMlVAj392Ijd_Nolc-St3oom1QlYv7A", handle: "remediesthe", account: "USA Account 6" },
+  "756809930857575": { pageName: "page_166", displayName: "Roberts  Charles", ready: true, videoCount: 0, folderId: "10FVosLV31a0Coz-5orPY4uI9jeS4qhc2", handle: "robertscharles", account: "USA Account 6" },
+  "660234803835581": { pageName: "page_167", displayName: "Happy place", ready: true, videoCount: 129, folderId: "12TzotKAwMMV2M6Gt1vBAF9UFX-Fmw3XO", handle: "happyplace", account: "USA Account 6" },
+  "623092600889709": { pageName: "page_168", displayName: "Lively Moments", ready: true, videoCount: 158, folderId: "1UY6f-_7NcGg6PMFbodoSLmWaEcGaAboV", handle: "livelymoments", account: "USA Account 6" },
+  "531842053356648": { pageName: "page_169", displayName: "Laugh Flicks", ready: true, videoCount: 199, folderId: "1NqfOEB1hJnl2VzRigL3lv6uppJLCm05d", handle: "laughflicks", account: "USA Account 6" },
+  "625545143972469": { pageName: "page_170", displayName: "Funny Fizz", ready: true, videoCount: 75, folderId: "1oPjU-tnOg1yEjdanukEowMr5sM7A-aNH", handle: "funnyfizz", account: "USA Account 6" },
+  "491073987419875": { pageName: "page_171", displayName: "Library Other", ready: true, videoCount: 196, folderId: "1yUPN-jXITUqDju8eW1FoH5BrgKemKYOB", handle: "libraryother", account: "USA Account 6" },
+  "223564530849556": { pageName: "page_172", displayName: "Empire Frequency", ready: true, videoCount: 82, folderId: "1HaCxXmwAi8g_ZCVAWvRPHAuNUzzFnoDT", handle: "empirefrequency", account: "USA Account 6" },
+  "170121316193510": { pageName: "page_173", displayName: "Empire Doctrine", ready: true, videoCount: 199, folderId: "1_2ook2_doYRCEW-WsNnfkrscghuWhTQV", handle: "empiredoctrine", account: "USA Account 6" },
+
 };
 window.DRIVE_CONFIGURED_PAGES = DRIVE_CONFIGURED_PAGES;
 
