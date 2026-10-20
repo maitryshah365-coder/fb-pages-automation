@@ -13,6 +13,17 @@ def test_load_config():
     assert page1.token_env_var == "FB_TOKEN_PAGE_1"
     assert page1.daily_limit == 4
 
+def test_load_config_usa_account6():
+    config = load_config("config_usa_account6.yaml")
+    assert config.page_group == "usa_account_6_kalpesh"
+    assert len(config.pages) == 15
+    assert config.retry.max_attempts == 3
+
+    page159 = config.pages[0]
+    assert page159.name == "page_159"
+    assert page159.daily_limit == 4
+    assert page159.get_access_token() is not None
+
 def test_page_token_resolution(monkeypatch):
     p = PageConfig(
         page_id="12345",

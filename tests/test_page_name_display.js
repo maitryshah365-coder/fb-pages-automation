@@ -73,6 +73,6 @@ for (const p of pagesData.pages) {
     badCount++;
   }
 }
-console.log('All 156 pages in pages_data.json verified! Bad names count: ' + badCount);
+console.log('All ' + pagesData.pages.length + ' pages in pages_data.json verified! Bad names count: ' + badCount);
 if (badCount > 0) throw new Error('Pages verification failed!');
 console.log('ALL PAGE NAME DISPLAY UNIT TESTS PASSED 100%!');

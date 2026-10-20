@@ -1,7 +1,7 @@
 {
-  "audit_timestamp": "2026-10-20T13:41:06.800691+00:00",
-  "total_pages": 156,
-  "valid_tokens_count": 156,
+  "audit_timestamp": "2026-10-20T13:54:11.688681+00:00",
+  "total_pages": 171,
+  "valid_tokens_count": 171,
   "invalid_tokens_count": 0,
   "valid_percentage": 100.0,
   "invalid_pages": [],
@@ -62,6 +62,11 @@
       "invalid": 0
     },
     "Sejal Soni (USA)": {
+      "total": 15,
+      "valid": 15,
+      "invalid": 0
+    },
+    "USA Account 6": {
       "total": 15,
       "valid": 15,
       "invalid": 0

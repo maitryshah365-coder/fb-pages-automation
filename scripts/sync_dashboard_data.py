@@ -206,6 +206,24 @@ FLEET_USA_05_IDS = [
     "855725930966508"   # Cosmic Mirage
 ]
 
+FLEET_USA_06_IDS = [
+    "907450442461718",  # Neon Life
+    "1026390193887535", # Ocean Breeze Post
+    "922363730970762",  # Happy River Journal
+    "935873802936980",  # Echoes of Tomorrow
+    "844271675438705",  # Gonzales Terry
+    "863106796879644",  # Gonzalez Paul
+    "755804217626888",  # Remedies The
+    "756809930857575",  # Roberts Charles
+    "660234803835581",  # Happy place
+    "623092600889709",  # Lively Moments
+    "531842053356648",  # Laugh Flicks
+    "625545143972469",  # Funny Fizz
+    "491073987419875",  # Library Other
+    "223564530849556",  # Empire Frequency
+    "170121316193510"   # Empire Doctrine
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -233,7 +251,8 @@ def get_pages_list():
         {"account": "UK Account 7", "owner": "Riya Gaur", "region": "GB", "file": os.path.join(BASE_DIR, "data", "uk_account7_riya_permanent_pages.json")},
         {"account": "Account 3", "owner": "Radika Patel", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account3_radika_permanent_pages.json")},
         {"account": "USA Account 4", "owner": "Rohini Dutt", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account4_rohini_permanent_pages.json")},
-        {"account": "USA Account 5", "owner": "Sejal Soni", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account5_sejal_permanent_pages.json")}
+        {"account": "USA Account 5", "owner": "Sejal Soni", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account5_sejal_permanent_pages.json")},
+        {"account": "USA Account 6", "owner": "Kalpesh Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account6_kalpesh_permanent_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -295,7 +314,8 @@ def get_pages_list():
         (FLEET_UK_07_IDS, "Riya Gaur (UK)", "Riya Gaur", "GB", 101),
         (FLEET_USA_03_IDS, "Radika Patel (USA)", "Radika Patel", "US", 112),
         (FLEET_USA_04_IDS, "Rohini Dutt (USA)", "Rohini Dutt", "US", 127),
-        (FLEET_USA_05_IDS, "Sejal Soni (USA)", "Sejal Soni", "US", 142)
+        (FLEET_USA_05_IDS, "Sejal Soni (USA)", "Sejal Soni", "US", 142),
+        (FLEET_USA_06_IDS, "Kalpesh Shah (USA)", "Kalpesh Shah", "US", 157)
     ]
 
     final_pages = []
@@ -794,6 +814,18 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "flag": "🇺🇸",
             "timestamp": ts_val,
             "egress_status": "Verified Miami Egress"
+        }
+    elif pid in FLEET_USA_06_IDS or "Kalpesh" in acc_owner or "Kalpesh" in acc_str:
+        ip_data = {
+            "ip": live_ip,
+            "city": "New York",
+            "region": "New York (10001)",
+            "country": "United States",
+            "country_name": "United States",
+            "org": "AS20949 Surfshark Ltd (New York Gateway)",
+            "flag": "🇺🇸",
+            "timestamp": ts_val,
+            "egress_status": "Verified New York Egress"
         }
     elif pid in FLEET_UK_06_IDS or "Sweta" in acc_owner or "Sweta" in acc_str:
         ip_data = {

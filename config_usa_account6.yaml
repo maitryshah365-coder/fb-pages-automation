@@ -1,0 +1,152 @@
+page_group: usa_account_6_kalpesh
+account_name: Kalpesh Shah
+country_code: US
+target_location: New York, New York, United States
+require_us_ip: true
+require_uk_ip: false
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '907450442461718'
+  name: page_159
+  display_name: Neon Life
+  enabled: true
+  drive_folder_id: 1P6xt1xo_25SeR2ZSD0AvVhjOLw1HBxps
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSy4j6XS32F64IJxxOSbVRAOB7Cv9jyl9UcxxPyZAaiP6vzWZBTSZCDHMMS0GHWauc2qqoI6khstNz1EOACWJsrDc6iVhg9KxXA42hXh1braJ4vQg6L2CZBqYcxfEGc7aFvUteKR359FVSsn7wWnS9eTAEFEgnXwAwQdxsZChCH8iPF8eDa52HPySdjXRg2oPe3jzlBJefVCc8
+- page_id: '1026390193887535'
+  name: page_160
+  display_name: Ocean Breeze Post
+  enabled: true
+  drive_folder_id: 1mujU0an1-H5Rzmba-8lUaj9-wyliNxJs
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS2VogLmeaR69KUuVYZBMuep7i5lwMaZCzB811vtyyu2PzgWlKZC03FHUggq6fwtv3zgEOCIJiuwrv8umVddlNmvjwDUTWUZB7A6U5ZAlfqZAR7PX1ZCjTgIYvAfjwy8jRqtCDHarnb7ByZCcsaNcK5oNvqTXnwZA1q7TtYZCRhf8IEE8daR5XBBMRNa3zAZCcUFN4ijOBAsXRarazgH
+- page_id: '922363730970762'
+  name: page_161
+  display_name: Happy River Journal
+  enabled: true
+  drive_folder_id: 1Dwx7TNz7MD5KqTXYRM0k2xnH6NwRgTd1
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS3IYZBxmlQnH2tBRhTQcNh3Wxop6lfyHg8TqE7cGIJZA0MMpY0al6SumkHd34LtGCFW6ppNaGaN4DyHGpJwI4oP2CNrcvZAk9kmGRASZAa3ltdYGb8mntQaKlJEDVgdLZAz2RL0Y9iXcW70BMxRW1Hsg1QoIc3CgIZCKJobRWanBvP9r2tdXToEDOdimPQ5EEyG5YoZCkubVQPf
+- page_id: '935873802936980'
+  name: page_162
+  display_name: Echoes of Tomorrow
+  enabled: true
+  drive_folder_id: 1X-fvuvF839VuwQ8KjajGdM9msH7GxFyS
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSZCB94ZBWzsfgrNpKW1I90ZAbYWxUIC4ALXsUaNIyDONDG3UFmoQtKDIUCcY2z3OPdCiX30GzVSWaeBHboPzRitkJZC7N5AyiSV68JCRww56GOPVyrG3zYOwpXnubWRgLg8N6TlihYGCsENbGvsWRxR3WZBG5ZAN3jay5Lat82CcGjpV8gppyX0mZAZAFDXifJPLHrHwfoX5Ey0ZC
+- page_id: '844271675438705'
+  name: page_163
+  display_name: Gonzales  Terry
+  enabled: true
+  drive_folder_id: 1CnIQYos-wmkVuUClLH1r1ILLQ8Dwm_iY
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS6RE60sZCoUyM6Od67hrsgunyAh9QK3quZCPlvqaf5MQxu3KRqeLRNAJ2S8GFbbSMBaErYjhGzsOhLUzhLWWwfZBW9ZBtJpp1KVpmE0VUEjEZBdvyTNJHrJ3RcaZCEIoSAx3N7ZAiZCmGwUvrQpXrQAsKYYK12xjaR2zUNWQhWmLZCEWbaKbSj0O0SFQLS8KAqviFLuN4TsKbXxBa
+- page_id: '863106796879644'
+  name: page_164
+  display_name: Gonzalez  Paul
+  enabled: true
+  drive_folder_id: 1AQwzULByYACcwO9UXwKHFEO54gY8Tmly
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS7Nra3H3skckjL0UnZCBOh0RCvaEbV7jMIBDfJswnuHnSeTGy2KNiicHvQQK9Nfap0Tt9gvY5GvxZAUtFQ9PLKop774itj9c8tycp6F4Q3vKWZCFZCyFe4izbgcCBn3Oz5DKr1xKZAZC6xllAX7pX5k5UZBXHXrbYXaaobyJMpYZAgHio2NJ2mNccdehqrUjoCsPwblxULJGkMYL
+- page_id: '755804217626888'
+  name: page_165
+  display_name: Remedies The
+  enabled: true
+  drive_folder_id: 1zxMlVAj392Ijd_Nolc-St3oom1QlYv7A
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSZBzZAmzZAELZBfGRZBHfFeW3ofStZCGYuL2pdhXBG96G2RMQHacPKZAwTc7YvcBqLCiyShjqSQ6giEZCAn2ZCnWLz0gN823WVBNbwsuaqoS98KLAGMWXipZB003AJYOxy6wQW9j9zS4RfVshiR3g62nVLQCiSbtcg1Uf9MH9rtZALZAIP3bO8tGwBewoMjE9K01ewUu7MGNXXcZAjySX
+- page_id: '756809930857575'
+  name: page_166
+  display_name: Roberts  Charles
+  enabled: true
+  drive_folder_id: 10FVosLV31a0Coz-5orPY4uI9jeS4qhc2
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS2p4nVHzq0EfI0fu4KuszFQSjO8AblIrjSkGdmCdxnLhv02l5oxf0F88uIBf1A3zjzY1p8TDiKfMgOBoy2z6dsZBw4WrOmC8O0IGXxcdctEPZB7l4J4hH6W4xgwnuplUZBA79ngCVU4v12SD0nlGOFO6UfS2mFJZCeZC62d4TExr6Rm8MwvGlnqzzrkuc6ZAPanF5doacEPzsK
+- page_id: '660234803835581'
+  name: page_167
+  display_name: Happy place
+  enabled: true
+  drive_folder_id: 12TzotKAwMMV2M6Gt1vBAF9UFX-Fmw3XO
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSZBl7rMoaYBYNK4Kia5q7lryFDhopNRXXJNCiWAgsjAkg4WQKnm8SRaxdWjMmnaftr3Yh27IZAhAReOXcVhkYY8Pqqgdml4xQHwW1WldDalA93ZBOwWztyKFcLD8zjSiWjkDdPL2XHcubsZAQVwNYB8DZBDLF4GtBK3801UQHLKEG8pZCzONZAA3lEpd9Ny1VAtKby3WTn1Lkib
+- page_id: '623092600889709'
+  name: page_168
+  display_name: Lively Moments
+  enabled: true
+  drive_folder_id: 1UY6f-_7NcGg6PMFbodoSLmWaEcGaAboV
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSwpSl0UxW2bM7EqRpNYElRFxyv6xK9nGZALNZAzldYCFRhREYy5Fcc8fKT22N2MCVZAnBDLptmxjRsMRrrhz6LF2DfKBjvj2p2XAoxdmOMXnWSJ1YKRVAUGXQCqRwpoqOzeORzgwc41jkU3NDd3bPJdH4mtnYXjhxTBBMnGVSZCcrAgZBBRmdiZA4wABsZBzun4kGoOVOoUz0OF
+- page_id: '531842053356648'
+  name: page_169
+  display_name: Laugh Flicks
+  enabled: true
+  drive_folder_id: 1NqfOEB1hJnl2VzRigL3lv6uppJLCm05d
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSy1EN3uYPZAm0GAdy2qXcEfZA1PnAZBQArIt70YkBb0gOtPfzSfpvReu9shygqlsNwl79MPwrl2cmG4L4ERZC5P9XakPZBfv0eB9Da7RdG2i1UPmAxuoLZBaNqkxwslW7z8jFXmXSIc4YpIR8DGHnQG8ugn1yR7fxepSjnEzvNgnmGHZAYg35fFrRlZBSu7GJxn0dtY5OjZB6zSyx
+- page_id: '625545143972469'
+  name: page_170
+  display_name: Funny Fizz
+  enabled: true
+  drive_folder_id: 1oPjU-tnOg1yEjdanukEowMr5sM7A-aNH
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS7Aki8nEgcX1Wyh5TqY8I99Oy9V7V4DEdn1482G19zFRREviIWhZCA8OP1AVImzyR20fuMptx7s1sNZAtwuQEmAJeD7dGc8qzRN3hwZADPZAMVyiLfHbi82H8AGPseZBM4tZBYA9ZAdkI09UHDtj19pVnxEfDqF9eeiiLZAxRNAqppcCdZCWfG9Q6fl28lCwWxgXagxBXq0f2LZCZBE
+- page_id: '491073987419875'
+  name: page_171
+  display_name: Library Other
+  enabled: true
+  drive_folder_id: 1yUPN-jXITUqDju8eW1FoH5BrgKemKYOB
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSzK3loRs5NZAx0jV7K9RZBWREyZB59Jpsn1lQTIhs5dS1skeltZCS6ZAznHup8CaVJWZCpskQnz7n7I3TLCedSUAa2DLMeMUmQazwrW0NX7PHZAGYHUOH0pcQ1L1wQTTnqI9GofJETC4x5iISaKuKKt2eFKrHZBsTGg1bbDFgfqRHX6orqZCALRXOQAamIZCEHMTGLGwGVURoQPGmu
+- page_id: '223564530849556'
+  name: page_172
+  display_name: Empire Frequency
+  enabled: true
+  drive_folder_id: 1HaCxXmwAi8g_ZCVAWvRPHAuNUzzFnoDT
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS0bJQA7zDDvNDjI3nmZCpkWgv3iGbqB1agSZA5mcaSNt3fEZCx9hBhAbBSd4cCTvZCPXiWd0JMVZBjf8hiirs5ugD65RGU8n63drYyqqoHkwKBiAWxZCxkJhRsVdOWITjG4ZBjHZCxZCZCtXafJEZAOJ3a2yjcue6vEqxgWmjGjGXXpZA1XZC6fhNekmAyJx66JavZBZAIicZAcJ7z5qJngZD
+- page_id: '170121316193510'
+  name: page_173
+  display_name: Empire Doctrine
+  enabled: true
+  drive_folder_id: 1_2ook2_doYRCEW-WsNnfkrscghuWhTQV
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS40hZBCHrxcZBunOjvL1hYaR6gLbyGwIZCKfmB4oNR57OcBtl2b1FW6y5XNO2USld8R54ZANRSWFg8bBKJbQCoiZCEZBrddNBaftwlAz89K7XmE37CE5J8bPaiR6DiRiKEmPhJZAgB4ZCNbYrBp3jezqNOZATOyqek0VbMZBH5fRd9CMpJmgfYe1JYXISrXCVNvY6P75T9tmtXaRgZD

@@ -38,6 +38,12 @@ APP_REGISTRY = [
         "owner": "Sejal Soni",
         "app_id": "2274401039767800",
         "app_secret": None
+    },
+    {
+        "account": "USA Account 6",
+        "owner": "Kalpesh Shah",
+        "app_id": "1579607307542374",
+        "app_secret": "68b779b69d53590ca724ee64e6944c29"
     }
 ]
 
