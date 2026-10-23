@@ -41,7 +41,17 @@
       "city": "Manchester",
       "org": "AS203020 HostRoyale Technologies Pvt Ltd",
       "hit_count": 1
+    },
+    "109.204.52.82": {
+      "flagged_at": "2026-10-23T22:38:51.937592+00:00",
+      "reasons": [
+        "Country Mismatch: Detected '', expected 'US'"
+      ],
+      "country": "",
+      "city": "Unknown",
+      "org": "Unknown",
+      "hit_count": 1
     }
   },
-  "updated_at": "2026-10-21T00:03:31.625854+00:00"
+  "updated_at": "2026-10-23T22:38:51.937566+00:00"
 }
