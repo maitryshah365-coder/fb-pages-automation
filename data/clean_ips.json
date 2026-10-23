@@ -519,11 +519,11 @@
       "success_count": 2
     },
     "103.138.124.34": {
-      "last_verified_at": "2026-10-02T08:58:40.643645+00:00",
+      "last_verified_at": "2026-10-22T23:45:03.987537+00:00",
       "country": "GB",
-      "city": "Salford",
+      "city": "Manchester",
       "org": "AS203020 HostRoyale Technologies Pvt Ltd",
-      "success_count": 1
+      "success_count": 2
     },
     "86.106.157.163": {
       "last_verified_at": "2026-10-05T21:38:02.370505+00:00",
@@ -2010,5 +2010,5 @@
       "success_count": 1
     }
   },
-  "updated_at": "2026-10-22T23:29:35.200165+00:00"
+  "updated_at": "2026-10-22T23:45:03.987513+00:00"
 }
