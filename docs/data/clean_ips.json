@@ -1471,11 +1471,11 @@
       "success_count": 1
     },
     "185.245.82.2": {
-      "last_verified_at": "2026-10-13T21:49:56.776801+00:00",
+      "last_verified_at": "2026-10-23T19:42:35.663713+00:00",
       "country": "GB",
       "city": "London",
       "org": "AS62240 Clouvider",
-      "success_count": 1
+      "success_count": 2
     },
     "169.150.203.247": {
       "last_verified_at": "2026-10-13T23:46:59.457814+00:00",
@@ -2031,5 +2031,5 @@
       "success_count": 1
     }
   },
-  "updated_at": "2026-10-23T19:22:29.727047+00:00"
+  "updated_at": "2026-10-23T19:42:35.663693+00:00"
 }
