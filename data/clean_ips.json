@@ -1905,11 +1905,11 @@
       "success_count": 1
     },
     "194.54.144.65": {
-      "last_verified_at": "2026-10-21T05:17:14.646360+00:00",
+      "last_verified_at": "2026-10-23T23:15:28.302071+00:00",
       "country": "US",
       "city": "New York City",
       "org": "AS62240 Clouvider",
-      "success_count": 1
+      "success_count": 2
     },
     "84.17.35.102": {
       "last_verified_at": "2026-10-23T18:25:15.572972+00:00",
@@ -2045,5 +2045,5 @@
       "success_count": 1
     }
   },
-  "updated_at": "2026-10-23T23:23:48.396753+00:00"
+  "updated_at": "2026-10-23T23:15:28.302048+00:00"
 }
