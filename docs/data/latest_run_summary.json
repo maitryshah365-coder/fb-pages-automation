@@ -1,7 +1,7 @@
 {
-  "run_id": "40757973459",
-  "run_number": "652",
-  "completed_at": "2026-10-28T21:05:05.968198+00:00",
+  "run_id": "40762625296",
+  "run_number": "654",
+  "completed_at": "2026-10-28T21:14:50.564449+00:00",
   "runner_telemetry": {
     "ip": "37.19.199.222",
     "hostname": "unn-37-19-199-222.datapacket.com",
@@ -17,160 +17,142 @@
   "dry_run": false,
   "results": [
     {
-      "status": "success",
-      "page": "page_31",
-      "drive_file_id": "1wPxEhOCis65zLCqQ5EIoGInoV1fm72zv",
-      "facebook_video_id": "1425167059780722",
-      "filename": "This Could Not Have Gone Worse #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals..mp4",
-      "post_type": "reel",
-      "page_id": "1033900793135926",
-      "page_config_name": "page_31",
-      "display_name": "Cloud berry Lane"
-    },
-    {
-      "status": "success",
-      "page": "page_32",
-      "drive_file_id": "1W6tewRuR3yzs8_A4rTzOCjNLaAQRjN8o",
-      "facebook_video_id": "1129997836074830",
-      "filename": "The Hidden Truth Was Finally Seen #MysteryBox #WaitForIt #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #BoxOpening #UnexpectedReveal..mp4",
-      "post_type": "reel",
-      "page_id": "984876688045322",
-      "page_config_name": "page_32",
-      "display_name": "Sunset Mint Post"
-    },
-    {
-      "status": "success",
-      "page": "page_33",
-      "drive_file_id": "1IWlPkHdJyBBMS8PYvKYSbsi7mpq4Mcsk",
-      "facebook_video_id": "1771143270770117",
-      "filename": "guess the winner  🍾🍾🍾 coke 🤣 pepsi  😘 7 up 😍 sprite 😂 mirinda😀 mountain due😉 thump up  😎😎 .mp4",
-      "post_type": "reel",
-      "page_id": "928116440385651",
-      "page_config_name": "page_33",
-      "display_name": "Timeless Glimpse"
-    },
-    {
-      "status": "no_content",
-      "page": "page_34",
-      "drive_files_seen": 0,
-      "page_id": "495281633679562",
-      "page_config_name": "page_34",
-      "display_name": "The Entertainment Zone"
-    },
-    {
-      "status": "success",
-      "page": "page_35",
-      "drive_file_id": "1LTC9fNJTdFdDIVScYi77jLiAPBi6YZoN",
-      "facebook_video_id": "1437300215200451",
-      "filename": "Pain #shorts.mp4",
-      "post_type": "reel",
-      "page_id": "461899523680517",
-      "page_config_name": "page_35",
-      "display_name": "House Note"
-    },
-    {
-      "status": "success",
-      "page": "page_36",
-      "drive_file_id": "18OpFDz_kgTzbutNkeMHkylENqVqx8cGV",
-      "facebook_video_id": "4697569450518944",
-      "filename": "This sound is the most beautiful in the world. #goldfactory #gold .mp4",
-      "post_type": "reel",
-      "page_id": "512339515286069",
-      "page_config_name": "page_36",
-      "display_name": "Wand Wizardry Legend"
-    },
-    {
-      "status": "success",
-      "page": "page_37",
-      "drive_file_id": "1aL6XcKumU_-oytS4YapSTxduRyJy1c2K",
-      "facebook_video_id": "2689240864806425",
-      "filename": "青山绿水，常德网红水上漂挑战，看起来简单跑起来难。记录美好瞬间。打卡锦绣潇湘文旅新地标。#常德绿岛蓝湾景区 _3.mp4",
-      "post_type": "reel",
-      "page_id": "481027178422627",
-      "page_config_name": "page_37",
-      "display_name": "Potato Flamingo"
-    },
-    {
       "status": "failed",
-      "page": "page_38",
-      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
-      "page_id": "377394845467706",
-      "page_config_name": "page_38",
-      "display_name": "Wu Tong's Family"
-    },
-    {
-      "status": "no_content",
-      "page": "page_39",
-      "drive_files_seen": 0,
-      "page_id": "301441593063746",
-      "page_config_name": "page_39",
-      "display_name": "Prestige Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_40",
-      "drive_file_id": "1qVac6G4cP2t5xYXS5LV3vWVZJcrLf4V8",
-      "facebook_video_id": "1102291265912712",
-      "filename": "这是我的西瓜！ #GG小苏 #农村搞笑段子 #看一遍笑一遍 .mp4",
-      "post_type": "reel",
-      "page_id": "372905129232715",
-      "page_config_name": "page_40",
-      "display_name": "Sthefany oliveira"
-    },
-    {
-      "status": "failed",
-      "page": "page_41",
+      "page": "page_144",
       "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "271543462710279",
-      "page_config_name": "page_41",
-      "display_name": "Iron Republic"
+      "page_id": "534342423102401",
+      "page_config_name": "page_144",
+      "display_name": "The Daily Spark"
     },
     {
-      "status": "success",
-      "page": "page_42",
-      "drive_file_id": "14cLySLHgeOGcjn7yG_O_XpT7peW7UAEw",
-      "facebook_video_id": "1629228315358654",
-      "filename": "The Hidden Surprise Finally Appeared #MysteryBox #WaitForIt #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #BoxOpening #UnexpectedReveal_2..mp4",
-      "post_type": "reel",
-      "page_id": "209182608951563",
-      "page_config_name": "page_42",
-      "display_name": "Shadow Executive"
+      "status": "failed",
+      "page": "page_145",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "564341273430022",
+      "page_config_name": "page_145",
+      "display_name": "The Chill Spot"
+    },
+    {
+      "status": "failed",
+      "page": "page_146",
+      "error": "HTTPSConnectionPool(host='graph.facebook.com', port=443): Max retries exceeded with url: /v20.0/497636683426759/video_reels (Caused by NameResolutionError(\"HTTPSConnection(host='graph.facebook.com', port=443): Failed to resolve 'graph.facebook.com' ([Errno -3] Temporary failure in name resolution)\"))",
+      "page_id": "497636683426759",
+      "page_config_name": "page_146",
+      "display_name": "Tag The"
     },
     {
       "status": "no_content",
-      "page": "page_43",
-      "drive_files_seen": 0,
-      "page_id": "241688455685265",
-      "page_config_name": "page_43",
-      "display_name": "Hu1"
+      "page": "page_147",
+      "drive_files_seen": 1,
+      "page_id": "877069835495630",
+      "page_config_name": "page_147",
+      "display_name": "Stellar Vibes"
+    },
+    {
+      "status": "failed",
+      "page": "page_148",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "615554031639811",
+      "page_config_name": "page_148",
+      "display_name": "Sovereign Collective"
+    },
+    {
+      "status": "failed",
+      "page": "page_149",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "1033250263200686",
+      "page_config_name": "page_149",
+      "display_name": "Silent Grove"
+    },
+    {
+      "status": "failed",
+      "page": "page_150",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "614891248372171",
+      "page_config_name": "page_150",
+      "display_name": "Royal Vanguard"
+    },
+    {
+      "status": "no_content",
+      "page": "page_151",
+      "drive_files_seen": 1,
+      "page_id": "686470024541027",
+      "page_config_name": "page_151",
+      "display_name": "Royal Frontier"
+    },
+    {
+      "status": "failed",
+      "page": "page_152",
+      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
+      "page_id": "424138757454796",
+      "page_config_name": "page_152",
+      "display_name": "Rajat Gupta"
+    },
+    {
+      "status": "failed",
+      "page": "page_153",
+      "error": "HTTPSConnectionPool(host='graph.facebook.com', port=443): Read timed out. (read timeout=30)",
+      "page_id": "976706512196056",
+      "page_config_name": "page_153",
+      "display_name": "Mouth The Hang"
+    },
+    {
+      "status": "failed",
+      "page": "page_154",
+      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
+      "page_id": "473290599201289",
+      "page_config_name": "page_154",
+      "display_name": "Mojo Day"
     },
     {
       "status": "success",
-      "page": "page_44",
-      "drive_file_id": "1p4fX9buBZBId2dSDgxjhDYLssIlbHGHY",
-      "facebook_video_id": "1448980354032605",
-      "filename": "This Is Why Meetings Exist #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals._1.mp4",
+      "page": "page_155",
+      "drive_file_id": "1BoXFRlTY2UeC9-JLzSgRim5TwVexdjcp",
+      "facebook_video_id": "1623181285657320",
+      "filename": "Tool Items!😍New Viral Gadgets, Smart Appliances, Kitchen Utensils⧸Home Inventions #viral #goodthing _153.mp4",
       "post_type": "reel",
-      "page_id": "171465126060636",
-      "page_config_name": "page_44",
-      "display_name": "Alpha Dynasty"
+      "page_id": "340559612467800",
+      "page_config_name": "page_155",
+      "display_name": "Fly Happy"
     },
     {
       "status": "success",
-      "page": "page_45",
-      "drive_file_id": "11Au7VDKLtpdA1H_PZ9bhC0Y0Tg5cjAfi",
-      "facebook_video_id": "1418665156590289",
-      "filename": "😯Cute Paper Crafts!？ #cute #cutecrafts #papercraft #crafts #craft #cute .mp4",
+      "page": "page_156",
+      "drive_file_id": "1-AHx-skMJfJ7lv_QTYOa4nb7jAeGQgvH",
+      "facebook_video_id": "1584228823011736",
+      "filename": "진짜 낫또가 되는 퍼즐 #asmr #ai .mp4",
       "post_type": "reel",
-      "page_id": "160240527166280",
-      "page_config_name": "page_45",
-      "display_name": "Path Summer"
+      "page_id": "472703539265672",
+      "page_config_name": "page_156",
+      "display_name": "Flute Tomography Nature"
+    },
+    {
+      "status": "success",
+      "page": "page_157",
+      "drive_file_id": "1Y8jkmZsIkEiXo7YhUjMQTRqSKOIz39V4",
+      "facebook_video_id": "1850146096421004",
+      "filename": "非常有趣的桌面玩具，亲子互动弹射棋，把棋子全都弹到对面就赢了#儿童玩具 #亲子互动 .mp4",
+      "post_type": "reel",
+      "page_id": "502777659582958",
+      "page_config_name": "page_157",
+      "display_name": "Faro Fact"
+    },
+    {
+      "status": "success",
+      "page": "page_158",
+      "drive_file_id": "1Pj2j18u5Ck0a5vckHAdL2viO-8x7f1Gq",
+      "facebook_video_id": "1087364550788823",
+      "filename": "🎉💦Watch this baby’s hilarious💦🐼 reaction to a surprise hissing sound! 😂🐾(NO-593) .mp4",
+      "post_type": "reel",
+      "page_id": "855725930966508",
+      "page_config_name": "page_158",
+      "display_name": "Cosmic Mirage"
     }
   ],
   "stats": {
     "total": 15,
-    "success": 10,
-    "skipped": 3,
-    "failed": 2
+    "success": 4,
+    "skipped": 2,
+    "failed": 9
   }
 }
