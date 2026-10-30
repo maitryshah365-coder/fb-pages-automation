@@ -2337,7 +2337,14 @@
       "city": "London",
       "org": "AS25369 Hydra Communications Ltd",
       "success_count": 1
+    },
+    "154.47.24.95": {
+      "last_verified_at": "2026-10-30T14:45:45.042002+00:00",
+      "country": "GB",
+      "city": "London",
+      "org": "AS212238 Datacamp Limited",
+      "success_count": 1
     }
   },
-  "updated_at": "2026-10-30T06:01:25.460047+00:00"
+  "updated_at": "2026-10-30T14:45:45.041979+00:00"
 }
