@@ -743,11 +743,11 @@
       "success_count": 5
     },
     "212.116.230.26": {
-      "last_verified_at": "2026-10-05T09:29:42.395364+00:00",
+      "last_verified_at": "2026-10-31T19:42:19.435839+00:00",
       "country": "GB",
       "city": "London",
       "org": "AS209854 Cyberzone S.A.",
-      "success_count": 1
+      "success_count": 2
     },
     "178.239.163.82": {
       "last_verified_at": "2026-10-21T14:01:21.779756+00:00",
@@ -2395,5 +2395,5 @@
       "success_count": 1
     }
   },
-  "updated_at": "2026-10-31T19:24:04.418103+00:00"
+  "updated_at": "2026-10-31T19:42:19.435821+00:00"
 }
