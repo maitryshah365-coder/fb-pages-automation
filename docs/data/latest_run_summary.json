@@ -1,9 +1,9 @@
 {
-  "run_id": "41282234603",
-  "run_number": "708",
-  "completed_at": "2026-11-01T06:54:13.452606+00:00",
+  "run_id": "41280614419",
+  "run_number": "707",
+  "completed_at": "2026-11-01T07:23:05.042427+00:00",
   "runner_telemetry": {
-    "ip": "146.70.186.164",
+    "ip": "185.149.195.75",
     "city": "New York City",
     "region": "New York",
     "country": "US",
@@ -16,130 +16,169 @@
   "dry_run": false,
   "results": [
     {
-      "status": "failed",
-      "page": "page_159",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "907450442461718",
-      "page_config_name": "page_159",
-      "display_name": "Neon Life"
+      "status": "success",
+      "page": "page_144",
+      "drive_file_id": "1AwHm7WvmQ77f3CH-njWxArxbCIMGE37B",
+      "facebook_video_id": "896656963442392",
+      "filename": "Simple and easy trailer rope tying method  #shorts.mp4",
+      "post_type": "reel",
+      "page_id": "534342423102401",
+      "page_config_name": "page_144",
+      "display_name": "The Daily Spark"
     },
     {
-      "status": "failed",
-      "page": "page_160",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "1026390193887535",
-      "page_config_name": "page_160",
-      "display_name": "Ocean Breeze Post"
+      "status": "success",
+      "page": "page_145",
+      "drive_file_id": "1w4b7rorNIBSLji77CAIcV4wE3Jex8YhE",
+      "facebook_video_id": "1124527963895159",
+      "filename": "butter ASMR🧈 ＊wax vs. butter vs. honey＊ #asmr #squishy .mp4..mp4",
+      "post_type": "reel",
+      "page_id": "564341273430022",
+      "page_config_name": "page_145",
+      "display_name": "The Chill Spot"
     },
     {
-      "status": "failed",
-      "page": "page_161",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "922363730970762",
-      "page_config_name": "page_161",
-      "display_name": "Happy River Journal"
+      "status": "success",
+      "page": "page_146",
+      "drive_file_id": "1KdqLerv0KwlInOt8n_0zLLsGNkHtGJ1b",
+      "facebook_video_id": "1150394517394307",
+      "filename": "羊公子离开了…… #夏日气象剧 #老铁笑一笑 #办公室日常 .mp4",
+      "post_type": "reel",
+      "page_id": "497636683426759",
+      "page_config_name": "page_146",
+      "display_name": "Tag The"
     },
     {
-      "status": "failed",
-      "page": "page_162",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "935873802936980",
-      "page_config_name": "page_162",
-      "display_name": "Echoes of Tomorrow"
+      "status": "no_content",
+      "page": "page_147",
+      "drive_files_seen": 1,
+      "page_id": "877069835495630",
+      "page_config_name": "page_147",
+      "display_name": "Stellar Vibes"
     },
     {
-      "status": "failed",
-      "page": "page_163",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "844271675438705",
-      "page_config_name": "page_163",
-      "display_name": "Gonzales  Terry"
+      "status": "success",
+      "page": "page_148",
+      "drive_file_id": "1uxyLWRTGl6uDFeogUY5eeb8mRGDCou-N",
+      "facebook_video_id": "1631532302032387",
+      "filename": "这样刮鱼鳞方便多了 .mp4",
+      "post_type": "reel",
+      "page_id": "615554031639811",
+      "page_config_name": "page_148",
+      "display_name": "Sovereign Collective"
     },
     {
-      "status": "failed",
-      "page": "page_164",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "863106796879644",
-      "page_config_name": "page_164",
-      "display_name": "Gonzalez  Paul"
+      "status": "success",
+      "page": "page_149",
+      "drive_file_id": "1rp4whr0pYhkQYeCvI_jvmKjJDQ_kkXVl",
+      "facebook_video_id": "4500169383645761",
+      "filename": "The Box Contained Something Legendary #MysteryBox #HiddenWorld #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #WatchTillEnd #Transformation..mp4",
+      "post_type": "reel",
+      "page_id": "1033250263200686",
+      "page_config_name": "page_149",
+      "display_name": "Silent Grove"
     },
     {
-      "status": "failed",
-      "page": "page_165",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "755804217626888",
-      "page_config_name": "page_165",
-      "display_name": "Remedies The"
+      "status": "success",
+      "page": "page_150",
+      "drive_file_id": "11P-dQaW7wfxPdZIOiig5IRGnN8e67mdn",
+      "facebook_video_id": "1777205470065376",
+      "filename": "It’s not banana 😜 Oops 😬 .mp4",
+      "post_type": "reel",
+      "page_id": "614891248372171",
+      "page_config_name": "page_150",
+      "display_name": "Royal Vanguard"
     },
     {
-      "status": "failed",
-      "page": "page_166",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "756809930857575",
-      "page_config_name": "page_166",
-      "display_name": "Roberts  Charles"
+      "status": "no_content",
+      "page": "page_151",
+      "drive_files_seen": 1,
+      "page_id": "686470024541027",
+      "page_config_name": "page_151",
+      "display_name": "Royal Frontier"
     },
     {
-      "status": "failed",
-      "page": "page_167",
-      "error": "Authentication/Permission error: [Classic Video Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "660234803835581",
-      "page_config_name": "page_167",
-      "display_name": "Happy place"
+      "status": "success",
+      "page": "page_152",
+      "drive_file_id": "1SP8MznCC9Fagq9DPFFx-4kyCQXygH7iv",
+      "facebook_video_id": "1120646807336938",
+      "filename": "野外生存技巧之《脱裤子放屁系列》去分享给你的大冤头来学习吧！ #内容启发分享计划 #快影光合计划 #快影大咖秀 _25.mp4",
+      "post_type": "reel",
+      "page_id": "424138757454796",
+      "page_config_name": "page_152",
+      "display_name": "Rajat Gupta"
     },
     {
-      "status": "failed",
-      "page": "page_168",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "623092600889709",
-      "page_config_name": "page_168",
-      "display_name": "Lively Moments"
+      "status": "success",
+      "page": "page_153",
+      "drive_file_id": "1xS6FfCfe4spyKS5EBlsP1rpbBVhY9l6I",
+      "facebook_video_id": "2176799222932335",
+      "filename": "The Dog Had One Simple Job #FunnyDog #GoldenRetriever #DogComedy #Shorts #Reels #ViralVideo #FYP #CuteDogs #Trending #DogLife..mp4",
+      "post_type": "reel",
+      "page_id": "976706512196056",
+      "page_config_name": "page_153",
+      "display_name": "Mouth The Hang"
     },
     {
-      "status": "failed",
-      "page": "page_169",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "531842053356648",
-      "page_config_name": "page_169",
-      "display_name": "Laugh Flicks"
+      "status": "success",
+      "page": "page_154",
+      "drive_file_id": "1CEnvlYDm4UdXzJlbD9qfKax-tnb0CYze",
+      "facebook_video_id": "29504352659232679",
+      "filename": "How to Draw Pikachu with Letter H ｜ Easy Drawing for Kids 🖍️✨ #pikachu #shorts #ytshorts #trending .mp4",
+      "post_type": "reel",
+      "page_id": "473290599201289",
+      "page_config_name": "page_154",
+      "display_name": "Mojo Day"
     },
     {
-      "status": "failed",
-      "page": "page_170",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "625545143972469",
-      "page_config_name": "page_170",
-      "display_name": "Funny Fizz"
+      "status": "success",
+      "page": "page_155",
+      "drive_file_id": "1KCRryps_eBYVbjIX0pXe6NP8Kp7FAqGG",
+      "facebook_video_id": "1122638790668393",
+      "filename": "Tool Items!😍New Viral Gadgets, Smart Appliances, Kitchen Utensils⧸Home Inventions #viral #goodthing _64.mp4",
+      "post_type": "reel",
+      "page_id": "340559612467800",
+      "page_config_name": "page_155",
+      "display_name": "Fly Happy"
     },
     {
-      "status": "failed",
-      "page": "page_171",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "491073987419875",
-      "page_config_name": "page_171",
-      "display_name": "Library Other"
+      "status": "success",
+      "page": "page_156",
+      "drive_file_id": "1mPfR12mWOb6WwwUA1LnGGJnzccZTUwAT",
+      "facebook_video_id": "1154175483804592",
+      "filename": "쫄깃쫄깃 슬라임 밥 만들기 #asmr .mp4",
+      "post_type": "reel",
+      "page_id": "472703539265672",
+      "page_config_name": "page_156",
+      "display_name": "Flute Tomography Nature"
     },
     {
-      "status": "failed",
-      "page": "page_172",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "223564530849556",
-      "page_config_name": "page_172",
-      "display_name": "Empire Frequency"
+      "status": "success",
+      "page": "page_157",
+      "drive_file_id": "1kjaXahliM83x6oaTvIY7cSE8UtkK1yoT",
+      "facebook_video_id": "1894772631896546",
+      "filename": "非常有趣的桌面玩具，亲子对战棋 _1.mp4",
+      "post_type": "reel",
+      "page_id": "502777659582958",
+      "page_config_name": "page_157",
+      "display_name": "Faro Fact"
     },
     {
-      "status": "failed",
-      "page": "page_173",
-      "error": "Authentication/Permission error: [Reels Start Phase] Graph API Error 190 (subcode: None, type: OAuthException): Any of the pages_read_engagement, pages_manage_metadata,\n        pages_read_user_content, pages_manage_ads, pages_show_list or\n        pages_messaging permission(s) must be granted before impersonating a\n        user's page.",
-      "page_id": "170121316193510",
-      "page_config_name": "page_173",
-      "display_name": "Empire Doctrine"
+      "status": "success",
+      "page": "page_158",
+      "drive_file_id": "1QdhXkesYNbAjje-LScLIhib4oR_-Qhyx",
+      "facebook_video_id": "1570439778462409",
+      "filename": "🏛️💦＂Unexpected babu hiss - hissing unboxing moment Fun -funny !✅(NO-975)#toys #viral #video .mp4",
+      "post_type": "reel",
+      "page_id": "855725930966508",
+      "page_config_name": "page_158",
+      "display_name": "Cosmic Mirage"
     }
   ],
   "stats": {
     "total": 15,
-    "success": 0,
-    "skipped": 0,
-    "failed": 15
+    "success": 13,
+    "skipped": 2,
+    "failed": 0
   }
 }
