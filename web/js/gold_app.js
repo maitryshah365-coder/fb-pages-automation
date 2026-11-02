@@ -8372,6 +8372,7 @@ function renderImageUploadsView() {
   renderImageUploadsTable();
   updateImageUploadsHeroCards();
   initNextImageCountdown();
+  if (typeof updateNextImageTargetQueue === "function") updateNextImageTargetQueue();
 }
 window.renderImageUploadsView = renderImageUploadsView;
 
@@ -8658,12 +8659,55 @@ function initNextImageCountdown() {
   }
 
   updateImageClock();
+  if (typeof updateNextImageTargetQueue === "function") updateNextImageTargetQueue();
   if (typeof setInterval !== "undefined") {
     if (nextImageCountdownTimer) clearInterval(nextImageCountdownTimer);
     nextImageCountdownTimer = setInterval(updateImageClock, 1000);
   }
 }
 window.initNextImageCountdown = initNextImageCountdown;
+
+function updateNextImageTargetQueue() {
+  const nameEl = document.getElementById("nextTargetPageName");
+  const idEl = document.getElementById("nextTargetPageId");
+  const avatarEl = document.getElementById("nextTargetPageAvatar");
+  const countryEl = document.getElementById("nextTargetCountryBadge");
+  const accountEl = document.getElementById("nextTargetAccount");
+  const nicheEl = document.getElementById("nextTargetNiche");
+
+  if (!nameEl) return;
+
+  // Determine current/next target from pages or blueprint
+  let target = null;
+  if (typeof FLEET_VERTICAL_BLUEPRINT !== "undefined" && Array.isArray(FLEET_VERTICAL_BLUEPRINT?.fleet)) {
+    target = FLEET_VERTICAL_BLUEPRINT.fleet[0];
+  }
+  if (!target && fullData?.pages && fullData.pages.length > 0) {
+    target = fullData.pages.find(p => String(p.id) === "988523547680750") || fullData.pages[0];
+  }
+
+  if (target) {
+    const pid = String(target.page_id || target.id || "988523547680750");
+    const pName = (typeof getPageDisplayName === "function" ? getPageDisplayName(target) : target.page_name) || target.page_name || "Mix Mood";
+    const acc = target.account_manager || target.account || "Meghal Chauhan (USA 1)";
+    const isUK = acc.includes("UK") || (target.country === "GB");
+    const flag = isUK ? "🇬🇧" : "🇺🇸";
+    const countryName = isUK ? "UK Fleet" : "USA Fleet";
+    const niche = target.assigned_vertical_key || "miniature_diorama_disaster";
+    const cleanNiche = niche.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+
+    nameEl.innerText = pName;
+    if (idEl) idEl.innerText = `ID: ${pid}`;
+    if (countryEl) countryEl.innerHTML = `${flag} ${countryName}`;
+    if (accountEl) accountEl.innerText = `👤 ${acc}`;
+    if (nicheEl) nicheEl.innerText = `🎨 ${cleanNiche}`;
+    if (avatarEl) {
+      avatarEl.src = `https://graph.facebook.com/v20.0/${pid}/picture?type=large`;
+    }
+  }
+}
+window.updateNextImageTargetQueue = updateNextImageTargetQueue;
+
 
 function updateImageUploadsHeroCards() {
   const allImages = (uploadHistoryData || []).filter(item => item.post_type === "infographic" || item.post_type === "image");

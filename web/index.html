@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.3.6">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.3.7">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -847,16 +847,7 @@
     <!-- ================= LIVE IMAGES UPLOADING (REAL-TIME PHOTO BROADCAST & IP TELEMETRY AUDIT) ================= -->
     <div id="imageUploadsFeedView" class="dashboard-view-container" style="display: none;">
       
-      <!-- Top Status Banner -->
-      <div class="dash-page-status-strip">
-        <div class="status-strip-left">
-          <span class="live-dot-pulse" style="background:#ec4899; box-shadow:0 0 10px #ec4899;">●</span>
-          <span class="status-strip-text"><strong>LIVE IMAGES UPLOADING</strong> • Real-time proof of automated 6x daily image broadcasts with runner IP, City, State, Country & Direct Facebook Link</span>
-        </div>
-        <div class="status-strip-right">
-          <span class="badge-meta-verified" style="background:rgba(236,72,153,0.15); color:#f472b6; border-color:rgba(236,72,153,0.35);">14 ARCHETYPES • 6X DAILY</span>
-        </div>
-      </div>
+
 
       <!-- Dual Hero: Next Image Upload Radar & Last Uploaded Image Showcase -->
       <section class="image-uploads-radar-hero" id="imageUploadsRadarHero">
@@ -886,6 +877,51 @@
             </div>
             <div class="image-countdown-sub" id="nextImageCountdownSub">
               Time Remaining Until Next 6-Slot Broadcast Across 171 Pages
+            </div>
+          </div>
+
+          <!-- NEXT TARGET QUEUE: EXACT PAGE, ID, MANAGER & COUNTRY -->
+          <div class="image-next-target-box" id="imageNextTargetBox">
+            <div class="target-box-header">
+              <div class="target-box-title">
+                <span class="target-pulse">🎯</span>
+                <span>UPCOMING TARGET IN QUEUE:</span>
+              </div>
+              <span class="target-country-badge" id="nextTargetCountryBadge">🇺🇸 USA Fleet</span>
+            </div>
+
+            <div class="target-channel-row">
+              <img id="nextTargetPageAvatar" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" alt="Target Page" class="target-page-avatar" onerror="this.src='icons/icon-192.png'">
+              <div class="target-channel-info">
+                <div class="target-channel-name-row">
+                  <span class="target-channel-name" id="nextTargetPageName">Mix Mood</span>
+                  <span class="target-channel-id-badge" id="nextTargetPageId">ID: 988523547680750</span>
+                </div>
+                <div class="target-meta-sub">
+                  <span class="target-account-mgr" id="nextTargetAccount">👤 Meghal Chauhan (USA 1)</span>
+                  <span class="target-sep">•</span>
+                  <span class="target-niche" id="nextTargetNiche">🎨 Miniature Diorama Disaster</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fleet Distribution Bar -->
+            <div class="target-fleet-summary">
+              <div class="fleet-pill-stat">
+                <span class="pill-flag">🇺🇸</span>
+                <span class="pill-label">USA Fleet:</span>
+                <span class="pill-val">5 Accounts • 59 Pages</span>
+              </div>
+              <div class="fleet-pill-stat">
+                <span class="pill-flag">🇬🇧</span>
+                <span class="pill-label">UK Fleet:</span>
+                <span class="pill-val">7 Accounts • 82 Pages</span>
+              </div>
+              <div class="fleet-pill-stat">
+                <span class="pill-flag">🌐</span>
+                <span class="pill-label">Total Dispatch:</span>
+                <span class="pill-val highlight">171 Active Pages</span>
+              </div>
             </div>
           </div>
 
@@ -1702,7 +1738,7 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=10.3.6"></script>
+  <script src="js/gold_app.js?v=10.3.7"></script>
   <!-- Infographic Full Image Modal -->
   <div id="imagePreviewModal" class="app-modal" style="display:none;">
     <div class="modal-backdrop" onclick="closeImagePreviewModal()"></div>
