@@ -1,0 +1,110 @@
+name: Autonomous Facebook Infographics Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode (no actual Facebook POST)"
+        required: false
+        type: boolean
+        default: false
+      page:
+        description: "Optional: Specific page name or ID to run"
+        required: false
+        type: string
+        default: ""
+      slot:
+        description: "Optional: Specific slot index (0 to 5)"
+        required: false
+        type: string
+        default: ""
+
+  # 6 Times Daily (Every 4 Hours UTC / IST):
+  # Slot 0: 00:00 UTC (05:30 AM IST)
+  # Slot 1: 04:00 UTC (09:30 AM IST)
+  # Slot 2: 08:00 UTC (01:30 PM IST)
+  # Slot 3: 12:00 UTC (05:30 PM IST)
+  # Slot 4: 16:00 UTC (09:30 PM IST)
+  # Slot 5: 20:00 UTC (01:30 AM IST)
+  schedule:
+    - cron: "0 0 * * *"
+    - cron: "0 4 * * *"
+    - cron: "0 8 * * *"
+    - cron: "0 12 * * *"
+    - cron: "0 16 * * *"
+    - cron: "0 20 * * *"
+
+concurrency:
+  group: facebook-infographics-${{ github.event.inputs.page || github.event.schedule || 'default' }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  execute-infographics:
+    name: Execute 6-Time Daily Infographic Publishing
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install System Fonts & Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-dejavu-core fonts-freefont-ttf
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Execute Autonomous Infographics Engine
+        run: |
+          ARGS="--live"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="--dry-run"
+          fi
+          if [ -n "${{ github.event.inputs.page }}" ]; then
+            ARGS="$ARGS --page '${{ github.event.inputs.page }}'"
+          fi
+          if [ -n "${{ github.event.inputs.slot }}" ]; then
+            ARGS="$ARGS --slot ${{ github.event.inputs.slot }}"
+          fi
+          
+          python scripts/run_infographics.py $ARGS
+
+      - name: Persist SQLite Database & Infographic State
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/ docs/data/ web/data/
+          if [ -n "$(git status --porcelain data/ docs/data/ web/data/)" ]; then
+            git commit -m "chore: persist automated infographic uploads & ledger [skip ci]"
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase -X theirs origin/main && git push origin main && break || {
+                git rebase --abort 2>/dev/null || true
+                sleep 5
+              }
+            done
+          else
+            echo "No state changes to commit."
+          fi
+
+      - name: Upload Logs Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: infographic-logs-${{ github.run_id }}
+          path: logs/
+          retention-days: 14
