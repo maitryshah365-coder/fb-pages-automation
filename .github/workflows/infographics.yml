@@ -26,13 +26,10 @@ on:
   # Slot 3: 12:00 UTC (05:30 PM IST)
   # Slot 4: 16:00 UTC (09:30 PM IST)
   # Slot 5: 20:00 UTC (01:30 AM IST)
+  # Continuous Hourly Infographics Pipeline (Every Hour):
+  # Eliminates the 2.5-hour dead gap! Broadcasts continuous hourly staggered waves across all 171 pages!
   schedule:
-    - cron: "0 0 * * *"
-    - cron: "0 4 * * *"
-    - cron: "0 8 * * *"
-    - cron: "0 12 * * *"
-    - cron: "0 16 * * *"
-    - cron: "0 20 * * *"
+    - cron: "0 * * * *"
 
 concurrency:
   group: facebook-infographics-${{ github.event.inputs.page || github.event.schedule || 'default' }}

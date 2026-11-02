@@ -8576,48 +8576,36 @@ window.formatArchetypeTag = formatArchetypeTag;
 
 function getNextImageSlotInfo() {
   const now = new Date();
-  const slotList = [
-    { idx: 0, slot: "Slot 1", timeIst: "01:30 AM IST", utcHour: 20 },
-    { idx: 1, slot: "Slot 2", timeIst: "05:30 AM IST", utcHour: 0 },
-    { idx: 2, slot: "Slot 3", timeIst: "09:30 AM IST", utcHour: 4 },
-    { idx: 3, slot: "Slot 4", timeIst: "01:30 PM IST", utcHour: 8 },
-    { idx: 4, slot: "Slot 5", timeIst: "05:30 PM IST", utcHour: 12 },
-    { idx: 5, slot: "Slot 6", timeIst: "09:30 PM IST", utcHour: 16 }
-  ];
 
-  let nextSlotDate = null;
-  let nextSlotObj = null;
+  // Next top-of-hour staggered fleet dispatch wave
+  const nextWaveDate = new Date(Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate(),
+    now.getUTCHours() + 1,
+    0,
+    0
+  ));
 
-  for (let dayOffset = 0; dayOffset <= 1; dayOffset++) {
-    for (let s of slotList) {
-      const candidate = new Date(Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate() + dayOffset,
-        s.utcHour, 0, 0
-      ));
-      if (candidate.getTime() > now.getTime()) {
-        if (!nextSlotDate || candidate.getTime() < nextSlotDate.getTime()) {
-          nextSlotDate = candidate;
-          nextSlotObj = s;
-        }
-      }
-    }
-    if (nextSlotDate) break;
-  }
-
-  const diffMs = nextSlotDate ? Math.max(0, nextSlotDate.getTime() - now.getTime()) : 0;
+  const diffMs = Math.max(0, nextWaveDate.getTime() - now.getTime());
   const diffSec = Math.floor(diffMs / 1000);
   const hours = Math.floor(diffSec / 3600);
   const minutes = Math.floor((diffSec % 3600) / 60);
   const seconds = diffSec % 60;
 
+  const nextIstStr = nextWaveDate.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+  }).toUpperCase();
+
   return {
     hours: String(hours).padStart(2, "0"),
     minutes: String(minutes).padStart(2, "0"),
     seconds: String(seconds).padStart(2, "0"),
-    slotObj: nextSlotObj,
-    nextSlotDate: nextSlotDate
+    badgeText: `Next Wave • ${nextIstStr} IST`,
+    nextSlotDate: nextWaveDate
   };
 }
 window.getNextImageSlotInfo = getNextImageSlotInfo;
@@ -8633,29 +8621,7 @@ function initNextImageCountdown() {
     if (hEl) hEl.innerText = info.hours;
     if (mEl) mEl.innerText = info.minutes;
     if (sEl) sEl.innerText = info.seconds;
-
-    if (badgeEl && info.slotObj) {
-      badgeEl.innerText = `${info.slotObj.slot} • ${info.slotObj.timeIst}`;
-    }
-
-    // Update 6-slot chips
-    const activeSlotIdx = info.slotObj ? info.slotObj.idx : 1;
-    for (let i = 0; i < 6; i++) {
-      const chip = document.getElementById(`slotChip_${i}`);
-      if (!chip) continue;
-      chip.classList.remove("slot-done", "slot-active");
-      const statusEl = chip.querySelector(".slot-status");
-      
-      if (i < activeSlotIdx) {
-        chip.classList.add("slot-done");
-        if (statusEl) statusEl.innerText = "✓ Live";
-      } else if (i === activeSlotIdx) {
-        chip.classList.add("slot-active");
-        if (statusEl) statusEl.innerText = "⚡ Next Up";
-      } else {
-        if (statusEl) statusEl.innerText = "Pending";
-      }
-    }
+    if (badgeEl) badgeEl.innerText = info.badgeText;
   }
 
   updateImageClock();
