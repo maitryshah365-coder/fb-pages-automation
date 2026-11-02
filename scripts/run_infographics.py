@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import time
 import argparse
 import logging
 import requests
@@ -155,6 +156,8 @@ def run_pipeline(
                 slot_index=current_slot
             )
             success_count += 1
+            if not dry_run:
+                time.sleep(2.0)
 
         except Exception as e:
             logger.error(f"  -> 🔴 FAILED for {name}: {e}")
