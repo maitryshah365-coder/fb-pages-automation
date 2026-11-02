@@ -11,7 +11,7 @@ if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
 from src.infographic_db import InfographicDB
-from src.infographic_engine import InfographicEngine, VERTICAL_TOPIC_BANKS, ANGLE_MODES
+from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA
 from src.infographic_scheduler import InfographicScheduler
 
 logging.basicConfig(
@@ -76,7 +76,6 @@ def run_pipeline(
     logger.info(f"Total Pages Queued in Run: {len(filtered_fleet)}")
 
     success_count = 0
-    skipped_count = 0
     fail_count = 0
 
     for idx, p in enumerate(filtered_fleet):
@@ -86,44 +85,35 @@ def run_pipeline(
         p_meta = pages_meta.get(pid, {})
         access_token = p_meta.get("access_token")
 
-        # Calculate exact staggered timing
         slot_timing = InfographicScheduler.calculate_page_slot_time(idx, current_slot)
 
-        # 1. Select unposted topic & angle
-        topic_pool = VERTICAL_TOPIC_BANKS.get(vertical_key, VERTICAL_TOPIC_BANKS["wildlife_apex_predators"])
-        
-        selected_topic = None
-        selected_angle = None
+        # 1. Select unposted topic strictly from this vertical's authentic bank
+        v_data = AUTHENTIC_VERTICAL_DATA.get(vertical_key, AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"])
+        topic_pool = v_data.get("topics", [])
 
-        # Look for first unposted combination
+        selected_topic = None
         for t in topic_pool:
-            for a in ANGLE_MODES:
-                if not db.is_topic_angle_posted(pid, t["slug"], a["key"]):
-                    selected_topic = t
-                    selected_angle = a
-                    break
-            if selected_topic:
+            if not db.is_topic_angle_posted(pid, t["slug"], "v1"):
+                selected_topic = t
                 break
 
-        # If all predefined cycled through, recycle with fresh dynamic seed
+        # If all cycled, dynamic wrap around
         if not selected_topic:
             selected_topic = topic_pool[idx % len(topic_pool)]
-            selected_angle = ANGLE_MODES[(idx + current_slot) % len(ANGLE_MODES)]
 
         # 2. Render Full HD Graphic
-        out_image_name = f"info_{pid}_{selected_topic['slug']}_{selected_angle['key']}.png"
+        out_image_name = f"info_{pid}_{selected_topic['slug']}.png"
         out_image_path = os.path.join(BASE_DIR, "temp", "infographics", out_image_name)
 
         logger.info(f"[{idx+1}/{len(filtered_fleet)}] Page: {name} (ID: {pid}) | Slot Timing: {slot_timing['scheduled_time_utc']}")
         logger.info(f"  -> Vertical: {p['assigned_vertical_label']}")
-        logger.info(f"  -> Selected Topic: {selected_topic['name']} | Angle: {selected_angle['badge']}")
+        logger.info(f"  -> Selected Topic: {selected_topic['title']}")
 
         try:
             render_res = engine.render_infographic(
                 page_name=name,
                 vertical_key=vertical_key,
                 topic=selected_topic,
-                angle=selected_angle,
                 output_path=out_image_path
             )
 
@@ -147,7 +137,7 @@ def run_pipeline(
                 page_id=pid,
                 vertical_key=vertical_key,
                 topic_slug=selected_topic["slug"],
-                angle_mode=selected_angle["key"],
+                angle_mode="v1",
                 title=render_res["title"],
                 hashtags=p["infographic_specs"]["target_hashtags"][0] if p["infographic_specs"]["target_hashtags"] else "#reels",
                 image_path=out_image_path,
@@ -163,8 +153,8 @@ def run_pipeline(
                 page_id=pid,
                 vertical_key=vertical_key,
                 topic_slug=selected_topic["slug"] if selected_topic else "unknown",
-                angle_mode=selected_angle["key"] if selected_angle else "unknown",
-                title=selected_topic["name"] if selected_topic else "unknown",
+                angle_mode="v1",
+                title=selected_topic["title"] if selected_topic else "unknown",
                 hashtags="#error",
                 image_path=None,
                 fb_photo_id=None,
@@ -190,4 +180,3 @@ if __name__ == "__main__":
 
     is_dry = not args.live
     run_pipeline(dry_run=is_dry, target_page=args.page, target_slot=args.slot, limit=args.limit)
-

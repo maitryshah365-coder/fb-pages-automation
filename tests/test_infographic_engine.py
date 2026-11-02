@@ -9,7 +9,7 @@ if BASE_DIR not in sys.path:
 
 from src.infographic_db import InfographicDB
 from src.infographic_scheduler import InfographicScheduler
-from src.infographic_engine import InfographicEngine, VERTICAL_TOPIC_BANKS, ANGLE_MODES
+from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA
 
 class TestInfographicAutomationEngine(unittest.TestCase):
 
@@ -69,15 +69,13 @@ class TestInfographicAutomationEngine(unittest.TestCase):
 
     def test_full_hd_render_dimensions(self):
         """Audit Check: Verifies 1080x1350 pixel output and RGB mode."""
-        topic = VERTICAL_TOPIC_BANKS["wildlife_apex_predators"][0]
-        angle = ANGLE_MODES[0]
+        topic = AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"]["topics"][0]
         out_path = "temp/test_render.png"
 
         res = self.engine.render_infographic(
-            page_name="Apex Wildlife",
-            vertical_key="wildlife_apex_predators",
+            page_name="Mix Mood",
+            vertical_key="miniature_diorama_disaster",
             topic=topic,
-            angle=angle,
             output_path=out_path
         )
         self.assertTrue(os.path.exists(out_path))
