@@ -182,7 +182,10 @@ def run_pipeline(
     dry_run: bool = True,
     target_page: str = None,
     target_slot: int = None,
-    limit: int = None
+    limit: int = None,
+    fleet: str = "all",
+    require_us: bool = False,
+    require_uk: bool = False
 ):
     blueprint, pages_meta = load_fleet_data()
     db = InfographicDB(os.path.join(BASE_DIR, "data", "posted_videos.db"))
@@ -197,9 +200,42 @@ def run_pipeline(
     else:
         logger.info("🌐 Probed Runner Cloud IP: Server-to-Server Meta Graph API Direct")
 
+    detected_country = (live_ip_probe.get("country") or "").strip().upper()
+
+    # HARD FAIL-SAFE KILL-SWITCH: Enforce USA Egress if requested
+    if require_us or os.environ.get("REQUIRE_US_IP", "").lower() in ["true", "1", "yes"]:
+        if detected_country not in ["US", "USA"]:
+            logger.critical("==================================================================")
+            logger.critical("🚨 HARD KILL-SWITCH ACTIVATED: IP IS NOT IN THE UNITED STATES!")
+            logger.critical(f"   Detected Country: '{detected_country}' | Probed IP: {live_ip_probe.get('ip')}")
+            logger.critical("   ABORTING INFOGRAPHIC PIPELINE TO PREVENT NON-US UPLOADS.")
+            logger.critical("==================================================================")
+            sys.exit(1)
+        else:
+            logger.info(f"🛡️ US VERIFICATION CONFIRMED: Egress IP {live_ip_probe.get('ip')} is located in United States ({live_ip_probe.get('city')}, {detected_country}). Safe to upload!")
+
+    # HARD FAIL-SAFE KILL-SWITCH: Enforce UK Egress if requested
+    if require_uk or os.environ.get("REQUIRE_UK_IP", "").lower() in ["true", "1", "yes"]:
+        if detected_country not in ["GB", "UK"]:
+            logger.critical("==================================================================")
+            logger.critical("🚨 HARD KILL-SWITCH ACTIVATED: IP IS NOT IN THE UNITED KINGDOM!")
+            logger.critical(f"   Detected Country: '{detected_country}' | Probed IP: {live_ip_probe.get('ip')}")
+            logger.critical("   ABORTING INFOGRAPHIC PIPELINE TO PREVENT NON-UK UPLOADS.")
+            logger.critical("==================================================================")
+            sys.exit(1)
+        else:
+            logger.info(f"🛡️ UK VERIFICATION CONFIRMED: Egress IP {live_ip_probe.get('ip')} is located in United Kingdom ({live_ip_probe.get('city')}, {detected_country}). Safe to upload!")
+
     filtered_fleet = blueprint
+    if fleet and fleet.lower() == "usa":
+        filtered_fleet = [p for p in filtered_fleet if 'USA' in p.get('account_manager', '') or any(k in p.get('account_manager', '') for k in ['Meghal', 'Mia', 'Radika', 'Rohini', 'Sejal', 'Kalpesh'])]
+        logger.info(f"🇺🇸 USA Fleet Filter Applied: {len(filtered_fleet)} Pages Selected")
+    elif fleet and fleet.lower() == "uk":
+        filtered_fleet = [p for p in filtered_fleet if not ('USA' in p.get('account_manager', '') or any(k in p.get('account_manager', '') for k in ['Meghal', 'Mia', 'Radika', 'Rohini', 'Sejal', 'Kalpesh']))]
+        logger.info(f"🇬🇧 UK Fleet Filter Applied: {len(filtered_fleet)} Pages Selected")
+
     if target_page:
-        filtered_fleet = [p for p in blueprint if target_page.lower() in p["page_name"].lower() or target_page == p["page_id"]]
+        filtered_fleet = [p for p in filtered_fleet if target_page.lower() in p["page_name"].lower() or target_page == p["page_id"]]
 
     if limit:
         filtered_fleet = filtered_fleet[:limit]
@@ -358,6 +394,9 @@ if __name__ == "__main__":
     parser.add_argument("--page", type=str, default=None, help="Specific page name or ID to run")
     parser.add_argument("--slot", type=int, default=None, help="Target slot index (0 to 5)")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of pages to process")
+    parser.add_argument("--fleet", type=str, choices=["all", "usa", "uk"], default="all", help="Target regional fleet (usa, uk, all)")
+    parser.add_argument("--require-us", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United States (US)")
+    parser.add_argument("--require-uk", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United Kingdom (GB)")
 
     args = parser.parse_args()
     is_dry_run = not args.live or args.dry_run
@@ -366,5 +405,8 @@ if __name__ == "__main__":
         dry_run=is_dry_run,
         target_page=args.page,
         target_slot=args.slot,
-        limit=args.limit
+        limit=args.limit,
+        fleet=args.fleet,
+        require_us=args.require_us,
+        require_uk=args.require_uk
     )
