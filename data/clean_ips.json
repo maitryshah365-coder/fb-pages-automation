@@ -1212,11 +1212,11 @@
       "success_count": 3
     },
     "194.54.144.107": {
-      "last_verified_at": "2026-11-01T23:29:58.576312+00:00",
+      "last_verified_at": "2026-11-02T02:35:12.635018+00:00",
       "country": "US",
       "city": "New York City",
       "org": "AS62240 Clouvider",
-      "success_count": 2
+      "success_count": 3
     },
     "185.44.77.47": {
       "last_verified_at": "2026-10-18T19:25:01.869534+00:00",
@@ -2458,5 +2458,5 @@
       "success_count": 1
     }
   },
-  "updated_at": "2026-11-02T02:12:31.718881+00:00"
+  "updated_at": "2026-11-02T02:35:12.635000+00:00"
 }
