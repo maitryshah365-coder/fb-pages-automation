@@ -54,6 +54,35 @@ def post_photo_to_facebook(page_id: str, access_token: str, image_path: str, cap
         raise RuntimeError(f"Incomplete photo publish response: {res.text}")
     return photo_id
 
+def sync_infographics_to_upload_history(posted_records):
+    """Syncs posted infographics into upload_history.json across docs and web."""
+    if not posted_records:
+        return
+        
+    for p_dir in ["docs", "web"]:
+        h_path = os.path.join(BASE_DIR, p_dir, "data", "upload_history.json")
+        if not os.path.exists(h_path):
+            continue
+        try:
+            with open(h_path, "r", encoding="utf-8") as f:
+                h_data = json.load(f)
+            
+            existing_history = h_data.get("history", [])
+            existing_ids = {str(item.get("id")) for item in existing_history}
+            
+            new_items = [r for r in posted_records if str(r.get("id")) not in existing_ids]
+            if new_items:
+                h_data["history"] = new_items + existing_history
+                h_data["total_records"] = len(h_data["history"])
+                h_data["total_db_posted"] = h_data.get("total_db_posted", len(h_data["history"])) + len(new_items)
+                h_data["updated_at"] = datetime.now(timezone.utc).isoformat()
+                
+                with open(h_path, "w", encoding="utf-8") as f:
+                    json.dump(h_data, f, indent=2, ensure_ascii=False)
+                logger.info(f"Synced {len(new_items)} infographics into {h_path}")
+        except Exception as e:
+            logger.error(f"Failed to sync {h_path}: {e}")
+
 def run_pipeline(
     dry_run: bool = True,
     target_page: str = None,
@@ -78,6 +107,7 @@ def run_pipeline(
 
     success_count = 0
     fail_count = 0
+    posted_records = []
 
     for idx, p in enumerate(filtered_fleet):
         pid = p["page_id"]
@@ -156,6 +186,26 @@ def run_pipeline(
                 slot_index=current_slot
             )
             success_count += 1
+            if fb_id:
+                posted_records.append({
+                    "id": fb_id,
+                    "video_id": fb_id,
+                    "title": render_res["title"],
+                    "page_id": pid,
+                    "page_name": name,
+                    "page_pic": f"https://graph.facebook.com/v20.0/{pid}/picture?type=large",
+                    "thumbnail": "",
+                    "views": 0,
+                    "posted_at": datetime.now(timezone.utc).isoformat(),
+                    "post_type": "infographic",
+                    "direct_link": f"https://www.facebook.com/photo/?fbid={fb_id}",
+                    "account": p.get("account_manager", "USA"),
+                    "country_code": "US" if "USA" in p.get("account_manager", "") else "GB",
+                    "country_flag": "🇺🇸 USA" if "USA" in p.get("account_manager", "") else "🇬🇧 UK",
+                    "location": "Server Cloud (Automation)",
+                    "template": selected_template,
+                    "art_style": selected_art
+                })
             if not dry_run:
                 time.sleep(2.0)
 
@@ -175,6 +225,9 @@ def run_pipeline(
                 error_message=str(e)
             )
             fail_count += 1
+
+    if posted_records:
+        sync_infographics_to_upload_history(posted_records)
 
     logger.info(f"=== INFOGRAPHIC PIPELINE COMPLETE: {success_count} Succeeded, {fail_count} Failed ===")
     return {"success": success_count, "failed": fail_count}
