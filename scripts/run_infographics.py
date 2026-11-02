@@ -11,7 +11,7 @@ if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
 from src.infographic_db import InfographicDB
-from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA, TEMPLATE_STYLES, PALETTE_THEMES
+from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA, TEMPLATE_STYLES, PALETTE_THEMES, ART_STYLE_KEYS
 from src.infographic_scheduler import InfographicScheduler
 
 logging.basicConfig(
@@ -91,25 +91,27 @@ def run_pipeline(
         v_data = AUTHENTIC_VERTICAL_DATA.get(vertical_key, AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"])
         topic_pool = v_data.get("topics", [])
 
-        # 2. Dynamic Rotation Plan (Rotates Layout Template & Color Theme on every single run)
+        # 2. Dynamic Rotation Plan (Rotates Layout Template, Color Theme & Art Style on every single run)
         plan = db.get_next_rotation_plan(
             page_id=pid,
             topic_pool=topic_pool,
             template_pool=TEMPLATE_STYLES,
-            theme_pool=list(PALETTE_THEMES.keys())
+            theme_pool=list(PALETTE_THEMES.keys()),
+            art_style_pool=ART_STYLE_KEYS
         )
         selected_topic = plan["topic"]
         selected_template = plan["template"]
         selected_theme = plan["theme"]
+        selected_art = plan.get("art_style", "pixar_3d")
         angle_mode = plan["angle_mode"]
 
         # 3. Render Full HD Graphic
-        out_image_name = f"info_{pid}_{selected_topic['slug']}_{selected_template}.png"
+        out_image_name = f"info_{pid}_{selected_topic['slug']}_{selected_template}_{selected_art}.png"
         out_image_path = os.path.join(BASE_DIR, "temp", "infographics", out_image_name)
 
         logger.info(f"[{idx+1}/{len(filtered_fleet)}] Page: {name} (ID: {pid}) | Slot Timing: {slot_timing['scheduled_time_utc']}")
         logger.info(f"  -> Vertical: {p['assigned_vertical_label']}")
-        logger.info(f"  -> Style Archetype: [{selected_template}] | Theme: [{selected_theme}]")
+        logger.info(f"  -> Template: [{selected_template}] | Theme: [{selected_theme}] | Art: [{selected_art}]")
         logger.info(f"  -> Selected Topic: {selected_topic['title']}")
 
         try:
@@ -119,7 +121,8 @@ def run_pipeline(
                 topic=selected_topic,
                 output_path=out_image_path,
                 template_name=selected_template,
-                theme_name=selected_theme
+                theme_name=selected_theme,
+                art_style_name=selected_art
             )
 
             fb_id = None

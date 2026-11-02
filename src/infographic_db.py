@@ -11,7 +11,7 @@ class InfographicDB:
     """
     SQLite Ledger for Automated Infographics:
     - Guarantees ZERO duplicate topics per page across infinite cycles.
-    - Tracks dynamic angle/style variations (vintage_fieldguide, anatomical_pointer, bento_dashboard, canva_poster, cinematic_hero).
+    - Tracks dynamic angle/style variations (template, theme, and art style like Pixar 3D, Ghibli, 2D Vector, etc.).
     - Records upload history, post IDs, and timestamps.
     """
 
@@ -100,14 +100,19 @@ class InfographicDB:
         page_id: str,
         topic_pool: List[Dict[str, Any]],
         template_pool: List[str],
-        theme_pool: List[str]
+        theme_pool: List[str],
+        art_style_pool: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """
-        Dynamically selects the next topic, template, and theme:
+        Dynamically selects the next topic, template, theme, and visual art style:
         - Cycles through template styles so no two consecutive posts look alike.
-        - Rotates color palettes.
+        - Rotates vibrant color palettes.
+        - Rotates artistic mediums (Pixar 3D, Ghibli, 2D Vector, 8K Photo, Cyberpunk, Lithograph).
         - Prioritizes unposted topics to eliminate duplication.
         """
+        if not art_style_pool:
+            art_style_pool = ["pixar_3d", "ghibli_anime", "flat_vector_canva", "photorealistic_8k", "cyberpunk_neon", "vintage_lithograph"]
+
         posted_slugs = set(self.get_posted_topic_slugs(page_id))
         
         # 1. Select unposted topic
@@ -121,7 +126,6 @@ class InfographicDB:
         if not selected_topic and topic_pool:
             last_post = self.get_last_post_for_page(page_id)
             last_slug = last_post.get("topic_slug") if last_post else None
-            # Pick next topic after last_slug
             idx = 0
             if last_slug:
                 for i, t in enumerate(topic_pool):
@@ -130,29 +134,37 @@ class InfographicDB:
                         break
             selected_topic = topic_pool[idx]
 
-        # 2. Select next template in rotation
         last_post = self.get_last_post_for_page(page_id)
         last_angle = last_post.get("angle_mode", "") if last_post else ""
-        
-        # angle_mode format: template_name:theme_name or template_name
-        last_template = last_angle.split(":")[0] if ":" in last_angle else last_angle
+        parts = last_angle.split(":") if last_angle else []
+
+        # 2. Select next template
+        last_template = parts[0] if len(parts) > 0 else ""
         next_t_idx = 0
         if last_template in template_pool:
             next_t_idx = (template_pool.index(last_template) + 1) % len(template_pool)
         selected_template = template_pool[next_t_idx]
 
-        # 3. Select next theme in rotation
-        last_theme = last_angle.split(":")[1] if ":" in last_angle else ""
+        # 3. Select next theme
+        last_theme = parts[1] if len(parts) > 1 else ""
         next_th_idx = 0
         if last_theme in theme_pool:
             next_th_idx = (theme_pool.index(last_theme) + 1) % len(theme_pool)
         selected_theme = theme_pool[next_th_idx]
 
+        # 4. Select next art style
+        last_art = parts[2] if len(parts) > 2 else ""
+        next_art_idx = 0
+        if last_art in art_style_pool:
+            next_art_idx = (art_style_pool.index(last_art) + 1) % len(art_style_pool)
+        selected_art = art_style_pool[next_art_idx]
+
         return {
             "topic": selected_topic,
             "template": selected_template,
             "theme": selected_theme,
-            "angle_mode": f"{selected_template}:{selected_theme}"
+            "art_style": selected_art,
+            "angle_mode": f"{selected_template}:{selected_theme}:{selected_art}"
         }
 
     def record_upload(

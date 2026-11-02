@@ -9,7 +9,7 @@ if BASE_DIR not in sys.path:
 
 from src.infographic_db import InfographicDB
 from src.infographic_scheduler import InfographicScheduler
-from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA, TEMPLATE_STYLES, PALETTE_THEMES
+from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA, TEMPLATE_STYLES, PALETTE_THEMES, ART_STYLE_KEYS
 
 class TestInfographicAutomationEngine(unittest.TestCase):
 
@@ -31,7 +31,7 @@ class TestInfographicAutomationEngine(unittest.TestCase):
         """Audit Check: Verifies that duplicate topic+angle combinations are rejected."""
         page_id = "test_page_101"
         slug = "bengal_tiger"
-        angle = "anatomical_pointer:midnight_cyan"
+        angle = "anatomical_pointer:midnight_neon_spectrum:pixar_3d"
 
         # Initially unposted
         self.assertFalse(self.db.is_topic_angle_posted(page_id, slug, angle))
@@ -53,19 +53,21 @@ class TestInfographicAutomationEngine(unittest.TestCase):
         self.assertTrue(self.db.is_topic_angle_posted(page_id, slug, angle))
 
         # Other angle for same topic must be free
-        self.assertFalse(self.db.is_topic_angle_posted(page_id, slug, "bento_dashboard:obsidian_amber"))
+        self.assertFalse(self.db.is_topic_angle_posted(page_id, slug, "vibrant_multicolor:pop_sky_azure:ghibli_anime"))
 
-    def test_dynamic_style_and_theme_rotation(self):
-        """Audit Check: Verifies that subsequent runs for a page rotate through templates and themes."""
+    def test_dynamic_style_and_art_rotation(self):
+        """Audit Check: Verifies that subsequent runs rotate through templates, themes, and art styles."""
         page_id = "test_page_rotate_99"
         topic_pool = AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"]["topics"]
         templates = TEMPLATE_STYLES
         palettes = list(PALETTE_THEMES.keys())
+        arts = ART_STYLE_KEYS
 
         # First selection
-        plan1 = self.db.get_next_rotation_plan(page_id, topic_pool, templates, palettes)
+        plan1 = self.db.get_next_rotation_plan(page_id, topic_pool, templates, palettes, arts)
         self.assertIn(plan1["template"], templates)
         self.assertIn(plan1["theme"], palettes)
+        self.assertIn(plan1["art_style"], arts)
 
         # Record first upload
         self.db.record_upload(
@@ -80,8 +82,8 @@ class TestInfographicAutomationEngine(unittest.TestCase):
             status="posted"
         )
 
-        # Second selection must be a DIFFERENT template
-        plan2 = self.db.get_next_rotation_plan(page_id, topic_pool, templates, palettes)
+        # Second selection must be DIFFERENT
+        plan2 = self.db.get_next_rotation_plan(page_id, topic_pool, templates, palettes, arts)
         self.assertNotEqual(plan1["template"], plan2["template"], "Template failed to rotate!")
 
     def test_staggered_scheduler_anti_collision(self):
@@ -90,14 +92,13 @@ class TestInfographicAutomationEngine(unittest.TestCase):
         self.assertEqual(res["status"], "perfect_stagger")
         self.assertEqual(res["slots_verified"], 6)
 
-        # Test video cron avoidance: Check that minute is never :00, :20, :40
         for p_idx in range(50):
             sched = InfographicScheduler.calculate_page_slot_time(p_idx, slot_index=0)
             minute = sched["scheduled_minute"]
             self.assertNotIn(minute, [0, 20, 40], f"Page {p_idx} collided with video cron minute {minute}")
 
-    def test_all_five_templates_render_successfully(self):
-        """Audit Check: Verifies that all 5 distinct design archetypes render to 1080x1350 RGB."""
+    def test_all_templates_render_successfully(self):
+        """Audit Check: Verifies that all 6 distinct design archetypes render to 1080x1350 RGB."""
         topic = AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"]["topics"][0]
 
         for template in TEMPLATE_STYLES:
@@ -108,7 +109,8 @@ class TestInfographicAutomationEngine(unittest.TestCase):
                 topic=topic,
                 output_path=out_path,
                 template_name=template,
-                theme_name="obsidian_amber"
+                theme_name="pop_sky_azure",
+                art_style_name="pixar_3d"
             )
             self.assertTrue(os.path.exists(out_path), f"Failed to render template {template}")
             with Image.open(out_path) as im:

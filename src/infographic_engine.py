@@ -11,100 +11,159 @@ from PIL import Image, ImageDraw, ImageFont
 logger = logging.getLogger("fb_automation")
 
 # =========================================================================
-# 1. TEMPLATE & PALETTE DEFINITIONS (Dynamic Multi-Style Generator)
+# 1. ART STYLES & MASTER PROMPT ENGINEERING (Rotating Visual Mediums)
+# =========================================================================
+
+ART_STYLES = {
+    "pixar_3d": {
+        "label": "🎨 Pixar 3D Animated Style",
+        "badge_bg": "rgba(249, 115, 22, 0.9)",
+        "badge_color": "#ffffff",
+        "prompt_suffix": "charming Pixar 3D animated character render, Octane render, cute expressive features, soft subsurface scattering, Disney animation aesthetic, Unreal Engine 5, 8k render, vibrant colorful studio lighting, clean isolated background"
+    },
+    "ghibli_anime": {
+        "label": "🌸 Studio Ghibli Watercolor",
+        "badge_bg": "rgba(16, 185, 129, 0.9)",
+        "badge_color": "#ffffff",
+        "prompt_suffix": "Studio Ghibli aesthetic, anime watercolor art, hand-painted gouache illustration, Hayao Miyazaki style, vibrant colorful anime scenery, lush natural lighting, nostalgic masterpiece, painted sky"
+    },
+    "flat_vector_canva": {
+        "label": "📐 2D Flat Vector Infographic",
+        "badge_bg": "rgba(139, 92, 246, 0.9)",
+        "badge_color": "#ffffff",
+        "prompt_suffix": "modern flat vector illustration, clean lines, minimalist graphic design, colorful infographic vector art, bold vibrant shapes, isolated, canva sticker art, sharp edges"
+    },
+    "photorealistic_8k": {
+        "label": "📷 8K National Geographic",
+        "badge_bg": "rgba(234, 88, 12, 0.9)",
+        "badge_color": "#ffffff",
+        "prompt_suffix": "hyper-realistic photography, 8k resolution, National Geographic editorial photo, macro lens f/2.8, studio lighting, razor sharp depth of field, dramatic cinematic lighting"
+    },
+    "cyberpunk_neon": {
+        "label": "⚡ Cyberpunk Neon Schematics",
+        "badge_bg": "rgba(6, 182, 212, 0.9)",
+        "badge_color": "#000000",
+        "prompt_suffix": "cyberpunk neon aesthetic, glowing holographic HUD schematics, electric cyan and magenta rim lighting, futuristic octane render, dark obsidian background, high tech"
+    },
+    "vintage_lithograph": {
+        "label": "📜 Vintage Archival Lithograph",
+        "badge_bg": "rgba(180, 83, 9, 0.9)",
+        "badge_color": "#ffffff",
+        "prompt_suffix": "vintage Victorian natural history lithograph, fine copperplate etching, antique colored botanical plate, Ernst Haeckel scientific illustration style, archival parchment paper"
+    }
+}
+
+ART_STYLE_KEYS = list(ART_STYLES.keys())
+
+# =========================================================================
+# 2. TEMPLATE ARCHETYPES (Rotating Layouts)
 # =========================================================================
 
 TEMPLATE_STYLES = [
-    "vintage_fieldguide",   # Style 1: NatGeo / Smithsonian Naturalist Archive (Cream, specimen cards, map/notes)
-    "anatomical_pointer",   # Style 2: Biometric / Anatomy Callout Diagram (Radial dark, SVG glowing pointers, 6 callouts)
-    "bento_dashboard",      # Style 3: Modern Tech / Craftsman Bento Grid (Hero photo, big stat numbers, technique cards)
-    "canva_poster",         # Style 4: Illustrated Nature Poster (Curved organic waves, dual cards, taxonomy bar)
-    "cinematic_hero"        # Style 5: Magazine Hero (Full photographic cover, frosted glassmorphism overlays)
+    "vibrant_multicolor",   # Style 1: 4 Vibrant Colored Cards + 5-Pill Color Shelf (Ref 4 & 5)
+    "anatomical_pointer",   # Style 2: Biometric / Anatomy Callout Diagram (Ref 3)
+    "vintage_fieldguide",   # Style 3: NatGeo / Natural History Specimen Archive (Ref 1)
+    "canva_poster",         # Style 4: Illustrated Organic Nature Poster (Ref 2)
+    "bento_dashboard",      # Style 5: Modern Tech Bento Grid with Big Stat Badges
+    "cinematic_hero"        # Style 6: Magazine Cover with Frosted Glassmorphism
 ]
 
+# =========================================================================
+# 3. VIBRANT MULTI-COLOR PALETTES (Never Monochromatic!)
+# =========================================================================
+
 PALETTE_THEMES = {
-    "natgeo_cream": {
-        "name": "NatGeo Cream & Forest Green",
-        "bg": "#fbf8f1",
-        "card_bg": "rgba(255, 255, 255, 0.88)",
-        "card_border": "#e2dac9",
-        "accent": "#d97706",
-        "accent_secondary": "#18281e",
-        "text_main": "#18281e",
-        "text_sub": "#4a5d4e",
-        "text_muted": "#735338",
-        "border_frame": "#d4cbb8"
-    },
-    "obsidian_amber": {
-        "name": "Obsidian Slate & Warm Amber",
-        "bg": "#0b1120",
-        "card_bg": "#1e293b",
-        "card_border": "#334155",
-        "accent": "#f59e0b",
-        "accent_secondary": "#38bdf8",
-        "text_main": "#f8fafc",
-        "text_sub": "#cbd5e1",
-        "text_muted": "#94a3b8",
-        "border_frame": "#475569"
-    },
-    "midnight_cyan": {
-        "name": "Midnight Navy & Electric Cyan",
-        "bg": "#0a1320",
-        "card_bg": "rgba(15, 23, 42, 0.90)",
-        "card_border": "rgba(56, 189, 248, 0.35)",
-        "accent": "#38bdf8",
+    "pop_sky_azure": {
+        "name": "Pop Azure Sky & Multicolor",
+        "bg_gradient": "linear-gradient(135deg, #7ea8be 0%, #a2c4d6 100%)",
+        "canvas_bg": "#7ea8be",
+        "text_main": "#1e293b",
+        "text_sub": "#334155",
+        "text_muted": "#475569",
+        "card_bg": "#ffffff",
+        "card_border": "#cbd5e1",
+        "accent": "#f97316",
         "accent_secondary": "#0284c7",
+        "stat_colors": ["#f97316", "#10b981", "#8b5cf6", "#f43f5e"],
+        "shelf_colors": ["#16a34a", "#0284c7", "#d97706", "#475569", "#db2777"]
+    },
+    "jungle_safari_vibrant": {
+        "name": "Jungle Safari & Canary Gold",
+        "bg_gradient": "linear-gradient(135deg, #1e392a 0%, #15271d 100%)",
+        "canvas_bg": "#1e392a",
+        "text_main": "#ffffff",
+        "text_sub": "#d1fae5",
+        "text_muted": "#a7f3d0",
+        "card_bg": "rgba(255, 255, 255, 0.92)",
+        "card_border": "#34d399",
+        "accent": "#fbbf24",
+        "accent_secondary": "#4ade80",
+        "stat_colors": ["#eab308", "#10b981", "#06b6d4", "#f43f5e"],
+        "shelf_colors": ["#22c55e", "#eab308", "#06b6d4", "#ec4899", "#8b5cf6"]
+    },
+    "sunset_warm_pop": {
+        "name": "Sunset Tangerine & Coral Pop",
+        "bg_gradient": "linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%)",
+        "canvas_bg": "#ffedd5",
+        "text_main": "#431407",
+        "text_sub": "#7c2d12",
+        "text_muted": "#9a3412",
+        "card_bg": "#ffffff",
+        "card_border": "#fdba74",
+        "accent": "#ea580c",
+        "accent_secondary": "#c026d3",
+        "stat_colors": ["#ea580c", "#d97706", "#7c3aed", "#e11d48"],
+        "shelf_colors": ["#f97316", "#059669", "#7c3aed", "#dc2626", "#0284c7"]
+    },
+    "midnight_neon_spectrum": {
+        "name": "Midnight Dark Neon Spectrum",
+        "bg_gradient": "linear-gradient(135deg, #090d16 0%, #030712 100%)",
+        "canvas_bg": "#090d16",
         "text_main": "#ffffff",
         "text_sub": "#cbd5e1",
         "text_muted": "#94a3b8",
-        "border_frame": "rgba(56, 189, 248, 0.2)"
+        "card_bg": "#111827",
+        "card_border": "#1f2937",
+        "accent": "#38bdf8",
+        "accent_secondary": "#ec4899",
+        "stat_colors": ["#38bdf8", "#ec4899", "#10b981", "#f59e0b"],
+        "shelf_colors": ["#06b6d4", "#ec4899", "#10b981", "#f59e0b", "#a855f7"]
     },
-    "botanical_sage": {
-        "name": "Botanical Moss & Gold",
-        "bg": "#243428",
-        "card_bg": "rgba(30, 44, 34, 0.85)",
-        "card_border": "#3c5443",
-        "accent": "#e5be6b",
-        "accent_secondary": "#55a26b",
-        "text_main": "#ffffff",
-        "text_sub": "#cbd5cb",
-        "text_muted": "#a4b8a7",
-        "border_frame": "#3c5443"
+    "clean_editorial_white": {
+        "name": "Editorial Studio White & Primary Pop",
+        "bg_gradient": "linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)",
+        "canvas_bg": "#f8fafc",
+        "text_main": "#0f172a",
+        "text_sub": "#334155",
+        "text_muted": "#64748b",
+        "card_bg": "#ffffff",
+        "card_border": "#e2e8f0",
+        "accent": "#2563eb",
+        "accent_secondary": "#dc2626",
+        "stat_colors": ["#2563eb", "#dc2626", "#059669", "#d97706"],
+        "shelf_colors": ["#2563eb", "#dc2626", "#059669", "#d97706", "#7c3aed"]
     },
-    "crimson_dark": {
-        "name": "Crimson Obsidian & Rose",
-        "bg": "#12080d",
-        "card_bg": "rgba(28, 16, 22, 0.90)",
-        "card_border": "rgba(225, 29, 72, 0.35)",
-        "accent": "#f43f5e",
-        "accent_secondary": "#fda4af",
-        "text_main": "#ffffff",
-        "text_sub": "#fce7f3",
-        "text_muted": "#f472b6",
-        "border_frame": "rgba(225, 29, 72, 0.25)"
-    },
-    "nordic_ice": {
-        "name": "Nordic Glacial Ice",
-        "bg": "#091724",
-        "card_bg": "rgba(14, 30, 48, 0.88)",
-        "card_border": "rgba(103, 232, 249, 0.35)",
-        "accent": "#22d3ee",
-        "accent_secondary": "#38bdf8",
-        "text_main": "#ffffff",
-        "text_sub": "#e0f2fe",
-        "text_muted": "#7dd3fc",
-        "border_frame": "rgba(103, 232, 249, 0.2)"
+    "pastel_dream_pop": {
+        "name": "Pastel Playful Bubble Pop",
+        "bg_gradient": "linear-gradient(135deg, #ede9fe 0%, #fae8ff 100%)",
+        "canvas_bg": "#ede9fe",
+        "text_main": "#2e1065",
+        "text_sub": "#581c87",
+        "text_muted": "#701a75",
+        "card_bg": "#ffffff",
+        "card_border": "#ddd6fe",
+        "accent": "#9333ea",
+        "accent_secondary": "#db2777",
+        "stat_colors": ["#9333ea", "#0284c7", "#059669", "#e11d48"],
+        "shelf_colors": ["#9333ea", "#0284c7", "#059669", "#e11d48", "#d97706"]
     }
 }
 
 # =========================================================================
-# 2. COMPLETE 13 FLEET VERTICALS AUTHENTIC DATA MATRIX (100% Niche Isolated)
+# 4. 13 FLEET VERTICALS AUTHENTIC DATA MATRIX (100% Niche Isolated)
 # =========================================================================
 
 AUTHENTIC_VERTICAL_DATA = {
-    # -------------------------------------------------------------
-    # Vertical 1: Miniature Dioramas & Macro Crafting
-    # -------------------------------------------------------------
     "miniature_diorama_disaster": {
         "theme_name": "MINIATURE DIORAMA CRAFT & ENGINEERING",
         "badge_tag": "SCALE 1:87 CRAFT MASTERCLASS",
@@ -119,7 +178,7 @@ AUTHENTIC_VERTICAL_DATA = {
                 "stat_primary": "1:87",
                 "stat_primary_label": "Exact HO Proportions",
                 "stat_secondary": "0.1mm",
-                "stat_secondary_label": "Micro-Wire Hidden In Walls",
+                "stat_secondary_label": "Micro-Wire In Walls",
                 "cards": [
                     {"label": "01. Epoxy Resin Ratio", "text": "2-part crystal clear epoxy resin mixed at exact 1:1 ratio prevents clouding."},
                     {"label": "02. Churning Rapids FX", "text": "Clear silicone caulk textured with wet toothpick creates dynamic churning waves."},
@@ -133,6 +192,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Micro-Bubble Release", "text": "99% Isopropyl alcohol spritzed over wet resin pops all micro-bubbles instantly."},
                     {"label": "Capillary Wall Creep", "text": "Tamiya clear acrylic wash brushed up walls mimics rising moisture."},
                     {"label": "Resin Curing Heat", "text": "Poured in 4mm stages to prevent exothermic heat from melting polystyrene base."}
+                ],
+                "shelf_specs": [
+                    {"icon": "🌊", "title": "Epoxy Pour", "desc": "Teal base with white foam crests"},
+                    {"icon": "💡", "title": "SMD Lights", "desc": "3V CR2032 hidden in diorama base"},
+                    {"icon": "⚡", "title": "Static Grass", "desc": "12kV ionizer stands fibers upright"},
+                    {"icon": "🎨", "title": "Pastel Dust", "desc": "Mineral spirits pull grime into cracks"},
+                    {"icon": "🛡️", "title": "UV Seal", "desc": "Dead-flat lacquer stops yellowing"}
                 ],
                 "fun_fact": [
                     "Spritzing 99% Isopropyl alcohol over wet epoxy pops all micro-bubbles in 2 seconds!",
@@ -164,6 +230,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Soot & Grime", "text": "Carbon black dry pigment loaded around exhaust vents and chimney tops."},
                     {"label": "Ultra-Matte Seal", "text": "Dead flat varnish coat locks pastels without altering color values."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🧪", "title": "Vinegar Rust", "desc": "Activates natural iron particle powder"},
+                    {"icon": "💨", "title": "Hairspray Scrub", "desc": "Warm water removes chipping layer"},
+                    {"icon": "🖌️", "title": "Oil Streaks", "desc": "Burnt umber dragged vertically"},
+                    {"icon": "✏️", "title": "Graphite Edge", "desc": "4B lead rub simulates friction wear"},
+                    {"icon": "🔒", "title": "Matte Fixer", "desc": "Permanently seals pastels"}
+                ],
                 "fun_fact": [
                     "Table salt sprinkled over wet basecoat creates authentic blistered rust patches!",
                     "Graphite pencil rubbed on metal edges gives genuine worn metallic friction shine.",
@@ -173,9 +246,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 2: Owls & Avian Predators
-    # -------------------------------------------------------------
     "pet_owls_birds": {
         "theme_name": "OWLS & BIRDS OF PREY FIELD GUIDE",
         "badge_tag": "AVIAN BIOMECHANICS & PREDATION",
@@ -205,48 +275,22 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Serrated Wing Combs", "text": "Leading-edge comb feathers break turbulence, dropping flight sound to 0 dB."},
                     {"label": "Soft Down Velvet", "text": "Velvety dorsal down absorbs high-frequency sounds during vertical dives."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🔇", "title": "0 dB Wings", "desc": "Serrated combs eliminate flap noise"},
+                    {"icon": "👂", "title": "3D Sonar", "desc": "Offset ear heights triangulate mice"},
+                    {"icon": "🔄", "title": "270° Swivel", "desc": "14 neck vertebrae rotate head"},
+                    {"icon": "🦅", "title": "30 lb Talons", "desc": "Curved zygodactyl bone grip"},
+                    {"icon": "🌙", "title": "Tubular Eyes", "desc": "Gathers starlight in pitch black"}
+                ],
                 "fun_fact": [
                     "A single family of barn owls consumes over 3,000 rodents every single year!",
                     "Owls cannot roll their eyes! Instead, they rotate their heads up to 270 degrees.",
                     "Their heart-shaped facial disk acts like a satellite dish, focusing sound to ears."
                 ]
-            },
-            {
-                "slug": "great_horned_owl_territory",
-                "title": "Great Horned Owl: The Tiger Skies",
-                "latin": "Bubo virginianus • Unrivaled Apex Raptor",
-                "badge": "NORTH AMERICAN PREDATOR",
-                "image_url": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900&auto=format&fit=crop&q=80",
-                "stat_primary": "500 PSI",
-                "stat_primary_label": "Talon Crushing Power",
-                "stat_secondary": "65 km/h",
-                "stat_secondary_label": "Silent Dive Velocity",
-                "cards": [
-                    {"label": "01. Massive Grip Force", "text": "Talons exert up to 500 PSI of crushing pressure, rivaling the bite of a large dog."},
-                    {"label": "02. Feather Tufts Mystery", "text": "The iconic 'horns' are not ears, but display feathers used for visual communication."},
-                    {"label": "03. Relentless Diet", "text": "The only regular predator of skunks due to a near-total absence of olfactory smell."},
-                    {"label": "04. Camouflage Feathers", "text": "Mottled brown and grey plumage mimics pine tree bark with 100% perfection."}
-                ],
-                "callouts": [
-                    {"label": "Plumicorn Tufts", "text": "Ear tufts raised or flattened to signal mood and break silhouette in trees."},
-                    {"label": "Golden Iris Optics", "text": "Massive pupils dilate to cover entire eye, gathering starlight in dense woods."},
-                    {"label": "Yellow Prehensile Beak", "text": "Sharp downward hooked beak designed to tear meat from substantial quarry."},
-                    {"label": "Padded Toe Scales", "text": "Feathered feet provide extreme thermal insulation in sub-zero winter hunts."},
-                    {"label": "Broad Rounded Wings", "text": "Low aspect-ratio wings allow explosive agility weaving through thick branches."},
-                    {"label": "Expanded Wing Coverts", "text": "Dense plumage insulates body against -40°C arctic cold fronts."}
-                ],
-                "fun_fact": [
-                    "Great Horned Owls can take down prey two to three times their own body weight!",
-                    "They regularly hunt skunks because owls have virtually no sense of smell.",
-                    "Their territorial hooting can be heard clearly over 3 kilometers away on calm nights."
-                ]
             }
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 3: Siberian Huskies & Canine Psychology
-    # -------------------------------------------------------------
     "huskies_canine_psychology": {
         "theme_name": "SIBERIAN HUSKY & CANINE PSYCHOLOGY",
         "badge_tag": "ARCTIC ENDURANCE & BEHAVIOR",
@@ -276,6 +320,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Deep Rib Cage", "text": "Expanded chest cavity houses massive aerobic lungs for non-stop hauling."},
                     {"label": "Double Insulating Coat", "text": "Undercoat so dense that snow falling on a sleeping husky will never melt!"}
                 ],
+                "shelf_specs": [
+                    {"icon": "❄️", "title": "-60°C Frost", "desc": "Double coat traps body warmth"},
+                    {"icon": "🐺", "title": "Pack Howl", "desc": "Complex harmonic vocalizations"},
+                    {"icon": "🐾", "title": "Warm Paws", "desc": "Counter-current circulatory arteries"},
+                    {"icon": "⚡", "title": "160km Run", "desc": "Fat-burning endurance metabolism"},
+                    {"icon": "👁️", "title": "UV Eyes", "desc": "Almond shape protects from snow glare"}
+                ],
                 "fun_fact": [
                     "Huskies can sleep curled in deep snow at -50°C and stay completely dry and warm!",
                     "They rarely bark; instead they use melodic howls that travel up to 15 kilometers.",
@@ -285,9 +336,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 4: Humanity, Empathy & Heartwarming Deeds
-    # -------------------------------------------------------------
     "humanity_and_good_deeds": {
         "theme_name": "HUMANITY, EMPATHY & KINDNESS",
         "badge_tag": "TRUE STORIES THAT RESTORE FAITH",
@@ -317,6 +365,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Community Solidarity", "text": "Grassroots kindness builds resilient social bonds that weather economic storms."},
                     {"label": "Enduring Legacy", "text": "People never forget how you made them feel in their darkest hour of need."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🤝", "title": "Generosity", "desc": "One act triggers 10+ downstream gifts"},
+                    {"icon": "🧠", "title": "Mirror Brain", "desc": "Oxytocin surge lowers cortisol stress"},
+                    {"icon": "❤️", "title": "Quiet Altruism", "desc": "True kindness seeks zero applause"},
+                    {"icon": "🌟", "title": "14-Day Boost", "desc": "Happiness elevated for two weeks"},
+                    {"icon": "🕊️", "title": "Resilience", "desc": "Strengthens community bonds"}
+                ],
                 "fun_fact": [
                     "Studies show committing one small act of kindness increases personal happiness for 14 straight days!",
                     "Empathy is scientifically contagious—communities with generous leaders show 40% lower anxiety.",
@@ -326,9 +381,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 5: Big Cats & Apex Predators
-    # -------------------------------------------------------------
     "wildlife_apex_predators": {
         "theme_name": "APEX PREDATOR FIELD GUIDE",
         "badge_tag": "NATIONAL GEOGRAPHIC WILDLIFE REPORT",
@@ -358,6 +410,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Canine Bone Crushers", "text": "3-inch conical canine teeth packed with pressure-sensing nerves for precision bites."},
                     {"label": "Dichromatic Striping", "text": "Disruptive vertical stripes break the body silhouette against sunlit tall grass."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🦷", "title": "1,050 PSI", "desc": "Bone-crushing bite force power"},
+                    {"icon": "⚡", "title": "65 km/h", "desc": "Explosive 30-foot ambush leap"},
+                    {"icon": "🌊", "title": "7km Swim", "desc": "Crosses broad mangrove delta rivers"},
+                    {"icon": "👁️", "title": "6x Night Eyes", "desc": "Tapetum lucidum amplifies starlight"},
+                    {"icon": "🌿", "title": "Dichromatic", "desc": "Deer see orange fur as green foliage"}
+                ],
                 "fun_fact": [
                     "Tiger stripes are on their actual skin, not just their outer fur coat!",
                     "A tiger's roar contains low-frequency infrasound that momentarily paralyzes nearby prey.",
@@ -367,9 +426,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 6: Ancient Empires & Warriors
-    # -------------------------------------------------------------
     "ancient_empires": {
         "theme_name": "ANCIENT MILITARY HISTORY & ARCHAEOLOGY",
         "badge_tag": "LEGION & GLADIATOR TACTICAL BLUEPRINT",
@@ -399,6 +455,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Hobnailed Caligae", "text": "Leather boots studded with iron cleats gave unstoppable traction in mud."},
                     {"label": "Weighted Pilum Tip", "text": "Pyramidal point punched through armor; shank bent to prevent throw-back."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🛡️", "title": "Testudo Shell", "desc": "Interlocked scutum shields stop arrows"},
+                    {"icon": "⚔️", "title": "Gladius", "desc": "20-inch close-quarter thrusting steel"},
+                    {"icon": "🎯", "title": "Pilum Javelin", "desc": "Bending soft iron disables shields"},
+                    {"icon": "🪖", "title": "Lorica Armor", "desc": "Segmented iron plates over leather"},
+                    {"icon": "🥾", "title": "Caligae Boots", "desc": "Hobnailed cleats grip muddy terrain"}
+                ],
                 "fun_fact": [
                     "A Roman legionary walked 30 kilometers daily carrying 30 kg of battle gear and entrenching tools!",
                     "The curved Scutum shield was so strong that soldiers could stand on top of a formed Testudo shell.",
@@ -408,9 +471,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 7: Dragons & Mythological Bestiary
-    # -------------------------------------------------------------
     "dragons_and_fantasy_lore": {
         "theme_name": "MYTHICAL CREATURE BESTIARY",
         "badge_tag": "ANCIENT FOLKLORE & DRAGON LORE",
@@ -440,6 +500,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Prehensile Tail Barb", "text": "Barbed tail acts as a weighted rudder in gales and delivers piercing counterstrikes."},
                     {"label": "Talon Anchor Claws", "text": "Curved ice-axe talons lock securely into sheer glacial seracs and cliff faces."}
                 ],
+                "shelf_specs": [
+                    {"icon": "❄️", "title": "Cryo-Breath", "desc": "Sub-zero aerosol flash freezes stone"},
+                    {"icon": "🐉", "title": "2-Legged", "desc": "Wing-claws climb sheer ice crevasses"},
+                    {"icon": "💎", "title": "Diamond Scale", "desc": "Keratin armor immune to brittle cold"},
+                    {"icon": "🌪️", "title": "Blizzard Wing", "desc": "40m span rides mountain thermals"},
+                    {"icon": "⚔️", "title": "Tail Barb", "desc": "Whip-crack rudder for arctic gales"}
+                ],
                 "fun_fact": [
                     "In heraldic law, a Wyvern has only two legs, while a true Dragon possesses four legs!",
                     "Nordic sagas claimed finding shed dragon scales in snow was an omen of extreme winter storms.",
@@ -449,9 +516,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 8: Football / Soccer Masterclass
-    # -------------------------------------------------------------
     "football_legends": {
         "theme_name": "FOOTBALL TACTICS & PHYSICS MASTERCLASS",
         "badge_tag": "ELITE SOCCER MECHANICS",
@@ -481,6 +545,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Sudden Terminal Dip", "text": "Speed drops below 25 m/s, shifting airflow from turbulent to laminar, plunging into top corner."},
                     {"label": "Follow-Through Whipline", "text": "Hip rotation and locked ankle ensure pure contact without loss of rotational velocity."}
                 ],
+                "shelf_specs": [
+                    {"icon": "⚽", "title": "600 RPM", "desc": "10 full revolutions per second"},
+                    {"icon": "🌪️", "title": "Magnus Force", "desc": "Differential air pressure bends path"},
+                    {"icon": "🚀", "title": "130 km/h", "desc": "Blistering strike reaches goal in 0.6s"},
+                    {"icon": "📐", "title": "Seam Drag", "desc": "Dimples transition laminar airflow"},
+                    {"icon": "🧤", "title": "Blindspot", "desc": "Trajectories curve outside optical cone"}
+                ],
                 "fun_fact": [
                     "Roberto Carlos' legendary 1997 free kick bent so violently that ball boys ducked thinking it was going wide!",
                     "A professional football can rotate at over 10 revolutions per second (600 RPM) during a curling strike.",
@@ -490,9 +561,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 9: Deep Sea & Ocean Giants
-    # -------------------------------------------------------------
     "ocean_marine_life": {
         "theme_name": "OCEAN ABYSS & MARINE MEGAFAUNA",
         "badge_tag": "DEEP SEA DISCOVERY REPORT",
@@ -522,6 +590,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Counter-Current Rete", "text": "Massive circulatory heat exchangers prevent freezing in polar iceberg waters."},
                     {"label": "Fluke Propulsion", "text": "Horizontal tail flukes span 8 meters, generating tons of silent forward thrust."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🐋", "title": "190 Tons", "desc": "Largest creature to ever live on Earth"},
+                    {"icon": "🔊", "title": "188 dB Call", "desc": "Louder than a jet engine at takeoff"},
+                    {"icon": "🦐", "title": "4 Tons Krill", "desc": "Filtered daily through baleen plates"},
+                    {"icon": "🫀", "title": "Car-Size Heart", "desc": "Aorta is large enough for human crawl"},
+                    {"icon": "🌊", "title": "SOFAR Layer", "desc": "Thermal channel carries sound 1,000s km"}
+                ],
                 "fun_fact": [
                     "A blue whale's tongue alone weighs as much as an entire adult African elephant!",
                     "Their underwater vocalizations are louder than a jet engine at takeoff (188 dB vs 140 dB).",
@@ -531,9 +606,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 10: Science, Physics & Space Wonders
-    # -------------------------------------------------------------
     "science_engineering_wonders": {
         "theme_name": "SPACE & ASTROPHYSICS DOSSIER",
         "badge_tag": "COSMIC PHENOMENA & ENGINEERING",
@@ -563,6 +635,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Star Tracker Gyroscopes", "text": "Reaction wheels and fine guidance sensors lock onto distant galaxies with zero jitter."},
                     {"label": "Solar Array Wing", "text": "Provides constant 2,000 watts of electrical power while facing perpetual sunward heat."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🔭", "title": "6.5m Mirror", "desc": "18 gold-coated beryllium segments"},
+                    {"icon": "❄️", "title": "-233°C Cold", "desc": "5-layer Kapton membrane blocks heat"},
+                    {"icon": "🌌", "title": "13.5B Years", "desc": "Peers back to the first cosmic stars"},
+                    {"icon": "📍", "title": "L2 Orbit", "desc": "1.5 million km deep space station"},
+                    {"icon": "🐝", "title": "Micro-Optics", "desc": "Detects bumblebee heat on the Moon"}
+                ],
                 "fun_fact": [
                     "The amount of pure gold used to coat all 18 mirrors of the James Webb is only about the size of a golf ball!",
                     "Webb operates at -233°C because warm optics would glow in infrared and blind their own sensors.",
@@ -572,9 +651,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 11: Supercars & Automotive Engineering
-    # -------------------------------------------------------------
     "supercars_and_hypercars": {
         "theme_name": "HYPERCAR AERODYNAMICS & HORSEPOWER",
         "badge_tag": "PRECISION AUTOMOTIVE ENGINEERING",
@@ -604,6 +680,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Carbon Ceramic Discs", "text": "Silicon carbide composites operate friction-free at glowing incandescent temperatures."},
                     {"label": "Titanium Inconel Exhaust", "text": "Laser-welded ultra-thin alloy sheds 20 kg while withstanding supersonic gas pulses."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🏎️", "title": "1,000kg Aero", "desc": "Suction downforce glues car to tarmac"},
+                    {"icon": "🛑", "title": "Airbrake 70°", "desc": "Wing flips up instantly under heavy stop"},
+                    {"icon": "🔥", "title": "1,000°C Brakes", "desc": "Carbon ceramic discs glow incandescent"},
+                    {"icon": "⏱️", "title": "2.4s Launch", "desc": "AWD torque vectoring launch control"},
+                    {"icon": "⚡", "title": "Venturi Floor", "desc": "Ground effect suction without drag"}
+                ],
                 "fun_fact": [
                     "At 250 km/h, modern hypercars generate enough downforce to theoretically drive upside down on a tunnel ceiling!",
                     "Carbon ceramic brakes run so hot under track abuse that they glow bright orange in pitch black night runs.",
@@ -613,9 +696,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 12: Oddly Satisfying & Precision Science
-    # -------------------------------------------------------------
     "oddly_satisfying_craft": {
         "theme_name": "ODDLY SATISFYING & KINETIC PHYSICS",
         "badge_tag": "MATERIAL PRECISION & SCIENCE",
@@ -645,6 +725,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Acoustic Standing Waves", "text": "Frequency excitation creates strange solitary wave fingers that defy gravity."},
                     {"label": "Impact Energy Absorption", "text": "Disperses projectile kinetic energy laterally across millions of micro-granules."}
                 ],
+                "shelf_specs": [
+                    {"icon": "💧", "title": "Non-Newtonian", "desc": "Viscosity changes with applied shear stress"},
+                    {"icon": "🏃", "title": "Run on Water", "desc": "Rapid footsteps lock particles into solid"},
+                    {"icon": "🔊", "title": "Bass Dance", "desc": "Subwoofer soundwaves sprout liquid fingers"},
+                    {"icon": "🛡️", "title": "Liquid Armor", "desc": "Stiffens instantly upon projectile impact"},
+                    {"icon": "🧪", "title": "2:1 Ratio", "desc": "Pure cornstarch suspended in water"}
+                ],
                 "fun_fact": [
                     "You can literally run and jump across a swimming pool filled with Oobleck without sinking!",
                     "If you stop moving for just half a second, you will immediately sink into the liquid like quicksand.",
@@ -654,9 +741,6 @@ AUTHENTIC_VERTICAL_DATA = {
         ]
     },
 
-    # -------------------------------------------------------------
-    # Vertical 13: Bushcraft & Wilderness Survival
-    # -------------------------------------------------------------
     "wilderness_bushcraft_survival": {
         "theme_name": "BUSHCRAFT & WILDERNESS SURVIVAL",
         "badge_tag": "PRIMITIVE SKILLS & WILDERNESS EXPEDITION",
@@ -686,6 +770,13 @@ AUTHENTIC_VERTICAL_DATA = {
                     {"label": "Fibrous Tinder Nest", "text": "Buffed jute twine or dry inner cedar bark cradles coal until oxygen ignites flame."},
                     {"label": "Dark Charcoal Dust", "text": "Sign that wood has reached pyrolysis phase and is moments away from producing an ember."}
                 ],
+                "shelf_specs": [
+                    {"icon": "🔥", "title": "425°C Ember", "desc": "Ignition achieved via raw wood friction"},
+                    {"icon": "🪵", "title": "Cedar Spindle", "desc": "Thumb-thick dry dowel spins in notch"},
+                    {"icon": "🏹", "title": "Cord Bow", "desc": "Rhythmic bow strokes generate coal in 90s"},
+                    {"icon": "🪨", "title": "Handhold Socket", "desc": "Greased stone prevents top palm friction"},
+                    {"icon": "🌬️", "title": "Oxygen Breath", "desc": "Gentle draft blows ember into flame"}
+                ],
                 "fun_fact": [
                     "A successful bow drill ember glows at over 400°C without any match, flint, or chemical lighter!",
                     "Ancient fire makers carried dry tinder fungus (Chaga) because it can hold a glowing ember for hours.",
@@ -700,59 +791,361 @@ AUTHENTIC_VERTICAL_DATA = {
 class InfographicEngine:
     """
     Next-Gen Multi-Style Generative Infographic Engine:
-    - 5 Distinct Visual Layout Archetypes (Pointers, Field Guide, Bento Grid, Canva Poster, Cinematic Hero)
-    - 6 Distinct Color Themes & Typography Pairings
-    - Dynamic Style Rotation: Never looks like a repetitive template!
-    - Headless Chromium (Playwright) pixel-perfect vector rendering at 1080x1350
-    - Pure Niche Isolation across all 13 Fleet Verticals
-    - Fallback Pillow renderer for offline environments
+    - 6 Rotating Art Styles for Imagery: Pixar 3D, Ghibli Anime, Flat Vector, 8K Photo, Cyberpunk, Lithograph.
+    - 6 Distinct Template Archetypes (Vibrant Multicolor Grid, Anatomical Pointers, Bento Dashboard, Canva Poster, Field Guide, Cinematic Hero).
+    - 6 Vibrant Multi-Color Palettes (Sky Blue, Jungle Safari, Sunset Pop, Midnight Neon, Editorial White, Pastel Bubble).
+    - Automatic Style, Theme, and Art-Style Rotation on every post.
+    - 100% Niche Isolated across all 13 Fleet Verticals.
+    - Headless Chromium (Playwright) vector rendering at 1080x1350 Full HD.
     """
 
     def __init__(self, cache_dir: str = "temp/infographic_cache"):
         self.cache_dir = cache_dir
         os.makedirs(self.cache_dir, exist_ok=True)
 
-    def fetch_image(self, topic: Dict[str, Any], search_term: str) -> str:
+    def fetch_image_with_art_style(
+        self,
+        topic: Dict[str, Any],
+        search_term: str,
+        art_style_key: str
+    ) -> Tuple[str, str]:
         """
-        Retrieves high-definition image URL for the topic.
-        Caches downloaded image locally so Playwright loads it instantly from disk.
+        Retrieves image matching the specific art style (Pixar 3D, Ghibli, 2D Vector, 8K Photo, etc.).
+        Returns (image_file_path_or_url, art_style_label).
         """
+        art_meta = ART_STYLES.get(art_style_key, ART_STYLES["pixar_3d"])
         slug = topic.get("slug", "default")
-        cache_file = os.path.join(self.cache_dir, f"{slug}.jpg")
+        cache_key = hashlib.md5(f"{slug}_{art_style_key}".encode()).hexdigest()
+        cache_file = os.path.join(self.cache_dir, f"{cache_key}.jpg")
 
         if os.path.exists(cache_file) and os.path.getsize(cache_file) > 10000:
-            return os.path.abspath(cache_file).replace("\\", "/")
+            return os.path.abspath(cache_file).replace("\\", "/"), art_meta["label"]
 
-        image_url = topic.get("image_url")
-        if image_url:
-            try:
-                res = requests.get(image_url, timeout=12)
-                if res.status_code == 200 and len(res.content) > 10000:
-                    with open(cache_file, "wb") as f:
-                        f.write(res.content)
-                    return os.path.abspath(cache_file).replace("\\", "/")
-            except Exception as e:
-                logger.warning(f"Error downloading direct image for {slug}: {e}")
-
-        # Fallback to Pollinations AI with clean prompt
-        prompt = f"high quality photography of {topic['title']} {search_term}"
-        encoded_prompt = requests.utils.quote(prompt)
+        # Build smart art-style prompt
+        full_prompt = f"{topic['title']}, {search_term}, {art_meta['prompt_suffix']}"
+        encoded_prompt = requests.utils.quote(full_prompt)
         poll_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?width=800&height=1000&nologo=true"
+
         try:
             res = requests.get(poll_url, timeout=12)
             if res.status_code == 200 and len(res.content) > 10000:
                 with open(cache_file, "wb") as f:
                     f.write(res.content)
-                return os.path.abspath(cache_file).replace("\\", "/")
+                return os.path.abspath(cache_file).replace("\\", "/"), art_meta["label"]
         except Exception as e:
-            logger.warning(f"Error fetching AI image for {slug}: {e}")
+            logger.warning(f"Error fetching AI image for {slug} ({art_style_key}): {e}")
 
-        # Return default verified online image if all else fails
-        return image_url or "https://images.unsplash.com/photo-1543549790-8b5f4a028cfb?w=800&auto=format&fit=crop&q=80"
+        # Fallback to direct verified image if AI call fails
+        direct_url = topic.get("image_url")
+        if direct_url:
+            return direct_url, art_meta["label"]
+
+        return "https://images.unsplash.com/photo-1543549790-8b5f4a028cfb?w=800&auto=format&fit=crop&q=80", art_meta["label"]
 
     # -------------------------------------------------------------------------
     # HTML TEMPLATE BUILDERS
     # -------------------------------------------------------------------------
+
+    def _build_vibrant_multicolor_html(
+        self,
+        page_name: str,
+        topic: Dict[str, Any],
+        v_data: Dict[str, Any],
+        theme: Dict[str, Any],
+        image_path: str,
+        art_label: str
+    ) -> str:
+        """Vibrant Multicolor Layout: 4 Color Stat Cards + 5-Pill Color Shelf (Matching Ref 4 & 5)."""
+        cards = topic.get("cards", [])
+        stat_colors = theme.get("stat_colors", ["#f97316", "#10b981", "#8b5cf6", "#f43f5e"])
+        shelf_colors = theme.get("shelf_colors", ["#16a34a", "#0284c7", "#d97706", "#475569", "#db2777"])
+
+        stat_cards_html = ""
+        sample_badges = ["87%", "24h", "0.1", "3x"]
+        for idx in range(min(4, len(cards))):
+            c = cards[idx]
+            color = stat_colors[idx % len(stat_colors)]
+            badge = sample_badges[idx]
+            stat_cards_html += f"""
+            <div class="stat-card" style="background: {color};">
+                <div class="stat-badge">{badge}</div>
+                <div class="stat-content">
+                    <h4>{c['label']}</h4>
+                    <p>{c['text']}</p>
+                </div>
+            </div>
+            """
+
+        shelf_specs = topic.get("shelf_specs", [
+            {"icon": "⚡", "title": "Precision", "desc": "Highest grade execution"},
+            {"icon": "🔬", "title": "Tested", "desc": "Validated under micro specs"},
+            {"icon": "🌟", "title": "Record", "desc": "Top tier benchmarks"},
+            {"icon": "🛡️", "title": "Durable", "desc": "Engineered for longevity"},
+            {"icon": "🎯", "title": "Focus", "desc": "Laser targeted adaptation"}
+        ])
+
+        shelf_html = ""
+        for idx in range(min(5, len(shelf_specs))):
+            s = shelf_specs[idx]
+            color = shelf_colors[idx % len(shelf_colors)]
+            shelf_html += f"""
+            <div class="shelf-pill" style="background: {color};">
+                <div class="icon">{s['icon']}</div>
+                <div class="p-title">{s['title']}</div>
+                <div class="p-desc">{s['desc']}</div>
+            </div>
+            """
+
+        return f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Fredoka:wght@600;700&display=swap');
+                * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+                body {{
+                    width: 1080px;
+                    height: 1350px;
+                    background: {theme.get('bg_gradient', 'linear-gradient(135deg, #7ea8be 0%, #a2c4d6 100%)')};
+                    font-family: 'Outfit', sans-serif;
+                    color: {theme['text_main']};
+                    overflow: hidden;
+                    position: relative;
+                    padding: 40px;
+                }}
+                .top-bar {{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 25px;
+                }}
+                .brand-pill {{
+                    background: #ffffff;
+                    padding: 10px 22px;
+                    border-radius: 30px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                }}
+                .brand-name {{
+                    font-family: 'Fredoka', sans-serif;
+                    font-size: 20px;
+                    font-weight: 700;
+                    color: #0f172a;
+                }}
+                .badge-verified {{
+                    background: {theme['accent_secondary']};
+                    color: #ffffff;
+                    font-size: 11px;
+                    font-weight: 800;
+                    padding: 3px 8px;
+                    border-radius: 12px;
+                    text-transform: uppercase;
+                }}
+                .follow-pill {{
+                    background: {theme['accent']};
+                    color: #ffffff;
+                    font-size: 15px;
+                    font-weight: 800;
+                    padding: 10px 24px;
+                    border-radius: 30px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+                }}
+                .header-box {{
+                    margin-bottom: 25px;
+                }}
+                .title-banner {{
+                    font-family: 'Fredoka', sans-serif;
+                    font-size: 46px;
+                    font-weight: 700;
+                    color: {theme['text_main']};
+                    line-height: 1.1;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                }}
+                .subtitle {{
+                    font-size: 19px;
+                    font-weight: 600;
+                    color: {theme['text_sub']};
+                    margin-top: 6px;
+                }}
+                .main-grid {{
+                    display: grid;
+                    grid-template-columns: 560px 1fr;
+                    gap: 25px;
+                    height: 780px;
+                }}
+                .hero-card {{
+                    background: {theme['card_bg']};
+                    border-radius: 28px;
+                    padding: 20px;
+                    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+                    display: flex;
+                    flex-direction: column;
+                    position: relative;
+                }}
+                .hero-img-wrap {{
+                    flex: 1;
+                    border-radius: 20px;
+                    overflow: hidden;
+                    position: relative;
+                }}
+                .hero-img-wrap img {{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }}
+                .art-style-tag {{
+                    position: absolute;
+                    top: 15px;
+                    left: 15px;
+                    background: rgba(0,0,0,0.78);
+                    backdrop-filter: blur(8px);
+                    color: #facc15;
+                    font-size: 13px;
+                    font-weight: 800;
+                    padding: 6px 14px;
+                    border-radius: 20px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }}
+                .hero-caption {{
+                    margin-top: 16px;
+                    background: rgba(0,0,0,0.04);
+                    border-radius: 16px;
+                    padding: 16px 20px;
+                }}
+                .hero-caption h3 {{
+                    font-size: 20px;
+                    font-weight: 800;
+                    color: {theme['text_main']};
+                    margin-bottom: 4px;
+                }}
+                .hero-caption p {{
+                    font-size: 14px;
+                    line-height: 1.45;
+                    color: {theme['text_muted']};
+                }}
+                .stats-col {{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                }}
+                .stat-card {{
+                    border-radius: 20px;
+                    padding: 20px;
+                    color: #ffffff;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+                    display: flex;
+                    align-items: center;
+                    gap: 18px;
+                }}
+                .stat-badge {{
+                    width: 75px;
+                    height: 75px;
+                    border-radius: 18px;
+                    background: rgba(255,255,255,0.25);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Fredoka', sans-serif;
+                    font-size: 28px;
+                    font-weight: 700;
+                    flex-shrink: 0;
+                }}
+                .stat-content h4 {{
+                    font-size: 18px;
+                    font-weight: 800;
+                    margin-bottom: 4px;
+                    text-transform: uppercase;
+                }}
+                .stat-content p {{
+                    font-size: 13px;
+                    line-height: 1.4;
+                    opacity: 0.95;
+                }}
+                .bottom-shelf {{
+                    margin-top: 25px;
+                    display: grid;
+                    grid-template-columns: repeat(5, 1fr);
+                    gap: 14px;
+                }}
+                .shelf-pill {{
+                    border-radius: 18px;
+                    padding: 16px 14px;
+                    text-align: center;
+                    color: #ffffff;
+                    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+                }}
+                .shelf-pill .icon {{
+                    font-size: 26px;
+                    margin-bottom: 6px;
+                }}
+                .shelf-pill .p-title {{
+                    font-size: 14px;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    margin-bottom: 3px;
+                }}
+                .shelf-pill .p-desc {{
+                    font-size: 11px;
+                    line-height: 1.3;
+                    opacity: 0.9;
+                }}
+                .footer-bar {{
+                    margin-top: 20px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: {theme['text_sub']};
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="top-bar">
+                <div class="brand-pill">
+                    <span style="font-size: 22px;">🐾</span>
+                    <span class="brand-name">{page_name.upper()}</span>
+                    <span class="badge-verified">✔ VERIFIED</span>
+                </div>
+                <div class="follow-pill">+ FOLLOW @{page_name.upper()}</div>
+            </div>
+            <div class="header-box">
+                <h1 class="title-banner">{topic['title']}</h1>
+                <div class="subtitle">{topic.get('latin', v_data['badge_tag'])}</div>
+            </div>
+            <div class="main-grid">
+                <div class="hero-card">
+                    <div class="hero-img-wrap">
+                        <img src="{image_path}" />
+                        <div class="art-style-tag">{art_label}</div>
+                    </div>
+                    <div class="hero-caption">
+                        <h3>{topic['title']}</h3>
+                        <p>{cards[0]['text'] if cards else 'Authentic specialized craftsmanship and masterclass techniques.'}</p>
+                    </div>
+                </div>
+                <div class="stats-col">
+                    {stat_cards_html}
+                </div>
+            </div>
+            <div class="bottom-shelf">
+                {shelf_html}
+            </div>
+            <div class="footer-bar">
+                <div>{page_name.upper()} • {v_data['theme_name']}</div>
+                <div style="color: {theme['accent']};">SWIPE FOR MORE PRO TIPS ➔</div>
+            </div>
+        </body>
+        </html>
+        """
 
     def _build_vintage_fieldguide_html(
         self,
@@ -760,9 +1153,10 @@ class InfographicEngine:
         topic: Dict[str, Any],
         v_data: Dict[str, Any],
         theme: Dict[str, Any],
-        image_path: str
+        image_path: str,
+        art_label: str
     ) -> str:
-        """Vintage Naturalist / Field Guide Specimen Archive."""
+        """Vintage Naturalist / Field Guide Specimen Archive (Ref 1)."""
         cards_html = ""
         for c in topic.get("cards", [])[:4]:
             cards_html += f"""
@@ -787,16 +1181,16 @@ class InfographicEngine:
                 body {{
                     width: 1080px;
                     height: 1350px;
-                    background-color: {theme['bg']};
+                    background-color: #fbf8f1;
                     font-family: 'Outfit', sans-serif;
-                    color: {theme['text_main']};
+                    color: #18281e;
                     overflow: hidden;
                     position: relative;
                 }}
                 .border-frame {{
                     position: absolute;
                     top: 24px; left: 24px; right: 24px; bottom: 24px;
-                    border: 2px solid {theme['border_frame']};
+                    border: 2px solid #d4cbb8;
                     pointer-events: none;
                 }}
                 .header {{
@@ -811,19 +1205,19 @@ class InfographicEngine:
                     font-weight: 800;
                     letter-spacing: -0.5px;
                     line-height: 1.1;
-                    color: {theme['text_main']};
+                    color: #18281e;
                     text-transform: uppercase;
                 }}
                 .header-left .latin {{
                     font-family: 'Playfair Display', serif;
                     font-style: italic;
                     font-size: 24px;
-                    color: {theme['text_muted']};
+                    color: #735338;
                     margin-top: 6px;
                 }}
                 .badge-box {{
-                    background: {theme['accent_secondary']};
-                    color: {theme['bg']};
+                    background: #18281e;
+                    color: #fbf8f1;
                     padding: 10px 18px;
                     border-radius: 8px;
                     font-size: 14px;
@@ -844,9 +1238,9 @@ class InfographicEngine:
                     gap: 16px;
                 }}
                 .spec-card {{
-                    background: {theme['card_bg']};
-                    border: 1px solid {theme['card_border']};
-                    border-left: 5px solid {theme['accent']};
+                    background: rgba(255, 255, 255, 0.88);
+                    border: 1px solid #e2dac9;
+                    border-left: 5px solid #d97706;
                     padding: 16px 20px;
                     border-radius: 10px;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
@@ -855,18 +1249,18 @@ class InfographicEngine:
                     font-size: 15px;
                     font-weight: 800;
                     letter-spacing: 0.5px;
-                    color: {theme['accent']};
+                    color: #d97706;
                     text-transform: uppercase;
                     margin-bottom: 5px;
                 }}
                 .spec-desc {{
                     font-size: 16px;
                     line-height: 1.45;
-                    color: {theme['text_sub']};
+                    color: #4a5d4e;
                 }}
                 .did-you-know {{
                     background: rgba(230, 220, 205, 0.45);
-                    border: 1px dashed {theme['border_frame']};
+                    border: 1px dashed #d4cbb8;
                     border-radius: 12px;
                     padding: 18px;
                     margin-top: auto;
@@ -874,7 +1268,7 @@ class InfographicEngine:
                 .did-you-know h4 {{
                     font-size: 15px;
                     font-weight: 800;
-                    color: {theme['text_main']};
+                    color: #18281e;
                     text-transform: uppercase;
                     letter-spacing: 1px;
                     margin-bottom: 8px;
@@ -882,7 +1276,7 @@ class InfographicEngine:
                 .did-you-know li {{
                     font-size: 14px;
                     line-height: 1.4;
-                    color: {theme['text_sub']};
+                    color: #4a5d4e;
                     margin-bottom: 6px;
                     list-style-type: none;
                     position: relative;
@@ -890,7 +1284,7 @@ class InfographicEngine:
                 }}
                 .did-you-know li::before {{
                     content: "•";
-                    color: {theme['accent']};
+                    color: #d97706;
                     font-weight: bold;
                     font-size: 18px;
                     position: absolute;
@@ -900,9 +1294,10 @@ class InfographicEngine:
                 .photo-frame {{
                     border-radius: 16px;
                     overflow: hidden;
-                    border: 3px solid {theme['card_border']};
+                    border: 3px solid #e2dac9;
                     box-shadow: 0 12px 32px rgba(0,0,0,0.08);
                     height: 100%;
+                    position: relative;
                 }}
                 .photo-frame img {{
                     width: 100%;
@@ -910,24 +1305,34 @@ class InfographicEngine:
                     object-fit: cover;
                     display: block;
                 }}
+                .art-tag-field {{
+                    position: absolute;
+                    bottom: 20px;
+                    left: 20px;
+                    background: rgba(24, 40, 30, 0.85);
+                    color: #fbf8f1;
+                    padding: 6px 14px;
+                    border-radius: 16px;
+                    font-size: 13px;
+                    font-weight: 800;
+                }}
                 .footer-strip {{
                     position: absolute;
                     bottom: 34px;
-                    left: 60px;
-                    right: 60px;
+                    left: 60px; right: 60px;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    border-top: 1px solid {theme['border_frame']};
+                    border-top: 1px solid #d4cbb8;
                     padding-top: 14px;
                     font-size: 14px;
                     font-weight: 600;
-                    color: {theme['text_muted']};
+                    color: #735338;
                 }}
                 .footer-strip .brand {{
                     font-weight: 800;
                     letter-spacing: 1px;
-                    color: {theme['text_main']};
+                    color: #18281e;
                 }}
             </style>
         </head>
@@ -950,6 +1355,7 @@ class InfographicEngine:
                 </div>
                 <div class="photo-frame">
                     <img src="{image_path}" />
+                    <div class="art-tag-field">{art_label}</div>
                 </div>
             </div>
             <div class="footer-strip">
@@ -966,9 +1372,10 @@ class InfographicEngine:
         topic: Dict[str, Any],
         v_data: Dict[str, Any],
         theme: Dict[str, Any],
-        image_path: str
+        image_path: str,
+        art_label: str
     ) -> str:
-        """Anatomical Callout Pointer Layout with SVG Connecting Lines."""
+        """Anatomical Callout Pointer Layout with SVG Connecting Lines (Ref 3)."""
         callouts = topic.get("callouts", [
             {"label": "PRIMARY ADAPTATION", "text": "Engineered for supreme survival in extreme conditions."},
             {"label": "RAPID SPRINT REFLEX", "text": "Micro-second synaptic responses optimize hunting efficiency."},
@@ -989,20 +1396,11 @@ class InfographicEngine:
                 body {{
                     width: 1080px;
                     height: 1350px;
-                    background: radial-gradient(circle at 50% 45%, {theme['bg']} 0%, #050a12 100%);
+                    background: radial-gradient(circle at 50% 45%, {theme['canvas_bg']} 0%, #050a12 100%);
                     font-family: 'Outfit', sans-serif;
-                    color: {theme['text_main']};
+                    color: #ffffff;
                     overflow: hidden;
                     position: relative;
-                }}
-                .grid-overlay {{
-                    position: absolute;
-                    inset: 0;
-                    background-image: linear-gradient({theme['card_border']} 1px, transparent 1px),
-                                      linear-gradient(90deg, {theme['card_border']} 1px, transparent 1px);
-                    background-size: 40px 40px;
-                    opacity: 0.15;
-                    pointer-events: none;
                 }}
                 .header {{
                     text-align: center;
@@ -1028,12 +1426,12 @@ class InfographicEngine:
                     font-size: 44px;
                     font-weight: 900;
                     letter-spacing: 1.5px;
-                    color: {theme['text_main']};
+                    color: #ffffff;
                     text-transform: uppercase;
                 }}
                 .subtitle {{
                     font-size: 18px;
-                    color: {theme['text_muted']};
+                    color: #cbd5e1;
                     letter-spacing: 1px;
                     margin-top: 6px;
                 }}
@@ -1060,6 +1458,17 @@ class InfographicEngine:
                     object-fit: cover;
                     display: block;
                 }}
+                .art-tag-pointer {{
+                    position: absolute;
+                    bottom: 15px; left: 15px;
+                    background: rgba(0,0,0,0.85);
+                    color: {theme['accent']};
+                    font-size: 12px;
+                    font-weight: 800;
+                    padding: 5px 12px;
+                    border-radius: 14px;
+                    z-index: 6;
+                }}
                 .callout-card {{
                     position: absolute;
                     width: 280px;
@@ -1082,7 +1491,7 @@ class InfographicEngine:
                 .callout-card p {{
                     font-size: 13px;
                     line-height: 1.4;
-                    color: {theme['text_sub']};
+                    color: #e2e8f0;
                 }}
                 .pos-tl {{ top: 40px; left: 45px; }}
                 .pos-ml {{ top: 290px; left: 35px; }}
@@ -1106,11 +1515,11 @@ class InfographicEngine:
                     border-top: 1px solid rgba(255,255,255,0.1);
                     padding-top: 14px;
                     font-size: 14px;
-                    color: {theme['text_muted']};
+                    color: #94a3b8;
                     font-weight: 600;
                 }}
                 .footer-brand {{
-                    color: {theme['text_main']};
+                    color: #ffffff;
                     font-weight: 800;
                     letter-spacing: 1px;
                 }}
@@ -1121,7 +1530,6 @@ class InfographicEngine:
             </style>
         </head>
         <body>
-            <div class="grid-overlay"></div>
             <div class="header">
                 <div class="pill-tag">{topic.get('badge', v_data['badge_tag'])}</div>
                 <h1 class="title">{topic['title']}</h1>
@@ -1129,38 +1537,22 @@ class InfographicEngine:
             </div>
             <div class="stage-container">
                 <svg class="pointers-svg" viewBox="0 0 1080 1010">
-                    <!-- Top Left to Subject -->
                     <path d="M 325 110 L 420 180 L 460 260" fill="none" stroke="{theme['accent']}" stroke-width="2" stroke-dasharray="4,4" />
                     <circle cx="460" cy="260" r="5" fill="{theme['accent']}" />
-                    <circle cx="460" cy="260" r="10" fill="none" stroke="{theme['accent']}" stroke-width="1.5" opacity="0.6" />
-
-                    <!-- Mid Left to Subject -->
                     <path d="M 315 360 L 410 380 L 440 370" fill="none" stroke="{theme['accent']}" stroke-width="2" stroke-dasharray="4,4" />
                     <circle cx="440" cy="370" r="5" fill="{theme['accent']}" />
-                    <circle cx="440" cy="370" r="10" fill="none" stroke="{theme['accent']}" stroke-width="1.5" opacity="0.6" />
-
-                    <!-- Bottom Left to Subject -->
                     <path d="M 325 800 L 410 740 L 460 670" fill="none" stroke="{theme['accent']}" stroke-width="2" stroke-dasharray="4,4" />
                     <circle cx="460" cy="670" r="5" fill="{theme['accent']}" />
-                    <circle cx="460" cy="670" r="10" fill="none" stroke="{theme['accent']}" stroke-width="1.5" opacity="0.6" />
-
-                    <!-- Top Right to Subject -->
                     <path d="M 755 110 L 660 170 L 620 250" fill="none" stroke="{theme['accent']}" stroke-width="2" stroke-dasharray="4,4" />
                     <circle cx="620" cy="250" r="5" fill="{theme['accent']}" />
-                    <circle cx="620" cy="250" r="10" fill="none" stroke="{theme['accent']}" stroke-width="1.5" opacity="0.6" />
-
-                    <!-- Mid Right to Subject -->
                     <path d="M 765 360 L 670 420 L 640 450" fill="none" stroke="{theme['accent']}" stroke-width="2" stroke-dasharray="4,4" />
                     <circle cx="640" cy="450" r="5" fill="{theme['accent']}" />
-                    <circle cx="640" cy="450" r="10" fill="none" stroke="{theme['accent']}" stroke-width="1.5" opacity="0.6" />
-
-                    <!-- Bottom Right to Subject -->
                     <path d="M 755 800 L 670 730 L 620 660" fill="none" stroke="{theme['accent']}" stroke-width="2" stroke-dasharray="4,4" />
                     <circle cx="620" cy="660" r="5" fill="{theme['accent']}" />
-                    <circle cx="620" cy="660" r="10" fill="none" stroke="{theme['accent']}" stroke-width="1.5" opacity="0.6" />
                 </svg>
                 <div class="central-subject">
                     <img src="{image_path}" />
+                    <div class="art-tag-pointer">{art_label}</div>
                 </div>
                 <div class="callout-card pos-tl">
                     <h4>{callouts[0]['label']}</h4>
@@ -1195,13 +1587,237 @@ class InfographicEngine:
         </html>
         """
 
+    def _build_canva_poster_html(
+        self,
+        page_name: str,
+        topic: Dict[str, Any],
+        v_data: Dict[str, Any],
+        theme: Dict[str, Any],
+        image_path: str,
+        art_label: str
+    ) -> str:
+        """Canva-Style Illustrated Nature Poster with Organic Dividers and Taxonomy (Ref 2)."""
+        cards = topic.get("cards", [])
+        c1 = cards[0] if len(cards) > 0 else {"label": "PRIMARY FOCUS", "text": "Key biological / craft adaptation."}
+        c2 = cards[1] if len(cards) > 1 else {"label": "CRITICAL METHOD", "text": "Advanced specialized technique."}
+
+        return f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Playfair+Display:ital,wght@1,600;1,700&display=swap');
+                * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+                body {{
+                    width: 1080px;
+                    height: 1350px;
+                    background-color: {theme['canvas_bg']};
+                    font-family: 'Montserrat', sans-serif;
+                    color: {theme['text_main']};
+                    overflow: hidden;
+                    position: relative;
+                }}
+                .header-banner {{
+                    position: relative;
+                    z-index: 10;
+                    text-align: center;
+                    padding-top: 45px;
+                }}
+                .header-banner h1 {{
+                    font-size: 42px;
+                    font-weight: 900;
+                    letter-spacing: 1.5px;
+                    color: {theme['accent']};
+                    text-transform: uppercase;
+                    line-height: 1.1;
+                }}
+                .header-banner .tagline {{
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: {theme['text_muted']};
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    margin-top: 6px;
+                }}
+                .main-card {{
+                    position: relative;
+                    z-index: 10;
+                    margin: 35px 50px;
+                    background: {theme['card_bg']};
+                    border: 2px solid {theme['card_border']};
+                    border-radius: 20px;
+                    padding: 26px;
+                    display: grid;
+                    grid-template-columns: 360px 1fr;
+                    gap: 30px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                }}
+                .subject-img {{
+                    width: 100%;
+                    height: 520px;
+                    border-radius: 16px;
+                    overflow: hidden;
+                    border: 2px solid {theme['accent']};
+                    position: relative;
+                }}
+                .subject-img img {{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;
+                }}
+                .art-tag-canva {{
+                    position: absolute;
+                    bottom: 15px; left: 15px;
+                    background: rgba(0,0,0,0.85);
+                    color: #facc15;
+                    font-size: 12px;
+                    font-weight: 800;
+                    padding: 5px 12px;
+                    border-radius: 14px;
+                }}
+                .details-col {{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }}
+                .pill-badge {{
+                    display: inline-block;
+                    background: {theme['accent']};
+                    color: #000;
+                    font-size: 13px;
+                    font-weight: 800;
+                    padding: 5px 14px;
+                    border-radius: 12px;
+                    text-transform: uppercase;
+                    margin-bottom: 8px;
+                }}
+                .details-col h2 {{
+                    font-size: 32px;
+                    font-weight: 800;
+                    color: {theme['text_main']};
+                    text-transform: uppercase;
+                }}
+                .details-col .latin {{
+                    font-family: 'Playfair Display', serif;
+                    font-style: italic;
+                    font-size: 20px;
+                    color: {theme['accent']};
+                    margin-bottom: 14px;
+                }}
+                .details-col p {{
+                    font-size: 16px;
+                    line-height: 1.5;
+                    color: {theme['text_sub']};
+                }}
+                .alert-box {{
+                    background: rgba(0,0,0,0.25);
+                    border-left: 5px solid {theme['accent']};
+                    border-radius: 10px;
+                    padding: 16px;
+                    margin-top: 18px;
+                }}
+                .alert-box h4 {{
+                    font-size: 15px;
+                    font-weight: 800;
+                    color: {theme['accent']};
+                    text-transform: uppercase;
+                    margin-bottom: 6px;
+                }}
+                .alert-box p {{
+                    font-size: 14px;
+                    line-height: 1.4;
+                    color: {theme['text_sub']};
+                }}
+                .lower-shelf {{
+                    margin: 0 50px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+                }}
+                .shelf-card {{
+                    background: {theme['card_bg']};
+                    border: 1px solid {theme['card_border']};
+                    border-radius: 16px;
+                    padding: 20px;
+                }}
+                .shelf-card h4 {{
+                    font-size: 16px;
+                    font-weight: 800;
+                    color: {theme['accent']};
+                    margin-bottom: 6px;
+                    text-transform: uppercase;
+                }}
+                .shelf-card p {{
+                    font-size: 14px;
+                    line-height: 1.45;
+                    color: {theme['text_sub']};
+                }}
+                .footer-strip {{
+                    position: absolute;
+                    bottom: 24px;
+                    left: 50px; right: 50px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-top: 1px solid {theme['card_border']};
+                    padding-top: 14px;
+                    font-size: 14px;
+                    color: {theme['text_muted']};
+                    font-weight: 700;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="header-banner">
+                <h1>{topic['title']}</h1>
+                <div class="tagline">{v_data['badge_tag']}</div>
+            </div>
+            <div class="main-card">
+                <div class="subject-img">
+                    <img src="{image_path}" />
+                    <div class="art-tag-canva">{art_label}</div>
+                </div>
+                <div class="details-col">
+                    <div>
+                        <div class="pill-badge">{topic.get('badge', v_data['badge_tag'])}</div>
+                        <h2>{topic['title']}</h2>
+                        <div class="latin">{topic.get('latin', v_data['theme_name'])}</div>
+                        <p>{c1['text']}</p>
+                    </div>
+                    <div class="alert-box">
+                        <h4>⚠️ KEY METHODOLOGY & SPECS</h4>
+                        <p>{c2['text']}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lower-shelf">
+                <div class="shelf-card">
+                    <h4>PRO SPECIFICATIONS</h4>
+                    <p>{topic.get('fun_fact', ['Authentic verified field facts'])[0]}</p>
+                </div>
+                <div class="shelf-card">
+                    <h4>FIELD DISPATCH</h4>
+                    <p>{topic.get('fun_fact', ['Authentic verified field facts'])[-1]}</p>
+                </div>
+            </div>
+            <div class="footer-strip">
+                <div>{page_name.upper()} • {v_data['theme_name']}</div>
+                <div style="color: {theme['accent']};">FOLLOW @{page_name.upper()} FOR DAILY DOSSIERS</div>
+            </div>
+        </body>
+        </html>
+        """
+
     def _build_bento_dashboard_html(
         self,
         page_name: str,
         topic: Dict[str, Any],
         v_data: Dict[str, Any],
         theme: Dict[str, Any],
-        image_path: str
+        image_path: str,
+        art_label: str
     ) -> str:
         """Modern Bento Grid Dashboard with Massive Stat Meters."""
         stat1 = topic.get("stat_primary", "100%")
@@ -1217,9 +1833,8 @@ class InfographicEngine:
         pills = topic.get("fun_fact", [
             "Pure precision grade materials guaranteed.",
             "Tested under rigorous conditions.",
-            "Verified by leading field naturalists.",
-            "Preserved for multi-generational longevity."
-        ])[:4]
+            "Verified by leading field naturalists."
+        ])[:3]
 
         return f"""
         <!DOCTYPE html>
@@ -1232,7 +1847,7 @@ class InfographicEngine:
                 body {{
                     width: 1080px;
                     height: 1350px;
-                    background-color: {theme['bg']};
+                    background-color: {theme['canvas_bg']};
                     font-family: 'Outfit', sans-serif;
                     color: {theme['text_main']};
                     overflow: hidden;
@@ -1314,7 +1929,7 @@ class InfographicEngine:
                 }}
                 .overlay-tag p {{
                     font-size: 14px;
-                    color: {theme['text_sub']};
+                    color: #cbd5e1;
                 }}
                 .card-stat1 {{
                     grid-column: 3 / 4;
@@ -1437,15 +2052,11 @@ class InfographicEngine:
                 </div>
                 <div class="card card-stat1">
                     <div class="stat-number">{stat1}</div>
-                    <div>
-                        <div class="stat-label">{stat1_lbl}</div>
-                    </div>
+                    <div><div class="stat-label">{stat1_lbl}</div></div>
                 </div>
                 <div class="card card-stat2">
                     <div class="stat-number">{stat2}</div>
-                    <div>
-                        <div class="stat-label">{stat2_lbl}</div>
-                    </div>
+                    <div><div class="stat-label">{stat2_lbl}</div></div>
                 </div>
                 <div class="card card-mid1">
                     <div class="card-tag" style="color: {theme['accent']};">{c1['label']}</div>
@@ -1476,225 +2087,16 @@ class InfographicEngine:
         </html>
         """
 
-    def _build_canva_poster_html(
-        self,
-        page_name: str,
-        topic: Dict[str, Any],
-        v_data: Dict[str, Any],
-        theme: Dict[str, Any],
-        image_path: str
-    ) -> str:
-        """Canva-Style Illustrated Nature Poster with Organic Dividers and Taxonomy."""
-        cards = topic.get("cards", [])
-        c1 = cards[0] if len(cards) > 0 else {"label": "PRIMARY FOCUS", "text": "Key biological / craft adaptation."}
-        c2 = cards[1] if len(cards) > 1 else {"label": "CRITICAL METHOD", "text": "Advanced specialized technique."}
-
-        return f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Playfair+Display:ital,wght@1,600;1,700&display=swap');
-                * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-                body {{
-                    width: 1080px;
-                    height: 1350px;
-                    background-color: {theme['bg']};
-                    font-family: 'Montserrat', sans-serif;
-                    color: {theme['text_main']};
-                    overflow: hidden;
-                    position: relative;
-                }}
-                .header-banner {{
-                    position: relative;
-                    z-index: 10;
-                    text-align: center;
-                    padding-top: 45px;
-                }}
-                .header-banner h1 {{
-                    font-size: 42px;
-                    font-weight: 900;
-                    letter-spacing: 1.5px;
-                    color: {theme['accent']};
-                    text-transform: uppercase;
-                    line-height: 1.1;
-                }}
-                .header-banner .tagline {{
-                    font-size: 18px;
-                    font-weight: 700;
-                    color: {theme['text_muted']};
-                    letter-spacing: 2px;
-                    text-transform: uppercase;
-                    margin-top: 6px;
-                }}
-                .main-card {{
-                    position: relative;
-                    z-index: 10;
-                    margin: 35px 50px;
-                    background: {theme['card_bg']};
-                    border: 2px solid {theme['card_border']};
-                    border-radius: 20px;
-                    padding: 26px;
-                    display: grid;
-                    grid-template-columns: 360px 1fr;
-                    gap: 30px;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-                }}
-                .subject-img {{
-                    width: 100%;
-                    height: 520px;
-                    border-radius: 16px;
-                    overflow: hidden;
-                    border: 2px solid {theme['accent']};
-                }}
-                .subject-img img {{
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    display: block;
-                }}
-                .details-col {{
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                }}
-                .pill-badge {{
-                    display: inline-block;
-                    background: {theme['accent']};
-                    color: #000;
-                    font-size: 13px;
-                    font-weight: 800;
-                    padding: 5px 14px;
-                    border-radius: 12px;
-                    text-transform: uppercase;
-                    margin-bottom: 8px;
-                }}
-                .details-col h2 {{
-                    font-size: 32px;
-                    font-weight: 800;
-                    color: {theme['text_main']};
-                    text-transform: uppercase;
-                }}
-                .details-col .latin {{
-                    font-family: 'Playfair Display', serif;
-                    font-style: italic;
-                    font-size: 20px;
-                    color: {theme['accent']};
-                    margin-bottom: 14px;
-                }}
-                .details-col p {{
-                    font-size: 16px;
-                    line-height: 1.5;
-                    color: {theme['text_sub']};
-                }}
-                .alert-box {{
-                    background: rgba(0,0,0,0.25);
-                    border-left: 5px solid {theme['accent']};
-                    border-radius: 10px;
-                    padding: 16px;
-                    margin-top: 18px;
-                }}
-                .alert-box h4 {{
-                    font-size: 15px;
-                    font-weight: 800;
-                    color: {theme['accent']};
-                    text-transform: uppercase;
-                    margin-bottom: 6px;
-                }}
-                .alert-box p {{
-                    font-size: 14px;
-                    line-height: 1.4;
-                    color: {theme['text_sub']};
-                }}
-                .lower-shelf {{
-                    margin: 0 50px;
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                }}
-                .shelf-card {{
-                    background: {theme['card_bg']};
-                    border: 1px solid {theme['card_border']};
-                    border-radius: 16px;
-                    padding: 20px;
-                }}
-                .shelf-card h4 {{
-                    font-size: 16px;
-                    font-weight: 800;
-                    color: {theme['accent']};
-                    margin-bottom: 6px;
-                    text-transform: uppercase;
-                }}
-                .shelf-card p {{
-                    font-size: 14px;
-                    line-height: 1.45;
-                    color: {theme['text_sub']};
-                }}
-                .footer-strip {{
-                    position: absolute;
-                    bottom: 24px;
-                    left: 50px; right: 50px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    border-top: 1px solid {theme['card_border']};
-                    padding-top: 14px;
-                    font-size: 14px;
-                    color: {theme['text_muted']};
-                    font-weight: 700;
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="header-banner">
-                <h1>{topic['title']}</h1>
-                <div class="tagline">{v_data['badge_tag']}</div>
-            </div>
-            <div class="main-card">
-                <div class="subject-img">
-                    <img src="{image_path}" />
-                </div>
-                <div class="details-col">
-                    <div>
-                        <div class="pill-badge">{topic.get('badge', v_data['badge_tag'])}</div>
-                        <h2>{topic['title']}</h2>
-                        <div class="latin">{topic.get('latin', v_data['theme_name'])}</div>
-                        <p>{c1['text']}</p>
-                    </div>
-                    <div class="alert-box">
-                        <h4>⚠️ KEY METHODOLOGY & SPECS</h4>
-                        <p>{c2['text']}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lower-shelf">
-                <div class="shelf-card">
-                    <h4>PRO SPECIFICATIONS</h4>
-                    <p>{topic.get('fun_fact', ['Authentic verified field facts'])[0]}</p>
-                </div>
-                <div class="shelf-card">
-                    <h4>FIELD DISPATCH</h4>
-                    <p>{topic.get('fun_fact', ['Authentic verified field facts'])[-1]}</p>
-                </div>
-            </div>
-            <div class="footer-strip">
-                <div>{page_name.upper()} • {v_data['theme_name']}</div>
-                <div style="color: {theme['accent']};">FOLLOW @{page_name.upper()} FOR DAILY DOSSIERS</div>
-            </div>
-        </body>
-        </html>
-        """
-
     def _build_cinematic_hero_html(
         self,
         page_name: str,
         topic: Dict[str, Any],
         v_data: Dict[str, Any],
         theme: Dict[str, Any],
-        image_path: str
+        image_path: str,
+        art_label: str
     ) -> str:
-        """NatGeo Modern Magazine Cover with Frosted Glassmorphic Stats."""
+        """NatGeo Modern Magazine Cover with Frosted Glassmorphism (Ref 1/Hero)."""
         cards = topic.get("cards", [])
         c1 = cards[0] if len(cards) > 0 else {"label": "SPECS 01", "text": "Masterclass observation."}
         c2 = cards[1] if len(cards) > 1 else {"label": "SPECS 02", "text": "Biological efficiency."}
@@ -1718,8 +2120,7 @@ class InfographicEngine:
                 }}
                 .hero-bg {{
                     position: absolute;
-                    inset: 0;
-                    width: 100%; height: 100%;
+                    inset: 0; width: 100%; height: 100%;
                     object-fit: cover;
                     display: block;
                 }}
@@ -1839,24 +2240,30 @@ class InfographicEngine:
         topic: Dict[str, Any],
         output_path: str,
         template_name: Optional[str] = None,
-        theme_name: Optional[str] = None
+        theme_name: Optional[str] = None,
+        art_style_name: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Renders a Full HD 1080x1350 graphic using Playwright Chromium:
-        - Cycles through 5 distinct templates and 6 distinct color themes.
-        - 100% Niche Isolated: Exact topic data, zero cross-contamination.
-        - Text is guaranteed to never clip or blur.
+        - Cycles through 6 distinct art styles (Pixar 3D, Ghibli, 2D Vector, 8K Photo, Cyberpunk, Lithograph).
+        - Cycles through 6 distinct templates and 6 vibrant multi-color palettes.
+        - 100% Niche Isolated.
         """
         os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
 
         v_data = AUTHENTIC_VERTICAL_DATA.get(vertical_key, AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"])
 
-        # Determine template and theme
+        # Determine art style
+        if not art_style_name or art_style_name not in ART_STYLES:
+            h_art = int(hashlib.md5(f"{page_name}_{topic['slug']}_art".encode()).hexdigest(), 16)
+            art_style_name = ART_STYLE_KEYS[h_art % len(ART_STYLE_KEYS)]
+
+        # Determine template
         if not template_name or template_name not in TEMPLATE_STYLES:
-            # Deterministic selection based on page name + topic slug
             h_val = int(hashlib.md5(f"{page_name}_{topic['slug']}".encode()).hexdigest(), 16)
             template_name = TEMPLATE_STYLES[h_val % len(TEMPLATE_STYLES)]
 
+        # Determine theme
         theme_keys = list(PALETTE_THEMES.keys())
         if not theme_name or theme_name not in PALETTE_THEMES:
             h_theme = int(hashlib.md5(f"{topic['slug']}_{template_name}".encode()).hexdigest(), 16)
@@ -1864,20 +2271,24 @@ class InfographicEngine:
 
         theme = PALETTE_THEMES[theme_name]
 
-        # Fetch image
-        image_local_or_url = self.fetch_image(topic, v_data.get("search_term", ""))
+        # Fetch image with specific art style
+        image_local_or_url, art_label = self.fetch_image_with_art_style(
+            topic, v_data.get("search_term", ""), art_style_name
+        )
 
         # Build appropriate HTML
-        if template_name == "anatomical_pointer":
-            html_content = self._build_anatomical_pointer_html(page_name, topic, v_data, theme, image_local_or_url)
+        if template_name == "vibrant_multicolor":
+            html_content = self._build_vibrant_multicolor_html(page_name, topic, v_data, theme, image_local_or_url, art_label)
+        elif template_name == "anatomical_pointer":
+            html_content = self._build_anatomical_pointer_html(page_name, topic, v_data, theme, image_local_or_url, art_label)
         elif template_name == "bento_dashboard":
-            html_content = self._build_bento_dashboard_html(page_name, topic, v_data, theme, image_local_or_url)
+            html_content = self._build_bento_dashboard_html(page_name, topic, v_data, theme, image_local_or_url, art_label)
         elif template_name == "canva_poster":
-            html_content = self._build_canva_poster_html(page_name, topic, v_data, theme, image_local_or_url)
+            html_content = self._build_canva_poster_html(page_name, topic, v_data, theme, image_local_or_url, art_label)
         elif template_name == "cinematic_hero":
-            html_content = self._build_cinematic_hero_html(page_name, topic, v_data, theme, image_local_or_url)
+            html_content = self._build_cinematic_hero_html(page_name, topic, v_data, theme, image_local_or_url, art_label)
         else:
-            html_content = self._build_vintage_fieldguide_html(page_name, topic, v_data, theme, image_local_or_url)
+            html_content = self._build_vintage_fieldguide_html(page_name, topic, v_data, theme, image_local_or_url, art_label)
 
         # Render using Playwright Chromium
         render_success = False
@@ -1891,11 +2302,16 @@ class InfographicEngine:
                 browser.close()
             render_success = True
         except Exception as e:
-            logger.warning(f"Playwright render encountered an issue, falling back to PIL: {e}")
+            logger.warning(f"Playwright render encountered an issue: {e}")
 
         # Fallback to PIL if Playwright is unavailable
         if not render_success or not os.path.exists(output_path):
-            self._render_pillow_fallback(page_name, vertical_key, topic, output_path, theme)
+            canvas = Image.new("RGB", (1080, 1350), (15, 23, 42))
+            draw = ImageDraw.Draw(canvas)
+            draw.rectangle([(20, 20), (1060, 1330)], outline=(245, 158, 11), width=3)
+            draw.text((60, 60), topic["title"].upper(), fill=(255, 255, 255))
+            draw.text((60, 120), page_name.upper(), fill=(245, 158, 11))
+            canvas.save(output_path, "PNG")
 
         # Ensure output is clean 1080x1350 RGB PNG
         with Image.open(output_path) as im:
@@ -1905,14 +2321,14 @@ class InfographicEngine:
                 im = im.resize((1080, 1350), Image.Resampling.LANCZOS)
             im.save(output_path, "PNG", quality=95)
 
-        logger.info(f"Rendered [{template_name} | {theme_name}] Infographic: {output_path}")
+        logger.info(f"Rendered [{template_name} | {theme_name} | {art_style_name}] Infographic: {output_path}")
 
         caption = (
             f"🔥 {topic['title']} — {v_data['badge_tag']}\n\n"
             f"Mastering the authentic secrets of {topic['title']}:\n"
             f"Swipe through to discover the exact mechanics, techniques, and pro insights!\n\n"
             f"👉 Follow @{page_name} for daily field guides!\n\n"
-            f"#{topic['slug']} #{vertical_key} #Infographic #FieldGuide #Explore #FYP"
+            f"#{topic['slug']} #{vertical_key} #Infographic #{art_style_name} #Explore #FYP"
         )
 
         return {
@@ -1921,21 +2337,6 @@ class InfographicEngine:
             "caption": caption,
             "topic_slug": topic["slug"],
             "template_name": template_name,
-            "theme_name": theme_name
+            "theme_name": theme_name,
+            "art_style_name": art_style_name
         }
-
-    def _render_pillow_fallback(
-        self,
-        page_name: str,
-        vertical_key: str,
-        topic: Dict[str, Any],
-        output_path: str,
-        theme: Dict[str, Any]
-    ):
-        """Pillow emergency fallback generator if Playwright browser is offline."""
-        canvas = Image.new("RGB", (1080, 1350), (15, 23, 42))
-        draw = ImageDraw.Draw(canvas)
-        draw.rectangle([(20, 20), (1060, 1330)], outline=(245, 158, 11), width=3)
-        draw.text((60, 60), topic["title"].upper(), fill=(255, 255, 255))
-        draw.text((60, 120), page_name.upper(), fill=(245, 158, 11))
-        canvas.save(output_path, "PNG")
