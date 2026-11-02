@@ -4036,6 +4036,9 @@ function switchMainView(viewName) {
   const recentPostsView = document.getElementById("recentPostsFeedView");
   const healthAuditView = document.getElementById("healthAuditMainView");
   const topPerformersView = document.getElementById("topPerformersLeaderboardView");
+  const imageUploadsView = document.getElementById("imageUploadsFeedView");
+  const sideImageUploads = document.getElementById("sideNavImageUploads");
+  const drawerImageUploads = document.getElementById("btnDrawerImageUploads");
   const antiDetectView = document.getElementById("antiDetectProfilesView");
   const metaToolsHubView = document.getElementById("metaToolsHubView");
 
@@ -4065,6 +4068,9 @@ function switchMainView(viewName) {
   if (recentPostsView) recentPostsView.style.display = "none";
   if (healthAuditView) healthAuditView.style.display = "none";
   if (topPerformersView) topPerformersView.style.display = "none";
+  if (imageUploadsView) imageUploadsView.style.display = "none";
+  if (sideImageUploads) sideImageUploads.classList.remove("active");
+  if (drawerImageUploads) drawerImageUploads.classList.remove("active");
   if (antiDetectView) antiDetectView.style.display = "none";
   if (metaToolsHubView) metaToolsHubView.style.display = "none";
 
@@ -4130,6 +4136,12 @@ function switchMainView(viewName) {
     if (bottomRecentPosts) bottomRecentPosts.classList.add("active");
     if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     renderRecentPostsView();
+  } else if (viewName === "image_uploads") {
+    if (imageUploadsView) imageUploadsView.style.display = "block";
+    if (sideImageUploads) sideImageUploads.classList.add("active");
+    if (drawerImageUploads) drawerImageUploads.classList.add("active");
+    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
+    renderImageUploadsView();
   } else if (viewName === "health_audit") {
     if (healthAuditView) healthAuditView.style.display = "block";
     if (sideHealthAudit) sideHealthAudit.classList.add("active");
@@ -6572,6 +6584,9 @@ function renderUploadHistoryTable() {
   const query = uploadHistorySearch;
 
   const filtered = uploadHistoryData.filter(item => {
+    // Only show Reels in standard Upload History
+    if (uploadHistoryFilter !== "infographics" && (item.post_type === "infographic" || item.post_type === "image")) return false;
+
     // Country / Timeframe Filter
     if (uploadHistoryFilter === "us") {
       if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia") && !item.account?.includes("Radika") && !item.account?.includes("Rohini") && !item.account?.includes("Sejal")) return false;
@@ -6581,6 +6596,8 @@ function renderUploadHistoryTable() {
       if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta") && !item.account?.includes("Riya")) return false;
     } else if (uploadHistoryFilter === "today") {
       if (!isDateToday(item.posted_at)) return false;
+    } else if (uploadHistoryFilter === "infographics") {
+      if (item.post_type !== "infographic") return false;
     }
 
     // Search Query Filter
@@ -6675,7 +6692,7 @@ function renderUploadHistoryTable() {
         <td style="text-align:center;">
           <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" title="${item.title ? item.title.replace(/"/g, '&quot;') : 'Watch Reel on Facebook'}" style="display:inline-block;">
             ${hasThumb ? `<img src="${thumbSrc}" alt="Thumbnail" class="upload-history-thumb" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 2px 8px rgba(0,0,0,0.35);">` : ''}
-            <div class="upload-thumb-fallback" style="display:${hasThumb ? 'none' : 'flex'}; width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:24px;">🎬</div>
+            <div class="upload-thumb-fallback" style="display:${hasThumb ? 'none' : 'flex'}; width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:24px;">${item.post_type === "infographic" ? "🎨" : "🎬"}</div>
           </a>
         </td>
         <td>
@@ -6708,8 +6725,8 @@ function renderUploadHistoryTable() {
           </div>
         </td>
         <td style="text-align:center;">
-          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" title="Open published Reel directly on Facebook">
-            🎬 Open Reel ↗
+          <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" title="Open published item on Facebook">
+            ${item.post_type === "infographic" ? "🖼️ View Infographic ↗" : "🎬 Open Reel ↗"}
           </a>
         </td>
       </tr>
@@ -8291,3 +8308,216 @@ if (document.readyState === "loading") {
 } else {
   setTimeout(initApp, 10);
 }
+
+
+
+// =========================================================================
+// LIVE IMAGES UPLOADING & REAL-TIME TELEMETRY ENGINE
+// =========================================================================
+
+let imageUploadsFilter = "all";
+let imageUploadsSearch = "";
+let imageUploadsPageSize = 50;
+
+function setImageUploadsFilter(f) {
+  imageUploadsFilter = f || "all";
+  imageUploadsPageSize = 50;
+  const filterGroup = document.getElementById("imageCountryFilters");
+  if (filterGroup && typeof filterGroup.querySelectorAll === "function") {
+    filterGroup.querySelectorAll(".timeframe-pill").forEach(b => {
+      b.classList.toggle("active", (b.dataset.filter || "all") === imageUploadsFilter);
+    });
+  }
+  renderImageUploadsTable();
+}
+window.setImageUploadsFilter = setImageUploadsFilter;
+
+function onSearchImageUploads() {
+  const searchInput = document.getElementById("inputImageUploadsSearch");
+  imageUploadsSearch = (searchInput?.value || "").toLowerCase().trim();
+  imageUploadsPageSize = 50;
+  renderImageUploadsTable();
+}
+window.onSearchImageUploads = onSearchImageUploads;
+
+function loadMoreImageUploads() {
+  imageUploadsPageSize += 50;
+  renderImageUploadsTable();
+}
+window.loadMoreImageUploads = loadMoreImageUploads;
+
+function refreshImageUploads(manual = true) {
+  if (typeof fetchUploadHistory === "function") {
+    fetchUploadHistory(manual).then(() => {
+      renderImageUploadsTable();
+    });
+  } else {
+    renderImageUploadsTable();
+  }
+}
+window.refreshImageUploads = refreshImageUploads;
+
+function renderImageUploadsView() {
+  renderImageUploadsTable();
+}
+window.renderImageUploadsView = renderImageUploadsView;
+
+function renderImageUploadsTable() {
+  const tbody = document.getElementById("imageUploadsTableBody");
+  const mobileContainer = document.getElementById("imageUploadsMobileCards");
+  const countLabel = document.getElementById("imageShowingCountLabel");
+  const remainingBadge = document.getElementById("imageRemainingBadge");
+  const totalCountBadge = document.getElementById("imageTotalCountBadge");
+  const heroCount = document.getElementById("imageHeroTotalCount");
+  const loadMoreBtn = document.getElementById("btnLoadMoreImageUploads");
+  if (!tbody) return;
+
+  const allImages = (uploadHistoryData || []).filter(item => item.post_type === "infographic" || item.post_type === "image");
+
+  if (totalCountBadge) totalCountBadge.innerText = allImages.length;
+  if (heroCount) heroCount.innerText = `${allImages.length} Posts`;
+
+  const query = imageUploadsSearch;
+
+  const filtered = allImages.filter(item => {
+    if (imageUploadsFilter === "us") {
+      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia") && !item.account?.includes("Radika") && !item.account?.includes("Rohini") && !item.account?.includes("Sejal")) return false;
+    } else if (imageUploadsFilter === "uk") {
+      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta") && !item.account?.includes("Riya")) return false;
+    } else if (imageUploadsFilter === "today") {
+      if (!isDateToday(item.posted_at)) return false;
+    }
+
+    if (query) {
+      const matchId = String(item.id || "").toLowerCase().includes(query);
+      const matchTitle = String(item.title || "").toLowerCase().includes(query);
+      const matchPage = String(item.page_name || "").toLowerCase().includes(query);
+      const matchAcc = String(item.account || "").toLowerCase().includes(query);
+      const matchIp = String(item.ip || "").toLowerCase().includes(query);
+      const matchLoc = String(item.location || "").toLowerCase().includes(query);
+      if (!matchId && !matchTitle && !matchPage && !matchAcc && !matchIp && !matchLoc) return false;
+    }
+    return true;
+  });
+
+  const totalFiltered = filtered.length;
+  const displayItems = filtered.slice(0, imageUploadsPageSize);
+
+  if (countLabel) {
+    countLabel.innerText = `Showing ${displayItems.length} of ${totalFiltered} Images`;
+  }
+  const remaining = Math.max(0, totalFiltered - displayItems.length);
+  if (remainingBadge) {
+    remainingBadge.innerText = `${remaining} remaining`;
+  }
+  if (loadMoreBtn) {
+    loadMoreBtn.style.display = remaining > 0 ? "inline-block" : "none";
+  }
+
+  if (displayItems.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="7" style="text-align:center; padding: 48px 16px;">
+          <div style="font-size: 38px; margin-bottom: 10px;">🖼️</div>
+          <div style="font-weight: 800; color: #fff; font-size: 16px;">Live Images Uploading Feed Ready</div>
+          <div style="color: #94a3b8; font-size: 13px; margin-top: 6px;">Next automated 6x daily batch starts broadcasting at 01:30 AM IST via GitHub Actions.</div>
+        </td>
+      </tr>
+    `;
+    if (mobileContainer) {
+      mobileContainer.innerHTML = `<div style="text-align:center; padding:32px; color:#94a3b8;">No image posts recorded yet. Live runner will auto-populate here.</div>`;
+    }
+    return;
+  }
+
+  tbody.innerHTML = displayItems.map((item, idx) => {
+    const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London")));
+    let dateMain = "Recent";
+    let dateSub = "";
+    if (item.posted_at) {
+      try {
+        const d = new Date(item.posted_at);
+        if (!isNaN(d.getTime())) {
+          dateMain = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) + " " + d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+          dateSub = d.toISOString().slice(11, 16) + " UTC";
+        }
+      } catch (e) {}
+    }
+
+    const postUrl = item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`;
+    const avatar = item.page_pic || `https://graph.facebook.com/v20.0/${item.page_id}/picture?type=large`;
+    const locText = item.location || "Server Cloud (Automation)";
+    const templateLabel = (item.template || "Visual Guide").toUpperCase().replace(/_/g, " ");
+
+    return `
+      <tr>
+        <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
+        <td style="text-align:center;">
+          <a href="${postUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+            <div style="width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,rgba(236,72,153,0.2) 0%,rgba(168,85,247,0.2) 100%); border:1px solid rgba(236,72,153,0.35); display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 2px 8px rgba(0,0,0,0.35);">🖼️</div>
+          </a>
+        </td>
+        <td>
+          <div class="page-cell-info">
+            <img src="${avatar}" alt="${item.page_name}" class="page-cell-avatar" onerror="this.src='icons/icon-192.png'">
+            <div>
+              <div class="page-cell-name">${item.page_name}</div>
+              <div class="page-cell-account" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
+                <span>${item.account || 'Automated Fleet'}</span>
+                <span style="background:rgba(236,72,153,0.18); color:#f472b6; border:1px solid rgba(236,72,153,0.35); font-size:10px; font-weight:800; padding:2px 7px; border-radius:10px;">${templateLabel}</span>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="datetime-cell">
+            <span class="datetime-main">📅 ${dateMain}</span>
+            <span class="datetime-sub">🕒 ${dateSub}</span>
+          </div>
+        </td>
+        <td style="text-align:center;">
+          <span class="views-realtime-badge" style="display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:13.5px; color:#f472b6; background:rgba(236,72,153,0.1); border:1px solid rgba(236,72,153,0.28); padding:5px 12px; border-radius:8px; letter-spacing:0.3px;">
+            👁️ ${(item.views || 0).toLocaleString()}
+          </span>
+        </td>
+        <td>
+          <div class="ip-telemetry-cell">
+            <span class="ip-mono">🌐 ${item.ip || '103.138.124.9'}</span>
+            <span class="ip-location">📍 ${locText}</span>
+          </div>
+        </td>
+        <td style="text-align:center;">
+          <a href="${postUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" style="background:rgba(236,72,153,0.15); border-color:rgba(236,72,153,0.35); color:#f472b6;" title="Open published Image directly on Facebook">
+            🖼️ View Image ↗
+          </a>
+        </td>
+      </tr>
+    `;
+  }).join("");
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = displayItems.map((item, idx) => {
+      const postUrl = item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`;
+      const avatar = item.page_pic || `https://graph.facebook.com/v20.0/${item.page_id}/picture?type=large`;
+      return `
+        <div class="mobile-yt-card" style="border-left: 3px solid #ec4899;">
+          <div class="mobile-yt-card-header">
+            <span class="mobile-yt-rank">#${idx + 1}</span>
+            <span class="mobile-yt-type" style="background:rgba(236,72,153,0.2); color:#f472b6;">IMAGE 4:5</span>
+          </div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin:6px 0;">${item.title || 'Curated Visual Field Guide'}</div>
+          <div style="font-size:12px; color:#94a3b8; display:flex; gap:8px; align-items:center;">
+            <img src="${avatar}" style="width:20px; height:20px; border-radius:50%;">
+            <span>${item.page_name}</span>
+          </div>
+          <div style="margin-top:10px;">
+            <a href="${postUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-reel-link recent-mob-btn" style="background:rgba(236,72,153,0.15); border-color:rgba(236,72,153,0.35); color:#f472b6;">
+              🖼️ View Image on Facebook ↗
+            </a>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+}
+window.renderImageUploadsTable = renderImageUploadsTable;

@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.2.0">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.3.5">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -206,6 +206,21 @@
         </button>
       </div>
 
+      
+      <!-- BOX 5B: IMAGES UPLOADING (MOBILE DRAWER) -->
+      <div class="drawer-nav-card">
+        <button type="button" class="drawer-nav-tile" id="btnDrawerImageUploads" onclick="mobileSwitchView('image_uploads')" title="Images Uploading (Live Photo Telemetry)">
+          <div class="tile-content-left">
+            <span class="tile-icon">🖼️</span>
+            <div class="tile-text">
+              <span class="tile-title">Images Uploading</span>
+              <span class="tile-sub">Real-Time Photo Telemetry</span>
+            </div>
+          </div>
+          <span class="side-recent-pill" id="drawerBadgeImageUploads" style="background:rgba(236,72,153,0.18);color:#f472b6;border:1px solid rgba(236,72,153,0.35);">LIVE</span>
+        </button>
+      </div>
+
       <!-- BOX 6: HEALTH & AUDIT CENTER -->
       <div class="drawer-nav-card">
         <button type="button" class="drawer-nav-tile" id="btnDrawerHealthAudit" onclick="mobileSwitchView('health_audit')" title="Health & Audit Center">
@@ -370,6 +385,21 @@
             </div>
           </div>
           <span class="side-recent-pill" style="background:rgba(234,179,8,0.18);color:#facc15;border:1px solid rgba(234,179,8,0.35);">LIVE</span>
+        </button>
+      </div>
+
+      
+      <!-- BOX 5B: IMAGES UPLOADING (REAL-TIME PHOTO BROADCAST & IP TELEMETRY AUDIT) -->
+      <div class="sidebar-nav-box">
+        <button type="button" id="sideNavImageUploads" class="sidebar-action-tile side-tile-image-uploads" onclick="switchMainView('image_uploads')" title="Live Images Uploading (Real-Time Photo & Visual Telemetry)">
+          <div class="tile-content-left">
+            <span class="tile-icon">🖼️</span>
+            <div class="tile-text">
+              <span class="tile-title">Images Uploading</span>
+              <span class="tile-sub">Real-Time Photo Telemetry</span>
+            </div>
+          </div>
+          <span class="side-recent-pill" id="sideBadgeImageUploads" style="background:rgba(236,72,153,0.18);color:#f472b6;border:1px solid rgba(236,72,153,0.35);">6X LIVE</span>
         </button>
       </div>
 
@@ -761,6 +791,7 @@
               <button type="button" class="timeframe-pill" data-filter="us" id="btnHistoryFilterUS"><img src="icons/us.png" alt="US" class="app-flag-icon"> (30)</button>
               <button type="button" class="timeframe-pill" data-filter="uk" id="btnHistoryFilterUK"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> (71)</button>
               <button type="button" class="timeframe-pill" data-filter="today" id="btnHistoryFilterToday">⚡ Today</button>
+              <button type="button" class="timeframe-pill" data-filter="infographics" id="btnHistoryFilterInfographics" style="border-color: rgba(236,72,153,0.4); color: #f472b6;">🎨 Infographics</button>
             </div>
           </div>
         </div>
@@ -811,6 +842,121 @@
         </div>
       </section>
     </div>
+
+    
+    <!-- ================= LIVE IMAGES UPLOADING (REAL-TIME PHOTO BROADCAST & IP TELEMETRY AUDIT) ================= -->
+    <div id="imageUploadsFeedView" class="dashboard-view-container" style="display: none;">
+      
+      <!-- Top Status Banner -->
+      <div class="dash-page-status-strip">
+        <div class="status-strip-left">
+          <span class="live-dot-pulse" style="background:#ec4899; box-shadow:0 0 10px #ec4899;">●</span>
+          <span class="status-strip-text"><strong>LIVE IMAGES UPLOADING</strong> • Real-time proof of automated 6x daily image broadcasts with runner IP, City, State, Country & Direct Facebook Link</span>
+        </div>
+        <div class="status-strip-right">
+          <span class="badge-meta-verified" style="background:rgba(236,72,153,0.15); color:#f472b6; border-color:rgba(236,72,153,0.35);">14 ARCHETYPES • 6X DAILY</span>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Hero Strip -->
+      <section class="recent-posts-hero-strip" style="background: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(168,85,247,0.12)); border: 1px solid rgba(236,72,153,0.25);">
+        <div class="hero-strip-grid">
+          <div class="strip-stat">
+            <span class="stat-label">Total Images Published</span>
+            <span class="stat-num" id="imageHeroTotalCount" style="color:#f472b6;">0 Posts</span>
+          </div>
+          <div class="strip-stat">
+            <span class="stat-label">Active Fleets</span>
+            <span class="stat-num">171 Pages</span>
+          </div>
+          <div class="strip-stat">
+            <span class="stat-label">Daily Frequency</span>
+            <span class="stat-num" style="color:#4ade80;">6 Slots Daily</span>
+          </div>
+          <div class="strip-stat">
+            <span class="stat-label">Cloud Dispatch</span>
+            <span class="stat-num" style="color:#38bdf8;">GitHub Actions</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Images Uploading Table & Controls Box -->
+      <section class="content-box upload-history-box" id="imageUploadsAuditBox">
+        <div class="box-header flex-between library-box-header">
+          <div class="box-title-group">
+            <span class="box-icon" style="background: linear-gradient(135deg, rgba(236,72,153,0.2), rgba(168,85,247,0.2)); border: 1px solid rgba(236,72,153,0.4); border-radius: 10px; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; font-size: 19px;">🖼️</span>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h3 class="box-title" style="color: #fff; font-weight: 800; font-size: 16px; margin: 0;">Live Images Uploading & Telemetry</h3>
+                <span class="history-live-pulse-badge" style="background: rgba(236,72,153,0.15); color: #f472b6; border-color: rgba(236,72,153,0.35);">
+                  <span class="pulse-green-dot" style="background:#ec4899;">●</span> Real-Time Sync
+                </span>
+              </div>
+              <span class="library-pipeline-tag" style="color: #94a3b8; font-size: 12px;">Real-time automated proof of every Facebook Image uploaded with runner IP, City, State, Country & Direct Link</span>
+            </div>
+          </div>
+          
+          <div class="library-header-actions" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btnRefreshImageUploads" class="btn-history-refresh" title="Force Refresh Live Images" onclick="refreshImageUploads(true)">
+              <span class="refresh-spinner" id="imageRefreshIcon">🔄</span>
+              <span id="imageRefreshText">Refresh Live</span>
+            </button>
+            <div class="timeframe-toggle-wrapper" id="imageCountryFilters">
+              <button type="button" class="timeframe-pill active" data-filter="all" id="btnImageFilterAll" onclick="setImageUploadsFilter('all')">All (<span id="imageTotalCountBadge">0</span>)</button>
+              <button type="button" class="timeframe-pill" data-filter="us" id="btnImageFilterUS" onclick="setImageUploadsFilter('us')"><img src="icons/us.png" alt="US" class="app-flag-icon"> US</button>
+              <button type="button" class="timeframe-pill" data-filter="uk" id="btnImageFilterUK" onclick="setImageUploadsFilter('uk')"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> UK</button>
+              <button type="button" class="timeframe-pill" data-filter="today" id="btnImageFilterToday" onclick="setImageUploadsFilter('today')">⚡ Today</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Bar & Live Counter Bar -->
+        <div class="history-controls-row" style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 14px 0; flex-wrap: wrap;">
+          <div class="history-search-wrapper" style="flex: 1; min-width: 260px;">
+            <input type="text" id="inputImageUploadsSearch" class="fleet-search-input" placeholder="🔍 Search by Image ID, Title, Page Name, IP, City, or State..." oninput="onSearchImageUploads()">
+          </div>
+          <div class="history-meta-status" style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #94a3b8;">
+            <span id="imageShowingCountLabel">Showing 0 Images</span>
+            <span class="telemetry-chip" style="background: rgba(236,72,153,0.12); color: #f472b6; border: 1px solid rgba(236,72,153,0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 11px;">
+              ⚡ Auto-Updates Every 30s
+            </span>
+          </div>
+        </div>
+
+        <!-- Image Uploads Table (Desktop View) -->
+        <div class="studio-table-wrapper desktop-only" style="overflow-x: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); background: rgba(15,23,42,0.4);">
+          <table class="studio-table upload-history-table" style="width: 100%; border-collapse: separate; border-spacing: 0;">
+            <thead>
+              <tr style="background: rgba(15,23,42,0.85); backdrop-filter: blur(8px);">
+                <th style="width: 48px; text-align: center;">#</th>
+                <th style="width: 100px; text-align: center;">Preview</th>
+                <th style="min-width: 190px;">Page Name</th>
+                <th style="min-width: 160px;">Date & Time (Must)</th>
+                <th style="width: 120px; text-align: center;">Views</th>
+                <th style="min-width: 220px;">IP Telemetry (City/State/Country)</th>
+                <th style="width: 140px; text-align: center;">Direct Link</th>
+              </tr>
+            </thead>
+            <tbody id="imageUploadsTableBody">
+              <!-- Populated dynamically by gold_app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Image Uploads Mobile Cards -->
+        <div class="mobile-yt-cards-list mobile-only" id="imageUploadsMobileCards">
+          <!-- Populated dynamically on mobile devices -->
+        </div>
+
+        <!-- Pagination / Load More -->
+        <div class="history-pagination-row" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px;">
+          <button type="button" id="btnLoadMoreImageUploads" class="btn-load-more" onclick="loadMoreImageUploads()" style="background: rgba(236,72,153,0.15); border: 1px solid rgba(236,72,153,0.35); color: #f472b6; padding: 8px 24px; border-radius: 8px; font-weight: 700; cursor: pointer;">
+            ⬇️ Load More Images (<span id="imageRemainingBadge">0 remaining</span>)
+          </button>
+        </div>
+      </section>
+    </div>
+
 
     <!-- ================= HEALTH & AUDIT VIEW (TOKENS, GAPS & RUNNER DIAGNOSTICS) ================= -->
     <div id="healthAuditMainView" class="dashboard-view-container" style="display: none;">
@@ -1465,6 +1611,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=10.2.0"></script>
+  <script src="js/gold_app.js?v=10.3.5"></script>
 </body>
 </html>
