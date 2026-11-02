@@ -813,6 +813,78 @@ AUTHENTIC_VERTICAL_DATA = {
 }
 
 
+# =========================================================================
+# 5. VIRAL HOOK FORMULAS & TRENDING HASHTAG ARCHITECTURE
+# =========================================================================
+
+VIRAL_HOOK_TEMPLATES = [
+    "🔥 SHOCKING TRUTH: The Secret Blueprint of {title} Explained!",
+    "⚡ DID YOU KNOW? 99% Of People Have No Idea How {title} Actually Works!",
+    "🧠 MIND-BLOWING MASTERCLASS: The Untold Genius of {title}!",
+    "🚨 RECORD ALERT: Extreme Facts & Hidden Records of {title}!",
+    "💎 THE UNTOLD STORY: Why {title} Is Completely Fascinating!",
+    "🎨 HYPER-DETAILED BREAKDOWN: Step-by-Step Science of {title}!",
+    "⚠️ DO NOT MISS: Fascinating Records & Anatomy of {title}!"
+]
+
+VERTICAL_TRENDING_HASHTAGS = {
+    "miniature_diorama_disaster": [
+        "#miniature", "#diorama", "#miniatureworld", "#scalemodel", "#resinart", "#macrocraft",
+        "#scratchbuild", "#modelmaking", "#tinyworld", "#scale87", "#hyperrealistic"
+    ],
+    "pet_owls_birds": [
+        "#owl", "#birdtok", "#owlsoftiktok", "#raptor", "#wildlifephotography", "#naturelovers",
+        "#birdsofprey", "#barnowl", "#animalfacts", "#audubon"
+    ],
+    "huskies_canine_psychology": [
+        "#husky", "#siberianhusky", "#huskylife", "#dogpsychology", "#caninebehavior",
+        "#workingdog", "#doglovers", "#puppylove", "#arcticdog"
+    ],
+    "humanity_and_good_deeds": [
+        "#humanity", "#kindness", "#faithinhumanity", "#gooddeeds", "#inspiringstories",
+        "#wholesome", "#actsofkindness", "#hero", "#positivevibes"
+    ],
+    "wildlife_apex_predators": [
+        "#wildlife", "#apexpredator", "#tiger", "#bigcats", "#safari", "#animalplanet",
+        "#wildlifeonearth", "#predator", "#naturegeography", "#natgeo"
+    ],
+    "ancient_empires": [
+        "#ancienthistory", "#romanempire", "#historybuff", "#archaeology", "#ancientrome",
+        "#historicalfacts", "#gladiators", "#historylovers", "#ancientworld"
+    ],
+    "dragons_and_fantasy_lore": [
+        "#fantasylore", "#mythology", "#dragons", "#dnd", "#worldbuilding", "#mythicalcreatures",
+        "#epicfantasy", "#folklore", "#conceptart"
+    ],
+    "football_legends": [
+        "#football", "#soccer", "#footballskills", "#cr7", "#messi", "#tactics",
+        "#championsleague", "#footballhistory", "#legendarygoals"
+    ],
+    "ocean_marine_life": [
+        "#oceanlife", "#marinebiology", "#deepsea", "#underwater", "#oceanconservation",
+        "#sealife", "#whales", "#sharks", "#blueplanet"
+    ],
+    "science_engineering_wonders": [
+        "#science", "#engineering", "#physics", "#innovation", "#stem", "#techmarvels",
+        "#spaceexploration", "#scientificfacts", "#technology"
+    ],
+    "supercars_and_hypercars": [
+        "#supercars", "#hypercars", "#carspotting", "#automotive", "#carsofinstagram",
+        "#v8engine", "#exoticcars", "#horsepower", "#twinturbo"
+    ],
+    "oddly_satisfying_craft": [
+        "#satisfying", "#oddlysatisfying", "#asmr", "#woodworking", "#craftsmanship",
+        "#satisfyingvideos", "#artisan", "#maker", "#handmade"
+    ],
+    "wilderness_bushcraft_survival": [
+        "#bushcraft", "#survival", "#wildernessculture", "#survivalgear", "#campinglife",
+        "#primitive", "#outdoorsurvival", "#offgrid", "#knifeskills"
+    ]
+}
+
+GLOBAL_VIRAL_TAGS = ["#DailyFacts", "#Infographic", "#ViralReels", "#ExplorePage", "#FYP", "#TrendingNow", "#DidYouKnow"]
+
+
 class InfographicEngine:
     """
     Next-Gen Multi-Style Generative Infographic Engine:
@@ -2135,7 +2207,8 @@ class InfographicEngine:
         output_path: str,
         template_name: Optional[str] = None,
         theme_name: Optional[str] = None,
-        art_style_name: Optional[str] = None
+        art_style_name: Optional[str] = None,
+        target_hashtags: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """
         Renders a Full HD 1080x1350 graphic using Playwright Chromium:
@@ -2259,18 +2332,63 @@ class InfographicEngine:
 
         logger.info(f"Rendered [{template_name} | {theme_name} | {art_style_name}] Infographic: {output_path}")
 
+        # Generate High-CTR Viral Hook Title & Curated Trending Hashtags
+        seed = int(hashlib.md5(f"{page_name}_{topic['slug']}_{template_name}".encode()).hexdigest(), 16)
+        hook_template = VIRAL_HOOK_TEMPLATES[seed % len(VIRAL_HOOK_TEMPLATES)]
+        viral_title = hook_template.format(title=topic["title"])
+
+        cards = topic.get("cards", [])
+        fun_facts = topic.get("fun_fact", ["An extraordinary phenomenon verified by field specialists!"])
+        featured_fact = fun_facts[seed % len(fun_facts)] if isinstance(fun_facts, list) else str(fun_facts)
+
+        facts_preview = ""
+        if cards:
+            facts_preview = f"🔍 Key Highlights:\n• {cards[0]['label']}: {cards[0]['text']}\n"
+            if len(cards) > 1:
+                facts_preview += f"• {cards[1]['label']}: {cards[1]['text']}\n"
+
+        # Assemble Curated Trending Hashtags
+        combined_tags = []
+        if target_hashtags:
+            for t in target_hashtags:
+                clean_t = t.strip()
+                if not clean_t.startswith("#"):
+                    clean_t = f"#{clean_t}"
+                if clean_t.lower() not in [x.lower() for x in combined_tags]:
+                    combined_tags.append(clean_t)
+
+        niche_tags = VERTICAL_TRENDING_HASHTAGS.get(vertical_key, [])
+        for t in niche_tags:
+            if t.lower() not in [x.lower() for x in combined_tags]:
+                combined_tags.append(t)
+
+        topic_tag = f"#{topic['slug'].replace('_', '')}"
+        if topic_tag.lower() not in [x.lower() for x in combined_tags]:
+            combined_tags.append(topic_tag)
+
+        for t in GLOBAL_VIRAL_TAGS:
+            if t.lower() not in [x.lower() for x in combined_tags]:
+                combined_tags.append(t)
+
+        final_hashtags = combined_tags[:14]
+        hashtags_str = " ".join(final_hashtags)
+
         caption = (
-            f"🔥 {topic['title']} — {v_data['badge_tag']}\n\n"
-            f"Mastering the authentic secrets of {topic['title']}:\n"
-            f"Swipe through to discover the exact mechanics, techniques, and pro insights!\n\n"
-            f"👉 Follow @{page_name} for daily field guides!\n\n"
-            f"#{topic['slug']} #{vertical_key} #Infographic #{art_style_name} #Explore #FYP"
+            f"{viral_title}\n\n"
+            f"📌 {topic.get('latin', v_data['badge_tag'])}\n"
+            f"Discover the fascinating science, mechanics, and pro secrets of {topic['title']}!\n\n"
+            f"{facts_preview}\n"
+            f"💡 DID YOU KNOW? {featured_fact}\n\n"
+            f"👉 Follow @{page_name} for daily visual field guides & viral masterclasses!\n"
+            f"💬 Which detail surprised you the most? Drop your reaction below! 👇\n\n"
+            f"{hashtags_str}"
         )
 
         return {
             "image_path": output_path,
-            "title": topic["title"],
+            "title": viral_title,
             "caption": caption,
+            "hashtags": hashtags_str,
             "topic_slug": topic["slug"],
             "template_name": template_name,
             "theme_name": theme_name,

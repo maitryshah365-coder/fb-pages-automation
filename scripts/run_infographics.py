@@ -122,7 +122,8 @@ def run_pipeline(
                 output_path=out_image_path,
                 template_name=selected_template,
                 theme_name=selected_theme,
-                art_style_name=selected_art
+                art_style_name=selected_art,
+                target_hashtags=p.get("infographic_specs", {}).get("target_hashtags", [])
             )
 
             fb_id = None
@@ -147,7 +148,7 @@ def run_pipeline(
                 topic_slug=selected_topic["slug"],
                 angle_mode=angle_mode,
                 title=render_res["title"],
-                hashtags=p["infographic_specs"]["target_hashtags"][0] if p["infographic_specs"]["target_hashtags"] else "#reels",
+                hashtags=render_res.get("hashtags", ""),
                 image_path=out_image_path,
                 fb_photo_id=fb_id,
                 status=status,
