@@ -11,7 +11,7 @@ if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
 from src.infographic_db import InfographicDB
-from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA
+from src.infographic_engine import InfographicEngine, AUTHENTIC_VERTICAL_DATA, TEMPLATE_STYLES, PALETTE_THEMES
 from src.infographic_scheduler import InfographicScheduler
 
 logging.basicConfig(
@@ -91,22 +91,25 @@ def run_pipeline(
         v_data = AUTHENTIC_VERTICAL_DATA.get(vertical_key, AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"])
         topic_pool = v_data.get("topics", [])
 
-        selected_topic = None
-        for t in topic_pool:
-            if not db.is_topic_angle_posted(pid, t["slug"], "v1"):
-                selected_topic = t
-                break
+        # 2. Dynamic Rotation Plan (Rotates Layout Template & Color Theme on every single run)
+        plan = db.get_next_rotation_plan(
+            page_id=pid,
+            topic_pool=topic_pool,
+            template_pool=TEMPLATE_STYLES,
+            theme_pool=list(PALETTE_THEMES.keys())
+        )
+        selected_topic = plan["topic"]
+        selected_template = plan["template"]
+        selected_theme = plan["theme"]
+        angle_mode = plan["angle_mode"]
 
-        # If all cycled, dynamic wrap around
-        if not selected_topic:
-            selected_topic = topic_pool[idx % len(topic_pool)]
-
-        # 2. Render Full HD Graphic
-        out_image_name = f"info_{pid}_{selected_topic['slug']}.png"
+        # 3. Render Full HD Graphic
+        out_image_name = f"info_{pid}_{selected_topic['slug']}_{selected_template}.png"
         out_image_path = os.path.join(BASE_DIR, "temp", "infographics", out_image_name)
 
         logger.info(f"[{idx+1}/{len(filtered_fleet)}] Page: {name} (ID: {pid}) | Slot Timing: {slot_timing['scheduled_time_utc']}")
         logger.info(f"  -> Vertical: {p['assigned_vertical_label']}")
+        logger.info(f"  -> Style Archetype: [{selected_template}] | Theme: [{selected_theme}]")
         logger.info(f"  -> Selected Topic: {selected_topic['title']}")
 
         try:
@@ -114,7 +117,9 @@ def run_pipeline(
                 page_name=name,
                 vertical_key=vertical_key,
                 topic=selected_topic,
-                output_path=out_image_path
+                output_path=out_image_path,
+                template_name=selected_template,
+                theme_name=selected_theme
             )
 
             fb_id = None
@@ -137,7 +142,7 @@ def run_pipeline(
                 page_id=pid,
                 vertical_key=vertical_key,
                 topic_slug=selected_topic["slug"],
-                angle_mode="v1",
+                angle_mode=angle_mode,
                 title=render_res["title"],
                 hashtags=p["infographic_specs"]["target_hashtags"][0] if p["infographic_specs"]["target_hashtags"] else "#reels",
                 image_path=out_image_path,
@@ -148,14 +153,14 @@ def run_pipeline(
             success_count += 1
 
         except Exception as e:
-            logger.error(f"  -> ❌ FAILED for {name}: {e}")
+            logger.error(f"  -> 🔴 FAILED for {name}: {e}")
             db.record_upload(
                 page_id=pid,
                 vertical_key=vertical_key,
-                topic_slug=selected_topic["slug"] if selected_topic else "unknown",
-                angle_mode="v1",
-                title=selected_topic["title"] if selected_topic else "unknown",
-                hashtags="#error",
+                topic_slug=selected_topic["slug"],
+                angle_mode=angle_mode,
+                title=selected_topic["title"],
+                hashtags="",
                 image_path=None,
                 fb_photo_id=None,
                 status="failed",
@@ -164,19 +169,23 @@ def run_pipeline(
             )
             fail_count += 1
 
-    logger.info("==================================================")
-    logger.info(f"RUN COMPLETE: {success_count} Succeeded, {fail_count} Failed")
-    logger.info("==================================================")
+    logger.info(f"=== INFOGRAPHIC PIPELINE COMPLETE: {success_count} Succeeded, {fail_count} Failed ===")
     return {"success": success_count, "failed": fail_count}
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Automated Infographic Pipeline Runner")
-    parser.add_argument("--dry-run", action="store_true", default=True, help="Simulate run without live Facebook POST")
-    parser.add_argument("--live", action="store_true", help="Execute actual Facebook live POST")
-    parser.add_argument("--page", type=str, default=None, help="Target page name or ID")
+    parser = argparse.ArgumentParser(description="Autonomous Facebook Infographics Pipeline Runner")
+    parser.add_argument("--live", action="store_true", help="Publish directly to Facebook Graph API")
+    parser.add_argument("--dry-run", action="store_true", default=False, help="Render images only, do not publish to Facebook")
+    parser.add_argument("--page", type=str, default=None, help="Specific page name or ID to run")
     parser.add_argument("--slot", type=int, default=None, help="Target slot index (0 to 5)")
-    parser.add_argument("--limit", type=int, default=None, help="Limit number of pages")
-    args = parser.parse_args()
+    parser.add_argument("--limit", type=int, default=None, help="Limit number of pages to process")
 
-    is_dry = not args.live
-    run_pipeline(dry_run=is_dry, target_page=args.page, target_slot=args.slot, limit=args.limit)
+    args = parser.parse_args()
+    is_dry_run = not args.live or args.dry_run
+
+    run_pipeline(
+        dry_run=is_dry_run,
+        target_page=args.page,
+        target_slot=args.slot,
+        limit=args.limit
+    )

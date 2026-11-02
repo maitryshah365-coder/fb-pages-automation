@@ -11,7 +11,7 @@ class InfographicDB:
     """
     SQLite Ledger for Automated Infographics:
     - Guarantees ZERO duplicate topics per page across infinite cycles.
-    - Tracks dynamic angle variations (e.g. anatomy, funny habits, extreme stats).
+    - Tracks dynamic angle/style variations (vintage_fieldguide, anatomical_pointer, bento_dashboard, canva_poster, cinematic_hero).
     - Records upload history, post IDs, and timestamps.
     """
 
@@ -79,6 +79,81 @@ class InfographicDB:
                 WHERE page_id = ? AND status IN ('posted', 'dry_run')
             """, (page_id,))
             return [r[0] for r in c.fetchall()]
+
+    def get_last_post_for_page(self, page_id: str) -> Optional[Dict[str, Any]]:
+        """Returns metadata of the most recent post for this page."""
+        with self._connection() as conn:
+            c = conn.cursor()
+            c.execute("""
+                SELECT topic_slug, angle_mode, posted_at, status
+                FROM posted_infographics
+                WHERE page_id = ? AND status IN ('posted', 'dry_run')
+                ORDER BY id DESC LIMIT 1
+            """, (page_id,))
+            row = c.fetchone()
+            if row:
+                return dict(row)
+            return None
+
+    def get_next_rotation_plan(
+        self,
+        page_id: str,
+        topic_pool: List[Dict[str, Any]],
+        template_pool: List[str],
+        theme_pool: List[str]
+    ) -> Dict[str, Any]:
+        """
+        Dynamically selects the next topic, template, and theme:
+        - Cycles through template styles so no two consecutive posts look alike.
+        - Rotates color palettes.
+        - Prioritizes unposted topics to eliminate duplication.
+        """
+        posted_slugs = set(self.get_posted_topic_slugs(page_id))
+        
+        # 1. Select unposted topic
+        selected_topic = None
+        for t in topic_pool:
+            if t["slug"] not in posted_slugs:
+                selected_topic = t
+                break
+
+        # If all topics have been posted, cycle back
+        if not selected_topic and topic_pool:
+            last_post = self.get_last_post_for_page(page_id)
+            last_slug = last_post.get("topic_slug") if last_post else None
+            # Pick next topic after last_slug
+            idx = 0
+            if last_slug:
+                for i, t in enumerate(topic_pool):
+                    if t["slug"] == last_slug:
+                        idx = (i + 1) % len(topic_pool)
+                        break
+            selected_topic = topic_pool[idx]
+
+        # 2. Select next template in rotation
+        last_post = self.get_last_post_for_page(page_id)
+        last_angle = last_post.get("angle_mode", "") if last_post else ""
+        
+        # angle_mode format: template_name:theme_name or template_name
+        last_template = last_angle.split(":")[0] if ":" in last_angle else last_angle
+        next_t_idx = 0
+        if last_template in template_pool:
+            next_t_idx = (template_pool.index(last_template) + 1) % len(template_pool)
+        selected_template = template_pool[next_t_idx]
+
+        # 3. Select next theme in rotation
+        last_theme = last_angle.split(":")[1] if ":" in last_angle else ""
+        next_th_idx = 0
+        if last_theme in theme_pool:
+            next_th_idx = (theme_pool.index(last_theme) + 1) % len(theme_pool)
+        selected_theme = theme_pool[next_th_idx]
+
+        return {
+            "topic": selected_topic,
+            "template": selected_template,
+            "theme": selected_theme,
+            "angle_mode": f"{selected_template}:{selected_theme}"
+        }
 
     def record_upload(
         self,
