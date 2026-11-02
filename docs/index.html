@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.3.5">
+  <link rel="stylesheet" href="css/gold_dashboard.css?v=10.3.6">
   <script>
     function toggleSideHealthShutter(e) {
       if (e && e.stopPropagation) e.stopPropagation();
@@ -858,24 +858,115 @@
         </div>
       </div>
 
-      <!-- Quick Metrics Hero Strip -->
-      <section class="recent-posts-hero-strip" style="background: linear-gradient(135deg, rgba(236,72,153,0.12), rgba(168,85,247,0.12)); border: 1px solid rgba(236,72,153,0.25);">
-        <div class="hero-strip-grid">
-          <div class="strip-stat">
-            <span class="stat-label">Total Images Published</span>
-            <span class="stat-num" id="imageHeroTotalCount" style="color:#f472b6;">0 Posts</span>
+      <!-- Dual Hero: Next Image Upload Radar & Last Uploaded Image Showcase -->
+      <section class="image-uploads-radar-hero" id="imageUploadsRadarHero">
+        <!-- CARD 1: NEXT IMAGE UPLOAD RADAR -->
+        <div class="image-radar-card">
+          <div class="image-radar-header">
+            <div class="image-radar-title-group">
+              <span class="radar-pulse-dot" style="background:#ec4899; box-shadow:0 0 12px #ec4899;"></span>
+              <div>
+                <div class="image-radar-title">NEXT AUTOMATED IMAGE BROADCAST</div>
+                <div class="image-radar-subtitle">Full Fleet Automation • 6 Fixed Slots Daily</div>
+              </div>
+            </div>
+            <div class="radar-next-run-badge" style="background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.35);">
+              <span style="color:#f472b6; font-size:11px; font-weight:700;">⏰ Target:</span>
+              <span class="radar-next-timer" id="nextImageSlotBadge" style="color:#fff; font-weight:800; font-size:12px;">Calculating...</span>
+            </div>
           </div>
-          <div class="strip-stat">
-            <span class="stat-label">Active Fleets</span>
-            <span class="stat-num">171 Pages</span>
+
+          <div class="image-countdown-hero">
+            <div class="image-countdown-big" id="nextImageCountdownDisplay">
+              <span class="countdown-digits" id="nextImageTimerHours">--</span><span class="countdown-unit">h</span>
+              <span class="countdown-sep">:</span>
+              <span class="countdown-digits" id="nextImageTimerMinutes">--</span><span class="countdown-unit">m</span>
+              <span class="countdown-sep">:</span>
+              <span class="countdown-digits" id="nextImageTimerSeconds">--</span><span class="countdown-unit">s</span>
+            </div>
+            <div class="image-countdown-sub" id="nextImageCountdownSub">
+              Time Remaining Until Next 6-Slot Broadcast Across 171 Pages
+            </div>
           </div>
-          <div class="strip-stat">
-            <span class="stat-label">Daily Frequency</span>
-            <span class="stat-num" style="color:#4ade80;">6 Slots Daily</span>
+
+          <!-- 6-Slot Daily Schedule Matrix -->
+          <div class="image-slots-tracker" id="imageSlotsTracker">
+            <div class="image-slot-chip" id="slotChip_0" title="Slot 1: 01:30 AM IST (20:00 UTC)">
+              <span class="slot-idx">#1</span>
+              <span class="slot-time">01:30 AM</span>
+              <span class="slot-status">01:30 AM</span>
+            </div>
+            <div class="image-slot-chip" id="slotChip_1" title="Slot 2: 05:30 AM IST (00:00 UTC)">
+              <span class="slot-idx">#2</span>
+              <span class="slot-time">05:30 AM</span>
+              <span class="slot-status">05:30 AM</span>
+            </div>
+            <div class="image-slot-chip" id="slotChip_2" title="Slot 3: 09:30 AM IST (04:00 UTC)">
+              <span class="slot-idx">#3</span>
+              <span class="slot-time">09:30 AM</span>
+              <span class="slot-status">09:30 AM</span>
+            </div>
+            <div class="image-slot-chip" id="slotChip_3" title="Slot 4: 01:30 PM IST (08:00 UTC)">
+              <span class="slot-idx">#4</span>
+              <span class="slot-time">01:30 PM</span>
+              <span class="slot-status">01:30 PM</span>
+            </div>
+            <div class="image-slot-chip" id="slotChip_4" title="Slot 5: 05:30 PM IST (12:00 UTC)">
+              <span class="slot-idx">#5</span>
+              <span class="slot-time">05:30 PM</span>
+              <span class="slot-status">05:30 PM</span>
+            </div>
+            <div class="image-slot-chip" id="slotChip_5" title="Slot 6: 09:30 PM IST (16:00 UTC)">
+              <span class="slot-idx">#6</span>
+              <span class="slot-time">09:30 PM</span>
+              <span class="slot-status">09:30 PM</span>
+            </div>
           </div>
-          <div class="strip-stat">
-            <span class="stat-label">Cloud Dispatch</span>
-            <span class="stat-num" style="color:#38bdf8;">GitHub Actions</span>
+        </div>
+
+        <!-- CARD 2: LAST UPLOADED IMAGE SHOWCASE -->
+        <div class="last-image-showcase-card" id="lastImageShowcaseCard">
+          <div class="last-image-header">
+            <div class="showcase-badge-group">
+              <span class="showcase-badge-pill">🟢 LATEST UPLOAD PROOF</span>
+              <span class="showcase-time-tag" id="lastImageUploadTimeTag">Verified Live</span>
+            </div>
+            <span class="showcase-meta-tag" id="lastImageArchetypeTag">Archetype #3 • Vintage Fieldguide</span>
+          </div>
+
+          <div class="last-image-body">
+            <!-- Image Thumbnail Box with Zoom Click -->
+            <div class="last-image-preview-wrapper" onclick="openLastImagePreviewModal()" title="Tap to expand full high-res infographic">
+              <img id="lastImageShowcaseThumb" src="assets/infographics/info_988523547680750_realistic_rust_weathering.png" alt="Latest Uploaded Infographic" class="last-image-img" onerror="this.src='icons/icon-512.png'">
+              <div class="last-image-hover-zoom">🔍 Full View</div>
+            </div>
+
+            <!-- Image Details & Page Profile -->
+            <div class="last-image-meta">
+              <div class="last-image-page-row">
+                <img id="lastImagePageAvatar" src="https://graph.facebook.com/v20.0/988523547680750/picture?type=large" class="last-image-avatar" alt="Avatar" onerror="this.src='icons/icon-192.png'">
+                <div>
+                  <div class="last-image-page-name" id="lastImagePageName">Mix Mood</div>
+                  <div class="last-image-account" id="lastImageAccountTag">Sejal Soni • 🇺🇸 USA 1</div>
+                </div>
+              </div>
+
+              <div class="last-image-title-box">
+                <div class="last-image-title-label">TOPIC / VISUAL INFOGRAPHIC:</div>
+                <div class="last-image-title-text" id="lastImageTitleText">INDUSTRIAL RUST & WEATHERING SECRETS — MIND-BLOWING EXTREME STATS</div>
+              </div>
+
+              <div class="last-image-footer-row">
+                <div class="last-image-status-pill">
+                  <span class="status-dot-green">●</span>
+                  <span>Direct Meta API Verified</span>
+                </div>
+                <a id="lastImageDirectLink" href="https://www.facebook.com/photo/?fbid=122128694175278552" target="_blank" rel="noopener noreferrer" class="btn-last-image-fb">
+                  <span>🎬 Open on Facebook</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1611,6 +1702,21 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/gold_app.js?v=10.3.5"></script>
+  <script src="js/gold_app.js?v=10.3.6"></script>
+  <!-- Infographic Full Image Modal -->
+  <div id="imagePreviewModal" class="app-modal" style="display:none;">
+    <div class="modal-backdrop" onclick="closeImagePreviewModal()"></div>
+    <div class="modal-card" style="max-width: 680px; background:#0c101d; border: 1px solid rgba(236,72,153,0.3); border-radius: 16px; overflow:hidden;">
+      <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,0.08);">
+        <h4 class="modal-title" id="modalImageTitle" style="margin:0; font-size:15px; font-weight:800; color:#fff;">Infographic Full Preview</h4>
+        <button class="btn-modal-close" onclick="closeImagePreviewModal()" style="background:none; border:none; color:#94a3b8; font-size:20px; cursor:pointer;">✕</button>
+      </div>
+      <div class="modal-body" style="padding:14px; text-align:center; max-height:80vh; overflow-y:auto;">
+        <img id="modalImageSrc" src="" alt="Infographic Preview" style="width:100%; max-height:72vh; object-fit:contain; border-radius:10px;">
+        <div id="modalImageCaption" style="margin-top:10px; font-size:12px; color:#cbd5e1; text-align:left;"></div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

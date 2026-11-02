@@ -187,6 +187,15 @@ def run_pipeline(
             )
             success_count += 1
             if fb_id:
+                rel_thumb = ""
+                if out_image_path and os.path.exists(out_image_path):
+                    img_fname = os.path.basename(out_image_path)
+                    for d in ["docs", "web"]:
+                        target_dir = os.path.join(BASE_DIR, d, "assets", "infographics")
+                        os.makedirs(target_dir, exist_ok=True)
+                        shutil.copy2(out_image_path, os.path.join(target_dir, img_fname))
+                    rel_thumb = f"assets/infographics/{img_fname}"
+
                 posted_records.append({
                     "id": fb_id,
                     "video_id": fb_id,
@@ -194,7 +203,7 @@ def run_pipeline(
                     "page_id": pid,
                     "page_name": name,
                     "page_pic": f"https://graph.facebook.com/v20.0/{pid}/picture?type=large",
-                    "thumbnail": "",
+                    "thumbnail": rel_thumb,
                     "views": 0,
                     "posted_at": datetime.now(timezone.utc).isoformat(),
                     "post_type": "infographic",
@@ -204,6 +213,8 @@ def run_pipeline(
                     "country_flag": "🇺🇸 USA" if "USA" in p.get("account_manager", "") else "🇬🇧 UK",
                     "location": "Server Cloud (Automation)",
                     "template": selected_template,
+                    "template_name": selected_template,
+                    "vertical_key": vertical_key,
                     "art_style": selected_art
                 })
             if not dry_run:

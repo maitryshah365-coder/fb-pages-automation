@@ -4141,6 +4141,11 @@ function switchMainView(viewName) {
     if (sideImageUploads) sideImageUploads.classList.add("active");
     if (drawerImageUploads) drawerImageUploads.classList.add("active");
     if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!uploadHistoryData || uploadHistoryData.length === 0) {
+      if (typeof fetchUploadHistory === "function") {
+        fetchUploadHistory(false);
+      }
+    }
     renderImageUploadsView();
   } else if (viewName === "health_audit") {
     if (healthAuditView) healthAuditView.style.display = "block";
@@ -6391,15 +6396,19 @@ function renderRecentPostsList(reelsList) {
         : (isServer
           ? `<span style="background:rgba(245,158,11,0.18); color:#fbbf24; border:1px solid rgba(245,158,11,0.35); font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">⚡ SERVER UPLOAD</span>`
           : `<span style="background:rgba(59,130,246,0.18); color:#60a5fa; border:1px solid rgba(59,130,246,0.35); font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">🌐 META GRAPH</span>`);
-      const fbUrl = v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com${v.permalink || '/reel/' + v.id}`;
-      const dateStr = v.created_at || (v.created_time_iso ? v.created_time_iso.slice(0, 10) : "Recent");
-      const timeStr = v.created_time || "Published";
+      const fbUrl = v.direct_link || (v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com/photo/?fbid=${v.id}`);
+      const dateStr = v.posted_at ? new Date(v.posted_at).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : (v.created_at || "Recent");
+      const timeStr = v.posted_at ? new Date(v.posted_at).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }) : (v.created_time || "Published");
+      let cardThumb = v.thumbnail;
+      if (!cardThumb || (cardThumb.includes("graph.facebook.com") && cardThumb.includes("/picture"))) {
+        cardThumb = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
+      }
 
       return `
         <div class="recent-mobile-card">
           <div class="recent-mob-top">
-            <div class="recent-mob-thumb" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open reel in new tab">
-              <img src="${v.thumbnail || 'icons/icon-192.png'}" alt="Thumbnail" onerror="this.src='icons/icon-192.png'">
+            <div class="recent-mob-thumb" onclick="openLastImagePreviewModal()" title="Tap to expand high-res infographic" style="width:68px; height:88px; min-width:68px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer;">
+              <img src="${cardThumb}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.src='icons/icon-512.png'">
               <span class="recent-mob-badge">▶ REEL</span>
             </div>
             <div class="recent-mob-details">
@@ -6537,6 +6546,8 @@ async function fetchUploadHistory(manualTrigger = false) {
       if (totalBadge) totalBadge.innerText = records.length;
 
       renderUploadHistoryTable();
+      renderImageUploadsTable();
+      if (typeof updateImageUploadsHeroCards === "function") updateImageUploadsHeroCards();
 
       if (manualTrigger) {
         showToast(`✅ Upload History Refreshed: ${records.length} Verified Reels`);
@@ -8359,6 +8370,8 @@ window.refreshImageUploads = refreshImageUploads;
 
 function renderImageUploadsView() {
   renderImageUploadsTable();
+  updateImageUploadsHeroCards();
+  initNextImageCountdown();
 }
 window.renderImageUploadsView = renderImageUploadsView;
 
@@ -8446,16 +8459,21 @@ function renderImageUploadsTable() {
 
     const postUrl = item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`;
     const avatar = item.page_pic || `https://graph.facebook.com/v20.0/${item.page_id}/picture?type=large`;
+    let thumb = item.thumbnail;
+    if (!thumb || (thumb.includes("graph.facebook.com") && thumb.includes("/picture"))) {
+      thumb = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
+    }
     const locText = item.location || "Server Cloud (Automation)";
-    const templateLabel = (item.template || "Visual Guide").toUpperCase().replace(/_/g, " ");
+    const templateLabel = (item.template || item.template_name || "Visual Guide").toUpperCase().replace(/_/g, " ");
 
     return `
       <tr>
         <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
         <td style="text-align:center;">
-          <a href="${postUrl}" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
-            <div style="width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,rgba(236,72,153,0.2) 0%,rgba(168,85,247,0.2) 100%); border:1px solid rgba(236,72,153,0.35); display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 2px 8px rgba(0,0,0,0.35);">🖼️</div>
-          </a>
+          <div style="position:relative; width:64px; height:82px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer; display:inline-block; background:#0b0f19; box-shadow:0 2px 8px rgba(0,0,0,0.4);" onclick="openLastImagePreviewModal()" title="Click to view full high-res image">
+            <img src="${thumb}" alt="Infographic Preview" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.src='icons/icon-512.png'">
+            <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.75); font-size:9px; font-weight:700; color:#fbcfe8; text-align:center; padding:2px 0;">🔍 Zoom</div>
+          </div>
         </td>
         <td>
           <div class="page-cell-info">
@@ -8521,3 +8539,194 @@ function renderImageUploadsTable() {
   }
 }
 window.renderImageUploadsTable = renderImageUploadsTable;
+
+// ============================================================================
+// LIVE IMAGES UPLOADING: RADAR COUNTDOWN & LAST UPLOADED IMAGE SHOWCASE
+// ============================================================================
+let nextImageCountdownTimer = null;
+window.currentLastInfographic = null;
+
+function formatTimeAgo(isoString) {
+  if (!isoString) return "Recently";
+  try {
+    const diffMs = Date.now() - new Date(isoString).getTime();
+    if (isNaN(diffMs) || diffMs < 0) return "Just Now";
+    const mins = Math.floor(diffMs / 60000);
+    if (mins < 1) return "Just Now";
+    if (mins < 60) return `${mins}m ago`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours}h ${mins % 60}m ago`;
+    const days = Math.floor(hours / 24);
+    return `${days}d ago`;
+  } catch (e) {
+    return "Recently";
+  }
+}
+window.formatTimeAgo = formatTimeAgo;
+
+function formatArchetypeTag(name) {
+  if (!name) return "Archetype #3 • Vintage Fieldguide";
+  let clean = String(name).replace(/^preview_template_\d+_/, "").replace(/^template_\d+_/, "").replace(/_/g, " ");
+  // Capitalize words
+  clean = clean.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  return `Archetype • ${clean}`;
+}
+window.formatArchetypeTag = formatArchetypeTag;
+
+function getNextImageSlotInfo() {
+  const now = new Date();
+  const slotList = [
+    { idx: 0, slot: "Slot 1", timeIst: "01:30 AM IST", utcHour: 20 },
+    { idx: 1, slot: "Slot 2", timeIst: "05:30 AM IST", utcHour: 0 },
+    { idx: 2, slot: "Slot 3", timeIst: "09:30 AM IST", utcHour: 4 },
+    { idx: 3, slot: "Slot 4", timeIst: "01:30 PM IST", utcHour: 8 },
+    { idx: 4, slot: "Slot 5", timeIst: "05:30 PM IST", utcHour: 12 },
+    { idx: 5, slot: "Slot 6", timeIst: "09:30 PM IST", utcHour: 16 }
+  ];
+
+  let nextSlotDate = null;
+  let nextSlotObj = null;
+
+  for (let dayOffset = 0; dayOffset <= 1; dayOffset++) {
+    for (let s of slotList) {
+      const candidate = new Date(Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() + dayOffset,
+        s.utcHour, 0, 0
+      ));
+      if (candidate.getTime() > now.getTime()) {
+        if (!nextSlotDate || candidate.getTime() < nextSlotDate.getTime()) {
+          nextSlotDate = candidate;
+          nextSlotObj = s;
+        }
+      }
+    }
+    if (nextSlotDate) break;
+  }
+
+  const diffMs = nextSlotDate ? Math.max(0, nextSlotDate.getTime() - now.getTime()) : 0;
+  const diffSec = Math.floor(diffMs / 1000);
+  const hours = Math.floor(diffSec / 3600);
+  const minutes = Math.floor((diffSec % 3600) / 60);
+  const seconds = diffSec % 60;
+
+  return {
+    hours: String(hours).padStart(2, "0"),
+    minutes: String(minutes).padStart(2, "0"),
+    seconds: String(seconds).padStart(2, "0"),
+    slotObj: nextSlotObj,
+    nextSlotDate: nextSlotDate
+  };
+}
+window.getNextImageSlotInfo = getNextImageSlotInfo;
+
+function initNextImageCountdown() {
+  function updateImageClock() {
+    const info = getNextImageSlotInfo();
+    const hEl = document.getElementById("nextImageTimerHours");
+    const mEl = document.getElementById("nextImageTimerMinutes");
+    const sEl = document.getElementById("nextImageTimerSeconds");
+    const badgeEl = document.getElementById("nextImageSlotBadge");
+
+    if (hEl) hEl.innerText = info.hours;
+    if (mEl) mEl.innerText = info.minutes;
+    if (sEl) sEl.innerText = info.seconds;
+
+    if (badgeEl && info.slotObj) {
+      badgeEl.innerText = `${info.slotObj.slot} • ${info.slotObj.timeIst}`;
+    }
+
+    // Update 6-slot chips
+    const activeSlotIdx = info.slotObj ? info.slotObj.idx : 1;
+    for (let i = 0; i < 6; i++) {
+      const chip = document.getElementById(`slotChip_${i}`);
+      if (!chip) continue;
+      chip.classList.remove("slot-done", "slot-active");
+      const statusEl = chip.querySelector(".slot-status");
+      
+      if (i < activeSlotIdx) {
+        chip.classList.add("slot-done");
+        if (statusEl) statusEl.innerText = "✓ Live";
+      } else if (i === activeSlotIdx) {
+        chip.classList.add("slot-active");
+        if (statusEl) statusEl.innerText = "⚡ Next Up";
+      } else {
+        if (statusEl) statusEl.innerText = "Pending";
+      }
+    }
+  }
+
+  updateImageClock();
+  if (typeof setInterval !== "undefined") {
+    if (nextImageCountdownTimer) clearInterval(nextImageCountdownTimer);
+    nextImageCountdownTimer = setInterval(updateImageClock, 1000);
+  }
+}
+window.initNextImageCountdown = initNextImageCountdown;
+
+function updateImageUploadsHeroCards() {
+  const allImages = (uploadHistoryData || []).filter(item => item.post_type === "infographic" || item.post_type === "image");
+  if (!allImages || allImages.length === 0) return;
+
+  const lastImg = allImages[0];
+  window.currentLastInfographic = lastImg;
+
+  const thumbEl = document.getElementById("lastImageShowcaseThumb");
+  const avatarEl = document.getElementById("lastImagePageAvatar");
+  const pageNameEl = document.getElementById("lastImagePageName");
+  const accountEl = document.getElementById("lastImageAccountTag");
+  const titleEl = document.getElementById("lastImageTitleText");
+  const timeTagEl = document.getElementById("lastImageUploadTimeTag");
+  const archetypeEl = document.getElementById("lastImageArchetypeTag");
+  const linkEl = document.getElementById("lastImageDirectLink");
+
+  let thumbSrc = lastImg.thumbnail;
+  if (!thumbSrc || (thumbSrc.includes("graph.facebook.com") && thumbSrc.includes("/picture"))) {
+    thumbSrc = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
+  }
+
+  if (thumbEl) {
+    thumbEl.src = thumbSrc;
+    thumbEl.alt = lastImg.title || "Latest Infographic";
+  }
+  if (avatarEl) {
+    avatarEl.src = lastImg.page_pic || `https://graph.facebook.com/v20.0/${lastImg.page_id}/picture?type=large`;
+  }
+  if (pageNameEl) pageNameEl.innerText = lastImg.page_name || "Facebook Page";
+  if (accountEl) accountEl.innerText = `${lastImg.account || "Meta Fleet"} • ${lastImg.country_flag || "🇺🇸 USA"}`;
+  if (titleEl) titleEl.innerText = lastImg.title || "Automated Visual Infographic";
+  if (timeTagEl) timeTagEl.innerText = formatTimeAgo(lastImg.posted_at);
+  if (archetypeEl) archetypeEl.innerText = formatArchetypeTag(lastImg.template_name || lastImg.template);
+  if (linkEl) linkEl.href = lastImg.direct_link || `https://www.facebook.com/photo/?fbid=${lastImg.id}`;
+}
+window.updateImageUploadsHeroCards = updateImageUploadsHeroCards;
+
+function openLastImagePreviewModal() {
+  const modal = document.getElementById("imagePreviewModal");
+  const modalImg = document.getElementById("modalImageSrc");
+  const modalTitle = document.getElementById("modalImageTitle");
+  const modalCaption = document.getElementById("modalImageCaption");
+  if (!modal) return;
+
+  const img = window.currentLastInfographic;
+  let src = img?.thumbnail;
+  if (!src || (src.includes("graph.facebook.com") && src.includes("/picture"))) {
+    src = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
+  }
+
+  if (modalImg) modalImg.src = src;
+  if (modalTitle) modalTitle.innerText = img?.title || "Infographic Full View";
+  if (modalCaption) {
+    modalCaption.innerHTML = `<strong>Page:</strong> ${img?.page_name || 'Fleet Page'} &nbsp;•&nbsp; <strong>Posted:</strong> ${formatTimeAgo(img?.posted_at)} &nbsp;•&nbsp; <a href="${img?.direct_link || '#'}" target="_blank" style="color:#38bdf8; text-decoration:underline;">View on Facebook ↗</a>`;
+  }
+  modal.style.display = "flex";
+}
+window.openLastImagePreviewModal = openLastImagePreviewModal;
+
+function closeImagePreviewModal() {
+  const modal = document.getElementById("imagePreviewModal");
+  if (modal) modal.style.display = "none";
+}
+window.closeImagePreviewModal = closeImagePreviewModal;
+
