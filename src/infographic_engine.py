@@ -899,7 +899,7 @@ class InfographicEngine:
         Retrieves image matching the specific art style (Pixar 3D, Ghibli, 2D Vector, 8K Photo, etc.).
         Returns (image_file_path_or_url, art_style_label).
         """
-        art_meta = ART_STYLES.get(art_style_key, ART_STYLES["pixar_3d"])
+        art_meta = ART_STYLES.get(art_style_key, ART_STYLES["national_geographic_8k"])
         slug = topic.get("slug", "default")
         cache_key = hashlib.md5(f"{slug}_{art_style_key}".encode()).hexdigest()
         cache_file = os.path.join(self.cache_dir, f"{cache_key}.jpg")

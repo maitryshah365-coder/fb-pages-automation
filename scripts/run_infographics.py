@@ -37,6 +37,8 @@ def load_real_topic_bank():
 def load_fleet_data():
     with open(BLUEPRINT_PATH, "r", encoding="utf-8") as f:
         blueprint = json.load(f)["fleet"]
+    for g_idx, item in enumerate(blueprint):
+        item["global_fleet_idx"] = g_idx
     
     with open(PAGES_DATA_PATH, "r", encoding="utf-8") as f:
         pages = {str(p["id"]): p for p in json.load(f)["pages"]}
@@ -263,11 +265,12 @@ def run_pipeline(
         p_meta = pages_meta.get(pid, {})
         access_token = p_meta.get("access_token")
 
-        slot_timing = InfographicScheduler.calculate_page_slot_time(idx, current_slot)
+        fleet_page_idx = p.get("global_fleet_idx", idx)
+        slot_timing = InfographicScheduler.calculate_page_slot_time(fleet_page_idx, current_slot)
 
         # 1. Assign 100% UNIQUE topic per page from massive photorealistic bank (Zero duplicates across fleet!)
         if real_topics:
-            selected_topic = real_topics[idx % len(real_topics)]
+            selected_topic = real_topics[fleet_page_idx % len(real_topics)]
         else:
             v_data = AUTHENTIC_VERTICAL_DATA.get(vertical_key, AUTHENTIC_VERTICAL_DATA["miniature_diorama_disaster"])
             plan = db.get_next_rotation_plan(page_id=pid, topic_pool=v_data.get("topics", []), template_pool=TEMPLATE_STYLES, theme_pool=list(PALETTE_THEMES.keys()), art_style_pool=ART_STYLE_KEYS)
@@ -282,7 +285,7 @@ def run_pipeline(
         # Calculate Precision Staggered Timestamp for this page across the 4-hour window
         slot_hours = [0, 4, 8, 12, 16, 20]
         base_slot_h = slot_hours[current_slot % 6]
-        offset_mins = (idx * 1.35) % 220
+        offset_mins = (fleet_page_idx * 1.35) % 220
         now_utc = datetime.now(timezone.utc)
         staggered_dt = datetime(now_utc.year, now_utc.month, now_utc.day, base_slot_h, 0, 0, tzinfo=timezone.utc) + timedelta(minutes=offset_mins)
         staggered_iso = staggered_dt.isoformat()
