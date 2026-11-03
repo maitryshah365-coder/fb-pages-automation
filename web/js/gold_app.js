@@ -6471,10 +6471,7 @@ function renderRecentPostsList(reelsList) {
       const fbUrl = v.direct_link || (v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com/photo/?fbid=${v.id}`);
       const dateStr = v.posted_at ? new Date(v.posted_at).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : (v.created_at || "Recent");
       const timeStr = v.posted_at ? new Date(v.posted_at).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }) : (v.created_time || "Published");
-      let cardThumb = v.thumbnail;
-      if (!cardThumb || (cardThumb.includes("graph.facebook.com") && cardThumb.includes("/picture"))) {
-        cardThumb = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
-      }
+      let cardThumb = v.thumbnail || v.page_avatar || `https://graph.facebook.com/v20.0/${v.page_id}/picture?type=large`;
 
       return `
         <div class="recent-mobile-card">
@@ -8532,10 +8529,7 @@ function renderImageUploadsTable() {
 
     const postUrl = item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`;
     const avatar = item.page_pic || `https://graph.facebook.com/v20.0/${item.page_id}/picture?type=large`;
-    let thumb = item.thumbnail;
-    if (!thumb || (thumb.includes("graph.facebook.com") && thumb.includes("/picture"))) {
-      thumb = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
-    }
+    let thumb = item.thumbnail || avatar;
     const locText = item.location || "Server Cloud (Automation)";
     const templateLabel = (item.template || item.template_name || "Visual Guide").toUpperCase().replace(/_/g, " ");
 
@@ -8763,10 +8757,7 @@ function updateImageUploadsHeroCards() {
   const archetypeEl = document.getElementById("lastImageArchetypeTag");
   const linkEl = document.getElementById("lastImageDirectLink");
 
-  let thumbSrc = lastImg.thumbnail;
-  if (!thumbSrc || (thumbSrc.includes("graph.facebook.com") && thumbSrc.includes("/picture"))) {
-    thumbSrc = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
-  }
+  let thumbSrc = lastImg.thumbnail || lastImg.page_pic || `https://graph.facebook.com/v20.0/${lastImg.page_id}/picture?type=large`;
 
   if (thumbEl) {
     thumbEl.src = thumbSrc;
@@ -8792,10 +8783,7 @@ function openLastImagePreviewModal() {
   if (!modal) return;
 
   const img = window.currentLastInfographic;
-  let src = img?.thumbnail;
-  if (!src || (src.includes("graph.facebook.com") && src.includes("/picture"))) {
-    src = "assets/infographics/info_988523547680750_realistic_rust_weathering.png";
-  }
+  let src = img?.thumbnail || img?.page_pic || `https://graph.facebook.com/v20.0/${img?.page_id}/picture?type=large`;
 
   if (modalImg) modalImg.src = src;
   if (modalTitle) modalTitle.innerText = img?.title || "Infographic Full View";

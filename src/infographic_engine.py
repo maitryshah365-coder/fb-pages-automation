@@ -16,41 +16,29 @@ logger = logging.getLogger("fb_automation")
 # =========================================================================
 
 ART_STYLES = {
-    "pixar_3d": {
-        "label": "🎨 Pixar 3D Animated Style",
-        "badge_bg": "rgba(249, 115, 22, 0.9)",
-        "badge_color": "#ffffff",
-        "prompt_suffix": "charming Pixar 3D animated character render, Octane render, cute expressive features, soft subsurface scattering, Disney animation aesthetic, Unreal Engine 5, 8k render, vibrant colorful studio lighting, clean isolated background"
+    "national_geographic_8k": {
+        "label": "📷 8K Real Photography",
+        "badge_bg": "rgba(15, 23, 42, 0.85)",
+        "badge_color": "#38bdf8",
+        "prompt_suffix": "award-winning National Geographic wildlife photograph, ultra-realistic, 8k resolution, captured with Sony Alpha 1, 400mm f/2.8 lens, natural lighting, hyper-detailed fur, feathers and eyes, authentic real life shot, cinematic depth of field, RAW photo, no cartoon, no CGI, no 3D animation, photorealistic masterpiece"
     },
-    "ghibli_anime": {
-        "label": "🌸 Studio Ghibli Watercolor",
-        "badge_bg": "rgba(16, 185, 129, 0.9)",
-        "badge_color": "#ffffff",
-        "prompt_suffix": "Studio Ghibli aesthetic, anime watercolor art, hand-painted gouache illustration, Hayao Miyazaki style, vibrant colorful anime scenery, lush natural lighting, nostalgic masterpiece, painted sky"
+    "cinematic_4k": {
+        "label": "🎬 Cinematic 4K Photo",
+        "badge_bg": "rgba(15, 23, 42, 0.85)",
+        "badge_color": "#38bdf8",
+        "prompt_suffix": "breathtaking cinematic 4K photography, dramatic natural rim light, National Geographic documentary still, shallow depth of field, real life authentic shot, ultra crisp detail, photorealistic masterpiece, no cartoon, no 3D render"
     },
-    "flat_vector_canva": {
-        "label": "📐 2D Flat Vector Infographic",
-        "badge_bg": "rgba(139, 92, 246, 0.9)",
-        "badge_color": "#ffffff",
-        "prompt_suffix": "modern flat vector illustration, clean lines, minimalist graphic design, colorful infographic vector art, bold vibrant shapes, isolated, canva sticker art, sharp edges"
+    "macro_optical": {
+        "label": "🔬 Optical Macro Photo",
+        "badge_bg": "rgba(15, 23, 42, 0.85)",
+        "badge_color": "#38bdf8",
+        "prompt_suffix": "stunning optical macro nature photograph, Canon EOS R5 with 100mm f/2.8L Macro lens, genuine optical depth, ultra-sharp realistic details, real world authentic photo, National Geographic style, no CGI, no cartoon"
     },
-    "photorealistic_8k": {
-        "label": "📷 8K National Geographic",
-        "badge_bg": "rgba(234, 88, 12, 0.9)",
-        "badge_color": "#ffffff",
-        "prompt_suffix": "hyper-realistic photography, 8k resolution, National Geographic editorial photo, macro lens f/2.8, studio lighting, razor sharp depth of field, dramatic cinematic lighting"
-    },
-    "cyberpunk_neon": {
-        "label": "⚡ Cyberpunk Neon Schematics",
-        "badge_bg": "rgba(6, 182, 212, 0.9)",
-        "badge_color": "#000000",
-        "prompt_suffix": "cyberpunk neon aesthetic, glowing holographic HUD schematics, electric cyan and magenta rim lighting, futuristic octane render, dark obsidian background, high tech"
-    },
-    "vintage_lithograph": {
-        "label": "📜 Vintage Archival Lithograph",
-        "badge_bg": "rgba(180, 83, 9, 0.9)",
-        "badge_color": "#ffffff",
-        "prompt_suffix": "vintage Victorian natural history lithograph, fine copperplate etching, antique colored botanical plate, Ernst Haeckel scientific illustration style, archival parchment paper"
+    "aerial_documentary": {
+        "label": "🦅 Aerial Real Photo",
+        "badge_bg": "rgba(15, 23, 42, 0.85)",
+        "badge_color": "#38bdf8",
+        "prompt_suffix": "epic aerial documentary nature photography, Hasselblad medium format, ultra realistic, dramatic natural atmosphere, 8K ultra high definition real life photo, no drawing, no cartoon"
     }
 }
 
@@ -942,6 +930,203 @@ class InfographicEngine:
     # -------------------------------------------------------------------------
     # 12 HTML TEMPLATE BUILDERS
     # -------------------------------------------------------------------------
+
+    
+    def _build_photorealistic_viral_html(self, page_name: str, topic: Dict[str, Any], v_data: Dict[str, Any], theme: Dict[str, Any], image_data_uri: str, art_label: str) -> str:
+        """Template 0: 100% Real High-Definition Full-Bleed Photography + Short Curiosity Hook."""
+        chips = topic.get("chips", [])
+        if not chips and topic.get("cards"):
+            chips = [f"⚡ {c['label']}: {c['text'][:25]}" for c in topic["cards"][:3]]
+        if not chips:
+            chips = ["⚡ 100% Authentic Capture", "👁️ National Geographic Style", "🔥 Real World Phenomenon"]
+
+        chips_html = "".join([f'<div class="fact-chip">{c}</div>' for c in chips[:3]])
+        headline = topic.get("title", "WAIT TILL YOU SEE THIS... 😱").upper()
+        subtitle = topic.get("subtitle", topic.get("latin", "Fascinating natural phenomenon captured in ultra-high resolution."))
+
+        return f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@500;600;700&display=swap');
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{
+            width: 1080px;
+            height: 1350px;
+            background: #000000;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }}
+        .bg-photo {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1080px;
+            height: 1350px;
+            object-fit: cover;
+            object-position: center;
+        }}
+        .vignette-overlay {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.72) 0%,
+                rgba(0, 0, 0, 0.12) 35%,
+                rgba(0, 0, 0, 0.35) 60%,
+                rgba(0, 0, 0, 0.94) 100%
+            );
+        }}
+        .top-container {{
+            position: absolute;
+            top: 48px;
+            left: 48px;
+            right: 48px;
+            z-index: 10;
+        }}
+        .brand-row {{
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }}
+        .brand-badge {{
+            background: rgba(255, 255, 255, 0.16);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 8px 18px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }}
+        .brand-check {{
+            background: #38bdf8;
+            color: #000;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+        }}
+        .nature-tag {{
+            background: rgba(56, 189, 248, 0.2);
+            border: 1px solid rgba(56, 189, 248, 0.45);
+            color: #38bdf8;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }}
+        .main-headline {{
+            font-family: 'Montserrat', sans-serif;
+            font-size: 50px;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+            max-width: 960px;
+        }}
+        .bottom-card {{
+            position: absolute;
+            bottom: 48px;
+            left: 48px;
+            right: 48px;
+            z-index: 10;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
+            padding: 30px 36px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }}
+        .subtitle-text {{
+            font-size: 22px;
+            font-weight: 600;
+            color: #f1f5f9;
+            line-height: 1.45;
+            margin-bottom: 22px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }}
+        .chips-row {{
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }}
+        .fact-chip {{
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #38bdf8;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 9px 18px;
+            border-radius: 14px;
+            letter-spacing: 0.3px;
+        }}
+        .footer-cta {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 14px;
+            font-size: 14px;
+            color: #94a3b8;
+            font-weight: 600;
+        }}
+        .cta-left {{
+            color: #cbd5e1;
+        }}
+        .cta-right {{
+            color: #38bdf8;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }}
+    </style>
+</head>
+<body>
+    <img src="{image_data_uri}" class="bg-photo" alt="Real High Definition Photo">
+    <div class="vignette-overlay"></div>
+
+    <div class="top-container">
+        <div class="brand-row">
+            <div class="brand-badge">
+                <span>{page_name}</span>
+                <span class="brand-check">✓</span>
+            </div>
+            <div class="nature-tag">📷 8K REAL CAPTURE</div>
+        </div>
+        <div class="main-headline">{headline}</div>
+    </div>
+
+    <div class="bottom-card">
+        <div class="subtitle-text">{subtitle}</div>
+        <div class="chips-row">
+            {chips_html}
+        </div>
+        <div class="footer-cta">
+            <span class="cta-left">Did you know this before? Tell us below! 👇</span>
+            <span class="cta-right">SHARE & FOLLOW ↗</span>
+        </div>
+    </div>
+</body>
+</html>"""
 
     def _build_vibrant_multicolor_html(self, page_name: str, topic: Dict[str, Any], v_data: Dict[str, Any], theme: Dict[str, Any], image_path: str, art_label: str) -> str:
         """Template 1: 4 Colored Stat Cards + 5-Pill Color Shelf (Ref 4 & 5)."""
@@ -2269,8 +2454,11 @@ class InfographicEngine:
         except Exception as e:
             logger.warning(f"Base64 conversion note: {e}")
 
-        # Dispatch to appropriate template builder (14 Templates)
-        if template_name == "vibrant_multicolor":
+        # Dispatch to appropriate template builder:
+        # Default to 100% Real Photorealistic Viral Poster (No cartoon, No Pixar 3D)
+        if template_name == "photorealistic_viral" or True:
+            html_content = self._build_photorealistic_viral_html(page_name, topic, v_data, theme, image_data_uri, art_label)
+        elif template_name == "vibrant_multicolor":
             html_content = self._build_vibrant_multicolor_html(page_name, topic, v_data, theme, image_data_uri, art_label)
         elif template_name == "anatomical_pointer":
             html_content = self._build_anatomical_pointer_html(page_name, topic, v_data, theme, image_data_uri, art_label)
@@ -2373,16 +2561,17 @@ class InfographicEngine:
         final_hashtags = combined_tags[:14]
         hashtags_str = " ".join(final_hashtags)
 
-        caption = (
-            f"{viral_title}\n\n"
-            f"📌 {topic.get('latin', v_data['badge_tag'])}\n"
-            f"Discover the fascinating science, mechanics, and pro secrets of {topic['title']}!\n\n"
-            f"{facts_preview}\n"
-            f"💡 DID YOU KNOW? {featured_fact}\n\n"
-            f"👉 Follow @{page_name} for daily visual field guides & viral masterclasses!\n"
-            f"💬 Which detail surprised you the most? Drop your reaction below! 👇\n\n"
-            f"{hashtags_str}"
-        )
+        if topic.get("caption"):
+            caption = f"{topic['caption']}\n\n👉 Follow @{page_name}\n\n{hashtags_str}"
+        else:
+            caption = (
+                f"{viral_title}\n\n"
+                f"📌 {topic.get('subtitle', topic.get('latin', 'Real Discovery'))}\n\n"
+                f"{facts_preview}\n"
+                f"💬 Did you know this before? Tell us below! 👇\n"
+                f"👉 Follow @{page_name} for daily authentic discoveries!\n\n"
+                f"{hashtags_str}"
+            )
 
         return {
             "image_path": output_path,
