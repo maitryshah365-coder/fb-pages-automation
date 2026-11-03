@@ -211,6 +211,54 @@ class InfographicDB:
             row = c.fetchone()
             return (row[0] if row else 0) > 0
 
+    def get_minutes_since_last_reel(self, page_id: str) -> Optional[float]:
+        """Returns the number of minutes elapsed since the last Reel was posted on this page."""
+        with self._connection() as conn:
+            c = conn.cursor()
+            c.execute("""
+                SELECT posted_at FROM videos
+                WHERE page_id = ? AND status = 'posted'
+                ORDER BY id DESC LIMIT 1
+            """, (str(page_id),))
+            row = c.fetchone()
+            if not row or not row[0]:
+                return None
+            try:
+                dt_str = str(row[0]).strip()
+                if "+" in dt_str or dt_str.endswith("Z"):
+                    reel_dt = datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
+                else:
+                    reel_dt = datetime.fromisoformat(dt_str).replace(tzinfo=timezone.utc)
+                now_utc = datetime.now(timezone.utc)
+                return max(0.0, (now_utc - reel_dt).total_seconds() / 60.0)
+            except Exception as e:
+                logger.warning(f"Error parsing reel timestamp for {page_id}: {e}")
+                return None
+
+    def get_minutes_since_last_infographic(self, page_id: str) -> Optional[float]:
+        """Returns the number of minutes elapsed since the last Infographic was posted on this page."""
+        with self._connection() as conn:
+            c = conn.cursor()
+            c.execute("""
+                SELECT posted_at FROM posted_infographics
+                WHERE page_id = ? AND status = 'posted'
+                ORDER BY id DESC LIMIT 1
+            """, (str(page_id),))
+            row = c.fetchone()
+            if not row or not row[0]:
+                return None
+            try:
+                dt_str = str(row[0]).strip()
+                if "+" in dt_str or dt_str.endswith("Z"):
+                    info_dt = datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
+                else:
+                    info_dt = datetime.fromisoformat(dt_str).replace(tzinfo=timezone.utc)
+                now_utc = datetime.now(timezone.utc)
+                return max(0.0, (now_utc - info_dt).total_seconds() / 60.0)
+            except Exception as e:
+                logger.warning(f"Error parsing infographic timestamp for {page_id}: {e}")
+                return None
+
     def get_today_upload_count(self, page_id: str) -> int:
         """Returns the number of infographics posted for this page today (UTC)."""
         today_prefix = datetime.now(timezone.utc).strftime("%Y-%m-%d")

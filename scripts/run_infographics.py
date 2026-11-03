@@ -273,6 +273,15 @@ def run_pipeline(
             logger.info(f"[{idx+1}/{len(filtered_fleet)}] ⏭️ Page {name} ({pid}) already posted in Slot {current_slot} today. Skipping to maintain exact 4-hour / 6-post cadence.")
             continue
 
+        # 🛡️ HARD REEL-COLLISION SHIELD: Minimum 60-Minute Safe Buffer from Last Reel
+        mins_since_reel = db.get_minutes_since_last_reel(pid)
+        if not dry_run and mins_since_reel is not None and mins_since_reel < 60.0:
+            logger.warning(
+                f"[{idx+1}/{len(filtered_fleet)}] 🛡️ ANTI-COLLISION SHIELD: Page {name} ({pid}) posted a Reel {int(mins_since_reel)}m ago (<60m safe buffer). "
+                f"Skipping this image to protect video reach and prevent algorithmic cannibalization!"
+            )
+            continue
+
         # 1. Assign 100% UNIQUE topic per page from massive photorealistic bank (Zero duplicates across fleet!)
         if real_topics:
             selected_topic = real_topics[fleet_page_idx % len(real_topics)]

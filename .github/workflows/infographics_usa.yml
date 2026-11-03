@@ -1,0 +1,118 @@
+name: USA Facebook Infographics Pipeline (Anti-Collision 6 Slots)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run in dry-run mode (no actual Facebook POST)"
+        required: false
+        type: boolean
+        default: false
+      page:
+        description: "Optional: Specific USA page name or ID to run"
+        required: false
+        type: string
+        default: ""
+      slot:
+        description: "Optional: Specific slot index (0 to 5)"
+        required: false
+        type: string
+        default: ""
+
+  # Scheduled 6 Times Daily (Guaranteed ZERO Collision with USA Reels):
+  # Slot 0: 04:45 UTC (10:15 AM IST / 12:45 AM EDT) -> 65m buffer after USA Reels W1 (03:40 UTC)
+  # Slot 1: 07:45 UTC (01:15 PM IST / 03:45 AM EDT) -> 245m buffer from any Reel
+  # Slot 2: 10:45 UTC (04:15 PM IST / 06:45 AM EDT) -> 195m buffer before USA Reels W2 (14:00 UTC)
+  # Slot 3: 16:45 UTC (10:15 PM IST / 12:45 PM EDT) -> 65m buffer after USA Reels W2 (15:40 UTC)
+  # Slot 4: 21:45 UTC (03:15 AM IST / 05:45 PM EDT) -> 65m buffer after USA Reels W3 (20:40 UTC)
+  # Slot 5: 01:15 UTC (06:45 AM IST / 09:15 PM EDT) -> 35m buffer after USA Reels W4, 45m before W1
+  schedule:
+    - cron: "45 4 * * *"
+    - cron: "45 7 * * *"
+    - cron: "45 10 * * *"
+    - cron: "45 16 * * *"
+    - cron: "45 21 * * *"
+    - cron: "15 1 * * *"
+
+concurrency:
+  group: usa-infographics-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  execute-usa-infographics:
+    name: Execute USA Fleet Infographic Publishing (90 Pages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python Environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install System Fonts, Playwright Chromium & WireGuard VPN
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-dejavu-core fonts-freefont-ttf wireguard wireguard-tools resolvconf curl jq
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Connect Surfshark USA VPN & Execute USA Infographics Wave
+        run: |
+          ARGS="--live"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="--dry-run"
+          fi
+          if [ -n "${{ github.event.inputs.page }}" ]; then
+            ARGS="$ARGS --page '${{ github.event.inputs.page }}'"
+          fi
+          if [ -n "${{ github.event.inputs.slot }}" ]; then
+            ARGS="$ARGS --slot ${{ github.event.inputs.slot }}"
+          fi
+
+          echo "🔒 Connecting to Dedicated Surfshark USA VPN Tunnel..."
+          bash scripts/connect_wireguard_usa.sh "us-nyc" || true
+
+          echo "🚀 Executing USA Fleet Infographics (90 Pages)..."
+          python scripts/run_infographics.py $ARGS --fleet usa --require-us || true
+
+          echo "🔌 Disconnecting USA VPN Tunnel..."
+          sudo wg-quick down wg0 2>/dev/null || true
+
+      - name: Persist SQLite Database & Infographic State
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/ docs/data/ web/data/
+          if [ -n "$(git status --porcelain data/ docs/data/ web/data/)" ]; then
+            git commit -m "chore(usa): persist automated infographic uploads & ledger [skip ci]"
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase -X theirs origin/main && git push origin main && break || {
+                git rebase --abort 2>/dev/null || true
+                sleep 5
+              }
+            done
+          else
+            echo "No state changes to commit."
+          fi
+
+      - name: Upload Logs Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: usa-infographic-logs-${{ github.run_id }}
+          path: logs/
+          retention-days: 14
