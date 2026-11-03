@@ -872,6 +872,48 @@ VERTICAL_TRENDING_HASHTAGS = {
 
 GLOBAL_VIRAL_TAGS = ["#DailyFacts", "#Infographic", "#ViralReels", "#ExplorePage", "#FYP", "#TrendingNow", "#DidYouKnow"]
 
+# -------------------------------------------------------------------------
+# Dynamic Hydration: Hydrate all 13 canonical fleet verticals from topic bank
+# -------------------------------------------------------------------------
+try:
+    _bank_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "photorealistic_topic_bank.json")
+    if os.path.exists(_bank_file):
+        with open(_bank_file, "r", encoding="utf-8") as _bf:
+            _bdata = json.load(_bf)
+            if "verticals" in _bdata:
+                for _vk, _vtopics in _bdata["verticals"].items():
+                    if _vk not in AUTHENTIC_VERTICAL_DATA:
+                        AUTHENTIC_VERTICAL_DATA[_vk] = {
+                            "theme_name": _vk.upper().replace("_", " "),
+                            "badge_tag": f"{_vk.upper().replace('_', ' ')} MASTERY",
+                            "search_term": _vtopics[0].get("search_term", "authentic photography 8k"),
+                            "topics": _vtopics
+                        }
+                    else:
+                        AUTHENTIC_VERTICAL_DATA[_vk]["topics"] = _vtopics
+                    
+                    if _vtopics and "image_url" in _vtopics[0]:
+                        AUTHENTIC_VERTICAL_FALLBACKS[_vk] = _vtopics[0]["image_url"]
+
+    # Bi-directional aliases for complete backwards compatibility
+    _aliases = {
+        "huskies_canine_psychology": "husky_and_puppies",
+        "husky_and_puppies": "huskies_canine_psychology",
+        "football_legends": "football_legends_stories",
+        "football_legends_stories": "football_legends",
+        "ancient_empires": "ancient_empires_history",
+        "ancient_empires_history": "ancient_empires",
+        "oddly_satisfying_craft": "slimes_and_mini_asmr",
+        "slimes_and_mini_asmr": "oddly_satisfying_craft"
+    }
+    for _k1, _k2 in _aliases.items():
+        if _k2 in AUTHENTIC_VERTICAL_DATA and _k1 not in AUTHENTIC_VERTICAL_DATA:
+            AUTHENTIC_VERTICAL_DATA[_k1] = AUTHENTIC_VERTICAL_DATA[_k2]
+        if _k2 in AUTHENTIC_VERTICAL_FALLBACKS and _k1 not in AUTHENTIC_VERTICAL_FALLBACKS:
+            AUTHENTIC_VERTICAL_FALLBACKS[_k1] = AUTHENTIC_VERTICAL_FALLBACKS[_k2]
+except Exception as _e:
+    logger.warning(f"Engine vertical hydration notice: {_e}")
+
 
 class InfographicEngine:
     """
@@ -2520,10 +2562,9 @@ class InfographicEngine:
 
         logger.info(f"Rendered [{template_name} | {theme_name} | {art_style_name}] Infographic: {output_path}")
 
-        # Generate High-CTR Viral Hook Title & Curated Trending Hashtags
+        # Generate High-CTR Punchy Short Title (Zero Essay Titles!)
         seed = int(hashlib.md5(f"{page_name}_{topic['slug']}_{template_name}".encode()).hexdigest(), 16)
-        hook_template = VIRAL_HOOK_TEMPLATES[seed % len(VIRAL_HOOK_TEMPLATES)]
-        viral_title = hook_template.format(title=topic["title"])
+        viral_title = topic.get("title", "Wait Till You See This... 😱")
 
         cards = topic.get("cards", [])
         fun_facts = topic.get("fun_fact", ["An extraordinary phenomenon verified by field specialists!"])
