@@ -208,9 +208,7 @@ const FLEET_USA_04_IDS = [
 const FLEET_USA_04_SET = new Set(FLEET_USA_04_IDS);
 
 const FLEET_USA_05_IDS = [
-  "534342423102401",  // The Daily Spark
   "564341273430022",  // The Chill Spot
-  "497636683426759",  // Tag The
   "877069835495630",  // Stellar Vibes
   "615554031639811",  // Sovereign Collective
   "1033250263200686", // Silent Grove
@@ -220,7 +218,6 @@ const FLEET_USA_05_IDS = [
   "976706512196056",  // Mouth The Hang
   "473290599201289",  // Mojo Day
   "340559612467800",  // Fly Happy
-  "472703539265672",  // Flute Tomography Nature
   "502777659582958",  // Faro Fact
   "855725930966508"   // Cosmic Mirage
 ];
@@ -236,7 +233,6 @@ const FLEET_USA_06_IDS = [
   "863106796879644",
   "755804217626888",
   "756809930857575",
-  "660234803835581",
   "623092600889709",
   "531842053356648",
   "625545143972469",
@@ -4029,9 +4025,7 @@ const DRIVE_CONFIGURED_PAGES = {
   "921493174379801": { pageName: "usa4_page_15", displayName: "Blissful Paradox", ready: true, videoCount: 273, folderId: "1wsaPuwLhIVm6_0ze0Z95_iWmj3iGeI1a", handle: "blissfulparadox", account: "USA Account 4" },
 
   // USA Fleet 5 Pages (Sejal Soni - 15 Pages, 3,131 Videos Cloud Stock)
-  "534342423102401": { pageName: "usa5_page_1", displayName: "The Daily Spark", ready: true, videoCount: 156, folderId: "16deNYAwBPFU7bcXZffCt2F242_XeRvIP", handle: "thedailyspark", account: "USA Account 5" },
   "564341273430022": { pageName: "usa5_page_2", displayName: "The Chill Spot", ready: true, videoCount: 193, folderId: "1wlxFyUlGpV6DAxmdFGhwzF-qr5fgpVsZ", handle: "thechillspot", account: "USA Account 5" },
-  "497636683426759": { pageName: "usa5_page_3", displayName: "Tag The", ready: true, videoCount: 187, folderId: "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z", handle: "tagthe", account: "USA Account 5" },
   "877069835495630": { pageName: "usa5_page_4", displayName: "Stellar Vibes", ready: true, videoCount: 1, folderId: "1PMJMCJoEV45xiwmwZAaf2Cgd4rAPWcFl", handle: "stellarvibes", account: "USA Account 5" },
   "615554031639811": { pageName: "usa5_page_5", displayName: "Sovereign Collective", ready: true, videoCount: 73, folderId: "1HQ_2ceD-v7Iqtssorncua3uTMcPjnOAt", handle: "sovereigncollective", account: "USA Account 5" },
   "1033250263200686": { pageName: "usa5_page_6", displayName: "Silent Grove", ready: true, videoCount: 456, folderId: "1aqXzEdvtktCUAiVQrr-jxDIjJv0EDOdy", handle: "silentgrove", account: "USA Account 5" },
@@ -4041,7 +4035,6 @@ const DRIVE_CONFIGURED_PAGES = {
   "976706512196056": { pageName: "usa5_page_10", displayName: "Mouth The Hang", ready: true, videoCount: 129, folderId: "1TIerIl5QqwzCd8eqSvlE_s_d2RHVnXJR", handle: "mouththehang", account: "USA Account 5" },
   "473290599201289": { pageName: "usa5_page_11", displayName: "Mojo Day", ready: true, videoCount: 321, folderId: "1VDhDcsjoTuDC-cEKX7g2zbObpGoXGWql", handle: "mojoday", account: "USA Account 5" },
   "340559612467800": { pageName: "usa5_page_12", displayName: "Fly Happy", ready: true, videoCount: 288, folderId: "1DlktXP7xXLii0FqeKsZpZnlIYQkjbYyH", handle: "flyhappy", account: "USA Account 5" },
-  "472703539265672": { pageName: "usa5_page_13", displayName: "Flute Tomography Nature", ready: true, videoCount: 131, folderId: "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk", handle: "flutetomographynature", account: "USA Account 5" },
   "502777659582958": { pageName: "usa5_page_14", displayName: "Faro Fact", ready: true, videoCount: 102, folderId: "1SZRdbiRk6ggCzlWOsSrw-e30wr6DUMqM", handle: "farofact", account: "USA Account 5" },
   "855725930966508": { pageName: "usa5_page_15", displayName: "Cosmic Mirage", ready: true, videoCount: 245, folderId: "1lGnNIqIhLiW7xnU0HWKV-OXxwSCMDcN1", handle: "cosmicmirage", account: "USA Account 5" },
 
@@ -4054,7 +4047,6 @@ const DRIVE_CONFIGURED_PAGES = {
   "863106796879644": { pageName: "page_164", displayName: "Gonzalez  Paul", ready: true, videoCount: 210, folderId: "1AQwzULByYACcwO9UXwKHFEO54gY8Tmly", handle: "gonzalezpaul", account: "USA Account 6" },
   "755804217626888": { pageName: "page_165", displayName: "Remedies The", ready: true, videoCount: 52, folderId: "1zNLYZlPza_WWAwYdSKS_SGAEtIidgpo0", handle: "remediesthe", account: "USA Account 6" },
   "756809930857575": { pageName: "page_166", displayName: "Roberts  Charles", ready: true, videoCount: 210, folderId: "1To5eG7bFcQDrz0mF4Pee1I6RkAnUwaEA", handle: "robertscharles", account: "USA Account 6" },
-  "660234803835581": { pageName: "page_167", displayName: "Happy place", ready: true, videoCount: 129, folderId: "12TzotKAwMMV2M6Gt1vBAF9UFX-Fmw3XO", handle: "happyplace", account: "USA Account 6" },
   "623092600889709": { pageName: "page_168", displayName: "Lively Moments", ready: true, videoCount: 158, folderId: "1UY6f-_7NcGg6PMFbodoSLmWaEcGaAboV", handle: "livelymoments", account: "USA Account 6" },
   "531842053356648": { pageName: "page_169", displayName: "Laugh Flicks", ready: true, videoCount: 236, folderId: "1NqfOEB1hJnl2VzRigL3lv6uppJLCm05d", handle: "laughflicks", account: "USA Account 6" },
   "625545143972469": { pageName: "page_170", displayName: "Funny Fizz", ready: true, videoCount: 75, folderId: "1oPjU-tnOg1yEjdanukEowMr5sM7A-aNH", handle: "funnyfizz", account: "USA Account 6" },
