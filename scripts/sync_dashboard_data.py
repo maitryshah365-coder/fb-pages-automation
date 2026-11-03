@@ -189,9 +189,7 @@ FLEET_USA_04_IDS = [
 ]
 
 FLEET_USA_05_IDS = [
-    "534342423102401",  # The Daily Spark
     "564341273430022",  # The Chill Spot
-    "497636683426759",  # Tag The
     "877069835495630",  # Stellar Vibes
     "615554031639811",  # Sovereign Collective
     "1033250263200686", # Silent Grove
@@ -201,7 +199,6 @@ FLEET_USA_05_IDS = [
     "976706512196056",  # Mouth The Hang
     "473290599201289",  # Mojo Day
     "340559612467800",  # Fly Happy
-    "472703539265672",  # Flute Tomography Nature
     "502777659582958",  # Faro Fact
     "855725930966508"   # Cosmic Mirage
 ]
@@ -215,7 +212,6 @@ FLEET_USA_06_IDS = [
     "863106796879644",  # Gonzalez Paul
     "755804217626888",  # Remedies The
     "756809930857575",  # Roberts Charles
-    "660234803835581",  # Happy place
     "623092600889709",  # Lively Moments
     "531842053356648",  # Laugh Flicks
     "625545143972469",  # Funny Fizz

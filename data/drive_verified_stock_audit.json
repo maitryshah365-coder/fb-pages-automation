@@ -1,6 +1,6 @@
 {
   "updated_at": 1792510481.8035371,
-  "total_folders": 171,
+  "total_folders": 166,
   "total_valid_stock": 25362,
   "total_zero_byte": 14130,
   "empty_count": 24,
@@ -1895,17 +1895,6 @@
       "status": "HEALTHY",
       "error": null
     },
-    "The Daily Spark": {
-      "page_id": "534342423102401",
-      "page_name": "The Daily Spark",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
-      "video_count": 156,
-      "zero_byte_wiped": 32,
-      "total_files": 188,
-      "status": "HEALTHY",
-      "error": null
-    },
     "The Chill Spot": {
       "page_id": "564341273430022",
       "page_name": "The Chill Spot",
@@ -1914,17 +1903,6 @@
       "video_count": 193,
       "zero_byte_wiped": 32,
       "total_files": 225,
-      "status": "HEALTHY",
-      "error": null
-    },
-    "Tag The": {
-      "page_id": "497636683426759",
-      "page_name": "Tag The",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
-      "video_count": 187,
-      "zero_byte_wiped": 32,
-      "total_files": 219,
       "status": "HEALTHY",
       "error": null
     },
@@ -2038,17 +2016,6 @@
       "status": "HEALTHY",
       "error": null
     },
-    "Flute Tomography Nature": {
-      "page_id": "472703539265672",
-      "page_name": "Flute Tomography Nature",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
-      "video_count": 131,
-      "zero_byte_wiped": 32,
-      "total_files": 163,
-      "status": "HEALTHY",
-      "error": null
-    },
     "Faro Fact": {
       "page_id": "502777659582958",
       "page_name": "Faro Fact",
@@ -2134,17 +2101,6 @@
       "video_count": 52,
       "zero_byte_wiped": 0,
       "total_files": 52,
-      "status": "HEALTHY",
-      "error": null
-    },
-    "Happy place": {
-      "page_id": "660234803835581",
-      "page_name": "Happy place",
-      "account": "Kalpesh Shah (USA)",
-      "folder_id": "12TzotKAwMMV2M6Gt1vBAF9UFX-Fmw3XO",
-      "video_count": 129,
-      "zero_byte_wiped": 0,
-      "total_files": 130,
       "status": "HEALTHY",
       "error": null
     },
@@ -3778,17 +3734,6 @@
       "status": "HEALTHY",
       "error": null
     },
-    "534342423102401": {
-      "page_id": "534342423102401",
-      "page_name": "The Daily Spark",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "16deNYAwBPFU7bcXZffCt2F242_XeRvIP",
-      "video_count": 156,
-      "zero_byte_wiped": 32,
-      "total_files": 188,
-      "status": "HEALTHY",
-      "error": null
-    },
     "564341273430022": {
       "page_id": "564341273430022",
       "page_name": "The Chill Spot",
@@ -3797,17 +3742,6 @@
       "video_count": 193,
       "zero_byte_wiped": 32,
       "total_files": 225,
-      "status": "HEALTHY",
-      "error": null
-    },
-    "497636683426759": {
-      "page_id": "497636683426759",
-      "page_name": "Tag The",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1sNeSPh3H1oXsUzw_YDmX05785CfSZM7Z",
-      "video_count": 187,
-      "zero_byte_wiped": 32,
-      "total_files": 219,
       "status": "HEALTHY",
       "error": null
     },
@@ -3921,17 +3855,6 @@
       "status": "HEALTHY",
       "error": null
     },
-    "472703539265672": {
-      "page_id": "472703539265672",
-      "page_name": "Flute Tomography Nature",
-      "account": "Sejal Soni (USA)",
-      "folder_id": "1FIoYms_6U3QdS35BHu7Cbblymf-JSZTk",
-      "video_count": 131,
-      "zero_byte_wiped": 32,
-      "total_files": 163,
-      "status": "HEALTHY",
-      "error": null
-    },
     "502777659582958": {
       "page_id": "502777659582958",
       "page_name": "Faro Fact",
@@ -4017,17 +3940,6 @@
       "video_count": 52,
       "zero_byte_wiped": 0,
       "total_files": 52,
-      "status": "HEALTHY",
-      "error": null
-    },
-    "660234803835581": {
-      "page_id": "660234803835581",
-      "page_name": "Happy place",
-      "account": "Kalpesh Shah (USA)",
-      "folder_id": "12TzotKAwMMV2M6Gt1vBAF9UFX-Fmw3XO",
-      "video_count": 129,
-      "zero_byte_wiped": 0,
-      "total_files": 130,
       "status": "HEALTHY",
       "error": null
     },

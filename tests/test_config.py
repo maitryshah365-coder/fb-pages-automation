@@ -16,7 +16,7 @@ def test_load_config():
 def test_load_config_usa_account6():
     config = load_config("config_usa_account6.yaml")
     assert config.page_group == "usa_account_6_kalpesh"
-    assert len(config.pages) == 15
+    assert len(config.pages) == 14
     assert config.retry.max_attempts == 3
 
     page159 = config.pages[0]

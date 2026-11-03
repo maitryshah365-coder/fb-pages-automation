@@ -44,9 +44,9 @@ const getPageDisplayName = sandbox.window.getPageDisplayName;
 console.log('Testing getPageDisplayName:');
 
 // Test 1: Page with numeric placeholder name in USA 5
-const p1 = { id: '534342423102401', name: 'Page 142' };
-console.log('  p1 (534342423102401, name: "Page 142") -> ' + getPageDisplayName(p1));
-if (getPageDisplayName(p1) !== 'The Daily Spark') throw new Error('p1 failed!');
+const p1 = { id: '877069835495630', name: 'Page 147' };
+console.log('  p1 (877069835495630, name: "Page 147") -> ' + getPageDisplayName(p1));
+if (getPageDisplayName(p1) !== 'Stellar Vibes') throw new Error('p1 failed!');
 
 // Test 2: Page with authentic name
 const p2 = { id: '988523547680750', name: 'Mix Mood' };
