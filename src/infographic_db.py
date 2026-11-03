@@ -199,6 +199,18 @@ class InfographicDB:
             conn.commit()
             return c.lastrowid
 
+    def has_posted_in_slot(self, page_id: str, slot_index: int) -> bool:
+        """Returns True if this page has already posted an infographic in the given slot today (UTC)."""
+        today_prefix = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        with self._connection() as conn:
+            c = conn.cursor()
+            c.execute("""
+                SELECT COUNT(*) FROM posted_infographics
+                WHERE page_id = ? AND slot_index = ? AND status = 'posted' AND posted_at LIKE ?
+            """, (str(page_id), int(slot_index), f"{today_prefix}%"))
+            row = c.fetchone()
+            return (row[0] if row else 0) > 0
+
     def get_today_upload_count(self, page_id: str) -> int:
         """Returns the number of infographics posted for this page today (UTC)."""
         today_prefix = datetime.now(timezone.utc).strftime("%Y-%m-%d")

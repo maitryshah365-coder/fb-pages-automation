@@ -29,7 +29,7 @@ on:
   # Continuous Hourly Infographics Pipeline (Every Hour):
   # Eliminates the 2.5-hour dead gap! Broadcasts continuous hourly staggered waves across all 171 pages!
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 0,4,8,12,16,20 * * *"
 
 concurrency:
   group: facebook-infographics-${{ github.event.inputs.page || github.event.schedule || 'default' }}

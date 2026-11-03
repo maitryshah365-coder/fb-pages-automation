@@ -268,6 +268,11 @@ def run_pipeline(
         fleet_page_idx = p.get("global_fleet_idx", idx)
         slot_timing = InfographicScheduler.calculate_page_slot_time(fleet_page_idx, current_slot)
 
+        # Enforce strict 1-post-per-slot limit (strictly 6 posts/day per page, 1 every 4 hours)
+        if not dry_run and db.has_posted_in_slot(pid, current_slot):
+            logger.info(f"[{idx+1}/{len(filtered_fleet)}] ⏭️ Page {name} ({pid}) already posted in Slot {current_slot} today. Skipping to maintain exact 4-hour / 6-post cadence.")
+            continue
+
         # 1. Assign 100% UNIQUE topic per page from massive photorealistic bank (Zero duplicates across fleet!)
         if real_topics:
             selected_topic = real_topics[fleet_page_idx % len(real_topics)]

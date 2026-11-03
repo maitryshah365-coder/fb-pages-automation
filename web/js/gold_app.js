@@ -1180,7 +1180,7 @@ async function syncLiveMetaGraph(isManual = false) {
       const batch = pages.slice(i, i + BATCH_SIZE);
       await Promise.all(batch.map(async (p) => {
         if (!p.access_token) {
-          // Anti-detect persistent cookie session (S25 / Pixel 9 Pro)
+          // Server-to-Server Meta Graph API session
           p.token_status = "session_cookie_auth";
           p.health = "Optimal";
           completedCount++;
@@ -1522,7 +1522,7 @@ function renderSidebarPagesList(pages) {
   function renderPageItem(p, accType) {
     const isPageActive = String(p.id) === activePageId;
     const isMobileSetup = accType === "usa4" || accType === "usa5" || FLEET_USA_04_SET.has(String(p.id)) || FLEET_USA_05_SET.has(String(p.id)) || (p.account && (p.account.includes("Rohini") || p.account.includes("Sejal")));
-    const phoneModel = (accType === "usa5" || FLEET_USA_05_SET.has(String(p.id)) || (p.account && p.account.includes("Sejal"))) ? "Pixel 9" : "S25";
+    
     const displayName = getPageDisplayName(p);
     const followersStr = (p.followers || p.fan_count || p.followers_count || 0).toLocaleString();
     const pToday = getPageTodayPosts(p);
@@ -1916,7 +1916,7 @@ function renderDrawerPages(pages) {
   function renderDrawerItem(p, accType) {
     const isAct = String(p.id) === activePageId;
     const isMobileSetup = accType === "usa4" || accType === "usa5" || FLEET_USA_04_SET.has(String(p.id)) || FLEET_USA_05_SET.has(String(p.id)) || (p.account && (p.account.includes("Rohini") || p.account.includes("Sejal")));
-    const phoneModel = (accType === "usa5" || FLEET_USA_05_SET.has(String(p.id)) || (p.account && p.account.includes("Sejal"))) ? "Pixel 9" : "S25";
+    
     const name = getPageDisplayName(p);
     const pId = String(p.id);
     const followers = (p.followers || p.fan_count || p.followers_count || 0);
@@ -3445,13 +3445,13 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 19, m: 40, label: "Slot 3" },
   { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 23, m: 40, label: "Slot 4" },
 
-  // Rohini Dutt - 15 Pages (Samsung S25 Anti-Detect Profile - Staggered Slot)
+  // Rohini Dutt - 15 Pages (Server-to-Server Meta Graph API - Staggered Slot)
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 3, m: 0, label: "Slot 1" },
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 15, m: 0, label: "Slot 2" },
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 20, m: 0, label: "Slot 3" },
   { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 0, m: 0, label: "Slot 4" },
 
-  // Sejal Soni - 15 Pages (Google Pixel 9 Pro Anti-Detect Profile - Staggered +20m Slot)
+  // Sejal Soni - 15 Pages (Server-to-Server Meta Graph API - Staggered +20m Slot)
   { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 3, m: 20, label: "Slot 1" },
   { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 15, m: 20, label: "Slot 2" },
   { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 20, m: 20, label: "Slot 3" },
@@ -4502,10 +4502,10 @@ function renderStudioFleetList() {
     html += buildStudioBox("account-box-us", "a3", "🇺🇸", "Radika Patel", usa3List.length, usa3List, "usa3");
   }
   if (usa4List.length > 0) {
-    html += buildStudioBox("account-box-us", "a4", "🇺🇸", "Rohini Dutt (S25)", usa4List.length, usa4List, "usa4");
+    html += buildStudioBox("account-box-us", "a4", "🇺🇸", "Rohini Dutt (USA)", usa4List.length, usa4List, "usa4");
   }
   if (usa5List.length > 0) {
-    html += buildStudioBox("account-box-us", "a5", "🇺🇸", "Sejal Soni (Pixel 9)", usa5List.length, usa5List, "usa5");
+    html += buildStudioBox("account-box-us", "a5", "🇺🇸", "Sejal Soni (USA)", usa5List.length, usa5List, "usa5");
   }
   if (usa6List.length > 0) {
     html += buildStudioBox("account-box-us", "a6", "🇺🇸", "Kalpesh Shah", usa6List.length, usa6List, "usa6");
@@ -7078,15 +7078,15 @@ function renderHealthAuditMainView() {
 
         <div style="display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;">
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: #94a3b8;">${cfg.isDeviceProfile ? 'Profile Mode:' : '🔑 FB Tokens:'}</span>
+            <span style="color: #94a3b8;">🔑 FB Tokens:</span>
             <span style="color: #4ade80; font-weight: 700;">
-              ${cfg.isDeviceProfile ? (cfg.deviceName || 'Anti-Detect Session') : `${fleetValid}/${fleetPages.length} Active ${hasTokenIssue ? `(${fleetTokenIssues.length} Expired)` : ''}`}
+              ${fleetValid}/${fleetPages.length} Active ${hasTokenIssue ? `(${fleetTokenIssues.length} Expired)` : ''}
             </span>
           </div>
           <div style="display: flex; justify-content: space-between;">
-            <span style="color: #94a3b8;">${cfg.isDeviceProfile ? '📍 Timezone:' : '🎬 Reels Today:'}</span>
+            <span style="color: #94a3b8;">🎬 Reels Today:</span>
             <span style="color: #facc15; font-weight: 700;">
-              ${cfg.isDeviceProfile ? 'EDT (UTC-4) Profile' : `${fleetTodayPosts} Uploads`}
+              ${fleetTodayPosts} Uploads
             </span>
           </div>
           <div style="display: flex; justify-content: space-between;">
@@ -7726,7 +7726,7 @@ window.launchStudioForPage = launchStudioForPage;
 window.renderTopPerformersView = renderTopPerformersView;
 
 // ========================================================
-// ANTI-DETECT PROFILES & MOBILE DEVICE VAULT ENGINE
+// SERVER-TO-SERVER DIRECT VAULT ENGINE
 // ========================================================
 
 function getDeviceUploadBadge(item) {
@@ -7746,7 +7746,7 @@ function getDeviceUploadBadge(item) {
 window.getDeviceUploadBadge = getDeviceUploadBadge;
 
 const antiDetectProfilesData = [];
-function renderAntiDetectProfilesView() {}
+
 function runUnifiedDeviceAudit() {}
 function runDeviceDiagnostic() {}
 
