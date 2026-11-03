@@ -129,8 +129,8 @@ def main():
     parser.add_argument("--require-uk", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United Kingdom (GB)")
     parser.add_argument("--require-us", action="store_true", help="Hard Kill-Switch: Strictly abort if IP is not United States (US)")
     parser.add_argument("--delay-pattern", choices=["auto", "pattern_1", "pattern_2"], default=os.environ.get("DELAY_PATTERN", "auto"), help="Stealth human behavior profile: auto, pattern_1, or pattern_2")
-    parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "120")), help="Min human delay seconds between page uploads")
-    parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "480")), help="Max human delay seconds between page uploads")
+    parser.add_argument("--delay-min", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MIN", "45")), help="Min human delay seconds between page uploads")
+    parser.add_argument("--delay-max", type=int, default=int(os.environ.get("POST_PAGE_DELAY_MAX", "90")), help="Max human delay seconds between page uploads")
     args = parser.parse_args()
 
     logger = setup_logging()
@@ -289,10 +289,10 @@ def main():
                 )
                 delay_mins = jitter_s // 60
                 delay_secs = jitter_s % 60
-                logger.info(f"🛡️ [Anti-Detect Protection] Post successful. Organic human pause [{pattern_tag}]: Sleeping {jitter_s}s (~{delay_mins}m {delay_secs}s) before next page ({idx + 2}/{total_pages})...")
+                logger.info(f"🛡️ [Organic Cadence Protection] Post successful. Organic human pause [{pattern_tag}]: Sleeping {jitter_s}s (~{delay_mins}m {delay_secs}s) before next page ({idx + 2}/{total_pages})...")
                 time.sleep(jitter_s)
             elif last_status in ["failed", "error"]:
-                logger.info(f"🛡️ [Anti-Detect Protection] Cooldown pause: Sleeping 15s before next page ({idx + 2}/{total_pages})...")
+                logger.info(f"🛡️ [Organic Cadence Protection] Cooldown pause: Sleeping 15s before next page ({idx + 2}/{total_pages})...")
                 time.sleep(15)
             else:
                 time.sleep(3)
