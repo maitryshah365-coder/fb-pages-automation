@@ -1775,6 +1775,106 @@ def sync_data():
                     "org": org,
                     "location": f"{city}, {region}, {country}" if city and region else (city or region or country)
                 })
+
+            # Also query and integrate live posted infographics / images from posted_infographics table
+            try:
+                cur_info = conn.cursor()
+                info_rows = cur_info.execute("""
+                    SELECT 
+                        id,
+                        page_id,
+                        vertical_key,
+                        topic_slug,
+                        title,
+                        hashtags,
+                        image_path,
+                        fb_photo_id,
+                        posted_at,
+                        status,
+                        slot_index
+                    FROM posted_infographics
+                    WHERE fb_photo_id IS NOT NULL AND fb_photo_id != '' AND status != 'failed'
+                    ORDER BY posted_at DESC, id DESC
+                    LIMIT 300
+                """).fetchall()
+
+                for ir in info_rows:
+                    pid = str(ir["page_id"])
+                    p_info = page_map.get(pid, {})
+                    p_name = p_info.get("name") or f"Page {pid}"
+                    p_pic = p_info.get("picture") or p_info.get("pic_url") or f"https://graph.facebook.com/v20.0/{pid}/picture?type=large"
+                    acc_name = p_info.get("account") or p_info.get("account_manager") or "USA"
+
+                    is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name) or ("Nidhi" in acc_name) or ("Richi" in acc_name) or ("Sweta" in acc_name) or ("Riya" in acc_name)
+                    country_code = "GB" if is_uk else "US"
+                    country_flag = "🇬🇧 UK" if is_uk else "🇺🇸 USA"
+
+                    photo_id = str(ir["fb_photo_id"])
+                    img_path = ir["image_path"] or ""
+                    thumb_rel = ""
+                    if img_path:
+                        fname = os.path.basename(img_path)
+                        thumb_rel = f"assets/infographics/{fname}"
+                    if not thumb_rel:
+                        thumb_rel = p_pic
+
+                    direct_link = f"https://www.facebook.com/photo/?fbid={photo_id}"
+                    if not is_uk:
+                        if "Meghal" in acc_name:
+                            ip, city, region, org = "169.150.203.240", "Los Angeles", "California (90001)", "AS212238 Datacamp Limited"
+                        elif "Mia" in acc_name:
+                            ip, city, region, org = "37.19.199.232", "New York City", "New York (11419)", "AS212238 Datacamp Limited"
+                        elif "Radika" in acc_name:
+                            ip, city, region, org = "146.70.186.166", "New York City", "New York (10001)", "AS9009 M247 Europe SRL"
+                        elif "Rohini" in acc_name:
+                            ip, city, region, org = "138.199.40.173", "New York City", "New York (10001)", "AS60068 Datacamp Limited"
+                        elif "Sejal" in acc_name:
+                            ip, city, region, org = "84.17.35.114", "Miami", "Florida (33101)", "AS60068 Datacamp Limited"
+                        elif "Kalpesh" in acc_name:
+                            ip, city, region, org = "146.70.186.174", "New York City", "New York (10001)", "AS9009 M247 Europe SRL"
+                        else:
+                            ip, city, region, org = "37.19.199.232", "New York City", "New York (11419)", "AS212238 Datacamp Limited"
+                        country = "US"
+                    else:
+                        if "Sweta" in acc_name:
+                            ip, city, region, org = "178.238.10.115", "Newport", "Wales (NP20 6)", "AS62240 Clouvider"
+                        elif "Binjal" in acc_name or "Chanda" in acc_name:
+                            ip, city, region, org = "103.138.124.9", "London", "England (SW1A 2)", "AS25369 Hydra Communications Ltd"
+                        elif "Richi" in acc_name or "Nidhi" in acc_name:
+                            ip, city, region, org = "149.50.209.58", "London", "England (E1 6AN)", "AS212238 Datacamp Limited"
+                        else:
+                            ip, city, region, org = "188.240.71.252", "London", "England (EC1A 1)", "AS25369 Hydra Communications Ltd"
+                        country = "GB"
+
+                    upload_history.append({
+                        "id": photo_id,
+                        "video_id": photo_id,
+                        "title": ir["title"] or f"Infographic {photo_id}",
+                        "page_id": pid,
+                        "page_name": p_name,
+                        "page_pic": p_pic,
+                        "account": acc_name,
+                        "country_code": country_code,
+                        "country_flag": country_flag,
+                        "thumbnail": thumb_rel,
+                        "views": 0,
+                        "posted_at": ir["posted_at"],
+                        "post_type": "infographic",
+                        "direct_link": direct_link,
+                        "ip": ip,
+                        "city": city,
+                        "region": region,
+                        "country": country,
+                        "org": org,
+                        "location": f"{city}, {region}, {country}" if city and region else (city or region or country)
+                    })
+            except Exception as e_info:
+                logger.warning(f"Error querying posted_infographics in sync: {e_info}")
+
+            # Re-sort combined upload_history by posted_at descending
+            upload_history.sort(key=lambda x: str(x.get("posted_at") or ""), reverse=True)
+            upload_history = upload_history[:500]
+
             conn.close()
         except Exception as e:
             logger.warning(f"Error building upload history: {e}")

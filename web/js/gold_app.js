@@ -8530,7 +8530,7 @@ function renderImageUploadsTable() {
         <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
         <td style="text-align:center;">
           <div style="position:relative; width:64px; height:82px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer; display:inline-block; background:#0b0f19; box-shadow:0 2px 8px rgba(0,0,0,0.4);" onclick="openLastImagePreviewModal()" title="Click to view full high-res image">
-            <img src="${thumb}" alt="Infographic Preview" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.src='icons/icon-512.png'">
+            <img src="${thumb}" alt="Infographic Preview" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.onerror=null; this.src='${avatar}';">
             <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.75); font-size:9px; font-weight:700; color:#fbcfe8; text-align:center; padding:2px 0;">🔍 Zoom</div>
           </div>
         </td>
