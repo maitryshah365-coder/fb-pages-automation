@@ -886,8 +886,6 @@ async function initDashboard() {
     initStudioView();
 
     // Pre-render image uploads feeds on startup
-    if (typeof renderImageUploadsTable === "function") renderImageUploadsTable();
-    if (typeof updateImageUploadsHeroCards === "function") updateImageUploadsHeroCards();
 
     // Ensure default active view is Dashboard
     switchMainView("dashboard");
@@ -1176,9 +1174,6 @@ async function syncLiveMetaGraph(isManual = false) {
     if (typeof renderUploadHistoryTable === "function") renderUploadHistoryTable();
     if (typeof renderRecentPostsList === "function") renderRecentPostsList();
     if (typeof renderTopPerformersView === "function") renderTopPerformersView();
-    if (typeof renderImageUploadsTable === "function") renderImageUploadsTable();
-    if (typeof updateImageUploadsHeroCards === "function") updateImageUploadsHeroCards();
-    if (typeof updateNextImageTargetQueue === "function") updateNextImageTargetQueue();
     if (typeof renderStudioFleetList === "function") renderStudioFleetList();
     if (typeof renderDriveDataView === "function") renderDriveDataView();
     if (typeof renderHealthAuditMainView === "function") renderHealthAuditMainView();
@@ -1954,28 +1949,6 @@ function renderSinglePageView(p) {
   const allReels = p.videos || [];
   const reelsForTf = getReelsForDays(allReels, currentTimeframe);
 
-  // Include verified live infographics for this page
-  const pageInfographics = (uploadHistoryData || []).filter(item => String(item.page_id) === String(p.id) && (item.post_type === "infographic" || item.post_type === "image")).map(item => ({
-    id: String(item.id || item.video_id),
-    title: item.title || "Automated Visual Infographic",
-    description: item.title || "Curated Field Guide & Anatomy Breakdown",
-    page_name: p.name,
-    page_id: p.id,
-    page_avatar: item.page_pic || p.picture,
-    thumbnail: item.thumbnail || item.page_pic || p.picture,
-    permalink: item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`,
-    posted_at: item.posted_at,
-    created_at: item.posted_at,
-    views: item.views || 0,
-    likes: 0,
-    comments: 0,
-    is_infographic: true,
-    post_type: "infographic",
-    template: item.template || "vibrant_multicolor",
-    server_uploaded: true,
-    source: "server"
-  }));
-
   const reelsViewsSum = reelsForTf.reduce((sum, v) => sum + (Number(v.views) || 0), 0);
   const isLifetime = (currentTimeframe === "all" || currentTimeframe === "life" || currentTimeframe === "lifetime" || !currentTimeframe);
   const totalRealViews = isLifetime
@@ -2610,7 +2583,7 @@ function renderVideosLibrary() {
             <div class="studio-video-cell">
               <div class="studio-thumb-wrapper" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="Click to open Reel in new tab">
                 <img class="studio-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
-                ${v.is_infographic ? '<span class="studio-reels-badge" style="background:#ec4899; color:#fff;">🖼️ IMAGE</span>' : '<span class="studio-reels-badge">▶ REELS</span>'}
+                <span class="studio-reels-badge">▶ REELS</span>
               </div>
               <div class="studio-video-info">
                 <div class="studio-page-tag-row">
@@ -2652,7 +2625,7 @@ function renderVideosLibrary() {
           </td>
           <td style="text-align:center;" onclick="event.stopPropagation()">
             <a href="${fbUrl}" target="_blank" rel="noopener noreferrer" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation(); return true;" class="btn-view-reel-link" title="Open Reel on Facebook in new tab" style="font-size:11px; padding:3px 8px;">
-              ${v.is_infographic ? '🖼️ View ↗' : '🎬 Watch ↗'}
+              🎬 Watch ↗
             </a>
           </td>
         </tr>
@@ -2687,7 +2660,7 @@ function renderVideosLibrary() {
         <div class="mobile-yt-card">
           <div class="mobile-yt-thumb-box" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();">
             <img class="mobile-yt-thumb-img" src="${thumb}" alt="${title}" onerror="this.src='https://via.placeholder.com/120x160/0d111a/f5ba23?text=Reel'">
-            ${v.is_infographic ? '<span class="mobile-yt-badge" style="background:#ec4899; color:#fff;">🖼️ IMAGE</span>' : '<span class="mobile-yt-badge">🩳 REELS</span>'}
+            <span class="mobile-yt-badge">🩳 REELS</span>
           </div>
           <div class="mobile-yt-info">
             <div class="mobile-yt-page-tag-row">
@@ -3878,9 +3851,6 @@ function switchMainView(viewName) {
   const recentPostsView = document.getElementById("recentPostsFeedView");
   const healthAuditView = document.getElementById("healthAuditMainView");
   const topPerformersView = document.getElementById("topPerformersLeaderboardView");
-  const imageUploadsView = document.getElementById("imageUploadsFeedView");
-  const sideImageUploads = document.getElementById("sideNavImageUploads");
-  const drawerImageUploads = document.getElementById("btnDrawerImageUploads");
   const antiDetectView = document.getElementById("antiDetectProfilesView");
   const metaToolsHubView = document.getElementById("metaToolsHubView");
 
@@ -3910,9 +3880,6 @@ function switchMainView(viewName) {
   if (recentPostsView) recentPostsView.style.display = "none";
   if (healthAuditView) healthAuditView.style.display = "none";
   if (topPerformersView) topPerformersView.style.display = "none";
-  if (imageUploadsView) imageUploadsView.style.display = "none";
-  if (sideImageUploads) sideImageUploads.classList.remove("active");
-  if (drawerImageUploads) drawerImageUploads.classList.remove("active");
   if (antiDetectView) antiDetectView.style.display = "none";
   if (metaToolsHubView) metaToolsHubView.style.display = "none";
 
@@ -3978,17 +3945,6 @@ function switchMainView(viewName) {
     if (bottomRecentPosts) bottomRecentPosts.classList.add("active");
     if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
     renderRecentPostsView();
-  } else if (viewName === "image_uploads") {
-    if (imageUploadsView) imageUploadsView.style.display = "block";
-    if (sideImageUploads) sideImageUploads.classList.add("active");
-    if (drawerImageUploads) drawerImageUploads.classList.add("active");
-    if (typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "smooth" });
-    if (!uploadHistoryData || uploadHistoryData.length === 0) {
-      if (typeof fetchUploadHistory === "function") {
-        fetchUploadHistory(false);
-      }
-    }
-    renderImageUploadsView();
   } else if (viewName === "health_audit") {
     if (healthAuditView) healthAuditView.style.display = "block";
     if (sideHealthAudit) sideHealthAudit.classList.add("active");
@@ -6122,32 +6078,6 @@ function renderRecentPostsList(reelsList) {
         });
       });
     }
-    // Also include live published infographics / images from uploadHistoryData
-    (uploadHistoryData || []).forEach(item => {
-      const iId = String(item.id || item.video_id);
-      if (iId && !allReelsMap.has(iId)) {
-        allReelsMap.set(iId, {
-          id: iId,
-          title: item.title || "Automated Visual Infographic",
-          description: item.title || "Curated Field Guide & Anatomy Breakdown",
-          page_name: item.page_name,
-          page_id: item.page_id,
-          page_avatar: item.page_pic,
-          thumbnail: item.thumbnail || item.page_pic,
-          permalink: item.direct_link || `https://www.facebook.com/photo/?fbid=${iId}`,
-          posted_at: item.posted_at,
-          created_at: item.posted_at,
-          views: item.views || 0,
-          likes: 0,
-          comments: 0,
-          is_infographic: true,
-          post_type: "infographic",
-          source: "server",
-          server_uploaded: true
-        });
-      }
-    });
-
     list = Array.from(allReelsMap.values()).sort((a, b) => {
       const ta = new Date(a.posted_at || a.created_time_iso || a.created_at || 0).getTime();
       const tb = new Date(b.posted_at || b.created_time_iso || b.created_at || 0).getTime();
@@ -6267,17 +6197,14 @@ function renderRecentPostsList(reelsList) {
       const fbUrl = v.direct_link || (v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com/photo/?fbid=${v.id}`);
       const dateStr = v.posted_at ? new Date(v.posted_at).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : (v.created_at || "Recent");
       const timeStr = v.posted_at ? new Date(v.posted_at).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }) : (v.created_time || "Published");
-      let cardThumb = v.cdn_thumb || v.thumbnail || v.source;
-      if (!cardThumb || cardThumb.startsWith("assets/")) {
-        cardThumb = `https://graph.facebook.com/v20.0/${v.id}/picture?type=normal`;
-      }
+      let cardThumb = v.thumbnail || `https://graph.facebook.com/v20.0/${v.id}/picture`;
 
       return `
         <div class="recent-mobile-card">
           <div class="recent-mob-top">
-            <div class="recent-mob-thumb" onclick="openImagePreviewModal('${v.id}')" title="Tap to expand high-res infographic" style="width:68px; height:88px; min-width:68px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer;">
+            <div class="recent-mob-thumb" onclick="window.open('${fbUrl}', '_blank');" title="Tap to watch reel" style="width:68px; height:88px; min-width:68px; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.12); cursor:pointer;">
               <img src="${cardThumb}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.onerror=null; this.src='icons/icon-512.png'">
-              <span class="recent-mob-badge" style="background:#ec4899; color:#fff;">🖼️ IMAGE</span>
+              <span class="recent-mob-badge">▶ REEL</span>
             </div>
             <div class="recent-mob-details">
               <div class="recent-mob-title" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="${v.title || v.description || 'Facebook Reel'}">${v.title || v.description || 'Facebook Reel'}</div>
@@ -6414,9 +6341,7 @@ async function fetchUploadHistory(manualTrigger = false) {
       if (totalBadge) totalBadge.innerText = records.length;
 
       renderUploadHistoryTable();
-      renderImageUploadsTable();
-      if (typeof updateImageUploadsHeroCards === "function") updateImageUploadsHeroCards();
-
+      
       if (manualTrigger) {
         showToast(`✅ Upload History Refreshed: ${records.length} Verified Reels`);
       } else if (prevCount > 0 && records.length > prevCount) {
@@ -6464,7 +6389,6 @@ function renderUploadHistoryTable() {
 
   const filtered = uploadHistoryData.filter(item => {
     // Only show Reels in standard Upload History
-    if (uploadHistoryFilter !== "infographics" && (item.post_type === "infographic" || item.post_type === "image")) return false;
 
     // Country / Timeframe Filter
     if (uploadHistoryFilter === "us") {
@@ -6475,8 +6399,7 @@ function renderUploadHistoryTable() {
       if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta") && !item.account?.includes("Riya")) return false;
     } else if (uploadHistoryFilter === "today") {
       if (!isDateToday(item.posted_at)) return false;
-    } else if (uploadHistoryFilter === "infographics") {
-      if (item.post_type !== "infographic") return false;
+
     }
 
     // Search Query Filter
@@ -6571,7 +6494,7 @@ function renderUploadHistoryTable() {
         <td style="text-align:center;">
           <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" title="${item.title ? item.title.replace(/"/g, '&quot;') : 'Watch Reel on Facebook'}" style="display:inline-block;">
             ${hasThumb ? `<img src="${thumbSrc}" alt="Thumbnail" class="upload-history-thumb" onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';" style="width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.15); box-shadow:0 2px 8px rgba(0,0,0,0.35);">` : ''}
-            <div class="upload-thumb-fallback" style="display:${hasThumb ? 'none' : 'flex'}; width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:24px;">${item.post_type === "infographic" ? "🎨" : "🎬"}</div>
+            <div class="upload-thumb-fallback" style="display:${hasThumb ? 'none' : 'flex'}; width:72px; height:72px; border-radius:8px; background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%); border:1px solid rgba(255,255,255,0.1); align-items:center; justify-content:center; font-size:24px;">🎬</div>
           </a>
         </td>
         <td>
@@ -6605,7 +6528,7 @@ function renderUploadHistoryTable() {
         </td>
         <td style="text-align:center;">
           <a href="${reelUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" title="Open published item on Facebook">
-            ${item.post_type === "infographic" ? "🖼️ View Infographic ↗" : "🎬 Open Reel ↗"}
+            🎬 Open Reel ↗
           </a>
         </td>
       </tr>
@@ -8187,420 +8110,3 @@ if (document.readyState === "loading") {
 } else {
   setTimeout(initApp, 10);
 }
-
-
-
-// =========================================================================
-// LIVE IMAGES UPLOADING & REAL-TIME TELEMETRY ENGINE
-// =========================================================================
-
-let imageUploadsFilter = "all";
-let imageUploadsSearch = "";
-let imageUploadsPageSize = 50;
-
-function setImageUploadsFilter(f) {
-  imageUploadsFilter = f || "all";
-  imageUploadsPageSize = 50;
-  const filterGroup = document.getElementById("imageCountryFilters");
-  if (filterGroup && typeof filterGroup.querySelectorAll === "function") {
-    filterGroup.querySelectorAll(".timeframe-pill").forEach(b => {
-      b.classList.toggle("active", (b.dataset.filter || "all") === imageUploadsFilter);
-    });
-  }
-  renderImageUploadsTable();
-}
-window.setImageUploadsFilter = setImageUploadsFilter;
-
-function onSearchImageUploads() {
-  const searchInput = document.getElementById("inputImageUploadsSearch");
-  imageUploadsSearch = (searchInput?.value || "").toLowerCase().trim();
-  imageUploadsPageSize = 50;
-  renderImageUploadsTable();
-}
-window.onSearchImageUploads = onSearchImageUploads;
-
-function loadMoreImageUploads() {
-  imageUploadsPageSize += 50;
-  renderImageUploadsTable();
-}
-window.loadMoreImageUploads = loadMoreImageUploads;
-
-function refreshImageUploads(manual = true) {
-  if (typeof fetchUploadHistory === "function") {
-    fetchUploadHistory(manual).then(() => {
-      renderImageUploadsTable();
-    });
-  } else {
-    renderImageUploadsTable();
-  }
-}
-window.refreshImageUploads = refreshImageUploads;
-
-function renderImageUploadsView() {
-  renderImageUploadsTable();
-  updateImageUploadsHeroCards();
-  initNextImageCountdown();
-  if (typeof updateNextImageTargetQueue === "function") updateNextImageTargetQueue();
-}
-window.renderImageUploadsView = renderImageUploadsView;
-
-function renderImageUploadsTable() {
-  const tbody = document.getElementById("imageUploadsTableBody");
-  const mobileContainer = document.getElementById("imageUploadsMobileCards");
-  const countLabel = document.getElementById("imageShowingCountLabel");
-  const remainingBadge = document.getElementById("imageRemainingBadge");
-  const totalCountBadge = document.getElementById("imageTotalCountBadge");
-  const heroCount = document.getElementById("imageHeroTotalCount");
-  const loadMoreBtn = document.getElementById("btnLoadMoreImageUploads");
-  if (!tbody) return;
-
-  const allImages = (uploadHistoryData || []).filter(item => item.post_type === "infographic" || item.post_type === "image");
-
-  if (totalCountBadge) totalCountBadge.innerText = allImages.length;
-  if (heroCount) heroCount.innerText = `${allImages.length} Posts`;
-
-  const query = imageUploadsSearch;
-
-  const filtered = allImages.filter(item => {
-    if (imageUploadsFilter === "us") {
-      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia") && !item.account?.includes("Radika") && !item.account?.includes("Rohini") && !item.account?.includes("Sejal")) return false;
-    } else if (imageUploadsFilter === "uk") {
-      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta") && !item.account?.includes("Riya")) return false;
-    } else if (imageUploadsFilter === "today") {
-      if (!isDateToday(item.posted_at)) return false;
-    }
-
-    if (query) {
-      const matchId = String(item.id || "").toLowerCase().includes(query);
-      const matchTitle = String(item.title || "").toLowerCase().includes(query);
-      const matchPage = String(item.page_name || "").toLowerCase().includes(query);
-      const matchAcc = String(item.account || "").toLowerCase().includes(query);
-      const matchIp = String(item.ip || "").toLowerCase().includes(query);
-      const matchLoc = String(item.location || "").toLowerCase().includes(query);
-      if (!matchId && !matchTitle && !matchPage && !matchAcc && !matchIp && !matchLoc) return false;
-    }
-    return true;
-  });
-
-  const totalFiltered = filtered.length;
-  const displayItems = filtered.slice(0, imageUploadsPageSize);
-
-  if (countLabel) {
-    countLabel.innerText = `Showing ${displayItems.length} of ${totalFiltered} Images`;
-  }
-  const remaining = Math.max(0, totalFiltered - displayItems.length);
-  if (remainingBadge) {
-    remainingBadge.innerText = `${remaining} remaining`;
-  }
-  if (loadMoreBtn) {
-    loadMoreBtn.style.display = remaining > 0 ? "inline-block" : "none";
-  }
-
-  if (displayItems.length === 0) {
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="7" style="text-align:center; padding: 48px 16px;">
-          <div style="font-size: 38px; margin-bottom: 10px;">🖼️</div>
-          <div style="font-weight: 800; color: #fff; font-size: 16px;">Live Images Uploading Feed Ready</div>
-          <div style="color: #94a3b8; font-size: 13px; margin-top: 6px;">Next automated 6x daily batch starts broadcasting at 01:30 AM IST via GitHub Actions.</div>
-        </td>
-      </tr>
-    `;
-    if (mobileContainer) {
-      mobileContainer.innerHTML = `<div style="text-align:center; padding:32px; color:#94a3b8;">No image posts recorded yet. Live runner will auto-populate here.</div>`;
-    }
-    return;
-  }
-
-  tbody.innerHTML = displayItems.map((item, idx) => {
-    const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London")));
-    let dateMain = "Recent";
-    let dateSub = "";
-    if (item.posted_at) {
-      try {
-        const d = new Date(item.posted_at);
-        if (!isNaN(d.getTime())) {
-          dateMain = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) + " " + d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
-          dateSub = d.toISOString().slice(11, 16) + " UTC";
-        }
-      } catch (e) {}
-    }
-
-    const postUrl = item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`;
-    const avatar = item.page_pic || `https://graph.facebook.com/v20.0/${item.page_id}/picture?type=large`;
-    let thumb = item.cdn_thumb || item.thumbnail || item.source;
-    if (!thumb || thumb.startsWith("assets/")) {
-      thumb = `https://graph.facebook.com/v20.0/${item.id}/picture?type=normal`;
-    }
-    const locText = item.location || "Server Cloud (Automation)";
-    const templateLabel = (item.template || item.template_name || "Visual Guide").toUpperCase().replace(/_/g, " ");
-
-    return `
-      <tr>
-        <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
-        <td style="text-align:center;">
-          <div style="position:relative; width:64px; height:82px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer; display:inline-block; background:#0b0f19; box-shadow:0 2px 8px rgba(0,0,0,0.4);" onclick="openImagePreviewModal('${item.id}')" title="Click to view full high-res image">
-            <img src="${thumb}" alt="Infographic Preview" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.onerror=null; this.src='${avatar}';">
-            <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.75); font-size:9px; font-weight:700; color:#fbcfe8; text-align:center; padding:2px 0;">🔍 Zoom</div>
-          </div>
-        </td>
-        <td>
-          <div class="page-cell-info">
-            <img src="${avatar}" alt="${item.page_name}" class="page-cell-avatar" onerror="this.src='icons/icon-192.png'">
-            <div>
-              <div class="page-cell-name">${item.page_name}</div>
-              <div class="page-cell-account" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:2px;">
-                <span>${item.account || 'Automated Fleet'}</span>
-                <span style="background:rgba(236,72,153,0.18); color:#f472b6; border:1px solid rgba(236,72,153,0.35); font-size:10px; font-weight:800; padding:2px 7px; border-radius:10px;">${templateLabel}</span>
-              </div>
-            </div>
-          </div>
-        </td>
-        <td>
-          <div class="datetime-cell">
-            <span class="datetime-main">📅 ${dateMain}</span>
-            <span class="datetime-sub">🕒 ${dateSub}</span>
-          </div>
-        </td>
-        <td style="text-align:center;">
-          <span class="views-realtime-badge" style="display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:13.5px; color:#f472b6; background:rgba(236,72,153,0.1); border:1px solid rgba(236,72,153,0.28); padding:5px 12px; border-radius:8px; letter-spacing:0.3px;">
-            👁️ ${(item.views || 0).toLocaleString()}
-          </span>
-        </td>
-        <td>
-          <div class="ip-telemetry-cell">
-            <span class="ip-mono">🌐 ${item.ip || '103.138.124.9'}</span>
-            <span class="ip-location">📍 ${locText}</span>
-          </div>
-        </td>
-        <td style="text-align:center;">
-          <a href="${postUrl}" target="_blank" rel="noopener noreferrer" class="btn-open-reel" style="background:rgba(236,72,153,0.15); border-color:rgba(236,72,153,0.35); color:#f472b6;" title="Open published Image directly on Facebook">
-            🖼️ View Image ↗
-          </a>
-        </td>
-      </tr>
-    `;
-  }).join("");
-
-  if (mobileContainer) {
-    mobileContainer.innerHTML = displayItems.map((item, idx) => {
-      const postUrl = item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`;
-      const avatar = item.page_pic || `https://graph.facebook.com/v20.0/${item.page_id}/picture?type=large`;
-      return `
-        <div class="mobile-yt-card" style="border-left: 3px solid #ec4899;">
-          <div class="mobile-yt-card-header">
-            <span class="mobile-yt-rank">#${idx + 1}</span>
-            <span class="mobile-yt-type" style="background:rgba(236,72,153,0.2); color:#f472b6;">IMAGE 4:5</span>
-          </div>
-          <div style="font-size:14px; font-weight:700; color:#fff; margin:6px 0;">${item.title || 'Curated Visual Field Guide'}</div>
-          <div style="font-size:12px; color:#94a3b8; display:flex; gap:8px; align-items:center;">
-            <img src="${avatar}" style="width:20px; height:20px; border-radius:50%;">
-            <span>${item.page_name}</span>
-          </div>
-          <div style="margin-top:10px;">
-            <a href="${postUrl}" target="_blank" rel="noopener noreferrer" class="btn-view-reel-link recent-mob-btn" style="background:rgba(236,72,153,0.15); border-color:rgba(236,72,153,0.35); color:#f472b6;">
-              🖼️ View Image on Facebook ↗
-            </a>
-          </div>
-        </div>
-      `;
-    }).join("");
-  }
-}
-window.renderImageUploadsTable = renderImageUploadsTable;
-
-// ============================================================================
-// LIVE IMAGES UPLOADING: RADAR COUNTDOWN & LAST UPLOADED IMAGE SHOWCASE
-// ============================================================================
-let nextImageCountdownTimer = null;
-window.currentLastInfographic = null;
-
-function formatTimeAgo(isoString) {
-  if (!isoString) return "Recently";
-  try {
-    const diffMs = Date.now() - new Date(isoString).getTime();
-    if (isNaN(diffMs) || diffMs < 0) return "Just Now";
-    const mins = Math.floor(diffMs / 60000);
-    if (mins < 1) return "Just Now";
-    if (mins < 60) return `${mins}m ago`;
-    const hours = Math.floor(mins / 60);
-    if (hours < 24) return `${hours}h ${mins % 60}m ago`;
-    const days = Math.floor(hours / 24);
-    return `${days}d ago`;
-  } catch (e) {
-    return "Recently";
-  }
-}
-window.formatTimeAgo = formatTimeAgo;
-
-function formatArchetypeTag(name) {
-  if (!name) return "Archetype #3 • Vintage Fieldguide";
-  let clean = String(name).replace(/^preview_template_\d+_/, "").replace(/^template_\d+_/, "").replace(/_/g, " ");
-  // Capitalize words
-  clean = clean.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-  return `Archetype • ${clean}`;
-}
-window.formatArchetypeTag = formatArchetypeTag;
-
-function getNextImageSlotInfo() {
-  const now = new Date();
-
-  // Next top-of-hour staggered fleet dispatch wave
-  const nextWaveDate = new Date(Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth(),
-    now.getUTCDate(),
-    now.getUTCHours() + 1,
-    0,
-    0
-  ));
-
-  const diffMs = Math.max(0, nextWaveDate.getTime() - now.getTime());
-  const diffSec = Math.floor(diffMs / 1000);
-  const hours = Math.floor(diffSec / 3600);
-  const minutes = Math.floor((diffSec % 3600) / 60);
-  const seconds = diffSec % 60;
-
-  const nextIstStr = nextWaveDate.toLocaleTimeString("en-IN", {
-    timeZone: "Asia/Kolkata",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true
-  }).toUpperCase();
-
-  return {
-    hours: String(hours).padStart(2, "0"),
-    minutes: String(minutes).padStart(2, "0"),
-    seconds: String(seconds).padStart(2, "0"),
-    badgeText: `Next Wave • ${nextIstStr} IST`,
-    nextSlotDate: nextWaveDate
-  };
-}
-window.getNextImageSlotInfo = getNextImageSlotInfo;
-
-function initNextImageCountdown() {
-  function updateImageClock() {
-    const info = getNextImageSlotInfo();
-    const hEl = document.getElementById("nextImageTimerHours");
-    const mEl = document.getElementById("nextImageTimerMinutes");
-    const sEl = document.getElementById("nextImageTimerSeconds");
-    const badgeEl = document.getElementById("nextImageSlotBadge");
-
-    if (hEl) hEl.innerText = info.hours;
-    if (mEl) mEl.innerText = info.minutes;
-    if (sEl) sEl.innerText = info.seconds;
-    if (badgeEl) badgeEl.innerText = info.badgeText;
-  }
-
-  updateImageClock();
-  if (typeof updateNextImageTargetQueue === "function") updateNextImageTargetQueue();
-  if (typeof setInterval !== "undefined") {
-    if (nextImageCountdownTimer) clearInterval(nextImageCountdownTimer);
-    nextImageCountdownTimer = setInterval(updateImageClock, 1000);
-  }
-}
-window.initNextImageCountdown = initNextImageCountdown;
-
-function updateNextImageTargetQueue() {
-  const nameEl = document.getElementById("nextTargetPageName");
-  const idEl = document.getElementById("nextTargetPageId");
-  const avatarEl = document.getElementById("nextTargetPageAvatar");
-  const countryEl = document.getElementById("nextTargetCountryBadge");
-  const accountEl = document.getElementById("nextTargetAccount");
-  const nicheEl = document.getElementById("nextTargetNiche");
-
-  if (!nameEl) return;
-
-  // Determine current/next target from pages or blueprint
-  let target = null;
-  if (typeof FLEET_VERTICAL_BLUEPRINT !== "undefined" && Array.isArray(FLEET_VERTICAL_BLUEPRINT?.fleet)) {
-    target = FLEET_VERTICAL_BLUEPRINT.fleet[0];
-  }
-  if (!target && fullData?.pages && fullData.pages.length > 0) {
-    target = fullData.pages.find(p => String(p.id) === "988523547680750") || fullData.pages[0];
-  }
-
-  if (target) {
-    const pid = String(target.page_id || target.id || "988523547680750");
-    const pName = (typeof getPageDisplayName === "function" ? getPageDisplayName(target) : target.page_name) || target.page_name || "Mix Mood";
-    const acc = target.account_manager || target.account || "Meghal Chauhan (USA 1)";
-    const isUK = acc.includes("UK") || (target.country === "GB");
-    const flag = isUK ? "🇬🇧" : "🇺🇸";
-    const countryName = isUK ? "UK Fleet" : "USA Fleet";
-    const niche = target.assigned_vertical_key || "miniature_diorama_disaster";
-    const cleanNiche = niche.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
-
-    nameEl.innerText = pName;
-    if (idEl) idEl.innerText = `ID: ${pid}`;
-    if (countryEl) countryEl.innerHTML = `${flag} ${countryName}`;
-    if (accountEl) accountEl.innerText = `👤 ${acc}`;
-    if (nicheEl) nicheEl.innerText = `🎨 ${cleanNiche}`;
-    if (avatarEl) {
-      avatarEl.src = `https://graph.facebook.com/v20.0/${pid}/picture?type=large`;
-    }
-  }
-}
-window.updateNextImageTargetQueue = updateNextImageTargetQueue;
-
-
-function updateImageUploadsHeroCards() {
-  const allImages = (uploadHistoryData || []).filter(item => item.post_type === "infographic" || item.post_type === "image");
-  if (!allImages || allImages.length === 0) return;
-
-  const lastImg = allImages[0];
-  window.currentLastInfographic = lastImg;
-
-  const thumbEl = document.getElementById("lastImageShowcaseThumb");
-  const avatarEl = document.getElementById("lastImagePageAvatar");
-  const pageNameEl = document.getElementById("lastImagePageName");
-  const accountEl = document.getElementById("lastImageAccountTag");
-  const titleEl = document.getElementById("lastImageTitleText");
-  const timeTagEl = document.getElementById("lastImageUploadTimeTag");
-  const archetypeEl = document.getElementById("lastImageArchetypeTag");
-  const linkEl = document.getElementById("lastImageDirectLink");
-
-  let thumbSrc = lastImg.thumbnail || lastImg.page_pic || `https://graph.facebook.com/v20.0/${lastImg.page_id}/picture?type=large`;
-
-  if (thumbEl) {
-    thumbEl.src = thumbSrc;
-    thumbEl.alt = lastImg.title || "Latest Infographic";
-  }
-  if (avatarEl) {
-    avatarEl.src = lastImg.page_pic || `https://graph.facebook.com/v20.0/${lastImg.page_id}/picture?type=large`;
-  }
-  if (pageNameEl) pageNameEl.innerText = lastImg.page_name || "Facebook Page";
-  if (accountEl) accountEl.innerText = `${lastImg.account || "Meta Fleet"} • ${lastImg.country_flag || "🇺🇸 USA"}`;
-  if (titleEl) titleEl.innerText = lastImg.title || "Automated Visual Infographic";
-  if (timeTagEl) timeTagEl.innerText = formatTimeAgo(lastImg.posted_at);
-  if (archetypeEl) archetypeEl.innerText = formatArchetypeTag(lastImg.template_name || lastImg.template);
-  if (linkEl) linkEl.href = lastImg.direct_link || `https://www.facebook.com/photo/?fbid=${lastImg.id}`;
-}
-window.updateImageUploadsHeroCards = updateImageUploadsHeroCards;
-
-function openImagePreviewModal(photoId) {
-  const modal = document.getElementById("imagePreviewModal");
-  const modalImg = document.getElementById("modalImageSrc");
-  const modalTitle = document.getElementById("modalImageTitle");
-  const modalCaption = document.getElementById("modalImageCaption");
-  if (!modal) return;
-
-  const item = (uploadHistoryData || []).find(x => String(x.id) === String(photoId)) || window.currentLastInfographic;
-  let src = item?.source || item?.cdn_thumb || item?.thumbnail || item?.page_pic || `https://graph.facebook.com/v20.0/${item?.page_id}/picture?type=large`;
-
-  if (modalImg) modalImg.src = src;
-  if (modalTitle) modalTitle.innerText = item?.title || "Infographic Full High-Res View";
-  if (modalCaption) {
-    const postLink = item?.direct_link || (item?.id ? `https://www.facebook.com/photo/?fbid=${item.id}` : '#');
-    modalCaption.innerHTML = `<strong>Page:</strong> ${item?.page_name || 'Fleet Page'} &nbsp;•&nbsp; <strong>Posted:</strong> ${formatTimeAgo(item?.posted_at)} &nbsp;•&nbsp; <a href="${postLink}" target="_blank" style="color:#38bdf8; text-decoration:underline; font-weight:700;">View on Facebook ↗</a>`;
-  }
-  modal.style.display = "flex";
-}
-window.openImagePreviewModal = openImagePreviewModal;
-window.openLastImagePreviewModal = openImagePreviewModal;
-
-function closeImagePreviewModal() {
-  const modal = document.getElementById("imagePreviewModal");
-  if (modal) modal.style.display = "none";
-}
-window.closeImagePreviewModal = closeImagePreviewModal;
-

@@ -85,14 +85,6 @@ class PageRunner:
             self.db.finish_run(db_run_id, status="skipped", error_message=msg, runner_telemetry=self.runner_telemetry)
             return {"status": "skipped", "page": page_name, "reason": msg}
 
-        # 1b. 🛡️ HARD REEL-INFOGRAPHIC ANTI-COLLISION SHIELD: Minimum 45-Minute Spacing
-        mins_since_info = self.db.get_minutes_since_last_infographic(page_id)
-        if not self.dry_run and mins_since_info is not None and mins_since_info < 45.0:
-            msg = f"🛡️ ANTI-COLLISION SHIELD: Infographic was posted {int(mins_since_info)}m ago (<45m buffer). Temporarily skipping Reel to protect reach."
-            logger.warning(f"[{page_name}] {msg}")
-            self.db.finish_run(db_run_id, status="skipped", error_message=msg, runner_telemetry=self.runner_telemetry)
-            return {"status": "skipped", "page": page_name, "reason": msg}
-
         # 2. Resolve Page Access Token
         access_token = page.get_access_token()
         if not access_token and not self.dry_run:

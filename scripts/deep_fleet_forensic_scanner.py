@@ -220,15 +220,7 @@ for p in pages_data:
         "evidence_videos_count": len(video_titles),
         "sample_real_videos": video_titles[:5],
         "assigned_vertical_key": assigned_key,
-        "assigned_vertical_label": v_meta["label"],
-        "infographic_specs": {
-            "aspect_ratio": "4:5 (1080 x 1350 px)",
-            "infographic_theme": v_meta["theme"],
-            "visual_subject_type": v_meta["visual_type"],
-            "data_cards_structure": v_meta["data_specs"],
-            "target_hashtags": final_hashtags,
-            "footer_branding": f"FOLLOW @{name.upper()}"
-        }
+        "assigned_vertical_label": v_meta["label"]
     }
     fleet_blueprint.append(blueprint_entry)
 

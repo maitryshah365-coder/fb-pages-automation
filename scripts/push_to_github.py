@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import base64
+import time
 import urllib.request
 import urllib.error
 
@@ -22,15 +23,24 @@ def api_call(endpoint, method="GET", data=None):
         headers["Content-Type"] = "application/json"
     
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
-    try:
-        with urllib.request.urlopen(req) as res:
-            return json.loads(res.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        err_msg = e.read().decode("utf-8")
-        print(f"API Error [{e.code}] on {url}: {err_msg}")
-        raise
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(req, timeout=40) as res:
+                return json.loads(res.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if e.code >= 500 and attempt < 4:
+                time.sleep(2)
+                continue
+            err_msg = e.read().decode("utf-8")
+            print(f"API Error [{e.code}] on {url}: {err_msg}")
+            raise
+        except Exception as e:
+            if attempt < 4:
+                time.sleep(2)
+                continue
+            raise
 
-def push_files(commit_msg="chore: update dashboard assets and ranking engine"):
+def push_files(commit_msg="chore: complete purge of 4 retired pages"):
     print(f"--> Pushing changes to GitHub: {REPO} on branch {BRANCH}")
     
     # 1. Get latest commit on branch
@@ -44,26 +54,44 @@ def push_files(commit_msg="chore: update dashboard assets and ranking engine"):
     
     # List of files to upload
     files_to_push = [
+        "config_usa_account5.yaml",
+        "config_usa_account6.yaml",
+        "data/usa_account5_sejal_permanent_pages.json",
+        "data/usa_account6_kalpesh_permanent_pages.json",
+        "data/fleet_vertical_blueprint.json",
+        "docs/data/fleet_vertical_blueprint.json",
+        "web/data/fleet_vertical_blueprint.json",
+        "data/master_fleet_monetization.json",
+        "docs/data/master_fleet_monetization.json",
+        "web/data/master_fleet_monetization.json",
         "docs/data/pages_data.json",
         "web/data/pages_data.json",
+        "data/upload_history.json",
         "docs/data/upload_history.json",
         "web/data/upload_history.json",
-        "docs/data/latest_run_summary.json",
-        "web/data/latest_run_summary.json",
         "docs/data/server_uploaded_videos.json",
         "web/data/server_uploaded_videos.json",
+        "data/drive_folders_audit.json",
+        "docs/data/drive_folders_audit.json",
+        "web/data/drive_folders_audit.json",
+        "data/drive_verified_stock_audit.json",
+        "data/page_niche_catalog.json",
+        "data/sejal_soni_drive_folders.json",
+        "data/live_token_audit_20261025.json",
+        "docs/js/gold_app.js",
+        "web/js/gold_app.js",
+        "scripts/sync_dashboard_data.py",
+        "scripts/purge_and_sync_all.py",
+        "scripts/wipe_4_pages_drive.py",
+        "tests/test_config.py",
+        "tests/test_page_name_display.js",
         "docs/index.html",
         "web/index.html",
         "docs/css/gold_dashboard.css",
         "web/css/gold_dashboard.css",
-        "docs/js/gold_app.js",
-        "web/js/gold_app.js",
-        "data/posted_videos.db",
-        "scripts/sync_local_db_to_json.py",
-        "scripts/sync_dashboard_data.py",
-        "scripts/full_master_atoz_audit.py",
-        "scripts/push_to_github.py",
-        "token_audit_report.json"
+                        "main.py",
+        "src/db.py",
+                        "src/page_runner.py"
     ]
     
     tree_items = []
@@ -120,5 +148,5 @@ def push_files(commit_msg="chore: update dashboard assets and ranking engine"):
     return new_commit_sha
 
 if __name__ == "__main__":
-    msg = sys.argv[1] if len(sys.argv) > 1 else "feat(ranking): add Today & All-Time timeframe filters, dynamic 128-page ranking and Radika fleet tag"
+    msg = sys.argv[1] if len(sys.argv) > 1 else "chore: complete purge of 4 retired pages from app and system"
     push_files(msg)

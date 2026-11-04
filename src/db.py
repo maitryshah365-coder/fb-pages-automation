@@ -110,28 +110,7 @@ class DatabaseManager:
             )
             return {row["drive_file_id"] for row in cursor.fetchall()}
 
-    def get_minutes_since_last_infographic(self, page_id: str) -> Optional[float]:
-        """Returns minutes elapsed since the last infographic was posted on this page."""
-        try:
-            with self._get_connection() as conn:
-                c = conn.cursor()
-                c.execute("""
-                    SELECT posted_at FROM posted_infographics
-                    WHERE page_id = ? AND status = 'posted'
-                    ORDER BY id DESC LIMIT 1
-                """, (str(page_id),))
-                row = c.fetchone()
-                if not row or not row[0]:
-                    return None
-                dt_str = str(row[0]).strip()
-                if "+" in dt_str or dt_str.endswith("Z"):
-                    info_dt = datetime.fromisoformat(dt_str.replace("Z", "+00:00"))
-                else:
-                    info_dt = datetime.fromisoformat(dt_str).replace(tzinfo=timezone.utc)
-                now_utc = datetime.now(timezone.utc)
-                return max(0.0, (now_utc - info_dt).total_seconds() / 60.0)
-        except Exception:
-            return None
+
 
     def get_today_upload_count(self, page_id: str) -> int:
         """Counts successful posts for today (UTC) for this page to enforce daily limits."""
