@@ -82,6 +82,25 @@
   <!-- Toast Notification -->
   <div id="goldToast" class="luxe-toast">Action Confirmed</div>
 
+  <!-- High-Visibility Global Sync & Audit Fleet HUD (Mobile & Desktop) -->
+  <div id="globalSyncFloatingHUD" class="global-sync-hud" style="display: none;">
+    <div class="sync-hud-card">
+      <div class="sync-hud-header">
+        <div class="sync-hud-badge">
+          <span class="sync-hud-spinner">⚡</span>
+          <span class="sync-hud-title">META GRAPH v20.0 LIVE SYNC</span>
+        </div>
+        <div class="sync-hud-pct" id="globalSyncHudPercent">0%</div>
+      </div>
+      <div class="sync-hud-bar-track">
+        <div id="globalSyncHudBarFill" class="sync-hud-bar-fill" style="width: 0%;"></div>
+      </div>
+      <div class="sync-hud-status" id="globalSyncHudStatus">
+        Connecting to Meta Graph API v20.0...
+      </div>
+    </div>
+  </div>
+
   <!-- Slim Mobile-Only Header (Hidden on Desktop Web - Top Clean) -->
   <header class="mobile-app-header">
     <div class="mobile-header-container">

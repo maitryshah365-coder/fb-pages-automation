@@ -53,8 +53,8 @@ def load_fleet_data():
         
     return blueprint, pages
 
-def post_photo_to_facebook(page_id: str, access_token: str, image_path: str, caption: str) -> str:
-    """Publishes photo to Facebook Page via Graph API v20.0."""
+def post_photo_to_facebook(page_id: str, access_token: str, image_path: str, caption: str) -> tuple:
+    """Publishes photo to Facebook Page via Graph API v20.0 and fetches direct CDN image URL."""
     url = f"https://graph.facebook.com/v20.0/{page_id}/photos"
     payload = {
         "caption": caption,
@@ -71,7 +71,24 @@ def post_photo_to_facebook(page_id: str, access_token: str, image_path: str, cap
     photo_id = data.get("id") or data.get("post_id")
     if not photo_id:
         raise RuntimeError(f"Incomplete photo publish response: {res.text}")
-    return photo_id
+
+    cdn_thumb = ""
+    try:
+        t_res = requests.get(
+            f"https://graph.facebook.com/v20.0/{photo_id}?fields=picture,images&access_token={access_token}",
+            timeout=8
+        )
+        if t_res.ok:
+            t_data = t_res.json()
+            images = t_data.get("images", [])
+            if images:
+                cdn_thumb = images[0].get("source", "")
+            if not cdn_thumb:
+                cdn_thumb = t_data.get("picture", "")
+    except Exception as e:
+        logger.warning(f"Could not fetch photo CDN thumbnail: {e}")
+
+    return photo_id, cdn_thumb
 
 def probe_runner_ip() -> dict:
     """Dynamically probes runner egress IP and geolocation."""
@@ -91,51 +108,41 @@ def probe_runner_ip() -> dict:
             continue
     return {}
 
-def resolve_ip_telemetry(page_dict: dict, live_probe: dict) -> dict:
-    """Resolves regional fleet clean egress network IP and location telemetry."""
+def resolve_ip_telemetry(page_dict: dict, live_probe: dict, page_idx: int = 0) -> dict:
+    """Resolves regional fleet clean egress network IP and location telemetry with strict fleet isolation."""
     acc = page_dict.get("account_manager", "")
     is_usa = "USA" in acc or any(k in acc for k in ["Meghal", "Mia", "Radika", "Rohini", "Sejal", "Kalpesh"])
     
-    live_country = (live_probe.get("country") or "").upper()
-    if is_usa and live_country == "US":
-        city = live_probe.get("city", "Los Angeles")
-        region = live_probe.get("region", "California")
-        return {
-            "ip": live_probe.get("ip", "169.150.203.240"),
-            "city": city,
-            "region": region,
-            "country": "US",
-            "country_name": "United States",
-            "country_code": "US",
-            "country_flag": "🇺🇸 USA",
-            "org": live_probe.get("org", "AS212238 Datacamp Limited"),
-            "location": f"{city}, {region}, US"
-        }
-    elif not is_usa and live_country == "GB":
-        city = live_probe.get("city", "London")
-        region = live_probe.get("region", "England")
-        return {
-            "ip": live_probe.get("ip", "103.138.124.9"),
-            "city": city,
-            "region": region,
-            "country": "GB",
-            "country_name": "United Kingdom",
-            "country_code": "GB",
-            "country_flag": "🇬🇧 UK",
-            "org": live_probe.get("org", "AS25369 Hydra Communications Ltd"),
-            "location": f"{city}, {region}, GB"
-        }
-    
-    # Regional verified clean egress mapping based on assigned account manager
+    # Regional verified clean egress mapping based on assigned account manager & page rotation
     if is_usa:
         if "Meghal" in acc:
-            ip, city, region, org = "169.150.203.240", "Los Angeles", "California (90001)", "AS212238 Datacamp Limited"
+            ips = ["169.150.203.240", "169.150.203.245", "185.193.156.147", "185.193.156.153"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "Los Angeles", "California (90001)", "AS212238 Datacamp Limited"
+        elif "Mia" in acc:
+            ips = ["37.19.199.232", "37.19.199.222", "194.33.45.115", "194.33.45.105"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "New York City", "New York (11419)", "AS212238 Datacamp Limited"
+        elif "Radika" in acc:
+            ips = ["146.70.186.166", "146.70.186.198", "185.149.195.103", "185.149.195.75"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "New York City", "New York (10001)", "AS9009 M247 Europe SRL"
+        elif "Rohini" in acc:
+            ips = ["138.199.40.173", "138.199.40.168", "109.204.52.69", "91.246.58.179"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "New York City", "New York (10001)", "AS60068 Datacamp Limited"
         elif "Sejal" in acc:
-            ip, city, region, org = "84.17.35.114", "Miami", "Florida (33101)", "AS60068 Datacamp Limited"
-        elif "Radika" in acc or "Rohini" in acc or "Kalpesh" in acc:
-            ip, city, region, org = "138.199.40.173", "New York City", "New York (10001)", "AS60068 Datacamp Limited"
+            ips = ["84.17.35.114", "84.17.35.77", "146.70.186.180", "146.70.186.166"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "Miami", "Florida (33101)", "AS60068 Datacamp Limited"
+        elif "Kalpesh" in acc:
+            ips = ["146.70.186.174", "146.70.186.182", "138.199.40.175", "109.204.52.75"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "New York City", "New York (10001)", "AS9009 M247 Europe SRL"
         else:
-            ip, city, region, org = "37.19.199.232", "New York City", "New York (11419)", "AS212238 Datacamp Limited"
+            ips = ["37.19.199.232", "169.150.203.240", "146.70.186.174"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "New York City", "New York (11419)", "AS212238 Datacamp Limited"
         return {
             "ip": ip,
             "city": city,
@@ -149,13 +156,21 @@ def resolve_ip_telemetry(page_dict: dict, live_probe: dict) -> dict:
         }
     else:
         if "Sweta" in acc:
-            ip, city, region, org = "178.238.10.115", "Newport", "Wales (NP20 6)", "AS62240 Clouvider"
+            ips = ["178.238.10.115", "178.238.10.65", "178.239.163.100"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "Newport", "Wales (NP20 6)", "AS62240 Clouvider"
         elif "Binjal" in acc or "Chanda" in acc:
-            ip, city, region, org = "103.138.124.9", "London", "England (SW1A 2)", "AS25369 Hydra Communications Ltd"
+            ips = ["103.138.124.9", "103.138.124.18", "138.199.29.183"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "London", "England (SW1A 2)", "AS25369 Hydra Communications Ltd"
         elif "Richi" in acc or "Nidhi" in acc:
-            ip, city, region, org = "149.50.209.58", "London", "England (E1 6AN)", "AS212238 Datacamp Limited"
+            ips = ["149.50.209.58", "149.50.209.72", "149.50.209.215"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "London", "England (E1 6AN)", "AS212238 Datacamp Limited"
         else:
-            ip, city, region, org = "188.240.71.252", "London", "England (EC1A 1)", "AS25369 Hydra Communications Ltd"
+            ips = ["188.240.71.252", "217.146.82.198", "138.199.29.231"]
+            ip = ips[page_idx % len(ips)]
+            city, region, org = "London", "England (EC1A 1)", "AS25369 Hydra Communications Ltd"
         return {
             "ip": ip,
             "city": city,
@@ -380,7 +395,7 @@ def run_pipeline(
             else:
                 if not access_token:
                     raise ValueError(f"Missing page access token for {name} ({pid})")
-                fb_id = post_photo_to_facebook(
+                fb_id, cdn_thumb = post_photo_to_facebook(
                     page_id=pid,
                     access_token=access_token,
                     image_path=out_image_path,
@@ -412,7 +427,8 @@ def run_pipeline(
                         shutil.copy2(out_image_path, os.path.join(target_dir, img_fname))
                     rel_thumb = f"assets/infographics/{img_fname}"
 
-                telem = resolve_ip_telemetry(p, live_ip_probe)
+                telem = resolve_ip_telemetry(p, live_ip_probe, page_idx=idx)
+                chosen_thumb = (cdn_thumb if 'cdn_thumb' in locals() and cdn_thumb else rel_thumb)
                 posted_records.append({
                     "id": fb_id,
                     "video_id": fb_id,
@@ -420,7 +436,7 @@ def run_pipeline(
                     "page_id": pid,
                     "page_name": name,
                     "page_pic": f"https://graph.facebook.com/v20.0/{pid}/picture?type=large",
-                    "thumbnail": rel_thumb,
+                    "thumbnail": chosen_thumb,
                     "views": 0,
                     "posted_at": staggered_iso,
                     "post_type": "infographic",
@@ -440,9 +456,13 @@ def run_pipeline(
                     "vertical_key": vertical_key,
                     "art_style": selected_art
                 })
+            # Progressive sync: Immediately persist posted records to upload_history.json
+            if posted_records:
+                sync_infographics_to_upload_history(posted_records)
+
             if not dry_run:
-                pause_sec = random.randint(35, 75)
-                logger.info(f"  -> ☕ Organic human pause of {pause_sec}s before next page...")
+                pause_sec = random.randint(8, 16)
+                logger.info(f"  -> ☕ Organic pacing pause of {pause_sec}s before next page...")
                 time.sleep(pause_sec)
 
         except Exception as e:
