@@ -6267,14 +6267,17 @@ function renderRecentPostsList(reelsList) {
       const fbUrl = v.direct_link || (v.permalink?.startsWith("http") ? v.permalink : `https://www.facebook.com/photo/?fbid=${v.id}`);
       const dateStr = v.posted_at ? new Date(v.posted_at).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : (v.created_at || "Recent");
       const timeStr = v.posted_at ? new Date(v.posted_at).toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true }) : (v.created_time || "Published");
-      let cardThumb = v.thumbnail || v.page_avatar || `https://graph.facebook.com/v20.0/${v.page_id}/picture?type=large`;
+      let cardThumb = v.cdn_thumb || v.thumbnail || v.source;
+      if (!cardThumb || cardThumb.startsWith("assets/")) {
+        cardThumb = `https://graph.facebook.com/v20.0/${v.id}/picture?type=normal`;
+      }
 
       return `
         <div class="recent-mobile-card">
           <div class="recent-mob-top">
-            <div class="recent-mob-thumb" onclick="openLastImagePreviewModal()" title="Tap to expand high-res infographic" style="width:68px; height:88px; min-width:68px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer;">
-              <img src="${cardThumb}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.src='icons/icon-512.png'">
-              <span class="recent-mob-badge">▶ REEL</span>
+            <div class="recent-mob-thumb" onclick="openImagePreviewModal('${v.id}')" title="Tap to expand high-res infographic" style="width:68px; height:88px; min-width:68px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer;">
+              <img src="${cardThumb}" alt="Thumbnail" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.onerror=null; this.src='icons/icon-512.png'">
+              <span class="recent-mob-badge" style="background:#ec4899; color:#fff;">🖼️ IMAGE</span>
             </div>
             <div class="recent-mob-details">
               <div class="recent-mob-title" onclick="window.open('${fbUrl}', '_blank', 'noopener,noreferrer'); event.stopPropagation();" title="${v.title || v.description || 'Facebook Reel'}">${v.title || v.description || 'Facebook Reel'}</div>
@@ -8325,7 +8328,10 @@ function renderImageUploadsTable() {
 
     const postUrl = item.direct_link || `https://www.facebook.com/photo/?fbid=${item.id}`;
     const avatar = item.page_pic || `https://graph.facebook.com/v20.0/${item.page_id}/picture?type=large`;
-    let thumb = item.thumbnail || avatar;
+    let thumb = item.cdn_thumb || item.thumbnail || item.source;
+    if (!thumb || thumb.startsWith("assets/")) {
+      thumb = `https://graph.facebook.com/v20.0/${item.id}/picture?type=normal`;
+    }
     const locText = item.location || "Server Cloud (Automation)";
     const templateLabel = (item.template || item.template_name || "Visual Guide").toUpperCase().replace(/_/g, " ");
 
@@ -8333,7 +8339,7 @@ function renderImageUploadsTable() {
       <tr>
         <td style="color:#64748b; font-weight:700; text-align:center;">#${idx + 1}</td>
         <td style="text-align:center;">
-          <div style="position:relative; width:64px; height:82px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer; display:inline-block; background:#0b0f19; box-shadow:0 2px 8px rgba(0,0,0,0.4);" onclick="openLastImagePreviewModal()" title="Click to view full high-res image">
+          <div style="position:relative; width:64px; height:82px; border-radius:8px; overflow:hidden; border:1px solid rgba(236,72,153,0.35); cursor:pointer; display:inline-block; background:#0b0f19; box-shadow:0 2px 8px rgba(0,0,0,0.4);" onclick="openImagePreviewModal('${item.id}')" title="Click to view full high-res image">
             <img src="${thumb}" alt="Infographic Preview" style="width:100%; height:100%; object-fit:cover; object-position:top;" onerror="this.onerror=null; this.src='${avatar}';">
             <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.75); font-size:9px; font-weight:700; color:#fbcfe8; text-align:center; padding:2px 0;">🔍 Zoom</div>
           </div>
@@ -8571,24 +8577,26 @@ function updateImageUploadsHeroCards() {
 }
 window.updateImageUploadsHeroCards = updateImageUploadsHeroCards;
 
-function openLastImagePreviewModal() {
+function openImagePreviewModal(photoId) {
   const modal = document.getElementById("imagePreviewModal");
   const modalImg = document.getElementById("modalImageSrc");
   const modalTitle = document.getElementById("modalImageTitle");
   const modalCaption = document.getElementById("modalImageCaption");
   if (!modal) return;
 
-  const img = window.currentLastInfographic;
-  let src = img?.thumbnail || img?.page_pic || `https://graph.facebook.com/v20.0/${img?.page_id}/picture?type=large`;
+  const item = (uploadHistoryData || []).find(x => String(x.id) === String(photoId)) || window.currentLastInfographic;
+  let src = item?.source || item?.cdn_thumb || item?.thumbnail || item?.page_pic || `https://graph.facebook.com/v20.0/${item?.page_id}/picture?type=large`;
 
   if (modalImg) modalImg.src = src;
-  if (modalTitle) modalTitle.innerText = img?.title || "Infographic Full View";
+  if (modalTitle) modalTitle.innerText = item?.title || "Infographic Full High-Res View";
   if (modalCaption) {
-    modalCaption.innerHTML = `<strong>Page:</strong> ${img?.page_name || 'Fleet Page'} &nbsp;•&nbsp; <strong>Posted:</strong> ${formatTimeAgo(img?.posted_at)} &nbsp;•&nbsp; <a href="${img?.direct_link || '#'}" target="_blank" style="color:#38bdf8; text-decoration:underline;">View on Facebook ↗</a>`;
+    const postLink = item?.direct_link || (item?.id ? `https://www.facebook.com/photo/?fbid=${item.id}` : '#');
+    modalCaption.innerHTML = `<strong>Page:</strong> ${item?.page_name || 'Fleet Page'} &nbsp;•&nbsp; <strong>Posted:</strong> ${formatTimeAgo(item?.posted_at)} &nbsp;•&nbsp; <a href="${postLink}" target="_blank" style="color:#38bdf8; text-decoration:underline; font-weight:700;">View on Facebook ↗</a>`;
   }
   modal.style.display = "flex";
 }
-window.openLastImagePreviewModal = openLastImagePreviewModal;
+window.openImagePreviewModal = openImagePreviewModal;
+window.openLastImagePreviewModal = openImagePreviewModal;
 
 function closeImagePreviewModal() {
   const modal = document.getElementById("imagePreviewModal");

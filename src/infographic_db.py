@@ -57,6 +57,10 @@ class InfographicDB:
                 CREATE INDEX IF NOT EXISTS idx_infographics_posted_at
                 ON posted_infographics (posted_at)
             """)
+            try:
+                c.execute("ALTER TABLE posted_infographics ADD COLUMN cdn_thumb TEXT")
+            except Exception:
+                pass
             conn.commit()
 
     def is_topic_angle_posted(self, page_id: str, topic_slug: str, angle_mode: str) -> bool:
@@ -179,23 +183,37 @@ class InfographicDB:
         fb_photo_id: Optional[str],
         status: str = "posted",
         slot_index: Optional[int] = None,
-        error_message: Optional[str] = None
+        error_message: Optional[str] = None,
+        cdn_thumb: Optional[str] = None
     ) -> int:
         """Records an infographic upload in SQLite ledger."""
         now_utc = datetime.now(timezone.utc).isoformat()
         with self._connection() as conn:
             c = conn.cursor()
-            c.execute("""
-                INSERT INTO posted_infographics (
+            try:
+                c.execute("""
+                    INSERT INTO posted_infographics (
+                        page_id, vertical_key, topic_slug, angle_mode,
+                        title, hashtags, image_path, fb_photo_id,
+                        posted_at, status, slot_index, error_message, cdn_thumb
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
                     page_id, vertical_key, topic_slug, angle_mode,
                     title, hashtags, image_path, fb_photo_id,
-                    posted_at, status, slot_index, error_message
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                page_id, vertical_key, topic_slug, angle_mode,
-                title, hashtags, image_path, fb_photo_id,
-                now_utc, status, slot_index, error_message
-            ))
+                    now_utc, status, slot_index, error_message, cdn_thumb
+                ))
+            except Exception:
+                c.execute("""
+                    INSERT INTO posted_infographics (
+                        page_id, vertical_key, topic_slug, angle_mode,
+                        title, hashtags, image_path, fb_photo_id,
+                        posted_at, status, slot_index, error_message
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    page_id, vertical_key, topic_slug, angle_mode,
+                    title, hashtags, image_path, fb_photo_id,
+                    now_utc, status, slot_index, error_message
+                ))
             conn.commit()
             return c.lastrowid
 

@@ -1791,7 +1791,8 @@ def sync_data():
                         fb_photo_id,
                         posted_at,
                         status,
-                        slot_index
+                        slot_index,
+                        cdn_thumb
                     FROM posted_infographics
                     WHERE fb_photo_id IS NOT NULL AND fb_photo_id != '' AND status != 'failed'
                     ORDER BY posted_at DESC, id DESC
@@ -1811,12 +1812,12 @@ def sync_data():
 
                     photo_id = str(ir["fb_photo_id"])
                     img_path = ir["image_path"] or ""
-                    thumb_rel = ""
-                    if img_path:
-                        fname = os.path.basename(img_path)
-                        thumb_rel = f"assets/infographics/{fname}"
+                    cdn_thumb = ir["cdn_thumb"] if "cdn_thumb" in ir.keys() else ""
+                    thumb_rel = cdn_thumb or ""
+                    if not thumb_rel and img_path and os.path.exists(os.path.join(BASE_DIR, "docs", "assets", "infographics", os.path.basename(img_path))):
+                        thumb_rel = f"assets/infographics/{os.path.basename(img_path)}"
                     if not thumb_rel:
-                        thumb_rel = p_pic
+                        thumb_rel = f"https://graph.facebook.com/v20.0/{photo_id}/picture"
 
                     direct_link = f"https://www.facebook.com/photo/?fbid={photo_id}"
                     if not is_uk:

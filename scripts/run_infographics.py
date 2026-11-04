@@ -414,7 +414,8 @@ def run_pipeline(
                 image_path=out_image_path,
                 fb_photo_id=fb_id,
                 status=status,
-                slot_index=current_slot
+                slot_index=current_slot,
+                cdn_thumb=cdn_thumb
             )
             success_count += 1
             if fb_id:
