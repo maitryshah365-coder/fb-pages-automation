@@ -18,7 +18,7 @@ pages:
 - page_id: '1013730745151056'
   name: page_188
   display_name: Lighthouse Loop
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_188
   daily_limit: 4
   title_mode: filename
@@ -27,7 +27,7 @@ pages:
 - page_id: '954547437742008'
   name: page_189
   display_name: Anderson  Aaron
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_189
   daily_limit: 4
   title_mode: filename
@@ -36,7 +36,7 @@ pages:
 - page_id: '773180445889774'
   name: page_190
   display_name: James  Jerry
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_190
   daily_limit: 4
   title_mode: filename
@@ -45,7 +45,7 @@ pages:
 - page_id: '826484233883808'
   name: page_191
   display_name: Martinez  Tyler
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_191
   daily_limit: 4
   title_mode: filename
@@ -54,7 +54,7 @@ pages:
 - page_id: '852273631305168'
   name: page_192
   display_name: price  John
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_192
   daily_limit: 4
   title_mode: filename
@@ -63,7 +63,7 @@ pages:
 - page_id: '866282973229898'
   name: page_193
   display_name: Peterson  Jack
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_193
   daily_limit: 4
   title_mode: filename
@@ -72,7 +72,7 @@ pages:
 - page_id: '754813164393077'
   name: page_194
   display_name: Watson  Jacob
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_194
   daily_limit: 4
   title_mode: filename
@@ -81,7 +81,7 @@ pages:
 - page_id: '874862069037201'
   name: page_195
   display_name: Miller  Louis
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_195
   daily_limit: 4
   title_mode: filename
@@ -90,7 +90,7 @@ pages:
 - page_id: '661721827032657'
   name: page_196
   display_name: Ascend Collective
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_196
   daily_limit: 4
   title_mode: filename
@@ -99,7 +99,7 @@ pages:
 - page_id: '561105803741890'
   name: page_197
   display_name: Moonlit Chronicles
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_197
   daily_limit: 4
   title_mode: filename
@@ -108,7 +108,7 @@ pages:
 - page_id: '406899832518042'
   name: page_198
   display_name: Bird Beyond
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_198
   daily_limit: 4
   title_mode: filename
@@ -117,7 +117,7 @@ pages:
 - page_id: '401091649748910'
   name: page_199
   display_name: Land Butter
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_199
   daily_limit: 4
   title_mode: filename
@@ -126,7 +126,7 @@ pages:
 - page_id: '371083622749739'
   name: page_200
   display_name: Diary Inner
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_200
   daily_limit: 4
   title_mode: filename
@@ -135,7 +135,7 @@ pages:
 - page_id: '147040598502477'
   name: page_201
   display_name: Chuckle Corner
-  enabled: true
+  enabled: false
   drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_201
   daily_limit: 4
   title_mode: filename
