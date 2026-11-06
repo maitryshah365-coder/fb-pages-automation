@@ -22,20 +22,20 @@ on:
   repository_dispatch:
     types: [cron_trigger, fb_post_trigger]
 
-  # Scheduled 4 times daily (USA Times EDT):
-  # Account 1 (Pages 1-15): 10:00 AM, 3:00 PM, 7:00 PM, 10:00 PM EDT (02:00, 14:00, 19:00, 23:00 UTC)
-  # Account 2 (Pages 16-30): +20 Min Offset (10:20 AM, 3:20 PM, 7:20 PM, 10:20 PM EDT)
-  # Account 3 (Pages 31-45 - Radika Patel): +40 Min Offset (10:40 AM, 3:40 PM, 7:40 PM, 10:40 PM EDT)
-  # Account 4 (Pages 46-60 - Rohini Dutt): +60 Min Offset (11:00 AM, 4:00 PM, 8:00 PM, 11:00 PM EDT)
-  # Account 5 (Pages 144-158 - Sejal Soni): +80 Min Offset (11:20 AM, 4:20 PM, 8:20 PM, 11:20 PM EDT)
-  # Account 6 (Pages 159-173 - Kalpesh Shah): +100 Min Offset (11:40 AM, 4:40 PM, 8:40 PM, 11:40 PM EDT)
+  # Scheduled 4 times daily across True Audience Peaks (EDT / UTC):
+  # Slot 1 (Early Morning / Wakeup US): 11:00 AM - 1:00 PM UTC (7:00 AM - 9:00 AM EDT)
+  # Slot 2 (Midday / Lunch US): 4:00 PM - 6:00 PM UTC (12:00 PM - 2:00 PM EDT)
+  # Slot 3 (Primetime Evening US): 9:00 PM - 11:00 PM UTC (5:00 PM - 7:00 PM EDT)
+  # Slot 4 (Late Night Scroll US): 2:00 AM - 4:00 AM UTC (10:00 PM - 12:00 AM EDT)
+  # Staggered offsets ending in 7: 20-min gaps (Zero Collisions & Off-Peak Anti-Drop)
   schedule:
-    - cron: "0 2,14,19,23 * * *"
-    - cron: "20 2,14,19,23 * * *"
-    - cron: "40 2,14,19,23 * * *"
-    - cron: "0 3,15,20,0 * * *"
-    - cron: "20 3,15,20,0 * * *"
-    - cron: "40 3,15,20,0 * * *"
+    - cron: "7 2,11,16,21 * * *"   # Account 1 (Meghal Chauhan - Pages 1-15)
+    - cron: "27 2,11,16,21 * * *"  # Account 2 (Mia Shah - Pages 16-30)
+    - cron: "47 2,11,16,21 * * *"  # Account 3 (Radika Patel - Pages 31-45)
+    - cron: "7 3,12,17,22 * * *"   # Account 4 (Rohini Dutt - Pages 46-60)
+    - cron: "27 3,12,17,22 * * *"  # Account 5 (Sejal Soni - Pages 144-158)
+    - cron: "47 3,12,17,22 * * *"  # Account 6 (Kalpesh Shah - Pages 159-173)
+    - cron: "7 4,13,18,23 * * *"   # Account 7 (Henny Panchal - Pages 174-187)
 
 concurrency:
   group: facebook-upload-${{ github.event.inputs.page || github.event.schedule || 'default' }}
@@ -78,6 +78,7 @@ jobs:
           python scripts/validate_config.py config_usa_account4.yaml
           python scripts/validate_config.py config_usa_account5.yaml
           python scripts/validate_config.py config_usa_account6.yaml
+          python scripts/validate_config.py config_usa_account7.yaml
 
       - name: Determine Target USA Account & Regional Profile
         id: select_profile
@@ -86,19 +87,22 @@ jobs:
           ACCOUNT_NAME="Meghal Chauhan"
           
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "40 3,15,20,0 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "7 4,13,18,23 * * *" ]; then
+              TARGET_LOC="henny_new_york"
+              ACCOUNT_NAME="Henny Panchal"
+            elif [ "${{ github.event.schedule }}" = "47 3,12,17,22 * * *" ]; then
               TARGET_LOC="kalpesh_new_york"
               ACCOUNT_NAME="Kalpesh Shah"
-            elif [ "${{ github.event.schedule }}" = "20 3,15,20,0 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "27 3,12,17,22 * * *" ]; then
               TARGET_LOC="sejal_new_york"
               ACCOUNT_NAME="Sejal Soni"
-            elif [ "${{ github.event.schedule }}" = "0 3,15,20,0 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "7 3,12,17,22 * * *" ]; then
               TARGET_LOC="rohini_new_york"
               ACCOUNT_NAME="Rohini Dutt"
-            elif [ "${{ github.event.schedule }}" = "40 2,14,19,23 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "47 2,11,16,21 * * *" ]; then
               TARGET_LOC="radika_new_york"
               ACCOUNT_NAME="Radika Patel"
-            elif [ "${{ github.event.schedule }}" = "20 2,14,19,23 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "27 2,11,16,21 * * *" ]; then
               TARGET_LOC="mia_new_york"
               ACCOUNT_NAME="Mia Shah"
             else
@@ -107,7 +111,10 @@ jobs:
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
-            if [ "$REQ_PAGE" = "account_6" ] || [ "$REQ_PAGE" = "usa6" ] || [[ "$REQ_PAGE" == *"page_159"* ]] || [[ "$REQ_PAGE" == *"page_16"* ]] || [[ "$REQ_PAGE" == *"page_17"* ]]; then
+            if [ "$REQ_PAGE" = "account_7" ] || [ "$REQ_PAGE" = "usa7" ] || [[ "$REQ_PAGE" == *"page_174"* ]] || [[ "$REQ_PAGE" == *"page_175"* ]] || [[ "$REQ_PAGE" == *"page_18"* ]]; then
+              TARGET_LOC="henny_new_york"
+              ACCOUNT_NAME="Henny Panchal"
+            elif [ "$REQ_PAGE" = "account_6" ] || [ "$REQ_PAGE" = "usa6" ] || [[ "$REQ_PAGE" == *"page_159"* ]] || [[ "$REQ_PAGE" == *"page_16"* ]] || [[ "$REQ_PAGE" == *"page_17"* ]]; then
               TARGET_LOC="kalpesh_new_york"
               ACCOUNT_NAME="Kalpesh Shah"
             elif [ "$REQ_PAGE" = "account_5" ] || [ "$REQ_PAGE" = "usa5" ] || [[ "$REQ_PAGE" == *"page_14"* ]] || [[ "$REQ_PAGE" == *"page_15"* ]]; then
@@ -181,19 +188,22 @@ jobs:
           fi
 
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "40 3,15,20,0 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "7 4,13,18,23 * * *" ]; then
+              echo "⏰ Staggered Cron Triggered: Running Account 7 (Pages 174-187 - Henny Panchal) [+120 Min Offset]"
+              python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
+            elif [ "${{ github.event.schedule }}" = "47 3,12,17,22 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 6 (Pages 159-173 - Kalpesh Shah) [+100 Min Offset]"
               python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
-            elif [ "${{ github.event.schedule }}" = "20 3,15,20,0 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "27 3,12,17,22 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 5 (Pages 144-158 - Sejal Soni) [+80 Min Offset]"
               python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
-            elif [ "${{ github.event.schedule }}" = "0 3,15,20,0 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "7 3,12,17,22 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 4 (Pages 46-60 - Rohini Dutt) [+60 Min Offset]"
               python main.py --config config_usa_account4.yaml $DRY_ARG --require-us
-            elif [ "${{ github.event.schedule }}" = "40 2,14,19,23 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "47 2,11,16,21 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 3 (Pages 31-45 - Radika Patel) [+40 Min Offset]"
               python main.py --config config.yaml $DRY_ARG --require-us --page "page_31,page_32,page_33,page_34,page_35,page_36,page_37,page_38,page_39,page_40,page_41,page_42,page_43,page_44,page_45"
-            elif [ "${{ github.event.schedule }}" = "20 2,14,19,23 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "27 2,11,16,21 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 2 (Pages 16-30) [+20 Min Offset]"
               python main.py --config config.yaml $DRY_ARG --require-us --page "page_16,page_17,page_18,page_19,page_20,page_21,page_22,page_23,page_24,page_25,page_26,page_27,page_28,page_29,page_30"
             else
@@ -202,7 +212,9 @@ jobs:
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
-            if [ "$REQ_PAGE" = "account_6" ] || [ "$REQ_PAGE" = "usa6" ]; then
+            if [ "$REQ_PAGE" = "account_7" ] || [ "$REQ_PAGE" = "usa7" ]; then
+              python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
+            elif [ "$REQ_PAGE" = "account_6" ] || [ "$REQ_PAGE" = "usa6" ]; then
               python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
             elif [ "$REQ_PAGE" = "account_5" ] || [ "$REQ_PAGE" = "usa5" ]; then
               python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
@@ -219,8 +231,11 @@ jobs:
               python main.py --config config_usa_account4.yaml $DRY_ARG --require-us
               python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
               python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
+              python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
             else
-              if [[ "$REQ_PAGE" == *"page_159"* ]] || [[ "$REQ_PAGE" == *"page_16"* ]] || [[ "$REQ_PAGE" == *"page_17"* ]]; then
+              if [[ "$REQ_PAGE" == *"page_174"* ]] || [[ "$REQ_PAGE" == *"page_175"* ]] || [[ "$REQ_PAGE" == *"page_18"* ]]; then
+                python main.py --config config_usa_account7.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
+              elif [[ "$REQ_PAGE" == *"page_159"* ]] || [[ "$REQ_PAGE" == *"page_16"* ]] || [[ "$REQ_PAGE" == *"page_17"* ]]; then
                 python main.py --config config_usa_account6.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
               elif [[ "$REQ_PAGE" == *"page_14"* ]] || [[ "$REQ_PAGE" == *"page_15"* ]]; then
                 python main.py --config config_usa_account5.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
@@ -235,6 +250,7 @@ jobs:
             python main.py --config config_usa_account4.yaml $DRY_ARG --require-us
             python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
             python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
+            python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
           fi
 
       - name: Disconnect WireGuard Tunnel

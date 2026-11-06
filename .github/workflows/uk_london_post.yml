@@ -19,35 +19,20 @@ on:
       - '.triggers/run_uk.trigger'
       - '.triggers/run_all.trigger'
 
-  # Scheduled 4 times daily (London Time BST / UTC):
-  # UK Account 1 (Pages 31-42): 09:00 AM, 01:00 PM, 05:00 PM, 09:30 PM London (08:00, 12:00, 16:00, 20:30 UTC)
-  # UK Account 2 (Pages 43-54): +20 Min Offset (09:20 AM, 01:20 PM, 05:20 PM, 09:50 PM London - 08:20, 12:20, 16:20, 20:50 UTC)
-  # UK Account 3 (Pages 55-66): +30 Min Offset (09:30 AM, 01:30 PM, 05:30 PM, 10:00 PM London - 08:30, 12:30, 16:30, 21:00 UTC)
-  # UK Account 4 (Pages 67-78): +40 Min Offset (09:40 AM, 01:40 PM, 05:40 PM, 10:10 PM London - 08:40, 12:40, 16:40, 21:10 UTC)
-  # UK Account 5 (Pages 79-89): +50 Min Offset (09:50 AM, 01:50 PM, 05:50 PM, 10:20 PM London - 08:50, 12:50, 16:50, 21:20 UTC)
-  # UK Account 6 (Pages 90-101): +60 Min Offset (10:00 AM, 02:00 PM, 06:00 PM, 10:30 PM London - 09:00, 13:00, 17:00, 21:30 UTC)
+  # Scheduled 4 times daily across True London Audience Peaks (BST / GMT / UTC):
+  # Slot 1 (Morning Commute UK): 7:00 AM - 9:00 AM London (07:00 - 09:00 UTC)
+  # Slot 2 (Lunchtime UK): 12:00 PM - 2:00 PM London (12:00 - 14:00 UTC)
+  # Slot 3 (After-Work Peak UK): 5:00 PM - 7:00 PM London (17:00 - 19:00 UTC)
+  # Slot 4 (Night / Bedtime UK): 9:00 PM - 11:00 PM London (21:00 - 23:00 UTC)
+  # Staggered 12-min intervals: :01, :13, :25, :37, :49 (Zero collision with USA's :07, :27, :47)
   schedule:
-    # UK Account 1 (Binjal Mehra):
-    - cron: "0 8,12,16 * * *"
-    - cron: "30 20 * * *"
-    # UK Account 2 (Chanda Nai - Staggered +20 Min Offset):
-    - cron: "20 8,12,16 * * *"
-    - cron: "50 20 * * *"
-    # UK Account 3 (Mahi Patel - Staggered +30 Min Offset):
-    - cron: "30 8,12,16 * * *"
-    - cron: "0 21 * * *"
-    # UK Account 4 (Nidhi Desai - Staggered +40 Min Offset):
-    - cron: "40 8,12,16 * * *"
-    - cron: "10 21 * * *"
-    # UK Account 5 (Richi Patel - Staggered +50 Min Offset):
-    - cron: "50 8,12,16 * * *"
-    - cron: "20 21 * * *"
-    # UK Account 6 (Sweta Shah - Staggered +60 Min Offset):
-    - cron: "0 9,13,17 * * *"
-    - cron: "30 21 * * *"
-    # UK Account 7 (Riya Gaur - Staggered +70 Min Offset):
-    - cron: "10 9,13,17 * * *"
-    - cron: "40 21 * * *"
+    - cron: "1 7,12,17,21 * * *"   # UK Account 1 (Binjal Mehra)
+    - cron: "13 7,12,17,21 * * *"  # UK Account 2 (Chanda Nai - Staggered +12 Min)
+    - cron: "25 7,12,17,21 * * *"  # UK Account 3 (Mahi Patel - Staggered +24 Min)
+    - cron: "37 7,12,17,21 * * *"  # UK Account 4 (Nidhi Desai - Staggered +36 Min)
+    - cron: "49 7,12,17,21 * * *"  # UK Account 5 (Richi Patel - Staggered +48 Min)
+    - cron: "1 8,13,18,22 * * *"   # UK Account 6 (Sweta Shah - Staggered +60 Min)
+    - cron: "13 8,13,18,22 * * *"  # UK Account 7 (Riya Gaur - Staggered +72 Min)
 
 concurrency:
   group: uk-facebook-upload-${{ github.event.inputs.page || github.event.schedule || 'default' }}
@@ -89,7 +74,7 @@ jobs:
         run: |
           TARGET_LOC="london"
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "0 9,13,17 * * *" ] || [ "${{ github.event.schedule }}" = "30 21 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "1 8,13,18,22 * * *" ]; then
               TARGET_LOC="sweta_wales"
             fi
           elif [ "${{ github.event.inputs.page }}" = "uk_account_6" ] || [ "${{ github.event.inputs.page }}" = "uk6" ]; then
@@ -116,23 +101,23 @@ jobs:
             DRY_ARG="--dry-run"
           fi
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "10 9,13,17 * * *" ] || [ "${{ github.event.schedule }}" = "40 21 * * *" ]; then
-              echo "⏰ UK Account 7 Cron Triggered: Running UK Account 7 (Riya Gaur - 12 Pages) [+70 Min Offset]"
+            if [ "${{ github.event.schedule }}" = "13 8,13,18,22 * * *" ]; then
+              echo "⏰ UK Account 7 Cron Triggered: Running UK Account 7 (Riya Gaur - 12 Pages) [+72 Min Offset]"
               python main.py --config config_uk_account7.yaml $DRY_ARG --require-uk
-            elif [ "${{ github.event.schedule }}" = "0 9,13,17 * * *" ] || [ "${{ github.event.schedule }}" = "30 21 * * *" ]; then
+            elif [ "${{ github.event.schedule }}" = "1 8,13,18,22 * * *" ]; then
               echo "⏰ UK Account 6 Cron Triggered: Running UK Account 6 (Sweta Shah - 12 Pages) [+60 Min Offset]"
               python main.py --config config_uk_account6.yaml $DRY_ARG --require-uk
-            elif [ "${{ github.event.schedule }}" = "50 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "20 21 * * *" ]; then
-              echo "⏰ UK Account 5 Cron Triggered: Running UK Account 5 (Richi Patel - 11 Pages) [+50 Min Offset]"
+            elif [ "${{ github.event.schedule }}" = "49 7,12,17,21 * * *" ]; then
+              echo "⏰ UK Account 5 Cron Triggered: Running UK Account 5 (Richi Patel - 11 Pages) [+48 Min Offset]"
               python main.py --config config_uk_account5.yaml $DRY_ARG --require-uk
-            elif [ "${{ github.event.schedule }}" = "40 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "10 21 * * *" ]; then
-              echo "⏰ UK Account 4 Cron Triggered: Running UK Account 4 (Nidhi Desai - 12 Pages) [+40 Min Offset]"
+            elif [ "${{ github.event.schedule }}" = "37 7,12,17,21 * * *" ]; then
+              echo "⏰ UK Account 4 Cron Triggered: Running UK Account 4 (Nidhi Desai - 12 Pages) [+36 Min Offset]"
               python main.py --config config_uk_account4.yaml $DRY_ARG --require-uk
-            elif [ "${{ github.event.schedule }}" = "30 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "0 21 * * *" ]; then
-              echo "⏰ UK Account 3 Cron Triggered: Running UK Account 3 (Mahi Patel - 12 Pages) [+30 Min Offset]"
+            elif [ "${{ github.event.schedule }}" = "25 7,12,17,21 * * *" ]; then
+              echo "⏰ UK Account 3 Cron Triggered: Running UK Account 3 (Mahi Patel - 12 Pages) [+24 Min Offset]"
               python main.py --config config_uk_account3.yaml $DRY_ARG --require-uk
-            elif [ "${{ github.event.schedule }}" = "20 8,12,16 * * *" ] || [ "${{ github.event.schedule }}" = "50 20 * * *" ]; then
-              echo "⏰ UK Account 2 Cron Triggered: Running UK Account 2 (Chanda Nai - 12 Pages) [+20 Min Offset]"
+            elif [ "${{ github.event.schedule }}" = "13 7,12,17,21 * * *" ]; then
+              echo "⏰ UK Account 2 Cron Triggered: Running UK Account 2 (Chanda Nai - 12 Pages) [+12 Min Offset]"
               python main.py --config config_uk_account2.yaml $DRY_ARG --require-uk
             else
               echo "⏰ UK Account 1 Cron Triggered: Running UK Account 1 (Binjal Mehra - 12 Pages)"

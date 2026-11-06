@@ -3,7 +3,7 @@ name: Real-Time Views & Dashboard Auto-Sync
 on:
   schedule:
     # Run every 2 hours automatically in GitHub Actions cloud (24/7 Unattended)
-    - cron: "0 */2 * * *"
+    - cron: "5 */2 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -12,6 +12,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   sync:
@@ -38,6 +39,12 @@ jobs:
       - name: Run Real-Time Meta Views & Dashboard Sync
         run: |
           python scripts/sync_dashboard_data.py
+
+      - name: Run Slot Watchdog (Fail-safe for missed upload slots)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/slot_watchdog.py || true
 
       - name: Persist Updated Dashboard State
         if: always()

@@ -1,0 +1,143 @@
+page_group: usa_account_7_henny
+account_name: Henny Panchal
+country_code: US
+target_location: New York, New York, United States
+require_us_ip: true
+require_uk_ip: false
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1022731224255296'
+  name: page_174
+  display_name: Sovereign Media
+  enabled: true
+  drive_folder_id: 1fABwYVwc7-wsSZoHl12QoOHDH00850MM
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSwcsOm6v9rQ3afDWcJCDjg3C7c0LOkY4oPoD5NpeZAmwsUQUq4ElnIstWwmutI6APsGfFhyyd58oFpr50Kq6qc1FZC8B6ZBNMb3bMu1rx9S7a3qDdZCIbGIU9j6X2XpCosdUQkZBKqgkrvWEkZCmcoO8cbcH5SMeo7S86vsoElFPj3MQRik8eFuL5S
+- page_id: '989439317583958'
+  name: page_175
+  display_name: Urban Vibe Sphere
+  enabled: true
+  drive_folder_id: 1Zv-tpFhOfsLILTRWrFzry43_ogUuKZC5
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS5A0WBIYozIQ8SZA63zY0lGgzphv0Vqsuj28niRInhoL2MWoMePSyaS9KpyejrZAkwyLhZB8Coh6KOvLCxVfnNUdMulIiCWvg7iXCAnAuXEWwnJZAYx8K0uGT9xdc0jZA5qSbsHOUtOvbAl8ZCMYFMxUYUQoBuHtAoCSYNOzgJ2UcZB01ydPztLT6W9
+- page_id: '1045331775320210'
+  name: page_176
+  display_name: Ross  Billy
+  enabled: true
+  drive_folder_id: 1k-3zuiBGZVB4k8zCL5IY9QAPhluHZ47Y
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS6n1yci6ZAUL3tJtBDgxUzen2tjV5yGXahsSxpAwZBR8QgZCarUoKShgFgIc9Oof4iZAiNpV4Gd9ZBojmmV01vncacFkokfGXAkf1mGoNSbuuqwwpv2wU2ovKtpJxw1j86KkyTHS6zp7UNXjRN1l4AoVKKZA8sggNDYr8S1bfK9nEhC86EfjsF6tbH
+- page_id: '923764204162384'
+  name: page_177
+  display_name: Walker  Andrew
+  enabled: true
+  drive_folder_id: 1Gqbkmi-8wwPSMhoIK7TCSaVao70LEbDk
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSzPj9Bnlyv7QcXsQcXQvngLiYCU6P6qFic55fTZB7djPU892Y3FGFzhl0iMf45aS1UU74JVZAuhLPEqZBu0EB38DvborqqwFjRB3TnPOY3twDqKJVoPx8w7xSl9TvMUUxzpQ4z1DRNuddcTRG3DJeqW5aaAyqIMvsB0HTU5j4fzZApymFjFIsDP8
+- page_id: '819893267879957'
+  name: page_178
+  display_name: Williams  Joe
+  enabled: true
+  drive_folder_id: 1A_5-oyvlxOWoAQQiGvYGimZoE4h5edOL
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS8AZCdwFYvgulZBLmJLW7VZAHVTinsjUt2MfoncDdQpdumTgPmNqaghhcZAhkLvr1TBMOPIZBgxZCpHwOWiefDJeiJnt2KpZCaWrCK8JfwGr8P7tcNaF4xLJCGCAIMZAGpQcLRbsOS4omOZAlNSqfMZC5kzrwkUbZCZBUTUJ1KxZAgRf9JgPCxQzJZAIOPb0ZAf
+- page_id: '872599675931336'
+  name: page_179
+  display_name: Parker  Noah
+  enabled: true
+  drive_folder_id: 10dCLMOqSHGO2WoJq3GK-T1CnR0qFIAXz
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSZB3SZB2ZCQtMRNvG5IrvsFtVJVnUobjZAoQqPvN9jZC9q1ZA3bQO1MRCMKNC6e0WzYKJCdtR1Vbn1LOsKTSrN0JSIQFFpND9dONc9SX9vJXOgbyZAcTQJDpWm8HRZBMAGCzNmm0Se7WQQtm33w2cqcd8MKcCsW13bfLhFZBJh9raxymhLxRIdpZAQnpHf
+- page_id: '736206856254000'
+  name: page_180
+  display_name: Royal Authority
+  enabled: true
+  drive_folder_id: 1bRsE__r8yF1AvbrIC9gSUz1mWkB6e895
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSwhWqZA5Kvo95HyX0SV2T6zwSjs0sVcS1k4d25vvqnQBy22hKwms6InTfJmZBWw8U9Ds5QkiWBinZC4ISdH560ZAJZCvjRdSKsN01TLVpiuiJ1Df24oMZA4azT0xKSnO7m4p80xIyRaF1I2BakMaUJmnTuRTIeW2nPkwgBSbezmzHGQcDFTFobhUFv
+- page_id: '694992067031965'
+  name: page_181
+  display_name: Platinum Vanguard
+  enabled: true
+  drive_folder_id: 1hw4dWiiWUzNZCt3x2PyBPDBJ5gJnfWS3
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSx5cSq3ZCmLeJoZBl87xG7Yer9BRV8RhDMxvVGzwh0D4H20qMOzgIk6uOW0465ZBk09pnimnGtKelSVlDAsr3HgTLRm8Pj0K0wZBeoTWBpPtCKVeUJLPijDpTi5LpFPGa4NOx40jEIzwdZCQRggYaDRyuiAfBPymce76C50rPtEkZCym8wJg6tyiEF
+- page_id: '428718320335997'
+  name: page_182
+  display_name: Pixelated Paradox
+  enabled: true
+  drive_folder_id: 1AuMF8vr0Kt9J0w_hNvINh5EkblpJTai6
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSx1ClbDa8w6ZBZBGwFpO1TP697jOkZCGWLg7mbMnIP7w1P0JGXnndkQ68HMX5jPq3Ed6Qck1lYDFoiPe1ZCkZB4PE5xf3JBaiPJrZBzC9ymmgYZAFEayIOdgmlrw4DjVkVy0KU42QCsiCTDqVJIdfIIlQZCTJerGpvBGgtXXfJ8VXWikQ5iMlvIfZAO4w
+- page_id: '463244156877686'
+  name: page_183
+  display_name: Me Green
+  enabled: true
+  drive_folder_id: 1a63ks_hjdiA8ccDvmu40rUeAg5VuH4OK
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS2xXnzDh0B4rQkHmS65fQ3bgKuIGKdgh54s3LVAVb4HGfZCKLaWnFZBZAYqvZAdkUiuHitH1EFo686N8EhrOebJmaCwAZAajy2as6rdwz8hG5cnOQOGWaIxB0DRJJ7AObHJ1R396ZA6hsR6eyQW9OtCZCOwWgMkA4vMTy0ZAB3Hohr24IlyFxLuydHSf
+- page_id: '361270960407623'
+  name: page_184
+  display_name: Matter Happy
+  enabled: true
+  drive_folder_id: 1330ufXxlnc68JGrUymfgVnDCVubIrOeP
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS1HCHl05MQl7TOXCt7gZBnfAKmOEDKLDjm01kKhPsWEiV3MJndmkbHHoELpW9mF8GniT0ZCbxHFVT6Sb8njZBhijWqo0tErxdJJ9KUidffG7X2d4tKIwYQAz7w4efn7qZAazpMskWhH3lHx6YLa1diXgqg3IirrbCWGyYPwZAQNZBQuQSFge5zRUCk
+- page_id: '355240441000799'
+  name: page_185
+  display_name: Craft Life
+  enabled: true
+  drive_folder_id: 13U_lvr1QSDqljFubSSV2Afo9HhrdlE8H
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSzdqqJDHnZBIRtZBXYSi0HpzKIZBBtGXjJosgX5zJdQowHZB5wZCbr4ZC60ZCT19C0f2cLLVFGlWKiKBfskmgEjZBPPO4qtbIf48PwYdq5gPp2ILBRdDbGkh2ZAX8mN2wijixEe9YjnLiLqdZCmIiFt3Vu0lZCZCncBWhQNpcvU4KUDAzLYz0cq5p2D8pNFA
+- page_id: '323858564138203'
+  name: page_186
+  display_name: Dragon Holy
+  enabled: true
+  drive_folder_id: 1FWZv8lcpbLmSnq_iU7Lgx0vpxF2g5KxG
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBS3NXdvNlZCcxA6iaKctqSpsjkMuJ9CNSeYBV1sUJ2VrcQR3iC3C5ZCKy2Ntpyi34fbJPkG70Cay3DSHHzlL4SunMyXfDy2cbyIOFUv2MQkpq7ZB8yB4OHN9T9YAwY0tlZBQfYN1elTzj0Nd7FZBWLiXrpLIZBDfRZBphgbP9HpBn6mEFsH2kZAedQqU9
+- page_id: '208790838981955'
+  name: page_187
+  display_name: U Tutor
+  enabled: true
+  drive_folder_id: 1dCCwialx8E6oVMPrUAAcMi7-9I6-KkSs
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAWcpPxzX2YBSwW0Eg0mZBCdZC0ZCKgkUkwiJO0zPqUN0w7ZBdWcd3UiCl6TMbxrWptp6FmGZBmecSLttrD9r0K7LAQpKAQMk7796oJn9JLYqJ9wRgelDZCUhI2inPj9hXKjvCpzQJgdXQA7PtHIDe1vFVU3ZBffOrDL5AZCrRWUmxplaZCAzD1R5egoVZAEWquRZCSRDwZD
