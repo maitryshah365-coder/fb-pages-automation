@@ -285,6 +285,48 @@ const FLEET_USA_08_IDS = [
 
 const FLEET_USA_08_SET = new Set(FLEET_USA_08_IDS);
 
+const FLEET_USA_09_IDS = [
+  "1011505752046767",  // Bold Mint Vibes
+  "1009495342239280",  // Urban Joy Collective
+  "988411587686197",   // Echo Trail Studio
+  "1004210909435635",  // Richardson Robert
+  "977906555403990",   // Stewart Keith
+  "883354574851891",   // Torres Matthew
+  "761811347026583",   // price Matthew
+  "415000781686090",   // Space House
+  "375153609011898",   // Prime Authority
+  "372800862573826",   // Yourself Creative
+  "369649349554622",   // Promise Your
+  "351521491370127",   // Vault Momentum
+  "301772966352891"    // Vault Republic
+];
+
+const FLEET_USA_09_SET = new Set(FLEET_USA_09_IDS);
+
+const FLEET_USA_10_IDS = [
+  "996405356891083",   // Im notty
+  "1026889467171748",  // Sunny Grove
+  "1003468442850164",  // North Light
+  "952747524593552",   // Wild berry Wave
+  "866153719912084",   // Hill Alexander
+  "788708754335042",   // Wilson Carl
+  "772689822603711",   // Bryant Mark
+  "850337021495810",   // Jones Jason
+  "874146345775704",   // Ramirez Gary
+  "781224978415322",   // Henderson Samuel
+  "847631365096505",   // Gray Carl
+  "467050363166917",   // Spot The
+  "493924997136507",   // Thumb News
+  "468003289734078",   // Vibe Mom
+  "505907795933113",   // Kit Love
+  "407202662477910",   // Crown Narrative
+  "367094609819542",   // Dominion House
+  "346049431926024"    // Grain After
+];
+
+const FLEET_USA_10_SET = new Set(FLEET_USA_10_IDS);
+
+
 
 // Centralized helper to guarantee authentic human-readable page names (never raw numbers or placeholders)
 function getPageDisplayName(p) {
@@ -569,12 +611,44 @@ function enforceStrictFleetSorting(pages) {
       usa8.push(p);
     }
   });
+  const usa9 = [];
+  FLEET_USA_09_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 198 + i + 1;
+      p.account = "Prince Shah";
+      p.account_owner = "Prince Shah";
+      p.account_tag = "Prince Shah";
+      p.account_badge = "US";
+      p.box_group = "Prince Shah";
+      p.region = "US";
+      p.country = "US";
+      p.flag = "icons/us.png";
+      usa9.push(p);
+    }
+  });
+  const usa10 = [];
+  FLEET_USA_10_IDS.forEach((id, i) => {
+    const p = map.get(id);
+    if (p) {
+      p.index = 211 + i + 1;
+      p.account = "Sweta Mummu";
+      p.account_owner = "Sweta Mummu";
+      p.account_tag = "Sweta Mummu";
+      p.account_badge = "US";
+      p.box_group = "Sweta Mummu";
+      p.region = "US";
+      p.country = "US";
+      p.flag = "icons/us.png";
+      usa10.push(p);
+    }
+  });
 
   // Collect any remaining pages if any
-  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_USA_04_IDS, ...FLEET_USA_05_IDS, ...FLEET_USA_06_IDS, ...FLEET_USA_07_IDS, ...FLEET_USA_08_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
+  const usedIds = new Set([...FLEET_USA_01_IDS, ...FLEET_USA_02_IDS, ...FLEET_USA_03_IDS, ...FLEET_USA_04_IDS, ...FLEET_USA_05_IDS, ...FLEET_USA_06_IDS, ...FLEET_USA_07_IDS, ...FLEET_USA_08_IDS, ...FLEET_USA_09_IDS, ...FLEET_USA_10_IDS, ...FLEET_UK_01_IDS, ...FLEET_UK_02_IDS, ...FLEET_UK_03_IDS, ...FLEET_UK_04_IDS, ...FLEET_UK_05_IDS, ...FLEET_UK_06_IDS, ...FLEET_UK_07_IDS]);
   const others = pages.filter(p => !usedIds.has(String(p.id)));
 
-  return [...usa1, ...usa2, ...usa3, ...usa4, ...usa5, ...usa6, ...usa7, ...usa8, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
+  return [...usa1, ...usa2, ...usa3, ...usa4, ...usa5, ...usa6, ...usa7, ...usa8, ...usa9, ...usa10, ...uk1, ...uk2, ...uk3, ...uk4, ...uk5, ...uk6, ...uk7, ...others];
 }
 
 function filterVideoCategory(cat) {
@@ -1522,6 +1596,8 @@ function renderSidebarPagesList(pages) {
   const usa6List = [];
   const usa7List = [];
   const usa8List = [];
+  const usa9List = [];
+  const usa10List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -1549,6 +1625,10 @@ function renderSidebarPagesList(pages) {
     else if (FLEET_USA_06_SET.has(pid) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah" || p.box_group === "Kalpesh Shah") usa6List.push(p);
     else if (FLEET_USA_07_SET.has(pid) || (p.account && p.account.includes("Henny")) || p.account_owner === "Henny Panchal" || p.box_group === "Henny Panchal") usa7List.push(p);
     else if (FLEET_USA_08_SET.has(pid) || (p.account && p.account.includes("Kiya")) || p.account_owner === "Kiya Taily" || p.box_group === "Kiya Taily") usa8List.push(p);
+    else if (FLEET_USA_09_SET.has(pid) || (p.account && p.account.includes("Prince")) || p.account_owner === "Prince Shah" || p.box_group === "Prince Shah") usa9List.push(p);
+    else if (FLEET_USA_10_SET.has(pid) || (p.account && p.account.includes("Mummu")) || p.account_owner === "Sweta Mummu" || p.box_group === "Sweta Mummu") usa10List.push(p);
+    else if (FLEET_USA_09_SET.has(pid) || (p.account && p.account.includes("Prince")) || p.account_owner === "Prince Shah" || p.box_group === "Prince Shah") usa9List.push(p);
+    else if (FLEET_USA_10_SET.has(pid) || (p.account && p.account.includes("Mummu")) || p.account_owner === "Sweta Mummu" || p.box_group === "Sweta Mummu") usa10List.push(p);
     else if (FLEET_UK_01_SET.has(pid)) uk1List.push(p);
     else if (FLEET_UK_02_SET.has(pid)) uk2List.push(p);
     else if (FLEET_UK_03_SET.has(pid)) uk3List.push(p);
@@ -1668,6 +1748,12 @@ function renderSidebarPagesList(pages) {
   }
   if (usa8List.length > 0) {
     html += buildBox("sidebar-box-usa8", "usa8", "🇺🇸", "Kiya Taily", `${usa8List.length} Pages`, usa8List, "usa8");
+  }
+  if (usa9List.length > 0) {
+    html += buildBox("sidebar-box-usa9", "usa9", "🇺🇸", "Prince Shah", `${usa9List.length} Pages`, usa9List, "usa9");
+  }
+  if (usa10List.length > 0) {
+    html += buildBox("sidebar-box-usa10", "usa10", "🇺🇸", "Sweta Mummu", `${usa10List.length} Pages`, usa10List, "usa10");
   }
   if (uk1List.length > 0) {
     html += buildBox("sidebar-box-uk1", "uk1", "🇬🇧", "Binjal Mehra", `${uk1List.length} Pages`, uk1List, "uk1");
@@ -1935,6 +2021,8 @@ function renderDrawerPages(pages) {
   const usa6List = [];
   const usa7List = [];
   const usa8List = [];
+  const usa9List = [];
+  const usa10List = [];
   const uk1List = [];
   const uk2List = [];
   const uk3List = [];
@@ -3716,6 +3804,8 @@ function updateRadarSlots() {
     { id: "a6", matcher: p => FLEET_USA_06_SET.has(String(p.id)) || (p.page_id && FLEET_USA_06_SET.has(String(p.page_id))) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah", defaultSlots: 60 },
     { id: "a7", matcher: p => FLEET_USA_07_SET.has(String(p.id)) || (p.page_id && FLEET_USA_07_SET.has(String(p.page_id))) || (p.account && p.account.includes("Henny")) || p.account_owner === "Henny Panchal", defaultSlots: 56 },
     { id: "a8", matcher: p => FLEET_USA_08_SET.has(String(p.id)) || (p.page_id && FLEET_USA_08_SET.has(String(p.page_id))) || (p.account && p.account.includes("Kiya")) || p.account_owner === "Kiya Taily", defaultSlots: 56 },
+    { id: "a9", matcher: p => FLEET_USA_09_SET.has(String(p.id)) || (p.page_id && FLEET_USA_09_SET.has(String(p.page_id))) || (p.account && p.account.includes("Prince")) || p.account_owner === "Prince Shah", defaultSlots: 52 },
+    { id: "a10", matcher: p => FLEET_USA_10_SET.has(String(p.id)) || (p.page_id && FLEET_USA_10_SET.has(String(p.page_id))) || (p.account && p.account.includes("Mummu")) || p.account_owner === "Sweta Mummu", defaultSlots: 72 },
     { id: "uk1", matcher: p => FLEET_UK_01_SET.has(String(p.id)) || (p.account && p.account.includes("Binjal")), defaultSlots: 48 },
     { id: "uk2", matcher: p => FLEET_UK_02_SET.has(String(p.id)) || (p.account && p.account.includes("Chanda")), defaultSlots: 48 },
     { id: "uk3", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")), defaultSlots: 48 },
@@ -6993,6 +7083,8 @@ function renderHealthAuditMainView() {
     { tag: "USA 6", owner: "Kalpesh Shah", set: FLEET_USA_06_SET, startIdx: 157, endIdx: 171, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
     { tag: "USA 7", owner: "Henny Panchal", set: FLEET_USA_07_SET, startIdx: 172, endIdx: 185, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
     { tag: "USA 8", owner: "Kiya Taily", set: FLEET_USA_08_SET, startIdx: 186, endIdx: 199, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
+    { tag: "USA 9", owner: "Prince Shah", set: FLEET_USA_09_SET, startIdx: 200, endIdx: 212, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
+    { tag: "USA 10", owner: "Sweta Mummu", set: FLEET_USA_10_SET, startIdx: 213, endIdx: 230, flag: "🇺🇸", flagImg: "icons/us.png", countryGroup: "USA", isDeviceProfile: false },
 
     // --- 🇬🇧 UK Fleets (7 Accounts • 81 Pages) ---
     { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", flagImg: "icons/gb.png", countryGroup: "UK", isDeviceProfile: false },
@@ -7460,6 +7552,8 @@ async function runLiveAuditUI(e) {
       { tag: "USA 6", owner: "Kalpesh Shah", set: FLEET_USA_06_SET, startIdx: 157, endIdx: 171, flag: "🇺🇸", countryGroup: "USA" },
       { tag: "USA 7", owner: "Henny Panchal", set: FLEET_USA_07_SET, startIdx: 172, endIdx: 185, flag: "🇺🇸", countryGroup: "USA" },
       { tag: "USA 8", owner: "Kiya Taily", set: FLEET_USA_08_SET, startIdx: 186, endIdx: 199, flag: "🇺🇸", countryGroup: "USA" },
+      { tag: "USA 9", owner: "Prince Shah", set: FLEET_USA_09_SET, startIdx: 200, endIdx: 212, flag: "🇺🇸", countryGroup: "USA" },
+      { tag: "USA 10", owner: "Sweta Mummu", set: FLEET_USA_10_SET, startIdx: 213, endIdx: 230, flag: "🇺🇸", countryGroup: "USA" },
 
       // UK Fleets (7 Fleets • 81 Pages)
       { tag: "UK 1", owner: "Binjal Mehra", set: FLEET_UK_01_SET, startIdx: 31, endIdx: 42, flag: "🇬🇧", countryGroup: "UK" },

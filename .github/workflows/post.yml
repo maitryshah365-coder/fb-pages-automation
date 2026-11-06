@@ -37,6 +37,8 @@ on:
     - cron: "47 3,12,17,22 * * *"  # Account 6 (Kalpesh Shah - Pages 159-173)
     - cron: "7 4,13,18,23 * * *"   # Account 7 (Henny Panchal - Pages 174-187)
     - cron: "27 4,13,18,23 * * *"  # Account 8 (Kiya Taily - Pages 188-201)
+    - cron: "47 4,13,18,23 * * *"  # Account 9 (Prince Shah - Pages 202-214)
+    - cron: "7 5,14,19,0 * * *"    # Account 10 (Sweta Mummu - Pages 215-232)
 
 concurrency:
   group: facebook-upload-${{ github.event.inputs.page || github.event.schedule || 'default' }}
@@ -81,6 +83,8 @@ jobs:
           python scripts/validate_config.py config_usa_account6.yaml
           python scripts/validate_config.py config_usa_account7.yaml
           python scripts/validate_config.py config_usa_account8.yaml
+          python scripts/validate_config.py config_usa_account9.yaml
+          python scripts/validate_config.py config_usa_account10.yaml
 
       - name: Determine Target USA Account & Regional Profile
         id: select_profile
@@ -89,7 +93,16 @@ jobs:
           ACCOUNT_NAME="Meghal Chauhan"
           
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "7 4,13,18,23 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "7 5,14,19,0 * * *" ]; then
+              TARGET_LOC="sweta_new_york"
+              ACCOUNT_NAME="Sweta Mummu"
+            elif [ "${{ github.event.schedule }}" = "47 4,13,18,23 * * *" ]; then
+              TARGET_LOC="prince_new_york"
+              ACCOUNT_NAME="Prince Shah"
+            elif [ "${{ github.event.schedule }}" = "27 4,13,18,23 * * *" ]; then
+              TARGET_LOC="kiya_new_york"
+              ACCOUNT_NAME="Kiya Taily"
+            elif [ "${{ github.event.schedule }}" = "7 4,13,18,23 * * *" ]; then
               TARGET_LOC="henny_new_york"
               ACCOUNT_NAME="Henny Panchal"
             elif [ "${{ github.event.schedule }}" = "47 3,12,17,22 * * *" ]; then
@@ -190,7 +203,13 @@ jobs:
           fi
 
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "27 4,13,18,23 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "7 5,14,19,0 * * *" ]; then
+              echo "⏰ Staggered Cron Triggered: Running Account 10 (Pages 215-232 - Sweta Mummu) [+180 Min Offset]"
+              python main.py --config config_usa_account10.yaml $DRY_ARG --require-us
+            elif [ "${{ github.event.schedule }}" = "47 4,13,18,23 * * *" ]; then
+              echo "⏰ Staggered Cron Triggered: Running Account 9 (Pages 202-214 - Prince Shah) [+160 Min Offset]"
+              python main.py --config config_usa_account9.yaml $DRY_ARG --require-us
+            elif [ "${{ github.event.schedule }}" = "27 4,13,18,23 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 8 (Pages 188-201 - Kiya Taily) [+140 Min Offset]"
               python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
             elif [ "${{ github.event.schedule }}" = "7 4,13,18,23 * * *" ]; then
@@ -217,7 +236,11 @@ jobs:
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
-            if [ "$REQ_PAGE" = "account_8" ] || [ "$REQ_PAGE" = "usa8" ]; then
+            if [ "$REQ_PAGE" = "account_10" ] || [ "$REQ_PAGE" = "usa10" ]; then
+              python main.py --config config_usa_account10.yaml $DRY_ARG --require-us
+            elif [ "$REQ_PAGE" = "account_9" ] || [ "$REQ_PAGE" = "usa9" ]; then
+              python main.py --config config_usa_account9.yaml $DRY_ARG --require-us
+            elif [ "$REQ_PAGE" = "account_8" ] || [ "$REQ_PAGE" = "usa8" ]; then
               python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
             elif [ "$REQ_PAGE" = "account_7" ] || [ "$REQ_PAGE" = "usa7" ]; then
               python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
@@ -240,6 +263,8 @@ jobs:
               python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
               python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
               python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
+              python main.py --config config_usa_account9.yaml $DRY_ARG --require-us
+              python main.py --config config_usa_account10.yaml $DRY_ARG --require-us
             else
               if [[ "$REQ_PAGE" == *"page_188"* ]] || [[ "$REQ_PAGE" == *"page_189"* ]] || [[ "$REQ_PAGE" == *"page_19"* ]] || [[ "$REQ_PAGE" == *"page_20"* ]]; then
                 python main.py --config config_usa_account8.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
@@ -262,6 +287,8 @@ jobs:
             python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
             python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
             python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
+            python main.py --config config_usa_account9.yaml $DRY_ARG --require-us
+            python main.py --config config_usa_account10.yaml $DRY_ARG --require-us
           fi
 
       - name: Disconnect WireGuard Tunnel

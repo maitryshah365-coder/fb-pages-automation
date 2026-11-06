@@ -1,0 +1,134 @@
+page_group: usa_account_9_prince
+account_name: Prince Shah
+country_code: US
+target_location: New York, New York, United States
+require_us_ip: true
+require_uk_ip: false
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1011505752046767'
+  name: page_202
+  display_name: Bold Mint Vibes
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_202
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSZCjaIhbhwi4dDoOJpZA7kUn6XRCVcgoWeZCQpIZAV3X90XGOrFNeBZAqCI2t1ZCbAIQWYea10YZAZA7nZACI1kdHTVZBk6ukvovqwmZAMIsrLORgw1Td45G0cf7J2pPd2asnLxFrXQ5RZAglPZB8PNjf2mZBSYlaummwVupZAyLFvNq4pE03xLysQveRP6ULS1
+- page_id: '1009495342239280'
+  name: page_203
+  display_name: Urban Joy Collective
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_203
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSZCQslQXjhDNzZAd0rZAczZBOIQtkf2Pa3TMUTIDlviM0lW9qPtVp9wBchLXqWamjzwscR4nZCM1afq76yl8bJV0cVMVH3Tv0QeSUzDFvT2FkUSC5aOIJFtpLemtDEA7WLiK7dYqHK30YNi9q2RqxUIbAswIZCmYqM5O3na2slSTEijZAIRU1r8o5Tm
+- page_id: '988411587686197'
+  name: page_204
+  display_name: Echo Trail Studio
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_204
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSxRmDYOUZCiruZCuoTU0jObYpLM1hiuZCPlx5iOl7UKrqQnZAYhh6FOZBnWyjZADoMOytFxRZBGGx5ZBztcz5ZAGD65fkm0WnrYbhG81gAqkRUGU6RuhdnGJl8mcGA5fH5Si4z5utIvMFHS4ebNdxDdoOfhoESkOpU4ajMYbC7pjPN3XByAvR8QxKFLNa
+- page_id: '1004210909435635'
+  name: page_205
+  display_name: Richardson  Robert
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_205
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBS0yyEvDyBJZB3NPsxNoEn86M2PmpbbYFh61wnGwkIeObCCw4Cr0EVCQVnzZBucvWFwN7Wem4gjko4ZBvjCOsuKIeSRKH1H3j08qGFjff3OpApX3SnurSZAAuSZCSPCv5SOAwStzI5FV6nHjVpM9N3KPuC8xSvBRZBkJD3D6nkV3Tm8GHNKFOlBkP2V
+- page_id: '977906555403990'
+  name: page_206
+  display_name: Stewart  Keith
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_206
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBS6mTPnne8bgZA7gPiQwffQRZCEwdCygbQ6KwPPI7ZBQ8zuflEKwmXF66H8qFgfaZBeL70oq4alTNaucM25MVa1f7ewb5advCCn2ee3j28voUA6nS8eENxDgohZClhZAkQadb6UiqZABCmCB41CQBrJjfmQYRWDvx1wHgrZBAvuAZAM2qX4ZAjhZCGCb4iNd
+- page_id: '883354574851891'
+  name: page_207
+  display_name: Torres  Matthew
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_207
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBS34zMv8q1boIPAnvuhumzNJZAw4E3QaoZCCOxPMSgfBu23z7mZBb50ZBZCAR5NGARvkZBR2ScNXmIGc24fsLZCtzP1p7sYcGAMPrFQxZBZCJYPZAbZCyZCwcggZC1hJOZAN30pWkZCrOONmgW3y3jhdaM2Cl2KZBSrkR8rgU7gqTzlGyC62GW3wCB2a8Iq7x0mm2
+- page_id: '761811347026583'
+  name: page_208
+  display_name: price  Matthew
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_208
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBS83mj3OEgQkfx3JIhvWipOykL39a0Sv3ALmVbCd5LtnrpZBSbBKbh4sOs5Ki3PkOsaKNgP8AxhQKF2fw1ZBZBrDqm44TlKHD41kLNKs6eKCviNGflQ443KoOUHPh9tvmL7CifJQKKBy0e0j11evySFYoMXr0APIdXjfgASXOzl2Vm6p1T4qgzKh
+- page_id: '415000781686090'
+  name: page_209
+  display_name: Space House
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_209
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBS4X9AHTj3kiwZClCGEef2vkg3DeiVlLI2eY8P1e5qAzzSgOJE194ZBZAF4gkfj5jAEQhHItUNwudwnaxUvGLfLJHYqEc4H7AfxREhbEbIZCbCF0fmXtQfZCnKLTK9cD118qSuT9UVALflYmZB2flFEWmYwtoFezZCtton3BU6uzSpHqgcEdEZAxQzPdH
+- page_id: '375153609011898'
+  name: page_210
+  display_name: Prime Authority
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_210
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSZC5nM2Ddu3ZAypZB3iXxs7j4o5Dahes92ohRxMBGTuTMH9Y2cejbILmhtrZAsttfQ2K8pBzXigl7MIXOrpVeVkeN1vc2TXx6BSLK9PMWWTvXK6KBJ1hw2ogNV2ZBssqj7bsxqxaUaLfmHTHQcfvQD6vZChhJTnbZBNVviN85XBULY8tZBwq7rSuJKYJ
+- page_id: '372800862573826'
+  name: page_211
+  display_name: Yourself Creative
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_211
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSzpYlvNwCc8tZACK0gNDnzbeI78pHeVLh5Md4ovZCLsVDetskRypOODFjKKnZAWM9pZBetMJKD1eeIHFo3ZAqL0odV86cUbz6sL8cagl4PUwLIXBhFXFlwUvJGObX2b87cxmIhbLhp1g3C1Sbn86ZBtEKyWxgXdJ3Oq0sbPI9a2Dhh0ZCRnJwZBRQi3ZA
+- page_id: '369649349554622'
+  name: page_212
+  display_name: Promise Your
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_212
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSZC8NeNcG1TY9At050vqkm9RzW5tK5WQtTRYhEoVnDqtpGc7KoBLQF4AUTHJ1qlvQeDHDM9XFeAWxifStprtMH4KLmW5kl6StZCYiBwwK6yfhs6zeRPsCQyrpu5vDVmLVDHFpgZCb9Q7UgZCazrz0PAZCWe0EUz6fdCgfG6BLtqKMdR38fKvcsmzL
+- page_id: '351521491370127'
+  name: page_213
+  display_name: Vault Momentum
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_213
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBSZC1bgJ4iwaZBJYaF7jsdYcJ2nhVZB56bZAyPN6elL2ArWZC5Mkaaus8PUBd2xbxUQDfI91svTe8UgFTGwOwov7FleZA9gpF9aqtc7H8lhBotPo7ky5ZAYRgj1q19wFqZBdrz2fZCOpoVnJFPILlvhJqJrsoK5NdehuTOKd6lGfCumZAUV1fte7xU7tYGA
+- page_id: '301772966352891'
+  name: page_214
+  display_name: Vault Republic
+  enabled: false
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_214
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAAgfnqtAPAoBS6ewPfFeZC1R22PMIPo5cEGlQ02yxZAgg9SpYQv6ZCxKTWy76TDvrW8gPm0nZBfVOZCyA337bAcnxP29prxnPy2R94RkMQfuLSOXBfH923PfU9If7bJx3v76aGaZCyZCkyADzhHJwD1HSdRXbhdfRiysDdy9kWyao5NQZBbF9hw4HCUtPWdy4VJB5tcf

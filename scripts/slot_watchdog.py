@@ -69,6 +69,8 @@ usa_accounts = [
     {"name": "Kalpesh Shah (USA)", "flag": "usa6", "workflow": "post.yml"},
     {"name": "Henny Panchal (USA)", "flag": "usa7", "workflow": "post.yml"},
         {"name": "Kiya Taily (USA)", "flag": "usa8", "workflow": "post.yml"},
+        {"name": "Prince Shah (USA)", "flag": "usa9", "workflow": "post.yml"},
+        {"name": "Sweta Mummu (USA)", "flag": "usa10", "workflow": "post.yml"},
 ]
 
 # UK Accounts mapping
