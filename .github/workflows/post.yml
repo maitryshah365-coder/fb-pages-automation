@@ -36,6 +36,7 @@ on:
     - cron: "27 3,12,17,22 * * *"  # Account 5 (Sejal Soni - Pages 144-158)
     - cron: "47 3,12,17,22 * * *"  # Account 6 (Kalpesh Shah - Pages 159-173)
     - cron: "7 4,13,18,23 * * *"   # Account 7 (Henny Panchal - Pages 174-187)
+    - cron: "27 4,13,18,23 * * *"  # Account 8 (Kiya Taily - Pages 188-201)
 
 concurrency:
   group: facebook-upload-${{ github.event.inputs.page || github.event.schedule || 'default' }}
@@ -79,6 +80,7 @@ jobs:
           python scripts/validate_config.py config_usa_account5.yaml
           python scripts/validate_config.py config_usa_account6.yaml
           python scripts/validate_config.py config_usa_account7.yaml
+          python scripts/validate_config.py config_usa_account8.yaml
 
       - name: Determine Target USA Account & Regional Profile
         id: select_profile
@@ -188,7 +190,10 @@ jobs:
           fi
 
           if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "${{ github.event.schedule }}" = "7 4,13,18,23 * * *" ]; then
+            if [ "${{ github.event.schedule }}" = "27 4,13,18,23 * * *" ]; then
+              echo "⏰ Staggered Cron Triggered: Running Account 8 (Pages 188-201 - Kiya Taily) [+140 Min Offset]"
+              python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
+            elif [ "${{ github.event.schedule }}" = "7 4,13,18,23 * * *" ]; then
               echo "⏰ Staggered Cron Triggered: Running Account 7 (Pages 174-187 - Henny Panchal) [+120 Min Offset]"
               python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
             elif [ "${{ github.event.schedule }}" = "47 3,12,17,22 * * *" ]; then
@@ -212,7 +217,9 @@ jobs:
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
-            if [ "$REQ_PAGE" = "account_7" ] || [ "$REQ_PAGE" = "usa7" ]; then
+            if [ "$REQ_PAGE" = "account_8" ] || [ "$REQ_PAGE" = "usa8" ]; then
+              python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
+            elif [ "$REQ_PAGE" = "account_7" ] || [ "$REQ_PAGE" = "usa7" ]; then
               python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
             elif [ "$REQ_PAGE" = "account_6" ] || [ "$REQ_PAGE" = "usa6" ]; then
               python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
@@ -232,8 +239,11 @@ jobs:
               python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
               python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
               python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
+              python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
             else
-              if [[ "$REQ_PAGE" == *"page_174"* ]] || [[ "$REQ_PAGE" == *"page_175"* ]] || [[ "$REQ_PAGE" == *"page_18"* ]]; then
+              if [[ "$REQ_PAGE" == *"page_188"* ]] || [[ "$REQ_PAGE" == *"page_189"* ]] || [[ "$REQ_PAGE" == *"page_19"* ]] || [[ "$REQ_PAGE" == *"page_20"* ]]; then
+                python main.py --config config_usa_account8.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
+              elif [[ "$REQ_PAGE" == *"page_174"* ]] || [[ "$REQ_PAGE" == *"page_175"* ]] || [[ "$REQ_PAGE" == *"page_18"* ]]; then
                 python main.py --config config_usa_account7.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
               elif [[ "$REQ_PAGE" == *"page_159"* ]] || [[ "$REQ_PAGE" == *"page_16"* ]] || [[ "$REQ_PAGE" == *"page_17"* ]]; then
                 python main.py --config config_usa_account6.yaml $DRY_ARG --require-us --page "$REQ_PAGE"
@@ -251,6 +261,7 @@ jobs:
             python main.py --config config_usa_account5.yaml $DRY_ARG --require-us
             python main.py --config config_usa_account6.yaml $DRY_ARG --require-us
             python main.py --config config_usa_account7.yaml $DRY_ARG --require-us
+            python main.py --config config_usa_account8.yaml $DRY_ARG --require-us
           fi
 
       - name: Disconnect WireGuard Tunnel

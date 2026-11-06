@@ -237,6 +237,23 @@ FLEET_USA_07_IDS = [
     "208790838981955"   # U Tutor
 ]
 
+FLEET_USA_08_IDS = [
+    "1013730745151056",  # Lighthouse Loop
+    "954547437742008",   # Anderson Aaron
+    "773180445889774",   # James Jerry
+    "826484233883808",   # Martinez Tyler
+    "852273631305168",   # price John
+    "866282973229898",   # Peterson Jack
+    "754813164393077",   # Watson Jacob
+    "874862069037201",   # Miller Louis
+    "661721827032657",   # Ascend Collective
+    "561105803741890",   # Moonlit Chronicles
+    "406899832518042",   # Bird Beyond
+    "401091649748910",   # Land Butter
+    "371083622749739",   # Diary Inner
+    "147040598502477"    # Chuckle Corner
+]
+
 
 def get_pages_list():
     # 1. Load existing docs/data/pages_data.json to keep existing videos and metrics
@@ -266,7 +283,8 @@ def get_pages_list():
         {"account": "USA Account 4", "owner": "Rohini Dutt", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account4_rohini_permanent_pages.json")},
         {"account": "USA Account 5", "owner": "Sejal Soni", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account5_sejal_permanent_pages.json")},
         {"account": "USA Account 6", "owner": "Kalpesh Shah", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account6_kalpesh_permanent_pages.json")},
-        {"account": "USA Account 7", "owner": "Henny Panchal", "region": "US", "file": os.path.join(BASE_DIR, "data", "henny_panchal_permanent_pages.json")}
+        {"account": "USA Account 7", "owner": "Henny Panchal", "region": "US", "file": os.path.join(BASE_DIR, "data", "henny_panchal_permanent_pages.json")},
+        {"account": "USA Account 8", "owner": "Kiya Taily", "region": "US", "file": os.path.join(BASE_DIR, "data", "usa_account8_kiya_permanent_pages.json")}
     ]
 
     all_found_by_id = {}
@@ -330,7 +348,8 @@ def get_pages_list():
         (FLEET_USA_04_IDS, "Rohini Dutt (USA)", "Rohini Dutt", "US", 127),
         (FLEET_USA_05_IDS, "Sejal Soni (USA)", "Sejal Soni", "US", 142),
         (FLEET_USA_06_IDS, "Kalpesh Shah (USA)", "Kalpesh Shah", "US", 157),
-        (FLEET_USA_07_IDS, "Henny Panchal (USA)", "Henny Panchal", "US", 171)
+        (FLEET_USA_07_IDS, "Henny Panchal (USA)", "Henny Panchal", "US", 171),
+        (FLEET_USA_08_IDS, "Kiya Taily (USA)", "Kiya Taily", "US", 185)
     ]
 
     final_pages = []
@@ -830,7 +849,7 @@ def fetch_single_page_record(p, idx, curr_telemetry, posted_by_page, runs_by_pag
             "timestamp": ts_val,
             "egress_status": "Verified Miami Egress"
         }
-    elif pid in FLEET_USA_06_IDS or pid in FLEET_USA_07_IDS or "Kalpesh" in acc_owner or "Henny" in acc_owner or "Kalpesh" in acc_str or "Henny" in acc_str:
+    elif pid in FLEET_USA_06_IDS or pid in FLEET_USA_07_IDS or pid in FLEET_USA_08_IDS or "Kalpesh" in acc_owner or "Henny" in acc_owner or "Kiya" in acc_owner or "Kalpesh" in acc_str or "Henny" in acc_str or "Kiya" in acc_str:
         ip_data = {
             "ip": live_ip,
             "city": "New York",
@@ -1861,6 +1880,7 @@ def sync_data():
             "account5_pages_count": len([p for p in page_records if "Sejal" in p.get("account", "") or p.get("account") == "USA Account 5"]),
             "account6_pages_count": len([p for p in page_records if "Kalpesh" in p.get("account", "") or p.get("account") == "USA Account 6"]),
             "account7_pages_count": len([p for p in page_records if "Henny" in p.get("account", "") or p.get("account") == "USA Account 7"]),
+            "account8_pages_count": len([p for p in page_records if "Kiya" in p.get("account", "") or p.get("account") == "USA Account 8"]),
             "active_pages_count": len(page_records),
             "pending_pages_count": 0,
             "total_followers": total_portfolio_followers,

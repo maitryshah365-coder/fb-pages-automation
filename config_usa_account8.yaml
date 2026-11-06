@@ -1,0 +1,143 @@
+page_group: usa_account_8_kiya
+account_name: Kiya Taily
+country_code: US
+target_location: New York, New York, United States
+require_us_ip: true
+require_uk_ip: false
+delete_after_post: true
+database:
+  path: data/posted_videos.db
+retry:
+  max_attempts: 3
+  base_delay_seconds: 5
+  max_delay_seconds: 60
+notifications:
+  discord_enabled: false
+  discord_webhook_url: ''
+pages:
+- page_id: '1013730745151056'
+  name: page_188
+  display_name: Lighthouse Loop
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_188
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS5Yr7AB3XTg9eZAWAZBylCZAiicl111u897wDVgDl0SnrVmFjEjgC1agYnfc7u5raRHV2DOMm9OOIotJ2CcachUwmnPQMHkR1DUdZBBnPPEx0f7Hjnirm6VDoIyphN5f0RAnOdxUWiA6QVwMhecXTPEMConZCkSoHkNN8dCgae4GVGb5ZAr3YxLrbOw3m9
+- page_id: '954547437742008'
+  name: page_189
+  display_name: Anderson  Aaron
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_189
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS0KIMEbKJYqojyJMRRTLYE6umDZBb5o6sb6bGKJ4fuRg9ZBgQ1IeqoXabUzrfY7KvFEZCNa46zKJuJteZCxIFuxiZBUXW7kQbQYrXvg2tZBxU73hRShaKSo5QLKqLKqg9KIVrA26dZAhvE99GxaWRmR44eRHLnhEgM9V6GNc2hNGa8UJajQNNFqENZBQIbxJ
+- page_id: '773180445889774'
+  name: page_190
+  display_name: James  Jerry
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_190
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS4f1wPT4Qoq6zJ72hgs0zzuOKhLEhTabLuLs5rtJIiWoRzmb420uL5ta9uDV9ZAkqAJAMk5a4LxFCLn6ZBdhaNZChTLOwJStvozvCDQwZC6YfkMEIZBDeZA2NeOas0sFpT67Knc8UuMU2VgTIJfAWib2G7TCF1QVUe0S8pjj4tdBvR0ZCDlLgsS3o9rVOji
+- page_id: '826484233883808'
+  name: page_191
+  display_name: Martinez  Tyler
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_191
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS5ZCqAgsZAxuWDGUg8NuFfX75EonMQOmj4rmlja68SseZCyfbM1QZCiDCAmg81gizllmaYWfQ1S2eDTG93ZAmObvo56E2FdadHtYNnGZANKdmXqJGgnTuvP8sZCA0kjkAJwZBnlp4YodJoZCKUfPsRfBMZCHRlNOYBkrZBuha0QbWJ8O7kusd7FBHLhO4ZAUECnB
+- page_id: '852273631305168'
+  name: page_192
+  display_name: price  John
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_192
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBSyZBPbtZCSxu9ZByi0DcZAemE9NLfxSNelCuSp5ZAZAAqL8ONW8ZBYT2ZAolnQl5vSWmlNIf5B5D3I5Y6hxCDgrC9GTwGjxOreDsxuZBBfWoZBMewliKxBwYpslSHWc3AZBLGhzRdxFU0NW1snOSMTIjmq4GCn8GN26JmOSBAlKzbAHQIK8MMUfruvAamLRkofu
+- page_id: '866282973229898'
+  name: page_193
+  display_name: Peterson  Jack
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_193
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS2lVghkTy1BJaqExdZC3KowUXFjH1sZBxp5Ch66QdA9d2YkxlC1ZAcT1VI53zlivfZAOET1uQi8TwbZCdr3ZCYpwMssm0pydm4GYujgmj7nLDhQnAP6Qe9um4uG6VXauqScFSJuLnKQrQRGXNWsmnkAxGiHjIMPWSpEauuFW3e4ToSZB7cMFNoKiHRrkZCcz
+- page_id: '754813164393077'
+  name: page_194
+  display_name: Watson  Jacob
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_194
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS9N019o2NIr0aMP4TqzqetdjLFcWkFXm30nsLCnZAyhRR94Wge0ZBzVMwcLPhL83dnBvrCLT4sTbCyrJYyVerZCSThinHOYFQZAxW5K1uCngSzwDLHPIIE4fiP6zNfS2NZALwfz9bn1waKrzSijPqpLS7Y1iaJGWZBwZBsjQZA4IHrgpFHCyJZC5CVSSSZBElm
+- page_id: '874862069037201'
+  name: page_195
+  display_name: Miller  Louis
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_195
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS8xcY5haePnH0ZA3uoeh5hNZBQZBOVCjvvTxuZCOE8sRTPGs4f5hOh0skWmhiTZAQ84jplHk5ZCeqhoTf6P1jZCVNNInbro19DyGPZBWSRnCgB96cKScqtiknAx6ipVjIGFiS6UTixlaAqJfZBMK7n47pBDSDEd1Oa5mWvLbNdc0KyReVNix7Bm0SFpspIsag
+- page_id: '661721827032657'
+  name: page_196
+  display_name: Ascend Collective
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_196
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBSwZCFtLekKZCgcxFkie1SoE25Fnn1hm2ZBDL5fGR1A5e9cXZAbHjHN8aKCZC1mmdVjGzp57IUWAQ8QKZBbLZCTufEd6xVZAzgwhd2PereltkqUq0MoD6K0i9CBsxvjS9E6kSwNAiZAHBVJAG6xqxYo2qCn5oIqmmSe2qCXxNLzaY2v7OMnWy5wSDUkgoKHglv
+- page_id: '561105803741890'
+  name: page_197
+  display_name: Moonlit Chronicles
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_197
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS7MOZCsdaF8KbTZCcfPhguTZAckFDZBtyrn2loZCTrOZBJLpS7CyvNog4ZAdWtnGsANZBN9EZBuKdOr90divxwLJTYtB65gIwReWZABFq47tDHZABOBZAKCoZBAeUEw5A4aqSfjSjfRRL9ZAyFHhMotFdB4G5grPiixLGo6OBN3bTAvZATivgVolUToAet3RZB77ZCjWE
+- page_id: '406899832518042'
+  name: page_198
+  display_name: Bird Beyond
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_198
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS7B7ZAhKvL1A2111QcvmkuC8oFkC7Xpa2foJfQcokzdEZBrwt9Tc0GgnKUsBczYsBk3J1FjJBusKh8cpZCiIVo9ZAOGTUaZCI4GZBqyRtgZCxQa5NYKrzW4kbl42ULKxmfmZAbkKAdcNl30toN0AvgZCEjBtLDhJGiQlys0gfrffeO6ZCBS9TreSvCAgJKEZAzx
+- page_id: '401091649748910'
+  name: page_199
+  display_name: Land Butter
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_199
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS8sZATAvC72bqOFkum2BQZAC9s7yxRTaZC0TwG3kNMZCDLj7uFU2LZAkPIa9ewWfgSarerWVNEp5kvHgX2ZCPSJbkZAM0WXOz5qaB1u1sPQ5qZAPp4lvQvsL1x427Vj1pbzaFFwVQkZBUM64WXxElOYb0RkvCbMyss7CAAPxxp6RkYmZAzZA12mFMIsKZCzsl5Gx
+- page_id: '371083622749739'
+  name: page_200
+  display_name: Diary Inner
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_200
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBSZBc5OUNfCjXUZCzvmcqBRCLnlaO9tdjrtCRSKD5DvjZA9XE2ZCgIT7OwyE80rZBn5ETrTZAZAWqFb9I1iZBbpZCmekTw14QhaLdQEmWMZA19EPM9CEhwJNGRFgNfQW74OZBZAXWmWimdtkJefJeHb6ZBimp6jqrXrZAej1b5E0HMiQULZBQRTRt3TkQ0uyztTZCzbwC
+- page_id: '147040598502477'
+  name: page_201
+  display_name: Chuckle Corner
+  enabled: true
+  drive_folder_id: PENDING_DRIVE_FOLDER_PAGE_201
+  daily_limit: 4
+  title_mode: filename
+  default_hashtags: []
+  page_access_token: EAATaybbprZAIBS6MM6aLLJFZAsR3p4GaccFmjIQdj9ZBeIlo5loR22bF5nvWdZBCSUj9rs9ZA9PZAtd2CyXQAZAyWjTC33YV6lUD4SzxC3jUvFVHbDaBTOPP4NMnNDipkzNouSfZAjVeYmZB3DM2VhgifPL63lzhWeYJcFYF9eSSlCi6lBvNG9GKvbe4Gp1GJDeEwccOdej8ZD
