@@ -3610,6 +3610,12 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 18, m: 27, label: "Slot 3" },
   { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 23, m: 27, label: "Slot 4" },
 
+  // Prince Shah - 13 Pages (USA Account 9 - New York Peak Slot +160m)
+  { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 4, m: 47, label: "Slot 1" },
+  { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 13, m: 47, label: "Slot 2" },
+  { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 18, m: 47, label: "Slot 3" },
+  { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 23, m: 47, label: "Slot 4" },
+
   // Binjal Mehra - 12 Pages
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 0, label: "Slot 2" },
@@ -3915,7 +3921,7 @@ function initAutomationRadarLiveEngine() {
         if (targetCard) targetCard.classList.add("active-next");
 
         // Dynamically update each fleet card's time to its specific next upcoming run
-        const fleetIds = ["a1", "a2", "a3", "a4", "a5", "a6", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
+        const fleetIds = ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
         fleetIds.forEach(fId => {
           let fNextSlot = null;
           let fMinDiffMs = Infinity;
@@ -3971,8 +3977,10 @@ function initAutomationRadarLiveEngine() {
     a4: { name: "USA 04 • Rohini Dutt", matcher: p => FLEET_USA_04_SET.has(String(p.id)) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt" },
     a5: { name: "USA 05 • Sejal Soni", matcher: p => FLEET_USA_05_SET.has(String(p.id)) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni" },
     a6: { name: "USA 06 • Kalpesh Shah", matcher: p => FLEET_USA_06_SET.has(String(p.id)) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah" },
-    a7: { name: "USA 07 • Henny Panchal", matcher: p => FLEET_USA_07_SET.has(String(p.id)) || (p.account && p.account.includes("Henny")) || p.account_owner === "Henny Panchal" },
-    a8: { name: "USA 08 • Kiya Taily", matcher: p => FLEET_USA_08_SET.has(String(p.id)) || (p.account && p.account.includes("Kiya")) || p.account_owner === "Kiya Taily" },
+    a7: { name: "USA 07 • Henny Panchal", matcher: p => FLEET_USA_07_SET.has(String(p.id)) || (p.page_id && FLEET_USA_07_SET.has(String(p.page_id))) || (p.account && p.account.includes("Henny")) || p.account_owner === "Henny Panchal" },
+    a8: { name: "USA 08 • Kiya Taily", matcher: p => FLEET_USA_08_SET.has(String(p.id)) || (p.page_id && FLEET_USA_08_SET.has(String(p.page_id))) || (p.account && p.account.includes("Kiya")) || p.account_owner === "Kiya Taily" },
+    a9: { name: "USA 09 • Prince Shah", matcher: p => FLEET_USA_09_SET.has(String(p.id)) || (p.page_id && FLEET_USA_09_SET.has(String(p.page_id))) || (p.account && p.account.includes("Prince")) || p.account_owner === "Prince Shah" },
+    a10: { name: "USA 10 • Sweta Mummu", matcher: p => FLEET_USA_10_SET.has(String(p.id)) || (p.page_id && FLEET_USA_10_SET.has(String(p.page_id))) || (p.account && p.account.includes("Mummu")) || p.account_owner === "Sweta Mummu" },
     uk1: { name: "UK 01 • Binjal Mehra", matcher: p => FLEET_UK_01_SET.has(String(p.id)) || (p.account && p.account.includes("Binjal")) },
     uk2: { name: "UK 02 • Chanda Nai", matcher: p => FLEET_UK_02_SET.has(String(p.id)) || (p.account && p.account.includes("Chanda")) },
     uk3: { name: "UK 03 • Mahi Patel", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")) },
