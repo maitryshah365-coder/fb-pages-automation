@@ -20140,16 +20140,17 @@
     "account5_pages_count": 12,
     "account6_pages_count": 14,
     "account7_pages_count": 14,
-    "active_pages_count": 226,
+    "active_pages_count": 195,
     "pending_pages_count": 0,
     "total_followers": 262626,
     "total_likes": 0,
     "total_views": 160160649,
     "total_posts": 6773,
-    "total_stock_videos": 28375,
+    "total_stock_videos": 32014,
     "total_db_posted": 5132,
     "account9_pages_count": 13,
-    "account10_pages_count": 18
+    "account10_pages_count": 18,
+    "total_daily_slots": 780
   },
   "pages": [
     {
@@ -163237,10 +163238,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_188",
+      "drive_folder_id": "1KDY9BtqlHLmffOYItTHPfZqFYrZpVh_s",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 236,
       "total_posts": 57,
       "total_views": 1,
       "total_engagement": {
@@ -163265,23 +163266,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -163999,7 +163984,9 @@
           "permalink": "/reel/2241665063317870/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 183,
@@ -164026,10 +164013,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_189",
+      "drive_folder_id": "1Ddw5zd53g7ir8OBKtPNOqJw5Xxt58e0W",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 153,
       "total_posts": 170,
       "total_views": 2360571,
       "total_engagement": {
@@ -164054,23 +164041,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "Active"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -164788,7 +164759,9 @@
           "permalink": "/reel/1323245989959578/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 184,
@@ -164815,10 +164788,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_190",
+      "drive_folder_id": "1hVV_UraYbcywhuXnjBRAp1cR1J4E_qr0",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 279,
       "total_posts": 200,
       "total_views": 49173,
       "total_engagement": {
@@ -164843,23 +164816,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -165577,7 +165534,9 @@
           "permalink": "/reel/2432282297269435/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 185,
@@ -165604,10 +165563,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_191",
+      "drive_folder_id": "1N0KuKKhdEPLT3_-ekH_zvqZu3OuQGmky",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 78,
       "total_posts": 200,
       "total_views": 870440,
       "total_engagement": {
@@ -165632,23 +165591,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "Active"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -166366,7 +166309,9 @@
           "permalink": "/reel/1046004147991184/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 186,
@@ -166393,10 +166338,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_192",
+      "drive_folder_id": "1MmczsAL10EeLc2vuNRJNABQp5Vcj2Ho8",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 529,
       "total_posts": 200,
       "total_views": 79084,
       "total_engagement": {
@@ -166421,23 +166366,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -167155,7 +167084,9 @@
           "permalink": "/reel/1605776601165442/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 187,
@@ -167182,10 +167113,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_193",
+      "drive_folder_id": "1zvLhedIUaXJjwMe4yQS_meXO6y_yhliL",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 119,
       "total_posts": 200,
       "total_views": 937157,
       "total_engagement": {
@@ -167210,23 +167141,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "Active"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -167944,7 +167859,9 @@
           "permalink": "/reel/1542465677272531/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 188,
@@ -167971,10 +167888,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_194",
+      "drive_folder_id": "1IXs9-yvORkm88LLS7-DDGAm2Pdil_rO_",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 449,
       "total_posts": 200,
       "total_views": 1855440,
       "total_engagement": {
@@ -167999,23 +167916,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "Active"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -168733,7 +168634,9 @@
           "permalink": "/reel/1494028218676673/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 189,
@@ -168760,10 +168663,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_195",
+      "drive_folder_id": "1VYdB4yAl-ywbvkwbFNUggTgRF57QN_eT",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 444,
       "total_posts": 200,
       "total_views": 1867980,
       "total_engagement": {
@@ -168788,23 +168691,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "Active"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -169522,7 +169409,9 @@
           "permalink": "/reel/1352305732903216/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 190,
@@ -169549,10 +169438,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_196",
+      "drive_folder_id": "1tj-YusYlIRSGslcU5se5oldkyy30ouZO",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 500,
       "total_posts": 54,
       "total_views": 26,
       "total_engagement": {
@@ -169577,23 +169466,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -170311,7 +170184,9 @@
           "permalink": "/reel/1971607670152469/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 191,
@@ -170338,10 +170213,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_197",
+      "drive_folder_id": "1rqad3mMj1VZn-j0W-qHOuZmbbY3h_7M-",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 285,
       "total_posts": 200,
       "total_views": 37441,
       "total_engagement": {
@@ -170366,23 +170241,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -171100,7 +170959,9 @@
           "permalink": "/reel/2584762351943611/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 192,
@@ -171127,10 +170988,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_198",
+      "drive_folder_id": "1mTepoG_1aGuRbfdqmYFqNUSA4S2DrBes",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 83,
       "total_posts": 200,
       "total_views": 396509,
       "total_engagement": {
@@ -171155,23 +171016,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -171889,7 +171734,9 @@
           "permalink": "/reel/2242074306546491/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 193,
@@ -171916,10 +171763,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_199",
+      "drive_folder_id": "12LIxKzTdQiv1U0X0JqRnu-EHQxF6goRN",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 303,
       "total_posts": 200,
       "total_views": 29835,
       "total_engagement": {
@@ -171944,23 +171791,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -172678,7 +172509,9 @@
           "permalink": "/reel/1056079310085612/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 194,
@@ -172705,10 +172538,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_200",
+      "drive_folder_id": "1k2rDvfXh8XtLy4ioEd4BFkuEANXjKCS6",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 40,
       "total_posts": 200,
       "total_views": 129864,
       "total_engagement": {
@@ -172733,23 +172566,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -173467,7 +173284,9 @@
           "permalink": "/reel/28765589243027103/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 195,
@@ -173494,10 +173313,10 @@
         "reel_likes": 0
       },
       "daily_limit": 4,
-      "drive_folder_id": "PENDING_DRIVE_FOLDER_PAGE_201",
+      "drive_folder_id": "1HwTxTOvMuhU8Y3hwY8BThf4oBH5YD5MX",
       "is_configured": true,
       "has_drive_folder": true,
-      "drive_videos_count": 0,
+      "drive_videos_count": 141,
       "total_posts": 200,
       "total_views": 37250,
       "total_engagement": {
@@ -173522,23 +173341,7 @@
         "message": "Demographic Insights Pending Professional Dashboard Sync",
         "reason": "Meta Graph API restricts country audience breakdowns without Meta Business Suite admin session. Send a screenshot or connect Meta Business Suite to display exact verified country distribution."
       },
-      "page_status": {
-        "has_no_issues": true,
-        "headline": "Page has no issues",
-        "community_standards": {
-          "status": "Good news: no violations to show.",
-          "sub": "If content on a Page goes against our Community Standards, it can put the Page at risk for restrictions."
-        },
-        "account_status": {
-          "status": "No restrictions",
-          "sub": "Your account looks good! Check in on other things you manage."
-        },
-        "extra_features": {
-          "recommendations": "Active",
-          "monetization": "In Progress"
-        },
-        "suspension_check": "Clean / Zero Restrictions"
-      },
+      "page_status": "Active",
       "content_monetization": {
         "has_criteria_area": false,
         "program_type": "invite_only",
@@ -174256,7 +174059,9 @@
           "permalink": "/reel/2103424700611364/",
           "server_uploaded": false
         }
-      ]
+      ],
+      "is_active": true,
+      "hold_reason": null
     },
     {
       "index": 199,

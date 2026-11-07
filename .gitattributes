@@ -1,0 +1,6 @@
+# Enforce LF endings on bash scripts so Linux CI never fails due to CRLF
+*.sh text eol=lf
+*.py text eol=lf
+*.json text
+*.yaml text
+*.yml text

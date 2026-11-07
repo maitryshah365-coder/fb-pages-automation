@@ -156,6 +156,8 @@ jobs:
 
       - name: Connect Surfshark USA WireGuard & Enforce Kill-Switch
         run: |
+          sed -i 's/\r$//' scripts/*.sh || true
+          chmod +x scripts/*.sh || true
           bash scripts/connect_wireguard_usa.sh "${{ steps.select_profile.outputs.target_loc }}"
 
       - name: Run Automation Engine

@@ -3604,11 +3604,11 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a7", name: "Henny", flagSrc: "icons/us.png", h: 18, m: 7, label: "Slot 3" },
   { fleetId: "a7", name: "Henny", flagSrc: "icons/us.png", h: 23, m: 7, label: "Slot 4" },
 
-  // Kiya Taily - 14 Pages (USA Account 8 - ON HOLD until Google Drive folder is attached)
-  // { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 4, m: 27, label: "Slot 1" },
-  // { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 13, m: 27, label: "Slot 2" },
-  // { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 18, m: 27, label: "Slot 3" },
-  // { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 23, m: 27, label: "Slot 4" },
+  // Kiya Taily - 14 Pages (USA Account 8 - New York Peak Slot +140m)
+  { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 4, m: 27, label: "Slot 1" },
+  { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 13, m: 27, label: "Slot 2" },
+  { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 18, m: 27, label: "Slot 3" },
+  { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 23, m: 27, label: "Slot 4" },
 
   // Binjal Mehra - 12 Pages
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },

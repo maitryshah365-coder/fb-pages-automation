@@ -48,6 +48,21 @@ elif [[ "$TARGET_LOC_LOWER" == *"henny"* ]] || [[ "$TARGET_LOC_LOWER" == *"accou
     TARGET_PUBKEY="rhuoCmHdyYrh0zW3J0YXZK4aN3It7DD26TXlACuWnwU="
     TARGET_REGION_DESC="New York, New York [Account 7 - Henny Panchal]"
     TARGET_CITY="New York"
+elif [[ "$TARGET_LOC_LOWER" == *"kiya"* ]] || [[ "$TARGET_LOC_LOWER" == *"account_8"* ]] || [[ "$TARGET_LOC_LOWER" == *"usa8"* ]]; then
+    TARGET_ENDPOINT="us-nyc.prod.surfshark.com:51820"
+    TARGET_PUBKEY="rhuoCmHdyYrh0zW3J0YXZK4aN3It7DD26TXlACuWnwU="
+    TARGET_REGION_DESC="New York, New York [Account 8 - Kiya Taily]"
+    TARGET_CITY="New York"
+elif [[ "$TARGET_LOC_LOWER" == *"prince"* ]] || [[ "$TARGET_LOC_LOWER" == *"account_9"* ]] || [[ "$TARGET_LOC_LOWER" == *"usa9"* ]]; then
+    TARGET_ENDPOINT="us-nyc.prod.surfshark.com:51820"
+    TARGET_PUBKEY="rhuoCmHdyYrh0zW3J0YXZK4aN3It7DD26TXlACuWnwU="
+    TARGET_REGION_DESC="New York, New York [Account 9 - Prince Shah]"
+    TARGET_CITY="New York"
+elif [[ "$TARGET_LOC_LOWER" == *"sweta"* ]] || [[ "$TARGET_LOC_LOWER" == *"account_10"* ]] || [[ "$TARGET_LOC_LOWER" == *"usa10"* ]]; then
+    TARGET_ENDPOINT="us-nyc.prod.surfshark.com:51820"
+    TARGET_PUBKEY="rhuoCmHdyYrh0zW3J0YXZK4aN3It7DD26TXlACuWnwU="
+    TARGET_REGION_DESC="New York, New York [Account 10 - Sweta Mummu]"
+    TARGET_CITY="New York"
 else
     # Default fallback to New York
     TARGET_ENDPOINT="us-nyc.prod.surfshark.com:51820"

@@ -84,6 +84,7 @@ jobs:
 
       - name: Connect Surfshark UK WireGuard & Enforce Kill-Switch
         run: |
+          sed -i 's/\r$//' scripts/*.sh || true
           chmod +x scripts/connect_wireguard_uk.sh
           ./scripts/connect_wireguard_uk.sh "${{ steps.target_meta.outputs.target_loc }}"
 
