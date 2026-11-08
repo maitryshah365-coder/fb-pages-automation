@@ -3562,107 +3562,124 @@ function setupEventListeners() {
 // 24/7 AUTOMATION RADAR & LIVE ENGINE (STAGGERED MULTI-FLEET CRON MATRIX)
 // =========================================================================
 const FLEET_SCHEDULE_SLOTS = [
-  // Meghal Chauhan - 15 Pages
-  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 2, m: 0, label: "Slot 1" },
-  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 14, m: 0, label: "Slot 2" },
-  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 19, m: 0, label: "Slot 3" },
-  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 23, m: 0, label: "Slot 4" },
+  // Meghal Chauhan - 15 Pages (USA Account 1 - Cron: 7 2,11,16,21 * * *)
+  // IST: 07:37 AM (Slot 1), 04:37 PM (Slot 2), 09:37 PM (Slot 3), 02:37 AM (Slot 4)
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 2, m: 7, label: "Slot 1" },
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 11, m: 7, label: "Slot 2" },
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 16, m: 7, label: "Slot 3" },
+  { fleetId: "a1", name: "Meghal", flagSrc: "icons/us.png", h: 21, m: 7, label: "Slot 4" },
 
-  // Mia Shah - 15 Pages, +20m
-  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 2, m: 20, label: "Slot 1" },
-  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 14, m: 20, label: "Slot 2" },
-  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 19, m: 20, label: "Slot 3" },
-  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 23, m: 20, label: "Slot 4" },
+  // Mia Shah - 15 Pages (USA Account 2 - Cron: 27 2,11,16,21 * * *)
+  // IST: 07:57 AM (Slot 1), 04:57 PM (Slot 2), 09:57 PM (Slot 3), 02:57 AM (Slot 4)
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 2, m: 27, label: "Slot 1" },
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 11, m: 27, label: "Slot 2" },
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 16, m: 27, label: "Slot 3" },
+  { fleetId: "a2", name: "Mia", flagSrc: "icons/us.png", h: 21, m: 27, label: "Slot 4" },
 
-  // Radika Patel - 15 Pages, +40m
-  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 2, m: 40, label: "Slot 1" },
-  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 14, m: 40, label: "Slot 2" },
-  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 19, m: 40, label: "Slot 3" },
-  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 23, m: 40, label: "Slot 4" },
+  // Radika Patel - 15 Pages (USA Account 3 - Cron: 47 2,11,16,21 * * *)
+  // IST: 08:17 AM (Slot 1), 05:17 PM (Slot 2), 10:17 PM (Slot 3), 03:17 AM (Slot 4)
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 2, m: 47, label: "Slot 1" },
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 11, m: 47, label: "Slot 2" },
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 16, m: 47, label: "Slot 3" },
+  { fleetId: "a3", name: "Radika", flagSrc: "icons/us.png", h: 21, m: 47, label: "Slot 4" },
 
-  // Rohini Dutt - 15 Pages (Samsung S25 Anti-Detect Profile - Staggered Slot)
-  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 3, m: 0, label: "Slot 1" },
-  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 15, m: 0, label: "Slot 2" },
-  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 20, m: 0, label: "Slot 3" },
-  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 0, m: 0, label: "Slot 4" },
+  // Rohini Dutt - 15 Pages (USA Account 4 - Cron: 7 3,12,17,22 * * *)
+  // IST: 08:37 AM (Slot 1), 05:37 PM (Slot 2), 10:37 PM (Slot 3), 03:37 AM (Slot 4)
+  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 3, m: 7, label: "Slot 1" },
+  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 12, m: 7, label: "Slot 2" },
+  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 17, m: 7, label: "Slot 3" },
+  { fleetId: "a4", name: "Rohini", flagSrc: "icons/us.png", h: 22, m: 7, label: "Slot 4" },
 
-  // Sejal Soni - 15 Pages (Google Pixel 9 Pro Anti-Detect Profile - Staggered +20m Slot)
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 3, m: 20, label: "Slot 1" },
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 15, m: 20, label: "Slot 2" },
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 20, m: 20, label: "Slot 3" },
-  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 0, m: 20, label: "Slot 4" },
+  // Sejal Soni - 12 Pages (USA Account 5 - Cron: 27 3,12,17,22 * * *)
+  // IST: 08:57 AM (Slot 1), 05:57 PM (Slot 2), 10:57 PM (Slot 3), 03:57 AM (Slot 4)
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 3, m: 27, label: "Slot 1" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 12, m: 27, label: "Slot 2" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 17, m: 27, label: "Slot 3" },
+  { fleetId: "a5", name: "Sejal", flagSrc: "icons/us.png", h: 22, m: 27, label: "Slot 4" },
 
-  // Kalpesh Shah - 15 Pages (USA Account 6 - Staggered +40m Slot)
-  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 3, m: 40, label: "Slot 1" },
-  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 15, m: 40, label: "Slot 2" },
-  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 20, m: 40, label: "Slot 3" },
-  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 0, m: 40, label: "Slot 4" },
+  // Kalpesh Shah - 14 Pages (USA Account 6 - Cron: 47 3,12,17,22 * * *)
+  // IST: 09:17 AM (Slot 1), 06:17 PM (Slot 2), 11:17 PM (Slot 3), 04:17 AM (Slot 4)
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 3, m: 47, label: "Slot 1" },
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 12, m: 47, label: "Slot 2" },
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 17, m: 47, label: "Slot 3" },
+  { fleetId: "a6", name: "Kalpesh", flagSrc: "icons/us.png", h: 22, m: 47, label: "Slot 4" },
 
-  // Henny Panchal - 14 Pages (USA Account 7 - New York Peak Slot)
+  // Henny Panchal - 14 Pages (USA Account 7 - Cron: 7 4,13,18,23 * * *)
+  // IST: 09:37 AM (Slot 1), 06:37 PM (Slot 2), 11:37 PM (Slot 3), 04:37 AM (Slot 4)
   { fleetId: "a7", name: "Henny", flagSrc: "icons/us.png", h: 4, m: 7, label: "Slot 1" },
   { fleetId: "a7", name: "Henny", flagSrc: "icons/us.png", h: 13, m: 7, label: "Slot 2" },
   { fleetId: "a7", name: "Henny", flagSrc: "icons/us.png", h: 18, m: 7, label: "Slot 3" },
   { fleetId: "a7", name: "Henny", flagSrc: "icons/us.png", h: 23, m: 7, label: "Slot 4" },
 
-  // Kiya Taily - 14 Pages (USA Account 8 - New York Peak Slot +140m)
+  // Kiya Taily - 14 Pages (USA Account 8 - Cron: 27 4,13,18,23 * * *)
+  // IST: 09:57 AM (Slot 1), 06:57 PM (Slot 2), 11:57 PM (Slot 3), 04:57 AM (Slot 4)
   { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 4, m: 27, label: "Slot 1" },
   { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 13, m: 27, label: "Slot 2" },
   { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 18, m: 27, label: "Slot 3" },
   { fleetId: "a8", name: "Kiya", flagSrc: "icons/us.png", h: 23, m: 27, label: "Slot 4" },
 
-  // Prince Shah - 13 Pages (USA Account 9 - New York Peak Slot +160m)
+  // Prince Shah - 13 Pages (USA Account 9 - Cron: 47 4,13,18,23 * * *)
+  // IST: 10:17 AM (Slot 1), 07:17 PM (Slot 2), 12:17 AM (Slot 3), 05:17 AM (Slot 4)
   { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 4, m: 47, label: "Slot 1" },
   { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 13, m: 47, label: "Slot 2" },
   { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 18, m: 47, label: "Slot 3" },
   { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 23, m: 47, label: "Slot 4" },
 
-  // Sweta Mummu - 18 Pages (USA Account 10 - New York Peak Slot +180m)
+  // Sweta Mummu - 18 Pages (USA Account 10 - Cron: 7 5,14,19,0 * * *)
+  // IST: 10:37 AM (Slot 1), 07:37 PM (Slot 2), 12:37 AM (Slot 3), 05:37 AM (Slot 4)
   { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 5, m: 7, label: "Slot 1" },
   { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 14, m: 7, label: "Slot 2" },
   { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 19, m: 7, label: "Slot 3" },
   { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 0, m: 7, label: "Slot 4" },
 
-  // Binjal Mehra - 12 Pages
-  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
-  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 0, label: "Slot 2" },
-  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 16, m: 0, label: "Slot 3" },
-  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 20, m: 30, label: "Slot 4" },
+  // Binjal Mehra - 12 Pages (UK Account 1 - Cron: 1 7,12,17,21 * * *)
+  // IST: 12:31 PM (Slot 1), 05:31 PM (Slot 2), 10:31 PM (Slot 3), 02:31 AM (Slot 4)
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 7, m: 1, label: "Slot 1" },
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 1, label: "Slot 2" },
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 17, m: 1, label: "Slot 3" },
+  { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 21, m: 1, label: "Slot 4" },
 
-  // Chanda Nai - 12 Pages
-  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 8, m: 20, label: "Slot 1" },
-  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 12, m: 20, label: "Slot 2" },
-  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 16, m: 20, label: "Slot 3" },
-  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 20, m: 50, label: "Slot 4" },
+  // Chanda Nai - 12 Pages (UK Account 2 - Cron: 13 7,12,17,21 * * *)
+  // IST: 12:43 PM (Slot 1), 05:43 PM (Slot 2), 10:43 PM (Slot 3), 02:43 AM (Slot 4)
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 7, m: 13, label: "Slot 1" },
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 12, m: 13, label: "Slot 2" },
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 17, m: 13, label: "Slot 3" },
+  { fleetId: "uk2", name: "Chanda", flagSrc: "icons/gb.png", h: 21, m: 13, label: "Slot 4" },
 
-  // Mahi Patel - 12 Pages
-  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 8, m: 30, label: "Slot 1" },
-  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 12, m: 30, label: "Slot 2" },
-  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 16, m: 30, label: "Slot 3" },
-  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 21, m: 0, label: "Slot 4" },
+  // Mahi Patel - 12 Pages (UK Account 3 - Cron: 25 7,12,17,21 * * *)
+  // IST: 12:55 PM (Slot 1), 05:55 PM (Slot 2), 10:55 PM (Slot 3), 02:55 AM (Slot 4)
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 7, m: 25, label: "Slot 1" },
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 12, m: 25, label: "Slot 2" },
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 17, m: 25, label: "Slot 3" },
+  { fleetId: "uk3", name: "Mahi", flagSrc: "icons/gb.png", h: 21, m: 25, label: "Slot 4" },
 
-  // Nidhi Desai - 11 Pages
-  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 8, m: 40, label: "Slot 1" },
-  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 12, m: 40, label: "Slot 2" },
-  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 16, m: 40, label: "Slot 3" },
-  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 21, m: 10, label: "Slot 4" },
+  // Nidhi Desai - 11 Pages (UK Account 4 - Cron: 37 7,12,17,21 * * *)
+  // IST: 01:07 PM (Slot 1), 06:07 PM (Slot 2), 11:07 PM (Slot 3), 03:07 AM (Slot 4)
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 7, m: 37, label: "Slot 1" },
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 12, m: 37, label: "Slot 2" },
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 17, m: 37, label: "Slot 3" },
+  { fleetId: "uk4", name: "Nidhi", flagSrc: "icons/gb.png", h: 21, m: 37, label: "Slot 4" },
 
-  // Richi Patel - 11 Pages
-  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 8, m: 50, label: "Slot 1" },
-  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 12, m: 50, label: "Slot 2" },
-  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 16, m: 50, label: "Slot 3" },
-  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 21, m: 20, label: "Slot 4" },
+  // Richi Patel - 11 Pages (UK Account 5 - Cron: 49 7,12,17,21 * * *)
+  // IST: 01:19 PM (Slot 1), 06:19 PM (Slot 2), 11:19 PM (Slot 3), 03:19 AM (Slot 4)
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 7, m: 49, label: "Slot 1" },
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 12, m: 49, label: "Slot 2" },
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 17, m: 49, label: "Slot 3" },
+  { fleetId: "uk5", name: "Richi", flagSrc: "icons/gb.png", h: 21, m: 49, label: "Slot 4" },
 
-  // Sweta Shah - 12 Pages
-  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 9, m: 0, label: "Slot 1" },
-  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 13, m: 0, label: "Slot 2" },
-  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 17, m: 0, label: "Slot 3" },
-  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 21, m: 30, label: "Slot 4" },
+  // Sweta Shah - 12 Pages (UK Account 6 - Cron: 1 8,13,18,22 * * *)
+  // IST: 01:31 PM (Slot 1), 06:31 PM (Slot 2), 11:31 PM (Slot 3), 03:31 AM (Slot 4)
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 8, m: 1, label: "Slot 1" },
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 13, m: 1, label: "Slot 2" },
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 18, m: 1, label: "Slot 3" },
+  { fleetId: "uk6", name: "Sweta", flagSrc: "icons/gb.png", h: 22, m: 1, label: "Slot 4" },
 
-  // Riya Gaur - 11 Pages (+70 Min Offset)
-  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 9, m: 10, label: "Slot 1" },
-  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 13, m: 10, label: "Slot 2" },
-  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 17, m: 10, label: "Slot 3" },
-  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 21, m: 40, label: "Slot 4" }
+  // Riya Gaur - 11 Pages (UK Account 7 - Cron: 13 8,13,18,22 * * *)
+  // IST: 01:43 PM (Slot 1), 06:43 PM (Slot 2), 11:43 PM (Slot 3), 03:43 AM (Slot 4)
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 8, m: 13, label: "Slot 1" },
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 13, m: 13, label: "Slot 2" },
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 18, m: 13, label: "Slot 3" },
+  { fleetId: "uk7", name: "Riya", flagSrc: "icons/gb.png", h: 22, m: 13, label: "Slot 4" }
 ];
 
 // ----------------- Real-Time UTC / EDT / BST Slot Countdown Engine -----------------
@@ -3812,8 +3829,8 @@ function updateRadarSlots() {
     { id: "a2", matcher: p => FLEET_USA_02_SET.has(String(p.id)) || (p.account && p.account.includes("Mia")), defaultSlots: 60 },
     { id: "a3", matcher: p => FLEET_USA_03_SET.has(String(p.id)) || (p.account && p.account.includes("Radika")), defaultSlots: 60 },
     { id: "a4", matcher: p => FLEET_USA_04_SET.has(String(p.id)) || (p.page_id && FLEET_USA_04_SET.has(String(p.page_id))) || (p.account && p.account.includes("Rohini")) || p.account_owner === "Rohini Dutt", defaultSlots: 60 },
-    { id: "a5", matcher: p => FLEET_USA_05_SET.has(String(p.id)) || (p.page_id && FLEET_USA_05_SET.has(String(p.page_id))) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni", defaultSlots: 60 },
-    { id: "a6", matcher: p => FLEET_USA_06_SET.has(String(p.id)) || (p.page_id && FLEET_USA_06_SET.has(String(p.page_id))) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah", defaultSlots: 60 },
+    { id: "a5", matcher: p => FLEET_USA_05_SET.has(String(p.id)) || (p.page_id && FLEET_USA_05_SET.has(String(p.page_id))) || (p.account && p.account.includes("Sejal")) || p.account_owner === "Sejal Soni", defaultSlots: 48 },
+    { id: "a6", matcher: p => FLEET_USA_06_SET.has(String(p.id)) || (p.page_id && FLEET_USA_06_SET.has(String(p.page_id))) || (p.account && p.account.includes("Kalpesh")) || p.account_owner === "Kalpesh Shah", defaultSlots: 56 },
     { id: "a7", matcher: p => FLEET_USA_07_SET.has(String(p.id)) || (p.page_id && FLEET_USA_07_SET.has(String(p.page_id))) || (p.account && p.account.includes("Henny")) || p.account_owner === "Henny Panchal", defaultSlots: 56 },
     { id: "a8", matcher: p => FLEET_USA_08_SET.has(String(p.id)) || (p.page_id && FLEET_USA_08_SET.has(String(p.page_id))) || (p.account && p.account.includes("Kiya")) || p.account_owner === "Kiya Taily", defaultSlots: 56 },
     { id: "a9", matcher: p => FLEET_USA_09_SET.has(String(p.id)) || (p.page_id && FLEET_USA_09_SET.has(String(p.page_id))) || (p.account && p.account.includes("Prince")) || p.account_owner === "Prince Shah", defaultSlots: 52 },
@@ -3823,7 +3840,7 @@ function updateRadarSlots() {
     { id: "uk3", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")), defaultSlots: 48 },
     { id: "uk4", matcher: p => FLEET_UK_04_SET.has(String(p.id)) || (p.account && p.account.includes("Nidhi")), defaultSlots: 44 },
     { id: "uk5", matcher: p => FLEET_UK_05_SET.has(String(p.id)) || (p.account && p.account.includes("Richi")), defaultSlots: 44 },
-    { id: "uk6", matcher: p => FLEET_UK_06_SET.has(String(p.id)) || (p.account && p.account.includes("Sweta")), defaultSlots: 48 },
+    { id: "uk6", matcher: p => FLEET_UK_06_SET.has(String(p.id)) || (p.account && p.account.includes("Sweta Shah")) || p.account_owner === "Sweta Shah", defaultSlots: 48 },
     { id: "uk7", matcher: p => FLEET_UK_07_SET.has(String(p.id)) || (p.account && p.account.includes("Riya")), defaultSlots: 44 }
   ];
 
@@ -3992,7 +4009,7 @@ function initAutomationRadarLiveEngine() {
     uk3: { name: "UK 03 • Mahi Patel", matcher: p => FLEET_UK_03_SET.has(String(p.id)) || (p.account && p.account.includes("Mahi")) },
     uk4: { name: "UK 04 • Nidhi Desai", matcher: p => FLEET_UK_04_SET.has(String(p.id)) || (p.account && p.account.includes("Nidhi")) },
     uk5: { name: "UK 05 • Richi Patel", matcher: p => FLEET_UK_05_SET.has(String(p.id)) || (p.account && p.account.includes("Richi")) },
-    uk6: { name: "UK 06 • Sweta Shah", matcher: p => FLEET_UK_06_SET.has(String(p.id)) || (p.account && p.account.includes("Sweta")) },
+    uk6: { name: "UK 06 • Sweta Shah", matcher: p => FLEET_UK_06_SET.has(String(p.id)) || (p.account && p.account.includes("Sweta Shah")) || p.account_owner === "Sweta Shah" },
     uk7: { name: "UK 07 • Riya Gaur", matcher: p => FLEET_UK_07_SET.has(String(p.id)) || (p.account && p.account.includes("Riya")) }
   };
 
