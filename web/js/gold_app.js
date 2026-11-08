@@ -3616,6 +3616,12 @@ const FLEET_SCHEDULE_SLOTS = [
   { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 18, m: 47, label: "Slot 3" },
   { fleetId: "a9", name: "Prince", flagSrc: "icons/us.png", h: 23, m: 47, label: "Slot 4" },
 
+  // Sweta Mummu - 18 Pages (USA Account 10 - New York Peak Slot +180m)
+  { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 5, m: 7, label: "Slot 1" },
+  { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 14, m: 7, label: "Slot 2" },
+  { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 19, m: 7, label: "Slot 3" },
+  { fleetId: "a10", name: "Sweta", flagSrc: "icons/us.png", h: 0, m: 7, label: "Slot 4" },
+
   // Binjal Mehra - 12 Pages
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 8, m: 0, label: "Slot 1" },
   { fleetId: "uk1", name: "Binjal", flagSrc: "icons/gb.png", h: 12, m: 0, label: "Slot 2" },
@@ -3921,7 +3927,7 @@ function initAutomationRadarLiveEngine() {
         if (targetCard) targetCard.classList.add("active-next");
 
         // Dynamically update each fleet card's time to its specific next upcoming run
-        const fleetIds = ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
+        const fleetIds = ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "uk1", "uk2", "uk3", "uk4", "uk5", "uk6", "uk7"];
         fleetIds.forEach(fId => {
           let fNextSlot = null;
           let fMinDiffMs = Infinity;
