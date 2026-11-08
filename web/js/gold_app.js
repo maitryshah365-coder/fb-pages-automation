@@ -6769,21 +6769,23 @@ async function fetchUploadHistory(manualTrigger = false) {
     const timestamp = Date.now();
     let json = null;
 
-    // 1. Try real-time raw GitHub first (updated instantly on git push from runner)
-    const rawUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/upload_history.json?v=${timestamp}`;
+    // 1. Fetch direct endpoint first (GitHub Pages / local workspace - 100% verified live data)
     try {
-      const rawRes = await fetch(rawUrl, { cache: "no-store" });
-      if (rawRes.ok) {
-        json = await rawRes.json();
-      }
-    } catch (e) {}
-
-    // 2. Fallback to local / GitHub Pages hosting
-    if (!json) {
       const res = await fetch(`data/upload_history.json?v=${timestamp}`, { cache: "no-store" });
       if (res.ok) {
         json = await res.json();
       }
+    } catch (e) {}
+
+    // 2. Fallback to raw GitHub if needed
+    if (!json) {
+      try {
+        const rawUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/upload_history.json?v=${timestamp}`;
+        const rawRes = await fetch(rawUrl, { cache: "no-store" });
+        if (rawRes.ok) {
+          json = await rawRes.json();
+        }
+      } catch (e) {}
     }
 
     if (json) {
