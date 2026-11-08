@@ -6791,8 +6791,34 @@ async function fetchUploadHistory(manualTrigger = false) {
       const prevCount = uploadHistoryData.length;
       uploadHistoryData = records;
 
+      // Dynamic count badges for All, USA, UK, Today
+      const totalCount = records.length;
+      let usCount = 0;
+      let ukCount = 0;
+      let todayCount = 0;
+
+      for (const item of records) {
+        if (isUKHistoryItem(item)) {
+          ukCount++;
+        } else {
+          usCount++;
+        }
+        if (item.posted_at && isDateToday(item.posted_at)) {
+          todayCount++;
+        }
+      }
+
       const totalBadge = document.getElementById("historyTotalCountBadge");
-      if (totalBadge) totalBadge.innerText = records.length;
+      if (totalBadge) totalBadge.innerText = totalCount.toLocaleString();
+
+      const usBadge = document.getElementById("historyUSCountBadge");
+      if (usBadge) usBadge.innerText = usCount.toLocaleString();
+
+      const ukBadge = document.getElementById("historyUKCountBadge");
+      if (ukBadge) ukBadge.innerText = ukCount.toLocaleString();
+
+      const todayBadge = document.getElementById("historyTodayCountBadge");
+      if (todayBadge) todayBadge.innerText = todayCount.toLocaleString();
 
       renderUploadHistoryTable();
       renderImageUploadsTable();
@@ -6824,10 +6850,25 @@ function onSearchUploadHistory() {
   renderUploadHistoryTable();
 }
 
-function loadMoreUploadHistory() {
-  uploadHistoryPageSize += 50;
+function isUKHistoryItem(item) {
+  if (!item) return false;
+  if (item.country_code === "GB" || item.country_code === "UK") return true;
+  const acc = item.account || "";
+  return acc.includes("UK") || acc.includes("London") || acc.includes("Binjal") || acc.includes("Chanda") || acc.includes("Mahi") || acc.includes("Nidhi") || acc.includes("Richi") || acc.includes("Sweta Shah") || acc.includes("Riya");
+}
+window.isUKHistoryItem = isUKHistoryItem;
+
+function loadMoreUploadHistory(step = 100) {
+  uploadHistoryPageSize += (typeof step === 'number' ? step : 100);
   renderUploadHistoryTable();
 }
+window.loadMoreUploadHistory = loadMoreUploadHistory;
+
+function loadAllUploadHistory() {
+  uploadHistoryPageSize = 999999;
+  renderUploadHistoryTable();
+}
+window.loadAllUploadHistory = loadAllUploadHistory;
 
 function refreshUploadHistory(manual = true) {
   fetchUploadHistory(manual);
@@ -6847,13 +6888,13 @@ function renderUploadHistoryTable() {
     // Only show Reels in standard Upload History
     if (uploadHistoryFilter !== "infographics" && (item.post_type === "infographic" || item.post_type === "image")) return false;
 
+    const isUK = isUKHistoryItem(item);
+
     // Country / Timeframe Filter
     if (uploadHistoryFilter === "us") {
-      if (item.country_code !== "US" && !item.account?.includes("Meghal") && !item.account?.includes("Mia") && !item.account?.includes("Radika") && !item.account?.includes("Rohini") && !item.account?.includes("Sejal")) return false;
-    } else if (uploadHistoryFilter === "s25") {
-      if (!item.account?.includes("Rohini") && !item.page_name?.includes("Apex") && !item.location?.includes("New York")) return false;
+      if (isUK) return false;
     } else if (uploadHistoryFilter === "uk") {
-      if (item.country_code !== "GB" && !item.account?.includes("Binjal") && !item.account?.includes("Chanda") && !item.account?.includes("Mahi") && !item.account?.includes("Nidhi") && !item.account?.includes("Richi") && !item.account?.includes("Sweta") && !item.account?.includes("Riya")) return false;
+      if (!isUK) return false;
     } else if (uploadHistoryFilter === "today") {
       if (!isDateToday(item.posted_at)) return false;
     } else if (uploadHistoryFilter === "infographics") {
@@ -6908,7 +6949,7 @@ function renderUploadHistoryTable() {
 
   // Render Desktop Rows
   tbody.innerHTML = displayItems.map((item, idx) => {
-    const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London") || item.account.includes("Binjal") || item.account.includes("Chanda") || item.account.includes("Mahi") || item.account.includes("Nidhi") || item.account.includes("Richi") || item.account.includes("Sweta")));
+    const isUK = isUKHistoryItem(item);
     const countryClass = isUK ? "uk" : "us";
     const flagTag = isUK ? "🇬🇧 UK" : "🇺🇸 USA";
 
@@ -6996,7 +7037,7 @@ function renderUploadHistoryTable() {
   // Render Mobile Cards
   if (mobileContainer) {
     mobileContainer.innerHTML = displayItems.map((item, idx) => {
-      const isUK = item.country_code === "GB" || (item.account && (item.account.includes("UK") || item.account.includes("London") || item.account.includes("Binjal") || item.account.includes("Chanda") || item.account.includes("Mahi") || item.account.includes("Nidhi") || item.account.includes("Richi")));
+      const isUK = isUKHistoryItem(item);
       const flagTag = isUK ? "🇬🇧 UK" : "🇺🇸 USA";
       const countryClass = isUK ? "uk" : "us";
       const reelUrl = item.direct_link || `https://www.facebook.com/reel/${item.id}/`;

@@ -1806,21 +1806,22 @@ def sync_data():
             WHERE v.status = 'posted' AND v.facebook_video_id IS NOT NULL AND v.facebook_video_id != ''
             GROUP BY v.facebook_video_id
             ORDER BY v.posted_at DESC, v.id DESC
-            LIMIT 500
             """
             rows = cur.execute(q).fetchall()
+            existing_vids = set()
             for r in rows:
+                fvid = str(r["facebook_video_id"])
+                existing_vids.add(fvid)
                 pid = str(r["page_id"])
                 p_info = page_map.get(pid, {})
                 p_name = p_info.get("name") or f"Page {pid}"
                 p_pic = p_info.get("picture") or p_info.get("pic_url") or ""
                 acc_name = p_info.get("account") or "Unknown"
                 
-                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name) or ("Nidhi" in acc_name) or ("Richi" in acc_name) or ("Sweta" in acc_name) or ("Riya" in acc_name)
+                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name) or ("Nidhi" in acc_name) or ("Richi" in acc_name) or ("Sweta Shah" in acc_name) or ("Riya" in acc_name)
                 country_code = "GB" if is_uk else "US"
                 country_flag = "🇬🇧 UK" if is_uk else "🇺🇸 USA"
                 
-                fvid = str(r["facebook_video_id"])
                 views_count = vid_views_map.get(fvid, 0)
                 thumb_url = vid_thumb_map.get(fvid, "")
                 post_type = r["post_type"] or "reel"
@@ -1855,9 +1856,57 @@ def sync_data():
                     "location": f"{city}, {region}, {country}" if city and region else (city or region or country)
                 })
 
-            # Re-sort combined upload_history by posted_at descending
+            # Also add verified Meta Graph API reels from page_records
+            for p_info in page_records:
+                pid = str(p_info.get("id"))
+                p_name = p_info.get("name") or f"Page {pid}"
+                p_pic = p_info.get("picture") or p_info.get("pic_url") or ""
+                acc_name = p_info.get("account") or "Unknown"
+                is_uk = ("UK" in acc_name) or ("London" in acc_name) or ("Binjal" in acc_name) or ("Chanda" in acc_name) or ("Mahi" in acc_name) or ("Nidhi" in acc_name) or ("Richi" in acc_name) or ("Sweta Shah" in acc_name) or ("Riya" in acc_name)
+                country_code = "GB" if is_uk else "US"
+                country_flag = "🇬🇧 UK" if is_uk else "🇺🇸 USA"
+
+                for v in p_info.get("videos", []):
+                    vid = str(v.get("id"))
+                    if not vid or vid in existing_vids:
+                        continue
+                    existing_vids.add(vid)
+                    posted_at = v.get("created_time_iso") or v.get("created_at") or ""
+                    views_count = int(v.get("views", 0) or 0)
+                    thumb_url = v.get("thumbnail") or ""
+                    title = v.get("title") or v.get("description") or f"Reel {vid}"
+
+                    ip = "195.86.5.200" if is_uk else "20.168.103.61"
+                    city = "London" if is_uk else "Phoenix"
+                    region = "England" if is_uk else "Arizona"
+                    country = "GB" if is_uk else "US"
+                    org = "AS212238 Datacamp Limited" if is_uk else "AS8075 Microsoft Corporation"
+
+                    upload_history.append({
+                        "id": vid,
+                        "video_id": vid,
+                        "title": title,
+                        "page_id": pid,
+                        "page_name": p_name,
+                        "page_pic": p_pic,
+                        "account": acc_name,
+                        "country_code": country_code,
+                        "country_flag": country_flag,
+                        "thumbnail": thumb_url,
+                        "views": views_count,
+                        "posted_at": posted_at,
+                        "post_type": "reel",
+                        "direct_link": f"https://www.facebook.com/reel/{vid}/",
+                        "ip": ip,
+                        "city": city,
+                        "region": region,
+                        "country": country,
+                        "org": org,
+                        "location": f"{city}, {region}, {country}"
+                    })
+
+            # Re-sort combined upload_history by posted_at descending (Full Uncapped Archive)
             upload_history.sort(key=lambda x: str(x.get("posted_at") or ""), reverse=True)
-            upload_history = upload_history[:500]
 
             conn.close()
         except Exception as e:
@@ -1944,18 +1993,22 @@ def sync_data():
             json.dump(payload, out, indent=2, ensure_ascii=False)
         print(f"Saved {out_file} ({len(page_records)} pages)")
         
-        # Dedicated lightweight upload history endpoint for real-time live polling (Latest 500)
+        # Dedicated lightweight upload history endpoint for real-time live polling (Full Uncapped Fleet History)
+        us_count = sum(1 for x in upload_history if x.get("country_code") == "US")
+        uk_count = sum(1 for x in upload_history if x.get("country_code") == "GB")
         uh_payload = {
             "updated_at": datetime.now(timezone.utc).isoformat(),
             "total_records": len(upload_history),
             "total_db_posted": total_db_posted if 'total_db_posted' in locals() else len(upload_history),
-            "limit": 500,
+            "total_us_records": us_count,
+            "total_uk_records": uk_count,
+            "limit": "all",
             "history": upload_history
         }
         uh_file = os.path.join(BASE_DIR, folder, "upload_history.json")
         with open(uh_file, "w", encoding="utf-8") as out:
-            json.dump(uh_payload, out, indent=2, ensure_ascii=False)
-        print(f"Saved {uh_file} (Latest {len(upload_history)} upload records)")
+            json.dump(uh_payload, out, ensure_ascii=False)
+        print(f"Saved {uh_file} (Full {len(upload_history)} upload records)")
 
         # Dedicated endpoint for server uploaded reels
         suv_file = os.path.join(BASE_DIR, folder, "server_uploaded_videos.json")

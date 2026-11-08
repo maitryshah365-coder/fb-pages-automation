@@ -759,10 +759,10 @@
               <span id="historyRefreshText">Refresh Live</span>
             </button>
             <div class="timeframe-toggle-wrapper" id="historyCountryFilters">
-              <button type="button" class="timeframe-pill active" data-filter="all" id="btnHistoryFilterAll">All (<span id="historyTotalCountBadge">443</span>)</button>
-              <button type="button" class="timeframe-pill" data-filter="us" id="btnHistoryFilterUS"><img src="icons/us.png" alt="US" class="app-flag-icon"> (30)</button>
-              <button type="button" class="timeframe-pill" data-filter="uk" id="btnHistoryFilterUK"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> (71)</button>
-              <button type="button" class="timeframe-pill" data-filter="today" id="btnHistoryFilterToday">⚡ Today</button>
+              <button type="button" class="timeframe-pill active" data-filter="all" id="btnHistoryFilterAll">All (<span id="historyTotalCountBadge">11,592</span>)</button>
+              <button type="button" class="timeframe-pill" data-filter="us" id="btnHistoryFilterUS"><img src="icons/us.png" alt="US" class="app-flag-icon"> USA (<span id="historyUSCountBadge">6,696</span>)</button>
+              <button type="button" class="timeframe-pill" data-filter="uk" id="btnHistoryFilterUK"><img src="icons/gb.png" alt="UK" class="app-flag-icon"> UK (<span id="historyUKCountBadge">4,896</span>)</button>
+              <button type="button" class="timeframe-pill" data-filter="today" id="btnHistoryFilterToday">⚡ Today (<span id="historyTodayCountBadge">0</span>)</button>
             </div>
           </div>
         </div>
@@ -806,9 +806,12 @@
         </div>
 
         <!-- Pagination / Load More -->
-        <div class="history-pagination-row" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px;">
-          <button type="button" id="btnLoadMoreUploadHistory" class="btn-load-more" onclick="loadMoreUploadHistory()" style="background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.35); color: #facc15; padding: 8px 24px; border-radius: 8px; font-weight: 700; cursor: pointer;">
-            ⬇️ Load More Uploads (<span id="historyRemainingBadge">393 remaining</span>)
+        <div class="history-pagination-row" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+          <button type="button" id="btnLoadMoreUploadHistory" class="btn-load-more" onclick="loadMoreUploadHistory(100)" style="background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.35); color: #facc15; padding: 10px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            <span>⬇️ Load More Uploads</span> (<span id="historyRemainingBadge">0 remaining</span>)
+          </button>
+          <button type="button" id="btnLoadAllUploadHistory" class="btn-load-all" onclick="loadAllUploadHistory()" style="background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.3); color: #38bdf8; padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+            <span>⚡ View All Uploads (Entire Archive)</span>
           </button>
         </div>
       </section>
