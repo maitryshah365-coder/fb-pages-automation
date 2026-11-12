@@ -1,168 +1,160 @@
 {
-  "run_id": "43128423179",
-  "run_number": "966",
-  "completed_at": "2026-11-12T01:01:42.964034+00:00",
+  "run_id": "43128411994",
+  "run_number": "962",
+  "completed_at": "2026-11-12T01:35:57.188118+00:00",
   "runner_telemetry": {
-    "ip": "45.149.173.201",
-    "city": "Los Angeles",
-    "region": "California",
+    "ip": "185.149.195.75",
+    "city": "New York City",
+    "region": "New York",
     "country": "US",
-    "loc": "34.0614,-118.2385",
+    "loc": "40.7185,-74.0025",
     "org": "AS62240 Clouvider",
-    "postal": "90012",
-    "timezone": "America/Los_Angeles",
+    "postal": "10013",
+    "timezone": "America/New_York",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
+      "status": "failed",
+      "page": "page_46",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "497577420112654",
+      "page_config_name": "page_46",
+      "display_name": "Apex House"
+    },
+    {
       "status": "success",
-      "page": "page_202",
-      "drive_file_id": "1LAgovSZHX1h6ibv2LphsFc6Gc5I23kuX",
-      "facebook_video_id": "2465603137182043",
-      "filename": "Nobody Was Emotionally Ready #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals._1.mp4",
+      "page": "page_47",
+      "drive_file_id": "1A33FkVrCYYaizLgZsZwsuXINL0Fe5XqM",
+      "facebook_video_id": "2932767697094429",
+      "filename": "These Prank Gadgets Are Next Level 💀 #prank #gadgets .mp4",
       "post_type": "reel",
-      "page_id": "1011505752046767",
-      "page_config_name": "page_202",
-      "display_name": "Bold Mint Vibes"
+      "page_id": "487987684400252",
+      "page_config_name": "page_47",
+      "display_name": "Quantum House"
+    },
+    {
+      "status": "no_content",
+      "page": "page_48",
+      "drive_files_seen": 0,
+      "page_id": "960803123790692",
+      "page_config_name": "page_48",
+      "display_name": "Drift Valley"
+    },
+    {
+      "status": "failed",
+      "page": "page_49",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "923484537514216",
+      "page_config_name": "page_49",
+      "display_name": "Dreams Of Life"
     },
     {
       "status": "success",
-      "page": "page_203",
-      "drive_file_id": "1LDmalRM5ub5Cz-D_g5VJWqm-hWXrVALI",
-      "facebook_video_id": "1130862959679995",
-      "filename": "#剧情闪耀星 #心爱度激励计划  #shorts.mp4",
+      "page": "page_50",
+      "drive_file_id": "1ARu3z95AYzetTqyZuwH3WXIW-2OmClQk",
+      "facebook_video_id": "1551331573687250",
+      "filename": "She Slapped a “Poor” Girl in a Jewelry Store… Then Learned Her Father Owned Everything The .mp4",
       "post_type": "reel",
-      "page_id": "1009495342239280",
-      "page_config_name": "page_203",
-      "display_name": "Urban Joy Collective"
+      "page_id": "511317578722941",
+      "page_config_name": "page_50",
+      "display_name": "End Every"
+    },
+    {
+      "status": "failed",
+      "page": "page_51",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "416325608224715",
+      "page_config_name": "page_51",
+      "display_name": "Executive Empire"
+    },
+    {
+      "status": "no_content",
+      "page": "page_52",
+      "drive_files_seen": 0,
+      "page_id": "467407709785240",
+      "page_config_name": "page_52",
+      "display_name": "I'm Joker"
+    },
+    {
+      "status": "failed",
+      "page": "page_53",
+      "error": "HTTPSConnectionPool(host='rupload.facebook.com', port=443): Max retries exceeded with url: /video-upload/v27.0/2344480269739240 (Caused by NameResolutionError(\"HTTPSConnection(host='rupload.facebook.com', port=443): Failed to resolve 'rupload.facebook.com' ([Errno -3] Temporary failure in name resolution)\"))",
+      "page_id": "223604537511488",
+      "page_config_name": "page_53",
+      "display_name": "Iron Covenant"
+    },
+    {
+      "status": "failed",
+      "page": "page_54",
+      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
+      "page_id": "730487193489250",
+      "page_config_name": "page_54",
+      "display_name": "Iron Momentum"
+    },
+    {
+      "status": "failed",
+      "page": "page_55",
+      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
+      "page_id": "514016115120845",
+      "page_config_name": "page_55",
+      "display_name": "Me The"
+    },
+    {
+      "status": "failed",
+      "page": "page_56",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "1009759155555480",
+      "page_config_name": "page_56",
+      "display_name": "Quiet Harbor"
     },
     {
       "status": "success",
-      "page": "page_204",
-      "drive_file_id": "1Sy7jgMS71dXOPKnPCqhY9ZbHSXl2_hgO",
-      "facebook_video_id": "1797257581492959",
-      "filename": "Kuromi VS My Melody, who will win？🏆#shorts #sanrio _2.mp4",
+      "page": "page_57",
+      "drive_file_id": "1UnV6fjPMMrzy4VmLkmLa_Ks4vN0lP4Sp",
+      "facebook_video_id": "1719615326396839",
+      "filename": "Is there anyone in the comments section who likes blind boxes？ #fidgettoys .mp4",
       "post_type": "reel",
-      "page_id": "988411587686197",
-      "page_config_name": "page_204",
-      "display_name": "Echo Trail Studio"
+      "page_id": "922808234251176",
+      "page_config_name": "page_57",
+      "display_name": "Radiant Reverie"
     },
     {
       "status": "success",
-      "page": "page_205",
-      "drive_file_id": "1RfI42FW3ZGLUZ1qiFcShtp9ABcA1sBwT",
-      "facebook_video_id": "1670511871148217",
-      "filename": "砸金兔挑战 好玩又刺激 #搞笑 #办公室游戏 #办公室游戏都给我卷起来 .mp4",
-      "post_type": "classic_video",
-      "page_id": "1004210909435635",
-      "page_config_name": "page_205",
-      "display_name": "Richardson  Robert"
-    },
-    {
-      "status": "success",
-      "page": "page_206",
-      "drive_file_id": "1rslzshbunNw32mgjEziODc43jW-cTn3B",
-      "facebook_video_id": "1702936677919358",
-      "filename": "#快成长计划 #影画演绎未来之星 _37.mp4",
+      "page": "page_58",
+      "drive_file_id": "1vWo8q7f6HuO2pxMqjpZupjq94FmP6sTP",
+      "facebook_video_id": "2321535401955700",
+      "filename": "How To Tie ？ _2.mp4",
       "post_type": "reel",
-      "page_id": "977906555403990",
-      "page_config_name": "page_206",
-      "display_name": "Stewart  Keith"
+      "page_id": "288008221072106",
+      "page_config_name": "page_58",
+      "display_name": "Bit Creative"
+    },
+    {
+      "status": "no_content",
+      "page": "page_59",
+      "drive_files_seen": 0,
+      "page_id": "243414155514799",
+      "page_config_name": "page_59",
+      "display_name": "Atlas Authority"
     },
     {
       "status": "success",
-      "page": "page_207",
-      "drive_file_id": "13rdorDsqlbyD3f2FpvTDO-RyeAC6dlYV",
-      "facebook_video_id": "1421093420094459",
-      "filename": "Cappellacci a corona #pasta #ravioli _3.mp4",
+      "page": "page_60",
+      "drive_file_id": "14QIrzWWPwUDo3RUuoFPjaPxl35ZgSOoN",
+      "facebook_video_id": "41175345568730888",
+      "filename": "Fruit cutting amazing #satisfying #cuttingart #fruitchopping #relaxartonline _10.mp4",
       "post_type": "reel",
-      "page_id": "883354574851891",
-      "page_config_name": "page_207",
-      "display_name": "Torres  Matthew"
-    },
-    {
-      "status": "success",
-      "page": "page_208",
-      "drive_file_id": "1mqdAxknV2kTk_LX9-AsDLsF7dg2AGfdq",
-      "facebook_video_id": "1658320922559414",
-      "filename": "新一代冰雪公主化妆包来了~ 圣诞送给女儿真的太合适了 #圣诞礼物  #宝妈带娃 #冰雪公主  #送女儿的礼物 .mp4",
-      "post_type": "classic_video",
-      "page_id": "761811347026583",
-      "page_config_name": "page_208",
-      "display_name": "price  Matthew"
-    },
-    {
-      "status": "success",
-      "page": "page_209",
-      "drive_file_id": "1HZiFbnoUA1fx9N-q-uZhwNjR7wCyOxYU",
-      "facebook_video_id": "2125867944718819",
-      "filename": "明明钱掉在这里，爸爸怎么找不到了呢 .mp4",
-      "post_type": "reel",
-      "page_id": "415000781686090",
-      "page_config_name": "page_209",
-      "display_name": "Space House"
-    },
-    {
-      "status": "success",
-      "page": "page_210",
-      "drive_file_id": "1_h4u6ZDdD4At5mzKziTBGUoB8rL5WWO-",
-      "facebook_video_id": "1487044449962616",
-      "filename": "Nobody Expected This To Be Inside #MysteryBox #HiddenWorld #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #WatchTillEnd #Transformation..mp4",
-      "post_type": "reel",
-      "page_id": "375153609011898",
-      "page_config_name": "page_210",
-      "display_name": "Prime Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_211",
-      "drive_file_id": "1tVv-6oh-xj1e7jIhyF5lu9bAWiUuk-7c",
-      "facebook_video_id": "1465792675706348",
-      "filename": "Nobody Saw This Coming Beyond Expectations #Wildlife #Nature #WildAnimals #AnimalWorld #Survival #NatureLovers #AnimalKingdom #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "372800862573826",
-      "page_config_name": "page_211",
-      "display_name": "Yourself Creative"
-    },
-    {
-      "status": "success",
-      "page": "page_212",
-      "drive_file_id": "1Ja7_WedvaNz7jc7PDj1UZRUapuL9VHL9",
-      "facebook_video_id": "1145015057986740",
-      "filename": "Perfect Tension! A Trick with a Rope and a Spring! _3.mp4",
-      "post_type": "reel",
-      "page_id": "369649349554622",
-      "page_config_name": "page_212",
-      "display_name": "Promise Your"
-    },
-    {
-      "status": "success",
-      "page": "page_213",
-      "drive_file_id": "1JG9dDfFUn9eIdsYD6G5Y_0yDihli9eL3",
-      "facebook_video_id": "28988875470814242",
-      "filename": "Is red my color？ I’m really starting to like it. ♥️💋.mp4",
-      "post_type": "reel",
-      "page_id": "351521491370127",
-      "page_config_name": "page_213",
-      "display_name": "Vault Momentum"
-    },
-    {
-      "status": "success",
-      "page": "page_214",
-      "drive_file_id": "1qr4TTXll6g3RLZQjvOPk-sFmwLgmxHDx",
-      "facebook_video_id": "1815736113081313",
-      "filename": "Nobody Could Escape This #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "reel",
-      "page_id": "301772966352891",
-      "page_config_name": "page_214",
-      "display_name": "Vault Republic"
+      "page_id": "921493174379801",
+      "page_config_name": "page_60",
+      "display_name": "Blissful Paradox"
     }
   ],
   "stats": {
-    "total": 13,
-    "success": 13,
-    "skipped": 0,
-    "failed": 0
+    "total": 15,
+    "success": 5,
+    "skipped": 3,
+    "failed": 7
   }
 }
