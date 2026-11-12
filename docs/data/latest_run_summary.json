@@ -1,160 +1,176 @@
 {
-  "run_id": "43128411994",
-  "run_number": "962",
-  "completed_at": "2026-11-12T01:35:57.188118+00:00",
+  "run_id": "43139977484",
+  "run_number": "967",
+  "completed_at": "2026-11-12T02:35:51.689955+00:00",
   "runner_telemetry": {
-    "ip": "185.149.195.75",
-    "city": "New York City",
-    "region": "New York",
+    "ip": "149.102.225.179",
+    "hostname": "unn-149-102-225-179.datapacket.com",
+    "city": "Los Angeles",
+    "region": "California",
     "country": "US",
-    "loc": "40.7185,-74.0025",
-    "org": "AS62240 Clouvider",
-    "postal": "10013",
-    "timezone": "America/New_York",
+    "loc": "34.0522,-118.2437",
+    "org": "AS212238 Datacamp Limited",
+    "postal": "90013",
+    "timezone": "America/Los_Angeles",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
-      "status": "failed",
-      "page": "page_46",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "497577420112654",
-      "page_config_name": "page_46",
-      "display_name": "Apex House"
-    },
-    {
-      "status": "success",
-      "page": "page_47",
-      "drive_file_id": "1A33FkVrCYYaizLgZsZwsuXINL0Fe5XqM",
-      "facebook_video_id": "2932767697094429",
-      "filename": "These Prank Gadgets Are Next Level 💀 #prank #gadgets .mp4",
-      "post_type": "reel",
-      "page_id": "487987684400252",
-      "page_config_name": "page_47",
-      "display_name": "Quantum House"
+      "status": "no_content",
+      "page": "page_1",
+      "drive_files_seen": 0,
+      "page_id": "988523547680750",
+      "page_config_name": "page_1",
+      "display_name": "Mix Mood"
     },
     {
       "status": "no_content",
-      "page": "page_48",
+      "page": "page_2",
       "drive_files_seen": 0,
-      "page_id": "960803123790692",
-      "page_config_name": "page_48",
-      "display_name": "Drift Valley"
-    },
-    {
-      "status": "failed",
-      "page": "page_49",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "923484537514216",
-      "page_config_name": "page_49",
-      "display_name": "Dreams Of Life"
+      "page_id": "1040244259164767",
+      "page_config_name": "page_2",
+      "display_name": "Charmy Owen"
     },
     {
       "status": "success",
-      "page": "page_50",
-      "drive_file_id": "1ARu3z95AYzetTqyZuwH3WXIW-2OmClQk",
-      "facebook_video_id": "1551331573687250",
-      "filename": "She Slapped a “Poor” Girl in a Jewelry Store… Then Learned Her Father Owned Everything The .mp4",
+      "page": "page_3",
+      "drive_file_id": "1XQ8TB4v6DYfC6stbo7PE7b-ywN74ZZeL",
+      "facebook_video_id": "1528930292392529",
+      "filename": "What Was Found Inside Was Incredible #MysteryBox #WaitForIt #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #BoxOpening #UnexpectedReveal..mp4",
       "post_type": "reel",
-      "page_id": "511317578722941",
-      "page_config_name": "page_50",
-      "display_name": "End Every"
+      "page_id": "965629596638624",
+      "page_config_name": "page_3",
+      "display_name": "Silent Peak Social"
     },
     {
-      "status": "failed",
-      "page": "page_51",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "416325608224715",
-      "page_config_name": "page_51",
-      "display_name": "Executive Empire"
+      "status": "success",
+      "page": "page_4",
+      "drive_file_id": "1tjiOkPmYzTRa5c7WVCcW5BTiiOen9X6e",
+      "facebook_video_id": "2300311427558738",
+      "filename": "Tiny Humans Made The Wrong Choice #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
+      "post_type": "reel",
+      "page_id": "956622247541040",
+      "page_config_name": "page_4",
+      "display_name": "Horizon Nest Daily"
     },
     {
       "status": "no_content",
-      "page": "page_52",
+      "page": "page_5",
       "drive_files_seen": 0,
-      "page_id": "467407709785240",
-      "page_config_name": "page_52",
-      "display_name": "I'm Joker"
-    },
-    {
-      "status": "failed",
-      "page": "page_53",
-      "error": "HTTPSConnectionPool(host='rupload.facebook.com', port=443): Max retries exceeded with url: /video-upload/v27.0/2344480269739240 (Caused by NameResolutionError(\"HTTPSConnection(host='rupload.facebook.com', port=443): Failed to resolve 'rupload.facebook.com' ([Errno -3] Temporary failure in name resolution)\"))",
-      "page_id": "223604537511488",
-      "page_config_name": "page_53",
-      "display_name": "Iron Covenant"
-    },
-    {
-      "status": "failed",
-      "page": "page_54",
-      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
-      "page_id": "730487193489250",
-      "page_config_name": "page_54",
-      "display_name": "Iron Momentum"
-    },
-    {
-      "status": "failed",
-      "page": "page_55",
-      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
-      "page_id": "514016115120845",
-      "page_config_name": "page_55",
-      "display_name": "Me The"
-    },
-    {
-      "status": "failed",
-      "page": "page_56",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "1009759155555480",
-      "page_config_name": "page_56",
-      "display_name": "Quiet Harbor"
+      "page_id": "1034326643100670",
+      "page_config_name": "page_5",
+      "display_name": "Bright Flare Hub"
     },
     {
       "status": "success",
-      "page": "page_57",
-      "drive_file_id": "1UnV6fjPMMrzy4VmLkmLa_Ks4vN0lP4Sp",
-      "facebook_video_id": "1719615326396839",
-      "filename": "Is there anyone in the comments section who likes blind boxes？ #fidgettoys .mp4",
-      "post_type": "reel",
-      "page_id": "922808234251176",
-      "page_config_name": "page_57",
-      "display_name": "Radiant Reverie"
+      "page": "page_6",
+      "drive_file_id": "1Ls3rvkCUCd43qN2j1s-QP8RN9jij51rg",
+      "facebook_video_id": "1125461993598170",
+      "filename": "手配書のニカを狙ったらまさかの結果にww #ネタ #shorts #クレーンゲーム #ufoキャッチャー #ゲーセン #自宅 #clawmachine #arcade .mp4",
+      "post_type": "classic_video",
+      "page_id": "924636817403215",
+      "page_config_name": "page_6",
+      "display_name": "LuxeEpic Frames"
     },
     {
       "status": "success",
-      "page": "page_58",
-      "drive_file_id": "1vWo8q7f6HuO2pxMqjpZupjq94FmP6sTP",
-      "facebook_video_id": "2321535401955700",
-      "filename": "How To Tie ？ _2.mp4",
+      "page": "page_7",
+      "drive_file_id": "1gPtIttSPhcgtMuQTSxuYCbB8EeXDQ1mZ",
+      "facebook_video_id": "3464360667058817",
+      "filename": "TOP BEST SHREDDING MOMENTS ｜ SATISFYING ASMR COMPILATION _3.mp4",
+      "post_type": "classic_video",
+      "page_id": "795016603693140",
+      "page_config_name": "page_7",
+      "display_name": "Lopez Edward"
+    },
+    {
+      "status": "success",
+      "page": "page_8",
+      "drive_file_id": "1t7-fSUiS3coZDvAv1_anZIrPbgzZvqvo",
+      "facebook_video_id": "922807794133055",
+      "filename": "Lioness vs. St. Bernard _ Other Way She Finished _ 🦞🤫#dogcat #eatingchallenge #pets #food #viralvideo .mp4",
       "post_type": "reel",
-      "page_id": "288008221072106",
-      "page_config_name": "page_58",
-      "display_name": "Bit Creative"
+      "page_id": "637367679454577",
+      "page_config_name": "page_8",
+      "display_name": "Crown Empire"
+    },
+    {
+      "status": "success",
+      "page": "page_9",
+      "drive_file_id": "1EoFLWOWSOhz4qk7Zmr3IDlPek3kxSZoc",
+      "facebook_video_id": "1308989824698707",
+      "filename": "Perfect idea for homemade mouse trap ⧸⧸ Mouse trap 2 #rat #rattrap #mouse #mousetrap #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "640019675857269",
+      "page_config_name": "page_9",
+      "display_name": "Crafty Champions"
+    },
+    {
+      "status": "success",
+      "page": "page_10",
+      "drive_file_id": "1G8tNRPFV1Fto5xETPWWCgXZ7q5ECJG_p",
+      "facebook_video_id": "1786062665833035",
+      "filename": "quick push pop it game #popit .mp4",
+      "post_type": "reel",
+      "page_id": "626061003919674",
+      "page_config_name": "page_10",
+      "display_name": "Fun Life"
+    },
+    {
+      "status": "success",
+      "page": "page_11",
+      "drive_file_id": "1iTqHgsldr1BD1vFwhRsGUevT5jGVVdlH",
+      "facebook_video_id": "999526086543895",
+      "filename": "She Kept Spilling… Mom’s Hack Saved It 😲🥤 .mp4",
+      "post_type": "reel",
+      "page_id": "528360240361556",
+      "page_config_name": "page_11",
+      "display_name": "Dominion Authority"
+    },
+    {
+      "status": "success",
+      "page": "page_12",
+      "drive_file_id": "1q_pORPROmKySnDUTh2yBblfpkh8K85q8",
+      "facebook_video_id": "3027980420879435",
+      "filename": "🤣 This Baby Makes Everyone Laugh #baby #cute #funny #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "503358542855153",
+      "page_config_name": "page_12",
+      "display_name": "Family Fancy"
     },
     {
       "status": "no_content",
-      "page": "page_59",
+      "page": "page_13",
       "drive_files_seen": 0,
-      "page_id": "243414155514799",
-      "page_config_name": "page_59",
-      "display_name": "Atlas Authority"
+      "page_id": "500794979779192",
+      "page_config_name": "page_13",
+      "display_name": "Me Text"
+    },
+    {
+      "status": "no_content",
+      "page": "page_14",
+      "drive_files_seen": 0,
+      "page_id": "468230386376818",
+      "page_config_name": "page_14",
+      "display_name": "Bot Mask"
     },
     {
       "status": "success",
-      "page": "page_60",
-      "drive_file_id": "14QIrzWWPwUDo3RUuoFPjaPxl35ZgSOoN",
-      "facebook_video_id": "41175345568730888",
-      "filename": "Fruit cutting amazing #satisfying #cuttingart #fruitchopping #relaxartonline _10.mp4",
+      "page": "page_15",
+      "drive_file_id": "1qNBO5eRniVWK1IEv218Im6Z9W8aVugSA",
+      "facebook_video_id": "2213321293396885",
+      "filename": "#影画演绎未来之星 #快成长计划 #内容启发分享计划 _7.mp4",
       "post_type": "reel",
-      "page_id": "921493174379801",
-      "page_config_name": "page_60",
-      "display_name": "Blissful Paradox"
+      "page_id": "106309715659174",
+      "page_config_name": "page_15",
+      "display_name": "Fresh Hive Network"
     }
   ],
   "stats": {
     "total": 15,
-    "success": 5,
-    "skipped": 3,
-    "failed": 7
+    "success": 10,
+    "skipped": 5,
+    "failed": 0
   }
 }
