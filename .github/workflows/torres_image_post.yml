@@ -51,8 +51,8 @@ jobs:
 
       - name: Install Dependencies & WireGuard
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y wireguard wireguard-tools resolvconf jq curl
+          sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y wireguard wireguard-tools resolvconf jq curl
           python -m pip install --upgrade pip
           pip install requests pyyaml google-api-python-client google-auth
 

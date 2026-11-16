@@ -9,8 +9,10 @@ echo "🔒 INITIALIZING SURFSHARK USA WIREGUARD AUTO-DEFENSE TUNNEL"
 echo "   Target Regional Profile: $TARGET_LOC"
 echo "=========================================================="
 
-sudo apt-get update -y -qq
-sudo apt-get install -y -qq wireguard wireguard-tools resolvconf curl jq
+if ! command -v wg-quick >/dev/null 2>&1; then
+    sudo DEBIAN_FRONTEND=noninteractive apt-get update -y -qq
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq wireguard wireguard-tools resolvconf curl jq
+fi
 
 sudo mkdir -p /etc/wireguard
 
