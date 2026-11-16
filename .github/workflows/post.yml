@@ -126,7 +126,16 @@ jobs:
             fi
           elif [ -n "${{ github.event.inputs.page }}" ]; then
             REQ_PAGE="${{ github.event.inputs.page }}"
-            if [ "$REQ_PAGE" = "account_7" ] || [ "$REQ_PAGE" = "usa7" ] || [[ "$REQ_PAGE" == *"page_174"* ]] || [[ "$REQ_PAGE" == *"page_175"* ]] || [[ "$REQ_PAGE" == *"page_18"* ]]; then
+            if [ "$REQ_PAGE" = "account_10" ] || [ "$REQ_PAGE" = "usa10" ] || [[ "$REQ_PAGE" == *"page_215"* ]] || [[ "$REQ_PAGE" == *"page_216"* ]] || [[ "$REQ_PAGE" == *"page_23"* ]]; then
+              TARGET_LOC="sweta_new_york"
+              ACCOUNT_NAME="Sweta Mummu"
+            elif [ "$REQ_PAGE" = "account_9" ] || [ "$REQ_PAGE" = "usa9" ] || [[ "$REQ_PAGE" == *"page_202"* ]] || [[ "$REQ_PAGE" == *"page_203"* ]] || [[ "$REQ_PAGE" == *"page_21"* ]]; then
+              TARGET_LOC="prince_new_york"
+              ACCOUNT_NAME="Prince Shah"
+            elif [ "$REQ_PAGE" = "account_8" ] || [ "$REQ_PAGE" = "usa8" ] || [[ "$REQ_PAGE" == *"page_188"* ]] || [[ "$REQ_PAGE" == *"page_189"* ]] || [[ "$REQ_PAGE" == *"page_20"* ]]; then
+              TARGET_LOC="kiya_new_york"
+              ACCOUNT_NAME="Kiya Taily"
+            elif [ "$REQ_PAGE" = "account_7" ] || [ "$REQ_PAGE" = "usa7" ] || [[ "$REQ_PAGE" == *"page_174"* ]] || [[ "$REQ_PAGE" == *"page_175"* ]] || [[ "$REQ_PAGE" == *"page_18"* ]]; then
               TARGET_LOC="henny_new_york"
               ACCOUNT_NAME="Henny Panchal"
             elif [ "$REQ_PAGE" = "account_6" ] || [ "$REQ_PAGE" = "usa6" ] || [[ "$REQ_PAGE" == *"page_159"* ]] || [[ "$REQ_PAGE" == *"page_16"* ]] || [[ "$REQ_PAGE" == *"page_17"* ]]; then
