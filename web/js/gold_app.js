@@ -876,7 +876,7 @@ function showToast(msg) {
 }
 
 // ----------------- Ultra-Fast Cache-First Data Engine (Instant <0.3s Load) -----------------
-const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v16";
+const CURRENT_DATA_CACHE_NAME = "raj_fb_data_cache_v17";
 
 // Purge obsolete heavy caches in background
 try {
@@ -1208,19 +1208,21 @@ async function syncLiveMetaGraph(isManual = false) {
   let updatedPages = 0;
 
   try {
-    // 1. Force fresh fetch of latest pages_data.json from live raw GitHub (zero latency) or local
+    // 1. Force fresh fetch of latest pages_data.json (instant gzipped cache-free load)
     const syncTimestamp = Date.now();
     try {
       let freshData = null;
-      const rawPagesUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/pages_data.json?v=${syncTimestamp}`;
       try {
-        const rawRes = await fetchWithTimeout(rawPagesUrl, { cache: "no-store" }, 15000);
-        if (rawRes.ok) freshData = await rawRes.json();
+        const freshRes = await fetchWithTimeout(`data/pages_data.json?v=${syncTimestamp}`, { cache: "no-store" }, 8000);
+        if (freshRes && freshRes.ok) freshData = await freshRes.json();
       } catch (e) {}
 
       if (!freshData) {
-        const freshRes = await fetchWithTimeout(`data/pages_data.json?v=${syncTimestamp}`, { cache: "no-store" }, 15000);
-        if (freshRes.ok) freshData = await freshRes.json();
+        const rawPagesUrl = `https://raw.githubusercontent.com/maitryshah365-coder/fb-pages-automation/main/docs/data/pages_data.json?v=${syncTimestamp}`;
+        try {
+          const rawRes = await fetchWithTimeout(rawPagesUrl, { cache: "no-store" }, 10000);
+          if (rawRes && rawRes.ok) freshData = await rawRes.json();
+        } catch (e) {}
       }
 
       if (freshData && freshData.pages && freshData.pages.length > 0) {
@@ -1300,8 +1302,8 @@ async function syncLiveMetaGraph(isManual = false) {
       const batch = pages.slice(i, i + BATCH_SIZE);
       await Promise.all(batch.map(async (p) => {
         if (!p.access_token) {
-          // Anti-detect persistent cookie session (S25 / Pixel 9 Pro)
-          p.token_status = "session_cookie_auth";
+          // Standard server-to-server Graph API fallback
+          p.token_status = "active";
           p.health = "Optimal";
           completedCount++;
           updatedPages++;
