@@ -49,10 +49,18 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-      - name: Install Dependencies
+      - name: Install Dependencies & WireGuard
         run: |
+          sudo apt-get update -y
+          sudo apt-get install -y wireguard wireguard-tools resolvconf jq curl
           python -m pip install --upgrade pip
           pip install requests pyyaml google-api-python-client google-auth
+
+      - name: Connect Surfshark USA WireGuard (New York IP for Prince Shah)
+        run: |
+          sed -i 's/\r$//' scripts/*.sh || true
+          chmod +x scripts/*.sh || true
+          bash scripts/connect_wireguard_usa.sh "prince_new_york"
 
       - name: Execute Torres Image Engine
         env:
@@ -67,6 +75,12 @@ jobs:
           fi
 
           python scripts/post_torres_image.py $EXTRA_ARGS
+
+      - name: Disconnect WireGuard Tunnel
+        if: always()
+        run: |
+          sudo wg-quick down wg0 2>/dev/null || true
+          echo "WireGuard tunnel disconnected successfully."
 
       - name: Persist SQLite Database & Upload Records
         if: always()

@@ -177,8 +177,8 @@ def execute_torres_image_upload(dry_run: bool = False, local_image_path: Optiona
         file_id = f"local_{int(datetime.now(timezone.utc).timestamp())}"
         with open(local_image_path, "rb") as f:
             image_bytes = f.read()
-        caption = f"Authentic Italian craft by Torres Matthew 🍝✨\n\n{' '.join(DEFAULT_HASHTAGS[:5])}"
-        logger.info(f"Loaded local image: {local_image_path} ({len(image_bytes)} bytes)")
+        caption = os.path.splitext(filename)[0].strip()
+        logger.info(f"Loaded local image: {local_image_path} ({len(image_bytes)} bytes) | Caption: {caption}")
 
     # Option B: Download next unposted image from Google Drive
     else:
@@ -207,12 +207,8 @@ def execute_torres_image_upload(dry_run: bool = False, local_image_path: Optiona
         with open(local_path, "rb") as f:
             image_bytes = f.read()
 
-        # Clean caption from filename
-        clean_title = os.path.splitext(filename)[0]
-        for tag in ["#pasta", "#ravioli", "#italianfood", "#shorts", "_1", "_2", "_3"]:
-            clean_title = clean_title.replace(tag, "").strip()
-        
-        caption = f"{clean_title} 🍝\n\n{' '.join(page_cfg['hashtags'][:6])}"
+        # Strict User Rule: Title/Caption is EXACTLY the file name (without extension)
+        caption = os.path.splitext(filename)[0].strip()
 
     if dry_run:
         logger.info(f"[DRY-RUN] Would publish photo '{filename}' (ID: {file_id}) to Page {page_id}")
