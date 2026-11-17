@@ -1,168 +1,166 @@
 {
-  "run_id": "44007034918",
-  "run_number": "1176",
-  "completed_at": "2026-11-17T03:26:37.614602+00:00",
+  "run_id": "44012363734",
+  "run_number": "1177",
+  "completed_at": "2026-11-17T04:01:20.981094+00:00",
   "runner_telemetry": {
-    "ip": "91.246.58.139",
-    "city": "New York City",
-    "region": "New York",
+    "ip": "45.149.173.225",
+    "city": "Los Angeles",
+    "region": "California",
     "country": "US",
-    "loc": "40.7185,-74.0025",
+    "loc": "34.0614,-118.2385",
     "org": "AS62240 Clouvider",
-    "postal": "10013",
-    "timezone": "America/New_York",
+    "postal": "90012",
+    "timezone": "America/Los_Angeles",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
-      "status": "success",
-      "page": "page_202",
-      "drive_file_id": "1h4LMlk4Zv9RN3FOAx3YaRau2UL9Y36Py",
-      "facebook_video_id": "1868363417524128",
-      "filename": "The Chaos Was Working Overtime #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals..mp4",
-      "post_type": "reel",
-      "page_id": "1011505752046767",
-      "page_config_name": "page_202",
-      "display_name": "Bold Mint Vibes"
+      "status": "no_content",
+      "page": "page_1",
+      "drive_files_seen": 0,
+      "page_id": "988523547680750",
+      "page_config_name": "page_1",
+      "display_name": "Mix Mood"
+    },
+    {
+      "status": "no_content",
+      "page": "page_2",
+      "drive_files_seen": 0,
+      "page_id": "1040244259164767",
+      "page_config_name": "page_2",
+      "display_name": "Charmy Owen"
+    },
+    {
+      "status": "no_content",
+      "page": "page_3",
+      "drive_files_seen": 0,
+      "page_id": "965629596638624",
+      "page_config_name": "page_3",
+      "display_name": "Silent Peak Social"
+    },
+    {
+      "status": "failed",
+      "page": "page_4",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "956622247541040",
+      "page_config_name": "page_4",
+      "display_name": "Horizon Nest Daily"
+    },
+    {
+      "status": "no_content",
+      "page": "page_5",
+      "drive_files_seen": 0,
+      "page_id": "1034326643100670",
+      "page_config_name": "page_5",
+      "display_name": "Bright Flare Hub"
     },
     {
       "status": "success",
-      "page": "page_203",
-      "drive_file_id": "1fJWMrhABMaycJYk1L9BynbCI5hiautpf",
-      "facebook_video_id": "1463157469283295",
-      "filename": "#剧情闪耀星 #马上开演 _2 #shorts.mp4",
+      "page": "page_6",
+      "drive_file_id": "1ILXSDtutlGIizRslx_VpHDl83COHkRRG",
+      "facebook_video_id": "2234478260467627",
+      "filename": "新作のクリーパー収納BOXを狙った結果ww #shorts #クレーンゲーム #ufoキャッチャー #ゲーセン #clawmachine #arcade #マイクラ #minecraft .mp4",
       "post_type": "reel",
-      "page_id": "1009495342239280",
-      "page_config_name": "page_203",
-      "display_name": "Urban Joy Collective"
+      "page_id": "924636817403215",
+      "page_config_name": "page_6",
+      "display_name": "LuxeEpic Frames"
+    },
+    {
+      "status": "failed",
+      "page": "page_7",
+      "error": "Bad Request: [Classic Video Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "795016603693140",
+      "page_config_name": "page_7",
+      "display_name": "Lopez Edward"
     },
     {
       "status": "success",
-      "page": "page_204",
-      "drive_file_id": "1KuLPbIcruWyV_VeLxGgCtbD4xVGxmcc0",
-      "facebook_video_id": "1673016534278278",
-      "filename": "Kuromi VS My Melody：Will you tell the truth？🆘#shorts #sanrio .mp4",
+      "page": "page_8",
+      "drive_file_id": "1kLUG-OqJb_ezsuvBuNIaES58enjHBWof",
+      "facebook_video_id": "970334879136121",
+      "filename": "Man vs Dog vs Cat Food Race_ Chaos 😭 .mp4",
       "post_type": "reel",
-      "page_id": "988411587686197",
-      "page_config_name": "page_204",
-      "display_name": "Echo Trail Studio"
+      "page_id": "637367679454577",
+      "page_config_name": "page_8",
+      "display_name": "Crown Empire"
     },
     {
       "status": "success",
-      "page": "page_205",
-      "drive_file_id": "1_V1zuyh0VzPvIY9qSymWkhSyfRsuW7Pg",
-      "facebook_video_id": "1151591084229001",
-      "filename": "西瓜盲盒，好玩又刺激！ #办公室游戏都给我卷起来 #专治各种不开心 #办公室游戏 .mp4",
+      "page": "page_9",
+      "drive_file_id": "1Fuc7qjdNpFQnbdiIIU6Y-JyFDeaXcc-d",
+      "facebook_video_id": "1712236553599168",
+      "filename": "Rat trap ｜ Mousetrap idea with beer can as roller #rattrap #mouse .mp4",
+      "post_type": "reel",
+      "page_id": "640019675857269",
+      "page_config_name": "page_9",
+      "display_name": "Crafty Champions"
+    },
+    {
+      "status": "success",
+      "page": "page_10",
+      "drive_file_id": "1roIEMVeVFkdCMHOPomAwiWXM7hFEHZnH",
+      "facebook_video_id": "1468558605429198",
+      "filename": "Satisfying with Playing Speed Push Game Pop It Eletrônico Fidget Toy ASMR #asmr #viral #trending _1.mp4",
+      "post_type": "reel",
+      "page_id": "626061003919674",
+      "page_config_name": "page_10",
+      "display_name": "Fun Life"
+    },
+    {
+      "status": "success",
+      "page": "page_11",
+      "drive_file_id": "1j6FrewvsmkbUqTxASz5DGMP_KWwrR2WA",
+      "facebook_video_id": "1012613997867956",
+      "filename": "She thought she’ll have a candy 😭👶🏻🍭 .mp4",
+      "post_type": "reel",
+      "page_id": "528360240361556",
+      "page_config_name": "page_11",
+      "display_name": "Dominion Authority"
+    },
+    {
+      "status": "success",
+      "page": "page_12",
+      "drive_file_id": "1eMHFPbzRU52lzwQhYzYRrwPVW7LnnqR1",
+      "facebook_video_id": "1676511754188239",
+      "filename": "🤣🎈 Funniest Balloon Moment Ever .mp4",
+      "post_type": "reel",
+      "page_id": "503358542855153",
+      "page_config_name": "page_12",
+      "display_name": "Family Fancy"
+    },
+    {
+      "status": "no_content",
+      "page": "page_13",
+      "drive_files_seen": 0,
+      "page_id": "500794979779192",
+      "page_config_name": "page_13",
+      "display_name": "Me Text"
+    },
+    {
+      "status": "no_content",
+      "page": "page_14",
+      "drive_files_seen": 0,
+      "page_id": "468230386376818",
+      "page_config_name": "page_14",
+      "display_name": "Bot Mask"
+    },
+    {
+      "status": "success",
+      "page": "page_15",
+      "drive_file_id": "1IeTyi2NKSkiDdc8ktRidLVpIYGD_mKB3",
+      "facebook_video_id": "962672636638031",
+      "filename": "#影画演绎未来之星 #快成长计划 _2.mp4",
       "post_type": "classic_video",
-      "page_id": "1004210909435635",
-      "page_config_name": "page_205",
-      "display_name": "Richardson  Robert"
-    },
-    {
-      "status": "success",
-      "page": "page_206",
-      "drive_file_id": "19yCYwVU5eBnBpz71WtJYlBjGAXKOPkQ0",
-      "facebook_video_id": "1150108937525620",
-      "filename": "#我的舞台我来秀 #怎么开心怎么玩 .mp4",
-      "post_type": "reel",
-      "page_id": "977906555403990",
-      "page_config_name": "page_206",
-      "display_name": "Stewart  Keith"
-    },
-    {
-      "status": "success",
-      "page": "page_207",
-      "drive_file_id": "1VJjoUAEOndJ2m4br75hi_drdO5Alr4IQ",
-      "facebook_video_id": "1676582853972936",
-      "filename": "Checkerboard ravioli #pasta #ravioli _2.mp4",
-      "post_type": "reel",
-      "page_id": "883354574851891",
-      "page_config_name": "page_207",
-      "display_name": "Torres  Matthew"
-    },
-    {
-      "status": "success",
-      "page": "page_208",
-      "drive_file_id": "1gD6CDNgnbMCCLsQIFQ83dOndYNVtIGkN",
-      "facebook_video_id": "1142182188562206",
-      "filename": "最近超火的网红泡泡糖软糖！酸酸甜甜一口一个贼上头！ #网红糖果  #种草  #解压 .mp4",
-      "post_type": "reel",
-      "page_id": "761811347026583",
-      "page_config_name": "page_208",
-      "display_name": "price  Matthew"
-    },
-    {
-      "status": "success",
-      "page": "page_209",
-      "drive_file_id": "19DiSpC0fgFdkhD2nxPrSVJM-DgePHhUr",
-      "facebook_video_id": "1075112745541237",
-      "filename": "滚到几就扎几个气球，儿子运气爆棚啊！#funny #宝宝 #萌娃 #comedy .mp4",
-      "post_type": "reel",
-      "page_id": "415000781686090",
-      "page_config_name": "page_209",
-      "display_name": "Space House"
-    },
-    {
-      "status": "success",
-      "page": "page_210",
-      "drive_file_id": "1dRt0Xq191mjJnCmuw1lev4JjMSMh9ld3",
-      "facebook_video_id": "1463812995130810",
-      "filename": "Nobody Was Ready For This Secret #MysteryBox #WaitForIt #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #BoxOpening #UnexpectedReveal..mp4",
-      "post_type": "reel",
-      "page_id": "375153609011898",
-      "page_config_name": "page_210",
-      "display_name": "Prime Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_211",
-      "drive_file_id": "1HYw9No1wIhvncZoDkpIyLzVYlRo3Qn28",
-      "facebook_video_id": "1679890253723542",
-      "filename": "One Decision Changed The Outcome Without Warning #Wildlife #Nature #WildAnimals #AnimalWorld #Survival #NatureLovers #AnimalKingdom #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "372800862573826",
-      "page_config_name": "page_211",
-      "display_name": "Yourself Creative"
-    },
-    {
-      "status": "success",
-      "page": "page_212",
-      "drive_file_id": "13_uKpwbZyDebIZIrjIhuOnwVbT2Pvo-W",
-      "facebook_video_id": "1946137266769751",
-      "filename": "Popular Knots! Which is very easy, fast, and reliable. .mp4",
-      "post_type": "reel",
-      "page_id": "369649349554622",
-      "page_config_name": "page_212",
-      "display_name": "Promise Your"
-    },
-    {
-      "status": "success",
-      "page": "page_213",
-      "drive_file_id": "1nV45YwyIphPH19mIKQLydo4_pq7HUZv-",
-      "facebook_video_id": "1178555744606485",
-      "filename": "I’m still mad 👀.mp4",
-      "post_type": "reel",
-      "page_id": "351521491370127",
-      "page_config_name": "page_213",
-      "display_name": "Vault Momentum"
-    },
-    {
-      "status": "success",
-      "page": "page_214",
-      "drive_file_id": "1WpOtFlALyGlN_eH800M_t8bFHj22alLg",
-      "facebook_video_id": "1154351417556810",
-      "filename": "Nobody Saw The Final Twist Coming #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "reel",
-      "page_id": "301772966352891",
-      "page_config_name": "page_214",
-      "display_name": "Vault Republic"
+      "page_id": "106309715659174",
+      "page_config_name": "page_15",
+      "display_name": "Fresh Hive Network"
     }
   ],
   "stats": {
-    "total": 13,
-    "success": 13,
-    "skipped": 0,
-    "failed": 0
+    "total": 15,
+    "success": 7,
+    "skipped": 6,
+    "failed": 2
   }
 }
