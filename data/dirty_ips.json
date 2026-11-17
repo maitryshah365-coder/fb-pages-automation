@@ -133,14 +133,14 @@
       "hit_count": 1
     },
     "146.70.186.166": {
-      "flagged_at": "2026-11-16T21:58:51.186371+00:00",
+      "flagged_at": "2026-11-17T04:46:40.330240+00:00",
       "reasons": [
         "Country Mismatch: Detected '', expected 'US'"
       ],
-      "country": "",
-      "city": "Unknown",
-      "org": "Unknown",
-      "hit_count": 1
+      "country": "US",
+      "city": "New York City",
+      "org": "AS9009 M247 Europe SRL",
+      "hit_count": 2
     },
     "149.102.252.46": {
       "flagged_at": "2026-11-16T21:59:02.567206+00:00",
@@ -153,5 +153,5 @@
       "hit_count": 1
     }
   },
-  "updated_at": "2026-11-16T21:59:02.567183+00:00"
+  "updated_at": "2026-11-17T04:46:40.330218+00:00"
 }
