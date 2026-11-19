@@ -63,14 +63,14 @@
       "hit_count": 2
     },
     "138.199.40.185": {
-      "flagged_at": "2026-11-11T01:23:42.596747+00:00",
+      "flagged_at": "2026-11-19T00:22:43.101850+00:00",
       "reasons": [
         "Country Mismatch: Detected '', expected 'US'"
       ],
-      "country": "",
-      "city": "Unknown",
-      "org": "Unknown",
-      "hit_count": 1
+      "country": "US",
+      "city": "New York City",
+      "org": "AS60068 Datacamp Limited",
+      "hit_count": 2
     },
     "84.17.35.69": {
       "flagged_at": "2026-11-11T12:15:08.213545+00:00",
@@ -183,5 +183,5 @@
       "hit_count": 1
     }
   },
-  "updated_at": "2026-11-18T23:21:41.977176+00:00"
+  "updated_at": "2026-11-19T00:22:43.101831+00:00"
 }
