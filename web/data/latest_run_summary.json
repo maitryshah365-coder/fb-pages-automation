@@ -1,167 +1,167 @@
 {
-  "run_id": "44428014551",
-  "run_number": "1245",
-  "completed_at": "2026-11-19T00:36:00.007853+00:00",
+  "run_id": "44428011542",
+  "run_number": "1244",
+  "completed_at": "2026-11-19T00:36:01.238069+00:00",
   "runner_telemetry": {
-    "ip": "37.19.199.229",
-    "hostname": "unn-37-19-199-229.datapacket.com",
-    "city": "New York City",
-    "region": "New York",
+    "ip": "154.47.31.5",
+    "hostname": "unn-154-47-31-5.datapacket.com",
+    "city": "Los Angeles",
+    "region": "California",
     "country": "US",
-    "loc": "40.7143,-74.0060",
+    "loc": "34.0522,-118.2437",
     "org": "AS212238 Datacamp Limited",
-    "postal": "10004",
-    "timezone": "America/New_York",
+    "postal": "90013",
+    "timezone": "America/Los_Angeles",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
       "status": "no_content",
-      "page": "page_16",
+      "page": "page_1",
       "drive_files_seen": 0,
-      "page_id": "1069951959531260",
-      "page_config_name": "page_16",
-      "display_name": "Crimson Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_17",
-      "drive_file_id": "1GOX4f61eUWtcLzQhZOYFV76StRoqPi-9",
-      "facebook_video_id": "1905705367089782",
-      "filename": "You must live this life .mp4",
-      "post_type": "reel",
-      "page_id": "979493165253123",
-      "page_config_name": "page_17",
-      "display_name": "Heven Made"
-    },
-    {
-      "status": "success",
-      "page": "page_18",
-      "drive_file_id": "1_9iEiJ8wrSO_egHGp6tLWpKXNXX1-Sio",
-      "facebook_video_id": "1090600610646645",
-      "filename": "I Could Watch This On Repeat All Day #Shorts..mp4",
-      "post_type": "reel",
-      "page_id": "920161364524597",
-      "page_config_name": "page_18",
-      "display_name": "Evening Wise"
+      "page_id": "988523547680750",
+      "page_config_name": "page_1",
+      "display_name": "Mix Mood"
     },
     {
       "status": "no_content",
-      "page": "page_19",
+      "page": "page_2",
       "drive_files_seen": 0,
-      "page_id": "1005402935985498",
-      "page_config_name": "page_19",
-      "display_name": "Glow City Stories"
+      "page_id": "1040244259164767",
+      "page_config_name": "page_2",
+      "display_name": "Charmy Owen"
     },
     {
       "status": "no_content",
-      "page": "page_20",
+      "page": "page_3",
       "drive_files_seen": 0,
-      "page_id": "802674512937262",
-      "page_config_name": "page_20",
-      "display_name": "Gonzales Jordan"
+      "page_id": "965629596638624",
+      "page_config_name": "page_3",
+      "display_name": "Silent Peak Social"
+    },
+    {
+      "status": "failed",
+      "page": "page_4",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "956622247541040",
+      "page_config_name": "page_4",
+      "display_name": "Horizon Nest Daily"
     },
     {
       "status": "no_content",
-      "page": "page_21",
+      "page": "page_5",
       "drive_files_seen": 0,
-      "page_id": "765106526695498",
-      "page_config_name": "page_21",
-      "display_name": "Gonzales Bradley"
+      "page_id": "1034326643100670",
+      "page_config_name": "page_5",
+      "display_name": "Bright Flare Hub"
     },
     {
       "status": "success",
-      "page": "page_22",
-      "drive_file_id": "1OwLaQjhH9Z6d-n7fkNOSvPFy6RuQE38g",
-      "facebook_video_id": "1522277473076112",
-      "filename": "saving the mini world Miniature rescue ASMR relaxing that's how God help us #miniworld #mustwatchcartoon #miniature #vir _235.mp4",
+      "page": "page_6",
+      "drive_file_id": "13nCd7sfMQj2xrGAYAdKhkmQwXmeenVTu",
+      "facebook_video_id": "1174599928429610",
+      "filename": "景品にして欲しい物をコメントで募集中 #ネタ #shorts #クレーンゲーム #ufoキャッチャー #ゲーセン #自宅 #clawmachine #arcade #ポケモン #pokemon .mp4",
       "post_type": "reel",
-      "page_id": "568171476378321",
-      "page_config_name": "page_22",
-      "display_name": "The Showdown Hub"
+      "page_id": "924636817403215",
+      "page_config_name": "page_6",
+      "display_name": "LuxeEpic Frames"
+    },
+    {
+      "status": "failed",
+      "page": "page_7",
+      "error": "Bad Request: [Classic Video Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "795016603693140",
+      "page_config_name": "page_7",
+      "display_name": "Lopez Edward"
     },
     {
       "status": "success",
-      "page": "page_23",
-      "drive_file_id": "1d9NgJ-1R0eFjd9ZKIb-6_zba51a2vmq1",
-      "facebook_video_id": "1658600445844692",
-      "filename": "What would you Choose？ .mp4",
+      "page": "page_8",
+      "drive_file_id": "1a_8MiuGQPnhviNJ0GyvtWRYwHfttvEzw",
+      "facebook_video_id": "1077650518659502",
+      "filename": "My Dog to a Food Race_ I Challenged BIG Mistake_ 🤣 _#shorts _#dogs _#food #challenge #viralvidei .mp4",
       "post_type": "reel",
-      "page_id": "454880037713018",
-      "page_config_name": "page_23",
-      "display_name": "Garden Super"
+      "page_id": "637367679454577",
+      "page_config_name": "page_8",
+      "display_name": "Crown Empire"
     },
     {
       "status": "success",
-      "page": "page_24",
-      "drive_file_id": "1gXTPwExGFI6g2knL1f79f8W3rTYgstVB",
-      "facebook_video_id": "1126135986977902",
-      "filename": "#Shorts #Trend #Trendingnow #Fun #Funny (399).mp4",
+      "page": "page_9",
+      "drive_file_id": "1iVBYdlKd4xi8v7ww67II7X6dmsyZjHiS",
+      "facebook_video_id": "1503172895095914",
+      "filename": "Rat trap ｜ safe beer can mouse trap idea #mousetrap #rattrap  #mouse .mp4",
       "post_type": "reel",
-      "page_id": "368653459672717",
-      "page_config_name": "page_24",
-      "display_name": "Gold encloud Studio"
+      "page_id": "640019675857269",
+      "page_config_name": "page_9",
+      "display_name": "Crafty Champions"
     },
     {
       "status": "success",
-      "page": "page_25",
-      "drive_file_id": "1TvJF0bjB890Ldsuzr_ZyUFIBIx8zEZz2",
-      "facebook_video_id": "1774213050329543",
-      "filename": "Cat and Dog 🐱🐶 Too Hot to Handle 😂 #viral #satisfying #funny .mp4",
+      "page": "page_10",
+      "drive_file_id": "1fWGn5gzzp6T4dAkxzt25Z2iBHjNgEGCi",
+      "facebook_video_id": "1204092442296909",
+      "filename": "Satisfying with Playing Speed Push Game Pop It Eletrônico Fidget Toy ASMR #asmr #viral #trending _15.mp4",
       "post_type": "reel",
-      "page_id": "359780240556577",
-      "page_config_name": "page_25",
-      "display_name": "Gintube"
-    },
-    {
-      "status": "no_content",
-      "page": "page_26",
-      "drive_files_seen": 0,
-      "page_id": "211294825398492",
-      "page_config_name": "page_26",
-      "display_name": "Sovereign Labs"
-    },
-    {
-      "status": "no_content",
-      "page": "page_27",
-      "drive_files_seen": 0,
-      "page_id": "166448239894078",
-      "page_config_name": "page_27",
-      "display_name": "Prestige Frontier"
+      "page_id": "626061003919674",
+      "page_config_name": "page_10",
+      "display_name": "Fun Life"
     },
     {
       "status": "success",
-      "page": "page_28",
-      "drive_file_id": "1QWRksL7tokb-ye9JVyeyoo5Mdu_bYrXY",
-      "facebook_video_id": "1824842318720016",
-      "filename": "The Secret Architecture Reveal #MysteryBox #HiddenWorld #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #WatchTillEnd #Transformation..mp4",
+      "page": "page_11",
+      "drive_file_id": "1s7wm0E-h1xrJ0HImnGhRN5zAn04Q8lBO",
+      "facebook_video_id": "1118535644261003",
+      "filename": "She wants a car robot 🤖🚗 .mp4",
       "post_type": "reel",
-      "page_id": "176892285514777",
-      "page_config_name": "page_28",
-      "display_name": "Zenith Empire"
+      "page_id": "528360240361556",
+      "page_config_name": "page_11",
+      "display_name": "Dominion Authority"
+    },
+    {
+      "status": "success",
+      "page": "page_12",
+      "drive_file_id": "1BO6r0WPn_c9JzlM24gFLNiHuxneSCEnk",
+      "facebook_video_id": "1468929061876192",
+      "filename": "🤣🐩 Sleeping Poodles Wake Up in Total Confusion #funnybaby #dogreaction #babylaugh #viralshorts .mp4",
+      "post_type": "reel",
+      "page_id": "503358542855153",
+      "page_config_name": "page_12",
+      "display_name": "Family Fancy"
     },
     {
       "status": "no_content",
-      "page": "page_29",
+      "page": "page_13",
       "drive_files_seen": 0,
-      "page_id": "199046363282913",
-      "page_config_name": "page_29",
-      "display_name": "Crown Voltage"
+      "page_id": "500794979779192",
+      "page_config_name": "page_13",
+      "display_name": "Me Text"
     },
     {
       "status": "no_content",
-      "page": "page_30",
+      "page": "page_14",
       "drive_files_seen": 0,
-      "page_id": "169686166222750",
-      "page_config_name": "page_30",
-      "display_name": "Supreme Ledger"
+      "page_id": "468230386376818",
+      "page_config_name": "page_14",
+      "display_name": "Bot Mask"
+    },
+    {
+      "status": "success",
+      "page": "page_15",
+      "drive_file_id": "16atXdthjuHfNYM-Lwa4ftl79GFdRGvJi",
+      "facebook_video_id": "1841178147194571",
+      "filename": "#影画演绎未来之星 #快成长计划 _5.mp4",
+      "post_type": "reel",
+      "page_id": "106309715659174",
+      "page_config_name": "page_15",
+      "display_name": "Fresh Hive Network"
     }
   ],
   "stats": {
     "total": 15,
     "success": 7,
-    "skipped": 8,
-    "failed": 0
+    "skipped": 6,
+    "failed": 2
   }
 }
