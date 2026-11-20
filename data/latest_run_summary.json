@@ -1,166 +1,173 @@
 {
-  "run_id": "44739396507",
-  "run_number": "1295",
-  "completed_at": "2026-11-20T13:10:15.801279+00:00",
+  "run_id": "44738487256",
+  "run_number": "1294",
+  "completed_at": "2026-11-20T13:12:11.442967+00:00",
   "runner_telemetry": {
-    "ip": "185.193.157.161",
-    "city": "Los Angeles",
-    "region": "California",
+    "ip": "146.70.186.190",
+    "city": "New York City",
+    "region": "New York",
     "country": "US",
-    "loc": "34.0614,-118.2385",
-    "org": "AS62240 Clouvider",
-    "postal": "90012",
-    "timezone": "America/Los_Angeles",
+    "loc": "40.7185,-74.0025",
+    "org": "AS9009 M247 Europe SRL",
+    "postal": "10013",
+    "timezone": "America/New_York",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
-      "status": "no_content",
-      "page": "page_1",
-      "drive_files_seen": 0,
-      "page_id": "988523547680750",
-      "page_config_name": "page_1",
-      "display_name": "Mix Mood"
-    },
-    {
-      "status": "no_content",
-      "page": "page_2",
-      "drive_files_seen": 0,
-      "page_id": "1040244259164767",
-      "page_config_name": "page_2",
-      "display_name": "Charmy Owen"
-    },
-    {
-      "status": "no_content",
-      "page": "page_3",
-      "drive_files_seen": 0,
-      "page_id": "965629596638624",
-      "page_config_name": "page_3",
-      "display_name": "Silent Peak Social"
-    },
-    {
-      "status": "failed",
-      "page": "page_4",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
-      "page_id": "956622247541040",
-      "page_config_name": "page_4",
-      "display_name": "Horizon Nest Daily"
-    },
-    {
-      "status": "no_content",
-      "page": "page_5",
-      "drive_files_seen": 0,
-      "page_id": "1034326643100670",
-      "page_config_name": "page_5",
-      "display_name": "Bright Flare Hub"
+      "status": "success",
+      "page": "page_174",
+      "drive_file_id": "1FyF-b80zczVJWbzsWMrNd3ANW2-aBp_P",
+      "facebook_video_id": "1653035319468407",
+      "filename": "This Panda Is Too Cute To Ignore #BabyPanda #CutePanda #PandaLife #Shorts #Reels #ViralVideo #FYP #CuteAnimals #Trending #AnimalComedy..mp4",
+      "post_type": "reel",
+      "page_id": "1022731224255296",
+      "page_config_name": "page_174",
+      "display_name": "Sovereign Media"
     },
     {
       "status": "success",
-      "page": "page_6",
-      "drive_file_id": "1PWFT0SM2J--pgxKhSkvvfpxc-LAUqwbj",
-      "facebook_video_id": "1936789967301878",
-      "filename": "景品を落とすためだけに狙い続けるww【クレーンゲーム】 .mp4",
+      "page": "page_175",
+      "drive_file_id": "1xTrzEe9Sxz3cXjxF3OSvvOaC5KY9XY6A",
+      "facebook_video_id": "1144077728015685",
+      "filename": "#小煜煜 的精彩视频 __47 #shorts.mp4",
+      "post_type": "reel",
+      "page_id": "989439317583958",
+      "page_config_name": "page_175",
+      "display_name": "Urban Vibe Sphere"
+    },
+    {
+      "status": "success",
+      "page": "page_176",
+      "drive_file_id": "1fjJEd2rBW4JiI2wjF8M_UtDb9-DnudY2",
+      "facebook_video_id": "1163437259639076",
+      "filename": "Doll Play Set Toys 👑👗🦕Satisfying Unboxing & Review🎧 .mp4",
+      "post_type": "reel",
+      "page_id": "1045331775320210",
+      "page_config_name": "page_176",
+      "display_name": "Ross  Billy"
+    },
+    {
+      "status": "success",
+      "page": "page_177",
+      "drive_file_id": "1RG2jGqRqRZoHHI-ClPPXT2HRxFDqGHMZ",
+      "facebook_video_id": "1509227501311850",
+      "filename": "Satisfying with Unboxing Cocomelon Bus School ｜ ASMR Video _24.mp4",
+      "post_type": "reel",
+      "page_id": "923764204162384",
+      "page_config_name": "page_177",
+      "display_name": "Walker  Andrew"
+    },
+    {
+      "status": "success",
+      "page": "page_178",
+      "drive_file_id": "1pj-sHMfEVeScEJB9o4rG4utxBjZVDaKO",
+      "facebook_video_id": "1175484928761853",
+      "filename": "#SpreadPositiveEnergy #CerebralPalpitation #MyHeartache #shorts #Trend #life #Sad (339).mp4",
       "post_type": "classic_video",
-      "page_id": "924636817403215",
-      "page_config_name": "page_6",
-      "display_name": "LuxeEpic Frames"
+      "page_id": "819893267879957",
+      "page_config_name": "page_178",
+      "display_name": "Williams  Joe"
+    },
+    {
+      "status": "success",
+      "page": "page_179",
+      "drive_file_id": "1a3eCFY6JZPXxfisWqeMnfozqxNiQeNmw",
+      "facebook_video_id": "1158267816713183",
+      "filename": "Desafio Divertido 🦁✨ Combine Animais com Partes do Corpo! .mp4",
+      "post_type": "reel",
+      "page_id": "872599675931336",
+      "page_config_name": "page_179",
+      "display_name": "Parker  Noah"
+    },
+    {
+      "status": "success",
+      "page": "page_180",
+      "drive_file_id": "1zyAyP75LqRxvPt57cvW0sxarPcLq7QVN",
+      "facebook_video_id": "1124878560251620",
+      "filename": "You deserve it .mp4",
+      "post_type": "reel",
+      "page_id": "736206856254000",
+      "page_config_name": "page_180",
+      "display_name": "Royal Authority"
+    },
+    {
+      "status": "success",
+      "page": "page_181",
+      "drive_file_id": "1sg9qW9hcO18gKmS5h35udKUXQ3twe3EH",
+      "facebook_video_id": "1498891035685201",
+      "filename": "The Confidence Was Unmatched #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals. (2).mp4",
+      "post_type": "classic_video",
+      "page_id": "694992067031965",
+      "page_config_name": "page_181",
+      "display_name": "Platinum Vanguard"
+    },
+    {
+      "status": "success",
+      "page": "page_182",
+      "drive_file_id": "11JWSJz7VVTs0QEYXhEWzqdQkzjgh8yaS",
+      "facebook_video_id": "1688643912818990",
+      "filename": "二狗子把胖丫老板娘忽悠了 #快演·星计划  .mp4",
+      "post_type": "reel",
+      "page_id": "428718320335997",
+      "page_config_name": "page_182",
+      "display_name": "Pixelated Paradox"
     },
     {
       "status": "failed",
-      "page": "page_7",
-      "error": "Bad Request: [Classic Video Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
-      "page_id": "795016603693140",
-      "page_config_name": "page_7",
-      "display_name": "Lopez Edward"
+      "page": "page_183",
+      "error": "Bad Request: [Reels Start Phase] Graph API Error 368 (subcode: 1404112, type: OAuthException): For security reasons, your account has limited access to the site for a few days. If you have any questions, please contact our Help Center.",
+      "page_id": "463244156877686",
+      "page_config_name": "page_183",
+      "display_name": "Me Green"
     },
     {
       "status": "success",
-      "page": "page_8",
-      "drive_file_id": "1GQxFSa3K5SmIzBF8T0ck1Um2AyWi4b12",
-      "facebook_video_id": "940758122307262",
-      "filename": "No chewing_ still win😂😺dog vs dog food challenge _challenge .mp4",
+      "page": "page_184",
+      "drive_file_id": "1iHBqJ626rAGnNbbOcoYXkzBsoh4a6hhL",
+      "facebook_video_id": "1152016900745252",
+      "filename": "Mini Beetroot Halwa🫜🫕 #mini #miniature #dolls #doll #dollhouse #shortsviral #trending .mp4",
       "post_type": "reel",
-      "page_id": "637367679454577",
-      "page_config_name": "page_8",
-      "display_name": "Crown Empire"
+      "page_id": "361270960407623",
+      "page_config_name": "page_184",
+      "display_name": "Matter Happy"
     },
     {
       "status": "success",
-      "page": "page_9",
-      "drive_file_id": "1XjyTL_q_4345ZmZfhp7sXIS5V522jasy",
-      "facebook_video_id": "1923045302011649",
-      "filename": "rat trap ｜ Watch the extremely effective mouse trap video  #rattrap #rat #shoprt .mp4",
-      "post_type": "reel",
-      "page_id": "640019675857269",
-      "page_config_name": "page_9",
-      "display_name": "Crafty Champions"
+      "page": "page_185",
+      "drive_file_id": "1bmkylXHqonZWQsMadkXaGAaR3Ll17q1c",
+      "facebook_video_id": "1491476112926332",
+      "filename": "The Easiest Way to tie Ring knot #knots #usefulknot #diy .mp4",
+      "post_type": "classic_video",
+      "page_id": "355240441000799",
+      "page_config_name": "page_185",
+      "display_name": "Craft Life"
     },
     {
       "status": "success",
-      "page": "page_10",
-      "drive_file_id": "1ye2fr3E1zkpQLrLPNIu5DdPjBpaL00h_",
-      "facebook_video_id": "2382589552579752",
-      "filename": "Satisfying with Playing Speed Push Game Pop It Eletrônico Fidget Toy ASMR #asmr #viral #trending _2.mp4",
+      "page": "page_186",
+      "drive_file_id": "1JyWsrcXcGkUI7PZu7UGb1mGjFabQAJN3",
+      "facebook_video_id": "1493959889504016",
+      "filename": "Мини кухонный нож. Knife DIY .mp4",
       "post_type": "reel",
-      "page_id": "626061003919674",
-      "page_config_name": "page_10",
-      "display_name": "Fun Life"
-    },
-    {
-      "status": "success",
-      "page": "page_11",
-      "drive_file_id": "1kOv1bcJOaSl8_Mg65N0RdFAYRdBtE0Bp",
-      "facebook_video_id": "1128890873296249",
-      "filename": "Sibling Love Part 2 👧🏻❤️👶🏻 .mp4",
-      "post_type": "reel",
-      "page_id": "528360240361556",
-      "page_config_name": "page_11",
-      "display_name": "Dominion Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_12",
-      "drive_file_id": "1Oj2BQ3EJq3PdI93hwRh6wT1Tx6w6Ezum",
-      "facebook_video_id": "2104197840211887",
-      "filename": "🤣🐶 Dogs Jump Up at Same Time #funnybaby #dogreaction #familyshorts #babylaugh #viralshorts .mp4",
-      "post_type": "reel",
-      "page_id": "503358542855153",
-      "page_config_name": "page_12",
-      "display_name": "Family Fancy"
+      "page_id": "323858564138203",
+      "page_config_name": "page_186",
+      "display_name": "Dragon Holy"
     },
     {
       "status": "no_content",
-      "page": "page_13",
+      "page": "page_187",
       "drive_files_seen": 0,
-      "page_id": "500794979779192",
-      "page_config_name": "page_13",
-      "display_name": "Me Text"
-    },
-    {
-      "status": "no_content",
-      "page": "page_14",
-      "drive_files_seen": 0,
-      "page_id": "468230386376818",
-      "page_config_name": "page_14",
-      "display_name": "Bot Mask"
-    },
-    {
-      "status": "success",
-      "page": "page_15",
-      "drive_file_id": "1TH_P_O0ctD4iPyT9Gpadgfz0C41FuAqG",
-      "facebook_video_id": "1812672906705296",
-      "filename": "#影画演绎未来之星 #快成长计划 上集 .mp4",
-      "post_type": "reel",
-      "page_id": "106309715659174",
-      "page_config_name": "page_15",
-      "display_name": "Fresh Hive Network"
+      "page_id": "208790838981955",
+      "page_config_name": "page_187",
+      "display_name": "U Tutor"
     }
   ],
   "stats": {
-    "total": 15,
-    "success": 7,
-    "skipped": 6,
-    "failed": 2
+    "total": 14,
+    "success": 12,
+    "skipped": 1,
+    "failed": 1
   }
 }
