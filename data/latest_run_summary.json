@@ -1,125 +1,167 @@
 {
-  "run_id": "44646967964",
-  "run_number": "1500",
-  "completed_at": "2026-11-20T00:46:44.932855+00:00",
+  "run_id": "44648364253",
+  "run_number": "1273",
+  "completed_at": "2026-11-20T01:07:09.217164+00:00",
   "runner_telemetry": {
-    "ip": "103.138.124.9",
-    "city": "Manchester",
-    "region": "England",
-    "country": "GB",
-    "loc": "53.4809,-2.2374",
-    "org": "AS203020 HostRoyale Technologies Pvt Ltd",
-    "postal": "M1",
-    "timezone": "Europe/London",
+    "ip": "194.33.45.73",
+    "city": "New York City",
+    "region": "New York",
+    "country": "US",
+    "loc": "40.7185,-74.0025",
+    "org": "AS62240 Clouvider",
+    "postal": "10013",
+    "timezone": "America/New_York",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
-      "status": "no_content",
-      "page": "uk7_page_1",
-      "drive_files_seen": 0,
-      "page_id": "1191247700748920",
-      "page_config_name": "uk7_page_1",
-      "display_name": "Dead Languages"
-    },
-    {
-      "status": "no_content",
-      "page": "uk7_page_2",
-      "drive_files_seen": 0,
-      "page_id": "1304768466050503",
-      "page_config_name": "uk7_page_2",
-      "display_name": "Curse The Dawn"
-    },
-    {
-      "status": "no_content",
-      "page": "uk7_page_3",
-      "drive_files_seen": 0,
-      "page_id": "1338114526042607",
-      "page_config_name": "uk7_page_3",
-      "display_name": "Cure For Monday"
-    },
-    {
-      "status": "no_content",
-      "page": "uk7_page_4",
-      "drive_files_seen": 0,
-      "page_id": "1315483674976229",
-      "page_config_name": "uk7_page_4",
-      "display_name": "Cruel Mercy"
-    },
-    {
-      "status": "no_content",
-      "page": "uk7_page_5",
-      "drive_files_seen": 0,
-      "page_id": "1195883193618072",
-      "page_config_name": "uk7_page_5",
-      "display_name": "Choke The Static"
+      "status": "success",
+      "page": "page_188",
+      "drive_file_id": "1Ac4vAy_ldCH8kQWeqWdO8H9tI7IM-_ob",
+      "facebook_video_id": "1118915824379612",
+      "filename": "The Day Started Normally Then This Happened #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival._1.mp4",
+      "post_type": "reel",
+      "page_id": "1013730745151056",
+      "page_config_name": "page_188",
+      "display_name": "Lighthouse Loop"
     },
     {
       "status": "success",
-      "page": "uk7_page_6",
-      "drive_file_id": "14abZClH8Ft9De3JTdFl2hcRVMkgJPJyk",
-      "facebook_video_id": "1190513246638809",
-      "filename": "#FastGrowthPlan #FilmPerformanceFutureStars #LikeIncentivePlan #Shorts  (418).mp4",
+      "page": "page_189",
+      "drive_file_id": "1qBoLUrImEIOmwj39QeWQlNWgNSut9ine",
+      "facebook_video_id": "2219607508984070",
+      "filename": "Please don’t .mp4",
       "post_type": "reel",
-      "page_id": "802518939617506",
-      "page_config_name": "uk7_page_6",
-      "display_name": "Lee  Charles"
+      "page_id": "954547437742008",
+      "page_config_name": "page_189",
+      "display_name": "Anderson  Aaron"
+    },
+    {
+      "status": "failed",
+      "page": "page_190",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "773180445889774",
+      "page_config_name": "page_190",
+      "display_name": "James  Jerry"
+    },
+    {
+      "status": "success",
+      "page": "page_191",
+      "drive_file_id": "1JtCd3D1nXXcNVDvXm7zd-GnrJL9-9zz5",
+      "facebook_video_id": "1824043118807602",
+      "filename": "#shorts #Viral #Trend  (254).mp4",
+      "post_type": "reel",
+      "page_id": "826484233883808",
+      "page_config_name": "page_191",
+      "display_name": "Martinez  Tyler"
+    },
+    {
+      "status": "success",
+      "page": "page_192",
+      "drive_file_id": "1vWQq8tn2TtyBNAtkk-9INkxfgrZwU9YJ",
+      "facebook_video_id": "1823928545509527",
+      "filename": "带娃的烦恼终于有解啦！ #果冻贴 #益智玩具 #启蒙早教 .mp4",
+      "post_type": "classic_video",
+      "page_id": "852273631305168",
+      "page_config_name": "page_192",
+      "display_name": "price  John"
+    },
+    {
+      "status": "success",
+      "page": "page_193",
+      "drive_file_id": "1vhHiAE4Q073upeAIFjqdcwfDM-sibsAk",
+      "facebook_video_id": "1163878283240310",
+      "filename": "#OriginalAnimation #RuralLife #FunnyAnimals #BooAbsurdVideos_.._1.mp4",
+      "post_type": "reel",
+      "page_id": "866282973229898",
+      "page_config_name": "page_193",
+      "display_name": "Peterson  Jack"
+    },
+    {
+      "status": "success",
+      "page": "page_194",
+      "drive_file_id": "1e5TOOykDdY4i6gy5dq-cp-Le_DxkqPcm",
+      "facebook_video_id": "2681275442323140",
+      "filename": "小时候我们词不达意,长大后我们言不由衷,于是我不断的记录,只想留住那些熟悉的画面,让回忆有迹可循...#老家才是疲惫生活的解药#乡愁记忆#我的乡村生活#故乡的原风景#田园生活  #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "754813164393077",
+      "page_config_name": "page_194",
+      "display_name": "Watson  Jacob"
+    },
+    {
+      "status": "success",
+      "page": "page_195",
+      "drive_file_id": "13UlTGHIF77odbq-kO9ftu1yxn0nhsv1_",
+      "facebook_video_id": "1129574929970953",
+      "filename": "Amazing video #Shorts #Docter #Tretmante #Spa #Health  (320).mp4",
+      "post_type": "classic_video",
+      "page_id": "874862069037201",
+      "page_config_name": "page_195",
+      "display_name": "Miller  Louis"
+    },
+    {
+      "status": "success",
+      "page": "page_196",
+      "drive_file_id": "1RD-386xCksNjGX8SZgjOHR3uUiMTIkHI",
+      "facebook_video_id": "2545580209262434",
+      "filename": "Nobody Was Supposed To See This #MysteryBox #WaitForIt #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #BoxOpening #UnexpectedReveal_2..mp4",
+      "post_type": "reel",
+      "page_id": "661721827032657",
+      "page_config_name": "page_196",
+      "display_name": "Ascend Collective"
+    },
+    {
+      "status": "success",
+      "page": "page_197",
+      "drive_file_id": "1xwLTGbG4ol2Iy2PpP0aeSi0o8II83tW2",
+      "facebook_video_id": "2396025004267716",
+      "filename": "#稀奇古怪的小玩意 #创意手工diy 胖乎乎～大头大头下雨不愁，大头三丽欧上新😝 .mp4",
+      "post_type": "reel",
+      "page_id": "561105803741890",
+      "page_config_name": "page_197",
+      "display_name": "Moonlit Chronicles"
+    },
+    {
+      "status": "failed",
+      "page": "page_198",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "406899832518042",
+      "page_config_name": "page_198",
+      "display_name": "Bird Beyond"
+    },
+    {
+      "status": "failed",
+      "page": "page_199",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "401091649748910",
+      "page_config_name": "page_199",
+      "display_name": "Land Butter"
     },
     {
       "status": "no_content",
-      "page": "uk7_page_7",
+      "page": "page_200",
       "drive_files_seen": 0,
-      "page_id": "896072510245887",
-      "page_config_name": "uk7_page_7",
-      "display_name": "Cooper  Billy"
+      "page_id": "371083622749739",
+      "page_config_name": "page_200",
+      "display_name": "Diary Inner"
     },
     {
       "status": "success",
-      "page": "uk7_page_8",
-      "drive_file_id": "1Dm4rS-eCN6oZmjp8UjNVKEQW47kAzb7C",
-      "facebook_video_id": "1623086222950597",
-      "filename": "🎨 Let’s Make A T Shirt 🌈 Fill It With Rainbow Colors 🎉 .mp4",
+      "page": "page_201",
+      "drive_file_id": "15nDVezXUzOGdcYnZ2yRd3prHTKXRXcfI",
+      "facebook_video_id": "1671667227985102",
+      "filename": "#special #meatchicken #flavors #spicy #yummy #shortvideo #asmr #mukbang .mp4",
       "post_type": "reel",
-      "page_id": "864838050041932",
-      "page_config_name": "uk7_page_8",
-      "display_name": "Lee  Daniel"
-    },
-    {
-      "status": "success",
-      "page": "uk7_page_9",
-      "drive_file_id": "1TxeYA9fK49zNeXza1tmODGRU7tW8UMJc",
-      "facebook_video_id": "1282630144057986",
-      "filename": "让老板撕心裂肺的哭一场 #快成长计划 #影画演绎未来之星 _20 #shorts .mp4",
-      "post_type": "reel",
-      "page_id": "870975689430311",
-      "page_config_name": "uk7_page_9",
-      "display_name": "Martin  John"
-    },
-    {
-      "status": "success",
-      "page": "uk7_page_10",
-      "drive_file_id": "1l_Dw7t1hjFyaHt0NqdKtS1de1iUbyu1a",
-      "facebook_video_id": "2915850855481116",
-      "filename": "#shorts #Funny #Viral #Trend (463).mp4",
-      "post_type": "reel",
-      "page_id": "479102298617718",
-      "page_config_name": "uk7_page_10",
-      "display_name": "Corner Spe"
-    },
-    {
-      "status": "no_content",
-      "page": "uk7_page_11",
-      "drive_files_seen": 0,
-      "page_id": "208233979039379",
-      "page_config_name": "uk7_page_11",
-      "display_name": "Memes & Mischief"
+      "page_id": "147040598502477",
+      "page_config_name": "page_201",
+      "display_name": "Chuckle Corner"
     }
   ],
   "stats": {
-    "total": 11,
-    "success": 4,
-    "skipped": 7,
-    "failed": 0
+    "total": 14,
+    "success": 10,
+    "skipped": 1,
+    "failed": 3
   }
 }
