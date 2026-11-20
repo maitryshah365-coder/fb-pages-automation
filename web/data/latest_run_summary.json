@@ -1,9 +1,9 @@
 {
-  "run_id": "44738487256",
-  "run_number": "1294",
-  "completed_at": "2026-11-20T13:12:11.442967+00:00",
+  "run_id": "44739402475",
+  "run_number": "1297",
+  "completed_at": "2026-11-20T13:14:09.380824+00:00",
   "runner_telemetry": {
-    "ip": "146.70.186.190",
+    "ip": "146.70.186.188",
     "city": "New York City",
     "region": "New York",
     "country": "US",
@@ -17,157 +17,132 @@
   "results": [
     {
       "status": "success",
-      "page": "page_174",
-      "drive_file_id": "1FyF-b80zczVJWbzsWMrNd3ANW2-aBp_P",
-      "facebook_video_id": "1653035319468407",
-      "filename": "This Panda Is Too Cute To Ignore #BabyPanda #CutePanda #PandaLife #Shorts #Reels #ViralVideo #FYP #CuteAnimals #Trending #AnimalComedy..mp4",
-      "post_type": "reel",
-      "page_id": "1022731224255296",
-      "page_config_name": "page_174",
-      "display_name": "Sovereign Media"
-    },
-    {
-      "status": "success",
-      "page": "page_175",
-      "drive_file_id": "1xTrzEe9Sxz3cXjxF3OSvvOaC5KY9XY6A",
-      "facebook_video_id": "1144077728015685",
-      "filename": "#小煜煜 的精彩视频 __47 #shorts.mp4",
-      "post_type": "reel",
-      "page_id": "989439317583958",
-      "page_config_name": "page_175",
-      "display_name": "Urban Vibe Sphere"
-    },
-    {
-      "status": "success",
-      "page": "page_176",
-      "drive_file_id": "1fjJEd2rBW4JiI2wjF8M_UtDb9-DnudY2",
-      "facebook_video_id": "1163437259639076",
-      "filename": "Doll Play Set Toys 👑👗🦕Satisfying Unboxing & Review🎧 .mp4",
-      "post_type": "reel",
-      "page_id": "1045331775320210",
-      "page_config_name": "page_176",
-      "display_name": "Ross  Billy"
-    },
-    {
-      "status": "success",
-      "page": "page_177",
-      "drive_file_id": "1RG2jGqRqRZoHHI-ClPPXT2HRxFDqGHMZ",
-      "facebook_video_id": "1509227501311850",
-      "filename": "Satisfying with Unboxing Cocomelon Bus School ｜ ASMR Video _24.mp4",
-      "post_type": "reel",
-      "page_id": "923764204162384",
-      "page_config_name": "page_177",
-      "display_name": "Walker  Andrew"
-    },
-    {
-      "status": "success",
-      "page": "page_178",
-      "drive_file_id": "1pj-sHMfEVeScEJB9o4rG4utxBjZVDaKO",
-      "facebook_video_id": "1175484928761853",
-      "filename": "#SpreadPositiveEnergy #CerebralPalpitation #MyHeartache #shorts #Trend #life #Sad (339).mp4",
+      "page": "page_145",
+      "drive_file_id": "1eEwNkW9JHy8Nt0e26sEbKPZCVlbtR0QL",
+      "facebook_video_id": "1497586112222227",
+      "filename": "jellycats ASMR ＊wax vs. nail polish＊ 🥑🧀🍳🥨 #asmrforsleep #clay #asmr #jellycat .mp4..mp4",
       "post_type": "classic_video",
-      "page_id": "819893267879957",
-      "page_config_name": "page_178",
-      "display_name": "Williams  Joe"
-    },
-    {
-      "status": "success",
-      "page": "page_179",
-      "drive_file_id": "1a3eCFY6JZPXxfisWqeMnfozqxNiQeNmw",
-      "facebook_video_id": "1158267816713183",
-      "filename": "Desafio Divertido 🦁✨ Combine Animais com Partes do Corpo! .mp4",
-      "post_type": "reel",
-      "page_id": "872599675931336",
-      "page_config_name": "page_179",
-      "display_name": "Parker  Noah"
-    },
-    {
-      "status": "success",
-      "page": "page_180",
-      "drive_file_id": "1zyAyP75LqRxvPt57cvW0sxarPcLq7QVN",
-      "facebook_video_id": "1124878560251620",
-      "filename": "You deserve it .mp4",
-      "post_type": "reel",
-      "page_id": "736206856254000",
-      "page_config_name": "page_180",
-      "display_name": "Royal Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_181",
-      "drive_file_id": "1sg9qW9hcO18gKmS5h35udKUXQ3twe3EH",
-      "facebook_video_id": "1498891035685201",
-      "filename": "The Confidence Was Unmatched #FunnyAnimals #AnimalComedy #Shorts #Reels #ViralVideo #FYP #Trending #ComedyVideo #CuteAnimals. (2).mp4",
-      "post_type": "classic_video",
-      "page_id": "694992067031965",
-      "page_config_name": "page_181",
-      "display_name": "Platinum Vanguard"
-    },
-    {
-      "status": "success",
-      "page": "page_182",
-      "drive_file_id": "11JWSJz7VVTs0QEYXhEWzqdQkzjgh8yaS",
-      "facebook_video_id": "1688643912818990",
-      "filename": "二狗子把胖丫老板娘忽悠了 #快演·星计划  .mp4",
-      "post_type": "reel",
-      "page_id": "428718320335997",
-      "page_config_name": "page_182",
-      "display_name": "Pixelated Paradox"
-    },
-    {
-      "status": "failed",
-      "page": "page_183",
-      "error": "Bad Request: [Reels Start Phase] Graph API Error 368 (subcode: 1404112, type: OAuthException): For security reasons, your account has limited access to the site for a few days. If you have any questions, please contact our Help Center.",
-      "page_id": "463244156877686",
-      "page_config_name": "page_183",
-      "display_name": "Me Green"
-    },
-    {
-      "status": "success",
-      "page": "page_184",
-      "drive_file_id": "1iHBqJ626rAGnNbbOcoYXkzBsoh4a6hhL",
-      "facebook_video_id": "1152016900745252",
-      "filename": "Mini Beetroot Halwa🫜🫕 #mini #miniature #dolls #doll #dollhouse #shortsviral #trending .mp4",
-      "post_type": "reel",
-      "page_id": "361270960407623",
-      "page_config_name": "page_184",
-      "display_name": "Matter Happy"
-    },
-    {
-      "status": "success",
-      "page": "page_185",
-      "drive_file_id": "1bmkylXHqonZWQsMadkXaGAaR3Ll17q1c",
-      "facebook_video_id": "1491476112926332",
-      "filename": "The Easiest Way to tie Ring knot #knots #usefulknot #diy .mp4",
-      "post_type": "classic_video",
-      "page_id": "355240441000799",
-      "page_config_name": "page_185",
-      "display_name": "Craft Life"
-    },
-    {
-      "status": "success",
-      "page": "page_186",
-      "drive_file_id": "1JyWsrcXcGkUI7PZu7UGb1mGjFabQAJN3",
-      "facebook_video_id": "1493959889504016",
-      "filename": "Мини кухонный нож. Knife DIY .mp4",
-      "post_type": "reel",
-      "page_id": "323858564138203",
-      "page_config_name": "page_186",
-      "display_name": "Dragon Holy"
+      "page_id": "564341273430022",
+      "page_config_name": "page_145",
+      "display_name": "The Chill Spot"
     },
     {
       "status": "no_content",
-      "page": "page_187",
-      "drive_files_seen": 0,
-      "page_id": "208790838981955",
-      "page_config_name": "page_187",
-      "display_name": "U Tutor"
+      "page": "page_147",
+      "drive_files_seen": 1,
+      "page_id": "877069835495630",
+      "page_config_name": "page_147",
+      "display_name": "Stellar Vibes"
+    },
+    {
+      "status": "no_content",
+      "page": "page_148",
+      "drive_files_seen": 1,
+      "page_id": "615554031639811",
+      "page_config_name": "page_148",
+      "display_name": "Sovereign Collective"
+    },
+    {
+      "status": "success",
+      "page": "page_149",
+      "drive_file_id": "1W_1GH1vx8BiwlN5jT3eu2oJFBFApkTkD",
+      "facebook_video_id": "29836405399311191",
+      "filename": "The Hidden Surprise Was Beyond Belief #MysteryBox #WaitForIt #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #BoxOpening #UnexpectedReveal..mp4",
+      "post_type": "reel",
+      "page_id": "1033250263200686",
+      "page_config_name": "page_149",
+      "display_name": "Silent Grove"
+    },
+    {
+      "status": "success",
+      "page": "page_150",
+      "drive_file_id": "1oB8VuGzU-_MaIkd2FiNdXZYclSLzVRMM",
+      "facebook_video_id": "1840940113776439",
+      "filename": "My magic favorite slippers! 😜✨🥰 .mp4",
+      "post_type": "reel",
+      "page_id": "614891248372171",
+      "page_config_name": "page_150",
+      "display_name": "Royal Vanguard"
+    },
+    {
+      "status": "no_content",
+      "page": "page_151",
+      "drive_files_seen": 1,
+      "page_id": "686470024541027",
+      "page_config_name": "page_151",
+      "display_name": "Royal Frontier"
+    },
+    {
+      "status": "success",
+      "page": "page_152",
+      "drive_file_id": "1V9vVTXUY-vtAeKqapK4VuQBjfMZZsU_1",
+      "facebook_video_id": "1112069658124214",
+      "filename": "鞭炮炸微波炉 #瓜子二手车 #鞭炮 .mp4",
+      "post_type": "reel",
+      "page_id": "424138757454796",
+      "page_config_name": "page_152",
+      "display_name": "Rajat Gupta"
+    },
+    {
+      "status": "success",
+      "page": "page_153",
+      "drive_file_id": "1I4hRkPt3hZBcwIQ2aNbAov4fwPm17MMu",
+      "facebook_video_id": "1465044902253998",
+      "filename": "This Dog Should Be Fired #FunnyDog #GoldenRetriever #DogComedy #Shorts #Reels #ViralVideo #FYP #CuteDogs #Trending #DogLife_2..mp4",
+      "post_type": "reel",
+      "page_id": "976706512196056",
+      "page_config_name": "page_153",
+      "display_name": "Mouth The Hang"
+    },
+    {
+      "status": "success",
+      "page": "page_154",
+      "drive_file_id": "17m3Yl08Ue6b3ZoPzeiZtzPsxwoyLnBtg",
+      "facebook_video_id": "1450302847220382",
+      "filename": "Rainbow Umbrella ☔｜ Easy Drawing For Kids #umbrella #kidstvforfun #trending #shorts #viralshorts .mp4",
+      "post_type": "reel",
+      "page_id": "473290599201289",
+      "page_config_name": "page_154",
+      "display_name": "Mojo Day"
+    },
+    {
+      "status": "success",
+      "page": "page_155",
+      "drive_file_id": "1aqIcjQYham-E17ml6UmZpnuBqZUvNFFA",
+      "facebook_video_id": "2258698008022088",
+      "filename": "🤩 Smart Appliances, Gadgets For Every Home⧸ Versatile Utensils (Inventions & Ideas) #shorts _12.mp4",
+      "post_type": "reel",
+      "page_id": "340559612467800",
+      "page_config_name": "page_155",
+      "display_name": "Fly Happy"
+    },
+    {
+      "status": "success",
+      "page": "page_157",
+      "drive_file_id": "1K8_mr6nqMnM6hf18Ocly2NWLVLdLr3nc",
+      "facebook_video_id": "1473695788187563",
+      "filename": "非常火的益智桌面玩具，踩雷磁力对战棋，谁先放完就算谁赢 .mp4",
+      "post_type": "reel",
+      "page_id": "502777659582958",
+      "page_config_name": "page_157",
+      "display_name": "Faro Fact"
+    },
+    {
+      "status": "success",
+      "page": "page_158",
+      "drive_file_id": "1Kqvz0FYihbQ77NeV2z09uLFg2Eo8OtJo",
+      "facebook_video_id": "1173221071898782",
+      "filename": "💦🎉Watch This Amazing Yellow JCB Dispenser for Water🚜💧#jcb (NO-566) #shortsfeed #yt #jin .mp4",
+      "post_type": "reel",
+      "page_id": "855725930966508",
+      "page_config_name": "page_158",
+      "display_name": "Cosmic Mirage"
     }
   ],
   "stats": {
-    "total": 14,
-    "success": 12,
-    "skipped": 1,
-    "failed": 1
+    "total": 12,
+    "success": 9,
+    "skipped": 3,
+    "failed": 0
   }
 }
