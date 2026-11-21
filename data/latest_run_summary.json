@@ -1,166 +1,166 @@
 {
-  "run_id": "44904704525",
-  "run_number": "1338",
-  "completed_at": "2026-11-21T12:50:33.619476+00:00",
+  "run_id": "44904700705",
+  "run_number": "1336",
+  "completed_at": "2026-11-21T12:52:53.672619+00:00",
   "runner_telemetry": {
-    "ip": "194.54.144.75",
-    "city": "New York City",
-    "region": "New York",
+    "ip": "45.149.173.211",
+    "city": "Los Angeles",
+    "region": "California",
     "country": "US",
-    "loc": "40.7185,-74.0025",
+    "loc": "34.0614,-118.2385",
     "org": "AS62240 Clouvider",
-    "postal": "10013",
-    "timezone": "America/New_York",
+    "postal": "90012",
+    "timezone": "America/Los_Angeles",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
       "status": "no_content",
-      "page": "page_31",
+      "page": "page_1",
       "drive_files_seen": 0,
-      "page_id": "1033900793135926",
-      "page_config_name": "page_31",
-      "display_name": "Cloud berry Lane"
-    },
-    {
-      "status": "success",
-      "page": "page_32",
-      "drive_file_id": "168qcvUXn1p9oqgwfmFeZzX7CLG1RmOg-",
-      "facebook_video_id": "1165114449320112",
-      "filename": "The Reveal Everyone Is Talking About #MysteryBox #HiddenWorld #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #WatchTillEnd #Transformation..mp4",
-      "post_type": "reel",
-      "page_id": "984876688045322",
-      "page_config_name": "page_32",
-      "display_name": "Sunset Mint Post"
-    },
-    {
-      "status": "success",
-      "page": "page_33",
-      "drive_file_id": "1O3lpsGLBvcQRhf79e7yv7lRzQdxWToX3",
-      "facebook_video_id": "1831911941744782",
-      "filename": "orbeez orbeez orbeez #shorts #balloon  #orbeez #orbeezball _1.mp4",
-      "post_type": "reel",
-      "page_id": "928116440385651",
-      "page_config_name": "page_33",
-      "display_name": "Timeless Glimpse"
+      "page_id": "988523547680750",
+      "page_config_name": "page_1",
+      "display_name": "Mix Mood"
     },
     {
       "status": "no_content",
-      "page": "page_34",
+      "page": "page_2",
       "drive_files_seen": 0,
-      "page_id": "495281633679562",
-      "page_config_name": "page_34",
-      "display_name": "The Entertainment Zone"
+      "page_id": "1040244259164767",
+      "page_config_name": "page_2",
+      "display_name": "Charmy Owen"
+    },
+    {
+      "status": "no_content",
+      "page": "page_3",
+      "drive_files_seen": 0,
+      "page_id": "965629596638624",
+      "page_config_name": "page_3",
+      "display_name": "Silent Peak Social"
+    },
+    {
+      "status": "failed",
+      "page": "page_4",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "956622247541040",
+      "page_config_name": "page_4",
+      "display_name": "Horizon Nest Daily"
+    },
+    {
+      "status": "no_content",
+      "page": "page_5",
+      "drive_files_seen": 0,
+      "page_id": "1034326643100670",
+      "page_config_name": "page_5",
+      "display_name": "Bright Flare Hub"
     },
     {
       "status": "success",
-      "page": "page_35",
-      "drive_file_id": "1XlaOg7LK5Z4_jW7Ep5JsXkopbvUfU1SE",
-      "facebook_video_id": "2123718378343239",
-      "filename": "So funny #shorts.mp4",
+      "page": "page_6",
+      "drive_file_id": "1F1mF2z7wNicMtjKUNIBG1adRPA7SdLSp",
+      "facebook_video_id": "1655685206226329",
+      "filename": "本物のクレーンゲーム機で回転寿司をしてみたww #ネタ #shorts #クレーンゲーム #ufoキャッチャー #ゲーセン #自宅 #clawmachine #arcade .mp4",
       "post_type": "reel",
-      "page_id": "461899523680517",
-      "page_config_name": "page_35",
-      "display_name": "House Note"
+      "page_id": "924636817403215",
+      "page_config_name": "page_6",
+      "display_name": "LuxeEpic Frames"
+    },
+    {
+      "status": "failed",
+      "page": "page_7",
+      "error": "Bad Request: [Classic Video Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "795016603693140",
+      "page_config_name": "page_7",
+      "display_name": "Lopez Edward"
     },
     {
       "status": "success",
-      "page": "page_36",
-      "drive_file_id": "1_TE9eEnDqgnni_sIuIjWCmO1V_8tEadi",
-      "facebook_video_id": "1796054238319880",
-      "filename": "👆💥We will create a gold jewelry bracelet together today. #goldfactory #gold .mp4",
+      "page": "page_8",
+      "drive_file_id": "1hznJCdjIlyoKpeUkQ5flTa8JpwJ7NrBo",
+      "facebook_video_id": "1814424489604428",
+      "filename": "My Dog to a Food Race_ I Challenged BIG Mistake_ 🤣 #shorts #dogs #food #challenge  #petchallenge .mp4",
       "post_type": "reel",
-      "page_id": "512339515286069",
-      "page_config_name": "page_36",
-      "display_name": "Wand Wizardry Legend"
-    },
-    {
-      "status": "no_content",
-      "page": "page_37",
-      "drive_files_seen": 0,
-      "page_id": "481027178422627",
-      "page_config_name": "page_37",
-      "display_name": "Potato Flamingo"
+      "page_id": "637367679454577",
+      "page_config_name": "page_8",
+      "display_name": "Crown Empire"
     },
     {
       "status": "success",
-      "page": "page_38",
-      "drive_file_id": "1bgpqatzZ9OYUzh0egek855feLcBQXsUP",
-      "facebook_video_id": "4779620402259119",
-      "filename": "The end of playing with mobile phones all the time！#funny .mp4",
+      "page": "page_9",
+      "drive_file_id": "1DSDSt4M6rJiLQvHAHb4BwBIXYKCULWYj",
+      "facebook_video_id": "2249256499272534",
+      "filename": "Rat trap ｜ World's Best Plastic Jar Mouse Trap Ideas 2025 #rattrap #mouse #rat #mousetrap .mp4",
       "post_type": "reel",
-      "page_id": "377394845467706",
-      "page_config_name": "page_38",
-      "display_name": "Wu Tong's Family"
-    },
-    {
-      "status": "no_content",
-      "page": "page_39",
-      "drive_files_seen": 0,
-      "page_id": "301441593063746",
-      "page_config_name": "page_39",
-      "display_name": "Prestige Authority"
-    },
-    {
-      "status": "no_content",
-      "page": "page_40",
-      "drive_files_seen": 0,
-      "page_id": "372905129232715",
-      "page_config_name": "page_40",
-      "display_name": "Sthefany oliveira"
-    },
-    {
-      "status": "no_content",
-      "page": "page_41",
-      "drive_files_seen": 0,
-      "page_id": "271543462710279",
-      "page_config_name": "page_41",
-      "display_name": "Iron Republic"
+      "page_id": "640019675857269",
+      "page_config_name": "page_9",
+      "display_name": "Crafty Champions"
     },
     {
       "status": "success",
-      "page": "page_42",
-      "drive_file_id": "1qwzj1yKb7iGbmTPEM3g0SnzxENxm0pxH",
-      "facebook_video_id": "4677266309221905",
-      "filename": "The Mystery Was Bigger Than Anyone Knew #MysteryBox #WaitForIt #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #BoxOpening #UnexpectedReveal..mp4",
+      "page": "page_10",
+      "drive_file_id": "1kNT9tHILFYrx95sMkwoXXyiGZa92bHQx",
+      "facebook_video_id": "1139111278875729",
+      "filename": "Satisfying with Playing Speed Push Game Pop It Eletrônico Fidget Toy ASMR #asmr #viral #trending _4.mp4",
       "post_type": "reel",
-      "page_id": "209182608951563",
-      "page_config_name": "page_42",
-      "display_name": "Shadow Executive"
-    },
-    {
-      "status": "no_content",
-      "page": "page_43",
-      "drive_files_seen": 0,
-      "page_id": "241688455685265",
-      "page_config_name": "page_43",
-      "display_name": "Hu1"
-    },
-    {
-      "status": "no_content",
-      "page": "page_44",
-      "drive_files_seen": 0,
-      "page_id": "171465126060636",
-      "page_config_name": "page_44",
-      "display_name": "Alpha Dynasty"
+      "page_id": "626061003919674",
+      "page_config_name": "page_10",
+      "display_name": "Fun Life"
     },
     {
       "status": "success",
-      "page": "page_45",
-      "drive_file_id": "1tOs5dlaz7q-_2TjQgRkNy0Y2PvL9ERto",
-      "facebook_video_id": "29154293530887966",
-      "filename": "🥚Pixel art ideas!？ #pixelart #pixelartideas #pixel #cute #art #drawing #artideas #miniart .mp4",
+      "page": "page_11",
+      "drive_file_id": "1ZH4YGsg0x0qPYPnnVoJiym69T0a8chCs",
+      "facebook_video_id": "977798191684480",
+      "filename": "Sibling love 👶🏻❤️👧🏻 _1.mp4",
       "post_type": "reel",
-      "page_id": "160240527166280",
-      "page_config_name": "page_45",
-      "display_name": "Path Summer"
+      "page_id": "528360240361556",
+      "page_config_name": "page_11",
+      "display_name": "Dominion Authority"
+    },
+    {
+      "status": "success",
+      "page": "page_12",
+      "drive_file_id": "14BgidNvruiiONMr42EiJcRTELgMOajjM",
+      "facebook_video_id": "1691138862410003",
+      "filename": "🤣🐶 Husky Tries to Escape Blame, Fails .mp4",
+      "post_type": "reel",
+      "page_id": "503358542855153",
+      "page_config_name": "page_12",
+      "display_name": "Family Fancy"
+    },
+    {
+      "status": "no_content",
+      "page": "page_13",
+      "drive_files_seen": 0,
+      "page_id": "500794979779192",
+      "page_config_name": "page_13",
+      "display_name": "Me Text"
+    },
+    {
+      "status": "no_content",
+      "page": "page_14",
+      "drive_files_seen": 0,
+      "page_id": "468230386376818",
+      "page_config_name": "page_14",
+      "display_name": "Bot Mask"
+    },
+    {
+      "status": "success",
+      "page": "page_15",
+      "drive_file_id": "1W0toUdHnuwZBMX5HHrji_f1K6kNUnOZ1",
+      "facebook_video_id": "2891976281174975",
+      "filename": "#影画演绎未来之星 #快成长计划 入室危险 .mp4",
+      "post_type": "reel",
+      "page_id": "106309715659174",
+      "page_config_name": "page_15",
+      "display_name": "Fresh Hive Network"
     }
   ],
   "stats": {
     "total": 15,
     "success": 7,
-    "skipped": 8,
-    "failed": 0
+    "skipped": 6,
+    "failed": 2
   }
 }
