@@ -1,7 +1,7 @@
 {
-  "run_id": "45051817686",
-  "run_number": "1378",
-  "completed_at": "2026-11-22T18:30:07.133421+00:00",
+  "run_id": "45051825932",
+  "run_number": "1382",
+  "completed_at": "2026-11-22T18:33:04.148400+00:00",
   "runner_telemetry": {
     "ip": "146.70.186.172",
     "city": "New York City",
@@ -16,136 +16,146 @@
   "dry_run": false,
   "results": [
     {
-      "status": "no_content",
-      "page": "page_46",
-      "drive_files_seen": 0,
-      "page_id": "497577420112654",
-      "page_config_name": "page_46",
-      "display_name": "Apex House"
-    },
-    {
-      "status": "failed",
-      "page": "page_47",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "487987684400252",
-      "page_config_name": "page_47",
-      "display_name": "Quantum House"
-    },
-    {
-      "status": "no_content",
-      "page": "page_48",
-      "drive_files_seen": 0,
-      "page_id": "960803123790692",
-      "page_config_name": "page_48",
-      "display_name": "Drift Valley"
+      "status": "success",
+      "page": "page_188",
+      "drive_file_id": "1Zxz0Q4zCHOH9OFPMgE9GnTWeWZpAyQng",
+      "facebook_video_id": "1150259890708947",
+      "filename": "The Giant Hand Chose Violence #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival._1.mp4",
+      "post_type": "reel",
+      "page_id": "1013730745151056",
+      "page_config_name": "page_188",
+      "display_name": "Lighthouse Loop"
     },
     {
       "status": "success",
-      "page": "page_49",
-      "drive_file_id": "1_Xr45i55Jt1S0OpEzQEq0E0_JbxBRijC",
-      "facebook_video_id": "1171159538765539",
-      "filename": "PIR PIR PATABim 🤣❤️🤷‍♂️ #youtubeshort #crafts #diy .mp4",
+      "page": "page_189",
+      "drive_file_id": "1aLPq_eF_bFSrZjuGwrcvlcdyeLCFTSmv",
+      "facebook_video_id": "1662813585642175",
+      "filename": "Real _3.mp4",
       "post_type": "reel",
-      "page_id": "923484537514216",
-      "page_config_name": "page_49",
-      "display_name": "Dreams Of Life"
+      "page_id": "954547437742008",
+      "page_config_name": "page_189",
+      "display_name": "Anderson  Aaron"
     },
     {
       "status": "failed",
-      "page": "page_50",
-      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
-      "page_id": "511317578722941",
-      "page_config_name": "page_50",
-      "display_name": "End Every"
-    },
-    {
-      "status": "failed",
-      "page": "page_51",
-      "error": "The read operation timed out",
-      "page_id": "416325608224715",
-      "page_config_name": "page_51",
-      "display_name": "Executive Empire"
-    },
-    {
-      "status": "no_content",
-      "page": "page_52",
-      "drive_files_seen": 0,
-      "page_id": "467407709785240",
-      "page_config_name": "page_52",
-      "display_name": "I'm Joker"
-    },
-    {
-      "status": "failed",
-      "page": "page_53",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "223604537511488",
-      "page_config_name": "page_53",
-      "display_name": "Iron Covenant"
-    },
-    {
-      "status": "failed",
-      "page": "page_54",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "730487193489250",
-      "page_config_name": "page_54",
-      "display_name": "Iron Momentum"
-    },
-    {
-      "status": "no_content",
-      "page": "page_55",
-      "drive_files_seen": 0,
-      "page_id": "514016115120845",
-      "page_config_name": "page_55",
-      "display_name": "Me The"
-    },
-    {
-      "status": "failed",
-      "page": "page_56",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "1009759155555480",
-      "page_config_name": "page_56",
-      "display_name": "Quiet Harbor"
+      "page": "page_190",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "773180445889774",
+      "page_config_name": "page_190",
+      "display_name": "James  Jerry"
     },
     {
       "status": "success",
-      "page": "page_57",
-      "drive_file_id": "1ZKvt_3g0D-ub_oKkfKkvRD0tFRCsd8Lp",
-      "facebook_video_id": "1814606736473877",
-      "filename": "Popular red EDC toy set #fidgettoys .mp4",
+      "page": "page_191",
+      "drive_file_id": "1nZE2LsqYYIvKP1bJNdWVcnO0Hcn3vv1K",
+      "facebook_video_id": "2060354481332456",
+      "filename": "#TalentAmongThePeople #SportsOutdoor #CapturingAnimalMoments #Mastiff..mp4",
       "post_type": "reel",
-      "page_id": "922808234251176",
-      "page_config_name": "page_57",
-      "display_name": "Radiant Reverie"
+      "page_id": "826484233883808",
+      "page_config_name": "page_191",
+      "display_name": "Martinez  Tyler"
     },
     {
       "status": "failed",
-      "page": "page_58",
+      "page": "page_192",
+      "error": "Unable to find the server at www.googleapis.com",
+      "page_id": "852273631305168",
+      "page_config_name": "page_192",
+      "display_name": "price  John"
+    },
+    {
+      "status": "success",
+      "page": "page_193",
+      "drive_file_id": "1AMDMGTjdxeL85scvzO8XTV4Dosaw9Brl",
+      "facebook_video_id": "1420809903376360",
+      "filename": "#Outdoor #Original #RuralLife #BooAbsurdVideos_...mp4",
+      "post_type": "reel",
+      "page_id": "866282973229898",
+      "page_config_name": "page_193",
+      "display_name": "Peterson  Jack"
+    },
+    {
+      "status": "success",
+      "page": "page_194",
+      "drive_file_id": "1o8qfn5EhHkUoEZpPLgCPH617T0Pq-NrG",
+      "facebook_video_id": "1535842295103420",
+      "filename": "平淡无奇的乡村里，这里没有车水马龙，有的是最愜意的生活，和最踏实的幸福...#我的乡村生活 #田园生活#乡愁记忆#故乡的原风景#乡村烟火气最抚凡人心  #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "754813164393077",
+      "page_config_name": "page_194",
+      "display_name": "Watson  Jacob"
+    },
+    {
+      "status": "success",
+      "page": "page_195",
+      "drive_file_id": "1fvhW7WK7sxrc96w-25ugDxJs8bgoc5Q4",
+      "facebook_video_id": "1675305244610981",
+      "filename": "Amazing video #Shorts #Docter #Tretmante #Spa #Health  (331).mp4",
+      "post_type": "reel",
+      "page_id": "874862069037201",
+      "page_config_name": "page_195",
+      "display_name": "Miller  Louis"
+    },
+    {
+      "status": "failed",
+      "page": "page_196",
       "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "288008221072106",
-      "page_config_name": "page_58",
-      "display_name": "Bit Creative"
+      "page_id": "661721827032657",
+      "page_config_name": "page_196",
+      "display_name": "Ascend Collective"
+    },
+    {
+      "status": "success",
+      "page": "page_197",
+      "drive_file_id": "1HGNpr4i9NtX3kfptYEg3ykOVjlpJq_yA",
+      "facebook_video_id": "1125351063671005",
+      "filename": "#蜡笔小新 #小盆友玩具 #创意钥匙扣挂件 .mp4",
+      "post_type": "reel",
+      "page_id": "561105803741890",
+      "page_config_name": "page_197",
+      "display_name": "Moonlit Chronicles"
+    },
+    {
+      "status": "failed",
+      "page": "page_198",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "406899832518042",
+      "page_config_name": "page_198",
+      "display_name": "Bird Beyond"
+    },
+    {
+      "status": "failed",
+      "page": "page_199",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "401091649748910",
+      "page_config_name": "page_199",
+      "display_name": "Land Butter"
     },
     {
       "status": "no_content",
-      "page": "page_59",
+      "page": "page_200",
       "drive_files_seen": 0,
-      "page_id": "243414155514799",
-      "page_config_name": "page_59",
-      "display_name": "Atlas Authority"
+      "page_id": "371083622749739",
+      "page_config_name": "page_200",
+      "display_name": "Diary Inner"
     },
     {
-      "status": "failed",
-      "page": "page_60",
-      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
-      "page_id": "921493174379801",
-      "page_config_name": "page_60",
-      "display_name": "Blissful Paradox"
+      "status": "success",
+      "page": "page_201",
+      "drive_file_id": "1QCWgLCaf9dPtTrpytrqMiPcZCTvYvMDz",
+      "facebook_video_id": "3003581303337888",
+      "filename": "#special #spicynoodlesoup #yummy #shortvideo #asmr .mp4",
+      "post_type": "reel",
+      "page_id": "147040598502477",
+      "page_config_name": "page_201",
+      "display_name": "Chuckle Corner"
     }
   ],
   "stats": {
-    "total": 15,
-    "success": 2,
-    "skipped": 5,
-    "failed": 8
+    "total": 14,
+    "success": 8,
+    "skipped": 1,
+    "failed": 5
   }
 }
