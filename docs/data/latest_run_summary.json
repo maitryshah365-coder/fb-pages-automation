@@ -1,143 +1,167 @@
 {
-  "run_id": "45257111051",
-  "run_number": "1569",
-  "completed_at": "2026-11-23T20:32:34.106773+00:00",
+  "run_id": "45281070832",
+  "run_number": "1421",
+  "completed_at": "2026-11-23T22:52:36.214468+00:00",
   "runner_telemetry": {
-    "ip": "213.166.86.94",
-    "hostname": "94.86.166.213.baremetal.zare.com",
-    "city": "London",
-    "region": "England",
-    "country": "GB",
-    "loc": "51.5085,-0.1257",
-    "org": "AS25369 Hydra Communications Ltd",
-    "postal": "WC2N",
-    "timezone": "Europe/London",
+    "ip": "138.199.35.5",
+    "hostname": "unn-138-199-35-5.datapacket.com",
+    "city": "Los Angeles",
+    "region": "California",
+    "country": "US",
+    "loc": "34.0522,-118.2437",
+    "org": "AS212238 Datacamp Limited",
+    "postal": "90013",
+    "timezone": "America/Los_Angeles",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
+      "status": "no_content",
+      "page": "page_1",
+      "drive_files_seen": 0,
+      "page_id": "988523547680750",
+      "page_config_name": "page_1",
+      "display_name": "Mix Mood"
+    },
+    {
+      "status": "no_content",
+      "page": "page_2",
+      "drive_files_seen": 0,
+      "page_id": "1040244259164767",
+      "page_config_name": "page_2",
+      "display_name": "Charmy Owen"
+    },
+    {
+      "status": "no_content",
+      "page": "page_3",
+      "drive_files_seen": 0,
+      "page_id": "965629596638624",
+      "page_config_name": "page_3",
+      "display_name": "Silent Peak Social"
+    },
+    {
+      "status": "failed",
+      "page": "page_4",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "956622247541040",
+      "page_config_name": "page_4",
+      "display_name": "Horizon Nest Daily"
+    },
+    {
+      "status": "no_content",
+      "page": "page_5",
+      "drive_files_seen": 0,
+      "page_id": "1034326643100670",
+      "page_config_name": "page_5",
+      "display_name": "Bright Flare Hub"
+    },
+    {
       "status": "success",
-      "page": "uk2_page_1",
-      "drive_file_id": "1_8qLQatrw3CMHoToHIMO5c7-BwX8oI6a",
-      "facebook_video_id": "2238987773352765",
-      "filename": "The Moment That Touched Everyone When Nobody Expected It #EmotionalStory #HeartTouching #LifeLesson #Humanity #Hope #Inspiration #Cinematic #StoryTime #ViralVideo #Reels #Shorts..mp4",
+      "page": "page_6",
+      "drive_file_id": "137wNmTD_HxwXw9G7_chtg1aeuNLQXWh9",
+      "facebook_video_id": "1167042929483402",
+      "filename": "泳ぎ回るドリーを狙って挑戦した結果ww #ネタ #shorts #クレーンゲーム #ufoキャッチャー #ゲーセン #自宅 #clawmachine #arcade .mp4",
       "post_type": "reel",
-      "page_id": "1257864287403392",
-      "page_config_name": "uk2_page_1",
-      "display_name": "Silent Atlas"
+      "page_id": "924636817403215",
+      "page_config_name": "page_6",
+      "display_name": "LuxeEpic Frames"
     },
     {
-      "status": "no_content",
-      "page": "uk2_page_2",
-      "drive_files_seen": 0,
-      "page_id": "1278509768670990",
-      "page_config_name": "uk2_page_2",
-      "display_name": "Rusted Compass"
+      "status": "failed",
+      "page": "page_7",
+      "error": "Bad Request: [Classic Video Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "795016603693140",
+      "page_config_name": "page_7",
+      "display_name": "Lopez Edward"
     },
     {
       "status": "success",
-      "page": "uk2_page_3",
-      "drive_file_id": "1I6EWDtBtyTEKSwUcp5pdD02lWsZkKjBj",
-      "facebook_video_id": "1192270899919654",
-      "filename": "This Scene Left Everyone Speechless Beyond Expectations #Cinematic #AIVideo #Storytelling #MovieScene #VisualEffects #AIFilm #Trending #ViralVideo #Reels #Shorts..mp4",
+      "page": "page_8",
+      "drive_file_id": "14aBgduKyQxuIGLNq2yvjUfrESqdpvtR4",
+      "facebook_video_id": "1560746729131469",
+      "filename": "One Table_ Three Choices – Who Wins_😱😨 .mp4",
       "post_type": "reel",
-      "page_id": "1165355063335637",
-      "page_config_name": "uk2_page_3",
-      "display_name": "Yo to Gone"
+      "page_id": "637367679454577",
+      "page_config_name": "page_8",
+      "display_name": "Crown Empire"
     },
     {
       "status": "success",
-      "page": "uk2_page_4",
-      "drive_file_id": "1lkCYRtyKDf4OX5Bb1oqOJNA4L7k8xOYB",
-      "facebook_video_id": "2204710330426034",
-      "filename": "The Next Sports Icon Like A True Champion #BabySports #FutureChampion #Football #Soccer #Sports #CuteBaby #Athlete #SportsLife #ViralVideo #Shorts..mp4",
+      "page": "page_9",
+      "drive_file_id": "1NrX6XzGCiWYarR0w_7LW6NPK_OLEQWbE",
+      "facebook_video_id": "2623264471449613",
+      "filename": "Rat trap, Top 10 extremely effective homemade mouse traps #shoprts  #rat #mousetrap #animals #mouse .mp4",
       "post_type": "reel",
-      "page_id": "1054813994376761",
-      "page_config_name": "uk2_page_4",
-      "display_name": "Velvet Authority"
-    },
-    {
-      "status": "no_content",
-      "page": "uk2_page_5",
-      "drive_files_seen": 0,
-      "page_id": "1058909860631103",
-      "page_config_name": "uk2_page_5",
-      "display_name": "Urban Drift"
-    },
-    {
-      "status": "no_content",
-      "page": "uk2_page_6",
-      "drive_files_seen": 0,
-      "page_id": "1020848977772131",
-      "page_config_name": "uk2_page_6",
-      "display_name": "Johnson  Jerry"
+      "page_id": "640019675857269",
+      "page_config_name": "page_9",
+      "display_name": "Crafty Champions"
     },
     {
       "status": "success",
-      "page": "uk2_page_7",
-      "drive_file_id": "1SECBaU8a2CwwXD5TZMRZGBTDrpPA4ewm",
-      "facebook_video_id": "1156603413446452",
-      "filename": "Survival Skills： single mom with Smart Amazing idea and Useful #camping #outdoors #bushcraft .mp4",
+      "page": "page_10",
+      "drive_file_id": "1w0PlSG7Amg5gyB3hk6GYaA49hayqJWoj",
+      "facebook_video_id": "4163601870606164",
+      "filename": "Satisfying with Unboxing & Review of fashion beauty make up set #makeupkit  #makeup  #toys .mp4",
       "post_type": "reel",
-      "page_id": "820574291145280",
-      "page_config_name": "uk2_page_7",
-      "display_name": "Hill  Alan"
-    },
-    {
-      "status": "no_content",
-      "page": "uk2_page_8",
-      "drive_files_seen": 0,
-      "page_id": "870381232821932",
-      "page_config_name": "uk2_page_8",
-      "display_name": "James  Jose"
-    },
-    {
-      "status": "no_content",
-      "page": "uk2_page_9",
-      "drive_files_seen": 0,
-      "page_id": "779283818590888",
-      "page_config_name": "uk2_page_9",
-      "display_name": "Titan Republic"
+      "page_id": "626061003919674",
+      "page_config_name": "page_10",
+      "display_name": "Fun Life"
     },
     {
       "status": "success",
-      "page": "uk2_page_10",
-      "drive_file_id": "1RbIncuvhRI4GvCAgyVdgjdxEJuAKqhGS",
-      "facebook_video_id": "1145445358031048",
-      "filename": "阿钟今天来做海盐味冰淇淋 #美食 #零食 #冰淇淋 #零食推荐 .mp4",
+      "page": "page_11",
+      "drive_file_id": "16hJT_MSXh2mRImEsj23GEY-ub-GMRkUY",
+      "facebook_video_id": "1644610283820200",
+      "filename": "Sister also gets surprise lollipop 🍭🍬 .mp4",
+      "post_type": "reel",
+      "page_id": "528360240361556",
+      "page_config_name": "page_11",
+      "display_name": "Dominion Authority"
+    },
+    {
+      "status": "success",
+      "page": "page_12",
+      "drive_file_id": "1b99GaI9mIaFP3yf4C1-3pXHti4oOSDTM",
+      "facebook_video_id": "1287163233607955",
+      "filename": "🤣💥 Balloon Goes BOOM, Dogs Go Crazy .mp4",
+      "post_type": "reel",
+      "page_id": "503358542855153",
+      "page_config_name": "page_12",
+      "display_name": "Family Fancy"
+    },
+    {
+      "status": "no_content",
+      "page": "page_13",
+      "drive_files_seen": 0,
+      "page_id": "500794979779192",
+      "page_config_name": "page_13",
+      "display_name": "Me Text"
+    },
+    {
+      "status": "no_content",
+      "page": "page_14",
+      "drive_files_seen": 0,
+      "page_id": "468230386376818",
+      "page_config_name": "page_14",
+      "display_name": "Bot Mask"
+    },
+    {
+      "status": "success",
+      "page": "page_15",
+      "drive_file_id": "1zdTui4-aTiovBWUE-CQodMPmXwc_5Pl8",
+      "facebook_video_id": "2205973483464326",
+      "filename": "#快成长计划 #内容启发分享计划 #影画演绎未来之星 _3.mp4",
       "post_type": "classic_video",
-      "page_id": "514777565046552",
-      "page_config_name": "uk2_page_10",
-      "display_name": "Dandelion Diaries"
-    },
-    {
-      "status": "success",
-      "page": "uk2_page_11",
-      "drive_file_id": "14drtZCmrHs7b2Qx3QhzaopjqsE-LPTJX",
-      "facebook_video_id": "1481298004093626",
-      "filename": "谁懂这个磨砂！细闪！蕾丝胶带卷的含金量？ #手帐胶带 #手帐er手帐日常 .mp4",
-      "post_type": "reel",
-      "page_id": "500491343147382",
-      "page_config_name": "uk2_page_11",
-      "display_name": "Infinite Stories"
-    },
-    {
-      "status": "success",
-      "page": "uk2_page_12",
-      "drive_file_id": "1VwhHJUKbzz16qEgIW9FPSYf1Acnz23Vf",
-      "facebook_video_id": "1174256808668373",
-      "filename": "KibToys decompression toy#kibtoys #toys #toy #funnytoys  #funnyshorts  #toyfancy #funny _4.mp4",
-      "post_type": "reel",
-      "page_id": "490559100806079",
-      "page_config_name": "uk2_page_12",
-      "display_name": "Idea Acy"
+      "page_id": "106309715659174",
+      "page_config_name": "page_15",
+      "display_name": "Fresh Hive Network"
     }
   ],
   "stats": {
-    "total": 12,
+    "total": 15,
     "success": 7,
-    "skipped": 5,
-    "failed": 0
+    "skipped": 6,
+    "failed": 2
   }
 }
