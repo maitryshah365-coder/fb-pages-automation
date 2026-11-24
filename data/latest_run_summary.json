@@ -1,7 +1,7 @@
 {
-  "run_id": "45417762678",
-  "run_number": "1443",
-  "completed_at": "2026-11-24T15:14:30.262229+00:00",
+  "run_id": "45421158229",
+  "run_number": "1444",
+  "completed_at": "2026-11-24T15:29:24.082176+00:00",
   "runner_telemetry": {
     "ip": "109.204.52.77",
     "hostname": "unn-109-204-52-77.datapacket.com",
@@ -17,146 +17,152 @@
   "dry_run": false,
   "results": [
     {
-      "status": "no_content",
-      "page": "page_174",
-      "drive_files_seen": 0,
-      "page_id": "1022731224255296",
-      "page_config_name": "page_174",
-      "display_name": "Sovereign Media"
-    },
-    {
       "status": "success",
-      "page": "page_175",
-      "drive_file_id": "1-y1snbbY_quySa6Hgkx5fsuwG9ncXe6O",
-      "facebook_video_id": "1700253218136131",
-      "filename": "#小煜煜 的精彩视频 __59 #shorts.mp4",
+      "page": "page_188",
+      "drive_file_id": "1aznWI2MhJsoN19aRf1EO8aax9kVXeVRm",
+      "facebook_video_id": "3516913491802394",
+      "filename": "The Giant Hand Never Stopped #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
       "post_type": "reel",
-      "page_id": "989439317583958",
-      "page_config_name": "page_175",
-      "display_name": "Urban Vibe Sphere"
+      "page_id": "1013730745151056",
+      "page_config_name": "page_188",
+      "display_name": "Lighthouse Loop"
     },
     {
       "status": "success",
-      "page": "page_176",
-      "drive_file_id": "1C3RAA0odz8eT1xDPNLKXRzd4pDibDBmH",
-      "facebook_video_id": "1757766181988481",
-      "filename": "Doll Play Set Toys 😻👶📱Satisfying Unboxing & Review🎧 .mp4",
+      "page": "page_189",
+      "drive_file_id": "18kvoclwHnX1iaqTNKt2uSxrxjTviLxxo",
+      "facebook_video_id": "1703662308144603",
+      "filename": "Say hello to Dave .mp4",
       "post_type": "reel",
-      "page_id": "1045331775320210",
-      "page_config_name": "page_176",
-      "display_name": "Ross  Billy"
-    },
-    {
-      "status": "success",
-      "page": "page_177",
-      "drive_file_id": "1cenFXvHcBhHGNo0yNL5HaY20Xx85_GY7",
-      "facebook_video_id": "1519023200069086",
-      "filename": "Unboxing Cocomelon Satisfying With Mimi Toys Videos #asmr _1.mp4",
-      "post_type": "reel",
-      "page_id": "923764204162384",
-      "page_config_name": "page_177",
-      "display_name": "Walker  Andrew"
-    },
-    {
-      "status": "success",
-      "page": "page_178",
-      "drive_file_id": "1FbQoCr7nZJzuLd6ye5JxXEqho62TqXVS",
-      "facebook_video_id": "1456001703396992",
-      "filename": "#SpreadPositiveEnergy #CerebralPalpitation #MyHeartache #shorts #Trend #life #Sad (352).mp4",
-      "post_type": "classic_video",
-      "page_id": "819893267879957",
-      "page_config_name": "page_178",
-      "display_name": "Williams  Joe"
-    },
-    {
-      "status": "success",
-      "page": "page_179",
-      "drive_file_id": "1MRYIQBdhliETxYxhXc_jy0SCWZ1p0vrU",
-      "facebook_video_id": "1717786456618543",
-      "filename": "Descubra Ideias Divertidas para Transformar seu Sanduíche! 🥪✨ .mp4",
-      "post_type": "reel",
-      "page_id": "872599675931336",
-      "page_config_name": "page_179",
-      "display_name": "Parker  Noah"
-    },
-    {
-      "status": "no_content",
-      "page": "page_180",
-      "drive_files_seen": 0,
-      "page_id": "736206856254000",
-      "page_config_name": "page_180",
-      "display_name": "Royal Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_181",
-      "drive_file_id": "1n0qImXGzuM1sATGzboaQyXLZbT9v8uOG",
-      "facebook_video_id": "1294706812988416",
-      "filename": "The Dog Broke The System #FunnyDog #GoldenRetriever #DogComedy #Shorts #Reels #ViralVideo #FYP #CuteDogs #Trending #DogLife..mp4",
-      "post_type": "reel",
-      "page_id": "694992067031965",
-      "page_config_name": "page_181",
-      "display_name": "Platinum Vanguard"
-    },
-    {
-      "status": "success",
-      "page": "page_182",
-      "drive_file_id": "1EBSnj8dIb9Sqk4Y56VUWzkjRDqsKmAPt",
-      "facebook_video_id": "1675392557616116",
-      "filename": "二狗子抽到了一张胖丫老板娘改过的奖票 #快成长计划  #影画演绎未来之星  .mp4",
-      "post_type": "reel",
-      "page_id": "428718320335997",
-      "page_config_name": "page_182",
-      "display_name": "Pixelated Paradox"
+      "page_id": "954547437742008",
+      "page_config_name": "page_189",
+      "display_name": "Anderson  Aaron"
     },
     {
       "status": "failed",
-      "page": "page_183",
-      "error": "Bad Request: [Reels Start Phase] Graph API Error 368 (subcode: 1404112, type: OAuthException): For security reasons, your account has limited access to the site for a few days. If you have any questions, please contact our Help Center.",
-      "page_id": "463244156877686",
-      "page_config_name": "page_183",
-      "display_name": "Me Green"
+      "page": "page_190",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "773180445889774",
+      "page_config_name": "page_190",
+      "display_name": "James  Jerry"
     },
     {
       "status": "success",
-      "page": "page_184",
-      "drive_file_id": "1AMURdgfpxR8pfFHkLOTMDlO_qrDD3Fzz",
-      "facebook_video_id": "1151818823908956",
-      "filename": "Mini Clay Kitchen Set😇 #mini #miniature #dollhouse #doll #dolls #shortsviral #trending .mp4",
+      "page": "page_191",
+      "drive_file_id": "1UvyILJ5Jwg9_YWCRnKhJBs7M74LT6RbF",
+      "facebook_video_id": "1504661458396769",
+      "filename": "#ThisDogHasGoneWild #TrendyLifeGrowthStar #GrowthAccelerationPlan #PopularityBoostProgram..mp4",
       "post_type": "reel",
-      "page_id": "361270960407623",
-      "page_config_name": "page_184",
-      "display_name": "Matter Happy"
+      "page_id": "826484233883808",
+      "page_config_name": "page_191",
+      "display_name": "Martinez  Tyler"
+    },
+    {
+      "status": "success",
+      "page": "page_192",
+      "drive_file_id": "17oubeegapD9hoK8e4YHMbaxdFlnHq47w",
+      "facebook_video_id": "2168286953784278",
+      "filename": "开学快给孩子安排这款自律旋转笔筒，助力孩子养成自律的好习惯！ #笔筒 #桌面收纳 .mp4",
+      "post_type": "reel",
+      "page_id": "852273631305168",
+      "page_config_name": "page_192",
+      "display_name": "price  John"
+    },
+    {
+      "status": "success",
+      "page": "page_193",
+      "drive_file_id": "1-zsMYBSoUWdbHD6likUfaUvs3TeTjtY5",
+      "facebook_video_id": "1780783593019070",
+      "filename": "#Rural #Original #Funny #BooAbsurdVideo _.._1.mp4",
+      "post_type": "reel",
+      "page_id": "866282973229898",
+      "page_config_name": "page_193",
+      "display_name": "Peterson  Jack"
+    },
+    {
+      "status": "success",
+      "page": "page_194",
+      "drive_file_id": "1fq3Oex2cOFqatYwFCPmjDbiITgUrrCGG",
+      "facebook_video_id": "2132340720986255",
+      "filename": "平淡的乡村里藏着惬意的生活，儿时并不在意的场景，却是现在回不去的曾经...#故乡的原风景 #乡愁记忆 #童年回忆 #乡野田间 #农村生活  #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "754813164393077",
+      "page_config_name": "page_194",
+      "display_name": "Watson  Jacob"
+    },
+    {
+      "status": "success",
+      "page": "page_195",
+      "drive_file_id": "1TPV0giiX-nltHbjT2DMIdpLJeeoBidft",
+      "facebook_video_id": "2072362196789524",
+      "filename": "Amazing video #Shorts #Docter #Tretmante #Spa #Health  (337).mp4",
+      "post_type": "reel",
+      "page_id": "874862069037201",
+      "page_config_name": "page_195",
+      "display_name": "Miller  Louis"
+    },
+    {
+      "status": "success",
+      "page": "page_196",
+      "drive_file_id": "1WjnfiIi1q4CjMNLUt2B4k8Sm41D4vhOS",
+      "facebook_video_id": "2655406994899936",
+      "filename": "The Ancient Secret Hidden Behind The Seal #AncientSecrets #LostArtifact #WatchTillEnd #Reveal #Shorts #ViralVideo #FYP #History #HiddenDiscovery..mp4",
+      "post_type": "reel",
+      "page_id": "661721827032657",
+      "page_config_name": "page_196",
+      "display_name": "Ascend Collective"
+    },
+    {
+      "status": "success",
+      "page": "page_197",
+      "drive_file_id": "11d87T4-zfUWwm5ts5KjgK7cRUEphJSNl",
+      "facebook_video_id": "1681636830328083",
+      "filename": "#酒瓶小夜灯 Diy小酒瓶来喽～ .mp4",
+      "post_type": "reel",
+      "page_id": "561105803741890",
+      "page_config_name": "page_197",
+      "display_name": "Moonlit Chronicles"
     },
     {
       "status": "failed",
-      "page": "page_185",
-      "error": "HTTPSConnectionPool(host='graph.facebook.com', port=443): Max retries exceeded with url: /v20.0/355240441000799/video_reels (Caused by NameResolutionError(\"HTTPSConnection(host='graph.facebook.com', port=443): Failed to resolve 'graph.facebook.com' ([Errno -3] Temporary failure in name resolution)\"))",
-      "page_id": "355240441000799",
-      "page_config_name": "page_185",
-      "display_name": "Craft Life"
+      "page": "page_198",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "406899832518042",
+      "page_config_name": "page_198",
+      "display_name": "Bird Beyond"
     },
     {
       "status": "failed",
-      "page": "page_186",
-      "error": "Unable to find the server at www.googleapis.com",
-      "page_id": "323858564138203",
-      "page_config_name": "page_186",
-      "display_name": "Dragon Holy"
+      "page": "page_199",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "401091649748910",
+      "page_config_name": "page_199",
+      "display_name": "Land Butter"
     },
     {
       "status": "no_content",
-      "page": "page_187",
+      "page": "page_200",
       "drive_files_seen": 0,
-      "page_id": "208790838981955",
-      "page_config_name": "page_187",
-      "display_name": "U Tutor"
+      "page_id": "371083622749739",
+      "page_config_name": "page_200",
+      "display_name": "Diary Inner"
+    },
+    {
+      "status": "success",
+      "page": "page_201",
+      "drive_file_id": "1Is-XVEeckWWpvnFvVLhr5kNMrz1cZJPJ",
+      "facebook_video_id": "2399213177491591",
+      "filename": "#spicynoodlesoup #special #yummy #shortvideo #asmr .mp4",
+      "post_type": "reel",
+      "page_id": "147040598502477",
+      "page_config_name": "page_201",
+      "display_name": "Chuckle Corner"
     }
   ],
   "stats": {
     "total": 14,
-    "success": 8,
-    "skipped": 3,
+    "success": 10,
+    "skipped": 1,
     "failed": 3
   }
 }
