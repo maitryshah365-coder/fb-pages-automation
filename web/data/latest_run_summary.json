@@ -1,175 +1,166 @@
 {
-  "run_id": "45499644762",
-  "run_number": "1454",
-  "completed_at": "2026-11-24T22:41:32.268560+00:00",
+  "run_id": "45519300657",
+  "run_number": "1455",
+  "completed_at": "2026-11-25T00:53:47.577755+00:00",
   "runner_telemetry": {
-    "ip": "194.33.45.113",
-    "city": "New York City",
-    "region": "New York",
+    "ip": "185.193.157.179",
+    "city": "Los Angeles",
+    "region": "California",
     "country": "US",
-    "loc": "40.7185,-74.0025",
+    "loc": "34.0614,-118.2385",
     "org": "AS62240 Clouvider",
-    "postal": "10013",
-    "timezone": "America/New_York",
+    "postal": "90012",
+    "timezone": "America/Los_Angeles",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
       "status": "no_content",
-      "page": "page_46",
+      "page": "page_1",
       "drive_files_seen": 0,
-      "page_id": "497577420112654",
-      "page_config_name": "page_46",
-      "display_name": "Apex House"
-    },
-    {
-      "status": "success",
-      "page": "page_47",
-      "drive_file_id": "1DWzR9d8rqWfoT69cWVktESMo70YqV9Gi",
-      "facebook_video_id": "1200169785772687",
-      "filename": "Turning My Face Into Sparkling Hearts 💖 #beauty #makeup .mp4",
-      "post_type": "reel",
-      "page_id": "487987684400252",
-      "page_config_name": "page_47",
-      "display_name": "Quantum House"
+      "page_id": "988523547680750",
+      "page_config_name": "page_1",
+      "display_name": "Mix Mood"
     },
     {
       "status": "no_content",
-      "page": "page_48",
+      "page": "page_2",
       "drive_files_seen": 0,
-      "page_id": "960803123790692",
-      "page_config_name": "page_48",
-      "display_name": "Drift Valley"
-    },
-    {
-      "status": "success",
-      "page": "page_49",
-      "drive_file_id": "1pJ53NwgmG-RLFM6b6UI2l0O82Oqy2R6I",
-      "facebook_video_id": "2331593184363490",
-      "filename": "Sessiz ol pi pi pikapu #youtubeshort #diy #art #craft #kidssongs .mp4",
-      "post_type": "reel",
-      "page_id": "923484537514216",
-      "page_config_name": "page_49",
-      "display_name": "Dreams Of Life"
-    },
-    {
-      "status": "success",
-      "page": "page_50",
-      "drive_file_id": "17OejpEFTnzfWmNaEtfd2cssbI8vuaxFs",
-      "facebook_video_id": "2263311324563570",
-      "filename": "THE PRINCE MOCKED THE OLD MUSICIAN — UNTIL THE ANTHEM CHANGED The royal concert hall glowed .mp4",
-      "post_type": "reel",
-      "page_id": "511317578722941",
-      "page_config_name": "page_50",
-      "display_name": "End Every"
-    },
-    {
-      "status": "success",
-      "page": "page_51",
-      "drive_file_id": "1pR-sZKLS6lLoFGVt-vzMg7aAhHMMkxeX",
-      "facebook_video_id": "1133641769377173",
-      "filename": "جبر خواطر الايسكريم والأطفال السعيدة 🥹🍨😂🥳 _231.mp4",
-      "post_type": "reel",
-      "page_id": "416325608224715",
-      "page_config_name": "page_51",
-      "display_name": "Executive Empire"
+      "page_id": "1040244259164767",
+      "page_config_name": "page_2",
+      "display_name": "Charmy Owen"
     },
     {
       "status": "no_content",
-      "page": "page_52",
+      "page": "page_3",
       "drive_files_seen": 0,
-      "page_id": "467407709785240",
-      "page_config_name": "page_52",
-      "display_name": "I'm Joker"
+      "page_id": "965629596638624",
+      "page_config_name": "page_3",
+      "display_name": "Silent Peak Social"
+    },
+    {
+      "status": "failed",
+      "page": "page_4",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "956622247541040",
+      "page_config_name": "page_4",
+      "display_name": "Horizon Nest Daily"
+    },
+    {
+      "status": "no_content",
+      "page": "page_5",
+      "drive_files_seen": 0,
+      "page_id": "1034326643100670",
+      "page_config_name": "page_5",
+      "display_name": "Bright Flare Hub"
     },
     {
       "status": "success",
-      "page": "page_53",
-      "drive_file_id": "1375hAQQuniaBR8drB3VHIpFf3dnBcPO8",
-      "facebook_video_id": "1121261477556432",
-      "filename": "The Tiny World Faced One Last Challenge #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival_2..mp4",
+      "page": "page_6",
+      "drive_file_id": "1r2WEwT9l-vXp2T9nBy1f1hBDidYOhNJ3",
+      "facebook_video_id": "1825172158435564",
+      "filename": "滑りやすくて掴みにくいww #shorts #クレーンゲーム #ufoキャッチャー #ゲーセン #clawmachine #arcade .mp4",
+      "post_type": "reel",
+      "page_id": "924636817403215",
+      "page_config_name": "page_6",
+      "display_name": "LuxeEpic Frames"
+    },
+    {
+      "status": "failed",
+      "page": "page_7",
+      "error": "Bad Request: [Classic Video Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "795016603693140",
+      "page_config_name": "page_7",
+      "display_name": "Lopez Edward"
+    },
+    {
+      "status": "success",
+      "page": "page_8",
+      "drive_file_id": "1hYejkzsFl8mPUn6bbU7-9NKRZZ3bjWu9",
+      "facebook_video_id": "2203750803546719",
+      "filename": "Only One Can Eat… Cat, Dog or Human？ 🤯 .mp4",
+      "post_type": "reel",
+      "page_id": "637367679454577",
+      "page_config_name": "page_8",
+      "display_name": "Crown Empire"
+    },
+    {
+      "status": "success",
+      "page": "page_9",
+      "drive_file_id": "19XhEw7MASi3olq9HBw5OgU5_RwjM17qc",
+      "facebook_video_id": "1215788654106336",
+      "filename": "Rat trap⧸ .mp4",
+      "post_type": "reel",
+      "page_id": "640019675857269",
+      "page_config_name": "page_9",
+      "display_name": "Crafty Champions"
+    },
+    {
+      "status": "success",
+      "page": "page_10",
+      "drive_file_id": "1Ag3sbrOTJup_O7hwXCXrStUdwRbGW1wR",
+      "facebook_video_id": "1638331184433313",
+      "filename": "Satisfying with Unboxing & Review of fashion beauty makeup set  #makeup #makeupforkids  #toys _2.mp4",
+      "post_type": "reel",
+      "page_id": "626061003919674",
+      "page_config_name": "page_10",
+      "display_name": "Fun Life"
+    },
+    {
+      "status": "success",
+      "page": "page_11",
+      "drive_file_id": "1qYJv0F9d0ghNDKz2owOZxzpdpEGLAJZW",
+      "facebook_video_id": "1159626356520687",
+      "filename": "Sister always helps brother in tough times 👶🏻❤️👧🏻 .mp4",
+      "post_type": "reel",
+      "page_id": "528360240361556",
+      "page_config_name": "page_11",
+      "display_name": "Dominion Authority"
+    },
+    {
+      "status": "success",
+      "page": "page_12",
+      "drive_file_id": "1Q4r-W5BvAJ1Xr5hXnJst8zWmiiwUJaFC",
+      "facebook_video_id": "1498495475499755",
+      "filename": "🤣🛑 Mom Surrenders to Twin Power #viral #family #funny #cutebaby #twin #mommy #daddy .mp4",
+      "post_type": "reel",
+      "page_id": "503358542855153",
+      "page_config_name": "page_12",
+      "display_name": "Family Fancy"
+    },
+    {
+      "status": "no_content",
+      "page": "page_13",
+      "drive_files_seen": 0,
+      "page_id": "500794979779192",
+      "page_config_name": "page_13",
+      "display_name": "Me Text"
+    },
+    {
+      "status": "no_content",
+      "page": "page_14",
+      "drive_files_seen": 0,
+      "page_id": "468230386376818",
+      "page_config_name": "page_14",
+      "display_name": "Bot Mask"
+    },
+    {
+      "status": "success",
+      "page": "page_15",
+      "drive_file_id": "1fTQpcIGWp_FJ0Z_Q_vcmH2Gs1BgHgH29",
+      "facebook_video_id": "1428596812348618",
+      "filename": "#快成长计划 #内容启发分享计划 #影画演绎未来之星 _6.mp4",
       "post_type": "classic_video",
-      "page_id": "223604537511488",
-      "page_config_name": "page_53",
-      "display_name": "Iron Covenant"
-    },
-    {
-      "status": "success",
-      "page": "page_54",
-      "drive_file_id": "1ESZ7MM_DGozdFhtOC1qHYGIyyJMSR8L-",
-      "facebook_video_id": "1122186097454672",
-      "filename": "😀Monster puzzle game! I came up with 5, can you do more？🐮🐷 #kidsFun _1.mp4",
-      "post_type": "reel",
-      "page_id": "730487193489250",
-      "page_config_name": "page_54",
-      "display_name": "Iron Momentum"
-    },
-    {
-      "status": "no_content",
-      "page": "page_55",
-      "drive_files_seen": 0,
-      "page_id": "514016115120845",
-      "page_config_name": "page_55",
-      "display_name": "Me The"
-    },
-    {
-      "status": "success",
-      "page": "page_56",
-      "drive_file_id": "1jyw9GwEqzdtOxZXLhRCHZ9rYEuzW9SeA",
-      "facebook_video_id": "969841429248036",
-      "filename": "This Tiny World Has Bad Luck #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "reel",
-      "page_id": "1009759155555480",
-      "page_config_name": "page_56",
-      "display_name": "Quiet Harbor"
-    },
-    {
-      "status": "success",
-      "page": "page_57",
-      "drive_file_id": "1OpFYyeWzWN-oj0vOet-FpCtD9cqA_xU0",
-      "facebook_video_id": "2291910774708164",
-      "filename": "Super Stress-Relieving EDC Toy Blind Boxes #fidgettoys .mp4",
-      "post_type": "reel",
-      "page_id": "922808234251176",
-      "page_config_name": "page_57",
-      "display_name": "Radiant Reverie"
-    },
-    {
-      "status": "success",
-      "page": "page_58",
-      "drive_file_id": "14mX_Tum4f17Q_7SHiz8GQ1KXfFq6tp83",
-      "facebook_video_id": "1810901116870481",
-      "filename": "It's Not A Knot It's Better 👌 _1.mp4",
-      "post_type": "classic_video",
-      "page_id": "288008221072106",
-      "page_config_name": "page_58",
-      "display_name": "Bit Creative"
-    },
-    {
-      "status": "no_content",
-      "page": "page_59",
-      "drive_files_seen": 0,
-      "page_id": "243414155514799",
-      "page_config_name": "page_59",
-      "display_name": "Atlas Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_60",
-      "drive_file_id": "1_Hn4pwVb7FTRnrOaTkKCdmZdeLa21dKr",
-      "facebook_video_id": "1886271649352288",
-      "filename": "Fruit cutting amazing #satisfying #relaxing #cuttin #fruit .mp4",
-      "post_type": "reel",
-      "page_id": "921493174379801",
-      "page_config_name": "page_60",
-      "display_name": "Blissful Paradox"
+      "page_id": "106309715659174",
+      "page_config_name": "page_15",
+      "display_name": "Fresh Hive Network"
     }
   ],
   "stats": {
     "total": 15,
-    "success": 10,
-    "skipped": 5,
-    "failed": 0
+    "success": 7,
+    "skipped": 6,
+    "failed": 2
   }
 }
