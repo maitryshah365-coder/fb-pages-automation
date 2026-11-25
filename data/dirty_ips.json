@@ -32,7 +32,7 @@
       "hit_count": 2
     },
     "103.138.124.44": {
-      "flagged_at": "2026-11-22T22:23:09.735404+00:00",
+      "flagged_at": "2026-11-25T18:00:22.071146+00:00",
       "reasons": [
         "Meta Edge Block on https://graph.facebook.com: Connection Error: HTTPSConnectionPool(host='graph.facebook.com', port=443): Read timed out. (read timeout=6)",
         "Meta Edge Block on https://m.facebook.com: Connection Error: HTTPSConnectionPool(host='m.facebook.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPSConnection(host='m.facebook.com', port=443): Failed to resolve 'm.facebook.com' ([Errno -3] Temporary failure in name resolution)\"))"
@@ -40,7 +40,7 @@
       "country": "GB",
       "city": "Manchester",
       "org": "AS203020 HostRoyale Technologies Pvt Ltd",
-      "hit_count": 4
+      "hit_count": 5
     },
     "109.204.52.82": {
       "flagged_at": "2026-11-15T17:08:14.744291+00:00",
@@ -223,5 +223,5 @@
       "hit_count": 1
     }
   },
-  "updated_at": "2026-11-25T14:22:36.879172+00:00"
+  "updated_at": "2026-11-25T18:00:22.071129+00:00"
 }
