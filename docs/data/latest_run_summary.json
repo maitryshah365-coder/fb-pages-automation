@@ -1,220 +1,148 @@
 {
-  "run_id": "45740327463",
-  "run_number": "1498",
-  "completed_at": "2026-11-26T02:41:59.699943+00:00",
+  "run_id": "45739155141",
+  "run_number": "1497",
+  "completed_at": "2026-11-26T02:48:11.896385+00:00",
   "runner_telemetry": {
-    "ip": "194.54.144.91",
+    "ip": "84.17.35.79",
+    "hostname": "unn-84-17-35-79.cdn77.com",
     "city": "New York City",
     "region": "New York",
     "country": "US",
-    "loc": "40.7185,-74.0025",
-    "org": "AS62240 Clouvider",
-    "postal": "10013",
+    "loc": "40.7143,-74.0060",
+    "org": "AS60068 Datacamp Limited",
+    "postal": "10004",
     "timezone": "America/New_York",
     "readme": "https://ipinfo.io/missingauth"
   },
   "dry_run": false,
   "results": [
     {
+      "status": "failed",
+      "page": "page_202",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "1011505752046767",
+      "page_config_name": "page_202",
+      "display_name": "Bold Mint Vibes"
+    },
+    {
+      "status": "failed",
+      "page": "page_203",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "1009495342239280",
+      "page_config_name": "page_203",
+      "display_name": "Urban Joy Collective"
+    },
+    {
+      "status": "failed",
+      "page": "page_204",
+      "error": "Failed to list or select files from Drive: Unable to find the server at www.googleapis.com",
+      "page_id": "988411587686197",
+      "page_config_name": "page_204",
+      "display_name": "Echo Trail Studio"
+    },
+    {
+      "status": "failed",
+      "page": "page_205",
+      "error": "Unable to find the server at www.googleapis.com",
+      "page_id": "1004210909435635",
+      "page_config_name": "page_205",
+      "display_name": "Richardson  Robert"
+    },
+    {
+      "status": "failed",
+      "page": "page_206",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "977906555403990",
+      "page_config_name": "page_206",
+      "display_name": "Stewart  Keith"
+    },
+    {
+      "status": "failed",
+      "page": "page_207",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 6000 (subcode: 1363130, type: OAuthException): There was a problem uploading your video file. Please try again with another file.",
+      "page_id": "883354574851891",
+      "page_config_name": "page_207",
+      "display_name": "Torres  Matthew"
+    },
+    {
+      "status": "failed",
+      "page": "page_208",
+      "error": "Failed to list or select files from Drive: The read operation timed out",
+      "page_id": "761811347026583",
+      "page_config_name": "page_208",
+      "display_name": "price  Matthew"
+    },
+    {
       "status": "success",
-      "page": "page_215",
-      "drive_file_id": "1pS0gPcwvFK4coFrWlWUzx3GBhA1MCF7v",
-      "facebook_video_id": "2319548918822980",
-      "filename": "Something Extraordinary Was Hidden Here #MysteryBox #HiddenWorld #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #WatchTillEnd #Transformation..mp4",
+      "page": "page_209",
+      "drive_file_id": "1Le9hNJ3cUXkK0itlfWMCJngAP36bz1-N",
+      "facebook_video_id": "1808259137144946",
+      "filename": "父子俩掷瓶子太厉害，手机都差点没拿到#funny #宝宝 #萌娃 #comedy _3.mp4",
       "post_type": "reel",
-      "page_id": "996405356891083",
-      "page_config_name": "page_215",
-      "display_name": "Im notty"
+      "page_id": "415000781686090",
+      "page_config_name": "page_209",
+      "display_name": "Space House"
     },
     {
       "status": "success",
-      "page": "page_216",
-      "drive_file_id": "1j0xXNOtlijlVpY86EDz5JkS00RUP0uW7",
-      "facebook_video_id": "1703153774933202",
-      "filename": "Tiny Spaceship Froze Solid In Space! #spaceship #miniatureworld #macrovideo #space #viralvideo #cinematic #fyp #tinyworld #future #scifi.mp4",
+      "page": "page_210",
+      "drive_file_id": "1kxymgnJrRgVsRVnrguBi9TRviAOhw2eH",
+      "facebook_video_id": "1186171387742356",
+      "filename": "The Box Contained Something Legendary #MysteryBox #HiddenWorld #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #WatchTillEnd #Transformation..mp4",
       "post_type": "reel",
-      "page_id": "1026889467171748",
-      "page_config_name": "page_216",
-      "display_name": "Sunny Grove"
+      "page_id": "375153609011898",
+      "page_config_name": "page_210",
+      "display_name": "Prime Authority"
     },
     {
       "status": "success",
-      "page": "page_217",
-      "drive_file_id": "1GC35G7t_k4w8e7eNF2RbefAb642-h45w",
-      "facebook_video_id": "2084319052279829",
-      "filename": "Tiny Streets Vanished Under Flood Water! #flood #miniatureworld #macrovideo #viralshorts #storm #cinematic #fyp #tinyworld #water #rescue.mp4",
+      "page": "page_211",
+      "drive_file_id": "1WRUjFnBSEe0dBWOAqieENli6vASHi8GF",
+      "facebook_video_id": "1689845622955996",
+      "filename": "The Ending Was Pure Survival When Nobody Was Watching #Wildlife #Nature #WildAnimals #AnimalWorld #Survival #NatureLovers #AnimalKingdom #Shorts..mp4",
       "post_type": "reel",
-      "page_id": "1003468442850164",
-      "page_config_name": "page_217",
-      "display_name": "North Light"
+      "page_id": "372800862573826",
+      "page_config_name": "page_211",
+      "display_name": "Yourself Creative"
     },
     {
       "status": "success",
-      "page": "page_218",
-      "drive_file_id": "1q1itGbEwWtIRFUMPN-2hdAmOg7ShgeIY",
-      "facebook_video_id": "1223389433397969",
-      "filename": "#快手热点 危险动作，请勿模仿！ _9 #shorts.mp4",
+      "page": "page_212",
+      "drive_file_id": "1BjitL220qhrFirkUAVCCYYpo5fL7-r0D",
+      "facebook_video_id": "1675451960609659",
+      "filename": "Smart Idea _2.mp4",
       "post_type": "reel",
-      "page_id": "952747524593552",
-      "page_config_name": "page_218",
-      "display_name": "Wild berry Wave"
+      "page_id": "369649349554622",
+      "page_config_name": "page_212",
+      "display_name": "Promise Your"
     },
     {
       "status": "success",
-      "page": "page_219",
-      "drive_file_id": "1rNZ7ul73HWqnMe8HVqy3N4T6JovEToBA",
-      "facebook_video_id": "2394162418023419",
-      "filename": "Hutu's arrogance has truly reached new heights #ConfinedSpaceWork #FlammableGases #Explosion_1..mp4",
+      "page": "page_213",
+      "drive_file_id": "1r8pIMXbJWF7wfQFmsDgerc1NYSO5OqM7",
+      "facebook_video_id": "4225057294470807",
+      "filename": "New places 🤝.mp4",
       "post_type": "reel",
-      "page_id": "866153719912084",
-      "page_config_name": "page_219",
-      "display_name": "Hill  Alexander"
+      "page_id": "351521491370127",
+      "page_config_name": "page_213",
+      "display_name": "Vault Momentum"
     },
     {
       "status": "success",
-      "page": "page_220",
-      "drive_file_id": "1W2QkXM4QAIes1uF-zwrZspNV6PiE2UHl",
-      "facebook_video_id": "2216646712544365",
-      "filename": "#Robot #IntelligentRobot #RobotGirlfriend #BeautifulRobot #shorts #Trend #Ai (352).mp4",
+      "page": "page_214",
+      "drive_file_id": "1bw2_FwvHHAZtdCsdtXjP79jUlmrcj99l",
+      "facebook_video_id": "1452512680193842",
+      "filename": "The Giant Force Could Not Be Stopped #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
       "post_type": "reel",
-      "page_id": "788708754335042",
-      "page_config_name": "page_220",
-      "display_name": "Wilson  Carl"
-    },
-    {
-      "status": "success",
-      "page": "page_221",
-      "drive_file_id": "1JdYDGpIpw2DnN8yrYdm478OtPeTuyJNC",
-      "facebook_video_id": "2604971189985390",
-      "filename": "#The Mysterious Charm of Bronze Bells #Ethnic Cultural Traditions and Customs #Exploring Mysterious Folk Culture #Shorts #Trend  (352).mp4",
-      "post_type": "reel",
-      "page_id": "772689822603711",
-      "page_config_name": "page_221",
-      "display_name": "Bryant  Mark"
-    },
-    {
-      "status": "success",
-      "page": "page_222",
-      "drive_file_id": "15uDbG8QdOBd3EXyBtTCbv4RZY3og32Mm",
-      "facebook_video_id": "2182648499287175",
-      "filename": "#Shorts #Funny #Fun #Games (309).mp4",
-      "post_type": "reel",
-      "page_id": "850337021495810",
-      "page_config_name": "page_222",
-      "display_name": "Jones  Jason"
-    },
-    {
-      "status": "success",
-      "page": "page_223",
-      "drive_file_id": "1a2VLCzk3QDZ0f225kYNzREqAn4FrRJK3",
-      "facebook_video_id": "1699262208317433",
-      "filename": "#Robot #IntelligentRobot #RobotGirlfriend #BeautifulRobot #shorts #Trend #Ai (1048).mp4",
-      "post_type": "reel",
-      "page_id": "874146345775704",
-      "page_config_name": "page_223",
-      "display_name": "Ramirez  Gary"
-    },
-    {
-      "status": "success",
-      "page": "page_224",
-      "drive_file_id": "1gsvm3rC5ABVz6NsMsPWtrHMHyIPuAINn",
-      "facebook_video_id": "4147616912041727",
-      "filename": "#Make sure to watch until the end! #PositiveEnergy #Shorts #health (346).mp4",
-      "post_type": "reel",
-      "page_id": "781224978415322",
-      "page_config_name": "page_224",
-      "display_name": "Henderson  Samuel"
-    },
-    {
-      "status": "success",
-      "page": "page_225",
-      "drive_file_id": "1G3rSo45MzvwDTGt_RXWbvC7N7_k-B8iF",
-      "facebook_video_id": "3802692556544601",
-      "filename": "Rating Angel😇 Hair Chocolate 🍫 💕#challenge #dubaichocolate #foodie #family #shorts .mp4",
-      "post_type": "reel",
-      "page_id": "847631365096505",
-      "page_config_name": "page_225",
-      "display_name": "Gray  Carl"
-    },
-    {
-      "status": "success",
-      "page": "page_226",
-      "drive_file_id": "1WRx2VWEm3-ybMvQe6Z3nWUJFpGGNzJM4",
-      "facebook_video_id": "1138032825672332",
-      "filename": "Iphone 17 Clean Filter IQ 👀 #noads .mp4",
-      "post_type": "reel",
-      "page_id": "467050363166917",
-      "page_config_name": "page_226",
-      "display_name": "Spot The"
-    },
-    {
-      "status": "success",
-      "page": "page_227",
-      "drive_file_id": "1ttCt4ZgoCQz0mKyhnEcPFJBQamK84W8u",
-      "facebook_video_id": "1465546458282032",
-      "filename": "螃蟹只吃二两母 #魔方 #益智玩具 #fyp  #抽象那咋了 .mp4",
-      "post_type": "reel",
-      "page_id": "493924997136507",
-      "page_config_name": "page_227",
-      "display_name": "Thumb News"
-    },
-    {
-      "status": "success",
-      "page": "page_228",
-      "drive_file_id": "1xMnicXMJs3CWdBNPx3WzWnnjB3xIQt7n",
-      "facebook_video_id": "2011554249520916",
-      "filename": "Engineer Boom 🤯 #Shorts  #workers #funny#construction #workskills #hardwork #smartwork #amazing _4.mp4",
-      "post_type": "classic_video",
-      "page_id": "468003289734078",
-      "page_config_name": "page_228",
-      "display_name": "Vibe Mom"
-    },
-    {
-      "status": "no_content",
-      "page": "page_229",
-      "drive_files_seen": 0,
-      "page_id": "505907795933113",
-      "page_config_name": "page_229",
-      "display_name": "Kit Love"
-    },
-    {
-      "status": "success",
-      "page": "page_230",
-      "drive_file_id": "1t95SpQ3MWs6pSlwb4u_wfJRk1lmrJrLJ",
-      "facebook_video_id": "1284722470524458",
-      "filename": "The Final Chapter Of The Tiny World #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "reel",
-      "page_id": "407202662477910",
-      "page_config_name": "page_230",
-      "display_name": "Crown Narrative"
-    },
-    {
-      "status": "success",
-      "page": "page_231",
-      "drive_file_id": "1IXT7aPLJoHkc-lvmLqT1LTap9myXdHDG",
-      "facebook_video_id": "1641371010254667",
-      "filename": "The Dog Broke The System #FunnyDog #GoldenRetriever #DogComedy #Shorts #Reels #ViralVideo #FYP #CuteDogs #Trending #DogLife..mp4",
-      "post_type": "reel",
-      "page_id": "367094609819542",
-      "page_config_name": "page_231",
-      "display_name": "Dominion House"
-    },
-    {
-      "status": "success",
-      "page": "page_232",
-      "drive_file_id": "1DObT3tpIgANHZAhooP_tB7nAAwCCg9bC",
-      "facebook_video_id": "4590492767835669",
-      "filename": "We Found a MYSTERIOUS Key and LOTS of Money While Cleaning the Beach! #beach #treasurehunt .mp4",
-      "post_type": "reel",
-      "page_id": "346049431926024",
-      "page_config_name": "page_232",
-      "display_name": "Grain After"
+      "page_id": "301772966352891",
+      "page_config_name": "page_214",
+      "display_name": "Vault Republic"
     }
   ],
   "stats": {
-    "total": 18,
-    "success": 17,
-    "skipped": 1,
-    "failed": 0
+    "total": 13,
+    "success": 6,
+    "skipped": 0,
+    "failed": 7
   }
 }
