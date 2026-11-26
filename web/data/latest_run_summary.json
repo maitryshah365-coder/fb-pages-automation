@@ -1,9 +1,9 @@
 {
-  "run_id": "45727803107",
-  "run_number": "1484",
-  "completed_at": "2026-11-26T00:39:54.715835+00:00",
+  "run_id": "45727814055",
+  "run_number": "1488",
+  "completed_at": "2026-11-26T00:41:19.591492+00:00",
   "runner_telemetry": {
-    "ip": "146.70.186.174",
+    "ip": "146.70.186.190",
     "city": "New York City",
     "region": "New York",
     "country": "US",
@@ -17,170 +17,151 @@
   "results": [
     {
       "status": "success",
-      "page": "uk1_page_1",
-      "drive_file_id": "1b4uI5s-2GlmLFYJXUro0EEPkgTlcPq1_",
-      "facebook_video_id": "1147623351304613",
-      "filename": "The Dragon Story You Will Remember Today #Shorts..mp4",
+      "page": "page_188",
+      "drive_file_id": "1AI_SX1W5YCcy91WTbbT_chrYlwyXhJo4",
+      "facebook_video_id": "29654968717520207",
+      "filename": "The Giant Hand Returned For Round Two #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
       "post_type": "reel",
-      "page_id": "1275440552308410",
-      "page_config_name": "uk1_page_1",
-      "display_name": "Bitter Lullaby"
+      "page_id": "1013730745151056",
+      "page_config_name": "page_188",
+      "display_name": "Lighthouse Loop"
+    },
+    {
+      "status": "success",
+      "page": "page_189",
+      "drive_file_id": "1Xgp26DfinHLmOi3jhSxYARWYL7JxVXRw",
+      "facebook_video_id": "1043534592124145",
+      "filename": "Scroll or Comment or Like or Share or DO IT ALL!!! .mp4",
+      "post_type": "reel",
+      "page_id": "954547437742008",
+      "page_config_name": "page_189",
+      "display_name": "Anderson  Aaron"
+    },
+    {
+      "status": "failed",
+      "page": "page_190",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "773180445889774",
+      "page_config_name": "page_190",
+      "display_name": "James  Jerry"
+    },
+    {
+      "status": "success",
+      "page": "page_191",
+      "drive_file_id": "1gBc7jtX_n3KGTPYPCwONhi2vOumrGT4N",
+      "facebook_video_id": "2421971014875800",
+      "filename": "#ThisDogIsSupernatural #FastGrowthPlan #TrendyLifeGrowthStar #PopularityIncentiveProgram..mp4",
+      "post_type": "reel",
+      "page_id": "826484233883808",
+      "page_config_name": "page_191",
+      "display_name": "Martinez  Tyler"
+    },
+    {
+      "status": "success",
+      "page": "page_192",
+      "drive_file_id": "16maEXSZsRtzg5J3hcMdOeo6yY54R1-Hk",
+      "facebook_video_id": "983054834486839",
+      "filename": "当我拥有了一个双面水枪 #儿童玩具 #清凉一夏 #新奇好物 #水枪 _2.mp4",
+      "post_type": "reel",
+      "page_id": "852273631305168",
+      "page_config_name": "page_192",
+      "display_name": "price  John"
+    },
+    {
+      "status": "success",
+      "page": "page_193",
+      "drive_file_id": "18_J-atmVp8qmawP_pHvDGdHJ8U1UnEX0",
+      "facebook_video_id": "2192978944954121",
+      "filename": "#RuralGenerated #Original #Funny #BooAbsurdVideo...mp4",
+      "post_type": "reel",
+      "page_id": "866282973229898",
+      "page_config_name": "page_193",
+      "display_name": "Peterson  Jack"
+    },
+    {
+      "status": "success",
+      "page": "page_194",
+      "drive_file_id": "1WbGxO1zP361LgiVkTIY2ceuIvfffWjgE",
+      "facebook_video_id": "2090960278221706",
+      "filename": "开始怀念，过去简单淳朴的生活方式，乡村烟火气和治愈的田园美景，这淡淡的乡愁也愈发浓烈...原来小时候的快乐如此简单！#乡野田间#故乡的原风景#乡愁记忆#田园生活#农村生活  #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "754813164393077",
+      "page_config_name": "page_194",
+      "display_name": "Watson  Jacob"
+    },
+    {
+      "status": "success",
+      "page": "page_195",
+      "drive_file_id": "1FOe8EPE22oVBR4IJZTLBz-8g9e2zM9nL",
+      "facebook_video_id": "4756893571300537",
+      "filename": "Amazing video #Shorts #Docter #Tretmante #Spa #Health  (340).mp4",
+      "post_type": "reel",
+      "page_id": "874862069037201",
+      "page_config_name": "page_195",
+      "display_name": "Miller  Louis"
+    },
+    {
+      "status": "success",
+      "page": "page_196",
+      "drive_file_id": "1ZxiA9hX8n6hDirzejRQsJ7ZdBRaIJZhq",
+      "facebook_video_id": "1957004648608492",
+      "filename": "The Ancient World Hidden Inside #AncientWorld #HiddenDiscovery #LostHistory #WatchTillEnd #Reveal #Shorts #ViralVideo #FYP #TreasureReveal #Mystery..mp4",
+      "post_type": "reel",
+      "page_id": "661721827032657",
+      "page_config_name": "page_196",
+      "display_name": "Ascend Collective"
+    },
+    {
+      "status": "success",
+      "page": "page_197",
+      "drive_file_id": "1-X9_ixeOjtejO32cX0cQvCrEQvGrk_13",
+      "facebook_video_id": "1432863825499797",
+      "filename": "7点30直播来蹲一蹲～可爱的小瓶子 #好东西 #稀奇古怪的小玩意 #diy酒瓶 .mp4",
+      "post_type": "reel",
+      "page_id": "561105803741890",
+      "page_config_name": "page_197",
+      "display_name": "Moonlit Chronicles"
+    },
+    {
+      "status": "failed",
+      "page": "page_198",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "406899832518042",
+      "page_config_name": "page_198",
+      "display_name": "Bird Beyond"
+    },
+    {
+      "status": "failed",
+      "page": "page_199",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "401091649748910",
+      "page_config_name": "page_199",
+      "display_name": "Land Butter"
     },
     {
       "status": "no_content",
-      "page": "page_46",
+      "page": "page_200",
       "drive_files_seen": 0,
-      "page_id": "497577420112654",
-      "page_config_name": "page_46",
-      "display_name": "Apex House"
+      "page_id": "371083622749739",
+      "page_config_name": "page_200",
+      "display_name": "Diary Inner"
     },
     {
       "status": "success",
-      "page": "page_47",
-      "drive_file_id": "1aTjHqI2CuQYvWVnX3wnCtZIIE1SE7ow2",
-      "facebook_video_id": "1713978043478571",
-      "filename": "Twins？ 2 Girls, Same Look 💖👗 #transformation #fashion #hacks .mp4",
+      "page": "page_201",
+      "drive_file_id": "1BEruLsQq1T_mICUYksmkurwtRKvPm4Bx",
+      "facebook_video_id": "2169605557000912",
+      "filename": "#what #challengers #eating #noodles #special #yummy #shortvideo #asmr .mp4",
       "post_type": "reel",
-      "page_id": "487987684400252",
-      "page_config_name": "page_47",
-      "display_name": "Quantum House"
-    },
-    {
-      "status": "no_content",
-      "page": "page_48",
-      "drive_files_seen": 0,
-      "page_id": "960803123790692",
-      "page_config_name": "page_48",
-      "display_name": "Drift Valley"
-    },
-    {
-      "status": "success",
-      "page": "page_49",
-      "drive_file_id": "1sfqBPc3Afr0xh4D93NBuZGwq23B7AThe",
-      "facebook_video_id": "1654164126487926",
-      "filename": "Sessiz ol pi pi pikapu #youtubeshort #diy #art #craft #manifestedit _2.mp4",
-      "post_type": "reel",
-      "page_id": "923484537514216",
-      "page_config_name": "page_49",
-      "display_name": "Dreams Of Life"
-    },
-    {
-      "status": "success",
-      "page": "page_50",
-      "drive_file_id": "10TahJ9AjTakClpHtd6fvG54szYUka-Zu",
-      "facebook_video_id": "1608051664423996",
-      "filename": "THE PRINCE MOCKED THE POOR STABLE BOY IN FRONT OF THE ENTIRE PALACE — BUT THE KING STOOD UP.mp4",
-      "post_type": "reel",
-      "page_id": "511317578722941",
-      "page_config_name": "page_50",
-      "display_name": "End Every"
-    },
-    {
-      "status": "success",
-      "page": "page_51",
-      "drive_file_id": "1fZwG164v0aon-zOvfi2QjNGFk_Tt_hMS",
-      "facebook_video_id": "2222991661981292",
-      "filename": "جبر خواطر الايسكريم والأطفال السعيدة 🥹🍨😂🥳 _234.mp4",
-      "post_type": "reel",
-      "page_id": "416325608224715",
-      "page_config_name": "page_51",
-      "display_name": "Executive Empire"
-    },
-    {
-      "status": "no_content",
-      "page": "page_52",
-      "drive_files_seen": 0,
-      "page_id": "467407709785240",
-      "page_config_name": "page_52",
-      "display_name": "I'm Joker"
-    },
-    {
-      "status": "success",
-      "page": "page_53",
-      "drive_file_id": "1XF82Ck4e-0l33UCLbxl6PuoNWAECuQZq",
-      "facebook_video_id": "1668755914945417",
-      "filename": "The Tiny World Needed A Miracle #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "reel",
-      "page_id": "223604537511488",
-      "page_config_name": "page_53",
-      "display_name": "Iron Covenant"
-    },
-    {
-      "status": "success",
-      "page": "page_54",
-      "drive_file_id": "12yyO1ob1gE93H8Zf4QhlSgK2Gm0mVdzm",
-      "facebook_video_id": "2293352071508232",
-      "filename": "😀Monster puzzle game! I came up with 5, can you do more？🐮🐷 #kidsFun _3.mp4",
-      "post_type": "reel",
-      "page_id": "730487193489250",
-      "page_config_name": "page_54",
-      "display_name": "Iron Momentum"
-    },
-    {
-      "status": "no_content",
-      "page": "page_55",
-      "drive_files_seen": 0,
-      "page_id": "514016115120845",
-      "page_config_name": "page_55",
-      "display_name": "Me The"
-    },
-    {
-      "status": "success",
-      "page": "page_56",
-      "drive_file_id": "1AHDt4YBhkf4bwdFAMoGQRcJcZ06SaA0b",
-      "facebook_video_id": "2367935917285592",
-      "filename": "This Tiny World Is In Trouble #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival..mp4",
-      "post_type": "reel",
-      "page_id": "1009759155555480",
-      "page_config_name": "page_56",
-      "display_name": "Quiet Harbor"
-    },
-    {
-      "status": "success",
-      "page": "page_57",
-      "drive_file_id": "182tKvyyAVr2MRx-Vi2L-sVV3SjBL_ayv",
-      "facebook_video_id": "3572721992905056",
-      "filename": "Surprising EDC blind boxes #fidgettoys .mp4",
-      "post_type": "reel",
-      "page_id": "922808234251176",
-      "page_config_name": "page_57",
-      "display_name": "Radiant Reverie"
-    },
-    {
-      "status": "success",
-      "page": "page_58",
-      "drive_file_id": "1yIz52kDK6BoqjosbMS8adAwPzijawD_C",
-      "facebook_video_id": "1574082164519781",
-      "filename": "It's Not A Knot It's Better 👌 _3.mp4",
-      "post_type": "reel",
-      "page_id": "288008221072106",
-      "page_config_name": "page_58",
-      "display_name": "Bit Creative"
-    },
-    {
-      "status": "no_content",
-      "page": "page_59",
-      "drive_files_seen": 0,
-      "page_id": "243414155514799",
-      "page_config_name": "page_59",
-      "display_name": "Atlas Authority"
-    },
-    {
-      "status": "success",
-      "page": "page_60",
-      "drive_file_id": "1i_Fe7LIy7Ufgoc7O1wLDePoDZ3LQir9J",
-      "facebook_video_id": "29207093275619003",
-      "filename": "Fruit cutting amazing star model #relaxing #cuttingart #relax #fruitcutting .mp4",
-      "post_type": "reel",
-      "page_id": "921493174379801",
-      "page_config_name": "page_60",
-      "display_name": "Blissful Paradox"
+      "page_id": "147040598502477",
+      "page_config_name": "page_201",
+      "display_name": "Chuckle Corner"
     }
   ],
   "stats": {
-    "total": 15,
+    "total": 14,
     "success": 10,
-    "skipped": 5,
-    "failed": 0
+    "skipped": 1,
+    "failed": 3
   }
 }
