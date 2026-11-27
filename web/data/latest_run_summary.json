@@ -1,16 +1,15 @@
 {
-  "run_id": "45938643106",
-  "run_number": "1525",
-  "completed_at": "2026-11-27T04:33:14.471087+00:00",
+  "run_id": "45938647427",
+  "run_number": "1527",
+  "completed_at": "2026-11-27T04:34:40.027570+00:00",
   "runner_telemetry": {
-    "ip": "84.17.35.114",
-    "hostname": "unn-84-17-35-114.cdn77.com",
+    "ip": "194.54.144.83",
     "city": "New York City",
     "region": "New York",
     "country": "US",
-    "loc": "40.7143,-74.0060",
-    "org": "AS60068 Datacamp Limited",
-    "postal": "10004",
+    "loc": "40.7185,-74.0025",
+    "org": "AS62240 Clouvider",
+    "postal": "10013",
     "timezone": "America/New_York",
     "readme": "https://ipinfo.io/missingauth"
   },
@@ -26,140 +25,151 @@
     },
     {
       "status": "success",
-      "page": "page_160",
-      "drive_file_id": "1FCCFJzNWptfIuwHkB20ZQRK7GFcEV4fJ",
-      "facebook_video_id": "1528098537045326",
-      "filename": "The Giant Hand Chose Violence #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival._1.mp4",
+      "page": "page_188",
+      "drive_file_id": "1MAzo7sCytbwfsZNR3tR_o-WX1AGGr8e3",
+      "facebook_video_id": "1208310478186562",
+      "filename": "The Giant Hand Struck Again #MiniatureWorld #TinyPeople #MiniWorld #Shorts #Reels #ViralVideo #FYP #Trending #MiniatureLife #Survival._1.mp4",
       "post_type": "reel",
-      "page_id": "1026390193887535",
-      "page_config_name": "page_160",
-      "display_name": "Ocean Breeze Post"
-    },
-    {
-      "status": "no_content",
-      "page": "page_161",
-      "drive_files_seen": 0,
-      "page_id": "922363730970762",
-      "page_config_name": "page_161",
-      "display_name": "Happy River Journal"
-    },
-    {
-      "status": "no_content",
-      "page": "page_162",
-      "drive_files_seen": 0,
-      "page_id": "935873802936980",
-      "page_config_name": "page_162",
-      "display_name": "Echoes of Tomorrow"
-    },
-    {
-      "status": "no_content",
-      "page": "page_163",
-      "drive_files_seen": 0,
-      "page_id": "844271675438705",
-      "page_config_name": "page_163",
-      "display_name": "Gonzales  Terry"
+      "page_id": "1013730745151056",
+      "page_config_name": "page_188",
+      "display_name": "Lighthouse Loop"
     },
     {
       "status": "success",
-      "page": "page_164",
-      "drive_file_id": "1mqVkqsXzs9jXGbyVJjWGfVjUUxGuMNJy",
-      "facebook_video_id": "1670651154520450",
-      "filename": "Cute😱😱🍼💕 _5 #shorts.mp4",
+      "page": "page_189",
+      "drive_file_id": "1eS432RiGVfr1z9Pbokm-dOzS4fkvPWeK",
+      "facebook_video_id": "1652900339848076",
+      "filename": "Take me back to 2010 😭 .mp4",
       "post_type": "reel",
-      "page_id": "863106796879644",
-      "page_config_name": "page_164",
-      "display_name": "Gonzalez  Paul"
+      "page_id": "954547437742008",
+      "page_config_name": "page_189",
+      "display_name": "Anderson  Aaron"
     },
     {
-      "status": "no_content",
-      "page": "page_165",
-      "drive_files_seen": 0,
-      "page_id": "755804217626888",
-      "page_config_name": "page_165",
-      "display_name": "Remedies The"
+      "status": "failed",
+      "page": "page_190",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "773180445889774",
+      "page_config_name": "page_190",
+      "display_name": "James  Jerry"
     },
     {
       "status": "success",
-      "page": "page_166",
-      "drive_file_id": "1Lng6GUIeML2ZC5Q1gKD3j09UnxS1GZd0",
-      "facebook_video_id": "1466926262083806",
-      "filename": "Reviving a 1000-Year-Old Tradition： Crafting ＂Eternal＂ Velvet Flowers .mp4",
+      "page": "page_191",
+      "drive_file_id": "1YUP04pS9TBOrqVOD4HNHLuqnM9D65Qwk",
+      "facebook_video_id": "1449982273864535",
+      "filename": "#ThisDogIsSupernatural..mp4",
+      "post_type": "reel",
+      "page_id": "826484233883808",
+      "page_config_name": "page_191",
+      "display_name": "Martinez  Tyler"
+    },
+    {
+      "status": "success",
+      "page": "page_192",
+      "drive_file_id": "1jGP4nAdqTZ1lYCVCz5z--DejkepXq3iV",
+      "facebook_video_id": "1001431436374906",
+      "filename": "彩虹转转乐 不仅能锻炼手眼协调、精细动作，培养专注力，还能亲子互动 #哄娃神器 #转转塔 #叠叠乐 _2.mp4",
+      "post_type": "reel",
+      "page_id": "852273631305168",
+      "page_config_name": "page_192",
+      "display_name": "price  John"
+    },
+    {
+      "status": "success",
+      "page": "page_193",
+      "drive_file_id": "1M_Wg42Ki60g8OCaaWG08kY8T4YtA_E4N",
+      "facebook_video_id": "1159031980067278",
+      "filename": "#RuralLife #DangerousActionsDoNotImitate #Original #BooAbsurdVideo...mp4",
+      "post_type": "reel",
+      "page_id": "866282973229898",
+      "page_config_name": "page_193",
+      "display_name": "Peterson  Jack"
+    },
+    {
+      "status": "success",
+      "page": "page_194",
+      "drive_file_id": "1_Z9W7_srDEjyifoBsOxGB_XRGHG_ZYU9",
+      "facebook_video_id": "1796591258305582",
+      "filename": "开始怀念，过去简单淳朴的生活方式，乡村烟火气和治愈的田园美景，这淡淡的乡愁也愈发浓烈...原来小时候的快乐如此简单！#田园生活#乡愁记忆#田园才是疲惫生活的解药#我的乡村生活#故乡的原风景 #向僵尸开炮 #三亿人DOU在打僵尸  #shorts .mp4",
+      "post_type": "reel",
+      "page_id": "754813164393077",
+      "page_config_name": "page_194",
+      "display_name": "Watson  Jacob"
+    },
+    {
+      "status": "success",
+      "page": "page_195",
+      "drive_file_id": "1IlvoMrSHObaF51EIVzcKzITCDeKgUpm9",
+      "facebook_video_id": "2225053008388944",
+      "filename": "Amazing video #Shorts #Docter #Tretmante #Spa #Health  (344).mp4",
+      "post_type": "reel",
+      "page_id": "874862069037201",
+      "page_config_name": "page_195",
+      "display_name": "Miller  Louis"
+    },
+    {
+      "status": "success",
+      "page": "page_196",
+      "drive_file_id": "1HDm3Fnmjp2uD3gw4tmBIywjFQBiOCoAV",
+      "facebook_video_id": "3668126673349563",
+      "filename": "The Biggest Surprise Was Inside #MysteryBox #HiddenWorld #Reveal #Shorts #Reels #ViralVideo #FYP #Trending #WatchTillEnd #Transformation..mp4",
+      "post_type": "reel",
+      "page_id": "661721827032657",
+      "page_config_name": "page_196",
+      "display_name": "Ascend Collective"
+    },
+    {
+      "status": "success",
+      "page": "page_197",
+      "drive_file_id": "1bAa-x3wpquxarQweCx67IHxxhc_o0FNr",
+      "facebook_video_id": "1189242120302720",
+      "filename": "Diy夜光冰块🧊 #DIY手工制作 #创意手工diy手机壳 #在家就可以做的手工 .mp4",
       "post_type": "classic_video",
-      "page_id": "756809930857575",
-      "page_config_name": "page_166",
-      "display_name": "Roberts  Charles"
+      "page_id": "561105803741890",
+      "page_config_name": "page_197",
+      "display_name": "Moonlit Chronicles"
+    },
+    {
+      "status": "failed",
+      "page": "page_198",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "406899832518042",
+      "page_config_name": "page_198",
+      "display_name": "Bird Beyond"
+    },
+    {
+      "status": "failed",
+      "page": "page_199",
+      "error": "Bad Request: [Reels Finish Phase] Graph API Error 368 (subcode: 4854002, type: OAuthException): Confirm your identity before you can publish as this Page. Open the Facebook app on your phone and follow the instructions.",
+      "page_id": "401091649748910",
+      "page_config_name": "page_199",
+      "display_name": "Land Butter"
+    },
+    {
+      "status": "no_content",
+      "page": "page_200",
+      "drive_files_seen": 0,
+      "page_id": "371083622749739",
+      "page_config_name": "page_200",
+      "display_name": "Diary Inner"
     },
     {
       "status": "success",
-      "page": "page_168",
-      "drive_file_id": "1F_8_mYx7X4mD9fKgurRZiMGtkuV9IrKi",
-      "facebook_video_id": "986221404170939",
-      "filename": "Jesus waiting above in heaven for child red roses #jesus #heaven   #blessings #jesus #strongprayer .mp4",
+      "page": "page_201",
+      "drive_file_id": "1uepPTCgU4L9wVK5Ln2EEi4345LMXSDRZ",
+      "facebook_video_id": "1449232970121601",
+      "filename": "#with #eating #noodles #special #yummy #challengers #food #asmr #mukbang .mp4",
       "post_type": "reel",
-      "page_id": "623092600889709",
-      "page_config_name": "page_168",
-      "display_name": "Lively Moments"
-    },
-    {
-      "status": "success",
-      "page": "page_169",
-      "drive_file_id": "1e4b9s_l2aCf9f2hHpWHVC797hil2Vkd7",
-      "facebook_video_id": "29353666087599467",
-      "filename": "The two sisters teasing each other is super cute 🌎🌎🍉🍉🌎🌎🍉🍉🌎🌎👨‍🌾👩‍🍳👵👶❤👵#shorts #cute #funny (175).mp4",
-      "post_type": "reel",
-      "page_id": "531842053356648",
-      "page_config_name": "page_169",
-      "display_name": "Laugh Flicks"
-    },
-    {
-      "status": "success",
-      "page": "page_170",
-      "drive_file_id": "1FunUpDXSr-o7kWO51A-NxnWvZqwpaNig",
-      "facebook_video_id": "1891878688831466",
-      "filename": "y Jude (The Beatles) 1968 #music #70s80s90smusichits #love #lyrics#pop #cute #song #fatherslove .mp4",
-      "post_type": "reel",
-      "page_id": "625545143972469",
-      "page_config_name": "page_170",
-      "display_name": "Funny Fizz"
-    },
-    {
-      "status": "success",
-      "page": "page_171",
-      "drive_file_id": "1xg9pF6K3EpmR1cq_2aKJ7y1EHiGDQHnP",
-      "facebook_video_id": "1091346800625486",
-      "filename": "Chocolate gift, want more？ #satisfying #asmr .mp4",
-      "post_type": "reel",
-      "page_id": "491073987419875",
-      "page_config_name": "page_171",
-      "display_name": "Library Other"
-    },
-    {
-      "status": "success",
-      "page": "page_172",
-      "drive_file_id": "1OYT_90gIYlBs_lRocaT3TB0HXsxxKDwR",
-      "facebook_video_id": "1529754609253774",
-      "filename": "Tiny Workers Froze Inside Factory! #frozenfactory #miniatureworld #macrovideo #viralvideo #winter #cinematic #fyp #tinyworld #industrial #rescue.mp4",
-      "post_type": "reel",
-      "page_id": "223564530849556",
-      "page_config_name": "page_172",
-      "display_name": "Empire Frequency"
-    },
-    {
-      "status": "success",
-      "page": "page_173",
-      "drive_file_id": "17IOewW8o5ycrOwf2dSp54QdbN4rt7vfX",
-      "facebook_video_id": "1132294069546261",
-      "filename": "ngày 8 tháng 11, 2025 .mp4",
-      "post_type": "reel",
-      "page_id": "170121316193510",
-      "page_config_name": "page_173",
-      "display_name": "Empire Doctrine"
+      "page_id": "147040598502477",
+      "page_config_name": "page_201",
+      "display_name": "Chuckle Corner"
     }
   ],
   "stats": {
     "total": 14,
-    "success": 9,
-    "skipped": 5,
-    "failed": 0
+    "success": 10,
+    "skipped": 1,
+    "failed": 3
   }
 }
